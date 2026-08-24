@@ -1350,6 +1350,83 @@ namespace MRBind::pb11
     inline constexpr int num_add_func_passes = 3;
 
 
+    // The helpers for `TryAddFunc`, extracted here to reduce the binary size.
+    namespace TryAddFuncPieces
+    {
+        // Taking `python_signature` by value lets both `TryAddFunc()` (which has an `initializer_list`) and
+        //   `RegisterFuncRow()` (which builds one from a parameter table) share this.
+        inline bool AdjustName(TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname, const char *simplename, bool unary, PybindSignature python_signature)
+        {
+            if (!state)
+                return false;
+
+            const char *op = AdjustOverloadedOperatorName(simplename, unary);
+            if (op != simplename)
+            {
+                state->is_overloaded_operator = true;
+                state->python_name = op;
+            }
+            else
+            {
+                state->python_name = ToPythonName(fullname);
+
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
+                overload.num_overloads++;
+                overload.signatures.insert(std::move(python_signature));
+            }
+
+            return true;
+        }
+
+        // Fix the python name to avoid ambiguous overloads...
+        inline void DisambiguatePythonName(const char *&final_name, TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname_with_template_args)
+        {
+            if (state && !state->is_overloaded_operator)
+            {
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
+                if (overload.num_overloads > overload.signatures.size())
+                {
+                    // Those overloads are ambiguous, adjust the name.
+                    state->python_name = ToPythonName(fullname_with_template_args);
+                    final_name = state->python_name.c_str();
+                }
+            }
+        }
+
+        // Injects an overloaded operator that's originally a free function into a class of one of its operand.
+        template <bool IsBinary>
+        void InjectOverloadedOperatorIntoClass(
+            Registry &r,
+            const char *final_name,
+            MRBind::TypeIndex first_param_typeid,
+            MRBind::TypeIndex second_param_typeid,
+            pybind11::return_value_policy ret_policy,
+            auto lambda,
+            auto symmetric_lambda,
+            auto &&...trimmed_data
+        )
+        {
+            if (auto iter = r.type_entries.find(first_param_typeid); iter != r.type_entries.end())
+            {
+                // Try injecting into the type of the first operand.
+                iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+            }
+            else
+            {
+                // If the first operand is not registered AND this is a binary operator,
+                // try injecting the reverse form into the type of the second operand.
+                if constexpr (IsBinary)
+                {
+                    if (auto iter = r.type_entries.find(second_param_typeid); iter != r.type_entries.end())
+                    {
+                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
+                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                    }
+                }
+            }
+        }
+    }
+
     // --- Table-driven function registration:
     //
     // Normal (non-conversion-operator) methods and free functions are described by constexpr `FuncRow` tables instead of
@@ -1675,28 +1752,15 @@ namespace MRBind::pb11
         if (!row.registrar)
             return; // The whole function is skipped; the state slot is still consumed by the caller.
 
-        // First pass.
-        if (state && pass_number == 0)
+        // First pass adjusts the overloaded function names, shared with `TryAddFunc()`.
+        if (pass_number == 0)
         {
-            const char *op = AdjustOverloadedOperatorName(row.simplename, row.total_arity == 1);
-            if (op != row.simplename)
-            {
-                state->is_overloaded_operator = true;
-                state->python_name = op;
-            }
-            else
-            {
-                state->python_name = ToPythonName(fullname);
-
-                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
-                overload.num_overloads++;
-                PybindSignature sig;
-                sig.reserve(row.num_params);
-                for (int i = 0; i < int(row.num_params); i++)
-                    sig.push_back(*row.params[i].signature_type);
-                overload.signatures.insert(std::move(sig));
-            }
-            return;
+            PybindSignature sig;
+            sig.reserve(row.num_params);
+            for (int i = 0; i < int(row.num_params); i++)
+                sig.push_back(*row.params[i].signature_type);
+            if ((TryAddFuncPieces::AdjustName)(state, scope_state, fullname, row.simplename, row.total_arity == 1, std::move(sig)))
+                return;
         }
 
         // Second pass starts here...
@@ -1707,18 +1771,7 @@ namespace MRBind::pb11
 
         const char *final_name = state ? state->python_name.c_str() : fullname;
 
-        { // Fix the python name to avoid ambiguous overloads...
-            if (state && !state->is_overloaded_operator)
-            {
-                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
-                if (overload.num_overloads > overload.signatures.size())
-                {
-                    // Those overloads are ambiguous, adjust the name.
-                    state->python_name = ToPythonName(fullname_with_template_args);
-                    final_name = state->python_name.c_str();
-                }
-            }
-        }
+        (TryAddFuncPieces::DisambiguatePythonName)(final_name, state, scope_state, fullname_with_template_args);
 
         // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
         // the target class, instead of emitting as a global function.
@@ -1930,80 +1983,6 @@ namespace MRBind::pb11
         }
     }
 
-    // The helpers for `TryAddFunc`, extracted here to reduce the binary size.
-    namespace TryAddFuncPieces
-    {
-        inline bool AdjustName(TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname, const char *simplename, bool unary, std::initializer_list<MRBind::TypeIndex> python_signature)
-        {
-            if (!state)
-                return false;
-
-            const char *op = AdjustOverloadedOperatorName(simplename, unary);
-            if (op != simplename)
-            {
-                state->is_overloaded_operator = true;
-                state->python_name = op;
-            }
-            else
-            {
-                state->python_name = ToPythonName(fullname);
-
-                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
-                overload.num_overloads++;
-                overload.signatures.insert(python_signature);
-            }
-
-            return true;
-        }
-
-        // Fix the python name to avoid ambiguous overloads...
-        inline void DisambiguatePythonName(const char *&final_name, TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname_with_template_args)
-        {
-            if (state && !state->is_overloaded_operator)
-            {
-                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
-                if (overload.num_overloads > overload.signatures.size())
-                {
-                    // Those overloads are ambiguous, adjust the name.
-                    state->python_name = ToPythonName(fullname_with_template_args);
-                    final_name = state->python_name.c_str();
-                }
-            }
-        }
-
-        // Injects an overloaded operator that's originally a free function into a class of one of its operand.
-        template <bool IsBinary>
-        void InjectOverloadedOperatorIntoClass(
-            Registry &r,
-            const char *final_name,
-            MRBind::TypeIndex first_param_typeid,
-            MRBind::TypeIndex second_param_typeid,
-            pybind11::return_value_policy ret_policy,
-            auto lambda,
-            auto symmetric_lambda,
-            auto &&...trimmed_data
-        )
-        {
-            if (auto iter = r.type_entries.find(first_param_typeid); iter != r.type_entries.end())
-            {
-                // Try injecting into the type of the first operand.
-                iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
-            }
-            else
-            {
-                // If the first operand is not registered AND this is a binary operator,
-                // try injecting the reverse form into the type of the second operand.
-                if constexpr (IsBinary)
-                {
-                    if (auto iter = r.type_entries.find(second_param_typeid); iter != r.type_entries.end())
-                    {
-                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
-                    }
-                }
-            }
-        }
-    }
 
     // Member or non-member function.
     // Normally is used in several passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
