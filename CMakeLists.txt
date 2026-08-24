@@ -93,7 +93,6 @@ if(MRBIND_BUILD_PARSER)
                             recurse_remove_llvm(${dep})
                         endforeach()
                     endif()
-                    # propagate the whole visited subtree, not just `tgt`, so sibling branches don't re-walk it
                     set(visited "${visited}" PARENT_SCOPE)
                 endif()
             endfunction()
