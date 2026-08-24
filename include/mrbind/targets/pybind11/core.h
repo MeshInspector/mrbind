@@ -58,6 +58,12 @@
 #define MB_PB11_EXPORT_TYPE __attribute__((__visibility__("default")))
 #endif
 
+#ifdef _MSC_VER
+#define MB_PB11_FORCEINLINE __forceinline
+#else
+#define MB_PB11_FORCEINLINE __attribute__((__always_inline__))
+#endif
+
 #ifdef __clang__
 #define MB_PB11_NO_WARN_ON_DUPLICATE_BASE(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winaccessible-base\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
 #else
@@ -1924,11 +1930,86 @@ namespace MRBind::pb11
         }
     }
 
+    // The helpers for `TryAddFunc`, extracted here to reduce the binary size.
+    namespace TryAddFuncPieces
+    {
+        inline bool AdjustName(TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname, const char *simplename, bool unary, std::initializer_list<MRBind::TypeIndex> python_signature)
+        {
+            if (!state)
+                return false;
+
+            const char *op = AdjustOverloadedOperatorName(simplename, unary);
+            if (op != simplename)
+            {
+                state->is_overloaded_operator = true;
+                state->python_name = op;
+            }
+            else
+            {
+                state->python_name = ToPythonName(fullname);
+
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
+                overload.num_overloads++;
+                overload.signatures.insert(python_signature);
+            }
+
+            return true;
+        }
+
+        // Fix the python name to avoid ambiguous overloads...
+        inline void DisambiguatePythonName(const char *&final_name, TryAddFuncState *state, TryAddFuncScopeState *scope_state, const char *fullname_with_template_args)
+        {
+            if (state && !state->is_overloaded_operator)
+            {
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
+                if (overload.num_overloads > overload.signatures.size())
+                {
+                    // Those overloads are ambiguous, adjust the name.
+                    state->python_name = ToPythonName(fullname_with_template_args);
+                    final_name = state->python_name.c_str();
+                }
+            }
+        }
+
+        // Injects an overloaded operator that's originally a free function into a class of one of its operand.
+        template <bool IsBinary>
+        void InjectOverloadedOperatorIntoClass(
+            Registry &r,
+            const char *final_name,
+            MRBind::TypeIndex first_param_typeid,
+            MRBind::TypeIndex second_param_typeid,
+            pybind11::return_value_policy ret_policy,
+            auto lambda,
+            auto symmetric_lambda,
+            auto &&...trimmed_data
+        )
+        {
+            if (auto iter = r.type_entries.find(first_param_typeid); iter != r.type_entries.end())
+            {
+                // Try injecting into the type of the first operand.
+                iter->second.pybind_type->AddExtraMethod(final_name, lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+            }
+            else
+            {
+                // If the first operand is not registered AND this is a binary operator,
+                // try injecting the reverse form into the type of the second operand.
+                if constexpr (IsBinary)
+                {
+                    if (auto iter = r.type_entries.find(second_param_typeid); iter != r.type_entries.end())
+                    {
+                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
+                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                    }
+                }
+            }
+        }
+    }
 
     // Member or non-member function.
     // Normally is used in several passes, but in simple cases it can be used in a single pass (see `TryAddFuncSimple()`).
+    // Force-inlining to reduce size.
     template <FuncKind Kind, auto F, typename ...P, typename DataFunc>
-    void TryAddFunc(
+    MB_PB11_FORCEINLINE void TryAddFunc(
         // `ModuleOrClassRef` for `Kind == nonmember_or_static`.
         // `class_` otherwise.
         auto &c,
@@ -2031,25 +2112,9 @@ namespace MRBind::pb11
                 (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
                 (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<LambdaReturnTypeAdjustedWrapperPtrRefStripped>>::value;
 
-                // First pass.
-                if (state && pass_number == 0)
-                {
-                    const char *op = AdjustOverloadedOperatorName(simplename, sizeof...(P) == 1);
-                    if (op != simplename)
-                    {
-                        state->is_overloaded_operator = true;
-                        state->python_name = op;
-                    }
-                    else
-                    {
-                        state->python_name = ToPythonName(fullname);
-
-                        TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
-                        overload.num_overloads++;
-                        overload.signatures.insert(python_signature);
-                    }
+                // First pass adjusts the overloaded function names.
+                if (pass_number == 0 && TryAddFuncPieces::AdjustName(state, scope_state, fullname, simplename, sizeof...(P) == 1, python_signature))
                     return;
-                }
 
                 // Second pass starts here...
 
@@ -2109,19 +2174,7 @@ namespace MRBind::pb11
                     return;
 
                 const char *final_name = state ? state->python_name.c_str() : fullname;
-
-                { // Fix the python name to avoid ambiguous overloads...
-                    if (state && !state->is_overloaded_operator)
-                    {
-                        TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
-                        if (overload.num_overloads > overload.signatures.size())
-                        {
-                            // Those overloads are ambiguous, adjust the name.
-                            state->python_name = ToPythonName(fullname_with_template_args);
-                            final_name = state->python_name.c_str();
-                        }
-                    }
-                }
+                TryAddFuncPieces::DisambiguatePythonName(final_name, state, scope_state, fullname_with_template_args);
 
                 // This is true for static and non-static member functions, but false for free functions and friend functions.
                 static constexpr bool is_class_member = !std::is_same_v<decltype(c), ModuleOrClassRef &>;
@@ -2136,33 +2189,19 @@ namespace MRBind::pb11
 
                         DataFunc{}([&](auto&&, auto &&...trimmed_data)
                         {
-                            using FirstParam = FirstType<DecayToTrueParamType<P>...>;
-
-                            if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
+                            if constexpr (sizeof...(P) == 2)
                             {
-                                // Try injecting into the type of the first operand.
-                                iter->second.pybind_type->AddExtraMethod(final_name, +lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                                // A lambda to swap the order of the two arguments.
+                                auto symmetric_lambda = [](SecondType<AdjustedParamType<P>...> x, FirstType<AdjustedParamType<P>...> y) -> decltype(auto)
+                                {
+                                    // Using `forward` here to have decent behavior when `x`,`y` are non-references.
+                                    return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
+                                };
+                                TryAddFuncPieces::InjectOverloadedOperatorIntoClass<true>(r, final_name, typeid(FirstType<DecayToTrueParamType<P>...>), typeid(SecondType<DecayToTrueParamType<P>...>), ret_policy, +lambda, +symmetric_lambda, decltype(trimmed_data)(trimmed_data)...);
                             }
                             else
                             {
-                                // If the first operand is not registered AND this is a binary operator,
-                                // try injecting the reverse form into the type of the second operand.
-                                if constexpr (sizeof...(P) == 2)
-                                {
-                                    using SecondParam = SecondType<DecayToTrueParamType<P>...>;
-                                    if (auto iter = r.type_entries.find(typeid(SecondParam)); iter != r.type_entries.end())
-                                    {
-                                        // A lambda to swap the order of the two arguments.
-                                        auto symmetric_lambda = [](SecondType<AdjustedParamType<P>...> x, FirstType<AdjustedParamType<P>...> y) -> decltype(auto)
-                                        {
-                                            // Using `forward` here to have decent behavior when `x`,`y` are non-references.
-                                            return decltype(lambda){}(std::forward<decltype(y)>(y), std::forward<decltype(x)>(x));
-                                        };
-
-                                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), +symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
-                                    }
-                                }
+                                TryAddFuncPieces::InjectOverloadedOperatorIntoClass<false>(r, final_name, typeid(FirstType<DecayToTrueParamType<P>...>), {}, ret_policy, +lambda, nullptr, decltype(trimmed_data)(trimmed_data)...);
                             }
                         });
 
