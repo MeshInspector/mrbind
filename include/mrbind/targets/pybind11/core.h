@@ -3668,9 +3668,12 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_CONV_OP_KIND_() MRBind::pb11::FuncKind::conv_op
 #define DETAIL_MB_PB11_CONV_OP_KIND_explicit() MRBind::pb11::FuncKind::conv_op_explicit
 
-// If the parameter is empty, returns `nullptr`. Otherwise prepends `+`. This is intended for optional comment strings, and `+` forces a conversion to a pointer, which helps reduce the number of instantiations.
+// If the parameter is empty, returns `(const char *)nullptr`. Otherwise prepends `+`. This is intended for optional comment strings, and `+` forces a conversion to a pointer, which helps reduce the number of instantiations.
+// The cast on `nullptr` is there for the same reason, to reduce the number of instantiations.
+// It's good to use this macro instead of conditionally passing the comment, since it too reduces the number of instantiations,
+//   and Pybind apparently treats the null pointers as if no comment was passed at all.
 #define DETAIL_MB_PB11_COMMENT_PTR(...) MRBIND_CAT(DETAIL_MB_PB11_COMMENT_PTR_, __VA_OPT__(1))(__VA_ARGS__)
-#define DETAIL_MB_PB11_COMMENT_PTR_(...) nullptr
+#define DETAIL_MB_PB11_COMMENT_PTR_(...) ((const char *)nullptr)
 #define DETAIL_MB_PB11_COMMENT_PTR_1(...) +__VA_ARGS__
 
 // Returns the "namespace marker" class for the given namespace stack.
@@ -3755,9 +3758,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
                 /* Pybind extras: */\
                 [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
                     /* Parameters. */\
-                    DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-                    /* Comment, if any. */ \
-                    MRBIND_PREPEND_COMMA(comment_) \
+                    DETAIL_MB_PB11_MAKE_PARAMS(params_), \
+                    /* Comment, possibly null. */ \
+                    DETAIL_MB_PB11_COMMENT_PTR(comment_) \
                     /* Lifetime annotations. */ \
                     DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
                 ));} \
@@ -3890,9 +3893,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         >(\
             _pb11_c,\
             /* Name. */\
-            MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
-            /* Comment, if any. */\
-            DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_)\
+            MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str(),\
+            /* Comment, possibly null. */\
+            DETAIL_MB_PB11_COMMENT_PTR(comment_)\
         ); \
         /* Add `offsetof` static variables. */\
         MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_,static_)(qualname_, name_) \
@@ -3923,9 +3926,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         _pb11_c, \
         &_pb11_state.func_scope_state, _pb11_state.pass_number \
         /* Parameters. */\
-        DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-        /* Comment, if any. */\
-        DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_) \
+        DETAIL_MB_PB11_MAKE_PARAMS(params_), \
+        /* Comment, possibly null. */\
+        DETAIL_MB_PB11_COMMENT_PTR(comment_)\
         /* Lifetime annotations. */ \
         DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
     );
@@ -3960,9 +3963,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* Pybind extras: */\
         [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
             /* Parameters. */\
-            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-            /* Comment, if any. */ \
-            MRBIND_PREPEND_COMMA(comment_) \
+            DETAIL_MB_PB11_MAKE_PARAMS(params_), \
+            /* Comment, possibly null. */ \
+            DETAIL_MB_PB11_COMMENT_PTR(comment_) \
             /* Lifetime annotations. */ \
             DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
         ));} \
