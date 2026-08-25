@@ -26,7 +26,7 @@ MRBind is meant to cover a large API surface area with minimal effort, but in tu
 
 All MRBind features were developed without any use of AI.
 
-I received some trivial vibecoded bugfix PRs that were merged after manual cleanup (which among other things includes replacing generated comments). I've also merged some generated testcases for those bugs.
+I received some simple vibecoded contributions (bugfixes, binary size reductions) that were merged after manual cleanup, which among other things includes replacing the generated comments. I've also merged some generated testcases for those bugs.
 
 ## Usage
 
