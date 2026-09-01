@@ -454,7 +454,7 @@ namespace mrbind::C::Modules
                         postcall_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_cleanup_value");
                         postcall_cb_params.back().type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
 
-                        cppdecl::Type funcptr_postcall_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = postcall_cb_params}).AddModifier(cppdecl::Pointer{});
+                        cppdecl::Type funcptr_postcall_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = postcall_cb_params, .noexcept_{}}).AddModifier(cppdecl::Pointer{});
 
                         std::vector<cppdecl::MaybeAmbiguousDecl> userdata_cb_params;
                         userdata_cb_params.emplace_back();
@@ -464,7 +464,7 @@ namespace mrbind::C::Modules
                         userdata_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_other_userdata");
                         userdata_cb_params.back().type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
 
-                        cppdecl::Type funcptr_userdata_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params}).AddModifier(cppdecl::Pointer{});
+                        cppdecl::Type funcptr_userdata_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params, .noexcept_{}}).AddModifier(cppdecl::Pointer{});
 
 
                         // This name must depend on the function type, otherwise unity builds explode.

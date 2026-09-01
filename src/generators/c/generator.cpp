@@ -1370,7 +1370,11 @@ namespace mrbind::C
                 },
                 [&](const cppdecl::Function &elem)
                 {
-                    if (elem.noexcept_ || elem.cv_quals != cppdecl::CvQualifiers{} || elem.ref_qual != cppdecl::RefQualifier::none)
+                    std::optional<bool> noexcept_ = elem.IsNoexcept();
+
+                    // `!noexcept_ || *noexcept_` means "conditionally or unconditionally `noexcept`".
+                    // Conditional noexcept-ness shouldn't be possible at this point, we could assert on it.
+                    if (!noexcept_ || *noexcept_ || elem.cv_quals != cppdecl::CvQualifiers{} || elem.ref_qual != cppdecl::RefQualifier::none)
                         return false; // C++-style qualifiers not allowed.
 
                     // Trailing return type is fine, because we can just not use it by passing a flag to `ToCode`.
