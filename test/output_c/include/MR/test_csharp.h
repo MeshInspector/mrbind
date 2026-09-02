@@ -6312,6 +6312,11 @@ MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_1(const MR_
 /// Parameter `_2` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, const MR_CSharp_ExposedLayoutB *_2);
 
+// Single-field exposed structs are passed through P/Invoke as their only field. This tests by-value parameters and return values.
+/// Generated from function `MR::CSharp::test_exposed_c`.
+/// Parameter `b` has a default argument: `{}`, pass a null pointer to use it.
+MR_C_API MR_CSharp_ExposedLayoutC MR_CSharp_test_exposed_c(MR_CSharp_ExposedLayoutC a, const MR_CSharp_ExposedLayoutC *b);
+
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

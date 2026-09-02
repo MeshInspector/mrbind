@@ -13643,10 +13643,10 @@ public static partial class MR
                 public unsafe ConstBox_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
+                    extern static int __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = new MR.CS.CSharp.ConvCtorExposed {x = __MR_CSharp_ConvCtorExposed_Construct(_1)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -13683,10 +13683,10 @@ public static partial class MR
                 public unsafe Box_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
+                    extern static int __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = new MR.CS.CSharp.ConvCtorExposed {x = __MR_CSharp_ConvCtorExposed_Construct(_1)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -13713,9 +13713,9 @@ public static partial class MR
                 public unsafe ConvCtorExposed(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
+                    extern static int __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     MR.CS.Misc._Exceptions.Prepare();
-                    this = __MR_CSharp_ConvCtorExposed_Construct(_1);
+                    this = new MR.CS.CSharp.ConvCtorExposed {x = __MR_CSharp_ConvCtorExposed_Construct(_1)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -15720,10 +15720,10 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -15732,10 +15732,10 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr)};
                     _KeepAlive(_1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
@@ -15809,10 +15809,10 @@ public static partial class MR
                 public unsafe Box_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -15821,10 +15821,10 @@ public static partial class MR
                 public unsafe Box_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr)};
                     _KeepAlive(_1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
@@ -15853,9 +15853,9 @@ public static partial class MR
                 public unsafe ExposedLayoutB(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     MR.CS.Misc._Exceptions.Prepare();
-                    this = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
+                    this = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -15864,9 +15864,9 @@ public static partial class MR
                 public unsafe ExposedLayoutB(MR.CS.CSharp.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    extern static int __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     MR.CS.Misc._Exceptions.Prepare();
-                    this = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                    this = new MR.CS.CSharp.ExposedLayoutB {x = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr)};
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
@@ -25649,6 +25649,19 @@ public static partial class MR
                 var __c_ret = __MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c is not null ? &__valueptr_c : null);
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 if (__c_ret is not null) return *__c_ret; else return null;
+            }
+
+            // Single-field exposed structs are passed through P/Invoke as their only field. This tests by-value parameters and return values.
+            /// Generated from function `MR::CSharp::test_exposed_c`.
+            /// Parameter `b` defaults to `{}`.
+            public static unsafe MR.CS.CSharp.ExposedLayoutC TestExposedC(MR.CS.CSharp.ExposedLayoutC a, MR.CS.CSharp._InOpt_ExposedLayoutC b = default)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_c", ExactSpelling = true)]
+                extern static int __MR_CSharp_test_exposed_c(int a, MR.CS.CSharp.ExposedLayoutC *b);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_CSharp_test_exposed_c(a.x, b.HasValue ? &b.Object : null);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new MR.CS.CSharp.ExposedLayoutC {x = __c_ret};
             }
 
             /// Generated from function `MR::CSharp::test_optint`.

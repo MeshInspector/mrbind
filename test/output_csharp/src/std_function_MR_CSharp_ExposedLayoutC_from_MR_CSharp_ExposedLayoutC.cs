@@ -68,27 +68,27 @@ public static partial class MR
                 public unsafe MR.CS.CSharp.ExposedLayoutC Call(MR.CS.CSharp.ExposedLayoutC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutC __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_Underlying *_this, MR.CS.CSharp.ExposedLayoutC _1);
+                    extern static int __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_Underlying *_this, int _1);
                     MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_UnderlyingPtr, _1);
+                    var __c_ret = __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_UnderlyingPtr, _1.x);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret;
+                    return new MR.CS.CSharp.ExposedLayoutC {x = __c_ret};
                 }
 
                 // Custom extras:
 
                 public delegate MR.CS.CSharp.ExposedLayoutC Delegate(ref readonly MR.CS.CSharp.ExposedLayoutC _1);
 
-                private protected unsafe delegate MR.CS.CSharp.ExposedLayoutC _CDelegate(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value);
+                private protected unsafe delegate int _CDelegate(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value);
 
-                private protected static unsafe MR.CS.CSharp.ExposedLayoutC _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
+                private protected static unsafe int _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
                 {
                     try
                     {
                         ref readonly MR.CS.CSharp.ExposedLayoutC _arg_1 = ref *(MR.CS.CSharp.ExposedLayoutC *)sizeof(MR.CS.CSharp.ExposedLayoutC); // Uninitialized ref.
                         _arg_1 = ref *_1;
                         MR.CS.CSharp.ExposedLayoutC _ret = ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(in _arg_1);
-                        return _ret;
+                        return _ret.x;
                     }
                     catch (Exception __e)
                     {

@@ -1065,6 +1065,9 @@ namespace MR::CSharp
         int x;
     };
 
+    // Single-field exposed structs are passed through P/Invoke as their only field. This tests by-value parameters and return values.
+    inline ExposedLayoutC test_exposed_c(ExposedLayoutC a, ExposedLayoutC b = {}) {a.x += b.x; return a;}
+
 
     // Test various array members.
     struct ArrayMembers

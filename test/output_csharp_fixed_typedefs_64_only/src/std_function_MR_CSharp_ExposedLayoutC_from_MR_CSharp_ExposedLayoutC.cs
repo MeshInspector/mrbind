@@ -75,22 +75,22 @@ public static partial class MR
                 public unsafe MR.CS.CSharp.ExposedLayoutC call(MR.CS.CSharp.ExposedLayoutC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutC __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_Underlying *_this, MR.CS.CSharp.ExposedLayoutC _1);
-                    return __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_UnderlyingPtr, _1);
+                    extern static int __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_Underlying *_this, int _1);
+                    return new MR.CS.CSharp.ExposedLayoutC {x = __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_UnderlyingPtr, _1.x)};
                 }
 
                 // Custom extras:
 
                 public delegate MR.CS.CSharp.ExposedLayoutC Delegate(ref readonly MR.CS.CSharp.ExposedLayoutC _1);
 
-                private protected unsafe delegate MR.CS.CSharp.ExposedLayoutC _CDelegate(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value);
+                private protected unsafe delegate int _CDelegate(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value);
 
-                private protected static unsafe MR.CS.CSharp.ExposedLayoutC _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
+                private protected static unsafe int _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
                 {
                     ref readonly MR.CS.CSharp.ExposedLayoutC _arg_1 = ref *(MR.CS.CSharp.ExposedLayoutC *)sizeof(MR.CS.CSharp.ExposedLayoutC); // Uninitialized ref.
                     _arg_1 = ref *_1;
                     MR.CS.CSharp.ExposedLayoutC _ret = ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(in _arg_1);
-                    return _ret;
+                    return _ret.x;
                 }
 
                 /// <summary>

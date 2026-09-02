@@ -6882,6 +6882,14 @@ bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, con
     );
 }
 
+MR_CSharp_ExposedLayoutC MR_CSharp_test_exposed_c(MR_CSharp_ExposedLayoutC a, const MR_CSharp_ExposedLayoutC *b)
+{
+    return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutC), ::MR::CSharp::test_exposed_c(
+        MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutC), a),
+        (b ? MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutC), *b) : MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC{}))
+    ));
+}
+
 const int32_t *MR_CSharp_ArrayMembers_Get_i(const MR_CSharp_ArrayMembers *_this)
 {
     return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).i);
