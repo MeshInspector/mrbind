@@ -14134,10 +14134,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConvCtorExposed
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -16413,10 +16412,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -16685,10 +16683,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutC`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutC
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -17694,10 +17691,9 @@ public static partial class MR
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the by-value version of the struct.
                 /// </summary>
-                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
                 public struct A
                 {
-                    [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
 
                     /// <summary>
@@ -18334,10 +18330,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConstNonconstConflicts
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -27131,6 +27126,18 @@ public static partial class MR
                 MR.CS.CSharp.ExposedLayoutSh *__valueptr_c = c is not null && c.Opt is not null ? &__value_c : null;
                 var __c_ret = __MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a.HasValue ? &__deref_a : null, b.HasValue ? &__deref_b : null, c is not null ? &__valueptr_c : null);
                 if (__c_ret is not null) return *__c_ret; else return null;
+            }
+
+            // Single-field exposed structs use `LayoutKind.Sequential` in C#. This tests passing and returning one by value.
+            /// <summary>
+            /// Generated from function `MR::CSharp::test_exposed_c`.
+            /// Parameter `b` defaults to `{}`.
+            /// </summary>
+            public static unsafe MR.CS.CSharp.ExposedLayoutC testExposedC(MR.CS.CSharp.ExposedLayoutC a, MR.CS.CSharp._InOpt_ExposedLayoutC b = default)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_c", ExactSpelling = true)]
+                extern static MR.CS.CSharp.ExposedLayoutC __MR_CSharp_test_exposed_c(MR.CS.CSharp.ExposedLayoutC a, MR.CS.CSharp.ExposedLayoutC *b);
+                return __MR_CSharp_test_exposed_c(a, b.HasValue ? &b.Object : null);
             }
 
             /// <summary>

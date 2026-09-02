@@ -108,10 +108,9 @@ public static partial class MR
             // Here all classes are whitelisted using `--expose-as-struct`.
             /// Generated from class `MR::DeclOrder::A`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct A
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int blah;
 
                 /// Copy contents from a wrapper class to this struct.
@@ -249,10 +248,9 @@ public static partial class MR
 
                 /// Generated from class `MR::DeclOrder::A::B`.
                 /// This is the by-value version of the struct.
-                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
                 public struct B
                 {
-                    [System.Runtime.InteropServices.FieldOffset(0)]
                     public int bleh;
 
                     /// Copy contents from a wrapper class to this struct.
@@ -523,10 +521,9 @@ public static partial class MR
 
             /// Generated from class `MR::DeclOrder::C<false>`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct C_False
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int bleh;
 
                 /// Copy contents from a wrapper class to this struct.
@@ -709,10 +706,9 @@ public static partial class MR
 
             /// Generated from class `MR::DeclOrder::C<true>`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct C_True
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int bleh;
 
                 /// Copy contents from a wrapper class to this struct.

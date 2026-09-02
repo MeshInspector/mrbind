@@ -132,10 +132,9 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::A`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct A
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int blah;
 
                 /// <summary>
@@ -299,10 +298,9 @@ public static partial class MR
                 /// Generated from class `MR::DeclOrder::A::B`.
                 /// This is the by-value version of the struct.
                 /// </summary>
-                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
                 public struct B
                 {
-                    [System.Runtime.InteropServices.FieldOffset(0)]
                     public int bleh;
 
                     /// <summary>
@@ -612,10 +610,9 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C&lt;false&gt;`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct C_False
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int bleh;
 
                 /// <summary>
@@ -832,10 +829,9 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C&lt;true&gt;`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct C_True
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int bleh;
 
                 /// <summary>

@@ -1065,6 +1065,9 @@ namespace MR::CSharp
         int x;
     };
 
+    // Single-field exposed structs use `LayoutKind.Sequential` in C#. This tests passing and returning one by value.
+    inline ExposedLayoutC test_exposed_c(ExposedLayoutC a, ExposedLayoutC b = {}) {a.x += b.x; return a;}
+
 
     // Test various array members.
     struct ArrayMembers
