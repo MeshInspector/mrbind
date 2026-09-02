@@ -5952,13 +5952,27 @@ namespace mrbind::CSharp
                         WriteComment(file, comment);
                     }
 
+                    // Exposed structs with a single field use `LayoutKind.Sequential` instead of `LayoutKind.Explicit` (for one field both layouts are trivially the same).
+                    // This is for Unity's IL2CPP on wasm32: it compiles explicit-layout structs to a union with padding, and Clang's wasm32 ABI only passes and returns
+                    //   *single-element* structs as plain scalars, which that union isn't. So with `Explicit` the IL2CPP-compiled call site returns a one-field struct
+                    //   through a hidden pointer and passes it by pointer, while the C side returns and accepts a plain scalar (`wasm-ld` warns about `function signature mismatch`,
+                    //   and the calls trap or read garbage). A sequential one-field struct compiles to a plain C struct, which matches. Multi-field structs are indirect on both sides anyway.
+                    const bool exposed_struct_is_sequential = is_exposed_struct_by_value && std::ranges::count_if(class_desc.fields, [](const CInterop::ClassField &field){return !field.is_static;}) == 1;
+
                     // The struct attributes.
                     if (is_exposed_struct_by_value)
                     {
-                        // There's also `Pack = ...` parameter. It looks related to alignment, but the docs say that it only affects
-                        //   the automatic field layout if that's enabled, and not the alignment of the entire struct.
-                        // Instead I'm going to assume that it aligns by the largest field size, and check that below.
-                        file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = " + std::to_string(class_desc.size_and_alignment.value().size) + ")]\n");
+                        if (exposed_struct_is_sequential)
+                        {
+                            file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]\n");
+                        }
+                        else
+                        {
+                            // There's also `Pack = ...` parameter. It looks related to alignment, but the docs say that it only affects
+                            //   the automatic field layout if that's enabled, and not the alignment of the entire struct.
+                            // Instead I'm going to assume that it aligns by the largest field size, and check that below.
+                            file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = " + std::to_string(class_desc.size_and_alignment.value().size) + ")]\n");
+                        }
                     }
 
                     // The class header.
@@ -6619,7 +6633,8 @@ namespace mrbind::CSharp
                                     // Write the field by value, if we're in the by-value part.
                                     if (is_exposed_struct_by_value)
                                     {
-                                        const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+                                        // No offsets in sequential structs, `FieldOffset` is only allowed with `LayoutKind.Explicit`.
+                                        const std::string offset_attr = exposed_struct_is_sequential ? "" : "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
 
                                         // Write the field itself.
                                         if (is_bool)

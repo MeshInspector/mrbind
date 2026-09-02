@@ -182,6 +182,12 @@ Eventually we might add translation from the Doxygen comment annotations to thos
 
 This should be enough to at least display those comments in IDEs, but any `@...` doxygen tags will be left as is, instead of being translated into their proper XML form.
 
+## Exposed structs and Unity's IL2CPP on WebAssembly
+
+Structs exposed via `--expose-as-struct` (see [the C docs](/docs/generating_c.md#expose-simple-structs-as-structs)) are emitted as blittable C# structs with `LayoutKind.Explicit` and explicit field offsets, except structs with a single field, which use `LayoutKind.Sequential`.
+
+The exception exists because of Unity's IL2CPP on WebAssembly. IL2CPP compiles explicit-layout structs to a union with padding, and on wasm32 Clang only passes and returns *single-element* structs as plain scalars, which such a union isn't. So for a one-field struct the IL2CPP-compiled call site would return it through a hidden pointer and pass it by pointer, while the C library returns and accepts a plain scalar (`wasm-ld` reports `function signature mismatch`, and the calls trap or read garbage at runtime). A sequential one-field struct compiles to a plain C struct, which has the same ABI as the C side. Structs with more fields don't have this problem, since both sides pass those indirectly.
+
 ## Distributing the C# bindings as a Nuget package
 
 This is not a full explanation, but a rought outline of what you need to do.
