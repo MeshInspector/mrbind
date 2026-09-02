@@ -933,6 +933,56 @@ namespace mrbind::CSharp
         return CppToCSharpIdentifier(name.parts.back());
     }
 
+    std::optional<Generator::ExposedStructSingleScalarField> Generator::GetExposedStructSingleScalarField(const CInterop::TypeKinds::Class &class_desc, const cppdecl::QualifiedName &cpp_class_name)
+    {
+        assert(class_desc.kind == CInterop::ClassKind::exposed_struct);
+
+        // Find the only non-static field, if any.
+        const CInterop::ClassField *field = nullptr;
+        for (const CInterop::ClassField &elem : class_desc.fields)
+        {
+            if (elem.is_static)
+                continue;
+            if (field)
+                return {}; // More than one field.
+            field = &elem;
+        }
+        if (!field)
+            return {};
+
+        cppdecl::Type cpp_type = ParseTypeOrThrow(field->type);
+        if (!cpp_type.modifiers.empty())
+            return {}; // Arrays and pointers.
+        cpp_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+        const std::string cpp_type_str = CppdeclToCode(cpp_type);
+
+        std::string csharp_type;
+        if (auto prim = c_desc.platform_info.FindPrimitiveType(cpp_type_str))
+        {
+            // Not `bool`, because the C# struct stores it as a `byte` behind a property, and because `bool` isn't blittable when passed by value anyway.
+            if (prim->kind == PrimitiveTypeInfo::Kind::boolean)
+                return {};
+
+            auto csharp_type_opt = CToCSharpPrimitiveTypeOpt(cpp_type_str, false);
+            if (!csharp_type_opt)
+                return {};
+            csharp_type = std::string(*csharp_type_opt);
+        }
+        else if (auto type_desc = c_desc.FindTypeOpt(cpp_type_str); type_desc && std::holds_alternative<CInterop::TypeKinds::Enum>(type_desc->var))
+        {
+            csharp_type = CppToCSharpEnumName(cpp_type.simple_type.name);
+        }
+        else
+        {
+            return {}; // Nested exposed structs and anything else.
+        }
+
+        return ExposedStructSingleScalarField{
+            .csharp_type = std::move(csharp_type),
+            .csharp_field_name = CppToCSharpFieldName(cpp_class_name, false, field->full_name),
+        };
+    }
+
     std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
         // Must make this before adjusting the name.
@@ -1704,15 +1754,40 @@ namespace mrbind::CSharp
                                         const std::string csharp_value_type = CppToCSharpExposedStructName(cpp_effective_type.simple_type.name);
                                         const std::string csharp_in_opt_type = CppToCSharpInOptStructHelperName(cpp_effective_type.simple_type.name);
 
+                                        // Exposed structs with exactly one scalar field are passed through `DllImport` by value as that scalar, not as the struct.
+                                        // In C both spellings have the same ABI on every platform we care about, so the C side is unaffected.
+                                        // This is needed for Unity's IL2CPP on wasm32. IL2CPP wraps every C# struct into a union with padding, and Clang only
+                                        //   passes/returns single-element structs as plain scalars on wasm32, which that wrapper isn't. So the IL2CPP-compiled
+                                        //   call site returns such a struct through a hidden pointer and passes it by pointer, while the C library returns and
+                                        //   accepts a plain scalar (`wasm-ld` warns about `function signature mismatch`, and the calls trap or read garbage).
+                                        //   A scalar has the same ABI on both sides. Structs with several fields are fine, both sides pass those indirectly.
+                                        // The pass-by-pointer variant below (for default arguments) is unaffected, pointers are always the same.
+                                        const std::optional<ExposedStructSingleScalarField> scalar_field = GetExposedStructSingleScalarField(elem, cpp_effective_type.simple_type.name);
+                                        const std::string csharp_dllimport_type = scalar_field ? scalar_field->csharp_type : csharp_value_type;
+
+                                        TypeBinding::ReturnUsage return_usage{
+                                            .cpp_never_throws = true, // Exposed structs must be trivial, which means all their non-deleted SMFs must be trivial too, which implies non-throwing.
+                                            .dllimport_return_type = csharp_dllimport_type,
+                                            .csharp_return_type = csharp_value_type,
+                                            // Default `make_return_statements` is good enough when not unwrapping the scalar.
+                                        };
+                                        if (scalar_field)
+                                        {
+                                            return_usage.make_return_statements = [csharp_value_type, csharp_field_name = scalar_field->csharp_field_name](const std::string &target, const std::string &expr)
+                                            {
+                                                return target + " new " + csharp_value_type + " {" + csharp_field_name + " = " + expr + "};";
+                                            };
+                                        }
+
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_value_type](const std::string &name, bool /*have_useless_defarg*/)
+                                                .make_strings = [csharp_value_type, csharp_dllimport_type, scalar_field](const std::string &name, bool /*have_useless_defarg*/)
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .cpp_never_throws = true, // Exposed structs must be trivial, which means all their non-deleted SMFs must be trivial too, which implies non-throwing.
-                                                        .dllimport_decl_params = {{.type = csharp_value_type, .name = name}},
+                                                        .dllimport_decl_params = {{.type = csharp_dllimport_type, .name = name}},
                                                         .csharp_decl_params = {{.type = csharp_value_type, .name = name}},
-                                                        .dllimport_args = {name},
+                                                        .dllimport_args = {scalar_field ? name + "." + scalar_field->csharp_field_name : name},
                                                     };
                                                 },
                                             },
@@ -1727,12 +1802,7 @@ namespace mrbind::CSharp
                                                     };
                                                 },
                                             },
-                                            .return_usage = TypeBinding::ReturnUsage{
-                                                .cpp_never_throws = true, // Exposed structs must be trivial, which means all their non-deleted SMFs must be trivial too, which implies non-throwing.
-                                                .dllimport_return_type = csharp_value_type,
-                                                .csharp_return_type = csharp_value_type,
-                                                // Default `make_return_expr` is good enough!
-                                            },
+                                            .return_usage = std::move(return_usage),
                                         });
                                     }
                                     break;
@@ -4807,7 +4877,8 @@ namespace mrbind::CSharp
                     {
                         // You can assign to `this`, and it assigns elementwise! Nice.
                         // See: https://stackoverflow.com/q/10038598/2752075
-                        file.WriteString("this = " + expr + ";\n");
+                        // This goes through the return binding because exposed structs with a single scalar field are returned from C as that scalar, see `GetTypeBindingOpt()`.
+                        file.WriteString(ret_binding->MakeReturnStatements("this =", expr) + "\n");
                     }
                     else
                     {
@@ -4821,7 +4892,8 @@ namespace mrbind::CSharp
 
                             ctor_expr = "(_Underlying *)" + generator.RequestHelper("_Alloc") + "(" + class_size_str + ")";
 
-                            post_ctor_statements = "*(" + generator.CppToCSharpExposedStructName(generator.ParseNameOrThrow(func_like.ret.cpp_type)) + " *)_UnderlyingPtr = " + expr + ";\n";
+                            // This goes through the return binding because exposed structs with a single scalar field are returned from C as that scalar, see `GetTypeBindingOpt()`.
+                            post_ctor_statements = ret_binding->MakeReturnStatements("*(" + generator.CppToCSharpExposedStructName(generator.ParseNameOrThrow(func_like.ret.cpp_type)) + " *)_UnderlyingPtr =", expr) + "\n";
                         }
                         else
                         {

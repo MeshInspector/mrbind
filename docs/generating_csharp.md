@@ -182,6 +182,12 @@ Eventually we might add translation from the Doxygen comment annotations to thos
 
 This should be enough to at least display those comments in IDEs, but any `@...` doxygen tags will be left as is, instead of being translated into their proper XML form.
 
+## Exposed structs at the P/Invoke boundary
+
+Structs exposed via `--expose-as-struct` (see [the C docs](/docs/generating_c.md#expose-simple-structs-as-structs)) are passed by value between C and C# as blittable C# structs, with one exception. If an exposed struct has exactly one field, and that field is a scalar (an arithmetic type other than `bool`, or an enum), then the `DllImport` declarations use that scalar directly, and the struct is wrapped and unwrapped on the C# side. The public C# API is unaffected, and the C side is unaffected too, because in C both spellings have the same ABI.
+
+This is needed for Unity's IL2CPP on WebAssembly. IL2CPP wraps every C# struct into a union with padding, and on wasm32 Clang only passes and returns single-element structs as plain scalars, which that wrapper no longer is. So the IL2CPP-compiled call site would return such a struct through a hidden pointer and pass it by pointer, while the C library returns and accepts a plain scalar (`wasm-ld` reports this as `function signature mismatch`, and the calls trap or read garbage at runtime). A scalar has the same ABI everywhere. Structs with more than one field don't have this problem, since both sides agree on passing those indirectly.
+
 ## Distributing the C# bindings as a Nuget package
 
 This is not a full explanation, but a rought outline of what you need to do.

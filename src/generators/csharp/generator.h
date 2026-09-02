@@ -670,6 +670,19 @@ namespace mrbind::CSharp
         //   since the result can be affected by the properties of the class.
         [[nodiscard]] std::string CppToCSharpUnqualExposedStructName(cppdecl::QualifiedName name);
 
+        // Describes the only field of an exposed struct that has exactly one scalar field. See `GetExposedStructSingleScalarField()`.
+        struct ExposedStructSingleScalarField
+        {
+            // The C# type of the field, e.g. `int`.
+            std::string csharp_type;
+            // The C# name of the field in the exposed struct.
+            std::string csharp_field_name;
+        };
+        // If the exposed struct `class_desc` (named `cpp_class_name` in C++) has exactly one non-static field, and that field is either an arithmetic type
+        //   other than `bool` or an enum, returns the description of that field. Otherwise returns null.
+        // Such structs are passed through `DllImport` by value as that field rather than as the struct itself. See `GetTypeBindingOpt()` for the explanation.
+        [[nodiscard]] std::optional<ExposedStructSingleScalarField> GetExposedStructSingleScalarField(const CInterop::TypeKinds::Class &class_desc, const cppdecl::QualifiedName &cpp_class_name);
+
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by value.
         // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared);
