@@ -109,10 +109,9 @@ public static partial class MR
             /// A fixed-size array of `int[3][4]` of size 5.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 240)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct Array_IntArray4Array3_5
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt5_3_4 elems;
 
                 /// <summary>

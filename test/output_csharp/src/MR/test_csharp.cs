@@ -13697,10 +13697,9 @@ public static partial class MR
             // A converting ctor in an exposed struct.
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConvCtorExposed
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// Copy contents from a wrapper class to this struct.
@@ -15836,10 +15835,9 @@ public static partial class MR
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// Copy contents from a wrapper class to this struct.
@@ -16067,10 +16065,9 @@ public static partial class MR
             // Just a simple exposed struct to test other things.
             /// Generated from class `MR::CSharp::ExposedLayoutC`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutC
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// Copy contents from a wrapper class to this struct.
@@ -16967,10 +16964,9 @@ public static partial class MR
 
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the by-value version of the struct.
-                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
                 public struct A
                 {
-                    [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
 
                     /// Copy contents from a wrapper class to this struct.
@@ -17564,10 +17560,9 @@ public static partial class MR
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConstNonconstConflicts
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// Copy contents from a wrapper class to this struct.

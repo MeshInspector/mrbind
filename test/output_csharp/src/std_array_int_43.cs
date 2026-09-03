@@ -83,10 +83,9 @@ public static partial class MR
 
             /// A fixed-size array of `int` of size 43.
             /// This is the by-value version of the struct.
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 172)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct Array_Int_43
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt43 elems;
 
                 /// Copy contents from a wrapper class to this struct.

@@ -5902,6 +5902,36 @@ namespace mrbind::CSharp
                         ? CppToCSharpUnqualExposedStructName(cpp_qual_name)
                         : CppToCSharpUnqualClassName(cpp_qual_name, IsConst());
 
+                    // Verify that the struct is not aligned larger than its fields. We can't support that regardless of `exposed_struct_uses_layout_sequential`, C# has no annotations for that.
+                    if (is_exposed_struct_by_value)
+                    {
+                        std::size_t expected_alignment = 1;
+                        for (const CInterop::ClassField &field : class_desc.fields)
+                        {
+                            if (!field.is_static)
+                            {
+                                std::size_t field_alignment = field.layout.value().byte_alignment;
+                                if (field_alignment > expected_alignment)
+                                    expected_alignment = field_alignment;
+                            }
+                        }
+
+                        if (expected_alignment != class_desc.size_and_alignment.value().alignment)
+                            throw std::runtime_error("The struct has larger alignment than its fields. We don't support that in C#, since C# doesn't provide the appropriate annotations.");
+                    }
+
+                    // If true, use a different annotation on the exposed C# struct: `LayoutKind.Sequential` instead of `LayoutKind.Explicit`.
+                    // This is to work around a bug in Unity's il2cpp. It generates C++ structs back from C# structs, and when using `LayoutKind.Explicit`, it adds some garbage to them that's ABI-breaking on Wasm.
+                    // The original structs (when they have `sizeof <= 4` AND have exactly one field) can be passed in registers on Wasm (or whatever the Wasm equivalent of that is), while the reconstructed il2cpp structs
+                    //   are sufficiently non-trivial to not be passable in registers. We reported this to Unity, but the bug links are not public, so can't share it here.
+                    // Their `LayoutKind.Sequential` isn't bugged though, so we use that. For simplicity we only use it for single fields, to make sure the layout doesn't get messed up somehow.
+                    // The difference is that `LayoutKind.Sequential` doesn't allow specifying field offsets and the total struct size.
+                    // We check field count `<= 1` instead of `== 1`, even though we don't support 0 fields in exposed structs at the moment (because C doesn't), but this seems slightly more future-proof to me,
+                    //   in case we decide to give them dummy fields (if that's not an ABI break relative to C++).
+                    const bool exposed_struct_uses_layout_sequential =
+                        is_exposed_struct_by_value &&
+                        std::count_if(class_desc.fields.begin(), class_desc.fields.end(), [](const CInterop::ClassField &field){return !field.is_static;}) <= 1;
+
                     // Do we have bindings for `std::shared_ptr<T>`?
                     // The C name for `std::shared_ptr<T>`, if we have that.
                     // We're intentionally not using `std::shared_ptr<const T>`, it makes things easier.
@@ -5955,10 +5985,17 @@ namespace mrbind::CSharp
                     // The struct attributes.
                     if (is_exposed_struct_by_value)
                     {
-                        // There's also `Pack = ...` parameter. It looks related to alignment, but the docs say that it only affects
-                        //   the automatic field layout if that's enabled, and not the alignment of the entire struct.
-                        // Instead I'm going to assume that it aligns by the largest field size, and check that below.
-                        file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = " + std::to_string(class_desc.size_and_alignment.value().size) + ")]\n");
+                        if (exposed_struct_uses_layout_sequential)
+                        {
+                            file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]\n");
+                        }
+                        else
+                        {
+                            // There's also `Pack = ...` parameter. It looks related to alignment, but the docs say that it only affects
+                            //   the automatic field layout if that's enabled, and not the alignment of the entire struct.
+                            // Instead I'm going to assume that it aligns by the largest field alignment. We already checked that earlier in this function.
+                            file.WriteString("[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = " + std::to_string(class_desc.size_and_alignment.value().size) + ")]\n");
+                        }
                     }
 
                     // The class header.
@@ -6488,7 +6525,7 @@ namespace mrbind::CSharp
                     }
 
                     // Emit the custom upcasts/downcasts.
-                    // `struct`s can't inherit from classes (only from in
+                    // `struct`s can't inherit from classes.
                     if (!is_exposed_struct_by_value)
                     {
                         { // Upcasts.
@@ -6619,7 +6656,8 @@ namespace mrbind::CSharp
                                     // Write the field by value, if we're in the by-value part.
                                     if (is_exposed_struct_by_value)
                                     {
-                                        const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+                                        // Can't specify offsets in sequential structs.
+                                        const std::string offset_attr = exposed_struct_uses_layout_sequential ? "" : "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
 
                                         // Write the field itself.
                                         if (is_bool)

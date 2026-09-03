@@ -15282,10 +15282,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConvCtorExposed
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -17653,10 +17652,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -17925,10 +17923,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ExposedLayoutC`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ExposedLayoutC
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
@@ -18934,10 +18931,9 @@ public static partial class MR
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the by-value version of the struct.
                 /// </summary>
-                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+                [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
                 public struct A
                 {
-                    [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
 
                     /// <summary>
@@ -19574,10 +19570,9 @@ public static partial class MR
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the by-value version of the struct.
             /// </summary>
-            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
             public struct ConstNonconstConflicts
             {
-                [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
                 /// <summary>
