@@ -433,21 +433,24 @@ int main(int raw_argc, char **raw_argv)
         std::filesystem::create_directories(elem);
 
     // Write the generated files.
-    for (auto &elem : generator.outputs)
+    for (auto &elem : generator.outputs_by_relative_name)
     {
         // Write files.
-        for (auto file : {&elem.second.header, &elem.second.internal_header, &elem.second.source})
+        for (auto file : {&elem.second->header, &elem.second->internal_header, &elem.second->source})
         {
             if (file->HasUsefulContents())
             {
-                if (verbose)
-                    std::cerr << "mrbind_gen_c: Writing file: " << file->full_output_path << '\n';
+                auto path = mrbind::MakePath(file->full_output_path);
 
-                std::ofstream out(mrbind::MakePath(file->full_output_path));
+                // This is redundant because of `std::ios_base::noreplace` below. It's just here to provide nicer errors.
+                if (std::filesystem::exists(path))
+                    throw std::runtime_error("Output file already exists: `" + file->full_output_path + "`.");
+
+                std::ofstream out(mrbind::MakePath(file->full_output_path), std::ios_base::out | std::ios_base::noreplace);
                 if (!out)
                     throw std::runtime_error("Failed to open file for writing: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
 
-                generator.DumpFileToOstream(elem.second, *file, out);
+                generator.DumpFileToOstream(*elem.second, *file, out);
                 if (!out)
                     throw std::runtime_error("Failed to write to file: `" + file->full_output_path + "`.");
             }

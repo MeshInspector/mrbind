@@ -3451,7 +3451,7 @@ namespace mrbind
             else
             {
                 out = &out_file;
-                out_file.open(MakePath(params->output_filenames.at(i)));
+                out_file.open(MakePath(params->output_filenames.at(i))); // Intentionally not passing `noreplace`.
                 if (!out_file)
                     throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
             }
@@ -3847,7 +3847,7 @@ int main(int raw_argc, char **raw_argv)
     // Dump compilation command if requested.
     if (!dump_command_to_file.empty())
     {
-        std::ofstream out_file(dump_command_to_file);
+        std::ofstream out_file(dump_command_to_file); // Intentionally not passing `noreplace`.
 
         auto commands_vec = adjusted_db.getCompileCommands(option_parser.getSourcePathList().front());
         if (commands_vec.size() < 1)

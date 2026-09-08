@@ -283,7 +283,11 @@ namespace mrbind::C
         };
         // The output file contents. This is what we're generating. The keys are the paths as reported by the parser (which canonicalizes them automatically).
         // We rely on those having stable addresses.
-        std::unordered_map<std::string, OutputFile> outputs;
+        // Multiple strings can resolve to the same output, which is not a bug. E.g. this happened to me with `foo.h` + `foo.hpp` (where `.hpp` was weirdly used to store template definitions).
+        std::unordered_map<std::string, std::shared_ptr<OutputFile>> outputs;
+        // This stores the same things as `outputs`, but indexed by `.relative_name`.
+        // `outputs` is just a cache for this one.
+        std::unordered_map<std::string, std::shared_ptr<OutputFile>> outputs_by_relative_name;
 
         // What directories we need to create in the output.
         std::unordered_set<std::filesystem::path> directories_to_create;

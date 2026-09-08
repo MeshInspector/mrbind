@@ -323,9 +323,8 @@ namespace mrbind::C
     Generator::OutputFile &Generator::GetOutputFile(const DeclFileName &source)
     {
         auto [iter, is_new] = outputs.try_emplace(source.primary.canonical);
-        OutputFile &file = iter->second;
         if (!is_new)
-            return file; // Already exists.
+            return *iter->second; // Already exists.
 
         // Get the filename relative to the output directory, without extension.
         std::string rel_name;
@@ -367,6 +366,17 @@ namespace mrbind::C
             }
         }
 
+        auto [by_rel_name_iter, by_rel_name_new] = outputs_by_relative_name.try_emplace(rel_name);
+        if (!by_rel_name_new)
+        {
+            // The input filename didn't match, but the resulting relative name did match.
+            iter->second = by_rel_name_iter->second;
+            return *iter->second;
+        }
+
+        iter->second = by_rel_name_iter->second = std::make_shared<OutputFile>();
+        OutputFile &file = *iter->second;
+
         file.InitRelativeName(*this, std::move(rel_name), true);
         file.InitDefaultContents();
         return file;
@@ -376,11 +386,15 @@ namespace mrbind::C
     {
         auto [iter, is_new] = outputs.try_emplace("//mrbind_c_details");
         if (!is_new)
-            return iter->second;
+            return *iter->second;
 
-        OutputFile &file = iter->second;
+        assert(!iter->second);
+        iter->second = std::make_shared<OutputFile>();
+        OutputFile &file = *iter->second;
 
         file.InitRelativeName(*this, "__mrbind_c_details", false);
+        outputs_by_relative_name.try_emplace(file.relative_name, iter->second);
+
         file.InitDefaultContents(OutputFile::InitFlags::no_extern_c);
         file.header.stdlib_headers.insert("stdexcept");
         file.header.stdlib_headers.insert("utility"); // For `std::move()`.
@@ -1105,9 +1119,11 @@ namespace mrbind::C
             *is_new = iter_is_new;
 
         if (!iter_is_new)
-            return &iter->second;
+            return &*iter->second;
 
-        OutputFile &ret = iter->second;
+        assert(!iter->second);
+        iter->second = std::make_shared<OutputFile>();
+        OutputFile &ret = *iter->second;
 
         std::string full_name = PathToString((group ? group->primary_relative_file_dir : helper_header_relative_dir) / name);
 
@@ -1131,6 +1147,8 @@ namespace mrbind::C
         }
 
         ret.InitRelativeName(*this, std::move(full_name), true);
+        outputs_by_relative_name.try_emplace(ret.relative_name, iter->second);
+
         ret.InitDefaultContents(init_flags);
 
         return &ret;
@@ -3695,6 +3713,11 @@ namespace mrbind::C
         try
         {
             EmittedFunctionStrings strings = EmitFunctionAsStrings(file, params);
+
+            if (params.name.c == "MR_getAllObjectsInTree_MR_ObjectDistanceMap")
+            {
+                std::printf("huh\n");
+            }
 
             std::string new_decl_str = CppdeclToCode(strings.decl);
 
