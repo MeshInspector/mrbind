@@ -260,8 +260,14 @@ int main(int argc, char **argv)
     // Write the files.
     for (auto &[relative_path, file_desc] : generator.output_files)
     {
-        std::filesystem::path out_path = output_dir_fs_path / mrbind::MakePath(relative_path + ".cs");
-        std::ofstream out(out_path, std::ios_base::out | std::ios_base::noreplace);
+        std::string out_path_str = relative_path + ".cs";
+        std::filesystem::path out_path = output_dir_fs_path / mrbind::MakePath(out_path_str);
+
+        // Firstly, can't use `std::ios_base::noreplace` because it's relatively new. Secondly, this provides nicer errors. Ideally we'd use both.
+        if (std::filesystem::exists(out_path))
+            throw std::runtime_error("Output file already exists: `" + out_path_str + "`.");
+
+        std::ofstream out(out_path, std::ios_base::out);
         if (!out)
             throw std::runtime_error("Failed to open file for writing: `" + mrbind::PathToString(out_path) + "`.");
 

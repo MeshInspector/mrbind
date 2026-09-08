@@ -440,13 +440,13 @@ int main(int raw_argc, char **raw_argv)
         {
             if (file->HasUsefulContents())
             {
-                auto path = mrbind::MakePath(file->full_output_path);
+                auto out_path = mrbind::MakePath(file->full_output_path);
 
-                // This is redundant because of `std::ios_base::noreplace` below. It's just here to provide nicer errors.
-                if (std::filesystem::exists(path))
+                // Firstly, can't use `std::ios_base::noreplace` because it's relatively new. Secondly, this provides nicer errors. Ideally we'd use both.
+                if (std::filesystem::exists(out_path))
                     throw std::runtime_error("Output file already exists: `" + file->full_output_path + "`.");
 
-                std::ofstream out(mrbind::MakePath(file->full_output_path), std::ios_base::out | std::ios_base::noreplace);
+                std::ofstream out(out_path, std::ios_base::out);
                 if (!out)
                     throw std::runtime_error("Failed to open file for writing: `" + file->full_output_path + "`. Is the filename too long? In that case consider using `--max-header-name-length <n>`.");
 
