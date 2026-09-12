@@ -147,6 +147,10 @@ The generated headers are shy about including each other, preferring forward dec
 
 `--add-convenience-includes` fixes this. It's not enabled by default because it can be too eager with the includes, slowing down the user builds (though it adds a macro that lets users opt out of the extra includes).
 
+### Make generated headers compile as C99
+
+Each forward declaration is a `typedef struct X X;`, and the same typedef appears in every header that mentions `X`. Repeating a typedef is allowed since C11, so by default a translation unit that includes two such headers needs C11 or newer. `--add-c99-typedef-guards` wraps every such typedef in an include guard, so the headers also compile as C99.
+
 ### Don't generate elementwise constructors for large structs
 
 When a C++ struct is an aggregate (i.e. has no constructors, and in C++ can be initialized with a list of its members in braces), we try to generate a C function for it that acts as a constructor, with a parameter for every member.

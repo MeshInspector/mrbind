@@ -232,6 +232,14 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--add-c99-typedef-guards", {
+            .desc = "Wrap every forward-declared typedef in an include guard, so that the generated headers compile as C99. Without this the same typedef is repeated in every header that mentions the type, which is only allowed since C11.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.add_c99_typedef_guards = true;
+            },
+        });
+
         args_parser.AddFlag("--preferred-max-num-aggregate-init-fields", {
             .arg_names = {"n"},
             .desc = "Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.",

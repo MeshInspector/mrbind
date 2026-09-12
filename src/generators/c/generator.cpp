@@ -3975,7 +3975,7 @@ namespace mrbind::C
             // `size_and_alignment` is set at the end, in case we need to compute it.
         }
 
-        file.header.contents += "typedef struct " + std::string(c_type_str) + '\n';
+        file.header.contents += (add_c99_typedef_guards ? "struct " : "typedef struct ") + std::string(c_type_str) + '\n';
         file.header.contents += "{\n";
 
         std::size_t total_size = 0;
@@ -4067,7 +4067,15 @@ namespace mrbind::C
         if (expected_size_and_alignment.size != std::size_t(-1) && total_size != expected_size_and_alignment.size)
             throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The estimated byte size of the struct doesn't match the expected value (expected " + std::to_string(expected_size_and_alignment.size) + " but got " + std::to_string(total_size) + ").");
 
-        file.header.contents += "} " + std::string(c_type_str) + ";\n";
+        if (add_c99_typedef_guards)
+        {
+            file.header.contents += "};\n";
+            file.header.contents += GuardForwardDeclaration(*this, c_type_str, MakeStructForwardDeclarationNoReg(c_type_str)) + '\n';
+        }
+        else
+        {
+            file.header.contents += "} " + std::string(c_type_str) + ";\n";
+        }
 
         // Lastly, finalize the interop description.
         if (class_desc)
@@ -5943,7 +5951,8 @@ namespace mrbind::C
                     if (type_info.declared_in_file)
                         fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
 
-                    fwd_decls.insert(std::move(fwd_decl));
+                    std::string c_type_name = CppTypeNameToCTypeName(ParseQualNameOrThrow(elem.first));
+                    fwd_decls.insert(GuardForwardDeclaration(*this, c_type_name, fwd_decl));
 
 
                     { // Also append this to the late headers list, as a convenience for the user. We could make this optional (add a flag to disable this).

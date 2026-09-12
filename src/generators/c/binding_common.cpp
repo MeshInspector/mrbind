@@ -83,7 +83,7 @@ namespace mrbind::C
             generator.EmitCommentLow(file.header, comment);
         }
 
-        file.header.contents += MakeForwardDeclarationNoReg() + '\n';
+        file.header.contents += GuardForwardDeclaration(generator, c_type_name, MakeForwardDeclarationNoReg()) + '\n';
 
         // Generate the interop description.
         if (generator.output_desc)
@@ -638,6 +638,19 @@ namespace mrbind::C
         return ret;
     }
 
+    std::string GuardForwardDeclaration(const Generator &generator, std::string_view c_type_name, std::string_view declaration)
+    {
+        if (!generator.add_c99_typedef_guards)
+            return std::string(declaration);
+
+        std::string macro = generator.MakePublicHelperMacroName("DECLARED_" + std::string(c_type_name));
+        std::string ret = "#ifndef " + macro + '\n';
+        ret += "#define " + macro + '\n';
+        ret += declaration;
+        ret += "\n#endif";
+        return ret;
+    }
+
     std::optional<std::string> CheckPointerDefaultArgumentForNullptr(std::string_view default_arg)
     {
         if (
@@ -664,7 +677,7 @@ namespace mrbind::C
             generator.EmitCommentLow(file.header, std::move(comment));
         }
 
-        file.header.contents += MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
+        file.header.contents += GuardForwardDeclaration(generator, c_type_name, MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name));
         file.header.contents += '\n';
 
         if (generator.output_desc)

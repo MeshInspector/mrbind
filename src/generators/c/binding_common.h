@@ -112,6 +112,10 @@ namespace mrbind::C
     //   Instead use `HeapAllocatedClassBinder::EmitForwardDeclaration()` or `EmitRefOnlyStructForwardDeclaration()` or something else.
     [[nodiscard]] std::string MakeStructForwardDeclarationNoReg(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
+    // With `--add-c99-typedef-guards`, wraps a forward declaration of `c_type_name` in an include guard; otherwise returns it unchanged.
+    // The same forward declaration is pasted into every header that mentions the type, and C99 rejects a repeated typedef (C11 allows it).
+    [[nodiscard]] std::string GuardForwardDeclaration(const Generator &generator, std::string_view c_type_name, std::string_view declaration);
+
 
     // This goes into the `BindableType::is_useless_default_argument` callback, to reject nullptr default arguments.
     // As that callback requires, returns the string describing the default argument if it wants to reject it.
