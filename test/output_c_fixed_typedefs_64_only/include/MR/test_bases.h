@@ -10,6 +10,8 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_A
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_A
 /// Generated from class `MR::Bases::A`.
 /// Derived classes:
 ///   Virtual:
@@ -26,7 +28,10 @@ extern "C" {
 ///     `MR::Bases::D3`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_A MR_Bases_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_B
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_B
 /// Generated from class `MR::Bases::B`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -39,7 +44,10 @@ typedef struct MR_Bases_A MR_Bases_A;
 ///     `MR::Bases::D3`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B MR_Bases_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_B2
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_B2
 /// Generated from class `MR::Bases::B2`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -48,7 +56,10 @@ typedef struct MR_Bases_B MR_Bases_B;
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_B2 MR_Bases_B2;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_C
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_C
 /// Generated from class `MR::Bases::C`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -58,7 +69,10 @@ typedef struct MR_Bases_B2 MR_Bases_B2;
 ///     `MR::Bases::D`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_C MR_Bases_C;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_D
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_D
 /// Generated from class `MR::Bases::D`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -68,7 +82,10 @@ typedef struct MR_Bases_C MR_Bases_C;
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D MR_Bases_D;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_D2
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_D2
 /// Generated from class `MR::Bases::D2`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -77,7 +94,10 @@ typedef struct MR_Bases_D MR_Bases_D;
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D2 MR_Bases_D2;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_D3
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_D3
 /// Generated from class `MR::Bases::D3`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -86,7 +106,10 @@ typedef struct MR_Bases_D2 MR_Bases_D2;
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_D3 MR_Bases_D3;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_E
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_E
 /// Generated from class `MR::Bases::E`.
 /// Derived classes:
 ///   Non-virtual along a virtual path:
@@ -97,7 +120,10 @@ typedef struct MR_Bases_D3 MR_Bases_D3;
 ///     `MR::Bases::F`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_E MR_Bases_E;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_F
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_F
 /// Generated from class `MR::Bases::F`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -109,7 +135,10 @@ typedef struct MR_Bases_E MR_Bases_E;
 ///     `MR::Bases::I`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_F MR_Bases_F;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_G
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_G
 /// Generated from class `MR::Bases::G`.
 /// Base classes:
 ///   Virtual:
@@ -118,7 +147,10 @@ typedef struct MR_Bases_F MR_Bases_F;
 ///     `MR::Bases::E`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_G MR_Bases_G;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_H
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_H
 /// Generated from class `MR::Bases::H`.
 /// Base classes:
 ///   Virtual:
@@ -129,7 +161,10 @@ typedef struct MR_Bases_G MR_Bases_G;
 ///     `MR::Bases::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_H MR_Bases_H;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Bases_I
+#define MR_C_DETAIL_TYPEDEF_MR_Bases_I
 /// Generated from class `MR::Bases::I`.
 /// Base classes:
 ///   Virtual:
@@ -139,6 +174,7 @@ typedef struct MR_Bases_H MR_Bases_H;
 ///     `MR::Bases::E`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Bases_I MR_Bases_I;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_Bases_A_Destroy()` to free it when you're done using it.

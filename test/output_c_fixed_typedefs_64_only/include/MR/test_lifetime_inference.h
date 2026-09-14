@@ -9,17 +9,26 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_A
+#define MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_A
 /// Generated from class `MR::LifetimeInference::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_LifetimeInference_A MR_LifetimeInference_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_B
+#define MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_B
 /// Generated from class `MR::LifetimeInference::B`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_LifetimeInference_B MR_LifetimeInference_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_C
+#define MR_C_DETAIL_TYPEDEF_MR_LifetimeInference_C
 /// Generated from class `MR::LifetimeInference::C`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_LifetimeInference_C MR_LifetimeInference_C;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::LifetimeInference::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.

@@ -9,18 +9,24 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_NestedTypes_A_B
+#define MR_C_DETAIL_TYPEDEF_MR_NestedTypes_A_B
 /// Generated from class `MR::NestedTypes::A::B`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTypes_A_B MR_NestedTypes_A_B;
+#endif
 
 typedef enum MR_NestedTypes_A_E
 {
     MR_NestedTypes_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_NestedTypes_A_E;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_NestedTypes_A
+#define MR_C_DETAIL_TYPEDEF_MR_NestedTypes_A
 /// Generated from class `MR::NestedTypes::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_NestedTypes_A MR_NestedTypes_A;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null. It is a single object.

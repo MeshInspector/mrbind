@@ -9,13 +9,19 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_SignatureFilters_A
+#define MR_C_DETAIL_TYPEDEF_MR_SignatureFilters_A
 /// Generated from class `MR::SignatureFilters::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_SignatureFilters_A MR_SignatureFilters_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_SignatureFilters_Blah
+#define MR_C_DETAIL_TYPEDEF_MR_SignatureFilters_Blah
 /// Generated from class `MR::SignatureFilters::Blah`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_SignatureFilters_Blah MR_SignatureFilters_Blah;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_SignatureFilters_A_Destroy()` to free it when you're done using it.

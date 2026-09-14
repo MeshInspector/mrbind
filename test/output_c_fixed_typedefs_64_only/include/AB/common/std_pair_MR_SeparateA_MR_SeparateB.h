@@ -9,13 +9,22 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_SeparateA
+#define MR_C_DETAIL_TYPEDEF_MR_SeparateA
 typedef struct MR_SeparateA MR_SeparateA; // Defined in `#include <A/a.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_SeparateB
 typedef struct MR_SeparateB MR_SeparateB; // Defined in `#include <B/b.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_MR_SeparateA_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_MR_SeparateA_MR_SeparateB
 /// Stores two objects: `MR::SeparateA` and `MR::SeparateA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_MR_SeparateA_MR_SeparateB MR_C_std_pair_MR_SeparateA_MR_SeparateB;
+#endif
 
 /// Constructs a copy of another instance. The source remains alive.
 /// The reference to the parameter `other` might be preserved in the constructed object.

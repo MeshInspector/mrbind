@@ -14,6 +14,8 @@ typedef enum MR_UsingDecls_A_E
     MR_UsingDecls_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_UsingDecls_A_E;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_UsingDecls_A
+#define MR_C_DETAIL_TYPEDEF_MR_UsingDecls_A
 // Test how `using` declarations import things.
 /// Generated from class `MR::UsingDecls::A`.
 /// Derived classes:
@@ -21,13 +23,17 @@ typedef enum MR_UsingDecls_A_E
 ///     `MR::UsingDecls::B`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_UsingDecls_A MR_UsingDecls_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_UsingDecls_B
+#define MR_C_DETAIL_TYPEDEF_MR_UsingDecls_B
 /// Generated from class `MR::UsingDecls::B`.
 /// Base classes:
 ///   Direct: (non-virtual)
 ///     `MR::UsingDecls::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_UsingDecls_B MR_UsingDecls_B;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::UsingDecls::A` named `StaticVar`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

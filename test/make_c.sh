@@ -152,6 +152,7 @@ build/mrbind_gen_c \
     --force-emit-common-helpers \
     --no-handle-exceptions \
     --split-library MR_AB_ "" AB/common:A:B \
+    --pre-c11-compat
 
 
 "$CXX" \

@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1
+#define MR_C_DETAIL_TYPEDEF_MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1
 typedef struct MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1; // Defined in `#include <MR/test_includes_for_enum_constants_2.h>`.
+#endif
 
 
 // Make sure that the `.cpp` implementation file includes the header for `E` correctly.

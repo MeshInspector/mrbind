@@ -12,49 +12,139 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_A_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_A_42
 typedef struct MR_C_std_array_MR_StdContainers_A_42 MR_C_std_array_MR_StdContainers_A_42; // Defined in `#include <std_array_MR_StdContainers_A_42.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_NonAssignable_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_NonAssignable_42
 typedef struct MR_C_std_array_MR_StdContainers_NonAssignable_42 MR_C_std_array_MR_StdContainers_NonAssignable_42; // Defined in `#include <std_array_MR_StdContainers_NonAssignable_42.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_deque_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_deque_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_deque_MR_StdContainers_NonAssignable MR_C_std_deque_MR_StdContainers_NonAssignable; // Defined in `#include <std_deque_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_deque_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_deque_int
 typedef struct MR_C_std_deque_int MR_C_std_deque_int; // Defined in `#include <std_deque_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_list_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_list_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_list_MR_StdContainers_NonAssignable MR_C_std_list_MR_StdContainers_NonAssignable; // Defined in `#include <std_list_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_list_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_list_int
 typedef struct MR_C_std_list_int MR_C_std_list_int; // Defined in `#include <std_list_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_map_MR_StdContainers_NonAssignable_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_map_MR_StdContainers_NonAssignable_float
 typedef struct MR_C_std_map_MR_StdContainers_NonAssignable_float MR_C_std_map_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_map_MR_StdContainers_NonAssignable_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_map_int_float
 typedef struct MR_C_std_map_int_float MR_C_std_map_int_float; // Defined in `#include <std_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_multimap_MR_StdContainers_NonAssignable_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_multimap_MR_StdContainers_NonAssignable_float
 typedef struct MR_C_std_multimap_MR_StdContainers_NonAssignable_float MR_C_std_multimap_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_multimap_MR_StdContainers_NonAssignable_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_multimap_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_multimap_int_float
 typedef struct MR_C_std_multimap_int_float MR_C_std_multimap_int_float; // Defined in `#include <std_multimap_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_multiset_MR_StdContainers_NonAssignable MR_C_std_multiset_MR_StdContainers_NonAssignable; // Defined in `#include <std_multiset_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_float
 typedef struct MR_C_std_multiset_float MR_C_std_multiset_float; // Defined in `#include <std_multiset_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_multiset_int
 typedef struct MR_C_std_multiset_int MR_C_std_multiset_int; // Defined in `#include <std_multiset_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_set_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_set_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_set_MR_StdContainers_NonAssignable MR_C_std_set_MR_StdContainers_NonAssignable; // Defined in `#include <std_set_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_set_float_const_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_set_float_const_iterator
 typedef struct MR_C_std_set_float_const_iterator MR_C_std_set_float_const_iterator; // Defined in `#include <std_set_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_set_int
 typedef struct MR_C_std_set_int MR_C_std_set_int; // Defined in `#include <std_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float
 typedef struct MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_unordered_map_MR_StdContainers_NonAssignable_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_map_int_float
 typedef struct MR_C_std_unordered_map_int_float MR_C_std_unordered_map_int_float; // Defined in `#include <std_unordered_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float
 typedef struct MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float; // Defined in `#include <std_unordered_multimap_MR_StdContainers_NonAssignable_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multimap_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multimap_int_float
 typedef struct MR_C_std_unordered_multimap_int_float MR_C_std_unordered_multimap_int_float; // Defined in `#include <std_unordered_multimap_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable; // Defined in `#include <std_unordered_multiset_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multiset_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_multiset_int
 typedef struct MR_C_std_unordered_multiset_int MR_C_std_unordered_multiset_int; // Defined in `#include <std_unordered_multiset_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_set_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_set_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_unordered_set_MR_StdContainers_NonAssignable MR_C_std_unordered_set_MR_StdContainers_NonAssignable; // Defined in `#include <std_unordered_set_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unordered_set_int
 typedef struct MR_C_std_unordered_set_int MR_C_std_unordered_set_int; // Defined in `#include <std_unordered_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_StdContainers_NonAssignable
 typedef struct MR_C_std_vector_MR_StdContainers_NonAssignable MR_C_std_vector_MR_StdContainers_NonAssignable; // Defined in `#include <std_vector_MR_StdContainers_NonAssignable.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible
 typedef struct MR_C_std_vector_MR_StdContainers_NonDefaultConstructible MR_C_std_vector_MR_StdContainers_NonDefaultConstructible; // Defined in `#include <std_vector_MR_StdContainers_NonDefaultConstructible.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_int
 typedef struct MR_C_std_vector_int MR_C_std_vector_int; // Defined in `#include <std_vector_int.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdContainers_A
+#define MR_C_DETAIL_TYPEDEF_MR_StdContainers_A
 // `std::array` behaves differently with simple types.
 /// Generated from class `MR::StdContainers::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_A MR_StdContainers_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonDefaultConstructible
+#define MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonDefaultConstructible
 // Test vectors of a non-default-constructible type.
 /// Generated from class `MR::StdContainers::NonDefaultConstructible`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonDefaultConstructible MR_StdContainers_NonDefaultConstructible;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonAssignable
 // A non-assignable type?
 /// Generated from class `MR::StdContainers::NonAssignable`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable;
+#endif
 
 /// Generated from function `MR::StdContainers::Set`.
 MR_C_API void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int *_1);

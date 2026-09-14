@@ -9,9 +9,12 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref
 /// Stores two objects: `const int &&` and `const int &&`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref;
+#endif
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.

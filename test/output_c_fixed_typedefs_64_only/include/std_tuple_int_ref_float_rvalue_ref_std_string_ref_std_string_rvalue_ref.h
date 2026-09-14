@@ -8,11 +8,17 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref
 /// Stores 4 objects: `int &`, `float &&`, `std::string &`, `std::string &&`.
 typedef struct MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref;
+#endif
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy(const MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *_this);

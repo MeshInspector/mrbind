@@ -89,7 +89,7 @@ namespace mrbind::C::Modules
             Generator::TypeBindableWithSameAddress &binding = ret.emplace();
 
             binding.declared_in_file = [&generator, get_output_file]() -> auto & {return get_output_file(generator);};
-            binding.forward_declaration = MakeStructForwardDeclarationNoReg(is_output_stream ? c_name_ostream : c_name_istream);
+            binding.forward_declaration = MakeStructForwardDeclarationNoReg(generator, is_output_stream ? c_name_ostream : c_name_istream);
             binding.custom_c_type_name = is_output_stream ? c_name_ostream : c_name_istream; // Need to customize this because we add a prefix.
 
             return ret;

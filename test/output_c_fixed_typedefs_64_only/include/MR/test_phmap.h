@@ -7,18 +7,54 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_map_int_float
 typedef struct MR_C_phmap_btree_map_int_float MR_C_phmap_btree_map_int_float; // Defined in `#include <phmap_btree_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_multimap_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_multimap_int_float
 typedef struct MR_C_phmap_btree_multimap_int_float MR_C_phmap_btree_multimap_int_float; // Defined in `#include <phmap_btree_multimap_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_multiset_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_multiset_int
 typedef struct MR_C_phmap_btree_multiset_int MR_C_phmap_btree_multiset_int; // Defined in `#include <phmap_btree_multiset_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_btree_set_int
 typedef struct MR_C_phmap_btree_set_int MR_C_phmap_btree_set_int; // Defined in `#include <phmap_btree_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_flat_hash_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_flat_hash_map_int_float
 typedef struct MR_C_phmap_flat_hash_map_int_float MR_C_phmap_flat_hash_map_int_float; // Defined in `#include <phmap_flat_hash_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_flat_hash_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_flat_hash_set_int
 typedef struct MR_C_phmap_flat_hash_set_int MR_C_phmap_flat_hash_set_int; // Defined in `#include <phmap_flat_hash_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_map_int_float
 typedef struct MR_C_phmap_node_hash_map_int_float MR_C_phmap_node_hash_map_int_float; // Defined in `#include <phmap_node_hash_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_set_int
 typedef struct MR_C_phmap_node_hash_set_int MR_C_phmap_node_hash_set_int; // Defined in `#include <phmap_node_hash_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_flat_hash_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_flat_hash_map_int_float
 typedef struct MR_C_phmap_parallel_flat_hash_map_int_float MR_C_phmap_parallel_flat_hash_map_int_float; // Defined in `#include <phmap_parallel_flat_hash_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_flat_hash_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_flat_hash_set_int
 typedef struct MR_C_phmap_parallel_flat_hash_set_int MR_C_phmap_parallel_flat_hash_set_int; // Defined in `#include <phmap_parallel_flat_hash_set_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_node_hash_map_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_node_hash_map_int_float
 typedef struct MR_C_phmap_parallel_node_hash_map_int_float MR_C_phmap_parallel_node_hash_map_int_float; // Defined in `#include <phmap_parallel_node_hash_map_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_node_hash_set_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_parallel_node_hash_set_int
 typedef struct MR_C_phmap_parallel_node_hash_set_int MR_C_phmap_parallel_node_hash_set_int; // Defined in `#include <phmap_parallel_node_hash_set_int.h>`.
+#endif
 
 
 /// Generated from function `MR::Phmap::foo`.

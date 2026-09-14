@@ -8,12 +8,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
 typedef struct MR_CSharp_ExposedLayout MR_CSharp_ExposedLayout; // Defined in `#include <MR/test_csharp.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref
 /// Stores 2 objects: `MR::CSharp::ExposedLayout &&`, `const MR::CSharp::ExposedLayout &&`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref;
+#endif
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.

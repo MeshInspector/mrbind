@@ -9,13 +9,19 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CustomPrefNames_Ai
+#define MR_C_DETAIL_TYPEDEF_MR_CustomPrefNames_Ai
 /// Generated from class `MR::CustomPrefNames::Ai`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CustomPrefNames_Ai MR_CustomPrefNames_Ai;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CustomPrefNames_Af
+#define MR_C_DETAIL_TYPEDEF_MR_CustomPrefNames_Af
 /// Generated from class `MR::CustomPrefNames::Af`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CustomPrefNames_Af MR_CustomPrefNames_Af;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CustomPrefNames_Ai_Destroy()` to free it when you're done using it.

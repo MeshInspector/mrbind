@@ -8,12 +8,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdContainers_A
+#define MR_C_DETAIL_TYPEDEF_MR_StdContainers_A
 typedef struct MR_StdContainers_A MR_StdContainers_A; // Defined in `#include <MR/test_std_containers.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_A_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_array_MR_StdContainers_A_42
 /// A fixed-size array of `MR::StdContainers::A` of size 42.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_array_MR_StdContainers_A_42 MR_C_std_array_MR_StdContainers_A_42;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_A_42_Destroy()` to free it when you're done using it.

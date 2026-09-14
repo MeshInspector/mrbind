@@ -122,6 +122,10 @@ namespace mrbind::C
         // This modifies most comments we generate.
         StringRegexAdjuster generated_comments_adjuster;
 
+        // Go out of our way to be compatible with C standards earlier than C11.
+        // Among other things, pre-C11 we weren't allowed to redeclare typedefs, so they need to be guarded.
+        bool pre_c11_compat = false;
+
         // Go out of our way to include additional headers in our headers, if we think the user might want them.
         bool add_convenience_includes = false;
 

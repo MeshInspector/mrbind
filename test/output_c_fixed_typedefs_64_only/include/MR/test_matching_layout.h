@@ -10,8 +10,14 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_MatchingLayout_A
+#define MR_C_DETAIL_TYPEDEF_MR_MatchingLayout_A
 /// Generated from class `MR::MatchingLayout::A`.
-typedef struct MR_MatchingLayout_A
+typedef struct MR_MatchingLayout_A MR_MatchingLayout_A;
+#endif
+
+/// Generated from class `MR::MatchingLayout::A`.
+struct MR_MatchingLayout_A
 {
     // first
     int a;
@@ -24,15 +30,21 @@ typedef struct MR_MatchingLayout_A
     MR_C_int64_t ll;
     int arr[3];
     int arr2d[4][5];
-} MR_MatchingLayout_A;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_MatchingLayout_B
+#define MR_C_DETAIL_TYPEDEF_MR_MatchingLayout_B
+/// Generated from class `MR::MatchingLayout::B`.
+typedef struct MR_MatchingLayout_B MR_MatchingLayout_B;
+#endif
 
 /// Generated from class `MR::MatchingLayout::B`.
-typedef struct MR_MatchingLayout_B
+struct MR_MatchingLayout_B
 {
     short x;
     MR_MatchingLayout_A a;
     char y;
-} MR_MatchingLayout_B;
+};
 
 // Having static fields is not an error! Those get their normal getters and setters.
 /// Returns a pointer to a member variable of class `MR::MatchingLayout::A` named `x`.

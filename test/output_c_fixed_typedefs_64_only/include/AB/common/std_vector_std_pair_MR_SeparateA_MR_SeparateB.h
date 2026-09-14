@@ -10,20 +10,32 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_MR_SeparateA_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_MR_SeparateA_MR_SeparateB
 typedef struct MR_C_std_pair_MR_SeparateA_MR_SeparateB MR_C_std_pair_MR_SeparateA_MR_SeparateB; // Defined in `#include <AB/common/std_pair_MR_SeparateA_MR_SeparateB.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB
 /// Generated from C++ container `std::vector<std::pair<MR::SeparateA, MR::SeparateB>>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator
 /// Read-only iterator for `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator
 /// Mutable iterator for `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_Destroy()` to free it when you're done using it.

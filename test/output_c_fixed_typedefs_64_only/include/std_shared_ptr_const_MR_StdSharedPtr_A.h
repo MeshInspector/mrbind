@@ -10,14 +10,26 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A MR_C_std_shared_ptr_MR_StdSharedPtr_A; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_void
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_void
 typedef struct MR_C_std_shared_ptr_const_void MR_C_std_shared_ptr_const_void; // Defined in `#include <std_shared_ptr_const_void.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_StdSharedPtr_A
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A; // Defined in `#include <MR/test_std_shared_ptr.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A
 /// Wraps a pointer to a single shared reference-counted heap-allocated `const MR::StdSharedPtr::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.

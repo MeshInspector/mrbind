@@ -43,10 +43,13 @@ typedef enum MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum
     MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_TestSimpleTypes_ClassTemplate_uint64_t_Enum;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_TestSimpleTypes_ClassTemplate_uint64_t
+#define MR_C_DETAIL_TYPEDEF_MR_TestSimpleTypes_ClassTemplate_uint64_t
 // Class templates.
 /// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TestSimpleTypes_ClassTemplate_uint64_t MR_TestSimpleTypes_ClassTemplate_uint64_t;
+#endif
 
 /// Generated from function `MR::TestSimpleTypes::GetInt`.
 MR_C_API int MR_TestSimpleTypes_GetInt(void);

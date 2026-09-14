@@ -9,12 +9,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_Trivial
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_Trivial
 typedef struct MR_CSharp_Trivial MR_CSharp_Trivial; // Defined in `#include <MR/test_csharp.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_Trivial
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_Trivial
 /// Stores either a single `MR::CSharp::Trivial` or nothing.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_optional_MR_CSharp_Trivial MR_C_std_optional_MR_CSharp_Trivial;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_Trivial_Destroy()` to free it when you're done using it.

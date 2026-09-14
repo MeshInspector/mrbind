@@ -10,9 +10,12 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout
 /// Stores 2 objects: `MR::CSharp::ExposedLayout`, `const MR::CSharp::ExposedLayout`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.

@@ -158,7 +158,7 @@ namespace mrbind::C::Modules
 
                     new_type = MakeBitCastClassBinding(generator, type.simple_type.name, c_type_name, generator.FindTypeTraits(cpp_elem_type), array_size_and_alignment);
                     new_type.bindable_with_same_address.custom_c_type_name = c_type_name;
-                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclarationNoReg(c_type_name);
+                    new_type.bindable_with_same_address.forward_declaration = MakeStructForwardDeclarationNoReg(generator, c_type_name);
 
                     auto get_output_file = [
                         type,

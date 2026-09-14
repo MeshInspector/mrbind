@@ -9,20 +9,29 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_A
+#define MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_A
 /// Generated from class `MR::AbstractClasses::A`.
 typedef struct MR_AbstractClasses_A MR_AbstractClasses_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_B
+#define MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_B
 /// Generated from class `MR::AbstractClasses::B`.
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::AbstractClasses::C`
 typedef struct MR_AbstractClasses_B MR_AbstractClasses_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_C
+#define MR_C_DETAIL_TYPEDEF_MR_AbstractClasses_C
 /// Generated from class `MR::AbstractClasses::C`.
 /// Base classes:
 ///   Direct: (non-virtual)
 ///     `MR::AbstractClasses::B`
 typedef struct MR_AbstractClasses_C MR_AbstractClasses_C;
+#endif
 
 /// Generated from method `MR::AbstractClasses::A::foo`.
 /// Parameter `_this` can not be null. It is a single object.

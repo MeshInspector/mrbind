@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
 
 
 /// Generated from function `MR::StdString::Set`.

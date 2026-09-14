@@ -141,6 +141,14 @@ The specified name needs to be fully qualified (with all namespaces), and includ
 
 You can expose several classes via a regex, e.g. to expose `Foo::Bar<T>` for any `T`, you could do `--expose-as-struct '/Foo::Bar<.*>/'`. (Again,  the `'...'` are your shell's quotes, while `/.../` is a part of the syntax, to indicate that this is a regex.)
 
+### Make generated headers compatible with earlier C standards
+
+By default the generated C headers need C11 or newer.
+
+Pass `--pre-c11-compat` to make them compatible with earlier C standards, at the cost of making them uglier.
+
+The resulting headers should work at least in C99. Nothing should stop them from working in C89 too as long as you don't use `long long` (open an issue if this causes issues for you).
+
 ### Make generated headers include each other
 
 The generated headers are shy about including each other, preferring forward declarations when possible. The end result is that the end user will often have to include many ancillary headers (e.g. if a function returns `std::string` and you want to interact with its return value, you need to manually include the header with the binding for `std::string` too).

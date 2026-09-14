@@ -9,13 +9,22 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_int64_t
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_int64_t
 typedef struct MR_C_std_vector_int64_t MR_C_std_vector_int64_t; // Defined in `#include <std_vector_int64_t.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_uint64_t
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_uint64_t
 typedef struct MR_C_std_vector_uint64_t MR_C_std_vector_uint64_t; // Defined in `#include <std_vector_uint64_t.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_TestSizeT_A_uint64_t
+#define MR_C_DETAIL_TYPEDEF_MR_TestSizeT_A_uint64_t
 /// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_TestSizeT_A_uint64_t MR_TestSizeT_A_uint64_t;
+#endif
 
 /// Generated from function `MR::TestSizeT::foo`.
 MR_C_API MR_C_uint64_t MR_TestSizeT_foo_uint64_t(MR_C_uint64_t _1);

@@ -10,12 +10,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_from_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_from_std_string
 /// Stores a functor of type: `int(std::string)`. Possibly stateful.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_function_int_from_std_string MR_C_std_function_int_from_std_string;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_from_std_string_Destroy()` to free it when you're done using it.

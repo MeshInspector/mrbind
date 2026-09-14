@@ -9,12 +9,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonAssignable
+#define MR_C_DETAIL_TYPEDEF_MR_StdContainers_NonAssignable
 typedef struct MR_StdContainers_NonAssignable MR_StdContainers_NonAssignable; // Defined in `#include <MR/test_std_containers.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_const_MR_StdContainers_NonAssignable_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_const_MR_StdContainers_NonAssignable_float
 /// Stores two objects: `const MR::StdContainers::NonAssignable` and `const MR::StdContainers::NonAssignable`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_const_MR_StdContainers_NonAssignable_float MR_C_std_pair_const_MR_StdContainers_NonAssignable_float;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.

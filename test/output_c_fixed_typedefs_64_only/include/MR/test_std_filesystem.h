@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_filesystem_path
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_filesystem_path
 typedef struct MR_C_std_filesystem_path MR_C_std_filesystem_path; // Defined in `#include <std_filesystem_path.h>`.
+#endif
 
 
 /// Generated from function `MR::StdFilesystem::GetPath`.

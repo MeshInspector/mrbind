@@ -10,14 +10,26 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_void
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_void
 typedef struct MR_C_std_shared_ptr_const_void MR_C_std_shared_ptr_const_void; // Defined in `#include <std_shared_ptr_const_void.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_void
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_void
 typedef struct MR_C_std_shared_ptr_void MR_C_std_shared_ptr_void; // Defined in `#include <std_shared_ptr_void.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
+#define MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
 typedef struct MR_CommonBaseAB MR_CommonBaseAB; // Defined in `#include <AB_base/ab_base.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CommonBaseAB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CommonBaseAB
 /// Wraps a pointer to a single shared reference-counted heap-allocated `MR::CommonBaseAB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_shared_ptr_MR_CommonBaseAB MR_C_std_shared_ptr_MR_CommonBaseAB;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CommonBaseAB_Destroy()` to free it when you're done using it.

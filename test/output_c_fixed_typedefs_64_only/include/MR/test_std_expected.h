@@ -7,9 +7,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_std_string
 typedef struct MR_C_std_expected_int_std_string MR_C_std_expected_int_std_string; // Defined in `#include <std_expected_int_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_void_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_void_float
 typedef struct MR_C_std_expected_void_float MR_C_std_expected_void_float; // Defined in `#include <std_expected_void_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string
 typedef struct MR_C_std_vector_std_expected_int_std_string MR_C_std_vector_std_expected_int_std_string; // Defined in `#include <std_vector_std_expected_int_std_string.h>`.
+#endif
 
 
 /// Generated from function `MR::StdExpected::GetExp`.

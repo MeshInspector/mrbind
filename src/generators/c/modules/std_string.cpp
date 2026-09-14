@@ -123,7 +123,7 @@ namespace mrbind::C::Modules
                 new_type.is_heap_allocated_class = true;
 
                 new_type.bindable_with_same_address.declared_in_file = [this, &generator, is_view]() -> auto & {return GetOutputFile(generator, is_view);};
-                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclarationNoReg();
+                new_type.bindable_with_same_address.forward_declaration = binder.MakeForwardDeclarationNoReg(generator);
                 new_type.bindable_with_same_address.custom_c_type_name = binder.c_type_name;
 
                 new_type.return_usage = binder.MakeReturnUsage(generator);

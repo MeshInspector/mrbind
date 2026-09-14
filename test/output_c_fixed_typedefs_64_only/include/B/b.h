@@ -9,16 +9,25 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_SeparateB
 typedef struct MR_C_std_vector_MR_SeparateB MR_C_std_vector_MR_SeparateB; // Defined in `#include <AB/common/std_vector_MR_SeparateB.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
+#define MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
 typedef struct MR_CommonBaseAB MR_CommonBaseAB; // Defined in `#include <AB_base/ab_base.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_SeparateB
 /// Generated from class `MR::SeparateB`.
 /// Base classes:
 ///   Direct: (non-virtual)
 ///     `MR::CommonBaseAB`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_SeparateB MR_SeparateB;
+#endif
 
 /// Generated from constructor `MR::SeparateB::SeparateB`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.

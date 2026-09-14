@@ -10,20 +10,32 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_std_string
 typedef struct MR_C_std_expected_int_std_string MR_C_std_expected_int_std_string; // Defined in `#include <std_expected_int_std_string.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string
 /// Generated from C++ container `std::vector<std::expected<int, std::string>>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_expected_int_std_string MR_C_std_vector_std_expected_int_std_string;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string_const_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string_const_iterator
 /// Read-only iterator for `MR_C_std_vector_std_expected_int_std_string`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_expected_int_std_string_const_iterator MR_C_std_vector_std_expected_int_std_string_const_iterator;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_expected_int_std_string_iterator
 /// Mutable iterator for `MR_C_std_vector_std_expected_int_std_string`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_std_expected_int_std_string_iterator MR_C_std_vector_std_expected_int_std_string_iterator;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_std_expected_int_std_string_Destroy()` to free it when you're done using it.

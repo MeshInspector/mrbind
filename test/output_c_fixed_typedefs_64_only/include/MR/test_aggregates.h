@@ -9,36 +9,57 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_A
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_A
 // Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
 //   because otherwise there would be no way to construct them.
 /// Generated from class `MR::Aggregates::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_A MR_Aggregates_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_B
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_B
 // This is an empty aggregate, it doesn't need an elementwise constructor.
 /// Generated from class `MR::Aggregates::B`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_B MR_Aggregates_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_NonDefaultConstructible
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_NonDefaultConstructible
 /// Generated from class `MR::Aggregates::NonDefaultConstructible`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_NonDefaultConstructible MR_Aggregates_NonDefaultConstructible;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_C
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_C
 // Test the optional limit on the number of fields that we aggregate-initialize.
 /// Generated from class `MR::Aggregates::C`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_C MR_Aggregates_C;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_D
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_D
 /// Generated from class `MR::Aggregates::D`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_D MR_Aggregates_D;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_Aggregates_E
+#define MR_C_DETAIL_TYPEDEF_MR_Aggregates_E
 /// Generated from class `MR::Aggregates::E`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_Aggregates_E MR_Aggregates_E;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.

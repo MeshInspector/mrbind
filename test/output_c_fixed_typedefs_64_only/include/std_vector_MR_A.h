@@ -10,20 +10,32 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_A
+#define MR_C_DETAIL_TYPEDEF_MR_A
 typedef struct MR_A MR_A; // Defined in `#include <MR/1.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A
 /// Generated from C++ container `std::vector<MR::A>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_A MR_C_std_vector_MR_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A_const_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A_const_iterator
 /// Read-only iterator for `MR_C_std_vector_MR_A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_A_const_iterator MR_C_std_vector_MR_A_const_iterator;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_A_iterator
 /// Mutable iterator for `MR_C_std_vector_MR_A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_vector_MR_A_iterator MR_C_std_vector_MR_A_iterator;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_Destroy()` to free it when you're done using it.

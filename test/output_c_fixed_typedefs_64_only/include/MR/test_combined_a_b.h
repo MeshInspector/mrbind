@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB
 typedef struct MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB; // Defined in `#include <AB/common/std_vector_std_pair_MR_SeparateA_MR_SeparateB.h>`.
+#endif
 
 
 /// Generated from function `MR::GetCombinedVecAB`.

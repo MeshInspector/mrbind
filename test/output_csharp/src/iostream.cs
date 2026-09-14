@@ -4,6 +4,7 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// A C++ output stream.
             /// This is the const half of the class.
             public class Const_Ostream : MR.CS.Misc.Object<Const_Ostream>
             {
@@ -14,6 +15,7 @@ public static partial class MR
                 internal unsafe Const_Ostream(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
+            /// A C++ output stream.
             /// This is the non-const half of the class.
             public class Ostream : Const_Ostream
             {
@@ -60,6 +62,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_Ostream(Const_Ostream value) {return new(value);}
             }
 
+            /// A C++ input stream.
             /// This is the const half of the class.
             public class Const_Istream : MR.CS.Misc.Object<Const_Istream>
             {
@@ -70,6 +73,7 @@ public static partial class MR
                 internal unsafe Const_Istream(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
+            /// A C++ input stream.
             /// This is the non-const half of the class.
             public class Istream : Const_Istream
             {

@@ -9,9 +9,12 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StaticFuncs_A
+#define MR_C_DETAIL_TYPEDEF_MR_StaticFuncs_A
 /// Generated from class `MR::StaticFuncs::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StaticFuncs_A MR_StaticFuncs_A;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

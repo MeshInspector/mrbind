@@ -3955,11 +3955,6 @@ namespace mrbind::C
 
     void Generator::EmitExposedStruct(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)
     {
-        // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
-        assert(!comment.starts_with('\n'));
-        comment = '\n' + comment;
-        EmitCommentLow(file.header, comment);
-
         // Generate description for interop.
         CInterop::TypeKinds::Class *class_desc = nullptr;
         if (output_desc)
@@ -3975,7 +3970,23 @@ namespace mrbind::C
             // `size_and_alignment` is set at the end, in case we need to compute it.
         }
 
-        file.header.contents += "typedef struct " + std::string(c_type_str) + '\n';
+        if (pre_c11_compat)
+        {
+            // Here we can't combine the typedef with the rest of the class, since only the typedef needs to be `#ifdef`ed.
+            // So split them up.
+
+            // `MakeStructForwardDeclarationNoReg()` doesn't like leading line breaks in comments, so emit this one manually.
+            file.header.contents += '\n';
+            file.header.contents += MakeStructForwardDeclarationNoReg(*this, c_type_str, "", comment) + '\n';
+        }
+
+        // Emit the comment, if any. This works fine even if the comment is empty, in which case it just inserts a separating newline.
+        // If `pre_c11_compat` is enabled, this duplicates the comment on the struct and on the typedef, which is intentional.
+        assert(!comment.starts_with('\n'));
+        comment = '\n' + comment;
+        EmitCommentLow(file.header, comment);
+
+        file.header.contents += (pre_c11_compat ? "struct " : "typedef struct ") + std::string(c_type_str) + '\n';
         file.header.contents += "{\n";
 
         std::size_t total_size = 0;
@@ -4067,7 +4078,10 @@ namespace mrbind::C
         if (expected_size_and_alignment.size != std::size_t(-1) && total_size != expected_size_and_alignment.size)
             throw std::runtime_error("In exposed C struct `" + std::string(c_type_str) + "`: The estimated byte size of the struct doesn't match the expected value (expected " + std::to_string(expected_size_and_alignment.size) + " but got " + std::to_string(total_size) + ").");
 
-        file.header.contents += "} " + std::string(c_type_str) + ";\n";
+        if (pre_c11_compat)
+            file.header.contents += "};\n";
+        else
+            file.header.contents += "} " + std::string(c_type_str) + ";\n";
 
         // Lastly, finalize the interop description.
         if (class_desc)
@@ -4287,7 +4301,7 @@ namespace mrbind::C
 
                 self.AddNewTypeBindableWithSameAddress(parsed_type.simple_type.name, {
                     .declared_in_file = [&ret = self.GetOutputFile(cl.declared_in_file)]() -> auto & {return ret;}, // No point in being lazy here.
-                    .forward_declaration = MakeStructForwardDeclarationNoReg(info.c_type_str),
+                    .forward_declaration = MakeStructForwardDeclarationNoReg(self, info.c_type_str),
                 });
             }
 
@@ -5936,12 +5950,22 @@ namespace mrbind::C
                     if (!type_info.forward_declaration)
                         throw std::runtime_error("Need to forward-declare type `" + elem.first + "`, but don't know how.");
 
-                    std::string fwd_decl = *type_info.forward_declaration;
+                    std::string comment;
                     // if (elem.second.declared_in_same_file)
-                    //     fwd_decl += " // Defined below in this file.";
+                    //     comment = " // Defined below in this file.";
                     // else
                     if (type_info.declared_in_file)
-                        fwd_decl += " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
+                        comment = " // Defined in `#include <" + type_info.declared_in_file().header.path_for_inclusion + ">`.";
+
+                    std::string fwd_decl = *type_info.forward_declaration;
+
+                    if (!comment.empty())
+                    {
+                        if (fwd_decl.ends_with("\n#endif"))
+                            fwd_decl.insert(fwd_decl.size() - 7, comment); // Snipe insert the comment before the `#ifdef`. This is needed if `pre_c11_compat == true`.
+                        else
+                            fwd_decl += comment;
+                    }
 
                     fwd_decls.insert(std::move(fwd_decl));
 

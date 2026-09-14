@@ -9,9 +9,12 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_int_ref_float_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_int_ref_float_ref
 /// Stores two objects: `int &` and `int &`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_int_ref_float_ref MR_C_std_pair_int_ref_float_ref;
+#endif
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_int_ref_float_ref`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_pair_int_ref_float_ref_Destroy(const MR_C_std_pair_int_ref_float_ref *_this);

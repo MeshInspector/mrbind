@@ -62,7 +62,10 @@ namespace mrbind::C
 
         // Returns the forward declaration string.
         // `...NoReg` means this doesn't register the type in the output JSON, so prefer `EmitForwardDeclaration()`.
-        [[nodiscard]] std::string MakeForwardDeclarationNoReg() const;
+        // If `comment` is specified, it must end with a newline but not start with a newline. It's prepended to the typedef.
+        //   It's a parameter here because this function can emit an `#ifndef` block, and the comment needs to be inside.
+        // Avoid specifying the comment for the forward declarations that will be automatically inserted in multiple files. Only specify comments for the primary declaration.
+        [[nodiscard]] std::string MakeForwardDeclarationNoReg(Generator &generator, std::string_view comment = "") const;
 
         [[nodiscard]] Generator::BindableType::ReturnUsage MakeReturnUsage(Generator &generator) const;
 
@@ -110,7 +113,10 @@ namespace mrbind::C
     // `c_underlying_type_name` is only used if it's not empty. Otherwise we use `c_type_name`.
     // NOTE: Only use this for filling `TypeBindableWithSameAddress`. Don't use this for codegen, as this doesn't register types (hence `...NoReg`).
     //   Instead use `HeapAllocatedClassBinder::EmitForwardDeclaration()` or `EmitRefOnlyStructForwardDeclaration()` or something else.
-    [[nodiscard]] std::string MakeStructForwardDeclarationNoReg(std::string_view c_type_name, std::string_view c_underlying_type_name = "");
+    // If `comment` is specified, it must end with a newline but not start with a newline. It's prepended to the typedef.
+    //   It's a parameter here because this function can emit an `#ifndef` block, and the comment needs to be inside.
+    // Avoid specifying the comment for the forward declarations that will be automatically inserted in multiple files. Only specify comments for the primary declaration.
+    [[nodiscard]] std::string MakeStructForwardDeclarationNoReg(Generator &generator, std::string_view c_type_name, std::string_view c_underlying_type_name = "", std::string_view comment = "");
 
 
     // This goes into the `BindableType::is_useless_default_argument` callback, to reject nullptr default arguments.
@@ -122,7 +128,7 @@ namespace mrbind::C
     // Objects of those types can't be created by the C user, but pointers and references to them can still be passed around.
     // The `comment` is pasted before the declaration if not empty. Must end with a line break. Must include the leading slashes.
     // Currently `cpp_type_name` is only used for generating the interop description JSON.
-    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name = "");
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string_view comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name = "");
 
 
     // If this is a simple enough type, returns its size and alignment.

@@ -34,8 +34,8 @@ namespace mrbind::C
             assert(comment.empty() || !comment.starts_with('\n'));
             assert(comment.empty() || comment.ends_with('\n'));
 
-            // Add our own leading newline.
-            comment = '\n' + comment;
+            // Add a leading newline. Directly to the header, `MakeForwardDeclarationNoReg()` doesn't like those.
+            file.header.contents += '\n';
 
             // Fork the comment before we add the pass-by modes.
             comment_without_pass_by_modes = comment;
@@ -79,11 +79,9 @@ namespace mrbind::C
 
             if (!first)
                 comment += " (and `" + enum_name + "_DefaultArgument` and `" + enum_name + "_NoObject` if supported by the callee).\n";
-
-            generator.EmitCommentLow(file.header, comment);
         }
 
-        file.header.contents += MakeForwardDeclarationNoReg() + '\n';
+        file.header.contents += MakeForwardDeclarationNoReg(generator, comment) + '\n';
 
         // Generate the interop description.
         if (generator.output_desc)
@@ -115,16 +113,16 @@ namespace mrbind::C
 
         type.is_heap_allocated_class = true;
 
-        type.bindable_with_same_address.forward_declaration = MakeForwardDeclarationNoReg();
+        type.bindable_with_same_address.forward_declaration = MakeForwardDeclarationNoReg(generator);
         type.bindable_with_same_address.custom_c_type_name = c_type_name;
 
         type.param_usage_with_default_arg = MakeParamUsageSupportingDefaultArg(generator);
         type.return_usage = MakeReturnUsage(generator);
     }
 
-    std::string HeapAllocatedClassBinder::MakeForwardDeclarationNoReg() const
+    std::string HeapAllocatedClassBinder::MakeForwardDeclarationNoReg(Generator &generator, std::string_view comment) const
     {
-        return MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
+        return MakeStructForwardDeclarationNoReg(generator, c_type_name, c_underlying_type_name, comment);
     }
 
     Generator::BindableType::ReturnUsage HeapAllocatedClassBinder::MakeReturnUsage(Generator &generator) const
@@ -628,13 +626,43 @@ namespace mrbind::C
         return ret;
     }
 
-    std::string MakeStructForwardDeclarationNoReg(std::string_view c_type_name, std::string_view c_underlying_type_name)
+    std::string MakeStructForwardDeclarationNoReg(Generator &generator, std::string_view c_type_name, std::string_view c_underlying_type_name, std::string_view comment)
     {
-        std::string ret = "typedef struct ";
+        std::string ret;
+
+        if (generator.pre_c11_compat)
+        {
+            std::string macro = generator.MakeDetailHelperMacroName("TYPEDEF_" + std::string(c_type_name));
+            ret += "#ifndef ";
+            ret += macro;
+            ret += "\n#define ";
+            ret += macro;
+            ret += '\n';
+        }
+
+        if (!comment.empty())
+        {
+            assert(!comment.starts_with('\n'));
+            assert(comment.ends_with('\n'));
+            std::string comment_fixed(comment);
+
+            // Since we're bypassing `EmitCommentLow()`, we have to manually adjust the comment here.
+            generator.generated_comments_adjuster.Adjust(comment_fixed);
+
+            ret += comment_fixed;
+        }
+
+        ret += "typedef struct ";
         ret += !c_underlying_type_name.empty() ? c_underlying_type_name : c_type_name;
         ret += ' ';
         ret += c_type_name;
         ret += ';';
+
+        if (generator.pre_c11_compat)
+        {
+            ret += "\n#endif";
+        }
+
         return ret;
     }
 
@@ -655,16 +683,12 @@ namespace mrbind::C
         return {};
     }
 
-    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name)
+    void EmitRefOnlyStructForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string_view comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_name, std::string_view c_underlying_type_name)
     {
-        if (!comment.empty())
-        {
-            assert(!comment.starts_with('\n')); // Banning this here because we always add one ourselves.
-            file.header.contents += '\n'; // Leading newline adds some separation between declarations.
-            generator.EmitCommentLow(file.header, std::move(comment));
-        }
+        // A separating newline.
+        file.header.contents += '\n';
 
-        file.header.contents += MakeStructForwardDeclarationNoReg(c_type_name, c_underlying_type_name);
+        file.header.contents += MakeStructForwardDeclarationNoReg(generator, c_type_name, c_underlying_type_name, comment);
         file.header.contents += '\n';
 
         if (generator.output_desc)

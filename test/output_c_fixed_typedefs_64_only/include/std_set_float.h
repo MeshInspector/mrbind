@@ -11,13 +11,19 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_set_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_set_float
 /// Generated from C++ container `std::set<float>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_set_float MR_C_std_set_float;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_set_float_const_iterator
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_set_float_const_iterator
 /// Read-only iterator for `MR_C_std_set_float`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_set_float_const_iterator MR_C_std_set_float_const_iterator;
+#endif
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_Destroy()` to free it when you're done using it.

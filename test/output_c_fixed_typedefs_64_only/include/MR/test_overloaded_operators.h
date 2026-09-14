@@ -9,24 +9,36 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_A
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_A
 // Member functions.
 /// Generated from class `MR::OverloadedOps::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_A MR_OverloadedOps_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_B
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_B
 // Free functions.
 /// Generated from class `MR::OverloadedOps::B`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_B MR_OverloadedOps_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_C
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_C
 // Test how the names are generated.
 /// Generated from class `MR::OverloadedOps::C`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_C MR_OverloadedOps_C;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_D
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_D
 /// Generated from class `MR::OverloadedOps::D`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_OverloadedOps_D MR_OverloadedOps_D;
+#endif
 
 // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
 /// Generated from constructor `MR::OverloadedOps::A::A`.

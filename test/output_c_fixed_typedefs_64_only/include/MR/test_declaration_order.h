@@ -12,30 +12,55 @@ typedef enum MR_DeclOrder_A_E
     MR_DeclOrder_A_E_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_DeclOrder_A_E;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_DeclOrder_A_B
+#define MR_C_DETAIL_TYPEDEF_MR_DeclOrder_A_B
 /// Generated from class `MR::DeclOrder::A::B`.
-typedef struct MR_DeclOrder_A_B
+typedef struct MR_DeclOrder_A_B MR_DeclOrder_A_B;
+#endif
+
+/// Generated from class `MR::DeclOrder::A::B`.
+struct MR_DeclOrder_A_B
 {
     int bleh;
-} MR_DeclOrder_A_B;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_DeclOrder_A
+#define MR_C_DETAIL_TYPEDEF_MR_DeclOrder_A
+// Here all classes are whitelisted using `--expose-as-struct`.
+/// Generated from class `MR::DeclOrder::A`.
+typedef struct MR_DeclOrder_A MR_DeclOrder_A;
+#endif
 
 // Here all classes are whitelisted using `--expose-as-struct`.
 /// Generated from class `MR::DeclOrder::A`.
-typedef struct MR_DeclOrder_A
+struct MR_DeclOrder_A
 {
     int blah;
-} MR_DeclOrder_A;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_DeclOrder_C_false
+#define MR_C_DETAIL_TYPEDEF_MR_DeclOrder_C_false
+/// Generated from class `MR::DeclOrder::C<false>`.
+typedef struct MR_DeclOrder_C_false MR_DeclOrder_C_false;
+#endif
 
 /// Generated from class `MR::DeclOrder::C<false>`.
-typedef struct MR_DeclOrder_C_false
+struct MR_DeclOrder_C_false
 {
     int bleh;
-} MR_DeclOrder_C_false;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_DeclOrder_C_true
+#define MR_C_DETAIL_TYPEDEF_MR_DeclOrder_C_true
+/// Generated from class `MR::DeclOrder::C<true>`.
+typedef struct MR_DeclOrder_C_true MR_DeclOrder_C_true;
+#endif
 
 /// Generated from class `MR::DeclOrder::C<true>`.
-typedef struct MR_DeclOrder_C_true
+struct MR_DeclOrder_C_true
 {
     int bleh;
-} MR_DeclOrder_C_true;
+};
 
 /// Generated from method `MR::DeclOrder::A::c`.
 /// Parameter `_this` can not be null. It is a single object.

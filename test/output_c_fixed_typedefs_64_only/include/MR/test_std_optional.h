@@ -9,11 +9,26 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_A
 typedef struct MR_C_std_optional_MR_StdOptional_A MR_C_std_optional_MR_StdOptional_A; // Defined in `#include <std_optional_MR_StdOptional_A.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_B
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_B
 typedef struct MR_C_std_optional_MR_StdOptional_B MR_C_std_optional_MR_StdOptional_B; // Defined in `#include <std_optional_MR_StdOptional_B.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_E
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_StdOptional_E
 typedef struct MR_C_std_optional_MR_StdOptional_E MR_C_std_optional_MR_StdOptional_E; // Defined in `#include <std_optional_MR_StdOptional_E.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_int
 typedef struct MR_C_std_optional_int MR_C_std_optional_int; // Defined in `#include <std_optional_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
 
 
 typedef enum MR_StdOptional_E
@@ -21,13 +36,19 @@ typedef enum MR_StdOptional_E
     MR_StdOptional_E_e1 = 0,
 } MR_StdOptional_E;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdOptional_A
+#define MR_C_DETAIL_TYPEDEF_MR_StdOptional_A
 /// Generated from class `MR::StdOptional::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdOptional_A MR_StdOptional_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdOptional_B
+#define MR_C_DETAIL_TYPEDEF_MR_StdOptional_B
 /// Generated from class `MR::StdOptional::B`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdOptional_B MR_StdOptional_B;
+#endif
 
 /// Generated from function `MR::StdOptional::GetInt`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_int_Destroy()` to free it when you're done using it.

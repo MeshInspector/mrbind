@@ -5,6 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
+            /// A C++ output stream.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Ostream : MR.CS.Misc.Object<Const_Ostream>
@@ -17,6 +18,7 @@ public static partial class MR
             }
 
             /// <summary>
+            /// A C++ output stream.
             /// This is the non-const half of the class.
             /// </summary>
             public class Ostream : Const_Ostream
@@ -69,6 +71,7 @@ public static partial class MR
             }
 
             /// <summary>
+            /// A C++ input stream.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Istream : MR.CS.Misc.Object<Const_Istream>
@@ -81,6 +84,7 @@ public static partial class MR
             }
 
             /// <summary>
+            /// A C++ input stream.
             /// This is the non-const half of the class.
             /// </summary>
             public class Istream : Const_Istream

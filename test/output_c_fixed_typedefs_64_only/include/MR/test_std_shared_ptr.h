@@ -9,24 +9,63 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A MR_C_std_shared_ptr_MR_StdSharedPtr_A; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A_array
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A_array
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A_array MR_C_std_shared_ptr_MR_StdSharedPtr_A_array; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A_array.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42
 typedef struct MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42; // Defined in `#include <std_shared_ptr_MR_StdSharedPtr_A_array_42.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A
 typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A MR_C_std_shared_ptr_const_MR_StdSharedPtr_A; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array
 typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A_array.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42
 typedef struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42; // Defined in `#include <std_shared_ptr_const_MR_StdSharedPtr_A_array_42.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int
 typedef struct MR_C_std_shared_ptr_const_int MR_C_std_shared_ptr_const_int; // Defined in `#include <std_shared_ptr_const_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int_array
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int_array
 typedef struct MR_C_std_shared_ptr_const_int_array MR_C_std_shared_ptr_const_int_array; // Defined in `#include <std_shared_ptr_const_int_array.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int_array_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_int_array_42
 typedef struct MR_C_std_shared_ptr_const_int_array_42 MR_C_std_shared_ptr_const_int_array_42; // Defined in `#include <std_shared_ptr_const_int_array_42.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int
 typedef struct MR_C_std_shared_ptr_int MR_C_std_shared_ptr_int; // Defined in `#include <std_shared_ptr_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int_array
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int_array
 typedef struct MR_C_std_shared_ptr_int_array MR_C_std_shared_ptr_int_array; // Defined in `#include <std_shared_ptr_int_array.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int_array_42
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_int_array_42
 typedef struct MR_C_std_shared_ptr_int_array_42 MR_C_std_shared_ptr_int_array_42; // Defined in `#include <std_shared_ptr_int_array_42.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_StdSharedPtr_A
+#define MR_C_DETAIL_TYPEDEF_MR_StdSharedPtr_A
 // Now with a class:
 /// Generated from class `MR::StdSharedPtr::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_StdSharedPtr_A MR_StdSharedPtr_A;
+#endif
 
 /// Generated from function `MR::StdSharedPtr::GetInt`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int_Destroy()` to free it when you're done using it.

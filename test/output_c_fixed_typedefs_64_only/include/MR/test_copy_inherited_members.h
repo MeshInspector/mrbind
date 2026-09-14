@@ -10,6 +10,8 @@ extern "C" {
 #endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_A
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_A
 /// Generated from class `MR::CopyInheritedMembers::A`.
 /// Derived classes:
 ///   Virtual:
@@ -30,7 +32,10 @@ extern "C" {
 ///     `MR::CopyInheritedMembers::L`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_A MR_CopyInheritedMembers_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_B
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_B
 /// Generated from class `MR::CopyInheritedMembers::B`.
 /// Derived classes:
 ///   Direct: (non-virtual)
@@ -41,7 +46,10 @@ typedef struct MR_CopyInheritedMembers_A MR_CopyInheritedMembers_A;
 ///     `MR::CopyInheritedMembers::F`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_B MR_CopyInheritedMembers_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_C
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_C
 /// Generated from class `MR::CopyInheritedMembers::C`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -49,7 +57,10 @@ typedef struct MR_CopyInheritedMembers_B MR_CopyInheritedMembers_B;
 ///     `MR::CopyInheritedMembers::B`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_C MR_CopyInheritedMembers_C;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_D
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_D
 /// Generated from class `MR::CopyInheritedMembers::D`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -60,7 +71,10 @@ typedef struct MR_CopyInheritedMembers_C MR_CopyInheritedMembers_C;
 ///     `MR::CopyInheritedMembers::F`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_D MR_CopyInheritedMembers_D;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_E
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_E
 /// Generated from class `MR::CopyInheritedMembers::E`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -70,7 +84,10 @@ typedef struct MR_CopyInheritedMembers_D MR_CopyInheritedMembers_D;
 ///     `MR::CopyInheritedMembers::B`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_E MR_CopyInheritedMembers_E;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_F
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_F
 /// Generated from class `MR::CopyInheritedMembers::F`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -80,7 +97,10 @@ typedef struct MR_CopyInheritedMembers_E MR_CopyInheritedMembers_E;
 ///     `MR::CopyInheritedMembers::B`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_F MR_CopyInheritedMembers_F;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_G
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_G
 /// Generated from class `MR::CopyInheritedMembers::G`.
 /// Base classes:
 ///   Virtual:
@@ -93,7 +113,10 @@ typedef struct MR_CopyInheritedMembers_F MR_CopyInheritedMembers_F;
 ///     `MR::CopyInheritedMembers::L`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_G MR_CopyInheritedMembers_G;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_H
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_H
 /// Generated from class `MR::CopyInheritedMembers::H`.
 /// Base classes:
 ///   Virtual:
@@ -102,7 +125,10 @@ typedef struct MR_CopyInheritedMembers_G MR_CopyInheritedMembers_G;
 ///     `MR::CopyInheritedMembers::G`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_H MR_CopyInheritedMembers_H;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_I
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_I
 /// Generated from class `MR::CopyInheritedMembers::I`.
 /// Base classes:
 ///   Virtual:
@@ -111,7 +137,10 @@ typedef struct MR_CopyInheritedMembers_H MR_CopyInheritedMembers_H;
 ///     `MR::CopyInheritedMembers::G`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_I MR_CopyInheritedMembers_I;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_J
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_J
 /// Generated from class `MR::CopyInheritedMembers::J`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -126,7 +155,10 @@ typedef struct MR_CopyInheritedMembers_I MR_CopyInheritedMembers_I;
 ///     `MR::CopyInheritedMembers::L`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_J MR_CopyInheritedMembers_J;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_K
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_K
 /// Generated from class `MR::CopyInheritedMembers::K`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -136,7 +168,10 @@ typedef struct MR_CopyInheritedMembers_J MR_CopyInheritedMembers_J;
 ///     `MR::CopyInheritedMembers::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_K MR_CopyInheritedMembers_K;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_L
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_L
 /// Generated from class `MR::CopyInheritedMembers::L`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -146,7 +181,10 @@ typedef struct MR_CopyInheritedMembers_K MR_CopyInheritedMembers_K;
 ///     `MR::CopyInheritedMembers::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_L MR_CopyInheritedMembers_L;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_M
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_M
 // Now test that a non-virtual base of a virtual base gets treated as a virtual.
 /// Generated from class `MR::CopyInheritedMembers::M`.
 /// Base classes:
@@ -161,7 +199,10 @@ typedef struct MR_CopyInheritedMembers_L MR_CopyInheritedMembers_L;
 ///     `MR::CopyInheritedMembers::O`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_M MR_CopyInheritedMembers_M;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_N
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_N
 /// Generated from class `MR::CopyInheritedMembers::N`.
 /// Base classes:
 ///   Virtual:
@@ -175,7 +216,10 @@ typedef struct MR_CopyInheritedMembers_M MR_CopyInheritedMembers_M;
 ///     `MR::CopyInheritedMembers::O`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_N MR_CopyInheritedMembers_N;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_O
+#define MR_C_DETAIL_TYPEDEF_MR_CopyInheritedMembers_O
 /// Generated from class `MR::CopyInheritedMembers::O`.
 /// Base classes:
 ///   Virtual:
@@ -188,6 +232,7 @@ typedef struct MR_CopyInheritedMembers_N MR_CopyInheritedMembers_N;
 ///     `MR::CopyInheritedMembers::M`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CopyInheritedMembers_O MR_CopyInheritedMembers_O;
+#endif
 
 /// Returns a pointer to a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

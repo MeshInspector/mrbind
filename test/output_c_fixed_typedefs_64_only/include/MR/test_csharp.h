@@ -10,53 +10,194 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_E1_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_E1_float
 typedef struct MR_C_std_expected_MR_CSharp_E1_float MR_C_std_expected_MR_CSharp_E1_float; // Defined in `#include <std_expected_MR_CSharp_E1_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float
 typedef struct MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float; // Defined in `#include <std_expected_MR_CSharp_ExposedLayoutSh_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_ExposedLayout_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_ExposedLayout_float
 typedef struct MR_C_std_expected_MR_CSharp_ExposedLayout_float MR_C_std_expected_MR_CSharp_ExposedLayout_float; // Defined in `#include <std_expected_MR_CSharp_ExposedLayout_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_NonTrivial_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_NonTrivial_float
 typedef struct MR_C_std_expected_MR_CSharp_NonTrivial_float MR_C_std_expected_MR_CSharp_NonTrivial_float; // Defined in `#include <std_expected_MR_CSharp_NonTrivial_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_SA_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_SA_float
 typedef struct MR_C_std_expected_MR_CSharp_SA_float MR_C_std_expected_MR_CSharp_SA_float; // Defined in `#include <std_expected_MR_CSharp_SA_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_Trivial_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_MR_CSharp_Trivial_float
 typedef struct MR_C_std_expected_MR_CSharp_Trivial_float MR_C_std_expected_MR_CSharp_Trivial_float; // Defined in `#include <std_expected_MR_CSharp_Trivial_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_int_float
 typedef struct MR_C_std_expected_int_float MR_C_std_expected_int_float; // Defined in `#include <std_expected_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_expected_void_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_expected_void_float
 typedef struct MR_C_std_expected_void_float MR_C_std_expected_void_float; // Defined in `#include <std_expected_void_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_filesystem_path
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_filesystem_path
 typedef struct MR_C_std_filesystem_path MR_C_std_filesystem_path; // Defined in `#include <std_filesystem_path.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1
 typedef struct MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1; // Defined in `#include <std_function_MR_CSharp_E1_from_MR_CSharp_E1.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC
 typedef struct MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC; // Defined in `#include <std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_from_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_from_std_string
 typedef struct MR_C_std_function_int_from_std_string MR_C_std_function_int_from_std_string; // Defined in `#include <std_function_int_from_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref
 typedef struct MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref; // Defined in `#include <std_function_int_ref_from_int_ref_int_rvalue_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_int_rvalue_ref
 typedef struct MR_C_std_function_int_rvalue_ref MR_C_std_function_int_rvalue_ref; // Defined in `#include <std_function_int_rvalue_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_std_string_from_int_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_std_string_from_int_int
 typedef struct MR_C_std_function_std_string_from_int_int MR_C_std_function_std_string_from_int_int; // Defined in `#include <std_function_std_string_from_int_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_function_void
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_function_void
 typedef struct MR_C_std_function_void MR_C_std_function_void; // Defined in `#include <std_function_void.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_istream
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_istream
 typedef struct MR_C_std_istream MR_C_std_istream; // Defined in `#include <iostream.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_ExposedLayoutSh
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_ExposedLayoutSh
 typedef struct MR_C_std_optional_MR_CSharp_ExposedLayoutSh MR_C_std_optional_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_optional_MR_CSharp_ExposedLayoutSh.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_NonTrivial
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_NonTrivial
 typedef struct MR_C_std_optional_MR_CSharp_NonTrivial MR_C_std_optional_MR_CSharp_NonTrivial; // Defined in `#include <std_optional_MR_CSharp_NonTrivial.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_SA
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_SA
 typedef struct MR_C_std_optional_MR_CSharp_SA MR_C_std_optional_MR_CSharp_SA; // Defined in `#include <std_optional_MR_CSharp_SA.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_Trivial
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_MR_CSharp_Trivial
 typedef struct MR_C_std_optional_MR_CSharp_Trivial MR_C_std_optional_MR_CSharp_Trivial; // Defined in `#include <std_optional_MR_CSharp_Trivial.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_int
 typedef struct MR_C_std_optional_int MR_C_std_optional_int; // Defined in `#include <std_optional_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_optional_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_optional_std_string
 typedef struct MR_C_std_optional_std_string MR_C_std_optional_std_string; // Defined in `#include <std_optional_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_ostream
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_ostream
 typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_pair_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_pair_int_std_string
 typedef struct MR_C_std_pair_int_std_string MR_C_std_pair_int_std_string; // Defined in `#include <std_pair_int_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh
 typedef struct MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SA
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SA
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SA MR_C_std_shared_ptr_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_MR_CSharp_SA.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SE
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SE
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SE MR_C_std_shared_ptr_MR_CSharp_SE; // Defined in `#include <std_shared_ptr_MR_CSharp_SE.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SG
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CSharp_SG
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SG MR_C_std_shared_ptr_MR_CSharp_SG; // Defined in `#include <std_shared_ptr_MR_CSharp_SG.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_CSharp_SA
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_const_MR_CSharp_SA
 typedef struct MR_C_std_shared_ptr_const_MR_CSharp_SA MR_C_std_shared_ptr_const_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_const_MR_CSharp_SA.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string_view
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string_view
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple
 typedef struct MR_C_std_tuple MR_C_std_tuple; // Defined in `#include <std_tuple.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
 typedef struct MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref; // Defined in `#include <std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_const_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_const_int_std_string
 typedef struct MR_C_std_tuple_const_int_std_string MR_C_std_tuple_const_int_std_string; // Defined in `#include <std_tuple_const_int_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int
 typedef struct MR_C_std_tuple_int MR_C_std_tuple_int; // Defined in `#include <std_tuple_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref
 typedef struct MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref; // Defined in `#include <std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_std_string
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_int_std_string
 typedef struct MR_C_std_tuple_int_std_string MR_C_std_tuple_int_std_string; // Defined in `#include <std_tuple_int_std_string.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_unique_ptr_int
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_unique_ptr_int
 typedef struct MR_C_std_unique_ptr_int MR_C_std_unique_ptr_int; // Defined in `#include <std_unique_ptr_int.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_variant_std_monostate_int_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_variant_std_monostate_int_float
 typedef struct MR_C_std_variant_std_monostate_int_float MR_C_std_variant_std_monostate_int_float; // Defined in `#include <std_variant_std_monostate_int_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_variant_std_monostate_int_float_float
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_variant_std_monostate_int_float_float
 typedef struct MR_C_std_variant_std_monostate_int_float_float MR_C_std_variant_std_monostate_int_float_float; // Defined in `#include <std_variant_std_monostate_int_float_float.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_CSharp_A_ptr
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_CSharp_A_ptr
 typedef struct MR_C_std_vector_MR_CSharp_A_ptr MR_C_std_vector_MR_CSharp_A_ptr; // Defined in `#include <std_vector_MR_CSharp_A_ptr.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_MR_CSharp_ExposedLayout
 typedef struct MR_C_std_vector_MR_CSharp_ExposedLayout MR_C_std_vector_MR_CSharp_ExposedLayout; // Defined in `#include <std_vector_MR_CSharp_ExposedLayout.h>`.
+#endif
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_vector_const_MR_CSharp_A_ptr
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_vector_const_MR_CSharp_A_ptr
 typedef struct MR_C_std_vector_const_MR_CSharp_A_ptr MR_C_std_vector_const_MR_CSharp_A_ptr; // Defined in `#include <std_vector_const_MR_CSharp_A_ptr.h>`.
+#endif
 
 
 /// Enum comment.
@@ -78,6 +219,8 @@ enum // MR_CSharp_E2
     MR_CSharp_E2_b = 1,
 };
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_A
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_A
 /// Generated from class `MR::CSharp::A`.
 /// Derived classes:
 ///   Virtual:
@@ -88,21 +231,30 @@ enum // MR_CSharp_E2
 ///     `MR::CSharp::G`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_A MR_CSharp_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_B
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_B
 /// Generated from class `MR::CSharp::B`.
 /// Base classes:
 ///   Direct: (non-virtual)
 ///     `MR::CSharp::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_B MR_CSharp_B;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_C
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_C
 /// Generated from class `MR::CSharp::C`.
 /// Base classes:
 ///   Virtual:
 ///     `MR::CSharp::A`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_C MR_CSharp_C;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_D
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_D
 /// Generated from class `MR::CSharp::D`.
 /// Derived classes:
 ///   Direct: (non-virtual)
@@ -110,7 +262,10 @@ typedef struct MR_CSharp_C MR_CSharp_C;
 ///     `MR::CSharp::G`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_D MR_CSharp_D;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_E
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_E
 /// Generated from class `MR::CSharp::E`.
 /// Derived classes:
 ///   Virtual:
@@ -119,7 +274,10 @@ typedef struct MR_CSharp_D MR_CSharp_D;
 ///     `MR::CSharp::F`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_E MR_CSharp_E;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_F
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_F
 /// Generated from class `MR::CSharp::F`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -128,7 +286,10 @@ typedef struct MR_CSharp_E MR_CSharp_E;
 ///     `MR::CSharp::E`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_F MR_CSharp_F;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_G
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_G
 // Even if the secondary bases are virtual, this doesn't affect anything.
 /// Generated from class `MR::CSharp::G`.
 /// Base classes:
@@ -139,37 +300,58 @@ typedef struct MR_CSharp_F MR_CSharp_F;
 ///     `MR::CSharp::D`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_G MR_CSharp_G;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_Trivial
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_Trivial
 /// Generated from class `MR::CSharp::Trivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_Trivial MR_CSharp_Trivial;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TrivialDerived
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TrivialDerived
 /// Generated from class `MR::CSharp::TrivialDerived`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TrivialDerived MR_CSharp_TrivialDerived;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivial
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivial
 /// Generated from class `MR::CSharp::NonTrivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NonTrivial MR_CSharp_NonTrivial;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivialDerived
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivialDerived
 /// Generated from class `MR::CSharp::NonTrivialDerived`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NonTrivialDerived MR_CSharp_NonTrivialDerived;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SA
 /// Generated from class `MR::CSharp::SA`.
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::CSharp::SC`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SA MR_CSharp_SA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SB
 /// Generated from class `MR::CSharp::SB`.
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::CSharp::SC`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SB MR_CSharp_SB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SC
 /// Generated from class `MR::CSharp::SC`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -177,21 +359,30 @@ typedef struct MR_CSharp_SB MR_CSharp_SB;
 ///     `MR::CSharp::SB`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SC MR_CSharp_SC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SD
 /// Generated from class `MR::CSharp::SD`.
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::CSharp::SF`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SD MR_CSharp_SD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SE
 /// Generated from class `MR::CSharp::SE`.
 /// Derived classes:
 ///   Direct: (non-virtual)
 ///     `MR::CSharp::SF`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SE MR_CSharp_SE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SF
 /// Generated from class `MR::CSharp::SF`.
 /// Base classes:
 ///   Direct: (non-virtual)
@@ -199,212 +390,336 @@ typedef struct MR_CSharp_SE MR_CSharp_SE;
 ///     `MR::CSharp::SE`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SF MR_CSharp_SF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_SG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_SG
 // Make sure non-passable classes work fine as `std::shared_ptr` template arguments.
 /// Generated from class `MR::CSharp::SG`.
 typedef struct MR_CSharp_SG MR_CSharp_SG;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_Outer_Inner
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_Outer_Inner
 /// Generated from class `MR::CSharp::Outer::Inner`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_Outer_Inner MR_CSharp_Outer_Inner;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_Outer
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_Outer
 // Nested classes.
 /// Generated from class `MR::CSharp::Outer`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_Outer MR_CSharp_Outer;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestFields
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestFields
 /// Generated from class `MR::CSharp::TestFields`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestFields MR_CSharp_TestFields;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestConstness
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestConstness
 /// Generated from class `MR::CSharp::TestConstness`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestConstness MR_CSharp_TestConstness;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrA
 // This is the happy path.
 // This emits static operators in the const half, and non-static operators (or functions pre C# 14) in the non-const half.
 /// Generated from class `MR::CSharp::IncrDecrA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrA MR_CSharp_IncrDecrA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrB
 // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
 /// Generated from class `MR::CSharp::IncrDecrB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrB MR_CSharp_IncrDecrB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrC
 // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
 // The non-static ones are not marked const, so they're also in the non-const half.
 /// Generated from class `MR::CSharp::IncrDecrC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrC MR_CSharp_IncrDecrC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrD
 // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
 // The non-static ones are in the const half due to being marked const.
 /// Generated from class `MR::CSharp::IncrDecrD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrD MR_CSharp_IncrDecrD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrE
 // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
 /// Generated from class `MR::CSharp::IncrDecrE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrE MR_CSharp_IncrDecrE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrF
 // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
 /// Generated from class `MR::CSharp::IncrDecrF`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrF MR_CSharp_IncrDecrF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrG
 // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
 /// Generated from class `MR::CSharp::IncrDecrG`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrG MR_CSharp_IncrDecrG;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrH
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrH
 // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
 /// Generated from class `MR::CSharp::IncrDecrH`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrH MR_CSharp_IncrDecrH;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrI
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IncrDecrI
 // Friend functions.
 /// Generated from class `MR::CSharp::IncrDecrI`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IncrDecrI MR_CSharp_IncrDecrI;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityA
 // Test equality comparison.
 /// Generated from class `MR::CSharp::EqualityA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_EqualityA MR_CSharp_EqualityA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityB
 // Return type isn't `bool`.
 /// Generated from class `MR::CSharp::EqualityB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_EqualityB MR_CSharp_EqualityB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityC
 // Return type is `void`.
 /// Generated from class `MR::CSharp::EqualityC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_EqualityC MR_CSharp_EqualityC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityD
 // The C# parameter type ends with `?`, and isn't a managed type.
 /// Generated from class `MR::CSharp::EqualityD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_EqualityD MR_CSharp_EqualityD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_EqualityE
 // The C# parameter type ends with `?`, and is a managed type.
 /// Generated from class `MR::CSharp::EqualityE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_EqualityE MR_CSharp_EqualityE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalA
 // The happy path, the operator is const.
 /// Generated from class `MR::CSharp::RelationalA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalA MR_CSharp_RelationalA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalB
 // The happy path, the operator is non-const.
 /// Generated from class `MR::CSharp::RelationalB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalB MR_CSharp_RelationalB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalC
 // The operators have mixed constness, which causes them to be demoted to functions.
 /// Generated from class `MR::CSharp::RelationalC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalC MR_CSharp_RelationalC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalD
 // The operators have operands of different types, causing them to be demoted to functions.
 /// Generated from class `MR::CSharp::RelationalD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalD MR_CSharp_RelationalD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalE
 // The operators have a weird return type.
 /// Generated from class `MR::CSharp::RelationalE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalE MR_CSharp_RelationalE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_RelationalF
 // The operators return void.
 /// Generated from class `MR::CSharp::RelationalF`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_RelationalF MR_CSharp_RelationalF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsA
 // The operator is injected correctly.
 /// Generated from class `MR::CSharp::StaticOpsLhsA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsA MR_CSharp_StaticOpsLhsA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsB
 // The operator injects but becomes a function, because it returns void.
 /// Generated from class `MR::CSharp::StaticOpsLhsB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsB MR_CSharp_StaticOpsLhsB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsC
 // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
 /// Generated from class `MR::CSharp::StaticOpsLhsC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsC MR_CSharp_StaticOpsLhsC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsD
 // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
 /// Generated from class `MR::CSharp::StaticOpsLhsD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsD MR_CSharp_StaticOpsLhsD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsE
 // The class isn't copyable, but the operator takes it by reference, so it injects fine.
 /// Generated from class `MR::CSharp::StaticOpsLhsE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsE MR_CSharp_StaticOpsLhsE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsF
 // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
 /// Generated from class `MR::CSharp::StaticOpsLhsF`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsF MR_CSharp_StaticOpsLhsF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsG
 // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
 /// Generated from class `MR::CSharp::StaticOpsLhsG`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsG MR_CSharp_StaticOpsLhsG;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsH
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsLhsH
 // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
 //   so the operator gets injected into the const half.
 /// Generated from class `MR::CSharp::StaticOpsLhsH`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsLhsH MR_CSharp_StaticOpsLhsH;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsA
 // The operator is injected correctly.
 /// Generated from class `MR::CSharp::StaticOpsRhsA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsA MR_CSharp_StaticOpsRhsA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsB
 // The operator injects but becomes a function, because it returns void.
 /// Generated from class `MR::CSharp::StaticOpsRhsB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsB MR_CSharp_StaticOpsRhsB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsC
 // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
 /// Generated from class `MR::CSharp::StaticOpsRhsC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsC MR_CSharp_StaticOpsRhsC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsD
 // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
 /// Generated from class `MR::CSharp::StaticOpsRhsD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsD MR_CSharp_StaticOpsRhsD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsE
 // The class isn't copyable, but the operator takes it by reference, so it injects fine.
 /// Generated from class `MR::CSharp::StaticOpsRhsE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsE MR_CSharp_StaticOpsRhsE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsF
 // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
 /// Generated from class `MR::CSharp::StaticOpsRhsF`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsF MR_CSharp_StaticOpsRhsF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsG
 // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
 /// Generated from class `MR::CSharp::StaticOpsRhsG`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsG MR_CSharp_StaticOpsRhsG;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsH
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsRhsH
 // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
 //   so the operator gets injected into the const half.
 /// Generated from class `MR::CSharp::StaticOpsRhsH`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy` (for this type it can modify the source object) (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsRhsH MR_CSharp_StaticOpsRhsH;
+#endif
 
 // Other injection cases:
 typedef enum MR_CSharp_StaticOpsEnum
@@ -412,122 +727,202 @@ typedef enum MR_CSharp_StaticOpsEnum
     MR_CSharp_StaticOpsEnum_zero // The original C++ enum has no constants. Since C doesn't support empty enums, this dummy constant was added.
 } MR_CSharp_StaticOpsEnum;
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsMixedLhs
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsMixedLhs
 /// Generated from class `MR::CSharp::StaticOpsMixedLhs`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsMixedLhs MR_CSharp_StaticOpsMixedLhs;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsMixedRhs
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StaticOpsMixedRhs
 /// Generated from class `MR::CSharp::StaticOpsMixedRhs`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StaticOpsMixedRhs MR_CSharp_StaticOpsMixedRhs;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivialClassOps
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NonTrivialClassOps
 // Check how non-trivial class types are passed by value into operators.
 /// Generated from class `MR::CSharp::NonTrivialClassOps`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NonTrivialClassOps MR_CSharp_NonTrivialClassOps;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NonCopyableClassByValueOps
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NonCopyableClassByValueOps
 // The class is non-copyable, so operators with by-value parameters fail to inject.
 /// Generated from class `MR::CSharp::NonCopyableClassByValueOps`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NonCopyableClassByValueOps MR_CSharp_NonCopyableClassByValueOps;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_CallOp
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_CallOp
 // Test the call operator, since it can have an unusual amount of arguments.
 // Not testing `[]` here to be able to run the tests on older C++.
 /// Generated from class `MR::CSharp::CallOp`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_CallOp MR_CSharp_CallOp;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsA
 /// Generated from class `MR::CSharp::TestOpsA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestOpsA MR_CSharp_TestOpsA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsB
 /// Generated from class `MR::CSharp::TestOpsB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestOpsB MR_CSharp_TestOpsB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestOpsC
 /// Generated from class `MR::CSharp::TestOpsC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestOpsC MR_CSharp_TestOpsC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerA
 // Subscription operator.
 /// Generated from class `MR::CSharp::IndexerA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IndexerA MR_CSharp_IndexerA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerB
 /// Generated from class `MR::CSharp::IndexerB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IndexerB MR_CSharp_IndexerB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IndexerC
 /// Generated from class `MR::CSharp::IndexerC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IndexerC MR_CSharp_IndexerC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvOp
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvOp
 // Conversion operators. We preserve explicit-ness.
 /// Generated from class `MR::CSharp::ConvOp`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvOp MR_CSharp_ConvOp;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvOpToRef
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvOpToRef
 // Conversion operators to references.
 /// Generated from class `MR::CSharp::ConvOpToRef`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvOpToRef MR_CSharp_ConvOpToRef;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvString
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvString
 // Conversions to string-like types.
 // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
 /// Generated from class `MR::CSharp::StringConvString`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StringConvString MR_CSharp_StringConvString;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvStringView
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvStringView
 /// Generated from class `MR::CSharp::StringConvStringView`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StringConvStringView MR_CSharp_StringConvStringView;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvFsPath
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_StringConvFsPath
 /// Generated from class `MR::CSharp::StringConvFsPath`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_StringConvFsPath MR_CSharp_StringConvFsPath;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtor
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtor
 // Conversion constructors. Right now we only provide conversion operators for implicit ones,
 //   because I have no idea when the explicit ones could be useful.
 /// Generated from class `MR::CSharp::ConvCtor`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtor MR_CSharp_ConvCtor;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorWithDefArg
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorWithDefArg
 // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
 /// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorWithDefArg MR_CSharp_ConvCtorWithDefArg;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorNonTrivialRestricted
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorNonTrivialRestricted
 // A non-trivial move-only class with a converting ctor.
 // Here we test that our converting constructors injected into `_ByValue_...` don't attempt to copy the class.
 /// Generated from class `MR::CSharp::ConvCtorNonTrivialRestricted`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorNonTrivialRestricted MR_CSharp_ConvCtorNonTrivialRestricted;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorExposed
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorExposed
+// A converting ctor in an exposed struct.
+/// Generated from class `MR::CSharp::ConvCtorExposed`.
+typedef struct MR_CSharp_ConvCtorExposed MR_CSharp_ConvCtorExposed;
+#endif
 
 // A converting ctor in an exposed struct.
 /// Generated from class `MR::CSharp::ConvCtorExposed`.
-typedef struct MR_CSharp_ConvCtorExposed
+struct MR_CSharp_ConvCtorExposed
 {
     int x;
-} MR_CSharp_ConvCtorExposed;
+};
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorCopyButNoMove
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorCopyButNoMove
 // A sad class that's copyable but not movable.
 // This can often happen if you have a user-provided destructor.
 /// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorCopyButNoMove MR_CSharp_ConvCtorCopyButNoMove;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorTrivial
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorTrivial
 // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 /// Generated from class `MR::CSharp::ConvCtorTrivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorTrivial MR_CSharp_ConvCtorTrivial;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorNonTrivial
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConvCtorNonTrivial
 // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
 /// Generated from class `MR::CSharp::ConvCtorNonTrivial`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ConvCtorNonTrivial MR_CSharp_ConvCtorNonTrivial;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
+// Exposed structs:
+/// Generated from class `MR::CSharp::ExposedLayout`.
+typedef struct MR_CSharp_ExposedLayout MR_CSharp_ExposedLayout;
+#endif
 
 // Exposed structs:
 /// Generated from class `MR::CSharp::ExposedLayout`.
-typedef struct MR_CSharp_ExposedLayout
+struct MR_CSharp_ExposedLayout
 {
     unsigned short x;
 
@@ -537,11 +932,18 @@ typedef struct MR_CSharp_ExposedLayout
     int arr[3];
     bool b;
     bool ba[4][5];
-} MR_CSharp_ExposedLayout;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutSh
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutSh
+// This one is backed by a shared pointer.
+/// Generated from class `MR::CSharp::ExposedLayoutSh`.
+typedef struct MR_CSharp_ExposedLayoutSh MR_CSharp_ExposedLayoutSh;
+#endif
 
 // This one is backed by a shared pointer.
 /// Generated from class `MR::CSharp::ExposedLayoutSh`.
-typedef struct MR_CSharp_ExposedLayoutSh
+struct MR_CSharp_ExposedLayoutSh
 {
     unsigned short x;
 
@@ -551,170 +953,286 @@ typedef struct MR_CSharp_ExposedLayoutSh
     int arr[3];
     bool b;
     bool ba[4][5];
-} MR_CSharp_ExposedLayoutSh;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutB
+/// Generated from class `MR::CSharp::ExposedLayoutB`.
+typedef struct MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB;
+#endif
 
 /// Generated from class `MR::CSharp::ExposedLayoutB`.
-typedef struct MR_CSharp_ExposedLayoutB
+struct MR_CSharp_ExposedLayoutB
 {
     int x;
-} MR_CSharp_ExposedLayoutB;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayoutC
+// Just a simple exposed struct to test other things.
+/// Generated from class `MR::CSharp::ExposedLayoutC`.
+typedef struct MR_CSharp_ExposedLayoutC MR_CSharp_ExposedLayoutC;
+#endif
 
 // Just a simple exposed struct to test other things.
 /// Generated from class `MR::CSharp::ExposedLayoutC`.
-typedef struct MR_CSharp_ExposedLayoutC
+struct MR_CSharp_ExposedLayoutC
 {
     int x;
-} MR_CSharp_ExposedLayoutC;
+};
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ArrayMembers
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ArrayMembers
 // Test various array members.
 /// Generated from class `MR::CSharp::ArrayMembers`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ArrayMembers MR_CSharp_ArrayMembers;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflicts_A
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflicts_A
 /// Generated from class `MR::CSharp::NameConflicts::A`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NameConflicts_A MR_CSharp_NameConflicts_A;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflicts
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflicts
 // Members having the same name as the exposed class, after rewriting.
 /// Generated from class `MR::CSharp::NameConflicts`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_NameConflicts MR_CSharp_NameConflicts;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflictsExposed_A
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflictsExposed_A
+/// Generated from class `MR::CSharp::NameConflictsExposed::A`.
+typedef struct MR_CSharp_NameConflictsExposed_A MR_CSharp_NameConflictsExposed_A;
+#endif
 
 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
-typedef struct MR_CSharp_NameConflictsExposed_A
+struct MR_CSharp_NameConflictsExposed_A
 {
     int x;
-} MR_CSharp_NameConflictsExposed_A;
+};
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflictsExposed
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_NameConflictsExposed
+/// Generated from class `MR::CSharp::NameConflictsExposed`.
+typedef struct MR_CSharp_NameConflictsExposed MR_CSharp_NameConflictsExposed;
+#endif
 
 /// Generated from class `MR::CSharp::NameConflictsExposed`.
-typedef struct MR_CSharp_NameConflictsExposed
+struct MR_CSharp_NameConflictsExposed
 {
     int name_conflicts_exposed;
     MR_CSharp_NameConflictsExposed_A a;
-} MR_CSharp_NameConflictsExposed;
+};
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_AmbiguousTemplates
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_AmbiguousTemplates
 /// Generated from class `MR::CSharp::AmbiguousTemplates`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_AmbiguousTemplates MR_CSharp_AmbiguousTemplates;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ConstNonconstConflicts
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ConstNonconstConflicts
+// Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+/// Generated from class `MR::CSharp::ConstNonconstConflicts`.
+typedef struct MR_CSharp_ConstNonconstConflicts MR_CSharp_ConstNonconstConflicts;
+#endif
 
 // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
 /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
-typedef struct MR_CSharp_ConstNonconstConflicts
+struct MR_CSharp_ConstNonconstConflicts
 {
     int x;
-} MR_CSharp_ConstNonconstConflicts;
+};
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersClass
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersClass
 // Class fields of pointer types:
 /// Generated from class `MR::CSharp::ClassMemberPointersClass`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ClassMemberPointersClass MR_CSharp_ClassMemberPointersClass;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersExposed
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersExposed
 /// Generated from class `MR::CSharp::ClassMemberPointersExposed`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ClassMemberPointersExposed MR_CSharp_ClassMemberPointersExposed;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersUshort
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersUshort
 /// Generated from class `MR::CSharp::ClassMemberPointersUshort`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ClassMemberPointersUshort MR_CSharp_ClassMemberPointersUshort;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersBool
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ClassMemberPointersBool
 /// Generated from class `MR::CSharp::ClassMemberPointersBool`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ClassMemberPointersBool MR_CSharp_ClassMemberPointersBool;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesA
 // Keep-alive sorcery:
 /// Generated from class `MR::CSharp::LifetimesA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesA MR_CSharp_LifetimesA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesB
 /// Generated from class `MR::CSharp::LifetimesB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesB MR_CSharp_LifetimesB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesC
 /// Generated from class `MR::CSharp::LifetimesC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesC MR_CSharp_LifetimesC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesD
 /// Generated from class `MR::CSharp::LifetimesD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesD MR_CSharp_LifetimesD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_LifetimesE
 // Nested attributes.
 /// Generated from class `MR::CSharp::LifetimesE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesE MR_CSharp_LifetimesE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableA
 // Const member functions.
 /// Generated from class `MR::CSharp::IterableA`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableA MR_CSharp_IterableA;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableB
 // Mutable member functions.
 /// Generated from class `MR::CSharp::IterableB`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableB MR_CSharp_IterableB;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableC
 // Both const and mutable member functions.
 /// Generated from class `MR::CSharp::IterableC`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableC MR_CSharp_IterableC;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableD
 // Const free functions.
 /// Generated from class `MR::CSharp::IterableD`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableD MR_CSharp_IterableD;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableE
 // Mutable free functions.
 /// Generated from class `MR::CSharp::IterableE`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableE MR_CSharp_IterableE;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableF
 // Both const and mutable free functions.
 /// Generated from class `MR::CSharp::IterableF`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableF MR_CSharp_IterableF;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableG
 // Returning mutable class instances.
 /// Generated from class `MR::CSharp::IterableG`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableG MR_CSharp_IterableG;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableH
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableH
 // Returning const class instances.
 /// Generated from class `MR::CSharp::IterableH`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableH MR_CSharp_IterableH;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableI
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableI
 // Returning mutable exposed struct instances.
 /// Generated from class `MR::CSharp::IterableI`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableI MR_CSharp_IterableI;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableJ
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableJ
 // Returning const exposed struct instances.
 /// Generated from class `MR::CSharp::IterableJ`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableJ MR_CSharp_IterableJ;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK_Sentinel
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK_Sentinel
 /// Generated from class `MR::CSharp::IterableK::Sentinel`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableK_Sentinel MR_CSharp_IterableK_Sentinel;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK_Iter
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK_Iter
 /// Generated from class `MR::CSharp::IterableK::Iter`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableK_Iter MR_CSharp_IterableK_Iter;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableK
 // The sentinel having a different type.
 /// Generated from class `MR::CSharp::IterableK`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableK MR_CSharp_IterableK;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableL_int
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_IterableL_int
 // Templated free functions.
 /// Generated from class `MR::CSharp::IterableL<int>`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableL_int MR_CSharp_IterableL_int;
+#endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_TestStdFunction
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_TestStdFunction
 // Test `std::function`.
 /// Generated from class `MR::CSharp::TestStdFunction`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestStdFunction MR_CSharp_TestStdFunction;
+#endif
 
 /// Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);

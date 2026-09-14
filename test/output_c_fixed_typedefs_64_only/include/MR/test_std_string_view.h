@@ -6,7 +6,10 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_string_view
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_string_view
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
+#endif
 
 
 /// Generated from function `MR::StdStringView::Set`.

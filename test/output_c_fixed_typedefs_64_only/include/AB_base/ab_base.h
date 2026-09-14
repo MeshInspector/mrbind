@@ -9,9 +9,14 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CommonBaseAB
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_shared_ptr_MR_CommonBaseAB
 typedef struct MR_C_std_shared_ptr_MR_CommonBaseAB MR_C_std_shared_ptr_MR_CommonBaseAB; // Defined in `#include <std_shared_ptr_MR_CommonBaseAB.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
+#define MR_C_DETAIL_TYPEDEF_MR_CommonBaseAB
 /// Generated from class `MR::CommonBaseAB`.
 /// Derived classes:
 ///   Direct: (non-virtual)
@@ -19,6 +24,7 @@ typedef struct MR_C_std_shared_ptr_MR_CommonBaseAB MR_C_std_shared_ptr_MR_Common
 ///     `MR::SeparateB`
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CommonBaseAB MR_CommonBaseAB;
+#endif
 
 /// Generated from constructor `MR::CommonBaseAB::CommonBaseAB`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.

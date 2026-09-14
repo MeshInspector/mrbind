@@ -8,12 +8,18 @@
 extern "C" {
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ExposedLayout
 typedef struct MR_CSharp_ExposedLayout MR_CSharp_ExposedLayout; // Defined in `#include <MR/test_csharp.h>`.
+#endif
 
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref
+#define MR_C_DETAIL_TYPEDEF_MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref
 /// Stores 2 objects: `MR::CSharp::ExposedLayout &`, `const MR::CSharp::ExposedLayout &`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref;
+#endif
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref`. Does nothing if the pointer is null.
 MR_C_API void MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy(const MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *_this);
