@@ -124,6 +124,11 @@ namespace mrbind::CSharp
         {
             cppdecl::UnqualifiedName name; // The internal name, this isn't emitted.
             std::string close_string; // This will be used to close the scope.
+            bool is_class = false; // Whether this scope can hold members, as opposed to being a member body or a block.
+
+            // `DllImport` declarations hoisted out of the bodies of this class's members, keyed by their C# name.
+            // Written just before the closing brace, see `PopScope()`.
+            std::map<std::string, std::string> hoisted_dllimports;
         };
 
         // The current class and namespace stack. This is based on the assumption that
@@ -143,10 +148,21 @@ namespace mrbind::CSharp
         // Writes `}` and pops one scope from `current_scope`.
         void PopScope();
 
+        // Queues a `DllImport` declaration to be written at the end of the innermost class scope, rather than
+        //   inside the member body we're currently writing. Returns false if there is no enclosing class, or if a
+        //   different declaration is already queued under this name; then the caller must emit it inline instead.
+        // This shrinks the assembly: as a local function an import gets a mangled `<Member>g__Name|N_M` metadata
+        //   name (which, unlike a plain one, can't share its tail with the `EntryPoint` string) plus a
+        //   `CompilerGenerated` attribute, and the same import used by several members is emitted once.
+        [[nodiscard]] bool HoistDllImport(std::string_view csharp_name, std::string_view decl);
+
+        // `HoistDllImport()`, falling back to writing the declaration where we stand.
+        void WriteDllImport(std::string_view csharp_name, std::string_view decl);
+
         // Writes `code_header` to the file and pushes one scope called `cpp_name` to `current_scope`. Will eventually write `close_scope` to close this scope.
         // `open_scope` and `close_scope` should have trailing newlines.
         // You can pass an empty `cpp_name` for temporary scopes.
-        void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope);
+        void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope, bool is_class = false);
 
         void PushScope() {PushScope({}, "{\n", "}\n");}
 
