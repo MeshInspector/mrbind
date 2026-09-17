@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_LifetimeInference_A_Destroy(_Underlying *_this);
                     __MR_LifetimeInference_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -28,8 +26,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_Get_x", ExactSpelling = true)]
-                        extern static int *__MR_LifetimeInference_A_Get_x(_Underlying *_this);
                         return *__MR_LifetimeInference_A_Get_x(_UnderlyingPtr);
                     }
                 }
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -49,8 +43,6 @@ public static partial class MR
                 /// Constructs `MR::LifetimeInference::A` elementwise.
                 public unsafe Const_A(int x) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFrom(int x);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFrom(x);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -59,8 +51,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::A::A`.
                 public unsafe Const_A(MR.CS.LifetimeInference.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFromAnother(MR.CS.LifetimeInference.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -69,6 +59,23 @@ public static partial class MR
 
                 /// Generated from constructor `MR::LifetimeInference::A::A`.
                 public Const_A(A _other) : this((Const_A)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFromAnother(MR.CS.LifetimeInference.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_LifetimeInference_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_Get_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_A_Get_x(_Underlying *_this);
             }
 
             /// Generated from class `MR::LifetimeInference::A`.
@@ -143,8 +150,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_LifetimeInference_A_GetMutable_x(_Underlying *_this);
                         return ref *__MR_LifetimeInference_A_GetMutable_x(_UnderlyingPtr);
                     }
                 }
@@ -154,8 +159,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -164,8 +167,6 @@ public static partial class MR
                 /// Constructs `MR::LifetimeInference::A` elementwise.
                 public unsafe A(int x) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFrom(int x);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFrom(x);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -174,8 +175,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::A::A`.
                 public unsafe A(MR.CS.LifetimeInference.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFromAnother(MR.CS.LifetimeInference.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -188,8 +187,6 @@ public static partial class MR
                 /// Generated from method `MR::LifetimeInference::A::operator=`.
                 public unsafe MR.CS.LifetimeInference.A Assign(MR.CS.LifetimeInference.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_LifetimeInference_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -201,8 +198,6 @@ public static partial class MR
                 /// Generated from method `MR::LifetimeInference::A::begin`.
                 public unsafe MR.CS.PtrInt Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_begin", ExactSpelling = true)]
-                    extern static int *__MR_LifetimeInference_A_begin(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_LifetimeInference_A_begin(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -212,13 +207,34 @@ public static partial class MR
                 /// Generated from method `MR::LifetimeInference::A::end`.
                 public unsafe MR.CS.PtrInt End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_end", ExactSpelling = true)]
-                    extern static int *__MR_LifetimeInference_A_end(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_LifetimeInference_A_end(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFromAnother(MR.CS.LifetimeInference.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_GetMutable_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_A_GetMutable_x(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_begin", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_A_begin(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_end", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_A_end(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -263,8 +279,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_LifetimeInference_B_Destroy(_Underlying *_this);
                     __MR_LifetimeInference_B_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -275,8 +289,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_Get_x", ExactSpelling = true)]
-                        extern static int *__MR_LifetimeInference_B_Get_x(_Underlying *_this);
                         return *__MR_LifetimeInference_B_Get_x(_UnderlyingPtr);
                     }
                 }
@@ -286,8 +298,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -296,8 +306,6 @@ public static partial class MR
                 /// Constructs `MR::LifetimeInference::B` elementwise.
                 public unsafe Const_B(int x) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFrom(int x);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFrom(x);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -306,8 +314,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::B::B`.
                 public unsafe Const_B(MR.CS.LifetimeInference.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFromAnother(MR.CS.LifetimeInference.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -316,6 +322,23 @@ public static partial class MR
 
                 /// Generated from constructor `MR::LifetimeInference::B::B`.
                 public Const_B(B _other) : this((Const_B)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFromAnother(MR.CS.LifetimeInference.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_LifetimeInference_B_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_Get_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_B_Get_x(_Underlying *_this);
             }
 
             /// Generated from class `MR::LifetimeInference::B`.
@@ -390,8 +413,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_LifetimeInference_B_GetMutable_x(_Underlying *_this);
                         return ref *__MR_LifetimeInference_B_GetMutable_x(_UnderlyingPtr);
                     }
                 }
@@ -401,8 +422,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -411,8 +430,6 @@ public static partial class MR
                 /// Constructs `MR::LifetimeInference::B` elementwise.
                 public unsafe B(int x) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFrom(int x);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFrom(x);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -421,8 +438,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::B::B`.
                 public unsafe B(MR.CS.LifetimeInference.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFromAnother(MR.CS.LifetimeInference.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -435,8 +450,6 @@ public static partial class MR
                 /// Generated from method `MR::LifetimeInference::B::operator=`.
                 public unsafe MR.CS.LifetimeInference.B Assign(MR.CS.LifetimeInference.Const_B _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_LifetimeInference_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -444,6 +457,23 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFromAnother(MR.CS.LifetimeInference.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_GetMutable_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_LifetimeInference_B_GetMutable_x(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `B` with default arguments.
@@ -488,8 +518,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Destroy", ExactSpelling = true)]
-                    extern static void __MR_LifetimeInference_C_Destroy(_Underlying *_this);
                     __MR_LifetimeInference_C_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -501,8 +529,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe Const_C(MR.CS.LifetimeInference.Const_C _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_ConstructFromAnother(MR.CS.LifetimeInference.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -515,8 +541,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe Const_C(MR.CS.LifetimeInference.A _1, ref int _2, int _3) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Construct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_Construct(MR.CS.LifetimeInference.A._Underlying *_1, int *_2, int _3);
                     fixed (int *__ptr__2 = &_2)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -525,6 +549,17 @@ public static partial class MR
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_Construct(MR.CS.LifetimeInference.A._Underlying *_1, int *_2, int _3);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_ConstructFromAnother(MR.CS.LifetimeInference.C._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_LifetimeInference_C_Destroy(_Underlying *_this);
             }
 
             /// Generated from class `MR::LifetimeInference::C`.
@@ -536,8 +571,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe C(MR.CS.LifetimeInference.Const_C _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_ConstructFromAnother(MR.CS.LifetimeInference.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_LifetimeInference_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -550,8 +583,6 @@ public static partial class MR
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe C(MR.CS.LifetimeInference.A _1, ref int _2, int _3) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Construct", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_Construct(MR.CS.LifetimeInference.A._Underlying *_1, int *_2, int _3);
                     fixed (int *__ptr__2 = &_2)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -564,8 +595,6 @@ public static partial class MR
                 /// Generated from method `MR::LifetimeInference::C::operator=`.
                 public unsafe MR.CS.LifetimeInference.C Assign(MR.CS.LifetimeInference.Const_C _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_LifetimeInference_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -573,6 +602,17 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_AssignFromAnother(_Underlying *_this, MR.CS.LifetimeInference.C._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_Construct(MR.CS.LifetimeInference.A._Underlying *_1, int *_2, int _3);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.LifetimeInference.C._Underlying *__MR_LifetimeInference_C_ConstructFromAnother(MR.CS.LifetimeInference.C._Underlying *_other);
             }
 
             /// This is used for optional parameters of class `C` with default arguments.
@@ -608,8 +648,6 @@ public static partial class MR
             /// Generated from function `MR::LifetimeInference::begin`.
             public static unsafe MR.CS.PtrInt Begin(MR.CS.LifetimeInference.A a)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_A", ExactSpelling = true)]
-                extern static int *__MR_LifetimeInference_begin_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_LifetimeInference_begin_MR_LifetimeInference_A(a._UnderlyingPtr);
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -619,8 +657,6 @@ public static partial class MR
             /// Generated from function `MR::LifetimeInference::end`.
             public static unsafe MR.CS.PtrInt End(MR.CS.LifetimeInference.A a)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_A", ExactSpelling = true)]
-                extern static int *__MR_LifetimeInference_end_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_LifetimeInference_end_MR_LifetimeInference_A(a._UnderlyingPtr);
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -630,8 +666,6 @@ public static partial class MR
             /// Generated from function `MR::LifetimeInference::begin`.
             public static unsafe MR.CS.PtrInt Begin(MR.CS.LifetimeInference.B b)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_B", ExactSpelling = true)]
-                extern static int *__MR_LifetimeInference_begin_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_LifetimeInference_begin_MR_LifetimeInference_B(b._UnderlyingPtr);
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -641,13 +675,25 @@ public static partial class MR
             /// Generated from function `MR::LifetimeInference::end`.
             public static unsafe MR.CS.PtrInt End(MR.CS.LifetimeInference.B b)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_B", ExactSpelling = true)]
-                extern static int *__MR_LifetimeInference_end_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_LifetimeInference_end_MR_LifetimeInference_B(b._UnderlyingPtr);
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return new(__c_ret);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_A", ExactSpelling = true)]
+            extern static unsafe int *__MR_LifetimeInference_begin_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_B", ExactSpelling = true)]
+            extern static unsafe int *__MR_LifetimeInference_begin_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_A", ExactSpelling = true)]
+            extern static unsafe int *__MR_LifetimeInference_end_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_B", ExactSpelling = true)]
+            extern static unsafe int *__MR_LifetimeInference_end_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
         }
     }
 }

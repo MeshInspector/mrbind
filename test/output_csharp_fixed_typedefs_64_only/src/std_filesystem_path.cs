@@ -21,7 +21,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_filesystem_path_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_filesystem_path_Destroy(_Underlying *_this);
                         __MR_C_std_filesystem_path_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -36,7 +36,7 @@ public static partial class MR
                     public unsafe Const_Path() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_DefaultConstruct();
                     }
 
@@ -46,7 +46,7 @@ public static partial class MR
                     public unsafe Const_Path(MR.CS.Std.Filesystem._ByValue_Path other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                         if (other.Value is not null) _KeepAlive(other.Value);
                     }
@@ -67,7 +67,7 @@ public static partial class MR
                     public unsafe Const_Path(ReadOnlySpan<char> other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFrom", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
                         byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                         int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                         fixed (byte *__ptr_other = __bytes_other)
@@ -88,7 +88,7 @@ public static partial class MR
                     public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> string_()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_string", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_string(_Underlying *_this);
+                        extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_string(_Underlying *_this);
                         return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_filesystem_path_string(_UnderlyingPtr), is_owning: true));
                     }
 
@@ -115,7 +115,7 @@ public static partial class MR
                     public unsafe Path() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_DefaultConstruct();
                     }
 
@@ -125,7 +125,7 @@ public static partial class MR
                     public unsafe Path(MR.CS.Std.Filesystem._ByValue_Path other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                         if (other.Value is not null) _KeepAlive(other.Value);
                     }
@@ -146,7 +146,7 @@ public static partial class MR
                     public unsafe Path(ReadOnlySpan<char> other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFrom", ExactSpelling = true)]
-                        extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
+                        extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFrom(byte *other, byte *other_end);
                         byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                         int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                         fixed (byte *__ptr_other = __bytes_other)
@@ -167,7 +167,7 @@ public static partial class MR
                     public unsafe void assign(MR.CS.Std.Filesystem._ByValue_Path other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_filesystem_path_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        extern static unsafe void __MR_C_std_filesystem_path_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
                         _DiscardKeepAlive();
                         if (other.Value is not null) _KeepAlive(other.Value);
                         __MR_C_std_filesystem_path_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -179,7 +179,7 @@ public static partial class MR
                     public unsafe void assign(ReadOnlySpan<char> other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFrom", ExactSpelling = true)]
-                        extern static void __MR_C_std_filesystem_path_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+                        extern static unsafe void __MR_C_std_filesystem_path_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
                         byte[] __bytes_other = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(other.Length)];
                         int __len_other = System.Text.Encoding.UTF8.GetBytes(other, __bytes_other);
                         fixed (byte *__ptr_other = __bytes_other)

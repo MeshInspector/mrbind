@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy(_Underlying *_this);
                     __MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Expected_MRCSharpNonTrivial_Float() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Expected_MRCSharpNonTrivial_Float(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -56,8 +50,6 @@ public static partial class MR
                 /// Returns true if this instance represents success, or false if it represents an error.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_success", ExactSpelling = true)]
-                    extern static byte __MR_C_std_expected_MR_CSharp_NonTrivial_float_success(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_success(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -67,8 +59,6 @@ public static partial class MR
                 /// If this instance represents success, returns the stored `MR::CSharp::NonTrivial`. Otherwise null.
                 public unsafe MR.CS.CSharp.Const_NonTrivial? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_value(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_NonTrivial? __ret;
@@ -81,13 +71,31 @@ public static partial class MR
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
                 public unsafe float? Error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_error", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_error(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_error(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_expected_MR_CSharp_NonTrivial_float_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_error", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_error(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_success", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_expected_MR_CSharp_NonTrivial_float_success(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_value", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_value(_Underlying *_this);
             }
 
             /// Stores either a `MR::CSharp::NonTrivial` that represents success or a `float` that represents an error.
@@ -99,8 +107,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Expected_MRCSharpNonTrivial_Float() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -109,8 +115,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Expected_MRCSharpNonTrivial_Float(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -126,8 +130,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -138,8 +140,6 @@ public static partial class MR
                 /// If this instance represents success, returns the stored `MR::CSharp::NonTrivial`. Otherwise null. This version returns a mutable pointer.
                 public unsafe new MR.CS.CSharp.NonTrivial? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_value_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.NonTrivial? __ret;
@@ -152,13 +152,28 @@ public static partial class MR
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
                 public unsafe new MR.CS.Misc.Ref<float>? Error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_error_mut", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_error_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_error_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_error_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_error_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_value_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_value_mut(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `Expected_MRCSharpNonTrivial_Float` by value.

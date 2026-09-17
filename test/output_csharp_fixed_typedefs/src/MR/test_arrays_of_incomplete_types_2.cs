@@ -14,10 +14,13 @@ public static partial class MR
             /// </summary>
             public static unsafe void bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncompleteArrayElemType_bar", ExactSpelling = true)]
-                extern static void __MR_IncompleteArrayElemType_bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1);
                 __MR_IncompleteArrayElemType_bar(_1);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncompleteArrayElemType_bar", ExactSpelling = true)]
+            extern static unsafe void __MR_IncompleteArrayElemType_bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1);
         }
     }
 }

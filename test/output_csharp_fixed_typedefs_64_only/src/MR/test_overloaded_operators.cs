@@ -20,7 +20,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_OverloadedOps_A_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_OverloadedOps_A_Destroy(_Underlying *_this);
                     __MR_OverloadedOps_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -36,7 +36,7 @@ public static partial class MR
                 public unsafe Const_A(MR.CS.OverloadedOps.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -54,7 +54,7 @@ public static partial class MR
                 public static unsafe A operator++(MR.CS.OverloadedOps.Const_A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_incr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
+                    extern static unsafe int __MR_C_incr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
                     A __this_copy = new(_this);
                     int __ret = __MR_C_incr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
                     return __this_copy;
@@ -67,7 +67,7 @@ public static partial class MR
                 public static unsafe A operator--(MR.CS.OverloadedOps.Const_A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_decr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
+                    extern static unsafe int __MR_C_decr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
                     A __this_copy = new(_this);
                     int __ret = __MR_C_decr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
                     return __this_copy;
@@ -90,7 +90,7 @@ public static partial class MR
                 public unsafe A(MR.CS.OverloadedOps.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -108,7 +108,7 @@ public static partial class MR
                 public unsafe int assign(MR.CS.OverloadedOps.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_other);
+                    extern static unsafe int __MR_OverloadedOps_A_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return __MR_OverloadedOps_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
@@ -121,7 +121,7 @@ public static partial class MR
                 public static unsafe int operator+(MR.CS.OverloadedOps.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_pos_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
+                    extern static unsafe int __MR_C_pos_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
                     return __MR_C_pos_MR_OverloadedOps_A(_this._UnderlyingPtr);
                 }
 
@@ -132,7 +132,7 @@ public static partial class MR
                 public static unsafe int operator+(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_add_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_add_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_add_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -143,7 +143,7 @@ public static partial class MR
                 public static unsafe int operator-(MR.CS.OverloadedOps.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_neg_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
+                    extern static unsafe int __MR_C_neg_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
                     return __MR_C_neg_MR_OverloadedOps_A(_this._UnderlyingPtr);
                 }
 
@@ -154,7 +154,7 @@ public static partial class MR
                 public static unsafe int operator-(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_sub_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_sub_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_sub_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -165,7 +165,7 @@ public static partial class MR
                 public unsafe int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_deref_MR_OverloadedOps_A(_Underlying *_this);
+                    extern static unsafe int __MR_C_deref_MR_OverloadedOps_A(_Underlying *_this);
                     return __MR_C_deref_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
@@ -176,7 +176,7 @@ public static partial class MR
                 public static unsafe int operator*(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_mul_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_mul_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_mul_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -187,7 +187,7 @@ public static partial class MR
                 public static unsafe int operator/(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_div_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_div_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_div_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -198,7 +198,7 @@ public static partial class MR
                 public static unsafe int operator%(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_mod_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_mod_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_mod_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -209,7 +209,7 @@ public static partial class MR
                 public static unsafe int operator^(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_xor_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_xor_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_xor_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -220,7 +220,7 @@ public static partial class MR
                 public static unsafe int operator&(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_bitand_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_bitand_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_bitand_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -231,7 +231,7 @@ public static partial class MR
                 public static unsafe int operator|(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_bitor_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_bitor_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_bitor_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -242,7 +242,7 @@ public static partial class MR
                 public static unsafe int operator~(MR.CS.OverloadedOps.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_compl_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
+                    extern static unsafe int __MR_C_compl_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
                     return __MR_C_compl_MR_OverloadedOps_A(_this._UnderlyingPtr);
                 }
 
@@ -253,7 +253,7 @@ public static partial class MR
                 public static unsafe int operator!(MR.CS.OverloadedOps.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_not_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
+                    extern static unsafe int __MR_C_not_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this);
                     return __MR_C_not_MR_OverloadedOps_A(_this._UnderlyingPtr);
                 }
 
@@ -264,7 +264,7 @@ public static partial class MR
                 public unsafe int less(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_less_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_less_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_less_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -275,7 +275,7 @@ public static partial class MR
                 public unsafe int greater(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_greater_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_greater_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_greater_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -286,7 +286,7 @@ public static partial class MR
                 public unsafe int addAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_add_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_add_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_add_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_add_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -297,7 +297,7 @@ public static partial class MR
                 public unsafe int subAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_sub_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_sub_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_sub_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_sub_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -308,7 +308,7 @@ public static partial class MR
                 public unsafe int mulAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_mul_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_mul_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_mul_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_mul_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -319,7 +319,7 @@ public static partial class MR
                 public unsafe int divAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_div_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_div_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_div_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_div_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -330,7 +330,7 @@ public static partial class MR
                 public unsafe int modAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_mod_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_mod_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_mod_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_mod_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -341,7 +341,7 @@ public static partial class MR
                 public unsafe int xorAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_xor_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_xor_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_xor_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_xor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -352,7 +352,7 @@ public static partial class MR
                 public unsafe int bitandAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_bitand_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_bitand_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_bitand_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_bitand_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -363,7 +363,7 @@ public static partial class MR
                 public unsafe int bitorAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_bitor_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_bitor_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_bitor_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_bitor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -374,7 +374,7 @@ public static partial class MR
                 public static unsafe int operator<<(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_lshift_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_lshift_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_lshift_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -385,7 +385,7 @@ public static partial class MR
                 public static unsafe int operator>>(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_rshift_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_rshift_MR_OverloadedOps_A(MR.CS.OverloadedOps.A._Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_rshift_MR_OverloadedOps_A(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -396,7 +396,7 @@ public static partial class MR
                 public unsafe int lshiftAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_lshift_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_lshift_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_lshift_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_lshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -407,7 +407,7 @@ public static partial class MR
                 public unsafe int rshiftAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_rshift_assign", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_rshift_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_rshift_assign(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_rshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -418,7 +418,7 @@ public static partial class MR
                 public unsafe int equal(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_equal_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -429,7 +429,7 @@ public static partial class MR
                 public unsafe int notEqual(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_equal_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_not_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_not_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_not_equal_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -440,7 +440,7 @@ public static partial class MR
                 public unsafe int lessEqual(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_less_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_less_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_less_equal_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -451,7 +451,7 @@ public static partial class MR
                 public unsafe int greaterEqual(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_greater_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_greater_equal_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_greater_equal_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -462,7 +462,7 @@ public static partial class MR
                 public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_compare_three_way_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_compare_three_way_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -473,7 +473,7 @@ public static partial class MR
                 public unsafe int and(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_and_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_and_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_and_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -484,7 +484,7 @@ public static partial class MR
                 public unsafe int or(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_or_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_or_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_or_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -495,7 +495,7 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_incr_MR_OverloadedOps_A(_Underlying *_this);
+                    extern static unsafe int __MR_C_incr_MR_OverloadedOps_A(_Underlying *_this);
                     int __ret = __MR_C_incr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
@@ -506,7 +506,7 @@ public static partial class MR
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_decr_MR_OverloadedOps_A(_Underlying *_this);
+                    extern static unsafe int __MR_C_decr_MR_OverloadedOps_A(_Underlying *_this);
                     int __ret = __MR_C_decr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
@@ -517,7 +517,7 @@ public static partial class MR
                 public unsafe int comma(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_OverloadedOps_A", ExactSpelling = true)]
-                    extern static int __MR_C_comma_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_C_comma_MR_OverloadedOps_A(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_C_comma_MR_OverloadedOps_A(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -528,7 +528,7 @@ public static partial class MR
                 public unsafe int arrowStar(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_arrow_star", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_arrow_star(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_arrow_star(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_arrow_star(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -539,7 +539,7 @@ public static partial class MR
                 public unsafe int arrow()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_arrow", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_arrow(_Underlying *_this);
+                    extern static unsafe int __MR_OverloadedOps_A_arrow(_Underlying *_this);
                     return __MR_OverloadedOps_A_arrow(_UnderlyingPtr);
                 }
 
@@ -550,7 +550,7 @@ public static partial class MR
                 public unsafe int call(MR.CS.OverloadedOps.Const_A _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_call", ExactSpelling = true)]
-                    extern static int __MR_OverloadedOps_A_call(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                    extern static unsafe int __MR_OverloadedOps_A_call(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                     return __MR_OverloadedOps_A_call(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
@@ -563,7 +563,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_index", ExactSpelling = true)]
-                        extern static int __MR_OverloadedOps_A_index(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
+                        extern static unsafe int __MR_OverloadedOps_A_index(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_1);
                         return __MR_OverloadedOps_A_index(_UnderlyingPtr, _1._UnderlyingPtr);
                     }
                 }
@@ -619,7 +619,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_OverloadedOps_B_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_OverloadedOps_B_Destroy(_Underlying *_this);
                     __MR_OverloadedOps_B_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -634,7 +634,7 @@ public static partial class MR
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_B_DefaultConstruct();
                 }
 
@@ -644,7 +644,7 @@ public static partial class MR
                 public unsafe Const_B(MR.CS.OverloadedOps.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -661,7 +661,7 @@ public static partial class MR
                 public static unsafe int operator+(Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_pos_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
+                    extern static unsafe int __MR_C_pos_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
                     return __MR_C_pos_MR_OverloadedOps_B(_1._UnderlyingPtr);
                 }
 
@@ -672,7 +672,7 @@ public static partial class MR
                 public static unsafe int operator+(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_add_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_add_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_add_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -683,7 +683,7 @@ public static partial class MR
                 public static unsafe int operator-(Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_neg_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
+                    extern static unsafe int __MR_C_neg_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
                     return __MR_C_neg_MR_OverloadedOps_B(_1._UnderlyingPtr);
                 }
 
@@ -694,7 +694,7 @@ public static partial class MR
                 public static unsafe int operator-(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_sub_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_sub_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_sub_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -705,7 +705,7 @@ public static partial class MR
                 public unsafe int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_deref_MR_OverloadedOps_B(_Underlying *_1);
+                    extern static unsafe int __MR_C_deref_MR_OverloadedOps_B(_Underlying *_1);
                     return __MR_C_deref_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
@@ -716,7 +716,7 @@ public static partial class MR
                 public static unsafe int operator*(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_mul_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_mul_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_mul_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -727,7 +727,7 @@ public static partial class MR
                 public static unsafe int operator/(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_div_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_div_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_div_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -738,7 +738,7 @@ public static partial class MR
                 public static unsafe int operator%(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_mod_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_mod_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_mod_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -749,7 +749,7 @@ public static partial class MR
                 public static unsafe int operator^(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_xor_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_xor_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_xor_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -760,7 +760,7 @@ public static partial class MR
                 public static unsafe int operator&(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_bitand_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_bitand_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_bitand_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -771,7 +771,7 @@ public static partial class MR
                 public static unsafe int operator|(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_bitor_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_bitor_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_bitor_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -782,7 +782,7 @@ public static partial class MR
                 public static unsafe int operator~(Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_compl_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
+                    extern static unsafe int __MR_C_compl_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
                     return __MR_C_compl_MR_OverloadedOps_B(_1._UnderlyingPtr);
                 }
 
@@ -793,7 +793,7 @@ public static partial class MR
                 public static unsafe int operator!(Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_not_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
+                    extern static unsafe int __MR_C_not_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1);
                     return __MR_C_not_MR_OverloadedOps_B(_1._UnderlyingPtr);
                 }
 
@@ -806,7 +806,7 @@ public static partial class MR
                 public unsafe int less(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_less_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_less_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_less_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -817,7 +817,7 @@ public static partial class MR
                 public unsafe int greater(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_greater_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_greater_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_greater_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -828,7 +828,7 @@ public static partial class MR
                 public unsafe int addAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_add_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_add_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_add_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -839,7 +839,7 @@ public static partial class MR
                 public unsafe int subAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_sub_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_sub_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_sub_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -850,7 +850,7 @@ public static partial class MR
                 public unsafe int mulAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_mul_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_mul_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_mul_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -861,7 +861,7 @@ public static partial class MR
                 public unsafe int divAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_div_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_div_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_div_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -872,7 +872,7 @@ public static partial class MR
                 public unsafe int modAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_mod_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_mod_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_mod_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -883,7 +883,7 @@ public static partial class MR
                 public unsafe int xorAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_xor_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_xor_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_xor_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -894,7 +894,7 @@ public static partial class MR
                 public unsafe int bitandAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_bitand_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_bitand_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_bitand_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -905,7 +905,7 @@ public static partial class MR
                 public unsafe int bitorAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_bitor_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_bitor_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_bitor_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -916,7 +916,7 @@ public static partial class MR
                 public static unsafe int operator<<(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_lshift_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_lshift_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_lshift_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -927,7 +927,7 @@ public static partial class MR
                 public static unsafe int operator>>(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_rshift_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_rshift_MR_OverloadedOps_B(MR.CS.OverloadedOps.B._Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_rshift_MR_OverloadedOps_B(_1._UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -938,7 +938,7 @@ public static partial class MR
                 public unsafe int lshiftAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_lshift_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_lshift_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_lshift_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -949,7 +949,7 @@ public static partial class MR
                 public unsafe int rshiftAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_assign_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_rshift_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_rshift_assign_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_rshift_assign_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -960,7 +960,7 @@ public static partial class MR
                 public unsafe int equal(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_equal_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -971,7 +971,7 @@ public static partial class MR
                 public unsafe int notEqual(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_equal_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_not_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_not_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_not_equal_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -982,7 +982,7 @@ public static partial class MR
                 public unsafe int lessEqual(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_less_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_less_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_less_equal_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -993,7 +993,7 @@ public static partial class MR
                 public unsafe int greaterEqual(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_greater_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_greater_equal_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_greater_equal_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1004,7 +1004,7 @@ public static partial class MR
                 public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_compare_three_way_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_compare_three_way_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1015,7 +1015,7 @@ public static partial class MR
                 public unsafe int and(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_and_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_and_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_and_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1026,7 +1026,7 @@ public static partial class MR
                 public unsafe int or(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_or_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_or_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_or_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1037,7 +1037,7 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_incr_MR_OverloadedOps_B(_Underlying *_1);
+                    extern static unsafe int __MR_C_incr_MR_OverloadedOps_B(_Underlying *_1);
                     int __ret = __MR_C_incr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
@@ -1048,7 +1048,7 @@ public static partial class MR
                 public static unsafe B operator++(MR.CS.OverloadedOps.Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_incr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
+                    extern static unsafe int __MR_C_incr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
                     B __this_copy = new(_1);
                     int __ret = __MR_C_incr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
                     return __this_copy;
@@ -1061,7 +1061,7 @@ public static partial class MR
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_decr_MR_OverloadedOps_B(_Underlying *_1);
+                    extern static unsafe int __MR_C_decr_MR_OverloadedOps_B(_Underlying *_1);
                     int __ret = __MR_C_decr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
@@ -1072,7 +1072,7 @@ public static partial class MR
                 public static unsafe B operator--(MR.CS.OverloadedOps.Const_B _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_decr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
+                    extern static unsafe int __MR_C_decr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
                     B __this_copy = new(_1);
                     int __ret = __MR_C_decr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
                     return __this_copy;
@@ -1085,7 +1085,7 @@ public static partial class MR
                 public unsafe int comma(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_comma_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_comma_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_comma_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1096,7 +1096,7 @@ public static partial class MR
                 public unsafe int arrowStar(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_arrow_star_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static int __MR_C_arrow_star_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
+                    extern static unsafe int __MR_C_arrow_star_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.B._Underlying *_2);
                     return __MR_C_arrow_star_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
             }
@@ -1116,7 +1116,7 @@ public static partial class MR
                 public unsafe B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_B_DefaultConstruct();
                 }
 
@@ -1126,7 +1126,7 @@ public static partial class MR
                 public unsafe B(MR.CS.OverloadedOps.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -1142,7 +1142,7 @@ public static partial class MR
                 public unsafe MR.CS.OverloadedOps.B assign(MR.CS.OverloadedOps.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.B._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.B._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_OverloadedOps_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -1199,7 +1199,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_Destroy", ExactSpelling = true)]
-                    extern static void __MR_OverloadedOps_C_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_OverloadedOps_C_Destroy(_Underlying *_this);
                     __MR_OverloadedOps_C_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1214,7 +1214,7 @@ public static partial class MR
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_C_DefaultConstruct();
                 }
 
@@ -1224,7 +1224,7 @@ public static partial class MR
                 public unsafe Const_C(MR.CS.OverloadedOps.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -1241,7 +1241,7 @@ public static partial class MR
                 public unsafe void add(MR.CS.OverloadedOps.Const_C _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_OverloadedOps_C", ExactSpelling = true)]
-                    extern static void __MR_C_add_MR_OverloadedOps_C(_Underlying *_1, MR.CS.OverloadedOps.C._Underlying *_2);
+                    extern static unsafe void __MR_C_add_MR_OverloadedOps_C(_Underlying *_1, MR.CS.OverloadedOps.C._Underlying *_2);
                     __MR_C_add_MR_OverloadedOps_C(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
 
@@ -1252,7 +1252,7 @@ public static partial class MR
                 public unsafe void add(MR.CS.OverloadedOps.Const_B _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B", ExactSpelling = true)]
-                    extern static void __MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.Const_B._Underlying *_2);
+                    extern static unsafe void __MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_Underlying *_1, MR.CS.OverloadedOps.Const_B._Underlying *_2);
                     __MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
             }
@@ -1272,7 +1272,7 @@ public static partial class MR
                 public unsafe C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_C_DefaultConstruct();
                 }
 
@@ -1282,7 +1282,7 @@ public static partial class MR
                 public unsafe C(MR.CS.OverloadedOps.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -1298,7 +1298,7 @@ public static partial class MR
                 public unsafe MR.CS.OverloadedOps.C assign(MR.CS.OverloadedOps.Const_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.C._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.C._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_OverloadedOps_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -1354,7 +1354,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_Destroy", ExactSpelling = true)]
-                    extern static void __MR_OverloadedOps_D_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_OverloadedOps_D_Destroy(_Underlying *_this);
                     __MR_OverloadedOps_D_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1369,7 +1369,7 @@ public static partial class MR
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_D_DefaultConstruct();
                 }
 
@@ -1379,7 +1379,7 @@ public static partial class MR
                 public unsafe Const_D(MR.CS.OverloadedOps.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -1395,7 +1395,7 @@ public static partial class MR
                 public unsafe int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_const_MR_OverloadedOps_D_ref", ExactSpelling = true)]
-                    extern static int __MR_C_deref_const_MR_OverloadedOps_D_ref(_Underlying *_this);
+                    extern static unsafe int __MR_C_deref_const_MR_OverloadedOps_D_ref(_Underlying *_this);
                     return __MR_C_deref_const_MR_OverloadedOps_D_ref(_UnderlyingPtr);
                 }
 
@@ -1405,7 +1405,7 @@ public static partial class MR
                 public static unsafe int operator+(MR.CS.OverloadedOps.Const_D _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_OverloadedOps_D_ref", ExactSpelling = true)]
-                    extern static int __MR_C_pos_const_MR_OverloadedOps_D_ref(MR.CS.OverloadedOps.Const_D._Underlying *_1);
+                    extern static unsafe int __MR_C_pos_const_MR_OverloadedOps_D_ref(MR.CS.OverloadedOps.Const_D._Underlying *_1);
                     return __MR_C_pos_const_MR_OverloadedOps_D_ref(_1._UnderlyingPtr);
                 }
             }
@@ -1424,7 +1424,7 @@ public static partial class MR
                 public unsafe D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_DefaultConstruct();
+                    extern static unsafe MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_DefaultConstruct();
                     _UnderlyingPtr = __MR_OverloadedOps_D_DefaultConstruct();
                 }
 
@@ -1434,7 +1434,7 @@ public static partial class MR
                 public unsafe D(MR.CS.OverloadedOps.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -1450,7 +1450,7 @@ public static partial class MR
                 public unsafe MR.CS.OverloadedOps.D assign(MR.CS.OverloadedOps.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.D._Underlying *_other);
+                    extern static unsafe MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.D._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_OverloadedOps_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -1463,7 +1463,7 @@ public static partial class MR
                 public unsafe new int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_OverloadedOps_D_ref", ExactSpelling = true)]
-                    extern static int __MR_C_deref_MR_OverloadedOps_D_ref(_Underlying *_this);
+                    extern static unsafe int __MR_C_deref_MR_OverloadedOps_D_ref(_Underlying *_this);
                     return __MR_C_deref_MR_OverloadedOps_D_ref(_UnderlyingPtr);
                 }
 
@@ -1473,7 +1473,7 @@ public static partial class MR
                 public static unsafe int operator+(MR.CS.OverloadedOps.D _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_OverloadedOps_D_ref", ExactSpelling = true)]
-                    extern static int __MR_C_pos_MR_OverloadedOps_D_ref(MR.CS.OverloadedOps.D._Underlying *_1);
+                    extern static unsafe int __MR_C_pos_MR_OverloadedOps_D_ref(MR.CS.OverloadedOps.D._Underlying *_1);
                     return __MR_C_pos_MR_OverloadedOps_D_ref(_1._UnderlyingPtr);
                 }
             }

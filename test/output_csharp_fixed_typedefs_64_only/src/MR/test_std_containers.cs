@@ -20,7 +20,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_StdContainers_A_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_StdContainers_A_Destroy(_Underlying *_this);
                     __MR_StdContainers_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -35,7 +35,7 @@ public static partial class MR
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_DefaultConstruct();
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_StdContainers_A_DefaultConstruct();
                 }
 
@@ -45,7 +45,7 @@ public static partial class MR
                 public unsafe Const_A(MR.CS.StdContainers.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -71,7 +71,7 @@ public static partial class MR
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_DefaultConstruct();
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_StdContainers_A_DefaultConstruct();
                 }
 
@@ -81,7 +81,7 @@ public static partial class MR
                 public unsafe A(MR.CS.StdContainers.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -97,7 +97,7 @@ public static partial class MR
                 public unsafe MR.CS.StdContainers.A assign(MR.CS.StdContainers.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.A._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_StdContainers_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -154,7 +154,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_Destroy", ExactSpelling = true)]
-                    extern static void __MR_StdContainers_NonDefaultConstructible_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_StdContainers_NonDefaultConstructible_Destroy(_Underlying *_this);
                     __MR_StdContainers_NonDefaultConstructible_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -169,7 +169,7 @@ public static partial class MR
                 public unsafe Const_NonDefaultConstructible(MR.CS.StdContainers.Const_NonDefaultConstructible _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -185,7 +185,7 @@ public static partial class MR
                 public unsafe Const_NonDefaultConstructible(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_Construct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_Construct(int _1);
+                    extern static unsafe MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_Construct(int _1);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_Construct(_1);
                 }
 
@@ -210,7 +210,7 @@ public static partial class MR
                 public unsafe NonDefaultConstructible(MR.CS.StdContainers.Const_NonDefaultConstructible _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -226,7 +226,7 @@ public static partial class MR
                 public unsafe NonDefaultConstructible(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_Construct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_Construct(int _1);
+                    extern static unsafe MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_Construct(int _1);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_Construct(_1);
                 }
 
@@ -241,7 +241,7 @@ public static partial class MR
                 public unsafe MR.CS.StdContainers.NonDefaultConstructible assign(MR.CS.StdContainers.Const_NonDefaultConstructible _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -303,7 +303,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_Destroy", ExactSpelling = true)]
-                    extern static void __MR_StdContainers_NonAssignable_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_StdContainers_NonAssignable_Destroy(_Underlying *_this);
                     __MR_StdContainers_NonAssignable_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -318,7 +318,7 @@ public static partial class MR
                 public unsafe Const_NonAssignable() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_DefaultConstruct();
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_DefaultConstruct();
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_DefaultConstruct();
                 }
 
@@ -328,7 +328,7 @@ public static partial class MR
                 public unsafe Const_NonAssignable(MR.CS.StdContainers._ByValue_NonAssignable _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
@@ -349,7 +349,7 @@ public static partial class MR
                 public unsafe bool less(MR.CS.StdContainers._ByValue_NonAssignable _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_StdContainers_NonAssignable", ExactSpelling = true)]
-                    extern static byte __MR_C_less_MR_StdContainers_NonAssignable(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_1);
+                    extern static unsafe byte __MR_C_less_MR_StdContainers_NonAssignable(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_1);
                     return __MR_C_less_MR_StdContainers_NonAssignable(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null) != 0;
                 }
 
@@ -359,7 +359,7 @@ public static partial class MR
                 public static unsafe bool operator==(MR.CS.StdContainers.Const_NonAssignable _this, MR.CS.StdContainers._ByValue_NonAssignable _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_StdContainers_NonAssignable", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_StdContainers_NonAssignable(MR.CS.StdContainers.Const_NonAssignable._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_1);
+                    extern static unsafe byte __MR_C_equal_MR_StdContainers_NonAssignable(MR.CS.StdContainers.Const_NonAssignable._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_1);
                     return __MR_C_equal_MR_StdContainers_NonAssignable(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null) != 0;
                 }
 
@@ -402,7 +402,7 @@ public static partial class MR
                 public unsafe NonAssignable() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_DefaultConstruct();
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_DefaultConstruct();
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_DefaultConstruct();
                 }
 
@@ -412,7 +412,7 @@ public static partial class MR
                 public unsafe NonAssignable(MR.CS.StdContainers._ByValue_NonAssignable _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
@@ -486,7 +486,7 @@ public static partial class MR
             public static unsafe void set(MR.CS.Std._ByValue_Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_Set", ExactSpelling = true)]
-                extern static void __MR_StdContainers_Set(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_Set(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
                 __MR_StdContainers_Set(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -497,7 +497,7 @@ public static partial class MR
             public static unsafe void setWithDefault(MR.CS.Std._ByValue_Vector_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_SetWithDefault", ExactSpelling = true)]
-                extern static void __MR_StdContainers_SetWithDefault(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_SetWithDefault(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
                 __MR_StdContainers_SetWithDefault(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -507,7 +507,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_Get", ExactSpelling = true)]
-                extern static MR.CS.Std.Vector_Int._Underlying *__MR_StdContainers_Get();
+                extern static unsafe MR.CS.Std.Vector_Int._Underlying *__MR_StdContainers_Get();
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_Int(__MR_StdContainers_Get(), is_owning: true));
             }
 
@@ -517,7 +517,7 @@ public static partial class MR
             public static unsafe void writeToRef(MR.CS.Std.Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_WriteToRef", ExactSpelling = true)]
-                extern static void __MR_StdContainers_WriteToRef(MR.CS.Std.Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_WriteToRef(MR.CS.Std.Vector_Int._Underlying *_1);
                 __MR_StdContainers_WriteToRef(_1._UnderlyingPtr);
             }
 
@@ -527,7 +527,7 @@ public static partial class MR
             public static unsafe void writeToPtr(MR.CS.Std.Vector_Int? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_WriteToPtr", ExactSpelling = true)]
-                extern static void __MR_StdContainers_WriteToPtr(MR.CS.Std.Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_WriteToPtr(MR.CS.Std.Vector_Int._Underlying *_1);
                 __MR_StdContainers_WriteToPtr(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -537,7 +537,7 @@ public static partial class MR
             public static unsafe void constRef(MR.CS.Std.Const_Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_ConstRef", ExactSpelling = true)]
-                extern static void __MR_StdContainers_ConstRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_ConstRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
                 __MR_StdContainers_ConstRef(_1._UnderlyingPtr);
             }
 
@@ -547,7 +547,7 @@ public static partial class MR
             public static unsafe void rvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_RvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdContainers_RvalueRef(MR.CS.Std.Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_RvalueRef(MR.CS.Std.Vector_Int._Underlying *_1);
                 __MR_StdContainers_RvalueRef(_1.Value._UnderlyingPtr);
             }
 
@@ -557,7 +557,7 @@ public static partial class MR
             public static unsafe void constRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Const_Vector_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_ConstRvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdContainers_ConstRvalueRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
+                extern static unsafe void __MR_StdContainers_ConstRvalueRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
                 __MR_StdContainers_ConstRvalueRef(_1.Value._UnderlyingPtr);
             }
 
@@ -568,7 +568,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_Int> getDeque()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDeque", ExactSpelling = true)]
-                extern static MR.CS.Std.Deque_Int._Underlying *__MR_StdContainers_GetDeque();
+                extern static unsafe MR.CS.Std.Deque_Int._Underlying *__MR_StdContainers_GetDeque();
                 return MR.CS.Misc.Move(new MR.CS.Std.Deque_Int(__MR_StdContainers_GetDeque(), is_owning: true));
             }
 
@@ -578,7 +578,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_Int> getList()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetList", ExactSpelling = true)]
-                extern static MR.CS.Std.List_Int._Underlying *__MR_StdContainers_GetList();
+                extern static unsafe MR.CS.Std.List_Int._Underlying *__MR_StdContainers_GetList();
                 return MR.CS.Misc.Move(new MR.CS.Std.List_Int(__MR_StdContainers_GetList(), is_owning: true));
             }
 
@@ -588,7 +588,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_Int> getSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSet", ExactSpelling = true)]
-                extern static MR.CS.Std.Set_Int._Underlying *__MR_StdContainers_GetSet();
+                extern static unsafe MR.CS.Std.Set_Int._Underlying *__MR_StdContainers_GetSet();
                 return MR.CS.Misc.Move(new MR.CS.Std.Set_Int(__MR_StdContainers_GetSet(), is_owning: true));
             }
 
@@ -598,7 +598,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Int> getMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSet", ExactSpelling = true)]
-                extern static MR.CS.Std.Multiset_Int._Underlying *__MR_StdContainers_GetMultiSet();
+                extern static unsafe MR.CS.Std.Multiset_Int._Underlying *__MR_StdContainers_GetMultiSet();
                 return MR.CS.Misc.Move(new MR.CS.Std.Multiset_Int(__MR_StdContainers_GetMultiSet(), is_owning: true));
             }
 
@@ -608,7 +608,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_Int> getUnorderedSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSet", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedSet_Int._Underlying *__MR_StdContainers_GetUnorderedSet();
+                extern static unsafe MR.CS.Std.UnorderedSet_Int._Underlying *__MR_StdContainers_GetUnorderedSet();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedSet_Int(__MR_StdContainers_GetUnorderedSet(), is_owning: true));
             }
 
@@ -618,7 +618,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_Int> getUnorderedMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSet", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_StdContainers_GetUnorderedMultiSet();
+                extern static unsafe MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_StdContainers_GetUnorderedMultiSet();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultiset_Int(__MR_StdContainers_GetUnorderedMultiSet(), is_owning: true));
             }
 
@@ -628,7 +628,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_Int_Float> getMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMap", ExactSpelling = true)]
-                extern static MR.CS.Std.Map_Int_Float._Underlying *__MR_StdContainers_GetMap();
+                extern static unsafe MR.CS.Std.Map_Int_Float._Underlying *__MR_StdContainers_GetMap();
                 return MR.CS.Misc.Move(new MR.CS.Std.Map_Int_Float(__MR_StdContainers_GetMap(), is_owning: true));
             }
 
@@ -638,7 +638,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_Int_Float> getMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMap", ExactSpelling = true)]
-                extern static MR.CS.Std.Multimap_Int_Float._Underlying *__MR_StdContainers_GetMultiMap();
+                extern static unsafe MR.CS.Std.Multimap_Int_Float._Underlying *__MR_StdContainers_GetMultiMap();
                 return MR.CS.Misc.Move(new MR.CS.Std.Multimap_Int_Float(__MR_StdContainers_GetMultiMap(), is_owning: true));
             }
 
@@ -648,7 +648,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_Int_Float> getUnorderedMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMap", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMap();
+                extern static unsafe MR.CS.Std.UnorderedMap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMap();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMap_Int_Float(__MR_StdContainers_GetUnorderedMap(), is_owning: true));
             }
 
@@ -658,7 +658,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_Int_Float> getUnorderedMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMap", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMap();
+                extern static unsafe MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMap();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultimap_Int_Float(__MR_StdContainers_GetUnorderedMultiMap(), is_owning: true));
             }
 
@@ -668,7 +668,7 @@ public static partial class MR
             public static unsafe MR.CS.Std.Array_MRStdContainersA_42 getStdArray()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArray", ExactSpelling = true)]
-                extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_StdContainers_GetStdArray();
+                extern static unsafe MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_StdContainers_GetStdArray();
                 return new(__MR_StdContainers_GetStdArray(), is_owning: true);
             }
 
@@ -699,7 +699,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc.Ref<MR.CS.Std.Array_Int_43>? stdArraySimplePtr(MR.CS.Misc.InOut<MR.CS.Std.Array_Int_43>? param)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_StdArraySimplePtr", ExactSpelling = true)]
-                extern static MR.CS.Std.Array_Int_43 *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Array_Int_43 *param);
+                extern static unsafe MR.CS.Std.Array_Int_43 *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Array_Int_43 *param);
                 MR.CS.Std.Array_Int_43 __value_param = param is not null ? param.Value : default(MR.CS.Std.Array_Int_43);
                 var __c_ret = __MR_StdContainers_StdArraySimplePtr(param is not null ? &__value_param : null);
                 if (param is not null) param.Value = __value_param;
@@ -713,7 +713,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Float> getMultiSetWithMergedIters()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetWithMergedIters", ExactSpelling = true)]
-                extern static MR.CS.Std.Multiset_Float._Underlying *__MR_StdContainers_GetMultiSetWithMergedIters();
+                extern static unsafe MR.CS.Std.Multiset_Float._Underlying *__MR_StdContainers_GetMultiSetWithMergedIters();
                 return MR.CS.Misc.Move(new MR.CS.Std.Multiset_Float(__MR_StdContainers_GetMultiSetWithMergedIters(), is_owning: true));
             }
 
@@ -723,7 +723,7 @@ public static partial class MR
             public static unsafe MR.CS.Std.Set_Float.ConstIterator getMergedIter()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMergedIter", ExactSpelling = true)]
-                extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIter();
+                extern static unsafe MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIter();
                 return new(__MR_StdContainers_GetMergedIter(), is_owning: true);
             }
 
@@ -733,7 +733,7 @@ public static partial class MR
             public static unsafe MR.CS.Std.Set_Float.ConstIterator getMergedIterConst()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMergedIterConst", ExactSpelling = true)]
-                extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIterConst();
+                extern static unsafe MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIterConst();
                 return new(__MR_StdContainers_GetMergedIterConst(), is_owning: true);
             }
 
@@ -743,7 +743,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible> nonDefCon()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefCon", ExactSpelling = true)]
-                extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible._Underlying *__MR_StdContainers_NonDefCon();
+                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible._Underlying *__MR_StdContainers_NonDefCon();
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible(__MR_StdContainers_NonDefCon(), is_owning: true));
             }
 
@@ -753,7 +753,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonAssignable> getVectorNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetVectorNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Vector_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetVectorNA();
+                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetVectorNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRStdContainersNonAssignable(__MR_StdContainers_GetVectorNA(), is_owning: true));
             }
 
@@ -763,7 +763,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_MRStdContainersNonAssignable> getDequeNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDequeNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Deque_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetDequeNA();
+                extern static unsafe MR.CS.Std.Deque_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetDequeNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Deque_MRStdContainersNonAssignable(__MR_StdContainers_GetDequeNA(), is_owning: true));
             }
 
@@ -773,7 +773,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_MRStdContainersNonAssignable> getListNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetListNA", ExactSpelling = true)]
-                extern static MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetListNA();
+                extern static unsafe MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetListNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.List_MRStdContainersNonAssignable(__MR_StdContainers_GetListNA(), is_owning: true));
             }
 
@@ -783,7 +783,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_MRStdContainersNonAssignable> getSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSetNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Set_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetSetNA();
+                extern static unsafe MR.CS.Std.Set_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetSetNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Set_MRStdContainersNonAssignable(__MR_StdContainers_GetSetNA(), is_owning: true));
             }
 
@@ -793,7 +793,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_MRStdContainersNonAssignable> getMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Multiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetMultiSetNA();
+                extern static unsafe MR.CS.Std.Multiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetMultiSetNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Multiset_MRStdContainersNonAssignable(__MR_StdContainers_GetMultiSetNA(), is_owning: true));
             }
 
@@ -803,7 +803,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable> getUnorderedSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSetNA", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedSetNA();
+                extern static unsafe MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedSetNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable(__MR_StdContainers_GetUnorderedSetNA(), is_owning: true));
             }
 
@@ -813,7 +813,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable> getUnorderedMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSetNA", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedMultiSetNA();
+                extern static unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedMultiSetNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable(__MR_StdContainers_GetUnorderedMultiSetNA(), is_owning: true));
             }
 
@@ -823,7 +823,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_MRStdContainersNonAssignable_Float> getMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMapNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Map_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMapNA();
+                extern static unsafe MR.CS.Std.Map_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMapNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Map_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetMapNA(), is_owning: true));
             }
 
@@ -833,7 +833,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float> getMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMapNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMultiMapNA();
+                extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMultiMapNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetMultiMapNA(), is_owning: true));
             }
 
@@ -843,7 +843,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float> getUnorderedMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMapNA", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMapNA();
+                extern static unsafe MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMapNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetUnorderedMapNA(), is_owning: true));
             }
 
@@ -853,7 +853,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float> getUnorderedMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMapNA", ExactSpelling = true)]
-                extern static MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMapNA();
+                extern static unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMapNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float(__MR_StdContainers_GetUnorderedMultiMapNA(), is_owning: true));
             }
 
@@ -863,7 +863,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Array_MRStdContainersNonAssignable_42> getStdArrayNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArrayNA", ExactSpelling = true)]
-                extern static MR.CS.Std.Array_MRStdContainersNonAssignable_42._Underlying *__MR_StdContainers_GetStdArrayNA();
+                extern static unsafe MR.CS.Std.Array_MRStdContainersNonAssignable_42._Underlying *__MR_StdContainers_GetStdArrayNA();
                 return MR.CS.Misc.Move(new MR.CS.Std.Array_MRStdContainersNonAssignable_42(__MR_StdContainers_GetStdArrayNA(), is_owning: true));
             }
 

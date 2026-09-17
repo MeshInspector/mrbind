@@ -21,7 +21,7 @@ public static partial class MR
                 {
                     System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_get", ExactSpelling = true)]
-                    extern static _Underlying *__MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingShared *_this);
+                    extern static unsafe _Underlying *__MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingSharedPtr);
                 }
             }
@@ -34,7 +34,7 @@ public static partial class MR
                 get
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_use_count", ExactSpelling = true)]
-                    extern static int __MR_C_std_shared_ptr_MR_SeparateA_use_count(_UnderlyingShared *_this);
+                    extern static unsafe int __MR_C_std_shared_ptr_MR_SeparateA_use_count(_UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_SeparateA_use_count(_UnderlyingSharedPtr) > 0;
                 }
             }
@@ -48,7 +48,7 @@ public static partial class MR
                 get
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_get", ExactSpelling = true)]
-                    extern static void *__MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingShared *_this);
+                    extern static unsafe void *__MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingShared *_this);
                     return __MR_C_std_shared_ptr_MR_SeparateA_get(_UnderlyingSharedPtr) is not null;
                 }
             }
@@ -58,7 +58,7 @@ public static partial class MR
                 if (_UnderlyingSharedPtr is null || !_IsOwningVal)
                     return;
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_Destroy", ExactSpelling = true)]
-                extern static void __MR_C_std_shared_ptr_MR_SeparateA_Destroy(_UnderlyingShared *_this);
+                extern static unsafe void __MR_C_std_shared_ptr_MR_SeparateA_Destroy(_UnderlyingShared *_this);
                 __MR_C_std_shared_ptr_MR_SeparateA_Destroy(_UnderlyingSharedPtr);
                 _UnderlyingSharedPtr = null;
             }
@@ -69,7 +69,7 @@ public static partial class MR
             public static unsafe implicit operator MR.CS.Const_CommonBaseAB(Const_SeparateA self)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static MR.CS.Const_CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
+                extern static unsafe MR.CS.Const_CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
                 return MR.CS.Const_CommonBaseAB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_SeparateA_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr));
             }
 
@@ -77,7 +77,7 @@ public static partial class MR
             public static unsafe explicit operator Const_SeparateA?(MR.CS.Const_CommonBaseAB parent)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.Const_CommonBaseAB._Underlying *_this);
+                extern static unsafe _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.Const_CommonBaseAB._Underlying *_this);
                 var ptr = __MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
                 if (ptr is null) return null;
                 return Const_SeparateA._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
@@ -86,9 +86,9 @@ public static partial class MR
             internal unsafe Const_SeparateA(_Underlying *ptr, bool is_owning) : base(true)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_Construct", ExactSpelling = true)]
-                extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_Construct(_Underlying *other);
+                extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_Construct(_Underlying *other);
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_ConstructNonOwning", ExactSpelling = true)]
-                extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_ConstructNonOwning(_Underlying *other);
+                extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_ConstructNonOwning(_Underlying *other);
                 if (is_owning)
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_SeparateA_Construct(ptr);
                 else
@@ -100,7 +100,7 @@ public static partial class MR
             internal static unsafe SeparateA _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_ConstructAliasing", ExactSpelling = true)]
-                extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
                 return new(__MR_C_std_shared_ptr_MR_SeparateA_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
             }
 
@@ -109,7 +109,7 @@ public static partial class MR
                 System.Diagnostics.Trace.Assert(_IsOwningVal == true);
                 System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_shared_ptr_MR_SeparateA_Construct", ExactSpelling = true)]
-                extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_Construct(_Underlying *other);
+                extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_SeparateA_Construct(_Underlying *other);
                 _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_SeparateA_Construct(ptr);
             }
 
@@ -119,7 +119,7 @@ public static partial class MR
             public unsafe Const_SeparateA(MR.CS._ByValue_SeparateA _other) : this(shared_ptr: null, is_owning: true)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                extern static unsafe MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
                 _LateMakeShared(__MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 if (_other.Value is not null) _KeepAlive(_other.Value);
             }
@@ -148,7 +148,7 @@ public static partial class MR
             public static unsafe implicit operator MR.CS.CommonBaseAB(SeparateA self)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static MR.CS.CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
+                extern static unsafe MR.CS.CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
                 return MR.CS.CommonBaseAB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_SeparateA_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr));
             }
 
@@ -156,7 +156,7 @@ public static partial class MR
             public static unsafe explicit operator SeparateA?(MR.CS.CommonBaseAB parent)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.CommonBaseAB._Underlying *_this);
+                extern static unsafe _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.CommonBaseAB._Underlying *_this);
                 var ptr = __MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
                 if (ptr is null) return null;
                 return SeparateA._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
@@ -172,7 +172,7 @@ public static partial class MR
             public unsafe SeparateA(MR.CS._ByValue_SeparateA _other) : this(shared_ptr: null, is_owning: true)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                extern static unsafe MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
                 _LateMakeShared(__MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 if (_other.Value is not null) _KeepAlive(_other.Value);
             }
@@ -193,7 +193,7 @@ public static partial class MR
             public unsafe MR.CS.SeparateA assign(MR.CS._ByValue_SeparateA _other)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_AssignFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                extern static unsafe MR.CS.SeparateA._Underlying *__MR_SeparateA_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
                 _DiscardKeepAlive();
                 if (_other.Value is not null) _KeepAlive(_other.Value);
                 return new(__MR_SeparateA_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
@@ -282,7 +282,7 @@ public static partial class MR
         public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRSeparateA> getSeparateVecA()
         {
             [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_GetSeparateVecA", ExactSpelling = true)]
-            extern static MR.CS.Std.Vector_MRSeparateA._Underlying *__MR_GetSeparateVecA();
+            extern static unsafe MR.CS.Std.Vector_MRSeparateA._Underlying *__MR_GetSeparateVecA();
             return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRSeparateA(__MR_GetSeparateVecA(), is_owning: true));
         }
     }

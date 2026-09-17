@@ -90,7 +90,7 @@ public static partial class MR
             public static unsafe void e(int _1, MR.CS.Misc._MoveRef _move__2, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_const_int_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_const_int_ref(int *_1, int *_2);
+                extern static unsafe void __MR_Overloads_e_const_int_ref(int *_1, int *_2);
                 __MR_Overloads_e_const_int_ref(&_1, &_2);
             }
 
@@ -100,7 +100,7 @@ public static partial class MR
             public static unsafe void e(MR.CS.Misc._MoveRef _move__1, int _1, MR.CS.Misc._MoveRef _move__2, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int_rvalue_ref_int", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_int_rvalue_ref_int(int *_1, int *_2);
+                extern static unsafe void __MR_Overloads_e_int_rvalue_ref_int(int *_1, int *_2);
                 __MR_Overloads_e_int_rvalue_ref_int(&_1, &_2);
             }
 
@@ -110,7 +110,7 @@ public static partial class MR
             public static unsafe void e(MR.CS.Misc._MoveRef _move__1, int _1, MR.CS.Misc._MoveRef _move__2, float _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int_rvalue_ref_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_int_rvalue_ref_float(int *_1, float *_2);
+                extern static unsafe void __MR_Overloads_e_int_rvalue_ref_float(int *_1, float *_2);
                 __MR_Overloads_e_int_rvalue_ref_float(&_1, &_2);
             }
 
@@ -133,7 +133,7 @@ public static partial class MR
             public static unsafe void f(MR.CS.Misc._MoveRef _move__1, int _1, float _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_int_rvalue_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_f_int_rvalue_ref(int *_1, float _2);
+                extern static unsafe void __MR_Overloads_f_int_rvalue_ref(int *_1, float _2);
                 __MR_Overloads_f_int_rvalue_ref(&_1, _2);
             }
 
@@ -143,7 +143,7 @@ public static partial class MR
             public static unsafe void f(int _1, float _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_const_int_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_f_const_int_ref(int *_1, float _2);
+                extern static unsafe void __MR_Overloads_f_const_int_ref(int *_1, float _2);
                 __MR_Overloads_f_const_int_ref(&_1, _2);
             }
         }

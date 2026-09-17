@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(_Underlying *_this);
                     __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Std.Const_Pair_IntRvalueRef_FloatRvalueRef other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
+                    extern static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -45,7 +45,7 @@ public static partial class MR
                 public unsafe Const_Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, int first, MR.CS.Misc._MoveRef _move_second, float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
+                    extern static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
                 }
 
@@ -55,7 +55,7 @@ public static partial class MR
                 public unsafe int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_Underlying *_this);
                     return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_UnderlyingPtr);
                 }
 
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_Underlying *_this);
                     return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_UnderlyingPtr);
                 }
 
@@ -92,7 +92,7 @@ public static partial class MR
                 public unsafe Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Std.Const_Pair_IntRvalueRef_FloatRvalueRef other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
+                    extern static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -103,7 +103,7 @@ public static partial class MR
                 public unsafe Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, int first, MR.CS.Misc._MoveRef _move_second, float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
+                    extern static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
                 }
             }

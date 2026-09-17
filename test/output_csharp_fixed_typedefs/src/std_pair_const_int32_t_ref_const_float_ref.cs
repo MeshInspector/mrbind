@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_const_int32_t_ref_const_float_ref_Destroy(_Underlying *_this);
                     __MR_C_std_pair_const_int32_t_ref_const_float_ref_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Pair_ConstInt32TRef_ConstFloatRef(MR.CS.Std.Const_Pair_ConstInt32TRef_ConstFloatRef other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -49,8 +45,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Pair_ConstInt32TRef_ConstFloatRef(int first, float second) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(int *first, float *second);
                     _UnderlyingPtr = __MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(&first, &second);
                 }
 
@@ -59,8 +53,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe int first()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_first", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_const_int32_t_ref_const_float_ref_first(_Underlying *_this);
                     return *__MR_C_std_pair_const_int32_t_ref_const_float_ref_first(_UnderlyingPtr);
                 }
 
@@ -69,8 +61,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe float second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_const_int32_t_ref_const_float_ref_second(_Underlying *_this);
                     return *__MR_C_std_pair_const_int32_t_ref_const_float_ref_second(_UnderlyingPtr);
                 }
 
@@ -81,6 +71,23 @@ public static partial class MR
                     _1 = first();
                     _2 = second();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(int *first, float *second);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_pair_const_int32_t_ref_const_float_ref_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_first", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_pair_const_int32_t_ref_const_float_ref_first(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_second", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_pair_const_int32_t_ref_const_float_ref_second(_Underlying *_this);
             }
 
             /// <summary>
@@ -96,8 +103,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Pair_ConstInt32TRef_ConstFloatRef(MR.CS.Std.Const_Pair_ConstInt32TRef_ConstFloatRef other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -112,10 +117,16 @@ public static partial class MR
                 /// </summary>
                 public unsafe Pair_ConstInt32TRef_ConstFloatRef(int first, float second) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(int *first, float *second);
                     _UnderlyingPtr = __MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(&first, &second);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(int *first, float *second);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *__MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(MR.CS.Std.Pair_ConstInt32TRef_ConstFloatRef._Underlying *other);
             }
 
             /// <summary>

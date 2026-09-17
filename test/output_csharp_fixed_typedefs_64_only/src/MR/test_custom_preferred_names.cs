@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CustomPrefNames_Ai_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_CustomPrefNames_Ai_Destroy(_Underlying *_this);
                     __MR_CustomPrefNames_Ai_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Ai() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_DefaultConstruct();
+                    extern static unsafe MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_DefaultConstruct();
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Ai(MR.CS.CustomPrefNames.Const_Ai _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -69,7 +69,7 @@ public static partial class MR
                 public unsafe Ai() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_DefaultConstruct();
+                    extern static unsafe MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_DefaultConstruct();
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_DefaultConstruct();
                 }
 
@@ -79,7 +79,7 @@ public static partial class MR
                 public unsafe Ai(MR.CS.CustomPrefNames.Const_Ai _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -95,7 +95,7 @@ public static partial class MR
                 public unsafe MR.CS.CustomPrefNames.Ai assign(MR.CS.CustomPrefNames.Const_Ai _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Ai._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Ai._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_CustomPrefNames_Ai_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -151,7 +151,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CustomPrefNames_Af_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_CustomPrefNames_Af_Destroy(_Underlying *_this);
                     __MR_CustomPrefNames_Af_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -166,7 +166,7 @@ public static partial class MR
                 public unsafe Const_Af() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_DefaultConstruct();
+                    extern static unsafe MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_DefaultConstruct();
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_DefaultConstruct();
                 }
 
@@ -176,7 +176,7 @@ public static partial class MR
                 public unsafe Const_Af(MR.CS.CustomPrefNames.Const_Af _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -201,7 +201,7 @@ public static partial class MR
                 public unsafe Af() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_DefaultConstruct();
+                    extern static unsafe MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_DefaultConstruct();
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_DefaultConstruct();
                 }
 
@@ -211,7 +211,7 @@ public static partial class MR
                 public unsafe Af(MR.CS.CustomPrefNames.Const_Af _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -227,7 +227,7 @@ public static partial class MR
                 public unsafe MR.CS.CustomPrefNames.Af assign(MR.CS.CustomPrefNames.Const_Af _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Af._Underlying *_other);
+                    extern static unsafe MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Af._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_CustomPrefNames_Af_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);

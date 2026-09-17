@@ -16,8 +16,6 @@ public static partial class MR
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
                     return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_Destroy", ExactSpelling = true)]
-                extern static void __MR_C_expected_MR_CSharp_Trivial_float_Destroy(_Underlying *_this);
                 __MR_C_expected_MR_CSharp_Trivial_float_Destroy(_UnderlyingPtr);
                 _UnderlyingPtr = null;
             }
@@ -31,8 +29,6 @@ public static partial class MR
             /// </summary>
             public unsafe Const_Expected_MRCSharpTrivial_Float() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
                 _UnderlyingPtr = __MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
             }
 
@@ -41,8 +37,6 @@ public static partial class MR
             /// </summary>
             public unsafe Const_Expected_MRCSharpTrivial_Float(MR.CS.Const_Expected_MRCSharpTrivial_Float other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
                 _UnderlyingPtr = __MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(other._UnderlyingPtr);
                 _KeepAlive(other);
             }
@@ -57,8 +51,6 @@ public static partial class MR
             /// </summary>
             public static unsafe implicit operator bool(MR.CS.Const_Expected_MRCSharpTrivial_Float _this)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_success", ExactSpelling = true)]
-                extern static byte __MR_C_expected_MR_CSharp_Trivial_float_success(MR.CS.Const_Expected_MRCSharpTrivial_Float._Underlying *_this);
                 return __MR_C_expected_MR_CSharp_Trivial_float_success(_this._UnderlyingPtr) != 0;
             }
 
@@ -67,8 +59,6 @@ public static partial class MR
             /// </summary>
             public unsafe MR.CS.CSharp.Const_Trivial? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_value", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_value(_Underlying *_this);
                 var __c_ret = __MR_C_expected_MR_CSharp_Trivial_float_value(_UnderlyingPtr);
                 MR.CS.CSharp.Const_Trivial? __ret;
                 __ret = __c_ret is not null ? new MR.CS.CSharp.Const_Trivial(__c_ret, is_owning: false) : null;
@@ -81,11 +71,29 @@ public static partial class MR
             /// </summary>
             public unsafe float? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_error", ExactSpelling = true)]
-                extern static float *__MR_C_expected_MR_CSharp_Trivial_float_error(_Underlying *_this);
                 var __c_ret = __MR_C_expected_MR_CSharp_Trivial_float_error(_UnderlyingPtr);
                 return __c_ret is not null ? *__c_ret : null;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_Destroy", ExactSpelling = true)]
+            extern static unsafe void __MR_C_expected_MR_CSharp_Trivial_float_Destroy(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_error", ExactSpelling = true)]
+            extern static unsafe float *__MR_C_expected_MR_CSharp_Trivial_float_error(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_success", ExactSpelling = true)]
+            extern static unsafe byte __MR_C_expected_MR_CSharp_Trivial_float_success(MR.CS.Const_Expected_MRCSharpTrivial_Float._Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_value", ExactSpelling = true)]
+            extern static unsafe MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_value(_Underlying *_this);
         }
 
         /// <summary>
@@ -101,8 +109,6 @@ public static partial class MR
             /// </summary>
             public unsafe Expected_MRCSharpTrivial_Float() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
                 _UnderlyingPtr = __MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
             }
 
@@ -111,8 +117,6 @@ public static partial class MR
             /// </summary>
             public unsafe Expected_MRCSharpTrivial_Float(MR.CS.Const_Expected_MRCSharpTrivial_Float other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
                 _UnderlyingPtr = __MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(other._UnderlyingPtr);
                 _KeepAlive(other);
             }
@@ -127,8 +131,6 @@ public static partial class MR
             /// </summary>
             public unsafe void assign(MR.CS.Const_Expected_MRCSharpTrivial_Float other)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother", ExactSpelling = true)]
-                extern static void __MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
                 _DiscardKeepAlive();
                 _KeepAlive(other);
                 __MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -139,8 +141,6 @@ public static partial class MR
             /// </summary>
             public unsafe new MR.CS.CSharp.Trivial? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_value_mut", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_value_mut(_Underlying *_this);
                 var __c_ret = __MR_C_expected_MR_CSharp_Trivial_float_value_mut(_UnderlyingPtr);
                 MR.CS.CSharp.Trivial? __ret;
                 __ret = __c_ret is not null ? new MR.CS.CSharp.Trivial(__c_ret, is_owning: false) : null;
@@ -153,11 +153,26 @@ public static partial class MR
             /// </summary>
             public unsafe new MR.CS.Misc.Ref<float>? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_error_mut", ExactSpelling = true)]
-                extern static float *__MR_C_expected_MR_CSharp_Trivial_float_error_mut(_Underlying *_this);
                 var __c_ret = __MR_C_expected_MR_CSharp_Trivial_float_error_mut(_UnderlyingPtr);
                 return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother", ExactSpelling = true)]
+            extern static unsafe void __MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(MR.CS.Expected_MRCSharpTrivial_Float._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_MRCSharpTrivial_Float._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_error_mut", ExactSpelling = true)]
+            extern static unsafe float *__MR_C_expected_MR_CSharp_Trivial_float_error_mut(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_MR_CSharp_Trivial_float_value_mut", ExactSpelling = true)]
+            extern static unsafe MR.CS.CSharp.Trivial._Underlying *__MR_C_expected_MR_CSharp_Trivial_float_value_mut(_Underlying *_this);
         }
 
         /// <summary>

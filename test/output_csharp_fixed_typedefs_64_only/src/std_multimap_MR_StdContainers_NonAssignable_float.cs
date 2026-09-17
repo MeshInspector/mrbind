@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy(_Underlying *_this);
                     __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -98,7 +98,7 @@ public static partial class MR
                 public unsafe Const_Multimap_MRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                 }
 
@@ -108,7 +108,7 @@ public static partial class MR
                 public unsafe Const_Multimap_MRStdContainersNonAssignable_Float(MR.CS.Std._ByValue_Multimap_MRStdContainersNonAssignable_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -129,7 +129,7 @@ public static partial class MR
                 public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_size", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_size(_Underlying *_this);
+                    extern static unsafe nuint __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_size(_Underlying *_this);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_size(_UnderlyingPtr);
                 }
 
@@ -139,7 +139,7 @@ public static partial class MR
                 public unsafe bool empty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_empty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_empty(_Underlying *_this);
+                    extern static unsafe byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_empty(_Underlying *_this);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_empty(_UnderlyingPtr) != 0;
                 }
 
@@ -149,7 +149,7 @@ public static partial class MR
                 public unsafe nuint count(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_count", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_count(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+                    extern static unsafe nuint __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_count(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_count(_UnderlyingPtr, key._UnderlyingPtr);
                 }
 
@@ -159,7 +159,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator find(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -172,7 +172,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -185,7 +185,7 @@ public static partial class MR
                 public unsafe bool isBegin(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -195,7 +195,7 @@ public static partial class MR
                 public unsafe bool isBegin(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *iter);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -205,7 +205,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -218,7 +218,7 @@ public static partial class MR
                 public unsafe bool isEnd(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -228,7 +228,7 @@ public static partial class MR
                 public unsafe bool isEnd(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end_mut(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end_mut(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *iter);
                     return __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -247,7 +247,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -262,7 +262,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                     }
 
@@ -272,7 +272,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -288,7 +288,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *iter);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -303,7 +303,7 @@ public static partial class MR
                     public unsafe MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref(_Underlying *_this);
+                        extern static unsafe MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref(_Underlying *_this);
                         MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -316,7 +316,7 @@ public static partial class MR
                     public unsafe MR.CS.StdContainers.Const_NonAssignable derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_key", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_key(_Underlying *_this);
+                        extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_key(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_key(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -329,7 +329,7 @@ public static partial class MR
                     public unsafe float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value", ExactSpelling = true)]
-                        extern static float *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(_Underlying *_this);
+                        extern static unsafe float *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(_Underlying *_this);
                         return *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(_UnderlyingPtr);
                     }
 
@@ -339,7 +339,7 @@ public static partial class MR
                     public static unsafe ConstIterator operator++(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -351,7 +351,7 @@ public static partial class MR
                     public static unsafe ConstIterator operator--(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -363,7 +363,7 @@ public static partial class MR
                     public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *a, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *b);
+                        extern static unsafe byte __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *a, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -405,7 +405,7 @@ public static partial class MR
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                     }
 
@@ -415,7 +415,7 @@ public static partial class MR
                     public unsafe ConstIterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -431,7 +431,7 @@ public static partial class MR
                     public unsafe void assign(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -443,7 +443,7 @@ public static partial class MR
                     public unsafe ConstIterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *iter);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -458,7 +458,7 @@ public static partial class MR
                     public unsafe void operator++()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -468,7 +468,7 @@ public static partial class MR
                     public unsafe void operator--()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_decr(_UnderlyingPtr);
                     }
                 }
@@ -527,7 +527,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -542,7 +542,7 @@ public static partial class MR
                     public unsafe Const_Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                     }
 
@@ -552,7 +552,7 @@ public static partial class MR
                     public unsafe Const_Iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -568,7 +568,7 @@ public static partial class MR
                     public unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref", ExactSpelling = true)]
-                        extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref(_Underlying *_this);
+                        extern static unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref(_Underlying *_this);
                         MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -581,7 +581,7 @@ public static partial class MR
                     public unsafe MR.CS.StdContainers.Const_NonAssignable derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_key", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_key(_Underlying *_this);
+                        extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_key(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_key(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -594,7 +594,7 @@ public static partial class MR
                     public unsafe ref float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_value", ExactSpelling = true)]
-                        extern static float *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_value(_Underlying *_this);
+                        extern static unsafe float *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_value(_Underlying *_this);
                         return ref *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_value(_UnderlyingPtr);
                     }
 
@@ -604,7 +604,7 @@ public static partial class MR
                     public static unsafe Iterator operator++(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -616,7 +616,7 @@ public static partial class MR
                     public static unsafe Iterator operator--(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -628,7 +628,7 @@ public static partial class MR
                     public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *a, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *b);
+                        extern static unsafe byte __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *a, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -670,7 +670,7 @@ public static partial class MR
                     public unsafe Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                     }
 
@@ -680,7 +680,7 @@ public static partial class MR
                     public unsafe Iterator(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -696,7 +696,7 @@ public static partial class MR
                     public unsafe void assign(MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Const_Iterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -708,7 +708,7 @@ public static partial class MR
                     public unsafe void operator++()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -718,7 +718,7 @@ public static partial class MR
                     public unsafe void operator--()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(_Underlying *_this);
                         __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_decr(_UnderlyingPtr);
                     }
                 }
@@ -836,7 +836,7 @@ public static partial class MR
                 public unsafe Multimap_MRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                 }
 
@@ -846,7 +846,7 @@ public static partial class MR
                 public unsafe Multimap_MRStdContainersNonAssignable_Float(MR.CS.Std._ByValue_Multimap_MRStdContainersNonAssignable_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -867,7 +867,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Multimap_MRStdContainersNonAssignable_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
+                    extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -879,7 +879,7 @@ public static partial class MR
                 public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_clear(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_clear(_Underlying *_this);
                     _DiscardKeepAlive();
                     __MR_C_std_multimap_MR_StdContainers_NonAssignable_float_clear(_UnderlyingPtr);
                 }
@@ -890,7 +890,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator find(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_mut(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_mut(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_mut(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -903,7 +903,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin_mut(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -916,7 +916,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end_mut(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;

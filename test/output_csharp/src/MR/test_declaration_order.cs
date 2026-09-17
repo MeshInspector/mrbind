@@ -85,8 +85,6 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::A::c`.
                 public unsafe MR.CS.DeclOrder.A.B C()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_DeclOrder_A_c(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -96,13 +94,19 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::A::d`.
                 public unsafe MR.CS.DeclOrder.A.E D()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_DeclOrder_A_d(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(_Underlying *_this);
             }
 
             // Here all classes are whitelisted using `--expose-as-struct`.
@@ -122,8 +126,6 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::A::c`.
                 public unsafe MR.CS.DeclOrder.A.B C()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(MR.CS.DeclOrder.A *_this);
                     fixed (MR.CS.DeclOrder.A *__ptr__this = &this)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -136,8 +138,6 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::A::d`.
                 public unsafe MR.CS.DeclOrder.A.E D()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(MR.CS.DeclOrder.A *_this);
                     fixed (MR.CS.DeclOrder.A *__ptr__this = &this)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -226,8 +226,6 @@ public static partial class MR
                     /// Generated from method `MR::DeclOrder::A::B::a`.
                     public unsafe MR.CS.DeclOrder.A A()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(_Underlying *_this);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_DeclOrder_A_B_a(_UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -237,13 +235,19 @@ public static partial class MR
                     /// Generated from method `MR::DeclOrder::A::B::b`.
                     public unsafe MR.CS.DeclOrder.A.E B_()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(_Underlying *_this);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_DeclOrder_A_B_b(_UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __c_ret;
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(_Underlying *_this);
                 }
 
                 /// Generated from class `MR::DeclOrder::A::B`.
@@ -262,8 +266,6 @@ public static partial class MR
                     /// Generated from method `MR::DeclOrder::A::B::a`.
                     public unsafe MR.CS.DeclOrder.A A()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(MR.CS.DeclOrder.A.B *_this);
                         fixed (MR.CS.DeclOrder.A.B *__ptr__this = &this)
                         {
                             MR.CS.Misc._Exceptions.Prepare();
@@ -276,8 +278,6 @@ public static partial class MR
                     /// Generated from method `MR::DeclOrder::A::B::b`.
                     public unsafe MR.CS.DeclOrder.A.E B_()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(MR.CS.DeclOrder.A.B *_this);
                         fixed (MR.CS.DeclOrder.A.B *__ptr__this = &this)
                         {
                             MR.CS.Misc._Exceptions.Prepare();
@@ -286,6 +286,14 @@ public static partial class MR
                             return __c_ret;
                         }
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(MR.CS.DeclOrder.A.B *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(MR.CS.DeclOrder.A.B *_this);
                 }
 
                 /// This is used as a function parameter when passing `Box_B` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
@@ -360,6 +368,14 @@ public static partial class MR
                 public enum E : int
                 {
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(MR.CS.DeclOrder.A *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(MR.CS.DeclOrder.A *_this);
             }
 
             /// This is used as a function parameter when passing `Box_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
@@ -510,13 +526,16 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::C<false>::blah`.
                 public unsafe MR.CS.DeclOrder.C_True Blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_DeclOrder_C_false_blah(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(_Underlying *_this);
             }
 
             /// Generated from class `MR::DeclOrder::C<false>`.
@@ -535,8 +554,6 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::C<false>::blah`.
                 public unsafe MR.CS.DeclOrder.C_True Blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(MR.CS.DeclOrder.C_False *_this);
                     fixed (MR.CS.DeclOrder.C_False *__ptr__this = &this)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -545,6 +562,11 @@ public static partial class MR
                         return __c_ret;
                     }
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(MR.CS.DeclOrder.C_False *_this);
             }
 
             /// This is used as a function parameter when passing `Box_C_False` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
@@ -695,13 +717,16 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::C<true>::blah`.
                 public unsafe MR.CS.DeclOrder.C_False Blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_DeclOrder_C_true_blah(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(_Underlying *_this);
             }
 
             /// Generated from class `MR::DeclOrder::C<true>`.
@@ -720,8 +745,6 @@ public static partial class MR
                 /// Generated from method `MR::DeclOrder::C<true>::blah`.
                 public unsafe MR.CS.DeclOrder.C_False Blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(MR.CS.DeclOrder.C_True *_this);
                     fixed (MR.CS.DeclOrder.C_True *__ptr__this = &this)
                     {
                         MR.CS.Misc._Exceptions.Prepare();
@@ -730,6 +753,11 @@ public static partial class MR
                         return __c_ret;
                     }
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(MR.CS.DeclOrder.C_True *_this);
             }
 
             /// This is used as a function parameter when passing `Box_C_True` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.

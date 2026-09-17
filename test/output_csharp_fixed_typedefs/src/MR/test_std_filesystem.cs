@@ -9,8 +9,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> getPath()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_GetPath", ExactSpelling = true)]
-                extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_StdFilesystem_GetPath();
                 return MR.CS.Misc.Move(new MR.CS.Std.Filesystem.Path(__MR_StdFilesystem_GetPath(), is_owning: true));
             }
 
@@ -19,8 +17,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void setPath(ReadOnlySpan<char> _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPath", ExactSpelling = true)]
-                extern static void __MR_StdFilesystem_SetPath(byte *_1, byte *_1_end);
                 byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
                 int __len__1 = System.Text.Encoding.UTF8.GetBytes(_1, __bytes__1);
                 fixed (byte *__ptr__1 = __bytes__1)
@@ -34,8 +30,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void setPathConstRef(ReadOnlySpan<char> _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathConstRef", ExactSpelling = true)]
-                extern static void __MR_StdFilesystem_SetPathConstRef(byte *_1, byte *_1_end);
                 byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
                 int __len__1 = System.Text.Encoding.UTF8.GetBytes(_1, __bytes__1);
                 fixed (byte *__ptr__1 = __bytes__1)
@@ -50,8 +44,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void setPathDefTrivial(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdFilesystem_SetPathDefTrivial(byte *_1, byte *_1_end);
                 byte[] __bytes__1;
                 int __len__1 = 0;
                 if (_1.HasValue)
@@ -71,8 +63,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void setPathDef(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDef", ExactSpelling = true)]
-                extern static void __MR_StdFilesystem_SetPathDef(byte *_1, byte *_1_end);
                 byte[] __bytes__1;
                 int __len__1 = 0;
                 if (_1.HasValue)
@@ -85,6 +75,23 @@ public static partial class MR
                     __MR_StdFilesystem_SetPathDef(_1.HasValue ? __ptr__1 : null, _1.HasValue ? __ptr__1 + __len__1 : null);
                 }
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_GetPath", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Filesystem.Path._Underlying *__MR_StdFilesystem_GetPath();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPath", ExactSpelling = true)]
+            extern static unsafe void __MR_StdFilesystem_SetPath(byte *_1, byte *_1_end);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathConstRef", ExactSpelling = true)]
+            extern static unsafe void __MR_StdFilesystem_SetPathConstRef(byte *_1, byte *_1_end);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDef", ExactSpelling = true)]
+            extern static unsafe void __MR_StdFilesystem_SetPathDef(byte *_1, byte *_1_end);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDefTrivial", ExactSpelling = true)]
+            extern static unsafe void __MR_StdFilesystem_SetPathDefTrivial(byte *_1, byte *_1_end);
         }
     }
 }

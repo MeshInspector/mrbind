@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_IOStream_A_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_IOStream_A_Destroy(_Underlying *_this);
                     __MR_IOStream_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
+                    extern static unsafe MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_IOStream_A_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_A(MR.CS.IOStream.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
+                    extern static unsafe MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -69,7 +69,7 @@ public static partial class MR
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
+                    extern static unsafe MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_IOStream_A_DefaultConstruct();
                 }
 
@@ -79,7 +79,7 @@ public static partial class MR
                 public unsafe A(MR.CS.IOStream.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
+                    extern static unsafe MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -95,7 +95,7 @@ public static partial class MR
                 public unsafe MR.CS.IOStream.A assign(MR.CS.IOStream.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_AssignFromAnother(_Underlying *_this, MR.CS.IOStream.A._Underlying *_other);
+                    extern static unsafe MR.CS.IOStream.A._Underlying *__MR_IOStream_A_AssignFromAnother(_Underlying *_this, MR.CS.IOStream.A._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_IOStream_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);

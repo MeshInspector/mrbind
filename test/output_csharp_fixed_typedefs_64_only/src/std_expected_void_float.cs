@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_expected_void_float_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_expected_void_float_Destroy(_Underlying *_this);
                     __MR_C_std_expected_void_float_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Expected_Void_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_expected_void_float_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Expected_Void_Float(MR.CS.Std.Const_Expected_Void_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_ConstructFromAnother(MR.CS.Std.Expected_Void_Float._Underlying *other);
+                    extern static unsafe MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_ConstructFromAnother(MR.CS.Std.Expected_Void_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_void_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -60,7 +60,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_Void_Float _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_success", ExactSpelling = true)]
-                    extern static byte __MR_C_std_expected_void_float_success(MR.CS.Std.Const_Expected_Void_Float._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_expected_void_float_success(MR.CS.Std.Const_Expected_Void_Float._Underlying *_this);
                     return __MR_C_std_expected_void_float_success(_this._UnderlyingPtr) != 0;
                 }
 
@@ -70,7 +70,7 @@ public static partial class MR
                 public unsafe bool value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_expected_void_float_value(_Underlying *_this);
+                    extern static unsafe byte __MR_C_std_expected_void_float_value(_Underlying *_this);
                     return __MR_C_std_expected_void_float_value(_UnderlyingPtr) != 0;
                 }
 
@@ -80,7 +80,7 @@ public static partial class MR
                 public unsafe float? error()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_error", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_void_float_error(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_expected_void_float_error(_Underlying *_this);
                     var __c_ret = __MR_C_std_expected_void_float_error(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
@@ -100,7 +100,7 @@ public static partial class MR
                 public unsafe Expected_Void_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_expected_void_float_DefaultConstruct();
                 }
 
@@ -110,7 +110,7 @@ public static partial class MR
                 public unsafe Expected_Void_Float(MR.CS.Std.Const_Expected_Void_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_ConstructFromAnother(MR.CS.Std.Expected_Void_Float._Underlying *other);
+                    extern static unsafe MR.CS.Std.Expected_Void_Float._Underlying *__MR_C_std_expected_void_float_ConstructFromAnother(MR.CS.Std.Expected_Void_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_void_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -126,7 +126,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std.Const_Expected_Void_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_expected_void_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_Void_Float._Underlying *other);
+                    extern static unsafe void __MR_C_std_expected_void_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_Void_Float._Underlying *other);
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     __MR_C_std_expected_void_float_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -138,7 +138,7 @@ public static partial class MR
                 public unsafe new MR.CS.Misc.Ref<float>? error()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_error_mut", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_void_float_error_mut(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_expected_void_float_error_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_expected_void_float_error_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }

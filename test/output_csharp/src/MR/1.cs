@@ -14,8 +14,6 @@ public static partial class MR
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
                     return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Destroy", ExactSpelling = true)]
-                extern static void __MR_A_Destroy(_Underlying *_this);
                 __MR_A_Destroy(_UnderlyingPtr);
                 _UnderlyingPtr = null;
             }
@@ -26,8 +24,6 @@ public static partial class MR
             {
                 get
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Get_x", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_A_Get_x(_Underlying *_this);
                     MR.CS.Std.Const_String __ret;
                     __ret = new(__MR_A_Get_x(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
@@ -40,8 +36,6 @@ public static partial class MR
             /// Constructs an empty (default-constructed) instance.
             public unsafe Const_A() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.A._Underlying *__MR_A_DefaultConstruct();
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_A_DefaultConstruct();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -50,8 +44,6 @@ public static partial class MR
             /// Generated from constructor `MR::A::A`.
             public unsafe Const_A(MR.CS._ByValue_A _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -63,6 +55,20 @@ public static partial class MR
 
             /// Generated from constructor `MR::A::A`.
             public Const_A(A _other) : this((Const_A)_other) {}
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.A._Underlying *__MR_A_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Destroy", ExactSpelling = true)]
+            extern static unsafe void __MR_A_Destroy(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Get_x", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_A_Get_x(_Underlying *_this);
         }
 
         /// Generated from class `MR::A`.
@@ -73,8 +79,6 @@ public static partial class MR
             {
                 get
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_GetMutable_x", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(_Underlying *_this);
                     MR.CS.Std.String __ret;
                     __ret = new(__MR_A_GetMutable_x(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
@@ -87,8 +91,6 @@ public static partial class MR
             /// Constructs an empty (default-constructed) instance.
             public unsafe A() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.A._Underlying *__MR_A_DefaultConstruct();
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_A_DefaultConstruct();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -97,8 +99,6 @@ public static partial class MR
             /// Generated from constructor `MR::A::A`.
             public unsafe A(MR.CS._ByValue_A _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -114,8 +114,6 @@ public static partial class MR
             /// Generated from method `MR::A::operator=`.
             public unsafe MR.CS.A Assign(MR.CS._ByValue_A _other)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_AssignFromAnother", ExactSpelling = true)]
-                extern static MR.CS.A._Underlying *__MR_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_A_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 MR.CS.A __ret;
@@ -126,6 +124,20 @@ public static partial class MR
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return __ret;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_AssignFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.A._Underlying *__MR_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.A._Underlying *__MR_A_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_GetMutable_x", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(_Underlying *_this);
         }
 
         /// This is used as a function parameter when the underlying function receives `A` by value.
@@ -181,8 +193,6 @@ public static partial class MR
         /// Generated from function `MR::foo`.
         public static unsafe MR.CS.Std.Vector_MRA Foo()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_foo", ExactSpelling = true)]
-            extern static MR.CS.Std.Vector_MRA._Underlying *__MR_foo();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_foo();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -192,11 +202,17 @@ public static partial class MR
         /// Generated from function `MR::bar`.
         public static unsafe void Bar(MR.CS.Std._ByValue_Vector_MRA _1)
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_bar", ExactSpelling = true)]
-            extern static void __MR_bar(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRA._Underlying *_1);
             MR.CS.Misc._Exceptions.Prepare();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
             __MR_bar(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
         }
+
+        // DllImport:
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_bar", ExactSpelling = true)]
+        extern static unsafe void __MR_bar(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRA._Underlying *_1);
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_foo", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Vector_MRA._Underlying *__MR_foo();
     }
 }

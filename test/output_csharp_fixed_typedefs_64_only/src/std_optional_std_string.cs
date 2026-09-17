@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_std_string_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_optional_std_string_Destroy(_Underlying *_this);
                     __MR_C_std_optional_std_string_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Optional_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_std_string_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Optional_StdString(MR.CS.Std._ByValue_Optional_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe Const_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other;
                     int __len_other = 0;
                     if (other.HasValue)
@@ -90,7 +90,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_StdString _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_std_string_has_value(MR.CS.Std.Const_Optional_StdString._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_optional_std_string_has_value(MR.CS.Std.Const_Optional_StdString._Underlying *_this);
                     return __MR_C_std_optional_std_string_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -100,7 +100,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Const_String? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_value", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_value(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_value(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_std_string_value(_UnderlyingPtr);
                     MR.CS.Std.Const_String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
@@ -123,7 +123,7 @@ public static partial class MR
                 public unsafe Optional_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_std_string_DefaultConstruct();
                 }
 
@@ -133,7 +133,7 @@ public static partial class MR
                 public unsafe Optional_StdString(MR.CS.Std._ByValue_Optional_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -154,7 +154,7 @@ public static partial class MR
                 public unsafe Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
+                    extern static unsafe MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other;
                     int __len_other = 0;
                     if (other.HasValue)
@@ -179,7 +179,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Optional_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
+                    extern static unsafe void __MR_C_std_optional_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_optional_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -191,7 +191,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Misc.ReadOnlyCharSpanOpt other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+                    extern static unsafe void __MR_C_std_optional_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
                     byte[] __bytes_other;
                     int __len_other = 0;
                     if (other.HasValue)
@@ -211,7 +211,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.String? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_optional_std_string_value_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_optional_std_string_value_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_std_string_value_mut(_UnderlyingPtr);
                     MR.CS.Std.String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;

@@ -17,8 +17,6 @@ public static partial class MR
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
                     return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_Destroy", ExactSpelling = true)]
-                extern static void __MR_SeparateB_Destroy(_Underlying *_this);
                 __MR_SeparateB_Destroy(_UnderlyingPtr);
                 _UnderlyingPtr = null;
             }
@@ -28,8 +26,6 @@ public static partial class MR
             // Upcasts:
             public static unsafe implicit operator MR.CS.Const_CommonBaseAB(Const_SeparateB self)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static MR.CS.Const_CommonBaseAB._Underlying *__MR_SeparateB_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
                 MR.CS.Const_CommonBaseAB ret = new(__MR_SeparateB_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr), is_owning: false);
                 ret._KeepAliveEnclosingObject = self;
                 return ret;
@@ -38,8 +34,6 @@ public static partial class MR
             // Downcasts:
             public static unsafe explicit operator Const_SeparateB?(MR.CS.Const_CommonBaseAB parent)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static _Underlying *__MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.Const_CommonBaseAB._Underlying *_this);
                 var ptr = __MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
                 if (ptr is null) return null;
                 Const_SeparateB ret = new(ptr, is_owning: false);
@@ -52,8 +46,6 @@ public static partial class MR
             /// Generated from constructor `MR::SeparateB::SeparateB`.
             public unsafe Const_SeparateB(MR.CS._ByValue_SeparateB _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateB._Underlying *__MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_SeparateB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -65,6 +57,20 @@ public static partial class MR
 
             /// Generated from constructor `MR::SeparateB::SeparateB`.
             public Const_SeparateB(SeparateB _other) : this((Const_SeparateB)_other) {}
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.SeparateB._Underlying *__MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_Destroy", ExactSpelling = true)]
+            extern static unsafe void __MR_SeparateB_Destroy(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
+            extern static unsafe _Underlying *__MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.Const_CommonBaseAB._Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
+            extern static unsafe MR.CS.Const_CommonBaseAB._Underlying *__MR_SeparateB_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
         }
 
         /// Generated from class `MR::SeparateB`.
@@ -77,8 +83,6 @@ public static partial class MR
             // Upcasts:
             public static unsafe implicit operator MR.CS.CommonBaseAB(SeparateB self)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static MR.CS.CommonBaseAB._Underlying *__MR_SeparateB_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
                 MR.CS.CommonBaseAB ret = new(__MR_SeparateB_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr), is_owning: false);
                 ret._KeepAliveEnclosingObject = self;
                 return ret;
@@ -87,8 +91,6 @@ public static partial class MR
             // Downcasts:
             public static unsafe explicit operator SeparateB?(MR.CS.CommonBaseAB parent)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
-                extern static _Underlying *__MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.CommonBaseAB._Underlying *_this);
                 var ptr = __MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
                 if (ptr is null) return null;
                 SeparateB ret = new(ptr, is_owning: false);
@@ -101,8 +103,6 @@ public static partial class MR
             /// Generated from constructor `MR::SeparateB::SeparateB`.
             public unsafe SeparateB(MR.CS._ByValue_SeparateB _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateB._Underlying *__MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
                 MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_SeparateB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -118,12 +118,24 @@ public static partial class MR
             /// Generated from method `MR::SeparateB::operator=`.
             public unsafe MR.CS.SeparateB Assign(MR.CS._ByValue_SeparateB _other)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_AssignFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateB._Underlying *__MR_SeparateB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
                 _DiscardKeepAlive();
                 if (_other.Value is not null) _KeepAlive(_other.Value);
                 return new(__MR_SeparateB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_AssignFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.SeparateB._Underlying *__MR_SeparateB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.SeparateB._Underlying *__MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateB._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
+            extern static unsafe _Underlying *__MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.CommonBaseAB._Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateB_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
+            extern static unsafe MR.CS.CommonBaseAB._Underlying *__MR_SeparateB_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
         }
 
         /// This is used as a function parameter when the underlying function receives `SeparateB` by value.
@@ -177,12 +189,15 @@ public static partial class MR
         /// Generated from function `MR::GetSeparateVecB`.
         public static unsafe MR.CS.Std.Vector_MRSeparateB GetSeparateVecB()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_GetSeparateVecB", ExactSpelling = true)]
-            extern static MR.CS.Std.Vector_MRSeparateB._Underlying *__MR_GetSeparateVecB();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_GetSeparateVecB();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
             return new(__c_ret, is_owning: true);
         }
+
+        // DllImport:
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_GetSeparateVecB", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Vector_MRSeparateB._Underlying *__MR_GetSeparateVecB();
     }
 }

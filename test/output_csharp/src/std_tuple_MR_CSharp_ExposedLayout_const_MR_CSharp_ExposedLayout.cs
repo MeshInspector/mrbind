@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout(MR.CS.Std.Const_Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -53,8 +47,6 @@ public static partial class MR
                 /// Constructs the tuple elementwise.
                 public unsafe Const_Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(_0, _1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -63,8 +55,6 @@ public static partial class MR
                 /// The element 0, of type `MR::CSharp::ExposedLayout`, read-only.
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout GetMRCSharpExposedLayout()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -74,8 +64,6 @@ public static partial class MR
                 /// The element 1, of type `const MR::CSharp::ExposedLayout`, read-only.
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout GetConstMRCSharpExposedLayout()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -89,6 +77,26 @@ public static partial class MR
                     _1 = new(in GetMRCSharpExposedLayout());
                     _2 = new(in GetConstMRCSharpExposedLayout());
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout(_Underlying *_this);
             }
 
             /// Stores 2 objects: `MR::CSharp::ExposedLayout`, `const MR::CSharp::ExposedLayout`.
@@ -100,8 +108,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -110,8 +116,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout(MR.CS.Std.Const_Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -124,8 +128,6 @@ public static partial class MR
                 /// Constructs the tuple elementwise.
                 public unsafe Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(_0, _1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -134,8 +136,6 @@ public static partial class MR
                 /// The element 0, of type `MR::CSharp::ExposedLayout`, mutable.
                 public unsafe new ref MR.CS.CSharp.ExposedLayout GetMRCSharpExposedLayout()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -149,6 +149,20 @@ public static partial class MR
                     _1 = new(ref GetMRCSharpExposedLayout());
                     _2 = new(in GetConstMRCSharpExposedLayout());
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct(MR.CS.CSharp.ExposedLayout _0, MR.CS.CSharp.ExposedLayout _1);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout` with default arguments.

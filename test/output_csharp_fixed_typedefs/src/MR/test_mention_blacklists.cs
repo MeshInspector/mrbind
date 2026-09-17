@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_SignatureFilters_A_Destroy(_Underlying *_this);
                     __MR_SignatureFilters_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_A_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A(MR.CS.SignatureFilters.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -53,6 +47,17 @@ public static partial class MR
                 /// Generated from constructor `MR::SignatureFilters::A::A`.
                 /// </summary>
                 public Const_A(A _other) : this((Const_A)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_SignatureFilters_A_Destroy(_Underlying *_this);
             }
 
             /// <summary>
@@ -68,8 +73,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_A_DefaultConstruct();
                 }
 
@@ -78,8 +81,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A(MR.CS.SignatureFilters.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -94,12 +95,21 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.SignatureFilters.A assign(MR.CS.SignatureFilters.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.A._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_SignatureFilters_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_DefaultConstruct();
             }
 
             /// <summary>
@@ -150,8 +160,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Destroy", ExactSpelling = true)]
-                    extern static void __MR_SignatureFilters_Blah_Destroy(_Underlying *_this);
                     __MR_SignatureFilters_Blah_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -166,8 +174,6 @@ public static partial class MR
                 protected unsafe void _FinalizeFields()
                 {
                     { // a
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(MR.CS.SignatureFilters.Const_Blah._Underlying *_this);
                         this.a = new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
                     }
@@ -188,8 +194,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Blah() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
                     _FinalizeFields();
                 }
@@ -199,8 +203,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Blah(MR.CS.SignatureFilters.Const_Blah _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                     _FinalizeFields();
@@ -210,6 +212,20 @@ public static partial class MR
                 /// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
                 /// </summary>
                 public Const_Blah(Blah _other) : this((Const_Blah)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_SignatureFilters_Blah_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Get_a", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(MR.CS.SignatureFilters.Const_Blah._Underlying *_this);
             }
 
             /// <summary>
@@ -228,8 +244,6 @@ public static partial class MR
                     base._FinalizeFields();
 
                     { // a
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(MR.CS.SignatureFilters.Blah._Underlying *_this);
                         this.a = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
                     }
@@ -249,8 +263,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Blah() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
                     _FinalizeFields();
                 }
@@ -260,8 +272,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Blah(MR.CS.SignatureFilters.Const_Blah _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                     _FinalizeFields();
@@ -277,12 +287,24 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.SignatureFilters.Blah assign(MR.CS.SignatureFilters.Const_Blah _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_SignatureFilters_Blah_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.Blah._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_GetMutable_a", ExactSpelling = true)]
+                extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(MR.CS.SignatureFilters.Blah._Underlying *_this);
             }
 
             /// <summary>
@@ -324,8 +346,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void foo(MR.CS.SignatureFilters.Const_A _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_1", ExactSpelling = true)]
-                extern static void __MR_SignatureFilters_foo_1(MR.CS.SignatureFilters.A._Underlying *_1);
                 __MR_SignatureFilters_foo_1(_1._UnderlyingPtr);
             }
 
@@ -334,8 +354,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.SignatureFilters.A foo()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_0", ExactSpelling = true)]
-                extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo_0();
                 return new(__MR_SignatureFilters_foo_0(), is_owning: true);
             }
 
@@ -344,8 +362,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void foo2(MR.CS.SignatureFilters.A _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_1", ExactSpelling = true)]
-                extern static void __MR_SignatureFilters_foo2_1(MR.CS.SignatureFilters.A._Underlying *_1);
                 __MR_SignatureFilters_foo2_1(_1._UnderlyingPtr);
             }
 
@@ -354,8 +370,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.SignatureFilters.A foo2()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_0", ExactSpelling = true)]
-                extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo2_0();
                 return new(__MR_SignatureFilters_foo2_0(), is_owning: false);
             }
 
@@ -364,8 +378,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void foo3(MR.CS.Misc._Moved<MR.CS.SignatureFilters.A> _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_1", ExactSpelling = true)]
-                extern static void __MR_SignatureFilters_foo3_1(MR.CS.SignatureFilters.A._Underlying *_1);
                 __MR_SignatureFilters_foo3_1(_1.Value._UnderlyingPtr);
             }
 
@@ -374,8 +386,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.SignatureFilters.A> foo3()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_0", ExactSpelling = true)]
-                extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo3_0();
                 return MR.CS.Misc.Move(new MR.CS.SignatureFilters.A(__MR_SignatureFilters_foo3_0(), is_owning: false));
             }
 
@@ -384,8 +394,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void foo4(MR.CS.SignatureFilters.Const_A _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_1", ExactSpelling = true)]
-                extern static void __MR_SignatureFilters_foo4_1(MR.CS.SignatureFilters.Const_A._Underlying *_1);
                 __MR_SignatureFilters_foo4_1(_1._UnderlyingPtr);
             }
 
@@ -394,8 +402,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.SignatureFilters.Const_A foo4()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_0", ExactSpelling = true)]
-                extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_foo4_0();
                 return new(__MR_SignatureFilters_foo4_0(), is_owning: false);
             }
 
@@ -404,8 +410,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void foo5(MR.CS.Misc._Moved<MR.CS.SignatureFilters.Const_A> _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_1", ExactSpelling = true)]
-                extern static void __MR_SignatureFilters_foo5_1(MR.CS.SignatureFilters.Const_A._Underlying *_1);
                 __MR_SignatureFilters_foo5_1(_1.Value._UnderlyingPtr);
             }
 
@@ -414,10 +418,40 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.SignatureFilters.Const_A> foo5()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_0", ExactSpelling = true)]
-                extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_foo5_0();
                 return MR.CS.Misc.Move(new MR.CS.SignatureFilters.Const_A(__MR_SignatureFilters_foo5_0(), is_owning: false));
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_0", ExactSpelling = true)]
+            extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo2_0();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_1", ExactSpelling = true)]
+            extern static unsafe void __MR_SignatureFilters_foo2_1(MR.CS.SignatureFilters.A._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_0", ExactSpelling = true)]
+            extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo3_0();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_1", ExactSpelling = true)]
+            extern static unsafe void __MR_SignatureFilters_foo3_1(MR.CS.SignatureFilters.A._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_0", ExactSpelling = true)]
+            extern static unsafe MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_foo4_0();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_1", ExactSpelling = true)]
+            extern static unsafe void __MR_SignatureFilters_foo4_1(MR.CS.SignatureFilters.Const_A._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_0", ExactSpelling = true)]
+            extern static unsafe MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_foo5_0();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_1", ExactSpelling = true)]
+            extern static unsafe void __MR_SignatureFilters_foo5_1(MR.CS.SignatureFilters.Const_A._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_0", ExactSpelling = true)]
+            extern static unsafe MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_foo_0();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_1", ExactSpelling = true)]
+            extern static unsafe void __MR_SignatureFilters_foo_1(MR.CS.SignatureFilters.A._Underlying *_1);
         }
     }
 }

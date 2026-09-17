@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_function_void_Destroy(_Underlying *_this);
                     __MR_C_std_function_void_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Function_Void() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_void_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Function_Void(MR.CS.Std._ByValue_Function_Void other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
+                    extern static unsafe MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Function_Void _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_function_void_has_value(MR.CS.Std.Const_Function_Void._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_function_void_has_value(MR.CS.Std.Const_Function_Void._Underlying *_this);
                     return __MR_C_std_function_void_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -75,7 +75,7 @@ public static partial class MR
                 public unsafe void call()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_call", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_call(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_function_void_call(_Underlying *_this);
                     __MR_C_std_function_void_call(_UnderlyingPtr);
                 }
 
@@ -96,7 +96,7 @@ public static partial class MR
                 public unsafe Const_Function_Void(Delegate func) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_ConstructEx", ExactSpelling = true)]
-                    extern static Const_Function_Void._Underlying *__MR_C_std_function_void_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    extern static unsafe Const_Function_Void._Underlying *__MR_C_std_function_void_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_void_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
@@ -117,7 +117,7 @@ public static partial class MR
                 public unsafe Function_Void() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_void_DefaultConstruct();
                 }
 
@@ -127,7 +127,7 @@ public static partial class MR
                 public unsafe Function_Void(MR.CS.Std._ByValue_Function_Void other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
+                    extern static unsafe MR.CS.Std.Function_Void._Underlying *__MR_C_std_function_void_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -148,7 +148,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Function_Void other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
+                    extern static unsafe void __MR_C_std_function_void_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_void_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -160,7 +160,7 @@ public static partial class MR
                 public unsafe void reset()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_reset", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_reset(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_function_void_reset(_Underlying *_this);
                     __MR_C_std_function_void_reset(_UnderlyingPtr);
                 }
 
@@ -177,7 +177,7 @@ public static partial class MR
                 public unsafe void assign(Delegate func)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_AssignEx", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_AssignEx(Function_Void._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    extern static unsafe void __MR_C_std_function_void_AssignEx(Function_Void._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     __MR_C_std_function_void_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
             }
@@ -203,7 +203,8 @@ public static partial class MR
                 public _ByValue_Function_Void(MR.CS.Misc._Moved<Function_Void> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_Void(MR.CS.Misc._Moved<Function_Void> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_Void(MR.CS.Std.Function_Void.Delegate func) {return new Function_Void(func);}}
+                public static unsafe implicit operator _ByValue_Function_Void(MR.CS.Std.Function_Void.Delegate func) {return new Function_Void(func);}
+            }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Void` with default arguments.
@@ -238,7 +239,8 @@ public static partial class MR
                 public _InOptConst_Function_Void(Const_Function_Void value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_Void(Const_Function_Void value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_Void(MR.CS.Std.Function_Void.Delegate func) {return new Function_Void(func);}}
+                public static unsafe implicit operator _InOptConst_Function_Void(MR.CS.Std.Function_Void.Delegate func) {return new Function_Void(func);}
+            }
         }
     }
 }

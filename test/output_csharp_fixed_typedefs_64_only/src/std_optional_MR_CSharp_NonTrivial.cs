@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_NonTrivial_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_optional_MR_CSharp_NonTrivial_Destroy(_Underlying *_this);
                     __MR_C_std_optional_MR_CSharp_NonTrivial_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Optional_MRCSharpNonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Optional_MRCSharpNonTrivial(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe Const_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -80,7 +80,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRCSharpNonTrivial _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_MR_CSharp_NonTrivial_has_value(MR.CS.Std.Const_Optional_MRCSharpNonTrivial._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_optional_MR_CSharp_NonTrivial_has_value(MR.CS.Std.Const_Optional_MRCSharpNonTrivial._Underlying *_this);
                     return __MR_C_std_optional_MR_CSharp_NonTrivial_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -90,7 +90,7 @@ public static partial class MR
                 public unsafe MR.CS.CSharp.Const_NonTrivial? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_value(_Underlying *_this);
+                    extern static unsafe MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_value(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_MR_CSharp_NonTrivial_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_NonTrivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__c_ret, is_owning: false) : null;
@@ -113,7 +113,7 @@ public static partial class MR
                 public unsafe Optional_MRCSharpNonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct();
                 }
 
@@ -123,7 +123,7 @@ public static partial class MR
                 public unsafe Optional_MRCSharpNonTrivial(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -144,7 +144,7 @@ public static partial class MR
                 public unsafe Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -159,7 +159,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Optional_MRCSharpNonTrivial other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
+                    extern static unsafe void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRCSharpNonTrivial._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -171,7 +171,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.CSharp._ByValue_NonTrivial? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
+                    extern static unsafe void __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.CSharp.NonTrivial._Underlying *other);
                     __MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(_UnderlyingPtr, other is not null ? other.PassByMode : MR.CS.Misc._PassBy.no_object, other is not null && other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -181,7 +181,7 @@ public static partial class MR
                 public unsafe new MR.CS.CSharp.NonTrivial? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_NonTrivial_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.CSharp.NonTrivial._Underlying *__MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.NonTrivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.NonTrivial(__c_ret, is_owning: false) : null;

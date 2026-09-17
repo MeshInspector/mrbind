@@ -33,8 +33,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_A_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -45,8 +43,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_A_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_A_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -58,8 +54,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_A_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_A_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -69,8 +63,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -79,8 +71,6 @@ public static partial class MR
                 /// Constructs `MR::CopyInheritedMembers::A` elementwise.
                 public unsafe Const_A(int Field) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFrom(int Field);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFrom(Field);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -89,8 +79,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
                 public unsafe Const_A(MR.CS.CopyInheritedMembers.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -103,12 +91,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::A::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_A_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_A_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFrom(int Field);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_A_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_A_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_A_StaticFunc();
             }
 
             /// Generated from class `MR::CopyInheritedMembers::A`.
@@ -136,8 +145,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_A_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -147,8 +154,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -157,8 +162,6 @@ public static partial class MR
                 /// Constructs `MR::CopyInheritedMembers::A` elementwise.
                 public unsafe A(int Field) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFrom(int Field);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFrom(Field);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -167,8 +170,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
                 public unsafe A(MR.CS.CopyInheritedMembers.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -181,8 +182,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::A::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.A _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_A_ConvertTo_int(MR.CS.CopyInheritedMembers.A._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_A_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -192,8 +191,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::A::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.A Assign(MR.CS.CopyInheritedMembers.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -205,12 +202,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::A::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_A_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_A_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFrom(int Field);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_A_ConvertTo_int(MR.CS.CopyInheritedMembers.A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_A_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_A_Method(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -262,8 +280,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_B_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_B_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -274,8 +290,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_B_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_B_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -287,8 +301,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_B_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_B_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -298,8 +310,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -308,8 +318,6 @@ public static partial class MR
                 /// Constructs `MR::CopyInheritedMembers::B` elementwise.
                 public unsafe Const_B(int Field) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFrom(int Field);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFrom(Field);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -318,8 +326,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
                 public unsafe Const_B(MR.CS.CopyInheritedMembers.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -332,12 +338,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::B::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_B_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_B_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFrom(int Field);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_B_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_B_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_B_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_B_StaticFunc();
             }
 
             /// Generated from class `MR::CopyInheritedMembers::B`.
@@ -355,8 +382,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_B_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -366,8 +391,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -376,8 +399,6 @@ public static partial class MR
                 /// Constructs `MR::CopyInheritedMembers::B` elementwise.
                 public unsafe B(int Field) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFrom(int Field);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFrom(Field);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -386,8 +407,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
                 public unsafe B(MR.CS.CopyInheritedMembers.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -400,8 +419,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::B::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.B _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_B_ConvertTo_int(MR.CS.CopyInheritedMembers.B._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_B_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -411,8 +428,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::B::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.B Assign(MR.CS.CopyInheritedMembers.Const_B _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -424,12 +439,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::B::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_B_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_B_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFrom(int Field);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_B_ConvertTo_int(MR.CS.CopyInheritedMembers.B._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_B_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_B_Method(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `B` with default arguments.
@@ -478,8 +514,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_C_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_C_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -489,16 +523,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_B(Const_C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_B ret = new(__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -509,8 +539,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -519,8 +547,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
                 public unsafe Const_C(MR.CS.CopyInheritedMembers.Const_C _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -529,6 +555,23 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
                 public Const_C(C _other) : this((Const_C)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_C_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::C`.
@@ -542,16 +585,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.B ret = new(__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -562,8 +601,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe C() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -572,8 +609,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
                 public unsafe C(MR.CS.CopyInheritedMembers.Const_C _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -586,8 +621,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::C::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.C Assign(MR.CS.CopyInheritedMembers.Const_C _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.C._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -595,6 +628,23 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.C._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `C` with default arguments.
@@ -646,8 +696,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_D_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_D_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -657,8 +705,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_B(Const_D self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_B ret = new(__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -668,8 +714,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_D_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_D_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -681,8 +725,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_D_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_D_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -692,8 +734,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -702,8 +742,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
                 public unsafe Const_D(MR.CS.CopyInheritedMembers.Const_D _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -716,12 +754,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::D::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_D_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_D_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_D_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_D_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_D_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_D_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::D`.
@@ -738,8 +797,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(D self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.B ret = new(__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -749,8 +806,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_D_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_D_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -760,8 +815,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -770,8 +823,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
                 public unsafe D(MR.CS.CopyInheritedMembers.Const_D _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -784,8 +835,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::D::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.D _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_D_ConvertTo_int(MR.CS.CopyInheritedMembers.D._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_D_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -795,8 +844,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::D::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.D Assign(MR.CS.CopyInheritedMembers.Const_D _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -808,12 +855,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::D::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_D_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_D_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.D._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_D_ConvertTo_int(MR.CS.CopyInheritedMembers.D._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_D_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_D_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `D` with default arguments.
@@ -864,8 +932,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_E_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_E_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -875,24 +941,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_B(Const_E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_B ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_D(Const_E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_D._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_D ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -903,8 +963,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_E() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -913,8 +971,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
                 public unsafe Const_E(MR.CS.CopyInheritedMembers.Const_E _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -923,6 +979,26 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
                 public Const_E(E _other) : this((Const_E)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_E_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_D._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::E`.
@@ -938,24 +1014,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.B ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.D(E self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.D ret = new(__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -966,8 +1036,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe E() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -976,8 +1044,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
                 public unsafe E(MR.CS.CopyInheritedMembers.Const_E _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -990,8 +1056,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::E::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.E Assign(MR.CS.CopyInheritedMembers.Const_E _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.E._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_E_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -999,6 +1063,26 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `E` with default arguments.
@@ -1049,8 +1133,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_F_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_F_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1060,24 +1142,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_B(Const_F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_B ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_D(Const_F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_D._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_D ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1088,8 +1164,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_F() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1098,8 +1172,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
                 public unsafe Const_F(MR.CS.CopyInheritedMembers.Const_F _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -1108,6 +1180,26 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
                 public Const_F(F _other) : this((Const_F)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_F_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_B._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_D._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::F`.
@@ -1123,24 +1215,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.B ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.D(F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.D ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(F self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1151,8 +1237,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe F() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1161,8 +1245,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
                 public unsafe F(MR.CS.CopyInheritedMembers.Const_F _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -1175,8 +1257,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::F::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.F Assign(MR.CS.CopyInheritedMembers.Const_F _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.F._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_F_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -1184,6 +1264,26 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.F._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `F` with default arguments.
@@ -1237,8 +1337,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_G_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_G_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1248,8 +1346,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_G self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1259,8 +1355,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_G_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_G_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1272,8 +1366,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_G_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_G_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -1283,8 +1375,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_G() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1293,8 +1383,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
                 public unsafe Const_G(MR.CS.CopyInheritedMembers._ByValue_G _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1310,12 +1398,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::G::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_G_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_G_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_G_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_G_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_G_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_G_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::G`.
@@ -1334,8 +1443,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(G self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1345,8 +1452,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_G_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_G_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -1356,8 +1461,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe G() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1366,8 +1469,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
                 public unsafe G(MR.CS.CopyInheritedMembers._ByValue_G _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1383,8 +1484,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::G::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.G _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_G_ConvertTo_int(MR.CS.CopyInheritedMembers.G._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_G_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1394,8 +1493,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::G::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.G Assign(MR.CS.CopyInheritedMembers._ByValue_G _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_G_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -1407,12 +1504,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::G::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_G_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_G_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_G_ConvertTo_int(MR.CS.CopyInheritedMembers.G._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_G_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_G_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `G` by value.
@@ -1482,8 +1600,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_H_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_H_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1493,16 +1609,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_H self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_G(Const_H self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_G ret = new(__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1512,8 +1624,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_H_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_H_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1525,8 +1635,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_H_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_H_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -1536,8 +1644,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_H() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1546,8 +1652,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
                 public unsafe Const_H(MR.CS.CopyInheritedMembers._ByValue_H _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1563,12 +1667,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::H::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_H_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_H_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_H_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_H_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_H_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_H_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::H`.
@@ -1583,16 +1711,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(H self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.G(H self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.G ret = new(__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1602,8 +1726,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_H_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_H_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -1613,8 +1735,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe H() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1623,8 +1743,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
                 public unsafe H(MR.CS.CopyInheritedMembers._ByValue_H _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1640,8 +1758,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::H::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.H _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_H_ConvertTo_int(MR.CS.CopyInheritedMembers.H._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_H_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1651,8 +1767,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::H::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.H Assign(MR.CS.CopyInheritedMembers._ByValue_H _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_H_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -1664,12 +1778,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::H::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_H_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_H_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_H_ConvertTo_int(MR.CS.CopyInheritedMembers.H._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_H_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_H_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `H` by value.
@@ -1739,8 +1877,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_I_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_I_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -1750,16 +1886,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_I self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_G(Const_I self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_G ret = new(__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1769,8 +1901,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_I_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_I_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1782,8 +1912,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_I_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_I_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -1793,8 +1921,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_I() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1803,8 +1929,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
                 public unsafe Const_I(MR.CS.CopyInheritedMembers._ByValue_I _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1820,12 +1944,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::I::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_I_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_I_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_I_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_I_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_I_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_I_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::I`.
@@ -1840,16 +1988,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(I self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.G(I self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.G ret = new(__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -1859,8 +2003,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_I_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_I_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -1870,8 +2012,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe I() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1880,8 +2020,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
                 public unsafe I(MR.CS.CopyInheritedMembers._ByValue_I _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -1897,8 +2035,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::I::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.I _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_I_ConvertTo_int(MR.CS.CopyInheritedMembers.I._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_I_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -1908,8 +2044,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::I::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.I Assign(MR.CS.CopyInheritedMembers._ByValue_I _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_I_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -1921,12 +2055,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::I::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_I_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_I_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_I_ConvertTo_int(MR.CS.CopyInheritedMembers.I._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_I_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_I_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `I` by value.
@@ -2002,8 +2160,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_J_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_J_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -2013,8 +2169,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_J self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2024,8 +2178,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_J_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_J_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2037,8 +2189,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_J_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_J_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -2048,8 +2198,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_J() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2058,8 +2206,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
                 public unsafe Const_J(MR.CS.CopyInheritedMembers.Const_J _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -2072,12 +2218,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::J::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_J_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_J_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_J_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_J_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_J_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_J_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::J`.
@@ -2098,8 +2265,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(J self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2109,8 +2274,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_J_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_J_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -2120,8 +2283,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe J() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2130,8 +2291,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
                 public unsafe J(MR.CS.CopyInheritedMembers.Const_J _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -2144,8 +2303,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::J::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.J _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_J_ConvertTo_int(MR.CS.CopyInheritedMembers.J._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_J_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2155,8 +2312,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::J::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.J Assign(MR.CS.CopyInheritedMembers.Const_J _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_J_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -2168,12 +2323,33 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::J::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_J_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_J_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.J._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_J_ConvertTo_int(MR.CS.CopyInheritedMembers.J._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_J_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_J_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `J` with default arguments.
@@ -2224,8 +2400,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_K_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_K_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -2235,16 +2409,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_G(Const_K self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_G ret = new(__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_J(Const_K self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_J ret = new(__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2255,8 +2425,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_K() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2265,8 +2433,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
                 public unsafe Const_K(MR.CS.CopyInheritedMembers._ByValue_K _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2278,6 +2444,23 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
                 public Const_K(K _other) : this((Const_K)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_K_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::K`.
@@ -2293,16 +2476,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.G(K self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.G ret = new(__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(K self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.J ret = new(__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2313,8 +2492,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe K() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2323,8 +2500,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
                 public unsafe K(MR.CS.CopyInheritedMembers._ByValue_K _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2340,8 +2515,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::K::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.K Assign(MR.CS.CopyInheritedMembers._ByValue_K _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_K_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -2349,6 +2522,23 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `K` by value.
@@ -2419,8 +2609,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_L_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_L_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -2430,16 +2618,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_J(Const_L self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_J ret = new(__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_G(Const_L self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_G ret = new(__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2450,8 +2634,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_L() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2460,8 +2642,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
                 public unsafe Const_L(MR.CS.CopyInheritedMembers._ByValue_L _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2473,6 +2653,23 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
                 public Const_L(L _other) : this((Const_L)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_L_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_G._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::L`.
@@ -2488,16 +2685,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(L self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.J ret = new(__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.G(L self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.G ret = new(__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2508,8 +2701,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe L() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2518,8 +2709,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
                 public unsafe L(MR.CS.CopyInheritedMembers._ByValue_L _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2535,8 +2724,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::L::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.L Assign(MR.CS.CopyInheritedMembers._ByValue_L _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_L_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -2544,6 +2731,23 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `L` by value.
@@ -2619,8 +2823,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_M_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_M_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -2630,16 +2832,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_M self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_J(Const_M self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_J ret = new(__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2649,8 +2847,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_M_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_M_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2662,8 +2858,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_M_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_M_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -2673,8 +2867,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_M() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2683,8 +2875,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
                 public unsafe Const_M(MR.CS.CopyInheritedMembers._ByValue_M _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2700,12 +2890,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::M::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_M_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_M_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_M_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_M_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_M_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_M_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             // Now test that a non-virtual base of a virtual base gets treated as a virtual.
@@ -2726,16 +2940,12 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(M self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(M self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.J ret = new(__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2745,8 +2955,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_M_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_M_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -2756,8 +2964,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe M() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2766,8 +2972,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
                 public unsafe M(MR.CS.CopyInheritedMembers._ByValue_M _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2783,8 +2987,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::M::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.M _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_M_ConvertTo_int(MR.CS.CopyInheritedMembers.M._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_M_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2794,8 +2996,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::M::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.M Assign(MR.CS.CopyInheritedMembers._ByValue_M _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_M_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -2807,12 +3007,36 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::M::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_M_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_M_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_M_ConvertTo_int(MR.CS.CopyInheritedMembers.M._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_M_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_M_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `M` by value.
@@ -2887,8 +3111,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_N_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_N_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -2898,24 +3120,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_J(Const_N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_J ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_M(Const_N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_M._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_M ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -2925,8 +3141,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_N_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_N_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2938,8 +3152,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_N_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_N_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -2949,8 +3161,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_N() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -2959,8 +3169,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
                 public unsafe Const_N(MR.CS.CopyInheritedMembers._ByValue_N _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -2976,12 +3184,39 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::N::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_N_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_N_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_N_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_N_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_N_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_N_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_M._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::N`.
@@ -3001,24 +3236,18 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.J ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.M(N self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.M ret = new(__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -3028,8 +3257,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_N_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_N_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -3039,8 +3266,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe N() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3049,8 +3274,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
                 public unsafe N(MR.CS.CopyInheritedMembers._ByValue_N _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -3066,8 +3289,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::N::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.N _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_N_ConvertTo_int(MR.CS.CopyInheritedMembers.N._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_N_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3077,8 +3298,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::N::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.N Assign(MR.CS.CopyInheritedMembers._ByValue_N _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_N_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -3090,12 +3309,39 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::N::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_N_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_N_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_N_ConvertTo_int(MR.CS.CopyInheritedMembers.N._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_N_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_N_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `N` by value.
@@ -3169,8 +3415,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Destroy", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_O_Destroy(_Underlying *_this);
                     __MR_CopyInheritedMembers_O_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -3180,32 +3424,24 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_A(Const_O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_A ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_J(Const_O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_J ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_M(Const_O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_M._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_M ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.Const_N(Const_O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.Const_N._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.Const_N ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -3215,8 +3451,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_StaticField", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_O_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_CopyInheritedMembers_O_GetMutable_StaticField();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3228,8 +3462,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_O_Get_Field(_Underlying *_this);
                         return *__MR_CopyInheritedMembers_O_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -3239,8 +3471,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_O() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3249,8 +3479,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
                 public unsafe Const_O(MR.CS.CopyInheritedMembers._ByValue_O _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -3266,12 +3494,42 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::O::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_O_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_O_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_O_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_StaticField", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_O_GetMutable_StaticField();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_O_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_CopyInheritedMembers_O_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_A._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_J._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_M._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.Const_N._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(_Underlying *_this);
             }
 
             /// Generated from class `MR::CopyInheritedMembers::O`.
@@ -3290,32 +3548,24 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.A ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.J ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.M(O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.M ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.N(O self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(_Underlying *_this);
                     MR.CS.CopyInheritedMembers.N ret = new(__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -3325,8 +3575,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_O_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_CopyInheritedMembers_O_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -3336,8 +3584,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe O() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3346,8 +3592,6 @@ public static partial class MR
                 /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
                 public unsafe O(MR.CS.CopyInheritedMembers._ByValue_O _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
@@ -3363,8 +3607,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::CopyInheritedMembers::O::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.O _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_CopyInheritedMembers_O_ConvertTo_int(MR.CS.CopyInheritedMembers.O._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_O_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -3374,8 +3616,6 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::O::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.O Assign(MR.CS.CopyInheritedMembers._ByValue_O _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_CopyInheritedMembers_O_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     _DiscardKeepAlive();
@@ -3387,12 +3627,42 @@ public static partial class MR
                 /// Generated from method `MR::CopyInheritedMembers::O::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Method", ExactSpelling = true)]
-                    extern static void __MR_CopyInheritedMembers_O_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_CopyInheritedMembers_O_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_CopyInheritedMembers_O_ConvertTo_int(MR.CS.CopyInheritedMembers.O._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_CopyInheritedMembers_O_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_CopyInheritedMembers_O_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N", ExactSpelling = true)]
+                extern static unsafe MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `O` by value.

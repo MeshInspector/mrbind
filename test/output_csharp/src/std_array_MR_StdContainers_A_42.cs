@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_array_MR_StdContainers_A_42_Destroy(_Underlying *_this);
                     __MR_C_std_array_MR_StdContainers_A_42_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -93,8 +91,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Array_MRStdContainersA_42() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -103,8 +99,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Array_MRStdContainersA_42(MR.CS.Std.Const_Array_MRStdContainersA_42 other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -119,8 +113,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_at(_UnderlyingPtr, i);
                         MR.CS.StdContainers.Const_A __ret;
@@ -134,8 +126,6 @@ public static partial class MR
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
                 public unsafe MR.CS.StdContainers.ConstPtrA Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_data(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -145,8 +135,6 @@ public static partial class MR
                 /// The begin iterator, const.
                 public unsafe MR.CS.StdContainers.ConstPtrA Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_begin(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -156,13 +144,34 @@ public static partial class MR
                 /// The end iterator, const.
                 public unsafe MR.CS.StdContainers.ConstPtrA End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_end(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_array_MR_StdContainers_A_42_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at(_Underlying *_this, nuint i);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end(_Underlying *_this);
             }
 
             /// A fixed-size array of `MR::StdContainers::A` of size 42.
@@ -238,8 +247,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Array_MRStdContainersA_42() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -248,8 +255,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Array_MRStdContainersA_42(MR.CS.Std.Const_Array_MRStdContainersA_42 other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -262,8 +267,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Array_MRStdContainersA_42 other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(_Underlying *_this, MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
@@ -276,8 +279,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at_mut", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at_mut(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_at_mut(_UnderlyingPtr, i);
                         MR.CS.StdContainers.A __ret;
@@ -291,8 +292,6 @@ public static partial class MR
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
                 public unsafe new MR.CS.StdContainers.PtrA Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data_mut", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_data_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -302,8 +301,6 @@ public static partial class MR
                 /// The begin iterator, mutable.
                 public unsafe new MR.CS.StdContainers.PtrA Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin_mut", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_begin_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -313,13 +310,34 @@ public static partial class MR
                 /// The end iterator, mutable.
                 public unsafe new MR.CS.StdContainers.PtrA End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end_mut", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_end_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(_Underlying *_this, MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at_mut(_Underlying *_this, nuint i);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end_mut(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `Array_MRStdContainersA_42` with default arguments.

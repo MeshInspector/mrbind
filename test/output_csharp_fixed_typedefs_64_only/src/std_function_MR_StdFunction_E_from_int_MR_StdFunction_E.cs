@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy(_Underlying *_this);
                     __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
+                    extern static unsafe MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_has_value(MR.CS.Std.Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_has_value(MR.CS.Std.Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *_this);
                     return __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -75,7 +75,7 @@ public static partial class MR
                 public unsafe MR.CS.StdFunction.E call(int _1, MR.CS.StdFunction.E _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_call", ExactSpelling = true)]
-                    extern static MR.CS.StdFunction.E __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_call(_Underlying *_this, int _1, MR.CS.StdFunction.E _2);
+                    extern static unsafe MR.CS.StdFunction.E __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_call(_Underlying *_this, int _1, MR.CS.StdFunction.E _2);
                     return __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_call(_UnderlyingPtr, _1, _2);
                 }
 
@@ -101,7 +101,7 @@ public static partial class MR
                 public unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Delegate func) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructEx", ExactSpelling = true)]
-                    extern static Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    extern static unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
@@ -122,7 +122,7 @@ public static partial class MR
                 public unsafe Function_MRStdFunctionE_From_Int_MRStdFunctionE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                 }
 
@@ -132,7 +132,7 @@ public static partial class MR
                 public unsafe Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
+                    extern static unsafe MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -153,7 +153,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
+                    extern static unsafe void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -165,7 +165,7 @@ public static partial class MR
                 public unsafe void reset()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_reset", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_reset(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_reset(_Underlying *_this);
                     __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_reset(_UnderlyingPtr);
                 }
 
@@ -182,7 +182,7 @@ public static partial class MR
                 public unsafe void assign(Delegate func)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignEx", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignEx(Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    extern static unsafe void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignEx(Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
             }
@@ -208,7 +208,8 @@ public static partial class MR
                 public _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
+                public static unsafe implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}
+            }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionE_From_Int_MRStdFunctionE` with default arguments.
@@ -243,7 +244,8 @@ public static partial class MR
                 public _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
+                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}
+            }
         }
     }
 }

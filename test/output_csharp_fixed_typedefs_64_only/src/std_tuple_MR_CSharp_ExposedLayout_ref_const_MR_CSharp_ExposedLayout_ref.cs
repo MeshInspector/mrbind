@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef(ref MR.CS.CSharp.ExposedLayout _0, in MR.CS.CSharp.ExposedLayout _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(MR.CS.CSharp.ExposedLayout *_0, MR.CS.CSharp.ExposedLayout *_1);
+                    extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(MR.CS.CSharp.ExposedLayout *_0, MR.CS.CSharp.ExposedLayout *_1);
                     fixed (MR.CS.CSharp.ExposedLayout *__ptr__0 = &_0)
                     {
                         fixed (MR.CS.CSharp.ExposedLayout *__ptr__1 = &_1)
@@ -50,7 +50,7 @@ public static partial class MR
                 public unsafe ref MR.CS.CSharp.ExposedLayout getMRCSharpExposedLayoutRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
                     return ref *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
                 }
 
@@ -60,7 +60,7 @@ public static partial class MR
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout getConstMRCSharpExposedLayoutRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
                     return ref *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
                 }
 
@@ -87,7 +87,7 @@ public static partial class MR
                 public unsafe Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef(ref MR.CS.CSharp.ExposedLayout _0, in MR.CS.CSharp.ExposedLayout _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(MR.CS.CSharp.ExposedLayout *_0, MR.CS.CSharp.ExposedLayout *_1);
+                    extern static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef._Underlying *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(MR.CS.CSharp.ExposedLayout *_0, MR.CS.CSharp.ExposedLayout *_1);
                     fixed (MR.CS.CSharp.ExposedLayout *__ptr__0 = &_0)
                     {
                         fixed (MR.CS.CSharp.ExposedLayout *__ptr__1 = &_1)

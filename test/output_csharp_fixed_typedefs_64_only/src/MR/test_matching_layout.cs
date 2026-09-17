@@ -52,7 +52,7 @@ public static partial class MR
                 {
                     { // X (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_MatchingLayout_A_GetMutable_x();
+                        extern static unsafe int *__MR_MatchingLayout_A_GetMutable_x();
                         ConstBox_A.__ref_storage_X = __MR_MatchingLayout_A_GetMutable_x();
                     }
                 }
@@ -510,7 +510,7 @@ public static partial class MR
             public static unsafe void baz(MR.CS.MatchingLayout._InOpt_B _1 = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_baz", ExactSpelling = true)]
-                extern static void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
+                extern static unsafe void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
                 __MR_MatchingLayout_baz(_1.HasValue ? &_1.Object : null);
             }
 
@@ -520,7 +520,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>? bleh(MR.CS.Misc.InOut<MR.CS.MatchingLayout.B>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
-                extern static MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
+                extern static unsafe MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
                 MR.CS.MatchingLayout.B __value__1 = _1 is not null ? _1.Value : default(MR.CS.MatchingLayout.B);
                 var __c_ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;

@@ -16,8 +16,6 @@ public static partial class MR
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
                     return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_Destroy", ExactSpelling = true)]
-                extern static void __MR_C_expected_int32_t_std_string_Destroy(_Underlying *_this);
                 __MR_C_expected_int32_t_std_string_Destroy(_UnderlyingPtr);
                 _UnderlyingPtr = null;
             }
@@ -31,8 +29,6 @@ public static partial class MR
             /// </summary>
             public unsafe Const_Expected_Int32T_StdString() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_DefaultConstruct();
                 _UnderlyingPtr = __MR_C_expected_int32_t_std_string_DefaultConstruct();
             }
 
@@ -41,8 +37,6 @@ public static partial class MR
             /// </summary>
             public unsafe Const_Expected_Int32T_StdString(MR.CS._ByValue_Expected_Int32T_StdString other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
                 _UnderlyingPtr = __MR_C_expected_int32_t_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 if (other.Value is not null) _KeepAlive(other.Value);
             }
@@ -62,8 +56,6 @@ public static partial class MR
             /// </summary>
             public static unsafe implicit operator bool(MR.CS.Const_Expected_Int32T_StdString _this)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_success", ExactSpelling = true)]
-                extern static byte __MR_C_expected_int32_t_std_string_success(MR.CS.Const_Expected_Int32T_StdString._Underlying *_this);
                 return __MR_C_expected_int32_t_std_string_success(_this._UnderlyingPtr) != 0;
             }
 
@@ -72,8 +64,6 @@ public static partial class MR
             /// </summary>
             public unsafe int? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value", ExactSpelling = true)]
-                extern static int *__MR_C_expected_int32_t_std_string_value(_Underlying *_this);
                 var __c_ret = __MR_C_expected_int32_t_std_string_value(_UnderlyingPtr);
                 return __c_ret is not null ? *__c_ret : null;
             }
@@ -83,14 +73,32 @@ public static partial class MR
             /// </summary>
             public unsafe MR.CS.Std.Const_String? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error", ExactSpelling = true)]
-                extern static MR.CS.Std.Const_String._Underlying *__MR_C_expected_int32_t_std_string_error(_Underlying *_this);
                 var __c_ret = __MR_C_expected_int32_t_std_string_error(_UnderlyingPtr);
                 MR.CS.Std.Const_String? __ret;
                 __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
                 if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                 return __ret;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_Destroy", ExactSpelling = true)]
+            extern static unsafe void __MR_C_expected_int32_t_std_string_Destroy(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_expected_int32_t_std_string_error(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_success", ExactSpelling = true)]
+            extern static unsafe byte __MR_C_expected_int32_t_std_string_success(MR.CS.Const_Expected_Int32T_StdString._Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value", ExactSpelling = true)]
+            extern static unsafe int *__MR_C_expected_int32_t_std_string_value(_Underlying *_this);
         }
 
         /// <summary>
@@ -106,8 +114,6 @@ public static partial class MR
             /// </summary>
             public unsafe Expected_Int32T_StdString() : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_DefaultConstruct();
                 _UnderlyingPtr = __MR_C_expected_int32_t_std_string_DefaultConstruct();
             }
 
@@ -116,8 +122,6 @@ public static partial class MR
             /// </summary>
             public unsafe Expected_Int32T_StdString(MR.CS._ByValue_Expected_Int32T_StdString other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
                 _UnderlyingPtr = __MR_C_expected_int32_t_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 if (other.Value is not null) _KeepAlive(other.Value);
             }
@@ -137,8 +141,6 @@ public static partial class MR
             /// </summary>
             public unsafe void assign(MR.CS._ByValue_Expected_Int32T_StdString other)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_AssignFromAnother", ExactSpelling = true)]
-                extern static void __MR_C_expected_int32_t_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
                 _DiscardKeepAlive();
                 if (other.Value is not null) _KeepAlive(other.Value);
                 __MR_C_expected_int32_t_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -149,8 +151,6 @@ public static partial class MR
             /// </summary>
             public unsafe new MR.CS.Misc.Ref<int>? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value_mut", ExactSpelling = true)]
-                extern static int *__MR_C_expected_int32_t_std_string_value_mut(_Underlying *_this);
                 var __c_ret = __MR_C_expected_int32_t_std_string_value_mut(_UnderlyingPtr);
                 return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
             }
@@ -160,14 +160,29 @@ public static partial class MR
             /// </summary>
             public unsafe new MR.CS.Std.String? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error_mut", ExactSpelling = true)]
-                extern static MR.CS.Std.String._Underlying *__MR_C_expected_int32_t_std_string_error_mut(_Underlying *_this);
                 var __c_ret = __MR_C_expected_int32_t_std_string_error_mut(_UnderlyingPtr);
                 MR.CS.Std.String? __ret;
                 __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
                 if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                 return __ret;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_AssignFromAnother", ExactSpelling = true)]
+            extern static unsafe void __MR_C_expected_int32_t_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Expected_Int32T_StdString._Underlying *other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
+            extern static unsafe MR.CS.Expected_Int32T_StdString._Underlying *__MR_C_expected_int32_t_std_string_DefaultConstruct();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error_mut", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.String._Underlying *__MR_C_expected_int32_t_std_string_error_mut(_Underlying *_this);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value_mut", ExactSpelling = true)]
+            extern static unsafe int *__MR_C_expected_int32_t_std_string_value_mut(_Underlying *_this);
         }
 
         /// <summary>

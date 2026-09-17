@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_Destroy", ExactSpelling = true)]
-                    extern static void __MR_NestedTemplateInst_A_int32_t_Destroy(_Underlying *_this);
                     __MR_NestedTemplateInst_A_int32_t_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_Int32T(MR.CS.NestedTemplateInst.Const_A_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -69,8 +63,6 @@ public static partial class MR
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_Destroy", ExactSpelling = true)]
-                        extern static void __MR_NestedTemplateInst_A_int32_t_AA_float_Destroy(_Underlying *_this);
                         __MR_NestedTemplateInst_A_int32_t_AA_float_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -84,8 +76,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_AA_Float() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
                     }
 
@@ -94,8 +84,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_AA_Float(MR.CS.NestedTemplateInst.A_Int32T.Const_AA_Float _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -104,6 +92,17 @@ public static partial class MR
                     /// Generated from constructor `MR::NestedTemplateInst::A&lt;int32_t&gt;::AA&lt;float&gt;::AA`.
                     /// </summary>
                     public Const_AA_Float(AA_Float _other) : this((Const_AA_Float)_other) {}
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_Destroy", ExactSpelling = true)]
+                    extern static unsafe void __MR_NestedTemplateInst_A_int32_t_AA_float_Destroy(_Underlying *_this);
                 }
 
                 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
@@ -120,8 +119,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe AA_Float() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
                     }
 
@@ -130,8 +127,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe AA_Float(MR.CS.NestedTemplateInst.A_Int32T.Const_AA_Float _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -146,12 +141,21 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float assign(MR.CS.NestedTemplateInst.A_Int32T.Const_AA_Float _other)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
                         _DiscardKeepAlive();
                         _KeepAlive(_other);
                         return new(__MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.NestedTemplateInst.A_Int32T.AA_Float._Underlying *__MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
                 }
 
                 /// <summary>
@@ -187,6 +191,17 @@ public static partial class MR
                     public _InOptConst_AA_Float(Const_AA_Float value) {Opt = value;}
                     public static implicit operator _InOptConst_AA_Float(Const_AA_Float value) {return new(value);}
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_NestedTemplateInst_A_int32_t_Destroy(_Underlying *_this);
             }
 
             /// <summary>
@@ -202,8 +217,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
                 }
 
@@ -212,8 +225,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_Int32T(MR.CS.NestedTemplateInst.Const_A_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -228,12 +239,21 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.NestedTemplateInst.A_Int32T assign(MR.CS.NestedTemplateInst.Const_A_Int32T _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_NestedTemplateInst_A_int32_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.NestedTemplateInst.A_Int32T._Underlying *__MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
             }
 
             /// <summary>

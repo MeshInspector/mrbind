@@ -214,6 +214,14 @@ int main(int argc, char **argv)
             generator.move_in_by_value_return = true;
         },
     });
+    args_parser.AddFlag("--local-dllimport", {
+        .desc = "Keep `DllImport`s at function scope instead of extracting them to class scope. Normally this is unnecessary, as it seems to increase binary sizes, but it can help work around bugs. If something doesn't compile without this flag, please report.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.local_dllimport = true;
+        },
+    });
     args_parser.AddFlag("--buggy-transparent-shared-pointers", {
         .desc = "Not implemented properly yet. This tries to make shared pointers to classes transparent, by storing them directly in those classes, instead of exposing them as separate classes. This requires passing `--bind-shared-ptr-virally` to the parser.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)

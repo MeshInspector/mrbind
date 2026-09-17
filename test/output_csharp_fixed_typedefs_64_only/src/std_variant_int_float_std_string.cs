@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_variant_int_float_std_string_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_variant_int_float_std_string_Destroy(_Underlying *_this);
                     __MR_C_std_variant_int_float_std_string_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Variant_Int_Float_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Variant_Int_Float_StdString(MR.CS.Std._ByValue_Variant_Int_Float_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe nuint index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_index", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_variant_int_float_std_string_index(_Underlying *_this);
+                    extern static unsafe nuint __MR_C_std_variant_int_float_std_string_index(_Underlying *_this);
                     return __MR_C_std_variant_int_float_std_string_index(_UnderlyingPtr);
                 }
 
@@ -75,7 +75,7 @@ public static partial class MR
                 public unsafe Const_Variant_Int_Float_StdString(int value, MR.CS.Std.VariantIndex_0 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_int", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_int(int value);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_int(int value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_int(value);
                 }
 
@@ -90,7 +90,7 @@ public static partial class MR
                 public unsafe Const_Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_float", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
 
@@ -105,7 +105,7 @@ public static partial class MR
                 public unsafe Const_Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
                     int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
@@ -126,7 +126,7 @@ public static partial class MR
                 public unsafe int? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_int", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_int_float_std_string_get_int(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_variant_int_float_std_string_get_int(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_int(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
@@ -137,7 +137,7 @@ public static partial class MR
                 public unsafe float? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_int_float_std_string_get_float(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_variant_int_float_std_string_get_float(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_float(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
@@ -148,7 +148,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Const_String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_variant_int_float_std_string_get_std_string(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_variant_int_float_std_string_get_std_string(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_std_string(_UnderlyingPtr);
                     MR.CS.Std.Const_String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
@@ -171,7 +171,7 @@ public static partial class MR
                 public unsafe Variant_Int_Float_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_DefaultConstruct();
                 }
 
@@ -181,7 +181,7 @@ public static partial class MR
                 public unsafe Variant_Int_Float_StdString(MR.CS.Std._ByValue_Variant_Int_Float_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -202,7 +202,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Variant_Int_Float_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_variant_int_float_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
+                    extern static unsafe void __MR_C_std_variant_int_float_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_variant_int_float_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -214,7 +214,7 @@ public static partial class MR
                 public unsafe Variant_Int_Float_StdString(int value, MR.CS.Std.VariantIndex_0 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_int", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_int(int value);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_int(int value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_int(value);
                 }
 
@@ -229,7 +229,7 @@ public static partial class MR
                 public unsafe Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_float", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
 
@@ -244,7 +244,7 @@ public static partial class MR
                 public unsafe Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
+                    extern static unsafe MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_std_string(byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
                     int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
@@ -265,7 +265,7 @@ public static partial class MR
                 public unsafe void assignAsInt(int value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_int", ExactSpelling = true)]
-                    extern static void __MR_C_std_variant_int_float_std_string_AssignAs_int(_Underlying *_this, int value);
+                    extern static unsafe void __MR_C_std_variant_int_float_std_string_AssignAs_int(_Underlying *_this, int value);
                     _DiscardKeepAlive();
                     __MR_C_std_variant_int_float_std_string_AssignAs_int(_UnderlyingPtr, value);
                 }
@@ -276,7 +276,7 @@ public static partial class MR
                 public unsafe void assignAsFloat(float value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_float", ExactSpelling = true)]
-                    extern static void __MR_C_std_variant_int_float_std_string_AssignAs_float(_Underlying *_this, float value);
+                    extern static unsafe void __MR_C_std_variant_int_float_std_string_AssignAs_float(_Underlying *_this, float value);
                     _DiscardKeepAlive();
                     __MR_C_std_variant_int_float_std_string_AssignAs_float(_UnderlyingPtr, value);
                 }
@@ -287,7 +287,7 @@ public static partial class MR
                 public unsafe void assignAsStdString(ReadOnlySpan<char> value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
-                    extern static void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);
+                    extern static unsafe void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);
                     byte[] __bytes_value = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(value.Length)];
                     int __len_value = System.Text.Encoding.UTF8.GetBytes(value, __bytes_value);
                     fixed (byte *__ptr_value = __bytes_value)
@@ -303,7 +303,7 @@ public static partial class MR
                 public unsafe new MR.CS.Misc.Ref<int>? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_int_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_int_float_std_string_get_int_mut(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_variant_int_float_std_string_get_int_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_int_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
@@ -314,7 +314,7 @@ public static partial class MR
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_float_mut", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_int_float_std_string_get_float_mut(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_variant_int_float_std_string_get_float_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_float_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
@@ -325,7 +325,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_get_std_string_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_variant_int_float_std_string_get_std_string_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_variant_int_float_std_string_get_std_string_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_variant_int_float_std_string_get_std_string_mut(_UnderlyingPtr);
                     MR.CS.Std.String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;

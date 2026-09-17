@@ -20,8 +20,6 @@ public static partial class MR
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
                     return;
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_Destroy", ExactSpelling = true)]
-                extern static void __MR_CommonBaseAB_Destroy(_Underlying *_this);
                 __MR_CommonBaseAB_Destroy(_UnderlyingPtr);
                 _UnderlyingPtr = null;
             }
@@ -35,8 +33,6 @@ public static partial class MR
             /// </summary>
             public unsafe Const_CommonBaseAB(MR.CS._ByValue_CommonBaseAB _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
                 _UnderlyingPtr = __MR_CommonBaseAB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
             }
@@ -50,6 +46,14 @@ public static partial class MR
             /// Generated from constructor `MR::CommonBaseAB::CommonBaseAB`.
             /// </summary>
             public Const_CommonBaseAB(CommonBaseAB _other) : this((Const_CommonBaseAB)_other) {}
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_Destroy", ExactSpelling = true)]
+            extern static unsafe void __MR_CommonBaseAB_Destroy(_Underlying *_this);
         }
 
         /// <summary>
@@ -69,8 +73,6 @@ public static partial class MR
             /// </summary>
             public unsafe CommonBaseAB(MR.CS._ByValue_CommonBaseAB _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
                 _UnderlyingPtr = __MR_CommonBaseAB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
             }
@@ -90,8 +92,6 @@ public static partial class MR
             /// </summary>
             public unsafe MR.CS.CommonBaseAB assign(MR.CS._ByValue_CommonBaseAB _other)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_AssignFromAnother", ExactSpelling = true)]
-                extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
                 MR.CS.CommonBaseAB __ret;
                 __ret = new(__MR_CommonBaseAB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 _DiscardKeepAlive();
@@ -99,6 +99,14 @@ public static partial class MR
                 __ret._KeepAlive(this);
                 return __ret;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_AssignFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
+            extern static unsafe MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
         }
 
         /// <summary>
@@ -161,9 +169,12 @@ public static partial class MR
         /// </summary>
         public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRCommonBaseAB> markSharedCommonBaseAb()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_mark_shared_common_base_ab", ExactSpelling = true)]
-            extern static MR.CS.Std.SharedPtr_MRCommonBaseAB._Underlying *__MR_mark_shared_common_base_ab();
             return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_MRCommonBaseAB(__MR_mark_shared_common_base_ab(), is_owning: true));
         }
+
+        // DllImport:
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_mark_shared_common_base_ab", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.SharedPtr_MRCommonBaseAB._Underlying *__MR_mark_shared_common_base_ab();
     }
 }

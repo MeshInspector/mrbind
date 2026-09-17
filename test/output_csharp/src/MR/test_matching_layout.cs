@@ -45,8 +45,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_MatchingLayout_A_GetMutable_x();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_MatchingLayout_A_GetMutable_x();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -74,6 +72,11 @@ public static partial class MR
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
                     *(MR.CS.MatchingLayout.A *)_UnderlyingPtr = *(MR.CS.MatchingLayout.A *)_other._UnderlyingPtr;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_A_GetMutable_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_MatchingLayout_A_GetMutable_x();
             }
 
             /// Generated from class `MR::MatchingLayout::A`.
@@ -267,13 +270,16 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe ConstBox_B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
             }
 
             /// Generated from class `MR::MatchingLayout::B`.
@@ -307,13 +313,16 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Box_B() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
             }
 
             /// Generated from class `MR::MatchingLayout::B`.
@@ -339,12 +348,15 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     this = __MR_MatchingLayout_B_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
+                extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
             }
 
             /// This is used as a function parameter when passing `Box_B` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
@@ -419,8 +431,6 @@ public static partial class MR
             /// Generated from function `MR::MatchingLayout::foo`.
             public static MR.CS.MatchingLayout.B Foo()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_foo", ExactSpelling = true)]
-                extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_foo();
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_MatchingLayout_foo();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -430,8 +440,6 @@ public static partial class MR
             /// Generated from function `MR::MatchingLayout::bar`.
             public static void Bar(MR.CS.MatchingLayout.B _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bar", ExactSpelling = true)]
-                extern static void __MR_MatchingLayout_bar(MR.CS.MatchingLayout.B _1);
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_MatchingLayout_bar(_1);
@@ -441,8 +449,6 @@ public static partial class MR
             /// Parameter `_1` defaults to `MR::MatchingLayout::B{}`.
             public static unsafe void Baz(MR.CS.MatchingLayout._InOpt_B _1 = default)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_baz", ExactSpelling = true)]
-                extern static void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_MatchingLayout_baz(_1.HasValue ? &_1.Object : null);
@@ -451,8 +457,6 @@ public static partial class MR
             /// Generated from function `MR::MatchingLayout::bleh`.
             public static unsafe MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>? Bleh(MR.CS.Misc.InOut<MR.CS.MatchingLayout.B>? _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
-                extern static MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.MatchingLayout.B __value__1 = _1 is not null ? _1.Value : default(MR.CS.MatchingLayout.B);
                 var __c_ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
@@ -460,6 +464,20 @@ public static partial class MR
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>(__c_ret) : null;
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bar", ExactSpelling = true)]
+            extern static void __MR_MatchingLayout_bar(MR.CS.MatchingLayout.B _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_baz", ExactSpelling = true)]
+            extern static unsafe void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
+            extern static unsafe MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_foo", ExactSpelling = true)]
+            extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_foo();
         }
     }
 }

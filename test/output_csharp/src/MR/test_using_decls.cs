@@ -20,8 +20,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_A_Destroy(_Underlying *_this);
                     __MR_UsingDecls_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -32,8 +30,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_StaticVar", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_A_GetMutable_StaticVar();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_UsingDecls_A_GetMutable_StaticVar();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -45,8 +41,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_A_Get_Field(_Underlying *_this);
                         return *__MR_UsingDecls_A_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -56,8 +50,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe Const_A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -70,8 +62,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe Const_A(int _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -83,8 +73,6 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::A::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_A_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_A_StaticFunc();
@@ -93,6 +81,26 @@ public static partial class MR
                 public enum E : int
                 {
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_StaticVar", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_A_GetMutable_StaticVar();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_A_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_UsingDecls_A_StaticFunc();
             }
 
             // Test how `using` declarations import things.
@@ -107,8 +115,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_A_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_UsingDecls_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -118,8 +124,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -132,8 +136,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe A(int _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -145,8 +147,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::UsingDecls::A::operator int`.
                 public static unsafe implicit operator int(MR.CS.UsingDecls.A _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_UsingDecls_A_ConvertTo_int(MR.CS.UsingDecls.A._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_UsingDecls_A_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -156,8 +156,6 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::A::operator=`.
                 public unsafe MR.CS.UsingDecls.A Assign(MR.CS.UsingDecls.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_UsingDecls_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -169,8 +167,6 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::A::operator=`.
                 public unsafe void Assign(int _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_assign", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_A_assign(_Underlying *_this, int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_A_assign(_UnderlyingPtr, _1);
@@ -179,12 +175,33 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::A::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Method", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_A_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_A_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_UsingDecls_A_ConvertTo_int(MR.CS.UsingDecls.A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_A_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_A_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_assign", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_A_assign(_Underlying *_this, int _1);
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -235,8 +252,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_B_Destroy(_Underlying *_this);
                     __MR_UsingDecls_B_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -246,8 +261,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.UsingDecls.Const_A(Const_B self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.Const_A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
                     MR.CS.UsingDecls.Const_A ret = new(__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -257,8 +270,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_Get_Field(_Underlying *_this);
                         return *__MR_UsingDecls_B_Get_Field(_UnderlyingPtr);
                     }
                 }
@@ -267,8 +278,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_StaticVar", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_GetMutable_StaticVar();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_UsingDecls_B_GetMutable_StaticVar();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -281,8 +290,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::B::B`.
                 public unsafe Const_B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -295,12 +302,30 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::B::StaticFunc`.
                 public static void StaticFunc()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_StaticFunc", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_B_StaticFunc();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_B_StaticFunc();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_B_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_StaticVar", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_B_GetMutable_StaticVar();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Get_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_B_Get_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_StaticFunc", ExactSpelling = true)]
+                extern static void __MR_UsingDecls_B_StaticFunc();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.Const_A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
             }
 
             /// Generated from class `MR::UsingDecls::B`.
@@ -313,8 +338,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.UsingDecls.A(B self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
                     MR.CS.UsingDecls.A ret = new(__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -324,8 +347,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_GetMutable_Field(_Underlying *_this);
                         return ref *__MR_UsingDecls_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
@@ -335,8 +356,6 @@ public static partial class MR
                 /// Generated from constructor `MR::UsingDecls::B::B`.
                 public unsafe B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -349,8 +368,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::UsingDecls::B::operator int`.
                 public static unsafe implicit operator int(MR.CS.UsingDecls.B _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConvertTo_int", ExactSpelling = true)]
-                    extern static int __MR_UsingDecls_B_ConvertTo_int(MR.CS.UsingDecls.B._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_UsingDecls_B_ConvertTo_int(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -360,8 +377,6 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::B::operator=`.
                 public unsafe MR.CS.UsingDecls.B Assign(MR.CS.UsingDecls.Const_B _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.B._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_UsingDecls_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -373,8 +388,6 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::B::operator=`.
                 public unsafe void Assign(int _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_assign", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_B_assign(_Underlying *_this, int _1);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_B_assign(_UnderlyingPtr, _1);
@@ -383,12 +396,33 @@ public static partial class MR
                 /// Generated from method `MR::UsingDecls::B::Method`.
                 public unsafe void Method()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Method", ExactSpelling = true)]
-                    extern static void __MR_UsingDecls_B_Method(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_UsingDecls_B_Method(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConvertTo_int", ExactSpelling = true)]
+                extern static unsafe int __MR_UsingDecls_B_ConvertTo_int(MR.CS.UsingDecls.B._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_Field", ExactSpelling = true)]
+                extern static unsafe int *__MR_UsingDecls_B_GetMutable_Field(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Method", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_B_Method(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
+                extern static unsafe MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_assign", ExactSpelling = true)]
+                extern static unsafe void __MR_UsingDecls_B_assign(_Underlying *_this, int _1);
             }
 
             /// This is used for optional parameters of class `B` with default arguments.

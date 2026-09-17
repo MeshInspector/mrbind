@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_SA_Destroy(_Underlying *_this);
                     __MR_C_std_optional_MR_CSharp_SA_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Optional_MRCSharpSA() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Optional_MRCSharpSA(MR.CS.Std.Const_Optional_MRCSharpSA other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -59,8 +53,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Optional_MRCSharpSA(MR.CS.CSharp.Const_SA? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFrom(MR.CS.CSharp.SA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
                 }
 
@@ -74,8 +66,6 @@ public static partial class MR
                 /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRCSharpSA _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_MR_CSharp_SA_has_value(MR.CS.Std.Const_Optional_MRCSharpSA._Underlying *_this);
                     return __MR_C_std_optional_MR_CSharp_SA_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -84,14 +74,32 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.CSharp.Const_SA? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_SA._Underlying *__MR_C_std_optional_MR_CSharp_SA_value(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_MR_CSharp_SA_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_SA? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_SA(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFrom(MR.CS.CSharp.SA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_SA_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_has_value", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_optional_MR_CSharp_SA_has_value(MR.CS.Std.Const_Optional_MRCSharpSA._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_value", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.Const_SA._Underlying *__MR_C_std_optional_MR_CSharp_SA_value(_Underlying *_this);
             }
 
             /// <summary>
@@ -107,8 +115,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Optional_MRCSharpSA() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
                 }
 
@@ -117,8 +123,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Optional_MRCSharpSA(MR.CS.Std.Const_Optional_MRCSharpSA other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -133,8 +137,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Optional_MRCSharpSA(MR.CS.CSharp.Const_SA? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFrom(MR.CS.CSharp.SA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_SA_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
                 }
 
@@ -148,8 +150,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.Std.Const_Optional_MRCSharpSA other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_SA_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     __MR_C_std_optional_MR_CSharp_SA_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -160,8 +160,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.CSharp.Const_SA? other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_SA_AssignFrom(_Underlying *_this, MR.CS.CSharp.SA._Underlying *other);
                     __MR_C_std_optional_MR_CSharp_SA_AssignFrom(_UnderlyingPtr, other is not null ? other._UnderlyingPtr : null);
                 }
 
@@ -170,14 +168,32 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.CSharp.SA? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.SA._Underlying *__MR_C_std_optional_MR_CSharp_SA_value_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_MR_CSharp_SA_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.SA? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.SA(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_AssignFrom", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_SA_AssignFrom(_Underlying *_this, MR.CS.CSharp.SA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_SA_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFrom(MR.CS.CSharp.SA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpSA._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpSA._Underlying *__MR_C_std_optional_MR_CSharp_SA_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_SA_value_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.SA._Underlying *__MR_C_std_optional_MR_CSharp_SA_value_mut(_Underlying *_this);
             }
 
             /// <summary>

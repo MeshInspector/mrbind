@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_string_Destroy(_Underlying *_this);
                     __MR_C_std_string_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_String() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -56,8 +50,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Const_String(string other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
@@ -73,8 +65,6 @@ public static partial class MR
                 /// The number of characters in the string, excluding the null-terminator.
                 public unsafe nuint Size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_size", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_string_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_string_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -84,8 +74,6 @@ public static partial class MR
                 /// Returns the string contents, which are always null-terminated.
                 public unsafe MR.CS.ConstPtrChar Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_data(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_string_data(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -95,8 +83,6 @@ public static partial class MR
                 /// Returns a pointer to the end of string, to its null-terminator.
                 public unsafe MR.CS.ConstPtrChar DataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_data_end(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_string_data_end(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -110,6 +96,29 @@ public static partial class MR
                     return System.Text.Encoding.UTF8.GetString(self.Data().GetPointer(), checked((int)self.Size()));
                 }
                 public override string ToString() {return (string)this;}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_string_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data", ExactSpelling = true)]
+                extern static unsafe byte *__MR_C_std_string_data(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end", ExactSpelling = true)]
+                extern static unsafe byte *__MR_C_std_string_data_end(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_size", ExactSpelling = true)]
+                extern static unsafe nuint __MR_C_std_string_size(_Underlying *_this);
             }
 
             /// A heap-allocated null-terminated string.
@@ -121,8 +130,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe String() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -131,8 +138,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -148,8 +153,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe String(string other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
@@ -165,8 +168,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_String other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -177,8 +178,6 @@ public static partial class MR
                 /// Assigns the contents.
                 public unsafe void Assign(string other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
@@ -191,8 +190,6 @@ public static partial class MR
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
                 public unsafe new MR.CS.ConstPtrChar Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_mut", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_data_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_string_data_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -202,13 +199,34 @@ public static partial class MR
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
                 public unsafe new MR.CS.PtrChar DataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end_mut", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_data_end_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_string_data_end_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFrom(byte *other, byte *other_end);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end_mut", ExactSpelling = true)]
+                extern static unsafe byte *__MR_C_std_string_data_end_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_mut", ExactSpelling = true)]
+                extern static unsafe byte *__MR_C_std_string_data_mut(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `String` by value.

@@ -24,12 +24,15 @@ public static partial class MR
                 /// Generated from method `MR::AbstractClasses::A::foo`.
                 public unsafe void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_A_foo", ExactSpelling = true)]
-                    extern static void __MR_AbstractClasses_A_foo(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_A_foo(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_A_foo", ExactSpelling = true)]
+                extern static unsafe void __MR_AbstractClasses_A_foo(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -77,8 +80,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_Destroy", ExactSpelling = true)]
-                    extern static void __MR_AbstractClasses_B_Destroy(_Underlying *_this);
                     __MR_AbstractClasses_B_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -86,6 +87,11 @@ public static partial class MR
                 ~Const_B() {Dispose(false);}
 
                 internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_AbstractClasses_B_Destroy(_Underlying *_this);
             }
 
             /// Generated from class `MR::AbstractClasses::B`.
@@ -100,12 +106,15 @@ public static partial class MR
                 /// Generated from method `MR::AbstractClasses::B::foo`.
                 public unsafe void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_foo", ExactSpelling = true)]
-                    extern static void __MR_AbstractClasses_B_foo(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_B_foo(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_foo", ExactSpelling = true)]
+                extern static unsafe void __MR_AbstractClasses_B_foo(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `B` with default arguments.
@@ -153,8 +162,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_Destroy", ExactSpelling = true)]
-                    extern static void __MR_AbstractClasses_C_Destroy(_Underlying *_this);
                     __MR_AbstractClasses_C_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -164,8 +171,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.AbstractClasses.Const_B(Const_C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
-                    extern static MR.CS.AbstractClasses.Const_B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
                     MR.CS.AbstractClasses.Const_B ret = new(__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -174,8 +179,6 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_C?(MR.CS.AbstractClasses.Const_B parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
-                    extern static _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.Const_B._Underlying *_this);
                     var ptr = __MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_C ret = new(ptr, is_owning: false);
@@ -184,6 +187,17 @@ public static partial class MR
                 }
 
                 internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_AbstractClasses_C_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
+                extern static unsafe _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.Const_B._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.AbstractClasses.Const_B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
             }
 
             /// Generated from class `MR::AbstractClasses::C`.
@@ -196,8 +210,6 @@ public static partial class MR
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.AbstractClasses.B(C self)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
-                    extern static MR.CS.AbstractClasses.B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
                     MR.CS.AbstractClasses.B ret = new(__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(self._UnderlyingPtr), is_owning: false);
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
@@ -206,8 +218,6 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator C?(MR.CS.AbstractClasses.B parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
-                    extern static _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.B._Underlying *_this);
                     var ptr = __MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     C ret = new(ptr, is_owning: false);
@@ -220,12 +230,21 @@ public static partial class MR
                 /// Generated from method `MR::AbstractClasses::C::foo`.
                 public unsafe void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_foo", ExactSpelling = true)]
-                    extern static void __MR_AbstractClasses_C_foo(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_C_foo(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
+                extern static unsafe _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.B._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
+                extern static unsafe MR.CS.AbstractClasses.B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_foo", ExactSpelling = true)]
+                extern static unsafe void __MR_AbstractClasses_C_foo(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `C` with default arguments.

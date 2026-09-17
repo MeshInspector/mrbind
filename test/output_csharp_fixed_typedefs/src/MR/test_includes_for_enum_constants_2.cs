@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy", ExactSpelling = true)]
-                    extern static void __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy(_Underlying *_this);
                     __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_MRIncludesForEnumConstantsEE1() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_MRIncludesForEnumConstantsEE1(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -53,6 +47,17 @@ public static partial class MR
                 /// Generated from constructor `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::A`.
                 /// </summary>
                 public Const_A_MRIncludesForEnumConstantsEE1(A_MRIncludesForEnumConstantsEE1 _other) : this((Const_A_MRIncludesForEnumConstantsEE1)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy(_Underlying *_this);
             }
 
             /// <summary>
@@ -68,8 +73,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_MRIncludesForEnumConstantsEE1() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
                 }
 
@@ -78,8 +81,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_MRIncludesForEnumConstantsEE1(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -94,12 +95,21 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1 assign(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_Underlying *_this, MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_Underlying *_this, MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
             }
 
             /// <summary>

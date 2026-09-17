@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Tuple() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Tuple(MR.CS.Std.Const_Tuple other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_ConstructFromAnother(MR.CS.Std.Tuple._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -49,6 +43,17 @@ public static partial class MR
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Const_Tuple(Tuple other) : this((Const_Tuple)other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_ConstructFromAnother(MR.CS.Std.Tuple._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_Destroy(_Underlying *_this);
             }
 
             /// Stores 0 objects.
@@ -60,8 +65,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Tuple() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -70,8 +73,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Tuple(MR.CS.Std.Const_Tuple other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_ConstructFromAnother(MR.CS.Std.Tuple._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -84,14 +85,23 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Tuple other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_tuple_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_ConstructFromAnother(MR.CS.Std.Tuple._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple._Underlying *__MR_C_std_tuple_DefaultConstruct();
             }
 
             /// This is used for optional parameters of class `Tuple` with default arguments.

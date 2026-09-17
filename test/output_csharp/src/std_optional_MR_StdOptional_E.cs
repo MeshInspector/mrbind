@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_StdOptional_E_Destroy(_Underlying *_this);
                     __MR_C_std_optional_MR_StdOptional_E_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Optional_MRStdOptionalE() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Optional_MRStdOptionalE(MR.CS.Std.Const_Optional_MRStdOptionalE other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -53,8 +47,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Const_Optional_MRStdOptionalE(MR.CS.StdOptional.E? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFrom(MR.CS.StdOptional.E *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.StdOptional.E __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFrom(other.HasValue ? &__deref_other : null);
@@ -67,8 +59,6 @@ public static partial class MR
                 /// Returns true if this instance stores an object, as opposed to being empty.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRStdOptionalE _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_MR_StdOptional_E_has_value(MR.CS.Std.Const_Optional_MRStdOptionalE._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_StdOptional_E_has_value(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -78,13 +68,31 @@ public static partial class MR
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.StdOptional.E? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_StdOptional_E_value(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFrom(MR.CS.StdOptional.E *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_StdOptional_E_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_has_value", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_optional_MR_StdOptional_E_has_value(MR.CS.Std.Const_Optional_MRStdOptionalE._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value(_Underlying *_this);
             }
 
             /// Stores either a single `MR::StdOptional::E` or nothing.
@@ -96,8 +104,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Optional_MRStdOptionalE() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -106,8 +112,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Optional_MRStdOptionalE(MR.CS.Std.Const_Optional_MRStdOptionalE other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -120,8 +124,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Optional_MRStdOptionalE(MR.CS.StdOptional.E? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFrom(MR.CS.StdOptional.E *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.StdOptional.E __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFrom(other.HasValue ? &__deref_other : null);
@@ -134,8 +136,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Optional_MRStdOptionalE other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
@@ -146,8 +146,6 @@ public static partial class MR
                 /// Assigns the contents.
                 public unsafe void Assign(MR.CS.StdOptional.E? other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_StdOptional_E_AssignFrom(_Underlying *_this, MR.CS.StdOptional.E *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.StdOptional.E __deref_other = other.GetValueOrDefault();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -157,13 +155,31 @@ public static partial class MR
                 /// The stored element or null if none, mutable.
                 public unsafe new MR.CS.Misc.Ref<MR.CS.StdOptional.E>? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_StdOptional_E_value_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.StdOptional.E>(__c_ret) : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_AssignFrom", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_StdOptional_E_AssignFrom(_Underlying *_this, MR.CS.StdOptional.E *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFrom(MR.CS.StdOptional.E *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value_mut(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `Optional_MRStdOptionalE` with default arguments.

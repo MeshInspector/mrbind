@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_int_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_optional_int_Destroy(_Underlying *_this);
                     __MR_C_std_optional_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Optional_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_int_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Optional_Int(MR.CS.Std.Const_Optional_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -60,7 +60,7 @@ public static partial class MR
                 public unsafe Const_Optional_Int(int? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
                     int __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFrom(other.HasValue ? &__deref_other : null);
                 }
@@ -76,7 +76,7 @@ public static partial class MR
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_Int _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_int_has_value(MR.CS.Std.Const_Optional_Int._Underlying *_this);
+                    extern static unsafe byte __MR_C_std_optional_int_has_value(MR.CS.Std.Const_Optional_Int._Underlying *_this);
                     return __MR_C_std_optional_int_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -86,7 +86,7 @@ public static partial class MR
                 public unsafe int? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_value", ExactSpelling = true)]
-                    extern static int *__MR_C_std_optional_int_value(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_optional_int_value(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_int_value(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
@@ -106,7 +106,7 @@ public static partial class MR
                 public unsafe Optional_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_optional_int_DefaultConstruct();
                 }
 
@@ -116,7 +116,7 @@ public static partial class MR
                 public unsafe Optional_Int(MR.CS.Std.Const_Optional_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -132,7 +132,7 @@ public static partial class MR
                 public unsafe Optional_Int(int? other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
+                    extern static unsafe MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
                     int __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFrom(other.HasValue ? &__deref_other : null);
                 }
@@ -148,7 +148,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std.Const_Optional_Int other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_Int._Underlying *other);
+                    extern static unsafe void __MR_C_std_optional_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_Int._Underlying *other);
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     __MR_C_std_optional_int_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -160,7 +160,7 @@ public static partial class MR
                 public unsafe void assign(int? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_int_AssignFrom(_Underlying *_this, int *other);
+                    extern static unsafe void __MR_C_std_optional_int_AssignFrom(_Underlying *_this, int *other);
                     int __deref_other = other.GetValueOrDefault();
                     __MR_C_std_optional_int_AssignFrom(_UnderlyingPtr, other.HasValue ? &__deref_other : null);
                 }
@@ -171,7 +171,7 @@ public static partial class MR
                 public unsafe new MR.CS.Misc.Ref<int>? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_value_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_optional_int_value_mut(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_optional_int_value_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_optional_int_value_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }

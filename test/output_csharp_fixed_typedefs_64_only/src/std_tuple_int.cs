@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_int_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_tuple_int_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Tuple_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_tuple_int_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Tuple_Int(MR.CS.Std.Const_Tuple_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_ConstructFromAnother(MR.CS.Std.Tuple_Int._Underlying *other);
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_ConstructFromAnother(MR.CS.Std.Tuple_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -60,7 +60,7 @@ public static partial class MR
                 public unsafe Const_Tuple_Int(int _0) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_Construct(int _0);
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_Construct(int _0);
                     _UnderlyingPtr = __MR_C_std_tuple_int_Construct(_0);
                 }
 
@@ -75,7 +75,7 @@ public static partial class MR
                 public unsafe int getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_get_int", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int_get_int(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_tuple_int_get_int(_Underlying *_this);
                     return *__MR_C_std_tuple_int_get_int(_UnderlyingPtr);
                 }
             }
@@ -94,7 +94,7 @@ public static partial class MR
                 public unsafe Tuple_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_tuple_int_DefaultConstruct();
                 }
 
@@ -104,7 +104,7 @@ public static partial class MR
                 public unsafe Tuple_Int(MR.CS.Std.Const_Tuple_Int other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_ConstructFromAnother(MR.CS.Std.Tuple_Int._Underlying *other);
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_ConstructFromAnother(MR.CS.Std.Tuple_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -120,7 +120,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std.Const_Tuple_Int other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple_Int._Underlying *other);
+                    extern static unsafe void __MR_C_std_tuple_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple_Int._Underlying *other);
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     __MR_C_std_tuple_int_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -132,7 +132,7 @@ public static partial class MR
                 public unsafe Tuple_Int(int _0) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_Construct(int _0);
+                    extern static unsafe MR.CS.Std.Tuple_Int._Underlying *__MR_C_std_tuple_int_Construct(int _0);
                     _UnderlyingPtr = __MR_C_std_tuple_int_Construct(_0);
                 }
 
@@ -147,7 +147,7 @@ public static partial class MR
                 public unsafe new ref int getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_get_int_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int_get_int_mut(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_tuple_int_get_int_mut(_Underlying *_this);
                     return ref *__MR_C_std_tuple_int_get_int_mut(_UnderlyingPtr);
                 }
             }

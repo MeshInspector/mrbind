@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_StaticFuncs_A_Destroy(_Underlying *_this);
                     __MR_StaticFuncs_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -28,8 +26,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_StaticFuncs_A_GetMutable_x();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_StaticFuncs_A_GetMutable_x();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -42,8 +38,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StaticFuncs_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -52,8 +46,6 @@ public static partial class MR
                 /// Generated from constructor `MR::StaticFuncs::A::A`.
                 public unsafe Const_A(MR.CS.StaticFuncs.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -66,12 +58,27 @@ public static partial class MR
                 /// Generated from method `MR::StaticFuncs::A::blah`.
                 public static void Blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_blah", ExactSpelling = true)]
-                    extern static void __MR_StaticFuncs_A_blah();
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StaticFuncs_A_blah();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_StaticFuncs_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_GetMutable_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_StaticFuncs_A_GetMutable_x();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_blah", ExactSpelling = true)]
+                extern static void __MR_StaticFuncs_A_blah();
             }
 
             /// Generated from class `MR::StaticFuncs::A`.
@@ -83,8 +90,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StaticFuncs_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -93,8 +98,6 @@ public static partial class MR
                 /// Generated from constructor `MR::StaticFuncs::A::A`.
                 public unsafe A(MR.CS.StaticFuncs.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -107,8 +110,6 @@ public static partial class MR
                 /// Generated from method `MR::StaticFuncs::A::operator=`.
                 public unsafe MR.CS.StaticFuncs.A Assign(MR.CS.StaticFuncs.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_AssignFromAnother(_Underlying *_this, MR.CS.StaticFuncs.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_StaticFuncs_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -116,6 +117,17 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_AssignFromAnother(_Underlying *_this, MR.CS.StaticFuncs.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_DefaultConstruct();
             }
 
             /// This is used for optional parameters of class `A` with default arguments.

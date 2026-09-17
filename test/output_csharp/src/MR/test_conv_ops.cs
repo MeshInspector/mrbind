@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_ConvOps_A_Destroy(_Underlying *_this);
                     __MR_ConvOps_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_ConvOps_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Generated from constructor `MR::ConvOps::A::A`.
                 public unsafe Const_A(MR.CS.ConvOps.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -53,13 +47,25 @@ public static partial class MR
                 /// Generated from conversion operator `MR::ConvOps::A::operator bool`.
                 public static unsafe explicit operator bool(MR.CS.ConvOps.Const_A _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConvertTo_bool", ExactSpelling = true)]
-                    extern static byte __MR_ConvOps_A_ConvertTo_bool(MR.CS.ConvOps.Const_A._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_ConvOps_A_ConvertTo_bool(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret != 0;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConvertTo_bool", ExactSpelling = true)]
+                extern static unsafe byte __MR_ConvOps_A_ConvertTo_bool(MR.CS.ConvOps.Const_A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_ConvOps_A_Destroy(_Underlying *_this);
             }
 
             /// Generated from class `MR::ConvOps::A`.
@@ -71,8 +77,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_ConvOps_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -81,8 +85,6 @@ public static partial class MR
                 /// Generated from constructor `MR::ConvOps::A::A`.
                 public unsafe A(MR.CS.ConvOps.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -95,8 +97,6 @@ public static partial class MR
                 /// Generated from method `MR::ConvOps::A::operator=`.
                 public unsafe MR.CS.ConvOps.A Assign(MR.CS.ConvOps.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_AssignFromAnother(_Underlying *_this, MR.CS.ConvOps.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_ConvOps_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -104,6 +104,17 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return new(__c_ret, is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_AssignFromAnother(_Underlying *_this, MR.CS.ConvOps.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_DefaultConstruct();
             }
 
             /// This is used for optional parameters of class `A` with default arguments.

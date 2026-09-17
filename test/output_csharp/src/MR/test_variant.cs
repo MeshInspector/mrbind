@@ -7,8 +7,6 @@ public static partial class MR
             /// Generated from function `MR::StdVariant::foo`.
             public static unsafe MR.CS.Std.Variant_Int_Float Foo()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_foo", ExactSpelling = true)]
-                extern static MR.CS.Std.Variant_Int_Float._Underlying *__MR_StdVariant_foo();
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_StdVariant_foo();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -18,8 +16,6 @@ public static partial class MR
             /// Generated from function `MR::StdVariant::bar`.
             public static unsafe void Bar(MR.CS.Std.Const_Variant_Int_Float_Float _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_bar", ExactSpelling = true)]
-                extern static void __MR_StdVariant_bar(MR.CS.Std.Variant_Int_Float_Float._Underlying *_1);
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdVariant_bar(_1._UnderlyingPtr);
@@ -28,8 +24,6 @@ public static partial class MR
             /// Generated from function `MR::StdVariant::baz`.
             public static unsafe void Baz(MR.CS.Std._ByValue_Variant_Int_Float_StdString _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_baz", ExactSpelling = true)]
-                extern static void __MR_StdVariant_baz(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *_1);
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdVariant_baz(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
@@ -38,13 +32,25 @@ public static partial class MR
             /// Generated from function `MR::StdVariant::blah`.
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float Blah()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_blah", ExactSpelling = true)]
-                extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_StdVariant_blah();
                 MR.CS.Misc._Exceptions.Prepare();
                 var __c_ret = __MR_StdVariant_blah();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return new(__c_ret, is_owning: true);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_bar", ExactSpelling = true)]
+            extern static unsafe void __MR_StdVariant_bar(MR.CS.Std.Variant_Int_Float_Float._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_baz", ExactSpelling = true)]
+            extern static unsafe void __MR_StdVariant_baz(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_blah", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_StdVariant_blah();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_foo", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Variant_Int_Float._Underlying *__MR_StdVariant_foo();
         }
     }
 }

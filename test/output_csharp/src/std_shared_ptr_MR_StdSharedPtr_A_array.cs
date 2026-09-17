@@ -17,8 +17,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy(_Underlying *_this);
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -30,8 +28,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -40,8 +36,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -57,8 +51,6 @@ public static partial class MR
                 /// Returns the stored pointer, possibly null.
                 public unsafe MR.CS.StdSharedPtr.A? Get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get(_UnderlyingPtr);
                     MR.CS.StdSharedPtr.A? __ret;
@@ -71,8 +63,6 @@ public static partial class MR
                 /// Returns true if non-null.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -84,8 +74,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at", ExactSpelling = true)]
-                        extern static MR.CS.StdSharedPtr.A._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(_Underlying *_this, nint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(_UnderlyingPtr, i);
                         MR.CS.StdSharedPtr.A __ret;
@@ -101,8 +89,6 @@ public static partial class MR
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
                 public unsafe int UseCount()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count", ExactSpelling = true)]
-                    extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -112,8 +98,6 @@ public static partial class MR
                 /// Construct an array of the specified size.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(nuint size) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(size);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -122,8 +106,6 @@ public static partial class MR
                 /// Create a new instance, taking ownership of an existing pointer.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(void *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(ptr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -132,8 +114,6 @@ public static partial class MR
                 /// Create a new instance, storing a non-owning pointer.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(ptr is not null ? ptr._UnderlyingPtr : null);
                     if (ptr is not null) _KeepAlive(ptr);
@@ -144,8 +124,6 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr is not null ? ptr._UnderlyingPtr : null);
                     if (ptr is not null) _KeepAlive(ptr);
@@ -155,8 +133,6 @@ public static partial class MR
                 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
                 public static unsafe implicit operator MR.CS.Std.SharedPtr_Void(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -166,12 +142,51 @@ public static partial class MR
                 /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
                 public unsafe void AssignToMRCStdSharedPtrVoid(MR.CS.Std.SharedPtr_Void _target)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void(_Underlying *_this, MR.CS.Std.SharedPtr_Void._Underlying *_target);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void(_UnderlyingPtr, _target._UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void(_Underlying *_this, MR.CS.Std.SharedPtr_Void._Underlying *_target);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(void *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(_Underlying *_this, nint i);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value(MR.CS.Std.Const_SharedPtr_MRStdSharedPtrAArray._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count", ExactSpelling = true)]
+                extern static unsafe int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count(_Underlying *_this);
             }
 
             /// Wraps a pointer to a shared reference-counted heap-allocated array of type `MR::StdSharedPtr::A`, of an unspecified size.
@@ -184,8 +199,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe SharedPtr_MRStdSharedPtrAArray() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -194,8 +207,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe SharedPtr_MRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -211,8 +222,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
@@ -223,8 +232,6 @@ public static partial class MR
                 /// Resets the pointer to null.
                 public unsafe void Reset()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset(_UnderlyingPtr);
@@ -233,8 +240,6 @@ public static partial class MR
                 /// Construct an array of the specified size.
                 public unsafe SharedPtr_MRStdSharedPtrAArray(nuint size) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(size);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -243,8 +248,6 @@ public static partial class MR
                 /// Create a new instance, taking ownership of an existing pointer.
                 public unsafe SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(void *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(ptr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -253,8 +256,6 @@ public static partial class MR
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
                 public unsafe void Assign(MR.CS.Std.Owning tag, void *ptr)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(_Underlying *_this, void *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(_UnderlyingPtr, ptr);
@@ -263,8 +264,6 @@ public static partial class MR
                 /// Create a new instance, storing a non-owning pointer.
                 public unsafe SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(ptr is not null ? ptr._UnderlyingPtr : null);
                     if (ptr is not null) _KeepAlive(ptr);
@@ -274,8 +273,6 @@ public static partial class MR
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
                 public unsafe void Assign(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.A? ptr)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignNonOwning", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignNonOwning(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (ptr is not null) _KeepAlive(ptr);
@@ -287,8 +284,6 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
                 public unsafe SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr is not null ? ptr._UnderlyingPtr : null);
                     if (ptr is not null) _KeepAlive(ptr);
@@ -299,14 +294,47 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
                 public unsafe void AssignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (ptr is not null) _KeepAlive(ptr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing(_UnderlyingPtr, ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr is not null ? ptr._UnderlyingPtr : null);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(_Underlying *_this, void *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignNonOwning", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignNonOwning(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(void *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.A._Underlying *ptr);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `SharedPtr_MRStdSharedPtrAArray` by value.

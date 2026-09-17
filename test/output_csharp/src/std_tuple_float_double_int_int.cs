@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_float_double_int_int_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_float_double_int_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Tuple_Float_Double_Int_Int() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Tuple_Float_Double_Int_Int(MR.CS.Std.Const_Tuple_Float_Double_Int_Int other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -53,8 +47,6 @@ public static partial class MR
                 /// Constructs the tuple elementwise.
                 public unsafe Const_Tuple_Float_Double_Int_Int(float _0, double _1, int _2, int _3) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_Construct(_0, _1, _2, _3);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -63,8 +55,6 @@ public static partial class MR
                 /// The element 0, of type `float`, read-only.
                 public unsafe float GetFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_float_double_int_int_get_float(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_float(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -74,8 +64,6 @@ public static partial class MR
                 /// The element 1, of type `double`, read-only.
                 public unsafe double GetDouble()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double", ExactSpelling = true)]
-                    extern static double *__MR_C_std_tuple_float_double_int_int_get_double(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_double(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -85,8 +73,6 @@ public static partial class MR
                 /// The element 2, of type `int`, read-only.
                 public unsafe int GetInt2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_2(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_int_2(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -96,8 +82,6 @@ public static partial class MR
                 /// The element 3, of type `int`, read-only.
                 public unsafe int GetInt3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_int_3(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -113,6 +97,32 @@ public static partial class MR
                     _3 = GetInt2();
                     _4 = GetInt3();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_float_double_int_int_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double", ExactSpelling = true)]
+                extern static unsafe double *__MR_C_std_tuple_float_double_int_int_get_double(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_tuple_float_double_int_int_get_float(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_float_double_int_int_get_int_2(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_float_double_int_int_get_int_3(_Underlying *_this);
             }
 
             /// Stores 4 objects: `float`, `double`, `int`, `int`.
@@ -124,8 +134,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Tuple_Float_Double_Int_Int() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -134,8 +142,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Tuple_Float_Double_Int_Int(MR.CS.Std.Const_Tuple_Float_Double_Int_Int other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -148,8 +154,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Tuple_Float_Double_Int_Int other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_float_double_int_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
@@ -160,8 +164,6 @@ public static partial class MR
                 /// Constructs the tuple elementwise.
                 public unsafe Tuple_Float_Double_Int_Int(float _0, double _1, int _2, int _3) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_Construct(_0, _1, _2, _3);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -170,8 +172,6 @@ public static partial class MR
                 /// The element 0, of type `float`, mutable.
                 public unsafe new ref float GetFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float_mut", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_float_double_int_int_get_float_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_float_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -181,8 +181,6 @@ public static partial class MR
                 /// The element 1, of type `double`, mutable.
                 public unsafe new ref double GetDouble()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double_mut", ExactSpelling = true)]
-                    extern static double *__MR_C_std_tuple_float_double_int_int_get_double_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_double_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -192,8 +190,6 @@ public static partial class MR
                 /// The element 2, of type `int`, mutable.
                 public unsafe new ref int GetInt2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_2_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_int_2_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -203,8 +199,6 @@ public static partial class MR
                 /// The element 3, of type `int`, mutable.
                 public unsafe new ref int GetInt3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_tuple_float_double_int_int_get_int_3_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -220,6 +214,32 @@ public static partial class MR
                     _3 = new(ref GetInt2());
                     _4 = new(ref GetInt3());
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_float_double_int_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_Construct(float _0, double _1, int _2, int _3);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double_mut", ExactSpelling = true)]
+                extern static unsafe double *__MR_C_std_tuple_float_double_int_int_get_double_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_tuple_float_double_int_int_get_float_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2_mut", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_float_double_int_int_get_int_2_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3_mut", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `Tuple_Float_Double_Int_Int` with default arguments.

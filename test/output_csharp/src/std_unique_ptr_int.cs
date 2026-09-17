@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_int_Destroy(_Underlying *_this);
                     __MR_C_std_unique_ptr_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_UniquePtr_Int() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_UniquePtr_Int(MR.CS.Std.Const_UniquePtr_Int other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFromAnother(MR.CS.Std.UniquePtr_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -50,8 +44,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Const_UniquePtr_Int(void *other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFrom(void *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_ConstructFrom(other);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -63,13 +55,28 @@ public static partial class MR
                 /// Returns the stored pointer, possibly null.
                 public unsafe MR.CS.Misc.Ref<int>? Get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_get", ExactSpelling = true)]
-                    extern static int *__MR_C_std_unique_ptr_int_get(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unique_ptr_int_get(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFrom(void *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFromAnother(MR.CS.Std.UniquePtr_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_unique_ptr_int_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_get", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_unique_ptr_int_get(_Underlying *_this);
             }
 
             /// Wraps a pointer to a single heap-allocated `int`.
@@ -81,8 +88,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe UniquePtr_Int() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -91,8 +96,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe UniquePtr_Int(MR.CS.Std.Const_UniquePtr_Int other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFromAnother(MR.CS.Std.UniquePtr_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -102,8 +105,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe UniquePtr_Int(void *other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFrom(void *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_ConstructFrom(other);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -115,8 +116,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_UniquePtr_Int other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_Int._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
@@ -127,8 +126,6 @@ public static partial class MR
                 /// Assigns the contents.
                 public unsafe void Assign(void *other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_int_AssignFrom(_Underlying *_this, void *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_unique_ptr_int_AssignFrom(_UnderlyingPtr, other);
@@ -138,13 +135,31 @@ public static partial class MR
                 /// The returned pointer is owning! It must be deallocated using `MR_C_Free()`.
                 public unsafe MR.CS.Misc.Ref<int>? Release()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_release", ExactSpelling = true)]
-                    extern static int *__MR_C_std_unique_ptr_int_release(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unique_ptr_int_release(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFrom", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_unique_ptr_int_AssignFrom(_Underlying *_this, void *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_unique_ptr_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFrom(void *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_ConstructFromAnother(MR.CS.Std.UniquePtr_Int._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.UniquePtr_Int._Underlying *__MR_C_std_unique_ptr_int_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_release", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_unique_ptr_int_release(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `UniquePtr_Int` with default arguments.

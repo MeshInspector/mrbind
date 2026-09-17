@@ -111,8 +111,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.A.B c()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(_Underlying *_this);
                     return __MR_DeclOrder_A_c(_UnderlyingPtr);
                 }
 
@@ -121,10 +119,16 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.A.E d()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(_Underlying *_this);
                     return __MR_DeclOrder_A_d(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(_Underlying *_this);
             }
 
             // Here all classes are whitelisted using `--expose-as-struct`.
@@ -152,8 +156,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.A.B c()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(MR.CS.DeclOrder.A *_this);
                     fixed (MR.CS.DeclOrder.A *__ptr__this = &this)
                     {
                         return __MR_DeclOrder_A_c(__ptr__this);
@@ -165,8 +167,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.A.E d()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(MR.CS.DeclOrder.A *_this);
                     fixed (MR.CS.DeclOrder.A *__ptr__this = &this)
                     {
                         return __MR_DeclOrder_A_d(__ptr__this);
@@ -278,8 +278,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.DeclOrder.A a()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(_Underlying *_this);
                         return __MR_DeclOrder_A_B_a(_UnderlyingPtr);
                     }
 
@@ -288,10 +286,16 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.DeclOrder.A.E b()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(_Underlying *_this);
                         return __MR_DeclOrder_A_B_b(_UnderlyingPtr);
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(_Underlying *_this);
                 }
 
                 /// <summary>
@@ -318,8 +322,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.DeclOrder.A a()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(MR.CS.DeclOrder.A.B *_this);
                         fixed (MR.CS.DeclOrder.A.B *__ptr__this = &this)
                         {
                             return __MR_DeclOrder_A_B_a(__ptr__this);
@@ -331,13 +333,19 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.DeclOrder.A.E b()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
-                        extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(MR.CS.DeclOrder.A.B *_this);
                         fixed (MR.CS.DeclOrder.A.B *__ptr__this = &this)
                         {
                             return __MR_DeclOrder_A_B_b(__ptr__this);
                         }
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(MR.CS.DeclOrder.A.B *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
+                    extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(MR.CS.DeclOrder.A.B *_this);
                 }
 
                 /// <summary>
@@ -418,6 +426,14 @@ public static partial class MR
                 public enum E : int
                 {
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(MR.CS.DeclOrder.A *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(MR.CS.DeclOrder.A *_this);
             }
 
             /// <summary>
@@ -600,10 +616,13 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_True blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(_Underlying *_this);
                     return __MR_DeclOrder_C_false_blah(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(_Underlying *_this);
             }
 
             /// <summary>
@@ -630,13 +649,16 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_True blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(MR.CS.DeclOrder.C_False *_this);
                     fixed (MR.CS.DeclOrder.C_False *__ptr__this = &this)
                     {
                         return __MR_DeclOrder_C_false_blah(__ptr__this);
                     }
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(MR.CS.DeclOrder.C_False *_this);
             }
 
             /// <summary>
@@ -819,10 +841,13 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_False blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(_Underlying *_this);
                     return __MR_DeclOrder_C_true_blah(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(_Underlying *_this);
             }
 
             /// <summary>
@@ -849,13 +874,16 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_False blah()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
-                    extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(MR.CS.DeclOrder.C_True *_this);
                     fixed (MR.CS.DeclOrder.C_True *__ptr__this = &this)
                     {
                         return __MR_DeclOrder_C_true_blah(__ptr__this);
                     }
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
+                extern static unsafe MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(MR.CS.DeclOrder.C_True *_this);
             }
 
             /// <summary>

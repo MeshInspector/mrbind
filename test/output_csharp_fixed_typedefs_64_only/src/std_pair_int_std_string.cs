@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_int_std_string_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_pair_int_std_string_Destroy(_Underlying *_this);
                     __MR_C_std_pair_int_std_string_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Pair_Int_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_pair_int_std_string_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Pair_Int_StdString(MR.CS.Std._ByValue_Pair_Int_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe Const_Pair_Int_StdString(int first, ReadOnlySpan<char> second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_Construct(int first, byte *second, byte *second_end);
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_Construct(int first, byte *second, byte *second_end);
                     byte[] __bytes_second = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(second.Length)];
                     int __len_second = System.Text.Encoding.UTF8.GetBytes(second, __bytes_second);
                     fixed (byte *__ptr_second = __bytes_second)
@@ -80,7 +80,7 @@ public static partial class MR
                 public unsafe int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_first", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_int_std_string_first(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_pair_int_std_string_first(_Underlying *_this);
                     return *__MR_C_std_pair_int_std_string_first(_UnderlyingPtr);
                 }
 
@@ -90,7 +90,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Const_String second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_second", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_pair_int_std_string_second(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_pair_int_std_string_second(_Underlying *_this);
                     MR.CS.Std.Const_String __ret;
                     __ret = new(__MR_C_std_pair_int_std_string_second(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
@@ -120,7 +120,7 @@ public static partial class MR
                 public unsafe Pair_Int_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_pair_int_std_string_DefaultConstruct();
                 }
 
@@ -130,7 +130,7 @@ public static partial class MR
                 public unsafe Pair_Int_StdString(MR.CS.Std._ByValue_Pair_Int_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -151,7 +151,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Pair_Int_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_int_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
+                    extern static unsafe void __MR_C_std_pair_int_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_Int_StdString._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_pair_int_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -163,7 +163,7 @@ public static partial class MR
                 public unsafe Pair_Int_StdString(int first, ReadOnlySpan<char> second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_Construct(int first, byte *second, byte *second_end);
+                    extern static unsafe MR.CS.Std.Pair_Int_StdString._Underlying *__MR_C_std_pair_int_std_string_Construct(int first, byte *second, byte *second_end);
                     byte[] __bytes_second = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(second.Length)];
                     int __len_second = System.Text.Encoding.UTF8.GetBytes(second, __bytes_second);
                     fixed (byte *__ptr_second = __bytes_second)
@@ -178,7 +178,7 @@ public static partial class MR
                 public unsafe new ref int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_first_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_int_std_string_first_mut(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_pair_int_std_string_first_mut(_Underlying *_this);
                     return ref *__MR_C_std_pair_int_std_string_first_mut(_UnderlyingPtr);
                 }
 
@@ -188,7 +188,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.String second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_std_string_second_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_pair_int_std_string_second_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_pair_int_std_string_second_mut(_Underlying *_this);
                     MR.CS.Std.String __ret;
                     __ret = new(__MR_C_std_pair_int_std_string_second_mut(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;

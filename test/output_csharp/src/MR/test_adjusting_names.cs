@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_AdjustingNames_A_Destroy(_Underlying *_this);
                     __MR_AdjustingNames_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -30,8 +28,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_GetMutable_var_unsigned_long", ExactSpelling = true)]
-                        extern static ulong *__MR_AdjustingNames_A_GetMutable_var_unsigned_long();
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_AdjustingNames_A_GetMutable_var_unsigned_long();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -44,8 +40,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_AdjustingNames_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -54,8 +48,6 @@ public static partial class MR
                 /// Generated from constructor `MR::AdjustingNames::A::A`.
                 public unsafe Const_A(MR.CS.AdjustingNames.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -64,6 +56,20 @@ public static partial class MR
 
                 /// Generated from constructor `MR::AdjustingNames::A::A`.
                 public Const_A(A _other) : this((Const_A)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_AdjustingNames_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_GetMutable_var_unsigned_long", ExactSpelling = true)]
+                extern static unsafe ulong *__MR_AdjustingNames_A_GetMutable_var_unsigned_long();
             }
 
             // And test that `uint64_t` is correctly adjusted in some other kinds of names.
@@ -77,8 +83,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_AdjustingNames_A_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -87,8 +91,6 @@ public static partial class MR
                 /// Generated from constructor `MR::AdjustingNames::A::A`.
                 public unsafe A(MR.CS.AdjustingNames.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
@@ -101,8 +103,6 @@ public static partial class MR
                 /// Generated from conversion operator `MR::AdjustingNames::A::operator unsigned long`.
                 public static unsafe implicit operator ulong(MR.CS.AdjustingNames.A _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConvertTo_unsigned_long", ExactSpelling = true)]
-                    extern static ulong __MR_AdjustingNames_A_ConvertTo_unsigned_long(MR.CS.AdjustingNames.A._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_AdjustingNames_A_ConvertTo_unsigned_long(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -112,8 +112,6 @@ public static partial class MR
                 /// Generated from method `MR::AdjustingNames::A::operator=`.
                 public unsafe MR.CS.AdjustingNames.A Assign(MR.CS.AdjustingNames.Const_A _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_AssignFromAnother(_Underlying *_this, MR.CS.AdjustingNames.A._Underlying *_other);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_AdjustingNames_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
@@ -125,8 +123,6 @@ public static partial class MR
                 /// Generated from method `MR::AdjustingNames::A::foo<unsigned long>`.
                 public unsafe void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_foo", ExactSpelling = true)]
-                    extern static void __MR_AdjustingNames_A_foo(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AdjustingNames_A_foo(_UnderlyingPtr);
@@ -135,12 +131,30 @@ public static partial class MR
                 /// Generated from method `MR::AdjustingNames::A::bar`.
                 public unsafe void Bar()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_bar", ExactSpelling = true)]
-                    extern static void __MR_AdjustingNames_A_bar(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AdjustingNames_A_bar(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_AssignFromAnother(_Underlying *_this, MR.CS.AdjustingNames.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConvertTo_unsigned_long", ExactSpelling = true)]
+                extern static unsafe ulong __MR_AdjustingNames_A_ConvertTo_unsigned_long(MR.CS.AdjustingNames.A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_bar", ExactSpelling = true)]
+                extern static unsafe void __MR_AdjustingNames_A_bar(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_foo", ExactSpelling = true)]
+                extern static unsafe void __MR_AdjustingNames_A_foo(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `A` with default arguments.
@@ -178,8 +192,6 @@ public static partial class MR
             /// Generated from function `MR::AdjustingNames::foo<unsigned long>`.
             public static void Foo()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_foo", ExactSpelling = true)]
-                extern static void __MR_AdjustingNames_foo();
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_AdjustingNames_foo();
@@ -188,12 +200,18 @@ public static partial class MR
             /// Generated from function `MR::AdjustingNames::bar`.
             public static void Bar()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_bar", ExactSpelling = true)]
-                extern static void __MR_AdjustingNames_bar();
                 MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_AdjustingNames_bar();
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_bar", ExactSpelling = true)]
+            extern static void __MR_AdjustingNames_bar();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_foo", ExactSpelling = true)]
+            extern static void __MR_AdjustingNames_foo();
         }
     }
 }

@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_std_string_from_int32_t_int32_t_Destroy(_Underlying *_this);
                     __MR_C_std_function_std_string_from_int32_t_int32_t_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Function_StdString_From_Int32T_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Function_StdString_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_StdString_From_Int32T_Int32T other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -64,8 +58,6 @@ public static partial class MR
                 /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Function_StdString_From_Int32T_Int32T _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_function_std_string_from_int32_t_int32_t_has_value(MR.CS.Std.Const_Function_StdString_From_Int32T_Int32T._Underlying *_this);
                     return __MR_C_std_function_std_string_from_int32_t_int32_t_has_value(_this._UnderlyingPtr) != 0;
                 }
 
@@ -74,8 +66,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> call(int _1, int _2)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_call", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_call(_Underlying *_this, int _1, int _2);
                     return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_function_std_string_from_int32_t_int32_t_call(_UnderlyingPtr, _1, _2), is_owning: true));
                 }
 
@@ -102,12 +92,30 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Function_StdString_From_Int32T_Int32T(Delegate func) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructEx", ExactSpelling = true)]
-                    extern static Const_Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int32_t_int32_t_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
                 public static unsafe implicit operator Const_Function_StdString_From_Int32T_Int32T(MR.CS.Std.Function_StdString_From_Int32T_Int32T.Delegate func) {return new(func);}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructEx", ExactSpelling = true)]
+                extern static unsafe Const_Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_function_std_string_from_int32_t_int32_t_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_call", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_call(_Underlying *_this, int _1, int _2);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_has_value", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_function_std_string_from_int32_t_int32_t_has_value(MR.CS.Std.Const_Function_StdString_From_Int32T_Int32T._Underlying *_this);
             }
 
             /// <summary>
@@ -123,8 +131,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Function_StdString_From_Int32T_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
                 }
 
@@ -133,8 +139,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Function_StdString_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_StdString_From_Int32T_Int32T other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -154,8 +158,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Function_StdString_From_Int32T_Int32T other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_std_string_from_int32_t_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_std_string_from_int32_t_int32_t_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -166,8 +168,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void reset()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_reset", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_std_string_from_int32_t_int32_t_reset(_Underlying *_this);
                     __MR_C_std_function_std_string_from_int32_t_int32_t_reset(_UnderlyingPtr);
                 }
 
@@ -183,10 +183,25 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(Delegate func)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_AssignEx", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_std_string_from_int32_t_int32_t_AssignEx(Function_StdString_From_Int32T_Int32T._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     __MR_C_std_function_std_string_from_int32_t_int32_t_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_AssignEx", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_function_std_string_from_int32_t_int32_t_AssignEx(Function_StdString_From_Int32T_Int32T._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_function_std_string_from_int32_t_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Function_StdString_From_Int32T_Int32T._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_reset", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_function_std_string_from_int32_t_int32_t_reset(_Underlying *_this);
             }
 
             /// <summary>
@@ -210,7 +225,8 @@ public static partial class MR
                 public _ByValue_Function_StdString_From_Int32T_Int32T(MR.CS.Misc._Moved<Function_StdString_From_Int32T_Int32T> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_StdString_From_Int32T_Int32T(MR.CS.Misc._Moved<Function_StdString_From_Int32T_Int32T> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_StdString_From_Int32T_Int32T(MR.CS.Std.Function_StdString_From_Int32T_Int32T.Delegate func) {return new Function_StdString_From_Int32T_Int32T(func);}}
+                public static unsafe implicit operator _ByValue_Function_StdString_From_Int32T_Int32T(MR.CS.Std.Function_StdString_From_Int32T_Int32T.Delegate func) {return new Function_StdString_From_Int32T_Int32T(func);}
+            }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_StdString_From_Int32T_Int32T` with default arguments.
@@ -245,7 +261,8 @@ public static partial class MR
                 public _InOptConst_Function_StdString_From_Int32T_Int32T(Const_Function_StdString_From_Int32T_Int32T value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_StdString_From_Int32T_Int32T(Const_Function_StdString_From_Int32T_Int32T value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_StdString_From_Int32T_Int32T(MR.CS.Std.Function_StdString_From_Int32T_Int32T.Delegate func) {return new Function_StdString_From_Int32T_Int32T(func);}}
+                public static unsafe implicit operator _InOptConst_Function_StdString_From_Int32T_Int32T(MR.CS.Std.Function_StdString_From_Int32T_Int32T.Delegate func) {return new Function_StdString_From_Int32T_Int32T(func);}
+            }
         }
     }
 }

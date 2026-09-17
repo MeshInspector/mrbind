@@ -20,8 +20,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_Destroy", ExactSpelling = true)]
-                    extern static void __MR_TypedefsInTemplates_A_int32_t_Destroy(_Underlying *_this);
                     __MR_TypedefsInTemplates_A_int32_t_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -35,8 +33,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
                 }
 
@@ -45,8 +41,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_Int32T(MR.CS.TypedefsInTemplates.Const_A_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -55,6 +49,17 @@ public static partial class MR
                 /// Generated from constructor `MR::TypedefsInTemplates::A&lt;int32_t&gt;::A`.
                 /// </summary>
                 public Const_A_Int32T(A_Int32T _other) : this((Const_A_Int32T)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_TypedefsInTemplates_A_int32_t_Destroy(_Underlying *_this);
             }
 
             // This tests a specific Clang bug/quirk.
@@ -72,8 +77,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
                 }
 
@@ -82,8 +85,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_Int32T(MR.CS.TypedefsInTemplates.Const_A_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -98,8 +99,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.A_Int32T assign(MR.CS.TypedefsInTemplates.Const_A_Int32T _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -110,10 +109,22 @@ public static partial class MR
                 /// </summary>
                 public unsafe int foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_foo", ExactSpelling = true)]
-                    extern static int __MR_TypedefsInTemplates_A_int32_t_foo(_Underlying *_this);
                     return __MR_TypedefsInTemplates_A_int32_t_foo(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.A_Int32T._Underlying *__MR_TypedefsInTemplates_A_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int32_t_foo", ExactSpelling = true)]
+                extern static unsafe int __MR_TypedefsInTemplates_A_int32_t_foo(_Underlying *_this);
             }
 
             /// <summary>
@@ -164,8 +175,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_Destroy", ExactSpelling = true)]
-                    extern static void __MR_TypedefsInTemplates_B_int32_t_Destroy(_Underlying *_this);
                     __MR_TypedefsInTemplates_B_int32_t_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -179,8 +188,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_B_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
                 }
 
@@ -189,8 +196,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_B_Int32T(MR.CS.TypedefsInTemplates.Const_B_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -214,8 +219,6 @@ public static partial class MR
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy", ExactSpelling = true)]
-                        extern static void __MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy(_Underlying *_this);
                         __MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -229,8 +232,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_BB_Float() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
                     }
 
@@ -239,8 +240,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_BB_Float(MR.CS.TypedefsInTemplates.B_Int32T.Const_BB_Float _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -249,6 +248,17 @@ public static partial class MR
                     /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int32_t&gt;::BB&lt;float&gt;::BB`.
                     /// </summary>
                     public Const_BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy", ExactSpelling = true)]
+                    extern static unsafe void __MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy(_Underlying *_this);
                 }
 
                 /// <summary>
@@ -264,8 +274,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe BB_Float() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
                     }
 
@@ -274,8 +282,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe BB_Float(MR.CS.TypedefsInTemplates.B_Int32T.Const_BB_Float _other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -290,8 +296,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float assign(MR.CS.TypedefsInTemplates.B_Int32T.Const_BB_Float _other)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
                         _DiscardKeepAlive();
                         _KeepAlive(_other);
                         return new(__MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -302,8 +306,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe int foo()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_foo", ExactSpelling = true)]
-                        extern static int __MR_TypedefsInTemplates_B_int32_t_BB_float_foo(_Underlying *_this);
                         return __MR_TypedefsInTemplates_B_int32_t_BB_float_foo(_UnderlyingPtr);
                     }
 
@@ -312,10 +314,25 @@ public static partial class MR
                     /// </summary>
                     public unsafe int foo2()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_foo2", ExactSpelling = true)]
-                        extern static int __MR_TypedefsInTemplates_B_int32_t_BB_float_foo2(_Underlying *_this);
                         return __MR_TypedefsInTemplates_B_int32_t_BB_float_foo2(_UnderlyingPtr);
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *_other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_foo", ExactSpelling = true)]
+                    extern static unsafe int __MR_TypedefsInTemplates_B_int32_t_BB_float_foo(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_BB_float_foo2", ExactSpelling = true)]
+                    extern static unsafe int __MR_TypedefsInTemplates_B_int32_t_BB_float_foo2(_Underlying *_this);
                 }
 
                 /// <summary>
@@ -351,6 +368,17 @@ public static partial class MR
                     public _InOptConst_BB_Float(Const_BB_Float value) {Opt = value;}
                     public static implicit operator _InOptConst_BB_Float(Const_BB_Float value) {return new(value);}
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_TypedefsInTemplates_B_int32_t_Destroy(_Underlying *_this);
             }
 
             /// <summary>
@@ -366,8 +394,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe B_Int32T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
                 }
 
@@ -376,8 +402,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe B_Int32T(MR.CS.TypedefsInTemplates.Const_B_Int32T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -392,12 +416,21 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.B_Int32T assign(MR.CS.TypedefsInTemplates.Const_B_Int32T _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int32T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int32_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TypedefsInTemplates.B_Int32T._Underlying *__MR_TypedefsInTemplates_B_int32_t_DefaultConstruct();
             }
 
             /// <summary>
@@ -439,10 +472,13 @@ public static partial class MR
             /// </summary>
             public static void bar(int _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_bar", ExactSpelling = true)]
-                extern static void __MR_TypedefsInTemplates_bar(int _1);
                 __MR_TypedefsInTemplates_bar(_1);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_bar", ExactSpelling = true)]
+            extern static void __MR_TypedefsInTemplates_bar(int _1);
         }
     }
 }

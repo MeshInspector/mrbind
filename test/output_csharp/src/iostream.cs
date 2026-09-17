@@ -24,12 +24,15 @@ public static partial class MR
                 /// Generated from function `MR::IOStream::operator<<`.
                 public unsafe void Lshift(MR.CS.IOStream.Const_A _2)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_print_MR_IOStream_A", ExactSpelling = true)]
-                    extern static void __MR_C_print_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.Const_A._Underlying *_2);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_print_MR_IOStream_A(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_print_MR_IOStream_A", ExactSpelling = true)]
+                extern static unsafe void __MR_C_print_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.Const_A._Underlying *_2);
             }
 
             /// This is used for optional parameters of class `Ostream` with default arguments.
@@ -82,12 +85,15 @@ public static partial class MR
                 /// Generated from function `MR::IOStream::operator>>`.
                 public unsafe void Rshift(MR.CS.IOStream.A _2)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_input_MR_IOStream_A", ExactSpelling = true)]
-                    extern static void __MR_C_input_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.A._Underlying *_2);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_input_MR_IOStream_A(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_input_MR_IOStream_A", ExactSpelling = true)]
+                extern static unsafe void __MR_C_input_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.A._Underlying *_2);
             }
 
             /// This is used for optional parameters of class `Istream` with default arguments.
@@ -124,8 +130,6 @@ public static partial class MR
         /// Returns the `stdout` stream.
         public static unsafe MR.CS.Std.Ostream GetStdCout()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCout", ExactSpelling = true)]
-            extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCout();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_C_GetStdCout();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -135,8 +139,6 @@ public static partial class MR
         /// Returns the `stderr` stream, buffered.
         public static unsafe MR.CS.Std.Ostream GetStdCerr()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCerr", ExactSpelling = true)]
-            extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCerr();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_C_GetStdCerr();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -146,8 +148,6 @@ public static partial class MR
         /// Returns the `stderr` stream, unbuffered.
         public static unsafe MR.CS.Std.Ostream GetStdClog()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdClog", ExactSpelling = true)]
-            extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdClog();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_C_GetStdClog();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -157,12 +157,24 @@ public static partial class MR
         /// Returns the `stdin` stream.
         public static unsafe MR.CS.Std.Istream GetStdCin()
         {
-            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCin", ExactSpelling = true)]
-            extern static MR.CS.Std.Istream._Underlying *__MR_C_GetStdCin();
             MR.CS.Misc._Exceptions.Prepare();
             var __c_ret = __MR_C_GetStdCin();
             MR.CS.Misc._Exceptions.ThrowIfNeeded();
             return new(__c_ret, is_owning: false);
         }
+
+        // DllImport:
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCerr", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCerr();
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCin", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Istream._Underlying *__MR_C_GetStdCin();
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdClog", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Ostream._Underlying *__MR_C_GetStdClog();
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCout", ExactSpelling = true)]
+        extern static unsafe MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCout();
     }
 }

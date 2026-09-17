@@ -120,10 +120,30 @@ namespace mrbind::CSharp
     {
         std::string contents;
 
+        enum class ScopeKind
+        {
+            regular,
+
+            // Either a C# class (which we use for C++ namespaces as well) or a C# struct.
+            ns_or_class_or_struct,
+        };
+
         struct ScopeFrame
         {
             cppdecl::UnqualifiedName name; // The internal name, this isn't emitted.
             std::string close_string; // This will be used to close the scope.
+
+            ScopeKind kind = ScopeKind::regular;
+
+            // This is used for `ns_or_class_or_struct` scopes, we put our dllimport declarations there.
+            // Keys are C# function names, values are the declarations.
+            // This is not a set so we can verify that the same function gets the exact same declaration.
+            // The reason why those are not directly at the call site is because that apparently makes binaries larger, see: https://github.com/MeshInspector/mrbind/pull/51
+            // The reason why those are per class and not all in one place is for simplicity,
+            //   since originally those were at function scopes and used unqualified names in the parameters and return types a lot.
+            //   Keeping them at class scope lets us keep using those unqualified names.
+            //   Also note that C# only allows `DllImport` at class/struct/function scope, not at global scope.
+            std::map<std::string, std::string, std::less<>> queued_dllimports{}; // `{}` to silence Clang warning in designated init when skipping this field.
         };
 
         // The current class and namespace stack. This is based on the assumption that
@@ -146,7 +166,7 @@ namespace mrbind::CSharp
         // Writes `code_header` to the file and pushes one scope called `cpp_name` to `current_scope`. Will eventually write `close_scope` to close this scope.
         // `open_scope` and `close_scope` should have trailing newlines.
         // You can pass an empty `cpp_name` for temporary scopes.
-        void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope);
+        void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope, ScopeKind kind = ScopeKind::regular);
 
         void PushScope() {PushScope({}, "{\n", "}\n");}
 
@@ -156,6 +176,10 @@ namespace mrbind::CSharp
         // This is similar to `EnsureNamespace(..., {});`, but not the same thing, since that can adjust the global namespace into something else
         //   due to command-line flags, while this always resolves to the true C# global namespace.
         void ExitAllScopes();
+
+        // Don't call this directly, prefer `DllImportDeclStrings::DllImportDecl()`.
+        // If we're in a class, returns true and queues the declaration to be written when exiting this class.
+        [[nodiscard]] bool TryQueueDllImportLow(const Generator &generator, const std::string &csharp_name, std::string_view decl);
     };
 
     struct TypeBinding
@@ -447,6 +471,9 @@ namespace mrbind::CSharp
         // If true, try to transparently store shared pointers in C# objects.
         // The implementation of this is incomplete.
         bool transparent_shared_pointers = false;
+
+        // Don't try to extract dllimports to class scope. This is left here in case it's needed to work around bugs.
+        bool local_dllimport = false;
 
         // ]
 
@@ -841,7 +868,8 @@ namespace mrbind::CSharp
         // If not empty, it must have a trailing newline and no leading newline.
         // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
         //   and null means we're in an exposed `ref struct`.
-        [[nodiscard]] ExtraClassContents GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind);
+        // If you're planning to write `.text` into a file, pass that file into `file`.
+        [[nodiscard]] ExtraClassContents GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind, OutputFile *file);
 
 
         // You should almost never use this directly, prefer `RequestHelper()`.
@@ -879,7 +907,8 @@ namespace mrbind::CSharp
         struct DllImportDeclStrings
         {
             // This is the entire C function declaration with a trailing newline.
-            std::string dllimport_decl;
+            // Don't access directly! Use
+            std::string _dllimport_decl;
 
             // This is the C# name that we declare in `c_decl`. Usually it the C name you specified with some underscores prepended just in case.
             std::string csharp_name;
@@ -887,6 +916,16 @@ namespace mrbind::CSharp
             // If true, the caller should be marked `unsafe`.
             // We don't add `unsafe` to `c_decl` because having it in the caller is enough.
             bool is_unsafe = false;
+
+            // Either writes the `DllImport` declaration immediately, or queues it to be written at the end of the current class scope if we're in one.
+            // Putting them at class scope apparently makes the binaries smaller, see: https://github.com/MeshInspector/mrbind/pull/51
+            void WriteToFile(Generator &generator, OutputFile &file) const
+            {
+                file.WriteString(DllImportDecl(generator, &file));
+            }
+
+            // Returns the dllimport declaration you should write at function scope.
+            [[nodiscard]] std::string_view DllImportDecl(const Generator &generator, OutputFile *file) const;
         };
 
         // This stores all functions declared in a class, and is used to track shadowing and insert `new` as needed.

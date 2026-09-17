@@ -9,8 +9,6 @@ public static partial class MR
             /// </summary>
             public static void a(int _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_1", ExactSpelling = true)]
-                extern static void __MR_Overloads_a_1(int _1);
                 __MR_Overloads_a_1(_1);
             }
 
@@ -19,8 +17,6 @@ public static partial class MR
             /// </summary>
             public static void a(int _1, int _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_2", ExactSpelling = true)]
-                extern static void __MR_Overloads_a_2(int _1, int _2);
                 __MR_Overloads_a_2(_1, _2);
             }
 
@@ -29,8 +25,6 @@ public static partial class MR
             /// </summary>
             public static void b_Int32T()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_int32_t", ExactSpelling = true)]
-                extern static void __MR_Overloads_b_int32_t();
                 __MR_Overloads_b_int32_t();
             }
 
@@ -39,8 +33,6 @@ public static partial class MR
             /// </summary>
             public static void b_Float()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_b_float();
                 __MR_Overloads_b_float();
             }
 
@@ -49,8 +41,6 @@ public static partial class MR
             /// </summary>
             public static void c(int _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_int32_t", ExactSpelling = true)]
-                extern static void __MR_Overloads_c_int32_t(int _1);
                 __MR_Overloads_c_int32_t(_1);
             }
 
@@ -59,8 +49,6 @@ public static partial class MR
             /// </summary>
             public static void c(float _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_c_float(float _1);
                 __MR_Overloads_c_float(_1);
             }
 
@@ -69,8 +57,6 @@ public static partial class MR
             /// </summary>
             public static void d(byte _1, int _2, byte _3)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_int32_t", ExactSpelling = true)]
-                extern static void __MR_Overloads_d_int32_t(byte _1, int _2, byte _3);
                 __MR_Overloads_d_int32_t(_1, _2, _3);
             }
 
@@ -79,8 +65,6 @@ public static partial class MR
             /// </summary>
             public static void d(byte _1, float _2, byte _3)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_d_float(byte _1, float _2, byte _3);
                 __MR_Overloads_d_float(_1, _2, _3);
             }
 
@@ -89,8 +73,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void e(int _1, MR.CS.Misc._MoveRef _move__2, int _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_const_int32_t_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_const_int32_t_ref(int *_1, int *_2);
                 __MR_Overloads_e_const_int32_t_ref(&_1, &_2);
             }
 
@@ -99,8 +81,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void e(MR.CS.Misc._MoveRef _move__1, int _1, MR.CS.Misc._MoveRef _move__2, int _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int32_t_rvalue_ref_int32_t", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_int32_t_rvalue_ref_int32_t(int *_1, int *_2);
                 __MR_Overloads_e_int32_t_rvalue_ref_int32_t(&_1, &_2);
             }
 
@@ -109,8 +89,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void e(MR.CS.Misc._MoveRef _move__1, int _1, MR.CS.Misc._MoveRef _move__2, float _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int32_t_rvalue_ref_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_e_int32_t_rvalue_ref_float(int *_1, float *_2);
                 __MR_Overloads_e_int32_t_rvalue_ref_float(&_1, &_2);
             }
 
@@ -122,8 +100,6 @@ public static partial class MR
             /// </summary>
             public static void f(float _1, int _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_float", ExactSpelling = true)]
-                extern static void __MR_Overloads_f_float(float _1, int _2);
                 __MR_Overloads_f_float(_1, _2);
             }
 
@@ -132,8 +108,6 @@ public static partial class MR
             /// </summary>
             public static unsafe void f(MR.CS.Misc._MoveRef _move__1, int _1, float _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_int32_t_rvalue_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_f_int32_t_rvalue_ref(int *_1, float _2);
                 __MR_Overloads_f_int32_t_rvalue_ref(&_1, _2);
             }
 
@@ -142,10 +116,52 @@ public static partial class MR
             /// </summary>
             public static unsafe void f(int _1, float _2)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_const_int32_t_ref", ExactSpelling = true)]
-                extern static void __MR_Overloads_f_const_int32_t_ref(int *_1, float _2);
                 __MR_Overloads_f_const_int32_t_ref(&_1, _2);
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_1", ExactSpelling = true)]
+            extern static void __MR_Overloads_a_1(int _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_2", ExactSpelling = true)]
+            extern static void __MR_Overloads_a_2(int _1, int _2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_float", ExactSpelling = true)]
+            extern static void __MR_Overloads_b_float();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_int32_t", ExactSpelling = true)]
+            extern static void __MR_Overloads_b_int32_t();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_float", ExactSpelling = true)]
+            extern static void __MR_Overloads_c_float(float _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_int32_t", ExactSpelling = true)]
+            extern static void __MR_Overloads_c_int32_t(int _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_float", ExactSpelling = true)]
+            extern static void __MR_Overloads_d_float(byte _1, float _2, byte _3);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_int32_t", ExactSpelling = true)]
+            extern static void __MR_Overloads_d_int32_t(byte _1, int _2, byte _3);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_const_int32_t_ref", ExactSpelling = true)]
+            extern static unsafe void __MR_Overloads_e_const_int32_t_ref(int *_1, int *_2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int32_t_rvalue_ref_float", ExactSpelling = true)]
+            extern static unsafe void __MR_Overloads_e_int32_t_rvalue_ref_float(int *_1, float *_2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int32_t_rvalue_ref_int32_t", ExactSpelling = true)]
+            extern static unsafe void __MR_Overloads_e_int32_t_rvalue_ref_int32_t(int *_1, int *_2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_const_int32_t_ref", ExactSpelling = true)]
+            extern static unsafe void __MR_Overloads_f_const_int32_t_ref(int *_1, float _2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_float", ExactSpelling = true)]
+            extern static void __MR_Overloads_f_float(float _1, int _2);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_int32_t_rvalue_ref", ExactSpelling = true)]
+            extern static unsafe void __MR_Overloads_f_int32_t_rvalue_ref(int *_1, float _2);
         }
     }
 }

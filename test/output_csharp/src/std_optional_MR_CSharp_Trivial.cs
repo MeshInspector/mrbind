@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_Trivial_Destroy(_Underlying *_this);
                     __MR_C_std_optional_MR_CSharp_Trivial_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Optional_MRCSharpTrivial() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Const_Optional_MRCSharpTrivial(MR.CS.Std.Const_Optional_MRCSharpTrivial other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -53,8 +47,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Const_Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -66,8 +58,6 @@ public static partial class MR
                 /// Returns true if this instance stores an object, as opposed to being empty.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRCSharpTrivial _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_has_value", ExactSpelling = true)]
-                    extern static byte __MR_C_std_optional_MR_CSharp_Trivial_has_value(MR.CS.Std.Const_Optional_MRCSharpTrivial._Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_has_value(_this._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -77,8 +67,6 @@ public static partial class MR
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.CSharp.Const_Trivial? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_Trivial? __ret;
@@ -87,6 +75,26 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_Trivial_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_has_value", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_optional_MR_CSharp_Trivial_has_value(MR.CS.Std.Const_Optional_MRCSharpTrivial._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value(_Underlying *_this);
             }
 
             /// Stores either a single `MR::CSharp::Trivial` or nothing.
@@ -98,8 +106,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Optional_MRCSharpTrivial() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -108,8 +114,6 @@ public static partial class MR
                 /// Constructs a copy of another instance. The source remains alive.
                 public unsafe Optional_MRCSharpTrivial(MR.CS.Std.Const_Optional_MRCSharpTrivial other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
@@ -122,8 +126,6 @@ public static partial class MR
                 /// Constructs a new instance.
                 public unsafe Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -135,8 +137,6 @@ public static partial class MR
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Optional_MRCSharpTrivial other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
@@ -147,8 +147,6 @@ public static partial class MR
                 /// Assigns the contents.
                 public unsafe void Assign(MR.CS.CSharp.Const_Trivial? other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_Underlying *_this, MR.CS.CSharp.Trivial._Underlying *other);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_UnderlyingPtr, other is not null ? other._UnderlyingPtr : null);
@@ -157,8 +155,6 @@ public static partial class MR
                 /// The stored element or null if none, mutable.
                 public unsafe new MR.CS.CSharp.Trivial? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.Trivial? __ret;
@@ -167,6 +163,26 @@ public static partial class MR
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFrom", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_Underlying *_this, MR.CS.CSharp.Trivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value_mut(_Underlying *_this);
             }
 
             /// This is used for optional parameters of class `Optional_MRCSharpTrivial` with default arguments.

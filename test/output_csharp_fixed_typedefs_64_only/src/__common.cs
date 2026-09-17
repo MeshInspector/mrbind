@@ -411,7 +411,7 @@ public static partial class MR
             internal static unsafe void *_Alloc(nuint size)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                extern static void *__MR_C_Alloc(nuint size);
+                extern static unsafe void *__MR_C_Alloc(nuint size);
                 return __MR_C_Alloc(size);
             }
 
@@ -421,7 +421,7 @@ public static partial class MR
             internal static unsafe void _Free(void *ptr)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
-                extern static void __MR_C_Free(void *ptr);
+                extern static unsafe void __MR_C_Free(void *ptr);
                 __MR_C_Free(ptr);
             }
 
@@ -715,13 +715,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
                     Ptr = __MR_CSharp_LifetimesA_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
                     Ptr = __MR_CSharp_LifetimesA_OffsetPtr(Ptr, -1);
                 }
 
@@ -734,7 +734,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.Const_LifetimesA._Underlying *ptr, nint i);
                         return new(__MR_CSharp_LifetimesA_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -789,13 +789,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
                     Ptr = __MR_CSharp_LifetimesA_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
                     Ptr = __MR_CSharp_LifetimesA_OffsetPtr(Ptr, -1);
                 }
 
@@ -808,7 +808,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_OffsetPtr(MR.CS.CSharp.LifetimesA._Underlying *ptr, nint i);
                         return new(__MR_CSharp_LifetimesA_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1114,7 +1114,7 @@ public static partial class MR
                     {
                         System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1132,7 +1132,7 @@ public static partial class MR
                     {
                         System.Diagnostics.Trace.Assert(i >= 0 && i < 3);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1150,7 +1150,7 @@ public static partial class MR
                     {
                         System.Diagnostics.Trace.Assert(i >= 0 && i < 2);
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1165,13 +1165,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                     Ptr = __MR_C_std_string_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                     Ptr = __MR_C_std_string_OffsetPtr(Ptr, -1);
                 }
 
@@ -1184,7 +1184,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.Const_String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1204,13 +1204,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                     Ptr = __MR_C_std_string_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                     Ptr = __MR_C_std_string_OffsetPtr(Ptr, -1);
                 }
 
@@ -1223,7 +1223,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_string_OffsetPtr(MR.CS.Std.String._Underlying *ptr, nint i);
                         return new(__MR_C_std_string_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1246,13 +1246,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_A_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_A_OffsetPtr(Ptr, -1);
                 }
 
@@ -1265,7 +1265,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.StdContainers.Const_A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.Const_A._Underlying *ptr, nint i);
                         return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1285,13 +1285,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_NonAssignable_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_NonAssignable_OffsetPtr(Ptr, -1);
                 }
 
@@ -1304,7 +1304,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.Const_NonAssignable._Underlying *ptr, nint i);
                         return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1324,13 +1324,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_A_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_A_OffsetPtr(Ptr, -1);
                 }
 
@@ -1343,7 +1343,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_OffsetPtr(MR.CS.StdContainers.A._Underlying *ptr, nint i);
                         return new(__MR_StdContainers_A_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }
@@ -1363,13 +1363,13 @@ public static partial class MR
                 public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_NonAssignable_OffsetPtr(Ptr, 1);
                 }
                 public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
+                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
                     Ptr = __MR_StdContainers_NonAssignable_OffsetPtr(Ptr, -1);
                 }
 
@@ -1382,7 +1382,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_OffsetPtr", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
+                        extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_OffsetPtr(MR.CS.StdContainers.NonAssignable._Underlying *ptr, nint i);
                         return new(__MR_StdContainers_NonAssignable_OffsetPtr(Ptr, i), is_owning: false);
                     }
                 }

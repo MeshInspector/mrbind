@@ -16,8 +16,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy(_Underlying *_this);
                     __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -29,8 +27,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Pair_ConstMRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -39,8 +35,6 @@ public static partial class MR
                 /// Constructs the pair elementwise.
                 public unsafe Const_Pair_ConstMRStdContainersNonAssignable_Float(MR.CS.StdContainers._ByValue_NonAssignable first, float second) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second);
                     if (first.Value is not null) _KeepAlive(first.Value);
@@ -50,8 +44,6 @@ public static partial class MR
                 /// The first of the two elements, read-only.
                 public unsafe MR.CS.StdContainers.Const_NonAssignable First()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonAssignable __ret;
@@ -64,8 +56,6 @@ public static partial class MR
                 /// The second of the two elements, read-only.
                 public unsafe float Second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -79,6 +69,23 @@ public static partial class MR
                     _1 = First();
                     _2 = Second();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first", ExactSpelling = true)]
+                extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_Underlying *_this);
             }
 
             /// Stores two objects: `const MR::StdContainers::NonAssignable` and `const MR::StdContainers::NonAssignable`.
@@ -90,8 +97,6 @@ public static partial class MR
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Pair_ConstMRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -100,8 +105,6 @@ public static partial class MR
                 /// Constructs the pair elementwise.
                 public unsafe Pair_ConstMRStdContainersNonAssignable_Float(MR.CS.StdContainers._ByValue_NonAssignable first, float second) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
                     MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second);
                     if (first.Value is not null) _KeepAlive(first.Value);
@@ -111,8 +114,6 @@ public static partial class MR
                 /// The second of the two elements, mutable.
                 public unsafe new ref float Second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -126,6 +127,17 @@ public static partial class MR
                     _1 = First();
                     _2 = new(ref Second());
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_Underlying *_this);
             }
 
             /// This is used as a function parameter when the underlying function receives `Pair_ConstMRStdContainersNonAssignable_Float` by value.

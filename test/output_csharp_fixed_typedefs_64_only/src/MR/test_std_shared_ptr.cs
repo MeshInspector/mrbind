@@ -21,7 +21,7 @@ public static partial class MR
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
+                        extern static unsafe _Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingSharedPtr);
                     }
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(_UnderlyingShared *_this);
+                        extern static unsafe int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
@@ -48,7 +48,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
+                        extern static unsafe void *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
@@ -58,7 +58,7 @@ public static partial class MR
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingShared *_this);
+                    extern static unsafe void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingShared *_this);
                     __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingSharedPtr);
                     _UnderlyingSharedPtr = null;
                 }
@@ -68,9 +68,9 @@ public static partial class MR
                 internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(_Underlying *other);
+                    extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(_Underlying *other);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructNonOwning(_Underlying *other);
+                    extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructNonOwning(_Underlying *other);
                     if (is_owning)
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(ptr);
                     else
@@ -82,7 +82,7 @@ public static partial class MR
                 internal static unsafe A _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
                     return new(__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
                 }
 
@@ -91,7 +91,7 @@ public static partial class MR
                     System.Diagnostics.Trace.Assert(_IsOwningVal == true);
                     System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(_Underlying *other);
+                    extern static unsafe _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(ptr);
                 }
 
@@ -101,7 +101,7 @@ public static partial class MR
                 public unsafe Const_A() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_DefaultConstruct();
+                    extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_DefaultConstruct();
                     _LateMakeShared(__MR_StdSharedPtr_A_DefaultConstruct());
                 }
 
@@ -111,7 +111,7 @@ public static partial class MR
                 public unsafe Const_A(MR.CS.StdSharedPtr.Const_A _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
@@ -139,7 +139,7 @@ public static partial class MR
                 public unsafe A() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_DefaultConstruct();
+                    extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_DefaultConstruct();
                     _LateMakeShared(__MR_StdSharedPtr_A_DefaultConstruct());
                 }
 
@@ -149,7 +149,7 @@ public static partial class MR
                 public unsafe A(MR.CS.StdSharedPtr.Const_A _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
@@ -165,7 +165,7 @@ public static partial class MR
                 public unsafe MR.CS.StdSharedPtr.A assign(MR.CS.StdSharedPtr.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *_other);
+                    extern static unsafe MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_StdSharedPtr_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -234,7 +234,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> getInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetInt", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_Int._Underlying *__MR_StdSharedPtr_GetInt();
+                extern static unsafe MR.CS.Std.SharedPtr_Int._Underlying *__MR_StdSharedPtr_GetInt();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_Int(__MR_StdSharedPtr_GetInt(), is_owning: true));
             }
 
@@ -244,7 +244,7 @@ public static partial class MR
             public static unsafe void setInt(MR.CS.Std._ByValue_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetInt", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetInt(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetInt(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetInt(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -254,7 +254,7 @@ public static partial class MR
             public static unsafe void setIntConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntConstRef(_1._UnderlyingPtr);
             }
 
@@ -265,7 +265,7 @@ public static partial class MR
             public static unsafe void setIntDefTrivial(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntDefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntDefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -276,7 +276,7 @@ public static partial class MR
             public static unsafe void setIntDef(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntDef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntDef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -286,7 +286,7 @@ public static partial class MR
             public static unsafe void setIntLvalueRef(MR.CS.Std.SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntLvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntLvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntLvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntLvalueRef(_1._UnderlyingPtr);
             }
 
@@ -296,7 +296,7 @@ public static partial class MR
             public static unsafe void setIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntLvalueConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntLvalueConstRef(_1._UnderlyingPtr);
             }
 
@@ -306,7 +306,7 @@ public static partial class MR
             public static unsafe void setIntRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntRvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntRvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntRvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntRvalueRef(_1.Value._UnderlyingPtr);
             }
 
@@ -316,7 +316,7 @@ public static partial class MR
             public static unsafe void setIntRvalueConstRef(MR.CS.Misc._Moved<MR.CS.Std.Const_SharedPtr_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntRvalueConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntRvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntRvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
                 __MR_StdSharedPtr_SetIntRvalueConstRef(_1.Value._UnderlyingPtr);
             }
 
@@ -326,7 +326,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray> getIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_IntArray._Underlying *__MR_StdSharedPtr_GetIntArr();
+                extern static unsafe MR.CS.Std.SharedPtr_IntArray._Underlying *__MR_StdSharedPtr_GetIntArr();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_IntArray(__MR_StdSharedPtr_GetIntArr(), is_owning: true));
             }
 
@@ -336,7 +336,7 @@ public static partial class MR
             public static unsafe void setIntArr(MR.CS.Std._ByValue_SharedPtr_IntArray _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArr(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -347,7 +347,7 @@ public static partial class MR
             public static unsafe void setIntArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArrDefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArrDefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -358,7 +358,7 @@ public static partial class MR
             public static unsafe void setIntArrDef(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArrDef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArrDef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -368,7 +368,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray42> getIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr42", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_IntArray42._Underlying *__MR_StdSharedPtr_GetIntArr42();
+                extern static unsafe MR.CS.Std.SharedPtr_IntArray42._Underlying *__MR_StdSharedPtr_GetIntArr42();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_IntArray42(__MR_StdSharedPtr_GetIntArr42(), is_owning: true));
             }
 
@@ -378,7 +378,7 @@ public static partial class MR
             public static unsafe void setIntArr42(MR.CS.Std._ByValue_SharedPtr_IntArray42 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArr42(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -389,7 +389,7 @@ public static partial class MR
             public static unsafe void setIntArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42DefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArr42DefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -400,7 +400,7 @@ public static partial class MR
             public static unsafe void setIntArr42Def(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42Def", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetIntArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetIntArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetIntArr42Def(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -410,7 +410,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> getClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClass", ExactSpelling = true)]
-                extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetClass();
+                extern static unsafe MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetClass();
                 return MR.CS.Misc.Move(new MR.CS.StdSharedPtr.A(__MR_StdSharedPtr_GetClass(), is_owning: true));
             }
 
@@ -420,7 +420,7 @@ public static partial class MR
             public static unsafe void setClass(MR.CS.StdSharedPtr._ByValueShared_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClass", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClass(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClass(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClass(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingSharedPtr : null);
             }
 
@@ -430,7 +430,7 @@ public static partial class MR
             public static unsafe void setClassConstRef(MR.CS.StdSharedPtr.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassConstRef(_1._UnderlyingSharedPtr);
             }
 
@@ -441,7 +441,7 @@ public static partial class MR
             public static unsafe void setClassDefTrivial(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassDefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingSharedPtr : null);
             }
 
@@ -452,7 +452,7 @@ public static partial class MR
             public static unsafe void setClassDef(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassDef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingSharedPtr : null);
             }
 
@@ -462,7 +462,7 @@ public static partial class MR
             public static unsafe void setClassLvalueRef(MR.CS.StdSharedPtr.A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassLvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassLvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassLvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassLvalueRef(_1._UnderlyingSharedPtr);
             }
 
@@ -472,7 +472,7 @@ public static partial class MR
             public static unsafe void setClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassLvalueConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassLvalueConstRef(_1._UnderlyingSharedPtr);
             }
 
@@ -482,7 +482,7 @@ public static partial class MR
             public static unsafe void setClassRvalueRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassRvalueRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassRvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassRvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassRvalueRef(_1.Value._UnderlyingSharedPtr);
             }
 
@@ -492,7 +492,7 @@ public static partial class MR
             public static unsafe void setClassRvalueConstRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.Const_A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassRvalueConstRef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassRvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassRvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
                 __MR_StdSharedPtr_SetClassRvalueConstRef(_1.Value._UnderlyingSharedPtr);
             }
 
@@ -502,7 +502,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray> getClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetClassArr();
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetClassArr();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_MRStdSharedPtrAArray(__MR_StdSharedPtr_GetClassArr(), is_owning: true));
             }
 
@@ -512,7 +512,7 @@ public static partial class MR
             public static unsafe void setClassArr(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArr(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -523,7 +523,7 @@ public static partial class MR
             public static unsafe void setClassArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArrDefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArrDefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -534,7 +534,7 @@ public static partial class MR
             public static unsafe void setClassArrDef(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArrDef", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArrDef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -544,7 +544,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42> getClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr42", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetClassArr42();
+                extern static unsafe MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetClassArr42();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42(__MR_StdSharedPtr_GetClassArr42(), is_owning: true));
             }
 
@@ -554,7 +554,7 @@ public static partial class MR
             public static unsafe void setClassArr42(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArr42(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -565,7 +565,7 @@ public static partial class MR
             public static unsafe void setClassArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42DefTrivial", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArr42DefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -576,7 +576,7 @@ public static partial class MR
             public static unsafe void setClassArr42Def(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42Def", ExactSpelling = true)]
-                extern static void __MR_StdSharedPtr_SetClassArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
+                extern static unsafe void __MR_StdSharedPtr_SetClassArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
                 __MR_StdSharedPtr_SetClassArr42Def(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -588,7 +588,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstInt> getConstInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstInt", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_StdSharedPtr_GetConstInt();
+                extern static unsafe MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_StdSharedPtr_GetConstInt();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstInt(__MR_StdSharedPtr_GetConstInt(), is_owning: true));
             }
 
@@ -598,7 +598,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray> getConstIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_StdSharedPtr_GetConstIntArr();
+                extern static unsafe MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_StdSharedPtr_GetConstIntArr();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstIntArray(__MR_StdSharedPtr_GetConstIntArr(), is_owning: true));
             }
 
@@ -608,7 +608,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray42> getConstIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr42", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_ConstIntArray42._Underlying *__MR_StdSharedPtr_GetConstIntArr42();
+                extern static unsafe MR.CS.Std.SharedPtr_ConstIntArray42._Underlying *__MR_StdSharedPtr_GetConstIntArr42();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstIntArray42(__MR_StdSharedPtr_GetConstIntArr42(), is_owning: true));
             }
 
@@ -618,7 +618,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> getConstClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClass", ExactSpelling = true)]
-                extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetConstClass();
+                extern static unsafe MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetConstClass();
                 return MR.CS.Misc.Move(new MR.CS.StdSharedPtr.A(__MR_StdSharedPtr_GetConstClass(), is_owning: true));
             }
 
@@ -628,7 +628,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray> getConstClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetConstClassArr();
+                extern static unsafe MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetConstClassArr();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray(__MR_StdSharedPtr_GetConstClassArr(), is_owning: true));
             }
 
@@ -638,7 +638,7 @@ public static partial class MR
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42> getConstClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr42", ExactSpelling = true)]
-                extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetConstClassArr42();
+                extern static unsafe MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetConstClassArr42();
                 return MR.CS.Misc.Move(new MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42(__MR_StdSharedPtr_GetConstClassArr42(), is_owning: true));
             }
         }

@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_int32_t_std_string_Destroy(_Underlying *_this);
                     __MR_C_std_tuple_int32_t_std_string_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Tuple_Int32T_StdString() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Tuple_Int32T_StdString(MR.CS.Std._ByValue_Tuple_Int32T_StdString other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -64,8 +58,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Tuple_Int32T_StdString(int _0, ReadOnlySpan<char> _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_Construct(int _0, byte *_1, byte *_1_end);
                     byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
                     int __len__1 = System.Text.Encoding.UTF8.GetBytes(_1, __bytes__1);
                     fixed (byte *__ptr__1 = __bytes__1)
@@ -79,8 +71,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe int getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_int32_t", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int32_t_std_string_get_int32_t(_Underlying *_this);
                     return *__MR_C_std_tuple_int32_t_std_string_get_int32_t(_UnderlyingPtr);
                 }
 
@@ -89,8 +79,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Const_String getStdString()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_tuple_int32_t_std_string_get_std_string(_Underlying *_this);
                     MR.CS.Std.Const_String __ret;
                     __ret = new(__MR_C_std_tuple_int32_t_std_string_get_std_string(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
@@ -104,6 +92,26 @@ public static partial class MR
                     _1 = getInt32T();
                     _2 = getStdString();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_Construct(int _0, byte *_1, byte *_1_end);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_int32_t_std_string_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_int32_t", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_int32_t_std_string_get_int32_t(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_std_string", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Const_String._Underlying *__MR_C_std_tuple_int32_t_std_string_get_std_string(_Underlying *_this);
             }
 
             /// <summary>
@@ -119,8 +127,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Tuple_Int32T_StdString() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
                 }
 
@@ -129,8 +135,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Tuple_Int32T_StdString(MR.CS.Std._ByValue_Tuple_Int32T_StdString other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -150,8 +154,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Tuple_Int32T_StdString other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_tuple_int32_t_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_tuple_int32_t_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -162,8 +164,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Tuple_Int32T_StdString(int _0, ReadOnlySpan<char> _1) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_Construct(int _0, byte *_1, byte *_1_end);
                     byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
                     int __len__1 = System.Text.Encoding.UTF8.GetBytes(_1, __bytes__1);
                     fixed (byte *__ptr__1 = __bytes__1)
@@ -177,8 +177,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref int getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_int32_t_mut", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int32_t_std_string_get_int32_t_mut(_Underlying *_this);
                     return ref *__MR_C_std_tuple_int32_t_std_string_get_int32_t_mut(_UnderlyingPtr);
                 }
 
@@ -187,8 +185,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.String getStdString()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_std_string_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_tuple_int32_t_std_string_get_std_string_mut(_Underlying *_this);
                     MR.CS.Std.String __ret;
                     __ret = new(__MR_C_std_tuple_int32_t_std_string_get_std_string_mut(_UnderlyingPtr), is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
@@ -202,6 +198,26 @@ public static partial class MR
                     _1 = new(ref getInt32T());
                     _2 = getStdString();
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_tuple_int32_t_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_Construct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_Construct(int _0, byte *_1, byte *_1_end);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int32T_StdString._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Tuple_Int32T_StdString._Underlying *__MR_C_std_tuple_int32_t_std_string_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_int32_t_mut", ExactSpelling = true)]
+                extern static unsafe int *__MR_C_std_tuple_int32_t_std_string_get_int32_t_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_std_string_get_std_string_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.String._Underlying *__MR_C_std_tuple_int32_t_std_string_get_std_string_mut(_Underlying *_this);
             }
 
             /// <summary>

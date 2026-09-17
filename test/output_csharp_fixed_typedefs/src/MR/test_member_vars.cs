@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_MemberVars_A_Destroy(_Underlying *_this);
                     __MR_MemberVars_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -49,14 +47,10 @@ public static partial class MR
                 unsafe static Const_A()
                 {
                     { // Z (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_GetMutable_z", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_GetMutable_z();
                         Const_A.__ref_storage_Z = __MR_MemberVars_A_GetMutable_z();
                     }
 
                     { // W (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_w", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_Get_w();
                         Const_A.__ref_storage_W = __MR_MemberVars_A_Get_w();
                     }
                 }
@@ -67,26 +61,18 @@ public static partial class MR
                 protected unsafe void _FinalizeFields()
                 {
                     { // x (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_x", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_Get_x(MR.CS.MemberVars.Const_A._Underlying *_this);
                         this.__ref_storage_x = __MR_MemberVars_A_Get_x(_UnderlyingPtr);
                     }
 
                     { // y (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_y", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_Get_y(MR.CS.MemberVars.Const_A._Underlying *_this);
                         this.__ref_storage_y = __MR_MemberVars_A_Get_y(_UnderlyingPtr);
                     }
 
                     { // ref_ (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_ref", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_Get_ref(MR.CS.MemberVars.Const_A._Underlying *_this);
                         this.__ref_storage_ref_ = __MR_MemberVars_A_Get_ref(_UnderlyingPtr);
                     }
 
                     { // arr (ref array)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_arr", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt32T4 *__MR_MemberVars_A_Get_arr(_Underlying *_this);
                         this.__array_storage_arr = __MR_MemberVars_A_Get_arr(_UnderlyingPtr);
                     }
                 }
@@ -106,8 +92,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A(MR.CS.MemberVars.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                     _FinalizeFields();
@@ -117,6 +101,32 @@ public static partial class MR
                 /// Generated from constructor `MR::MemberVars::A::A`.
                 /// </summary>
                 public Const_A(A _other) : this((Const_A)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_MemberVars_A_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_GetMutable_z", ExactSpelling = true)]
+                extern static unsafe int *__MR_MemberVars_A_GetMutable_z();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_arr", ExactSpelling = true)]
+                extern static unsafe MR.CS.ArrayInt32T4 *__MR_MemberVars_A_Get_arr(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_ref", ExactSpelling = true)]
+                extern static unsafe int *__MR_MemberVars_A_Get_ref(MR.CS.MemberVars.Const_A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_w", ExactSpelling = true)]
+                extern static unsafe int *__MR_MemberVars_A_Get_w();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_MemberVars_A_Get_x(MR.CS.MemberVars.Const_A._Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_y", ExactSpelling = true)]
+                extern static unsafe int *__MR_MemberVars_A_Get_y(MR.CS.MemberVars.Const_A._Underlying *_this);
             }
 
             /// <summary>
@@ -144,8 +154,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A(MR.CS.MemberVars.Const_A _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                     _FinalizeFields();
@@ -155,6 +163,11 @@ public static partial class MR
                 /// Generated from constructor `MR::MemberVars::A::A`.
                 /// </summary>
                 public A(A _other) : this((Const_A)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
             }
 
             /// <summary>

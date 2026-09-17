@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_Destroy(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_A_ptr_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Vector_MRCSharpAPtr() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_Vector_MRCSharpAPtr(MR.CS.Std._ByValue_Vector_MRCSharpAPtr other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -65,7 +65,7 @@ public static partial class MR
                 public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_size", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_vector_MR_CSharp_A_ptr_size(_Underlying *_this);
+                    extern static unsafe nuint __MR_C_std_vector_MR_CSharp_A_ptr_size(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_size(_UnderlyingPtr);
                 }
 
@@ -75,7 +75,7 @@ public static partial class MR
                 public unsafe bool empty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_empty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_A_ptr_empty(_Underlying *_this);
+                    extern static unsafe byte __MR_C_std_vector_MR_CSharp_A_ptr_empty(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_empty(_UnderlyingPtr) != 0;
                 }
 
@@ -85,7 +85,7 @@ public static partial class MR
                 public unsafe nuint capacity()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_capacity", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_vector_MR_CSharp_A_ptr_capacity(_Underlying *_this);
+                    extern static unsafe nuint __MR_C_std_vector_MR_CSharp_A_ptr_capacity(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_capacity(_UnderlyingPtr);
                 }
 
@@ -98,7 +98,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_at", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_at(_Underlying *_this, nuint i);
+                        extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_at(_Underlying *_this, nuint i);
                         return ref *__MR_C_std_vector_MR_CSharp_A_ptr_at(_UnderlyingPtr, i);
                     }
                 }
@@ -109,7 +109,7 @@ public static partial class MR
                 public unsafe void **front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_front", ExactSpelling = true)]
-                    extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_front(_Underlying *_this);
+                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_front(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_front(_UnderlyingPtr);
                 }
 
@@ -119,7 +119,7 @@ public static partial class MR
                 public unsafe void **back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_back", ExactSpelling = true)]
-                    extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_back(_Underlying *_this);
+                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_back(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_back(_UnderlyingPtr);
                 }
 
@@ -129,7 +129,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_begin(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_A_ptr_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -142,7 +142,7 @@ public static partial class MR
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_is_begin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_A_ptr_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_vector_MR_CSharp_A_ptr_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -152,7 +152,7 @@ public static partial class MR
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_is_begin_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_A_ptr_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_vector_MR_CSharp_A_ptr_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -162,7 +162,7 @@ public static partial class MR
                 public unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_end", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_end(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_end(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_A_ptr_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -175,7 +175,7 @@ public static partial class MR
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_is_end", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_A_ptr_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_vector_MR_CSharp_A_ptr_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -185,7 +185,7 @@ public static partial class MR
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_is_end_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_A_ptr_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *iter);
+                    extern static unsafe byte __MR_C_std_vector_MR_CSharp_A_ptr_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -195,7 +195,7 @@ public static partial class MR
                 public unsafe nint toIndex(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_to_index", ExactSpelling = true)]
-                    extern static nint __MR_C_std_vector_MR_CSharp_A_ptr_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *iter);
+                    extern static unsafe nint __MR_C_std_vector_MR_CSharp_A_ptr_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
@@ -205,7 +205,7 @@ public static partial class MR
                 public unsafe nint toIndex(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_to_index_mut", ExactSpelling = true)]
-                    extern static nint __MR_C_std_vector_MR_CSharp_A_ptr_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
+                    extern static unsafe nint __MR_C_std_vector_MR_CSharp_A_ptr_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
@@ -224,7 +224,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -239,7 +239,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
                     }
 
@@ -249,7 +249,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -265,7 +265,7 @@ public static partial class MR
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -281,7 +281,7 @@ public static partial class MR
                     public unsafe ref readonly void *deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_deref", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_deref(_Underlying *_this);
+                        extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_deref(_Underlying *_this);
                         return ref *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_deref(_UnderlyingPtr);
                     }
 
@@ -291,7 +291,7 @@ public static partial class MR
                     public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -303,7 +303,7 @@ public static partial class MR
                     public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -315,7 +315,7 @@ public static partial class MR
                     public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator", ExactSpelling = true)]
-                        extern static nint __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *b);
+                        extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -325,7 +325,7 @@ public static partial class MR
                     public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *b);
+                        extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -367,7 +367,7 @@ public static partial class MR
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_DefaultConstruct();
                     }
 
@@ -377,7 +377,7 @@ public static partial class MR
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -393,7 +393,7 @@ public static partial class MR
                     public unsafe void assign(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -405,7 +405,7 @@ public static partial class MR
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -420,7 +420,7 @@ public static partial class MR
                     public unsafe void operator++()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -430,7 +430,7 @@ public static partial class MR
                     public unsafe void operator--()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_decr(_UnderlyingPtr);
                     }
 
@@ -440,7 +440,7 @@ public static partial class MR
                     public unsafe void addAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_add_assign(_Underlying *_this, nint delta);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_MR_CSharp_A_ptr_const_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
@@ -499,7 +499,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -514,7 +514,7 @@ public static partial class MR
                     public unsafe Const_Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
                     }
 
@@ -524,7 +524,7 @@ public static partial class MR
                     public unsafe Const_Iterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -541,7 +541,7 @@ public static partial class MR
                     public unsafe ref void *deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_deref", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_iterator_deref(_Underlying *_this);
+                        extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_iterator_deref(_Underlying *_this);
                         return ref *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_deref(_UnderlyingPtr);
                     }
 
@@ -551,7 +551,7 @@ public static partial class MR
                     public static unsafe Iterator operator++(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -563,7 +563,7 @@ public static partial class MR
                     public static unsafe Iterator operator--(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator _this)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -575,7 +575,7 @@ public static partial class MR
                     public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_iterator", ExactSpelling = true)]
-                        extern static nint __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *b);
+                        extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_MR_CSharp_A_ptr_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -585,7 +585,7 @@ public static partial class MR
                     public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *b);
+                        extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_vector_MR_CSharp_A_ptr_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -627,7 +627,7 @@ public static partial class MR
                     public unsafe Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_iterator_DefaultConstruct();
                     }
 
@@ -637,7 +637,7 @@ public static partial class MR
                     public unsafe Iterator(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
+                        extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -653,7 +653,7 @@ public static partial class MR
                     public unsafe void assign(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -665,7 +665,7 @@ public static partial class MR
                     public unsafe void operator++()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -675,7 +675,7 @@ public static partial class MR
                     public unsafe void operator--()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(_Underlying *_this);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_decr(_UnderlyingPtr);
                     }
 
@@ -685,7 +685,7 @@ public static partial class MR
                     public unsafe void addAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_add_assign(_Underlying *_this, nint delta);
+                        extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_MR_CSharp_A_ptr_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
@@ -739,7 +739,7 @@ public static partial class MR
                 public unsafe Vector_MRCSharpAPtr() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruct();
                 }
 
@@ -749,7 +749,7 @@ public static partial class MR
                 public unsafe Vector_MRCSharpAPtr(MR.CS.Std._ByValue_Vector_MRCSharpAPtr other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -770,7 +770,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Vector_MRCSharpAPtr other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpAPtr._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_vector_MR_CSharp_A_ptr_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -782,7 +782,7 @@ public static partial class MR
                 public unsafe void resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_resize(_Underlying *_this, nuint new_size);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_resize(_Underlying *_this, nuint new_size);
                     __MR_C_std_vector_MR_CSharp_A_ptr_resize(_UnderlyingPtr, new_size);
                 }
 
@@ -792,7 +792,7 @@ public static partial class MR
                 public unsafe void resizeWithDefaultValue(nuint new_size, MR.CS.CSharp.A? value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.A._Underlying *value);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.A._Underlying *value);
                     __MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value(_UnderlyingPtr, new_size, value is not null ? value._UnderlyingPtr : null);
                 }
 
@@ -802,7 +802,7 @@ public static partial class MR
                 public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_clear(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_clear(_Underlying *_this);
                     _DiscardKeepAlive();
                     __MR_C_std_vector_MR_CSharp_A_ptr_clear(_UnderlyingPtr);
                 }
@@ -813,7 +813,7 @@ public static partial class MR
                 public unsafe void reserve(nuint new_capacity)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_reserve(_Underlying *_this, nuint new_capacity);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_reserve(_Underlying *_this, nuint new_capacity);
                     __MR_C_std_vector_MR_CSharp_A_ptr_reserve(_UnderlyingPtr, new_capacity);
                 }
 
@@ -823,7 +823,7 @@ public static partial class MR
                 public unsafe void shrinkToFit()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit(_UnderlyingPtr);
                 }
 
@@ -836,7 +836,7 @@ public static partial class MR
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_at_mut", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_at_mut(_Underlying *_this, nuint i);
+                        extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_at_mut(_Underlying *_this, nuint i);
                         return ref *__MR_C_std_vector_MR_CSharp_A_ptr_at_mut(_UnderlyingPtr, i);
                     }
                 }
@@ -847,7 +847,7 @@ public static partial class MR
                 public unsafe new void **front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_front_mut", ExactSpelling = true)]
-                    extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_front_mut(_Underlying *_this);
+                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_front_mut(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_front_mut(_UnderlyingPtr);
                 }
 
@@ -857,7 +857,7 @@ public static partial class MR
                 public unsafe new void **back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_back_mut", ExactSpelling = true)]
-                    extern static void **__MR_C_std_vector_MR_CSharp_A_ptr_back_mut(_Underlying *_this);
+                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_back_mut(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_back_mut(_UnderlyingPtr);
                 }
 
@@ -867,7 +867,7 @@ public static partial class MR
                 public unsafe void pushBack(MR.CS.CSharp.A? new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_push_back", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_push_back(_Underlying *_this, MR.CS.CSharp.A._Underlying *new_elem);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_push_back(_Underlying *_this, MR.CS.CSharp.A._Underlying *new_elem);
                     if (new_elem is not null) _KeepAlive(new_elem);
                     __MR_C_std_vector_MR_CSharp_A_ptr_push_back(_UnderlyingPtr, new_elem is not null ? new_elem._UnderlyingPtr : null);
                 }
@@ -878,7 +878,7 @@ public static partial class MR
                 public unsafe void popBack()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_pop_back", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_pop_back(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_pop_back(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_A_ptr_pop_back(_UnderlyingPtr);
                 }
 
@@ -888,7 +888,7 @@ public static partial class MR
                 public unsafe void insert(nuint position, MR.CS.CSharp.A? new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_insert(_Underlying *_this, nuint position, MR.CS.CSharp.A._Underlying *new_elem);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_insert(_Underlying *_this, nuint position, MR.CS.CSharp.A._Underlying *new_elem);
                     if (new_elem is not null) _KeepAlive(new_elem);
                     __MR_C_std_vector_MR_CSharp_A_ptr_insert(_UnderlyingPtr, position, new_elem is not null ? new_elem._UnderlyingPtr : null);
                 }
@@ -899,7 +899,7 @@ public static partial class MR
                 public unsafe void erase(nuint position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_erase(_Underlying *_this, nuint position);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_MR_CSharp_A_ptr_erase(_UnderlyingPtr, position);
                 }
 
@@ -909,7 +909,7 @@ public static partial class MR
                 public unsafe void insertAtMutableIter(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator position, MR.CS.CSharp.A? new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_insert_at_mutable_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *position, MR.CS.CSharp.A._Underlying *new_elem);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *position, MR.CS.CSharp.A._Underlying *new_elem);
                     if (new_elem is not null) _KeepAlive(new_elem);
                     __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem is not null ? new_elem._UnderlyingPtr : null);
                 }
@@ -920,7 +920,7 @@ public static partial class MR
                 public unsafe void eraseAtMutableIter(MR.CS.Std.Vector_MRCSharpAPtr.Const_Iterator position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_erase_at_mutable_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *position);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *position);
                     __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -930,7 +930,7 @@ public static partial class MR
                 public unsafe void insertAtIter(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator position, MR.CS.CSharp.A? new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_insert_at_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *position, MR.CS.CSharp.A._Underlying *new_elem);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *position, MR.CS.CSharp.A._Underlying *new_elem);
                     if (new_elem is not null) _KeepAlive(new_elem);
                     __MR_C_std_vector_MR_CSharp_A_ptr_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem is not null ? new_elem._UnderlyingPtr : null);
                 }
@@ -941,7 +941,7 @@ public static partial class MR
                 public unsafe void eraseAtIter(MR.CS.Std.Vector_MRCSharpAPtr.Const_ConstIterator position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_erase_at_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *position);
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpAPtr.ConstIterator._Underlying *position);
                     __MR_C_std_vector_MR_CSharp_A_ptr_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -951,7 +951,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.Vector_MRCSharpAPtr.Iterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_begin_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpAPtr.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -964,7 +964,7 @@ public static partial class MR
                 public unsafe new MR.CS.Std.Vector_MRCSharpAPtr.Iterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_end_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_Underlying *_this);
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpAPtr.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpAPtr.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;

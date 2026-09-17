@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_Destroy", ExactSpelling = true)]
-                    extern static void __MR_TestSizeT_A_uint64_t_Destroy(_Underlying *_this);
                     __MR_TestSizeT_A_uint64_t_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -33,8 +31,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_MRCUint64T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_DefaultConstruct();
                 }
 
@@ -43,8 +39,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -53,6 +47,17 @@ public static partial class MR
                 /// Generated from constructor `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::A`.
                 /// </summary>
                 public Const_A_MRCUint64T(A_MRCUint64T _other) : this((Const_A_MRCUint64T)_other) {}
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_TestSizeT_A_uint64_t_Destroy(_Underlying *_this);
             }
 
             /// <summary>
@@ -68,8 +73,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_MRCUint64T() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_DefaultConstruct();
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_DefaultConstruct();
                 }
 
@@ -78,8 +81,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -94,8 +95,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.TestSizeT.A_MRCUint64T assign(MR.CS.TestSizeT.Const_A_MRCUint64T _other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_TestSizeT_A_uint64_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -106,10 +105,22 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_foo", ExactSpelling = true)]
-                    extern static ulong __MR_TestSizeT_A_uint64_t_foo(_Underlying *_this);
                     return __MR_TestSizeT_A_uint64_t_foo(_UnderlyingPtr);
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_foo", ExactSpelling = true)]
+                extern static unsafe ulong __MR_TestSizeT_A_uint64_t_foo(_Underlying *_this);
             }
 
             /// <summary>
@@ -151,8 +162,6 @@ public static partial class MR
             /// </summary>
             public static ulong foo(ulong _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t", ExactSpelling = true)]
-                extern static ulong __MR_TestSizeT_foo_uint64_t(ulong _1);
                 return __MR_TestSizeT_foo_uint64_t(_1);
             }
 
@@ -162,8 +171,6 @@ public static partial class MR
             /// </summary>
             public static unsafe ref ulong *foo(ref ulong *_1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t_ptr", ExactSpelling = true)]
-                extern static ulong **__MR_TestSizeT_foo_uint64_t_ptr(ulong **_1);
                 fixed (ulong **__ptr__1 = &_1)
                 {
                     return ref *__MR_TestSizeT_foo_uint64_t_ptr(__ptr__1);
@@ -175,8 +182,6 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCUint64T> foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_uint64_t", ExactSpelling = true)]
-                extern static MR.CS.Std.Vector_MRCUint64T._Underlying *__MR_TestSizeT_foo_std_vector_uint64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCUint64T._Underlying *_1);
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCUint64T(__MR_TestSizeT_foo_std_vector_uint64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
 
@@ -185,8 +190,6 @@ public static partial class MR
             /// </summary>
             public static long foo(long _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t", ExactSpelling = true)]
-                extern static long __MR_TestSizeT_foo_int64_t(long _1);
                 return __MR_TestSizeT_foo_int64_t(_1);
             }
 
@@ -196,8 +199,6 @@ public static partial class MR
             /// </summary>
             public static unsafe ref long *foo(ref long *_1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t_ptr", ExactSpelling = true)]
-                extern static long **__MR_TestSizeT_foo_int64_t_ptr(long **_1);
                 fixed (long **__ptr__1 = &_1)
                 {
                     return ref *__MR_TestSizeT_foo_int64_t_ptr(__ptr__1);
@@ -209,10 +210,28 @@ public static partial class MR
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCInt64T> foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_int64_t", ExactSpelling = true)]
-                extern static MR.CS.Std.Vector_MRCInt64T._Underlying *__MR_TestSizeT_foo_std_vector_int64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCInt64T._Underlying *_1);
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCInt64T(__MR_TestSizeT_foo_std_vector_int64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t", ExactSpelling = true)]
+            extern static long __MR_TestSizeT_foo_int64_t(long _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t_ptr", ExactSpelling = true)]
+            extern static unsafe long **__MR_TestSizeT_foo_int64_t_ptr(long **_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_int64_t", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Vector_MRCInt64T._Underlying *__MR_TestSizeT_foo_std_vector_int64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCInt64T._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_uint64_t", ExactSpelling = true)]
+            extern static unsafe MR.CS.Std.Vector_MRCUint64T._Underlying *__MR_TestSizeT_foo_std_vector_uint64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCUint64T._Underlying *_1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t", ExactSpelling = true)]
+            extern static ulong __MR_TestSizeT_foo_uint64_t(ulong _1);
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t_ptr", ExactSpelling = true)]
+            extern static unsafe ulong **__MR_TestSizeT_foo_uint64_t_ptr(ulong **_1);
         }
     }
 }

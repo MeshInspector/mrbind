@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_int_ref_float_ref_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_pair_int_ref_float_ref_Destroy(_Underlying *_this);
                     __MR_C_std_pair_int_ref_float_ref_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_Pair_IntRef_FloatRef(ref int first, ref float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRef_FloatRef._Underlying *__MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second);
+                    extern static unsafe MR.CS.Std.Pair_IntRef_FloatRef._Underlying *__MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second);
                     fixed (int *__ptr_first = &first)
                     {
                         fixed (float *__ptr_second = &second)
@@ -50,7 +50,7 @@ public static partial class MR
                 public unsafe ref int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_first", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_int_ref_float_ref_first(_Underlying *_this);
+                    extern static unsafe int *__MR_C_std_pair_int_ref_float_ref_first(_Underlying *_this);
                     return ref *__MR_C_std_pair_int_ref_float_ref_first(_UnderlyingPtr);
                 }
 
@@ -60,7 +60,7 @@ public static partial class MR
                 public unsafe ref float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_int_ref_float_ref_second(_Underlying *_this);
+                    extern static unsafe float *__MR_C_std_pair_int_ref_float_ref_second(_Underlying *_this);
                     return ref *__MR_C_std_pair_int_ref_float_ref_second(_UnderlyingPtr);
                 }
 
@@ -87,7 +87,7 @@ public static partial class MR
                 public unsafe Pair_IntRef_FloatRef(ref int first, ref float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_IntRef_FloatRef._Underlying *__MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second);
+                    extern static unsafe MR.CS.Std.Pair_IntRef_FloatRef._Underlying *__MR_C_std_pair_int_ref_float_ref_Construct(int *first, float *second);
                     fixed (int *__ptr_first = &first)
                     {
                         fixed (float *__ptr_second = &second)

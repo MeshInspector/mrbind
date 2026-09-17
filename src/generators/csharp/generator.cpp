@@ -278,14 +278,28 @@ namespace mrbind::CSharp
     void OutputFile::PopScope()
     {
         assert(!current_scope.empty());
+
+        // Write queued dllimports.
+        if (!current_scope.back().queued_dllimports.empty())
+        {
+            WriteSeparatingNewline();
+            WriteString("// DllImport:\n");
+
+            for (const auto &elem : current_scope.back().queued_dllimports)
+            {
+                WriteSeparatingNewline();
+                WriteString(elem.second);
+            }
+        }
+
         WriteString(current_scope.back().close_string, -1);
         current_scope.pop_back();
     }
 
-    void OutputFile::PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope)
+    void OutputFile::PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope, ScopeKind kind)
     {
         WriteString(open_scope);
-        current_scope.push_back(ScopeFrame{std::move(cpp_name), std::move(close_scope)});
+        current_scope.push_back(ScopeFrame{.name = std::move(cpp_name), .close_string = std::move(close_scope), .kind = kind});
     }
 
     void OutputFile::EnsureNamespace(const Generator &generator, cppdecl::QualifiedName new_namespace)
@@ -310,7 +324,7 @@ namespace mrbind::CSharp
             // Push new ones, assuming those are plain namespaces.
             // Since C# namespaces can only contain classes, and not e.g. free functions, we instead use partial classes.
             // "Partial" you can reopen them later to add more members.
-            PushScope(new_namespace.parts[i], "public static partial class " + CppToCSharpIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n");
+            PushScope(new_namespace.parts[i], "public static partial class " + CppToCSharpIdentifier(new_namespace.parts[i]) + "\n{\n", "}\n", ScopeKind::ns_or_class_or_struct);
         }
 
         // If the new namespace is a prefix of the old one, we need this special-casing.
@@ -325,6 +339,29 @@ namespace mrbind::CSharp
     {
         while (!current_scope.empty())
             PopScope();
+    }
+
+    bool OutputFile::TryQueueDllImportLow(const Generator &generator, const std::string &csharp_name, std::string_view decl)
+    {
+        if (generator.local_dllimport)
+            return false;
+
+        for (std::size_t i = current_scope.size(); i-- > 0;)
+        {
+            ScopeFrame &frame = current_scope[i];
+            if (frame.kind != ScopeKind::ns_or_class_or_struct)
+                continue;
+
+            auto [iter, is_new] = frame.queued_dllimports.try_emplace(csharp_name, decl);
+            (void)iter;
+            (void)is_new;
+            // We used to check this, but we have different equivalent spellings in a few places, and I don't want to clean those up.
+            // We could alternatively return false in that case, but it shouldn't be necessary.
+            // assert(is_new || iter->second == decl);
+            return true;
+        }
+
+        return false;
     }
 
     OutputFile &Generator::GetOutputFile(const CInterop::OutputFile &interop_file)
@@ -2937,7 +2974,7 @@ namespace mrbind::CSharp
         }
     }
 
-    Generator::ExtraClassContents Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind)
+    Generator::ExtraClassContents Generator::GetExtraContentsForParsedClass(const cppdecl::QualifiedName &cpp_name, std::optional<bool> class_part_kind, OutputFile *file)
     {
         const std::string csharp_name = class_part_kind ? CppToCSharpClassName(cpp_name, *class_part_kind) : CppToCSharpExposedStructName(cpp_name);
 
@@ -3506,7 +3543,7 @@ namespace mrbind::CSharp
                                 "catch (Exception __e)\n"
                                 "{\n" +
                                 Strings::Indent(
-                                    dllimport_throw.dllimport_decl +
+                                    std::string(dllimport_throw.DllImportDecl(*this, file)) +
                                     "byte[] __ex_bytes = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(__e.Message.Length) + 1]; // Plus one byte for a null terminator.\n" +
                                     "int __ex_len = System.Text.Encoding.UTF8.GetBytes(__e.Message, 0, __e.Message.Length, __ex_bytes, 0);\n"
                                     "__ex_bytes[__ex_len] = 0; // A null terminator.\n" +
@@ -3567,7 +3604,7 @@ namespace mrbind::CSharp
                             "public unsafe " + csharp_unqual_class_name + "(Delegate func) : this(" + (class_backed_by_shared_ptr ? "shared_ptr: " : "") + "null, is_owning: true)\n"
                             "{\n" +
                             Strings::Indent(
-                                dllimport_construct.dllimport_decl +
+                                std::string(dllimport_construct.DllImportDecl(*this, file)) +
                                 // Even though `_LateMakeShared()` also calls `WrapForExceptionHandling()` internally, we must do it again here, because here we're also calling the constructor, which can also throw.
                                 WrapForExceptionHandling(
                                     class_backed_by_shared_ptr
@@ -3596,7 +3633,7 @@ namespace mrbind::CSharp
                             "public unsafe void " + AdjustCalledFuncName("Assign") + "(Delegate func)\n"
                             "{\n" +
                             Strings::Indent(
-                                dllimport_assign.dllimport_decl +
+                                std::string(dllimport_assign.DllImportDecl(*this, file)) +
                                 WrapForExceptionHandling(dllimport_assign.csharp_name + "(_UnderlyingPtr, " + dllimport_args + ");\n")
                             ) +
                             "}\n";
@@ -3648,6 +3685,14 @@ namespace mrbind::CSharp
     {
         requested_helpers.insert(name);
         return helpers_prefix + name;
+    }
+
+    std::string_view Generator::DllImportDeclStrings::DllImportDecl(const Generator &generator, OutputFile *file) const
+    {
+        if (file && file->TryQueueDllImportLow(generator, csharp_name, _dllimport_decl))
+            return "";
+        else
+            return _dllimport_decl;
     }
 
     bool Generator::IsConvOpForCtor(EmitVariant emit_variant)
@@ -4453,7 +4498,7 @@ namespace mrbind::CSharp
                 file.PushScope({}, "get\n{\n", "}\n");
 
             // The `DllImport` declaration.
-            file.WriteString(dllimport_strings.dllimport_decl);
+            dllimport_strings.WriteToFile(generator, file);
 
             // Copy `this` if needed.
             std::string this_name_for_lifetime = "this";
@@ -5338,11 +5383,10 @@ namespace mrbind::CSharp
 
         // Note! If it turns out that we need to specify the calling convention here, don't forget to also add it
         //   to our `std::function` implementation and its numerous delegates.
-        ret.dllimport_decl = "[System.Runtime.InteropServices.DllImport(";
+        ret._dllimport_decl = "[System.Runtime.InteropServices.DllImport(";
 
         std::string_view lib_name;
         { // Decide what library to load.
-
             if (file.group.empty())
             {
                 lib_name = imported_lib_names.at(""); // Using `at` because this element should always exist.
@@ -5355,20 +5399,23 @@ namespace mrbind::CSharp
                 lib_name = iter->second;
             }
         }
-        ret.dllimport_decl += EscapeQuoteString(lib_name);
+        ret._dllimport_decl += EscapeQuoteString(lib_name);
 
-        ret.dllimport_decl += ", EntryPoint = \"";
-        ret.dllimport_decl += c_name;
-        ret.dllimport_decl += "\", ExactSpelling = true)]\nextern static ";
-        ret.dllimport_decl += return_type;
-        if (!ret.dllimport_decl.ends_with('*'))
-            ret.dllimport_decl += ' ';
-        ret.dllimport_decl += ret.csharp_name;
-        ret.dllimport_decl += '(';
-        ret.dllimport_decl += params;
-        ret.dllimport_decl += ");\n";
+        ret._dllimport_decl += ", EntryPoint = \"";
+        ret._dllimport_decl += c_name;
+        ret._dllimport_decl += "\", ExactSpelling = true)]\nextern static ";
 
         ret.is_unsafe = return_type.find('*') != std::string_view::npos || params.find('*') != std::string_view::npos;
+        if (ret.is_unsafe)
+            ret._dllimport_decl += "unsafe ";
+
+        ret._dllimport_decl += return_type;
+        if (!ret._dllimport_decl.ends_with('*'))
+            ret._dllimport_decl += ' ';
+        ret._dllimport_decl += ret.csharp_name;
+        ret._dllimport_decl += '(';
+        ret._dllimport_decl += params;
+        ret._dllimport_decl += ");\n";
 
         return ret;
     }
@@ -6279,7 +6326,7 @@ namespace mrbind::CSharp
                             }
                         }
                     }
-                    file.PushScope({}, "\n{\n", "}\n");
+                    file.PushScope({}, "\n{\n", "}\n", OutputFile::ScopeKind::ns_or_class_or_struct);
 
                     // The underlying pointer.
                     // This is done only for the const halves, because the non-const ones can always reuse the pointer from the const half.
@@ -6324,7 +6371,7 @@ namespace mrbind::CSharp
                                 file.WriteString("System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, \"Internal error: This object holds a null shared pointer.\");\n");
 
                                 auto dllimport_get_ptr_from_shared = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_get", "_Underlying *", "_UnderlyingShared *_this");
-                                file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
+                                dllimport_get_ptr_from_shared.WriteToFile(*this, file);
                                 file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
 
                                 file.PopScope();
@@ -6339,7 +6386,7 @@ namespace mrbind::CSharp
                                 file.PushScope({}, "get\n{\n", "}\n");
 
                                 auto dllimport_use_count = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_use_count", "int", "_UnderlyingShared *_this");
-                                file.WriteString(dllimport_use_count.dllimport_decl);
+                                dllimport_use_count.WriteToFile(*this, file);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) > 0;\n");
 
                                 file.PopScope();
@@ -6357,7 +6404,7 @@ namespace mrbind::CSharp
                                 file.PushScope({}, "get\n{\n", "}\n");
 
                                 auto dllimport_use_count = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_get", "void *", "_UnderlyingShared *_this");
-                                file.WriteString(dllimport_use_count.dllimport_decl);
+                                dllimport_use_count.WriteToFile(*this, file);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) is not null;\n");
 
                                 file.PopScope();
@@ -6414,7 +6461,7 @@ namespace mrbind::CSharp
                             "if (" + std::string(shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " is null || !_IsOwningVal)\n"
                             "    return;\n" +
                             // Here we'd have `if (disposing)` where we would explicitly `.Dispose()` managed data members, if we had any.
-                            (dllimport_free ? dllimport_free->dllimport_decl : "") +
+                            std::string(dllimport_free ? dllimport_free->DllImportDecl(*this, &file) : "") +
                             // No exception handling here. I'm not willing to recover from destructors throwing.
                             (using_generic_free ? RequestHelper("_Free") : dllimport_free.value().csharp_name) + "(" + (using_generic_free ? "(void *)" : "") + (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + ");\n" +
                             (shared_ptr_desc ? "_UnderlyingSharedPtr" : "_UnderlyingPtr") + " = null;\n"
@@ -6551,7 +6598,7 @@ namespace mrbind::CSharp
 
 
                                 auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *", "_Underlying *_this");
-                                file.WriteString(dllimport_decl.dllimport_decl);
+                                dllimport_decl.WriteToFile(*this, file);
 
                                 if (!shared_ptr_desc)
                                 {
@@ -6599,7 +6646,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
 
                                 auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, class_desc.c_name + "_DynamicDowncastFrom_" + base_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
-                                file.WriteString(dllimport_decl.dllimport_decl);
+                                dllimport_decl.WriteToFile(*this, file);
 
                                 file.WriteString(
                                     "var ptr = " + dllimport_decl.csharp_name + "(parent._UnderlyingPtr);\n"
@@ -6867,10 +6914,10 @@ namespace mrbind::CSharp
                             file.PushScope();
 
                             auto dllimport_construct_owning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_owning.dllimport_decl);
+                            dllimport_construct_owning.WriteToFile(*this, file);
 
                             auto dllimport_construct_nonowning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_nonowning.dllimport_decl);
+                            dllimport_construct_nonowning.WriteToFile(*this, file);
 
                             file.WriteString(
                                 WrapForExceptionHandling(
@@ -6959,7 +7006,7 @@ namespace mrbind::CSharp
                             file.PushScope();
 
                             auto dllimport_construct_aliasing = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr");
-                            file.WriteString(dllimport_construct_aliasing.dllimport_decl);
+                            dllimport_construct_aliasing.WriteToFile(*this, file);
 
                             // This condition is purely to improve how the code looks. We could keep only the true branch with no change in behavior.
                             if (c_desc.exception_handling_enabled)
@@ -6994,7 +7041,7 @@ namespace mrbind::CSharp
                             file.WriteString("System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);\n");
 
                             auto dllimport_construct_owning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_owning.dllimport_decl);
+                            dllimport_construct_owning.WriteToFile(*this, file);
 
                             file.WriteString(WrapForExceptionHandling("_UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n"));
 
@@ -7169,7 +7216,7 @@ namespace mrbind::CSharp
                     }
 
                     // Emit the custom hardcoded extras.
-                    if (auto extras = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), class_part_kind); !extras.IsEmpty())
+                    if (auto extras = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), class_part_kind, &file); !extras.IsEmpty())
                     {
                         assert(!extras.text.starts_with('\n'));
                         assert(extras.text.ends_with('\n'));
@@ -7223,7 +7270,7 @@ namespace mrbind::CSharp
                     : std::nullopt;
 
                 // Obtain the conversion operators. We pass `true` to get them from the const half, since it makes the most sense, this is ultimately arbitrary.
-                const auto extras = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), true);
+                const auto extras_for_implicit_conversions = GetExtraContentsForParsedClass(ParseNameOrThrow(cpp_type), true, nullptr);
 
 
                 std::string related_classes_list = "`" + mut_half_name + "`/`" + const_half_name + "`";
@@ -7253,11 +7300,11 @@ namespace mrbind::CSharp
                     }
 
                     // Hardcoded extra conversions.
-                    for (const auto &conv : extras.implicit_conversions)
+                    for (const auto &conv : extras_for_implicit_conversions.implicit_conversions)
                     {
                         file.WriteSeparatingNewline();
                         file.WriteString(
-                            "public static unsafe implicit operator " + this_wrapper + "(" + conv.csharp_param_type + " " + conv.csharp_param_name + ") {return new " + mut_half_name + "(" + conv.csharp_param_name + ");}"
+                            "public static unsafe implicit operator " + this_wrapper + "(" + conv.csharp_param_type + " " + conv.csharp_param_name + ") {return new " + mut_half_name + "(" + conv.csharp_param_name + ");}\n"
                         );
                     }
                 };
@@ -7667,7 +7714,7 @@ namespace mrbind::CSharp
                         *init_code +=
                             "\n{ // " + csharp_field_name + " (ref array)\n" +
                             Strings::Indent(
-                                dllimport_decl.dllimport_decl +
+                                std::string(dllimport_decl.DllImportDecl(*this, &file)) +
                                 this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_decl.csharp_name + "(_UnderlyingPtr);\n"
                             ) +
                             "}\n";
@@ -7685,7 +7732,7 @@ namespace mrbind::CSharp
 
                 auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).DllImportDeclParamsString());
                 std::string body =
-                    dllimport_decl.dllimport_decl +
+                    std::string(dllimport_decl.DllImportDecl(*this, &file)) +
                     (init_code ? this_or_enclosing_class_prefix + csharp_field_name + " = " : "return ") + arr_strings.construct(dllimport_decl.csharp_name + "(_UnderlyingPtr)") + ";\n";
 
                 if (init_code)
@@ -7776,7 +7823,7 @@ namespace mrbind::CSharp
                             *init_code +=
                                 "\n{" + (init_code ? " // " + csharp_field_name + " (raw pointer)" : "") + "\n" +
                                 Strings::Indent(
-                                    dllimport_getter.dllimport_decl +
+                                    std::string(dllimport_getter.DllImportDecl(*this, &file)) +
                                     this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
                                 ) +
                                 "}\n";
@@ -7807,7 +7854,7 @@ namespace mrbind::CSharp
                                 else
                                 {
                                     file.WriteString(
-                                        dllimport_getter.dllimport_decl +
+                                        std::string(dllimport_getter.DllImportDecl(*this, &file)) +
                                         "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
                                         csharp_field_wrapper_type + "? value = null;\n"
                                         // Note `*ptr` in the `is not null` condition! `ptr` itself should never be null, as it represents a reference.
@@ -7834,7 +7881,7 @@ namespace mrbind::CSharp
 
                             file.WriteString(
                                 (init_code ? "" :
-                                    dllimport_setter.dllimport_decl +
+                                    std::string(dllimport_setter.DllImportDecl(*this, &file)) +
                                     "var ptr = " + dllimport_setter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
                                 ) +
                                 "_" + maybe_static_str + "DiscardKeepAlive(" + EscapeQuoteString(field.full_name) + ");\n" // Using the C++ field name, for consistency with the keys used by the C bindings, even though we don't even use those keys, so it shouldn't really matter.
@@ -7920,7 +7967,7 @@ namespace mrbind::CSharp
                     *init_code +=
                         "\n{ // " + csharp_field_name + " (ref)\n" +
                         Strings::Indent(
-                            dllimport_getter.dllimport_decl +
+                            std::string(dllimport_getter.DllImportDecl(*this, &file)) +
                             ret_binding_ptr.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_storage_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n"
                             // Impossible to keep-alive this.
                         ) +
@@ -7973,7 +8020,7 @@ namespace mrbind::CSharp
                 *init_code +=
                     "\n{ // " + csharp_field_name + "\n" +
                     Strings::Indent(
-                        dllimport_getter.dllimport_decl +
+                        std::string(dllimport_getter.DllImportDecl(*this, &file)) +
                         ret_binding.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n" +
                         (field.is_static ? "" : "this." + csharp_field_name + "._KeepAliveEnclosingObject = this;\n")
                     ) +
@@ -9030,7 +9077,7 @@ namespace mrbind::CSharp
                     file.PushScope();
 
                     auto dllimport_alloc = MakeDllImportDecl(GetFilePlaceholderForCHelpers(), c_desc.helpers_prefix + "Alloc", "void *", "nuint size");
-                    file.WriteString(dllimport_alloc.dllimport_decl);
+                    dllimport_alloc.WriteToFile(*this, file);
 
                     // This condition is purely to improve how the code looks. We could keep only the true branch with no change in behavior.
                     if (c_desc.exception_handling_enabled)
@@ -9063,7 +9110,7 @@ namespace mrbind::CSharp
 
                     // `operator delete` doesn't throw.
                     auto dllimport_free = MakeDllImportDecl(GetFilePlaceholderForCHelpers(), c_desc.helpers_prefix + "Free", "void", "void *ptr");
-                    file.WriteString(dllimport_free.dllimport_decl);
+                    dllimport_free.WriteToFile(*this, file);
                     file.WriteString(dllimport_free.csharp_name + "(ptr);\n");
 
                     file.PopScope();
@@ -9077,46 +9124,47 @@ namespace mrbind::CSharp
                     WriteComment(file,
                         "/// An internal class used to propagate C++ exceptions.\n"
                     );
+                    file.WriteString("internal static class _Exceptions");
+                    // Need the scope to have the `DllImport` declarations contained in it.
+                    file.PushScope({}, "\n{\n", "}\n", OutputFile::ScopeKind::ns_or_class_or_struct);
                     file.WriteString(
-                        "internal static class _Exceptions\n"
+                        "static System.Threading.ThreadLocal<string?> CurrentMessage = new(() =>\n"
                         "{\n"
-                        "    static System.Threading.ThreadLocal<string?> CurrentMessage = new(() =>\n"
-                        "    {\n"
-                        "        return null;\n"
-                        "    });\n"
+                        "    return null;\n"
+                        "});\n"
                         "\n"
-                        "    unsafe delegate void HandlerDelegate(byte *message);\n"
+                        "unsafe delegate void HandlerDelegate(byte *message);\n"
                         "\n"
-                        "    unsafe static _Exceptions()\n"
-                        "    {\n"
+                        "unsafe static _Exceptions()\n"
+                        "{\n"
                         + Strings::Indent(
-                            dllimport_set_simple_handler.dllimport_decl +
+                            std::string(dllimport_set_simple_handler.DllImportDecl(*this, &file)) +
                             dllimport_set_simple_handler.csharp_name + "((byte *message) => {\n"
-                            "    byte *end = message;\n"
-                            "    while (*end != 0)\n"
-                            "        end++;\n"
-                            "    CurrentMessage.Value = System.Text.Encoding.UTF8.GetString(message, (int)(end - message));\n"
+                            "byte *end = message;\n"
+                            "while (*end != 0)\n"
+                            "    end++;\n"
+                            "CurrentMessage.Value = System.Text.Encoding.UTF8.GetString(message, (int)(end - message));\n"
                             "});\n"
                         , 2) +
-                        "    }\n"
+                        "}\n"
                         "\n"
-                        "    public static void Prepare()\n"
-                        "    {\n"
-                        "        System.Diagnostics.Trace.Assert(CurrentMessage.Value is null);\n"
-                        "    }\n"
+                        "public static void Prepare()\n"
+                        "{\n"
+                        "    System.Diagnostics.Trace.Assert(CurrentMessage.Value is null);\n"
+                        "}\n"
                         "\n"
-                        "    public static void ThrowIfNeeded()\n"
+                        "public static void ThrowIfNeeded()\n"
+                        "{\n"
+                        "    var message = CurrentMessage.Value;\n"
+                        "    if (message is not null)\n"
                         "    {\n"
-                        "        var message = CurrentMessage.Value;\n"
-                        "        if (message is not null)\n"
-                        "        {\n"
-                        "            var ex = new " + RequestHelper("NativeException") + "(message);\n"
-                        "            CurrentMessage.Value = null;\n"
-                        "            throw ex;\n"
-                        "        }\n"
+                        "        var ex = new " + RequestHelper("NativeException") + "(message);\n"
+                        "        CurrentMessage.Value = null;\n"
+                        "        throw ex;\n"
                         "    }\n"
                         "}\n"
                     );
+                    file.PopScope();
                 }
 
                 // ---
@@ -9302,7 +9350,7 @@ namespace mrbind::CSharp
                     auto WriteOffsetFuncDllImportDecl = [&]
                     {
                         if (dllimport_offset_func)
-                            file.WriteString(dllimport_offset_func->dllimport_decl);
+                            dllimport_offset_func->WriteToFile(*this, file);
                     };
 
                     // Returns the expression to offset the pointer by `amount`.

@@ -47,7 +47,8 @@ build/mrbind_gen_csharp \
     --wrap-doc-comments-in-summary-tag \
     --fat-objects \
     --csharp-version=14 \
-    --buggy-transparent-shared-pointers
+    --buggy-transparent-shared-pointers \
+    --local-dllimport
 
 dotnet build test/output_csharp
 dotnet build test/output_csharp_fixed_typedefs

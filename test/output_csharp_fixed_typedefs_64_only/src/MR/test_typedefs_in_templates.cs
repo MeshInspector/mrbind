@@ -21,7 +21,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_TypedefsInTemplates_A_int_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_TypedefsInTemplates_A_int_Destroy(_Underlying *_this);
                     __MR_TypedefsInTemplates_A_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -36,7 +36,7 @@ public static partial class MR
                 public unsafe Const_A_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    extern static unsafe MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
                 }
 
@@ -46,7 +46,7 @@ public static partial class MR
                 public unsafe Const_A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -73,7 +73,7 @@ public static partial class MR
                 public unsafe A_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    extern static unsafe MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
                 }
 
@@ -83,7 +83,7 @@ public static partial class MR
                 public unsafe A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -99,7 +99,7 @@ public static partial class MR
                 public unsafe MR.CS.TypedefsInTemplates.A_Int assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_TypedefsInTemplates_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -111,7 +111,7 @@ public static partial class MR
                 public unsafe int foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_foo", ExactSpelling = true)]
-                    extern static int __MR_TypedefsInTemplates_A_int_foo(_Underlying *_this);
+                    extern static unsafe int __MR_TypedefsInTemplates_A_int_foo(_Underlying *_this);
                     return __MR_TypedefsInTemplates_A_int_foo(_UnderlyingPtr);
                 }
             }
@@ -165,7 +165,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_Destroy", ExactSpelling = true)]
-                    extern static void __MR_TypedefsInTemplates_B_int_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_TypedefsInTemplates_B_int_Destroy(_Underlying *_this);
                     __MR_TypedefsInTemplates_B_int_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -180,7 +180,7 @@ public static partial class MR
                 public unsafe Const_B_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
                 }
 
@@ -190,7 +190,7 @@ public static partial class MR
                 public unsafe Const_B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -215,7 +215,7 @@ public static partial class MR
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_Destroy", ExactSpelling = true)]
-                        extern static void __MR_TypedefsInTemplates_B_int_BB_float_Destroy(_Underlying *_this);
+                        extern static unsafe void __MR_TypedefsInTemplates_B_int_BB_float_Destroy(_Underlying *_this);
                         __MR_TypedefsInTemplates_B_int_BB_float_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -230,7 +230,7 @@ public static partial class MR
                     public unsafe Const_BB_Float() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        extern static unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                     }
 
@@ -240,7 +240,7 @@ public static partial class MR
                     public unsafe Const_BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        extern static unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -265,7 +265,7 @@ public static partial class MR
                     public unsafe BB_Float() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        extern static unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                     }
 
@@ -275,7 +275,7 @@ public static partial class MR
                     public unsafe BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        extern static unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
@@ -291,7 +291,7 @@ public static partial class MR
                     public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        extern static unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
                         _DiscardKeepAlive();
                         _KeepAlive(_other);
                         return new(__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
@@ -303,7 +303,7 @@ public static partial class MR
                     public unsafe int foo()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo", ExactSpelling = true)]
-                        extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo(_Underlying *_this);
+                        extern static unsafe int __MR_TypedefsInTemplates_B_int_BB_float_foo(_Underlying *_this);
                         return __MR_TypedefsInTemplates_B_int_BB_float_foo(_UnderlyingPtr);
                     }
 
@@ -313,7 +313,7 @@ public static partial class MR
                     public unsafe int foo2()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo2", ExactSpelling = true)]
-                        extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo2(_Underlying *_this);
+                        extern static unsafe int __MR_TypedefsInTemplates_B_int_BB_float_foo2(_Underlying *_this);
                         return __MR_TypedefsInTemplates_B_int_BB_float_foo2(_UnderlyingPtr);
                     }
                 }
@@ -367,7 +367,7 @@ public static partial class MR
                 public unsafe B_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
                 }
 
@@ -377,7 +377,7 @@ public static partial class MR
                 public unsafe B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
@@ -393,7 +393,7 @@ public static partial class MR
                 public unsafe MR.CS.TypedefsInTemplates.B_Int assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    extern static unsafe MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
                     return new(__MR_TypedefsInTemplates_B_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);

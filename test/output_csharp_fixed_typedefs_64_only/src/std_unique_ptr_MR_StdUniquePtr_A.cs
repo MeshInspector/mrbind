@@ -19,7 +19,7 @@ public static partial class MR
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy(_Underlying *_this);
+                    extern static unsafe void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy(_Underlying *_this);
                     __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -34,7 +34,7 @@ public static partial class MR
                 public unsafe Const_UniquePtr_MRStdUniquePtrA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
                 }
 
@@ -44,7 +44,7 @@ public static partial class MR
                 public unsafe Const_UniquePtr_MRStdUniquePtrA(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -55,7 +55,7 @@ public static partial class MR
                 public unsafe Const_UniquePtr_MRStdUniquePtrA(void *other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(other);
                 }
 
@@ -70,7 +70,7 @@ public static partial class MR
                 public unsafe MR.CS.StdUniquePtr.A? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_get", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(_Underlying *_this);
+                    extern static unsafe MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(_Underlying *_this);
                     var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(_UnderlyingPtr);
                     MR.CS.StdUniquePtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
@@ -93,7 +93,7 @@ public static partial class MR
                 public unsafe UniquePtr_MRStdUniquePtrA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct();
                 }
 
@@ -103,7 +103,7 @@ public static partial class MR
                 public unsafe UniquePtr_MRStdUniquePtrA(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
@@ -114,7 +114,7 @@ public static partial class MR
                 public unsafe UniquePtr_MRStdUniquePtrA(void *other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom", ExactSpelling = true)]
-                    extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
+                    extern static unsafe MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(void *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom(other);
                 }
 
@@ -129,7 +129,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    extern static unsafe void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
                     _DiscardKeepAlive();
                     _KeepAlive(other);
                     __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -141,7 +141,7 @@ public static partial class MR
                 public unsafe void assign(void *other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom", ExactSpelling = true)]
-                    extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom(_Underlying *_this, void *other);
+                    extern static unsafe void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom(_Underlying *_this, void *other);
                     __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom(_UnderlyingPtr, other);
                 }
 
@@ -152,7 +152,7 @@ public static partial class MR
                 public unsafe MR.CS.StdUniquePtr.A? release()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_release", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(_Underlying *_this);
+                    extern static unsafe MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(_Underlying *_this);
                     var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                 }

@@ -18,8 +18,6 @@ public static partial class MR
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
                         return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy(_UnderlyingPtr);
                     _UnderlyingPtr = null;
                 }
@@ -97,8 +95,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Vector_MRCSharpExposedLayout() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
                 }
 
@@ -107,8 +103,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Vector_MRCSharpExposedLayout(MR.CS.Std._ByValue_Vector_MRCSharpExposedLayout other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -128,8 +122,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Const_Vector_MRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout? ptr, nuint size) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, nuint size);
                     MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -139,8 +131,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe nuint size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_size", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_size(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_size(_UnderlyingPtr);
                 }
 
@@ -149,8 +139,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_empty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_ExposedLayout_empty(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_empty(_UnderlyingPtr) != 0;
                 }
 
@@ -159,8 +147,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe nuint capacity()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_capacity", ExactSpelling = true)]
-                    extern static nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_capacity(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_capacity(_UnderlyingPtr);
                 }
 
@@ -171,8 +157,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_at", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_at(_Underlying *_this, nuint i);
                         return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_at(_UnderlyingPtr, i);
                     }
                 }
@@ -182,8 +166,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.CSharp.ExposedLayout? front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_front(_UnderlyingPtr);
                     if (__c_ret is not null) return *__c_ret; else return null;
                 }
@@ -193,8 +175,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.CSharp.ExposedLayout? back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_back", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_back(_UnderlyingPtr);
                     if (__c_ret is not null) return *__c_ret; else return null;
                 }
@@ -204,8 +184,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.CSharp.ConstPtrExposedLayout data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_data", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_data(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_data(_UnderlyingPtr);
                     return new(__c_ret);
                 }
@@ -215,8 +193,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -228,8 +204,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -238,8 +212,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -248,8 +220,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -261,8 +231,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -271,8 +239,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
@@ -281,8 +247,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe nint toIndex(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index", ExactSpelling = true)]
-                    extern static nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
@@ -291,8 +255,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe nint toIndex(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut", ExactSpelling = true)]
-                    extern static nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
                     return __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
@@ -310,8 +272,6 @@ public static partial class MR
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -325,8 +285,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
                     }
 
@@ -335,8 +293,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -351,8 +307,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -366,8 +320,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ref readonly MR.CS.CSharp.ExposedLayout deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref(_Underlying *_this);
                         return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref(_UnderlyingPtr);
                     }
 
@@ -376,8 +328,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -388,8 +338,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -400,8 +348,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
-                        extern static nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -410,8 +356,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -437,6 +381,35 @@ public static partial class MR
                             return this == (Const_ConstIterator)other;
                         return false;
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
+                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref", ExactSpelling = true)]
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
+                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
                 }
 
                 /// <summary>
@@ -452,8 +425,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
                     }
 
@@ -462,8 +433,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -478,8 +447,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void assign(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -490,8 +457,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
@@ -505,8 +470,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -515,8 +478,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void decr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(_UnderlyingPtr);
                     }
 
@@ -525,10 +486,31 @@ public static partial class MR
                     /// </summary>
                     public unsafe void addAssign(nint delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign(_UnderlyingPtr, delta);
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign(_Underlying *_this, nint delta);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(_Underlying *_this);
                 }
 
                 /// <summary>
@@ -584,8 +566,6 @@ public static partial class MR
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
                             return;
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy(_UnderlyingPtr);
                         _UnderlyingPtr = null;
                     }
@@ -599,8 +579,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_Iterator() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
                     }
 
@@ -609,8 +587,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_Iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -625,8 +601,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ref MR.CS.CSharp.ExposedLayout deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(_Underlying *_this);
                         return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(_UnderlyingPtr);
                     }
 
@@ -635,8 +609,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe Iterator operator++(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -647,8 +619,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe Iterator operator--(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
@@ -659,8 +629,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
-                        extern static nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -669,8 +637,6 @@ public static partial class MR
                     /// </summary>
                     public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
-                        extern static byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
                         return __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
                     }
 
@@ -696,6 +662,32 @@ public static partial class MR
                             return this == (Const_Iterator)other;
                         return false;
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
+                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref", ExactSpelling = true)]
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
+                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
                 }
 
                 /// <summary>
@@ -711,8 +703,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Iterator() : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
                     }
 
@@ -721,8 +711,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe Iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
@@ -737,8 +725,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void assign(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
                         _DiscardKeepAlive();
                         _KeepAlive(other);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
@@ -749,8 +735,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(_UnderlyingPtr);
                     }
 
@@ -759,8 +743,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe void decr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(_Underlying *_this);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(_UnderlyingPtr);
                     }
 
@@ -769,10 +751,28 @@ public static partial class MR
                     /// </summary>
                     public unsafe void addAssign(nint delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(_UnderlyingPtr, delta);
                     }
+
+                    // DllImport:
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(_Underlying *_this, nint delta);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(_Underlying *_this);
+
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
+                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(_Underlying *_this);
                 }
 
                 /// <summary>
@@ -808,6 +808,65 @@ public static partial class MR
                     public _InOptConst_Iterator(Const_Iterator value) {Opt = value;}
                     public static implicit operator _InOptConst_Iterator(Const_Iterator value) {return new(value);}
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, nuint size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_at", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_at(_Underlying *_this, nuint i);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_back", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_capacity", ExactSpelling = true)]
+                extern static unsafe nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_capacity(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_data", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_data(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_empty", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_empty(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_size", ExactSpelling = true)]
+                extern static unsafe nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_size(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index", ExactSpelling = true)]
+                extern static unsafe nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *iter);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut", ExactSpelling = true)]
+                extern static unsafe nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
             }
 
             /// <summary>
@@ -887,8 +946,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Vector_MRCSharpExposedLayout() : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
                 }
 
@@ -897,8 +954,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Vector_MRCSharpExposedLayout(MR.CS.Std._ByValue_Vector_MRCSharpExposedLayout other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -918,8 +973,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Vector_MRCSharpExposedLayout other)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
@@ -930,8 +983,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe Vector_MRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout? ptr, nuint size) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, nuint size);
                     MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -941,8 +992,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void assign(MR.CS.CSharp.ExposedLayout? ptr, nuint size)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_Underlying *_this, MR.CS.CSharp.ExposedLayout *ptr, nuint size);
                     MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -952,8 +1001,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void resize(nuint new_size)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_resize(_Underlying *_this, nuint new_size);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_resize(_UnderlyingPtr, new_size);
                 }
 
@@ -962,8 +1009,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void resizeWithDefaultValue(nuint new_size, in MR.CS.CSharp.ExposedLayout value)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.ExposedLayout *value);
                     fixed (MR.CS.CSharp.ExposedLayout *__ptr_value = &value)
                     {
                         __MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(_UnderlyingPtr, new_size, __ptr_value);
@@ -975,8 +1020,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_clear(_Underlying *_this);
                     _DiscardKeepAlive();
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_clear(_UnderlyingPtr);
                 }
@@ -986,8 +1029,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void reserve(nuint new_capacity)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(_Underlying *_this, nuint new_capacity);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(_UnderlyingPtr, new_capacity);
                 }
 
@@ -996,8 +1037,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void shrinkToFit()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit(_UnderlyingPtr);
                 }
 
@@ -1008,8 +1047,6 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut(_Underlying *_this, nuint i);
                         return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut(_UnderlyingPtr, i);
                     }
                 }
@@ -1019,8 +1056,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__c_ret) : null;
                 }
@@ -1030,8 +1065,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__c_ret) : null;
                 }
@@ -1041,8 +1074,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.CSharp.PtrExposedLayout data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut(_Underlying *_this);
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut(_UnderlyingPtr);
                     return new(__c_ret);
                 }
@@ -1052,8 +1083,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void pushBack(MR.CS.CSharp.ExposedLayout new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_push_back", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_push_back(_Underlying *_this, MR.CS.CSharp.ExposedLayout new_elem);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_push_back(_UnderlyingPtr, new_elem);
                 }
 
@@ -1062,8 +1091,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void popBack()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back(_Underlying *_this);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back(_UnderlyingPtr);
                 }
 
@@ -1072,8 +1099,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insert(nuint position, MR.CS.CSharp.ExposedLayout new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert(_Underlying *_this, nuint position, MR.CS.CSharp.ExposedLayout new_elem);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_insert(_UnderlyingPtr, position, new_elem);
                 }
 
@@ -1082,8 +1107,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void erase(nuint position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_UnderlyingPtr, position);
                 }
 
@@ -1092,8 +1115,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insertAtMutableIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator position, MR.CS.CSharp.ExposedLayout new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
@@ -1102,8 +1123,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void eraseAtMutableIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -1112,8 +1131,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insertAtIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator position, MR.CS.CSharp.ExposedLayout new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
@@ -1122,8 +1139,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe void eraseAtIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -1132,8 +1147,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
@@ -1145,13 +1158,85 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_Underlying *_this, MR.CS.CSharp.ExposedLayout *ptr, nuint size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, nuint size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut(_Underlying *_this, nuint i);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_clear", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_clear(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_Underlying *_this, nuint position);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert(_Underlying *_this, nuint position, MR.CS.CSharp.ExposedLayout new_elem);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_push_back", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_push_back(_Underlying *_this, MR.CS.CSharp.ExposedLayout new_elem);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_reserve", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(_Underlying *_this, nuint new_capacity);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_resize", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_resize(_Underlying *_this, nuint new_size);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.ExposedLayout *value);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit", ExactSpelling = true)]
+                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit(_Underlying *_this);
             }
 
             /// <summary>
