@@ -1,7 +1,7 @@
 #include "common/command_line_args_as_utf8.h"
 #include "common/command_line_parser.h"
 #include "common/filesystem.h"
-#include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep
+#include "common/polyfill/std_filesystem_path_hash.h"
 #include "common/set_error_handlers.h"
 #include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/csharp/generator.h"
