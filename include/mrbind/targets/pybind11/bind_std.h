@@ -227,7 +227,8 @@ namespace pybind11::patched
             m.erase(it);
         });
 
-        cl.def(+"__len__", &Map::size);
+        // Not `&Map::size`: on MSVC it is a member of the base `std::_Tree`, which leaks into the signature.
+        cl.def(+"__len__", +[](const Map &m){return m.size();});
 
         return cl;
     }
