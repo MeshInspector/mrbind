@@ -273,6 +273,18 @@ namespace mrbind::Rust
             std::string name = cppdecl::ToCode(type.simple_type.name, {});
             if (name == c_desc.helpers_prefix + "PassBy")
                 return "crate::ffi::" + name;
+            // The fixed-size typedefs of `--canonicalize-to-fixed-size-typedefs`, e.g. `MR_C_int64_t`. Those are always the fixed size, even when spelled via `size_t`.
+            if (name.starts_with(c_desc.helpers_prefix))
+            {
+                std::string_view rest = std::string_view(name).substr(c_desc.helpers_prefix.size());
+                for (auto [c, rust] : std::initializer_list<std::pair<std::string_view, std::string_view>>{
+                    {"int8_t", "i8"}, {"uint8_t", "u8"}, {"int16_t", "i16"}, {"uint16_t", "u16"}, {"int32_t", "i32"}, {"uint32_t", "u32"}, {"int64_t", "i64"}, {"uint64_t", "u64"},
+                })
+                {
+                    if (rest == c)
+                        return std::string(rust);
+                }
+            }
             if (auto iter = types_by_c_name.find(name); iter != types_by_c_name.end())
                 return "crate::ffi::" + RustIdent(iter->second->c_name);
             if (auto iter = types_by_cpp_name.find(name); iter != types_by_cpp_name.end())
