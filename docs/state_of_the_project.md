@@ -18,6 +18,10 @@ Those are:
 
 The C support is nearly perfect.
 
+## Rust
+
+The Rust backend is new. It wraps everything the C bindings expose, but falls back to raw C types for callbacks, shared pointers and some other things, see [the known limitations](/docs/generating_rust.md#known-limitations).
+
 ## C#
 
 The C# support works well, but there are known minor bugs, such as [`std::vector<T *>` being unusable](https://github.com/MeshInspector/mrbind/issues/29).

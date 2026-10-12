@@ -1540,7 +1540,13 @@ namespace mrbind::C
 
                 // If true, this parameter has a default argument that's considered useful, i.e. affects the parameter passing style.
                 bool has_useful_default_arg = false;
+
+                // The C parameters that this C++ parameter expanded to. This goes to the interop description.
+                std::vector<CInterop::CParam> c_params;
             };
+
+            // The C return type, spelled as a string. This goes to the interop description.
+            std::string c_return_type;
 
             // Stores additional information about the parameters. Has the same size as `params.params`.
             std::vector<ParamInfo> params_info;

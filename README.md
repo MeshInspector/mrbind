@@ -1,8 +1,8 @@
 # mrbind
 
-MRBind parses C++ headers and generates **C**, **C#**, and **Python** bindings for them. The parse results can also be dumped for reflection purposes (either as JSON or as C macros).
+MRBind parses C++ headers and generates **C**, **C#**, **Rust**, and **Python** bindings for them. The parse results can also be dumped for reflection purposes (either as JSON or as C macros).
 
-* The C backend is custom. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C#.
+* The C backend is custom. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C# and Rust.
 
 * The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly can be made cross-platform (at least across all of: Win/Linux/Mac (both x64 and ARM64) and Wasm) as long as you compile the generated C shared library for every platform you want to support.
 
@@ -43,6 +43,8 @@ I received some simple vibecoded contributions (bugfixes, binary size reductions
    * [Generate C bindings.](/docs/generating_c.md)
 
    * [Generate C# / .NET bindings.](/docs/generating_csharp.md)
+
+   * [Generate Rust bindings.](/docs/generating_rust.md)
 
 5. Additional articles:
 
