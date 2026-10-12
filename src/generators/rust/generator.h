@@ -26,11 +26,12 @@ namespace mrbind::Rust
         // Library names to link against. The key is the file group (see `--split-library` in the C generator), empty is the default group.
         std::unordered_map<std::string, std::string> imported_lib_names;
 
-        // If set, a `Cargo.toml` is emitted with this package name.
-        std::optional<std::string> crate_name;
-
         // On Windows, link using `kind = "raw-dylib"`, which needs no import library.
         bool windows_raw_dylib = true;
+
+        // The C++ namespace (as parts) to put the entities of the global namespace into, including the `std::` types.
+        // Without this, those end up at the crate root, where they can clash with the file modules.
+        std::vector<std::string> forced_namespace;
 
         // ]
 
@@ -46,6 +47,7 @@ namespace mrbind::Rust
         std::vector<std::string> skipped_funcs;
 
       private:
+        // A C++ namespace as a Rust module. Those only re-export the definitions from the file modules.
         struct Module
         {
             std::string rust_path; // E.g. `crate::mr::foo`, or `crate` for the root.
@@ -54,6 +56,21 @@ namespace mrbind::Rust
             std::set<std::string> used_names;
         };
         Module root;
+
+        // A generated C file as a Rust module. The definitions live here, mirroring the C file hierarchy.
+        struct FileModule
+        {
+            std::string relative_name; // As in the C bindings, e.g. `MR/1`.
+            std::string group; // The `--split-library` group.
+            std::vector<std::string> idents; // The path components as Rust identifiers.
+            std::string rust_path; // E.g. `crate::MR::_1`.
+            std::string body; // The safe layer.
+            std::set<std::string> used_names;
+            std::string ffi_types;
+            std::string ffi_funcs;
+        };
+        std::map<std::string, FileModule> file_modules;
+        [[nodiscard]] FileModule &GetFileModule(const CInterop::OutputFile &file);
 
         struct TypeInfo
         {
@@ -65,6 +82,8 @@ namespace mrbind::Rust
             std::string rust_path; // Fully qualified, e.g. `crate::mr::A`.
             std::string rust_unqual;
             Module *module = nullptr;
+            FileModule *file = nullptr;
+            std::string file_unqual; // The name of the definition in the file module, usually equal to `rust_unqual`.
             bool has_destroy = false;
             bool copy_ctor_mapped = false; // Set when the copy constructor got a safe wrapper.
             std::string copy_ctor_rust_name;
@@ -117,7 +136,12 @@ namespace mrbind::Rust
         [[nodiscard]] std::optional<ReturnStrings> MapReturn(const CInterop::FuncReturn &ret, bool can_elide_lifetime);
 
         // Emits one safe wrapper. `this_type` is null for free functions. Returns false if the function got skipped entirely.
-        bool EmitFuncLike(Module &module, const CInterop::BasicFuncLike &func, const CInterop::BasicClassMethodLike *method_like, const TypeInfo *this_type, std::string rust_name, int indent);
+        bool EmitFuncLike(std::string &out, const CInterop::BasicFuncLike &func, const CInterop::BasicClassMethodLike *method_like, const TypeInfo *this_type, std::string rust_name, int indent);
+
+        // Writes the re-export of a type from its file module to its namespace module.
+        void ReExportType(const TypeInfo &info);
+        // The `#[link]` attributes for the library of a file group.
+        [[nodiscard]] std::string LinkAttrs(const std::string &group) const;
 
         [[nodiscard]] std::string MakeDocComment(const CInterop::Comment &comment, int indent, const std::string &extra_line = "") const;
         [[nodiscard]] std::string FfiFuncDecl(const CInterop::BasicFuncLike &func, bool &ok);

@@ -18,15 +18,15 @@ The Rust bindings are produced by a separate executable, `build/mrbind_gen_rust`
 ```sh
 build/mrbind_gen_rust \
     --input-json c_desc.json \
-    --output-dir output \
+    --output-dir mylib/src \
     --imported-lib-name MyLib \
-    --crate-name mylib
+    --force-namespace MyLib
 ```
 Where:
 
 * `c_desc.json` is the file produced by the C generator in response to `--output-desc-json`.
 
-* `--output-dir output` is the crate root. `src/` is generated inside of it.
+* `--output-dir mylib/src` is the `src` directory of your crate. Only the sources are generated, you provide the `Cargo.toml` yourself (see below).
 
   The default behavior is to error if this directory is not empty, pass `--clean-output-dir` to delete the contents instead.
 
@@ -36,19 +36,50 @@ Where:
 
   If you used `--split-library` in the C generator, pass `--imported-split-lib-name <macro_prefix> <name>` for every part, like with the C# generator.
 
-* `--crate-name mylib` is optional. If specified, a minimal `Cargo.toml` and a `build.rs` are generated. The `build.rs` adds the directory from the `MYLIB_LIB_DIR` environment variable (the crate name uppercased, plus `_LIB_DIR`) to the linker search path, so set it to the directory with the compiled C bindings when building something that links against the crate. Otherwise provide your own `Cargo.toml`, pointing `[lib] path` to `src/lib.rs`.
-
-Then build the crate with `cargo build`.
+* `--force-namespace MyLib` is optional, but you'll usually want it. It puts the entities of the global C++ namespace (which includes the `std::` container instantiations) into the module of this namespace (`mylib` here, `Foo::Bar` becomes `foo::bar`). Without it they go to the crate root, where they can clash with the modules named after the C files (see the layout below), and the generator errors out on a clash.
 
 The generator prints a summary at the end: how many functions got wrappers, how many of those use raw C types, and how many were skipped because their C types can't be spelled in Rust (`long double` and such). Pass `--verbose` to list the skipped ones.
 
+### The crate manifest
+
+Put a `Cargo.toml` next to the generated `src`:
+```toml
+[package]
+name = "mylib"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+
+[lib]
+path = "src/lib.rs"
+```
+The crate itself links against nothing, but anything that links against the crate must be able to find the compiled C bindings. The usual way is a `build.rs` reading the directory from an environment variable:
+```rust
+fn main()
+{
+    println!("cargo:rerun-if-env-changed=MYLIB_LIB_DIR");
+    if let Ok(dir) = std::env::var("MYLIB_LIB_DIR")
+    {
+        if !dir.is_empty()
+        {
+            println!("cargo:rustc-link-search=native={dir}");
+        }
+    }
+}
+```
+Then `MYLIB_LIB_DIR=/path/to/c/bindings cargo build`. On Windows the `raw-dylib` linking needs no library at build time at all, only the `.dll` at runtime.
+
 ## What the generated crate looks like
+
+The source hierarchy mirrors that of the C bindings. For every C source `foo/bar.h` there's a `src/foo/bar.rs` with the safe wrappers and a `src/ffi/foo/bar.rs` with the raw declarations (directories get a `mod.rs`; file names that aren't valid Rust identifiers get an identifier derived from them, with `#[path]` pointing to the file). Those file modules are where everything is defined, but you normally don't name them directly.
+
+Instead, `src/lib.rs` declares a module per C++ namespace (`MR::Foo` → `mr::foo`), which re-exports the types and functions of that namespace from wherever they're defined. So `mr::Mesh` is the right name of a class regardless of which C file it came from, and moving an entity to a different file is not a breaking change. The entities of the global namespace are re-exported into the module given by `--force-namespace`, or at the crate root without it.
 
 The crate has two layers.
 
-`ffi` is the raw layer: one `extern "C"` declaration per C function, opaque `#[repr(C)]` structs for the C++ classes, `#[repr(C)]` structs with real fields for the classes exposed with `--expose-as-struct` (with compile-time assertions of the size, alignment and field offsets, except for structs with pointer-sized fields, since the sizes in the JSON are those of the platform the C bindings were generated on), and `#[repr(transparent)]` newtypes for enums, with the constants as associated constants.
+`ffi` is the raw layer: one `extern "C"` declaration per C function, opaque `#[repr(C)]` structs for the C++ classes, `#[repr(C)]` structs with real fields for the classes exposed with `--expose-as-struct` (with compile-time assertions of the size, alignment and field offsets, except for structs with pointer-sized fields, since the sizes in the JSON are those of the platform the C bindings were generated on), and `#[repr(transparent)]` newtypes for enums, with the constants as associated constants. `ffi/mod.rs` re-exports everything from the per-file `ffi` modules, so `ffi::MR_Mesh` is always valid.
 
-The safe layer sits on top of it. C++ namespaces become modules (`MR::Foo` → `mr::foo`), classes become types in those modules, and their methods become methods:
+The safe layer sits on top of it. Classes become types, and their methods become methods:
 
 * Classes that need to live on the heap are opaque: `pub struct A(ffi::MR_A)`. Functions returning them by value return `Owned<A>`, which is an owning handle that destroys the object on drop and dereferences to `A`. `Owned<A>` is `Clone` if the C++ class is copy-constructible.
 

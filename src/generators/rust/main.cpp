@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     });
     args_parser.AddFlag("--output-dir", {
         .arg_names = {"dir"},
-        .desc = "Output directory path, the crate root. This directory is created if it doesn't exist. Otherwise it must be already empty, or you must specify `--clean-output-dir`.",
+        .desc = "Output directory path, which becomes the `src` directory of your crate. This directory is created if it doesn't exist. Otherwise it must be already empty, or you must specify `--clean-output-dir`.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             output_dir_path = args.front();
@@ -65,12 +65,22 @@ int main(int argc, char **argv)
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
-    args_parser.AddFlag("--crate-name", {
+    args_parser.AddFlag("--force-namespace", {
         .arg_names = {"name"},
-        .desc = "If specified, also emit a `Cargo.toml` with this package name. Otherwise only `src/` is generated, and you need to provide your own `Cargo.toml`.",
+        .desc = "A C++-style `Foo::Bar` namespace name. The entities of the global namespace (including the `std::` types) are put into the module of this namespace. Without this they go to the crate root, where they can clash with the modules of the C files.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            generator.crate_name = args.front();
+            std::string_view str = args.front();
+            generator.forced_namespace.clear();
+            while (!str.empty())
+            {
+                std::size_t sep = str.find("::");
+                std::string_view part = str.substr(0, sep);
+                if (part.empty())
+                    throw std::runtime_error("Bad namespace name: `" + std::string(args.front()) + "`.");
+                generator.forced_namespace.emplace_back(part);
+                str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
+            }
         },
     });
     args_parser.AddFlag("--no-windows-raw-dylib", {

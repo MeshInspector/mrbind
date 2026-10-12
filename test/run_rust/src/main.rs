@@ -20,13 +20,13 @@ fn main()
     mr::std_string::set_with_default(None);
     let s = mr::std_string::get();
     assert_eq!(s.to_str().unwrap(), "Hello!");
-    let mut s2 = b::std_string::new();
+    let mut s2 = mr::cs::std_string::new();
     mr::std_string::write_to_ref(&mut s2);
     assert_eq!(s2.to_string(), "Hello!");
     mr::std_string::write_to_ptr(Some(&mut s2));
 
     // `std::vector<int>`.
-    let mut v = b::std_vector_int::new();
+    let mut v = mr::cs::std_vector_int::new();
     assert!(v.empty());
     v.resize(3);
     *v.at_mut(1) = 7;
@@ -56,7 +56,7 @@ fn main()
     // A C++ exception becomes a panic.
     let result = std::panic::catch_unwind(||
     {
-        let v = b::std_vector_int::new();
+        let v = mr::cs::std_vector_int::new();
         let _ = v.at(100); // `std::vector::at()` throws `std::out_of_range`.
     });
     assert!(result.is_err());

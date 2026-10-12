@@ -3,7 +3,7 @@ name = "mrbind_test_bindings_fixed_typedefs"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.82"
-build = "build.rs"
+publish = false
 
 [lib]
 path = "src/lib.rs"
