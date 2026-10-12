@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cctype>
 #include <cstdint>
 #include <stdexcept>
 #include <variant>
@@ -482,6 +483,41 @@ namespace mrbind::Rust
         out += "\n";
         out += "pub type " + c_desc.helpers_prefix + "ExceptionHandlerFuncPtr = Option<unsafe extern \"C\" fn(messages: *const *const c_char, type_names: *const *const c_char, userdata: *mut c_void)>;\n\n";
 
+        // Exposed structs whose layout depends on the platform: those with pointers or `size_t`-like fields, directly or in nested structs.
+        // The sizes in the description JSON are for the platform the C bindings were generated on, so we can't assert them for those.
+        std::set<std::string> platform_dependent_structs;
+        for (bool changed = true; changed;)
+        {
+            changed = false;
+            for (const auto &[cpp_name, info] : types_by_cpp_name)
+            {
+                if (!info.IsExposedStruct() || platform_dependent_structs.contains(cpp_name))
+                    continue;
+                for (const auto &field : info.class_desc->fields)
+                {
+                    if (field.is_static)
+                        continue;
+                    std::string type = CTypeToRust(field.type).value_or("");
+                    bool dependent = false;
+                    for (std::string_view marker : {"usize", "isize", "*const", "*mut", "c_long", "c_ulong"})
+                        dependent |= type.find(marker) != std::string::npos;
+                    for (const auto &dep_name : platform_dependent_structs)
+                    {
+                        std::string dep_rust = "crate::ffi::" + RustIdent(types_by_cpp_name.at(dep_name).c_name);
+                        std::size_t pos = type.find(dep_rust);
+                        if (pos != std::string::npos && (pos + dep_rust.size() == type.size() || !(std::isalnum((unsigned char)type[pos + dep_rust.size()]) || type[pos + dep_rust.size()] == '_')))
+                            dependent = true;
+                    }
+                    if (dependent)
+                    {
+                        platform_dependent_structs.insert(cpp_name);
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         // Types.
         for (const auto &[cpp_name, info] : types_by_cpp_name)
         {
@@ -514,8 +550,9 @@ namespace mrbind::Rust
             else if (info.IsExposedStruct())
             {
                 const auto &cl = *info.class_desc;
+                const bool assert_layout = cl.size_and_alignment && !platform_dependent_structs.contains(cpp_name);
                 out += "/// Generated from struct `" + cpp_name + "`. Has the same layout in C, C++, and Rust.\n";
-                std::string align = cl.size_and_alignment ? ", align(" + std::to_string(cl.size_and_alignment->alignment) + ")" : "";
+                std::string align = assert_layout ? ", align(" + std::to_string(cl.size_and_alignment->alignment) + ")" : "";
                 out += "#[repr(C" + align + ")]\n#[derive(Clone, Copy, Debug)]\n";
                 out += "pub struct " + name + "\n{\n";
                 std::vector<std::pair<std::string, std::size_t>> offsets;
@@ -533,7 +570,7 @@ namespace mrbind::Rust
                         offsets.emplace_back(field_name, field.layout->byte_offset);
                 }
                 out += "}\n";
-                if (cl.size_and_alignment)
+                if (assert_layout)
                 {
                     out += "const _: () =\n{\n";
                     out += "    assert!(core::mem::size_of::<" + name + ">() == " + std::to_string(cl.size_and_alignment->size) + ");\n";
@@ -541,6 +578,10 @@ namespace mrbind::Rust
                     for (const auto &[field_name, offset] : offsets)
                         out += "    assert!(core::mem::offset_of!(" + name + ", " + field_name + ") == " + std::to_string(offset) + ");\n";
                     out += "};\n";
+                }
+                else if (cl.size_and_alignment)
+                {
+                    out += "// No layout assertions: this struct has platform-sized fields, and the sizes in the description JSON are for the platform the C bindings were generated on.\n";
                 }
                 out += "\n";
             }

@@ -46,7 +46,7 @@ The generator prints a summary at the end: how many functions got wrappers, how 
 
 The crate has two layers.
 
-`ffi` is the raw layer: one `extern "C"` declaration per C function, opaque `#[repr(C)]` structs for the C++ classes, `#[repr(C)]` structs with real fields for the classes exposed with `--expose-as-struct` (with compile-time assertions of the size, alignment and field offsets), and `#[repr(transparent)]` newtypes for enums, with the constants as associated constants.
+`ffi` is the raw layer: one `extern "C"` declaration per C function, opaque `#[repr(C)]` structs for the C++ classes, `#[repr(C)]` structs with real fields for the classes exposed with `--expose-as-struct` (with compile-time assertions of the size, alignment and field offsets, except for structs with pointer-sized fields, since the sizes in the JSON are those of the platform the C bindings were generated on), and `#[repr(transparent)]` newtypes for enums, with the constants as associated constants.
 
 The safe layer sits on top of it. C++ namespaces become modules (`MR::Foo` → `mr::foo`), classes become types in those modules, and their methods become methods:
 
