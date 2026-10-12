@@ -32,5 +32,5 @@ cargo build --manifest-path test/output_rust/Cargo.toml
 cargo build --manifest-path test/output_rust_fixed_typedefs/Cargo.toml
 cargo build --manifest-path test/output_rust_fixed_typedefs_64_only/Cargo.toml
 
-# The test program needs to find `libbleh.so` (or `bleh.dll` on Windows) at runtime.
-LD_LIBRARY_PATH="$PWD/test/output_c${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" PATH="$PWD/test/output_c:$PATH" cargo run --manifest-path test/run_rust/Cargo.toml
+# The test program links against `libbleh.so` (or `bleh.dll` on Windows), and needs to find it at runtime.
+MRBIND_TEST_BINDINGS_LIB_DIR="$PWD/test/output_c" LD_LIBRARY_PATH="$PWD/test/output_c${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" PATH="$PWD/test/output_c:$PATH" cargo run --manifest-path test/run_rust/Cargo.toml
