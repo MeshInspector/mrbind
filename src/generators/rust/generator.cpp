@@ -1370,6 +1370,7 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
                 "    println!(\"cargo:rerun-if-env-changed=" + env_var + "\");\n"
                 "    if let Ok(dir) = std::env::var(\"" + env_var + "\")\n"
                 "    {\n"
+                "        if dir.is_empty() {return;}\n"
                 "        println!(\"cargo:rustc-link-search=native={dir}\");\n"
                 "    }\n"
                 "}\n";
