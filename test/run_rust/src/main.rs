@@ -44,7 +44,7 @@ fn main()
     // Enums are newtypes with associated constants.
     use mr::c_sharp::E1;
     assert_eq!(mr::c_sharp::test_enum_mr_c_sharp_e1(E1::a, None), E1::b);
-    assert_eq!(mr::c_sharp::test_enum_mr_c_sharp_e1(E1::a, Some(&E1::a)), E1::a);
+    assert_eq!(mr::c_sharp::test_enum_mr_c_sharp_e1(E1::a, Some(E1::a)), E1::a);
 
     // Exposed structs have the same layout as in C++ and are used directly.
     let mut ex = mr::c_sharp::ExposedLayout {x: 1, y: 2, z: 3.0, arr: [1, 2, 3], b: true, ba: [[false; 5]; 4]};

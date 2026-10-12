@@ -911,6 +911,14 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
                 {
                     const bool optional = cpp_shape == CppShape::ptr || param.default_arg_affects_parameter_passing;
                     const std::string ref_type = (ptr->is_const ? "&" : "&mut ") + pointee_path;
+                    const bool small_by_value = ptr->pointee_is_builtin || (ptr->pointee_type && ptr->pointee_type->IsEnum());
+                    if (optional && small_by_value && cpp_shape == CppShape::value && ptr->is_const)
+                    {
+                        // A by-value scalar with a default argument: `Option<T>` is nicer than `Option<&T>`.
+                        ret.rust_params.emplace_back(name, "Option<" + pointee_path + ">");
+                        ret.args.push_back(name + ".as_ref().map_or(" + null_expr + ", |r| " + CastExpr("r") + ")");
+                        return ret;
+                    }
                     if (optional)
                     {
                         ret.rust_params.emplace_back(name, "Option<" + ref_type + ">");
