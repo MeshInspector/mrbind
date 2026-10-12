@@ -36,9 +36,9 @@ Where:
 
   If you used `--split-library` in the C generator, pass `--imported-split-lib-name <macro_prefix> <name>` for every part, like with the C# generator.
 
-* `--crate-name mylib` is optional. If specified, a minimal `Cargo.toml` is generated. Otherwise provide your own, pointing `[lib] path` to `src/lib.rs`.
+* `--crate-name mylib` is optional. If specified, a minimal `Cargo.toml` and a `build.rs` are generated. The `build.rs` adds the directory from the `MYLIB_LIB_DIR` environment variable (the crate name uppercased, plus `_LIB_DIR`) to the linker search path, so set it to the directory with the compiled C bindings when building something that links against the crate. Otherwise provide your own `Cargo.toml`, pointing `[lib] path` to `src/lib.rs`.
 
-Then build the crate with `cargo build`. If the C library isn't in a standard location, add a `build.rs` that prints `cargo:rustc-link-search=...`, or set the `RUSTFLAGS`.
+Then build the crate with `cargo build`.
 
 The generator prints a summary at the end: how many functions got wrappers, how many of those use raw C types, and how many were skipped because their C types can't be spelled in Rust (`long double` and such). Pass `--verbose` to list the skipped ones.
 
