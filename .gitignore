@@ -10,7 +10,8 @@
 /test/**/*.so
 /test/**/bin
 /test/**/obj
-/test/output_rust/
+/test/output_rust*/target/
+/test/output_rust*/Cargo.lock
 /test/run_rust/target/
 /test/run_rust/Cargo.lock
 parallel-hashmap/
