@@ -237,18 +237,18 @@ namespace mrbind::CInterop
         }
     };
 
-    // A single parameter of the generated C function, as spelled in its declaration.
-    struct CParam
-    {
-        MBREFL_STRUCT(
-            (std::string)(c_type)
-            (std::string)(name)
-        )
-    };
-
     // Describes a single parameter of a free function or of a method.
     struct FuncParam
     {
+        // Describes a single parameter of the generated C function.
+        struct CParam
+        {
+            MBREFL_STRUCT(
+                (std::string)(c_type)
+                (std::string)(name) // C parameters are always named.
+            )
+        };
+
         MBREFL_STRUCT(
             // The C++ type of this parameter.
             (std::string)(cpp_type)
@@ -280,9 +280,10 @@ namespace mrbind::CInterop
             // Even static member functions have this set to true, those have fake `this` parameters that are only used to prov
             (bool)(is_this_param, false)
 
-            // The C parameters this C++ parameter expands to, in the declaration order.
-            // Usually one, but e.g. pass-by-enum classes expand to two (the enum and the pointer), and strings to two pointers.
-            // Empty for the fake `this` parameters of static member functions and constructors.
+            // The C parameters this C++ parameter expands to.
+            // Normally the consumers of C bindings shouldn't use this. Instead this should infer this from `cpp_type`.
+            // This was added for the vibecoded Rust bindings, which seem to wrap C more naively.
+            // Among other things, this is empty for the fake `this` parameters of static member functions and of constructors.
             (std::vector<CParam>)(c_params)
         )
 
@@ -320,7 +321,9 @@ namespace mrbind::CInterop
             // Indicates that it's a pointer to an array, as opposed to a single object.
             (bool)(is_array_pointer, false)
 
-            // The return type of the generated C function, as spelled in its declaration.
+            // The returned C type.
+            // Normally the consumers of the C bindings shouldn't use this, they should analyze `cpp_type` directly.
+            // This was added for the vibecoded Rust backend, since it wraps the C bindings more naively.
             (std::string)(c_type)
         )
     };
