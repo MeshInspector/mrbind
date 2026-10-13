@@ -38,7 +38,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestOpsB_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsB_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -62,7 +62,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestOpsB_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsB_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -86,7 +86,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_pos_MR_CSharp_TestOpsB.invokeExact(rawPointer());
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_pos_MR_CSharp_TestOpsB.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -109,7 +109,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_add_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_add_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -133,7 +133,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_neg_MR_CSharp_TestOpsB.invokeExact(rawPointer());
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_neg_MR_CSharp_TestOpsB.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -156,7 +156,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_sub_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_sub_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -180,7 +180,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_deref_MR_CSharp_TestOpsB.invokeExact(rawPointer());
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_deref_MR_CSharp_TestOpsB.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -203,7 +203,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_mul_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_mul_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -227,7 +227,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_div_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_div_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -251,7 +251,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_mod_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_mod_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -275,7 +275,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_xor_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_xor_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -299,7 +299,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_addressof_MR_CSharp_TestOpsB.invokeExact(rawPointer());
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_addressof_MR_CSharp_TestOpsB.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -322,7 +322,7 @@ public final class TestOpsB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H5.MR_C_bitand_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H6.MR_C_bitand_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

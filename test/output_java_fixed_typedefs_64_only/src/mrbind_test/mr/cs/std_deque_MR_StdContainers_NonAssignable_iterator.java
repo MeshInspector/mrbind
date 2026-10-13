@@ -38,6 +38,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -108,6 +111,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_deref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -131,6 +135,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_incr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -152,6 +157,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_decr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -173,6 +179,7 @@ public final class std_deque_MR_StdContainers_NonAssignable_iterator extends mrb
         try
         {
             mrbind_test.ffi.std_deque_MR_StdContainers_NonAssignable.H0.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign.invokeExact(rawPointer(), delta);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

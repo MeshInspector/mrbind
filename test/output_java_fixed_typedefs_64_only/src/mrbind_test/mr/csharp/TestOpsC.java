@@ -39,6 +39,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.TestOpsC(__ret, false, __owner);
         }
@@ -86,6 +88,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_pos_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_add_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -129,6 +133,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_neg_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -150,6 +155,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_sub_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +178,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_deref_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -193,6 +200,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_mul_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -215,6 +223,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_div_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -237,6 +246,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_mod_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -259,6 +269,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_xor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -281,6 +292,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_addressof_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -302,6 +314,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_bitand_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -324,6 +337,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_bitor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -346,6 +360,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_compl_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -367,6 +382,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_not_MR_CSharp_TestOpsC.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -388,6 +404,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -410,6 +427,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_add_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -432,6 +450,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_sub_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -454,6 +473,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_mul_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -476,6 +496,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_div_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -498,6 +519,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_mod_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -520,6 +542,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_xor_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -542,6 +565,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_bitand_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -564,6 +588,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_bitor_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -586,6 +611,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_lshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -608,6 +634,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_rshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -630,6 +657,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_lshift_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -652,6 +680,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_rshift_assign.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -674,6 +703,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_compare_three_way_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -696,6 +726,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_and_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -718,6 +749,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_or_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -740,6 +772,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_C_comma_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -762,6 +795,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_arrow_star.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -784,6 +818,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_arrow.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -805,6 +840,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_call.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -827,6 +863,7 @@ public final class TestOpsC extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestOpsC_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

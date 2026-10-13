@@ -17,7 +17,7 @@ public final class CallOp extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_CallOp_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -40,6 +40,7 @@ public final class CallOp extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -64,6 +65,7 @@ public final class CallOp extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -87,6 +89,7 @@ public final class CallOp extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.CallOp(__ret, false, __owner);
         }
@@ -111,6 +114,7 @@ public final class CallOp extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_call_0.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -132,6 +136,7 @@ public final class CallOp extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_call_3.invokeExact(rawPointer(), _1, _2, _3);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

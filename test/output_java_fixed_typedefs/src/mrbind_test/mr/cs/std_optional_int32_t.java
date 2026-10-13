@@ -38,6 +38,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_ConstructFrom.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -108,6 +111,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -130,6 +134,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -151,6 +156,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -174,6 +180,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Integer)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -197,6 +204,7 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

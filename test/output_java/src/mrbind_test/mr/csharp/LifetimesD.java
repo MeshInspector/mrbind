@@ -208,7 +208,7 @@ public final class LifetimesD extends mrbind_test.CppObject
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_LifetimesD_return_ref.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(ref, "ref"));
             mrbind_test.Ffi.checkException();
-            java.lang.Object __owner = this;
+            java.lang.Object __owner = ref;
             return new mrbind_test.mr.csharp.LifetimesA(__ret, false, __owner);
         }
         catch (java.lang.Throwable __e)
@@ -331,6 +331,7 @@ public final class LifetimesD extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_LifetimesD_Get_a.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.LifetimesA(__ret, false, __owner);
         }
@@ -355,6 +356,7 @@ public final class LifetimesD extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_LifetimesD_Set_a.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

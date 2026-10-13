@@ -38,6 +38,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -108,6 +111,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_get.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.SG(__ret, false, __owner);
         }
@@ -131,6 +135,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -155,6 +160,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_use_count.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -177,6 +183,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_reset.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -198,6 +205,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_Construct.invokeExact(java.util.Objects.requireNonNull(ptr, "ptr").release());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_MR_CSharp_SG(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -216,6 +224,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_Assign.invokeExact(rawPointer(), java.util.Objects.requireNonNull(ptr, "ptr").release());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -238,6 +247,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_ConstructNonOwning.invokeExact(mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_MR_CSharp_SG(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -261,6 +271,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_AssignNonOwning.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -290,6 +301,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_ConstructAliasing.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -315,6 +327,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_AssignAliasing.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -338,6 +351,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_ConvertTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_void(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -360,6 +374,7 @@ public final class std_shared_ptr_MR_CSharp_SG extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_CSharp_SG.H0.MR_C_std_shared_ptr_MR_CSharp_SG_AssignTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_target, "_target"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

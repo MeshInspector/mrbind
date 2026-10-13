@@ -46,6 +46,7 @@ public final class F extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_F_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -70,6 +71,7 @@ public final class F extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_F_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -93,6 +95,7 @@ public final class F extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_F_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.bases.F(__ret, false, __owner);
         }
@@ -104,6 +107,46 @@ public final class F extends mrbind_test.CppObject
         {
             java.lang.ref.Reference.reachabilityFence(this);
             java.lang.ref.Reference.reachabilityFence(_other);
+        }
+    }
+
+    /** Upcasts to the base class `MR::Bases::E`. The result refers to this object.
+     *
+     * Calls `MR_Bases_F_MutableUpcastTo_MR_Bases_E()`. */
+    public mrbind_test.mr.bases.E upcastToE()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_F_MutableUpcastTo_MR_Bases_E.invokeExact(rawPointer());
+            return new mrbind_test.mr.bases.E(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::Bases::E`. Undefined behavior if the object isn't actually a `F`. The result refers to `object`.
+     *
+     * Calls `MR_Bases_F_MutableStaticDowncastFrom_MR_Bases_E()`. */
+    public static mrbind_test.mr.bases.F staticDowncastFromE(mrbind_test.mr.bases.E object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_F_MutableStaticDowncastFrom_MR_Bases_E.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.bases.F(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
         }
     }
 }

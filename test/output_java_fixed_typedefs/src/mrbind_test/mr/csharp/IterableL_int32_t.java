@@ -39,6 +39,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -86,6 +88,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.IterableL_int32_t(__ret, false, __owner);
         }
@@ -111,6 +114,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Integer)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -134,6 +138,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Integer)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -157,6 +162,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_Get_arr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -179,6 +185,7 @@ public final class IterableL_int32_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableL_int32_t_GetSize_arr.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

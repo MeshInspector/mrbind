@@ -38,6 +38,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -112,6 +115,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -134,6 +138,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -156,6 +161,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -179,6 +185,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayoutSh(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayoutSh.LAYOUT.byteSize()), __owner);
         }
@@ -203,6 +210,7 @@ public final class std_optional_MR_CSharp_ExposedLayoutSh extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_ExposedLayoutSh.H0.MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayoutSh(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayoutSh.LAYOUT.byteSize()), __owner);
         }

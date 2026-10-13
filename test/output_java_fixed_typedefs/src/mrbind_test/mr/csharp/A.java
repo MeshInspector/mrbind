@@ -45,6 +45,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -69,6 +70,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -93,6 +95,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.A(__ret, false, __owner);
         }
@@ -117,6 +120,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_foo.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -138,6 +142,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_bar.invokeExact(rawPointer(), _1, _2);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -159,6 +164,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_static_foo.invokeExact();
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -176,6 +182,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_static_bar.invokeExact(_1, _2);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -193,6 +200,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_virtual_foo.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -214,6 +222,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_virtual_bar.invokeExact(rawPointer(), _1, _2);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -235,6 +244,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_A_refs.invokeExact(rawPointer(), x, _2);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

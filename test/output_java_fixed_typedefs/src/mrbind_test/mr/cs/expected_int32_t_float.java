@@ -38,6 +38,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_success.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Integer)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -153,6 +158,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_error.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -176,6 +182,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -199,6 +206,7 @@ public final class expected_int32_t_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_int32_t_float.H0.MR_C_expected_int32_t_float_error_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

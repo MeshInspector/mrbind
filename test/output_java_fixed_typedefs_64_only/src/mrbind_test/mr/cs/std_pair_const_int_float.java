@@ -38,6 +38,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_Construct.invokeExact(first, second);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -108,6 +111,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_first.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -131,6 +135,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_second.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -154,6 +159,7 @@ public final class std_pair_const_int_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int_float.H0.MR_C_std_pair_const_int_float_second_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

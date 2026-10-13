@@ -136,7 +136,7 @@ public final class C extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_C_bar.invokeExact(rawPointer(), _1, _2);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_bar.invokeExact(rawPointer(), _1, _2);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -158,7 +158,7 @@ public final class C extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_C_static_foo.invokeExact();
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_static_foo.invokeExact();
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -176,7 +176,7 @@ public final class C extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_C_static_bar.invokeExact(_1, _2);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_static_bar.invokeExact(_1, _2);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -249,6 +249,46 @@ public final class C extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CSharp::A`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_C_MutableUpcastTo_MR_CSharp_A()`. */
+    public mrbind_test.mr.csharp.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_MutableUpcastTo_MR_CSharp_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Dynamic downcast from the base class `MR::CSharp::A`. Returns null if the object isn't actually a `C`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_C_MutableDynamicDowncastFrom_MR_CSharp_A()`. */
+    public static mrbind_test.mr.csharp.C dynamicDowncastFromA(mrbind_test.mr.csharp.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_MutableDynamicDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.C(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
         }
     }
 }

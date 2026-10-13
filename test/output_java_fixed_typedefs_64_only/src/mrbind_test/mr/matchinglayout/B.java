@@ -48,6 +48,7 @@ public final class B extends mrbind_test.CppStruct
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_matching_layout.H0.MR_MatchingLayout_B_DefaultConstruct.invokeExact((java.lang.foreign.SegmentAllocator)java.lang.foreign.Arena.ofAuto());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

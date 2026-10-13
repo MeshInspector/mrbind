@@ -38,6 +38,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_success.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.SA(__ret, false, __owner);
         }
@@ -154,6 +159,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_error.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -177,6 +183,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.SA(__ret, false, __owner);
         }
@@ -201,6 +208,7 @@ public final class std_expected_MR_CSharp_SA_float extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_SA_float.H0.MR_C_std_expected_MR_CSharp_SA_float_error_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

@@ -39,6 +39,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -86,6 +88,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -109,6 +112,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_get.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -131,6 +135,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -154,6 +159,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -178,6 +184,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_use_count.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -200,6 +207,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_reset.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -226,6 +234,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_ConstructFromSize.invokeExact(size);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -244,6 +253,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_Construct.invokeExact(ptr);
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_int_array(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -262,6 +272,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_Assign.invokeExact(rawPointer(), ptr);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -284,6 +295,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_ConstructNonOwning.invokeExact(ptr);
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_int_array(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -303,6 +315,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_AssignNonOwning.invokeExact(rawPointer(), ptr);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -331,6 +344,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_ConstructAliasing.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), ptr);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -355,6 +369,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_AssignAliasing.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), ptr);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -377,6 +392,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_ConvertTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_void(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -399,6 +415,7 @@ public final class std_shared_ptr_int_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_shared_ptr_int_array.H0.MR_C_std_shared_ptr_int_array_AssignTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_target, "_target"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

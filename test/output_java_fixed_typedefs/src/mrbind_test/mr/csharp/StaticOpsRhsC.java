@@ -39,6 +39,7 @@ public final class StaticOpsRhsC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_StaticOpsRhsC_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class StaticOpsRhsC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_StaticOpsRhsC_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_MOVE_AND_DESTROY, java.util.Objects.requireNonNull(_other, "_other").release());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

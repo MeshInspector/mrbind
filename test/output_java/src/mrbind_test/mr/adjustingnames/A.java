@@ -181,6 +181,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_Get_var_unsigned_long.invokeExact();
+            mrbind_test.Ffi.checkException();
             return mrbind_test.Ffi.getCLong(__ret.reinterpret(8), 0);
         }
         catch (java.lang.Throwable __e)
@@ -200,6 +201,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_Set_var_unsigned_long.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

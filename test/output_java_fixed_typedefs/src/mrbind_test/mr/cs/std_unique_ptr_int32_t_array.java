@@ -39,6 +39,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -90,6 +92,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_ConstructFrom.invokeExact(other);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -109,6 +112,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -131,6 +135,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_AssignFrom.invokeExact(rawPointer(), other);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -153,6 +158,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_get.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -176,6 +182,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -199,6 +206,7 @@ public final class std_unique_ptr_int32_t_array extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_int32_t_array.H0.MR_C_std_unique_ptr_int32_t_array_release.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

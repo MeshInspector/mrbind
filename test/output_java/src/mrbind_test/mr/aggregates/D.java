@@ -137,6 +137,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_a.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -159,6 +160,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_a.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -181,6 +183,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_b.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -203,6 +206,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_b.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -225,6 +229,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_c.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -247,6 +252,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_c.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -269,6 +275,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_d.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -291,6 +298,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_d.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -313,6 +321,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_e.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -335,6 +344,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_e.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -357,6 +367,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_f.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -379,6 +390,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_f.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -401,6 +413,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_g.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -423,6 +436,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_g.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -445,6 +459,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_h.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -467,6 +482,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_h.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -489,6 +505,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Get_i.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -511,6 +528,7 @@ public final class D extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_aggregates.H0.MR_Aggregates_D_Set_i.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

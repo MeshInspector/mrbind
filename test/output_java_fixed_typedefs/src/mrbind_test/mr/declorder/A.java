@@ -36,6 +36,7 @@ public final class A extends mrbind_test.CppStruct
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_declaration_order.H0.MR_DeclOrder_A_c.invokeExact((java.lang.foreign.SegmentAllocator)java.lang.foreign.Arena.ofAuto(), rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.declorder.A_B(__ret, null);
         }
         catch (java.lang.Throwable __e)
@@ -58,6 +59,7 @@ public final class A extends mrbind_test.CppStruct
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_declaration_order.H0.MR_DeclOrder_A_d.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return mrbind_test.mr.declorder.A_E.of(__ret);
         }
         catch (java.lang.Throwable __e)

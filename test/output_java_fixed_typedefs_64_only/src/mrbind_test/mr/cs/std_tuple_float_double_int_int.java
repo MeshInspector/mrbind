@@ -38,6 +38,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -112,6 +115,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_Construct.invokeExact(_0, _1, _2, _3);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -131,6 +135,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_float.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -154,6 +159,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_float_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -177,6 +183,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_double.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_DOUBLE, 0);
         }
         catch (java.lang.Throwable __e)
@@ -200,6 +207,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_double_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -223,6 +231,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_int_2.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -246,6 +255,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_int_2_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -269,6 +279,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_int_3.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -292,6 +303,7 @@ public final class std_tuple_float_double_int_int extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_float_double_int_int.H0.MR_C_std_tuple_float_double_int_int_get_int_3_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

@@ -42,6 +42,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -64,6 +65,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_ConvertTo_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -87,6 +89,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.usingdecls.B(__ret, false, __owner);
         }
@@ -111,6 +114,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_assign.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -132,6 +136,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_Method.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -153,6 +158,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_StaticFunc.invokeExact();
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -171,6 +177,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_Get_Field.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -193,6 +200,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_Set_Field.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -214,6 +222,7 @@ public final class B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_Get_StaticVar.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -232,10 +241,51 @@ public final class B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_Set_StaticVar.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /** Upcasts to the base class `MR::UsingDecls::A`. The result refers to this object.
+     *
+     * Calls `MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A()`. */
+    public mrbind_test.mr.usingdecls.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.usingdecls.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::UsingDecls::A`. Undefined behavior if the object isn't actually a `B`. The result refers to `object`.
+     *
+     * Calls `MR_UsingDecls_B_MutableStaticDowncastFrom_MR_UsingDecls_A()`. */
+    public static mrbind_test.mr.usingdecls.B staticDowncastFromA(mrbind_test.mr.usingdecls.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_using_decls.H0.MR_UsingDecls_B_MutableStaticDowncastFrom_MR_UsingDecls_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.usingdecls.B(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
         }
     }
 }

@@ -39,6 +39,7 @@ public final class std_pair_const_int32_t_ref_const_float_ref extends mrbind_tes
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int32_t_ref_const_float_ref.H0.MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -68,6 +69,7 @@ public final class std_pair_const_int32_t_ref_const_float_ref extends mrbind_tes
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int32_t_ref_const_float_ref.H0.MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, first), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, second));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -87,6 +89,7 @@ public final class std_pair_const_int32_t_ref_const_float_ref extends mrbind_tes
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int32_t_ref_const_float_ref.H0.MR_C_std_pair_const_int32_t_ref_const_float_ref_first.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -110,6 +113,7 @@ public final class std_pair_const_int32_t_ref_const_float_ref extends mrbind_tes
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_int32_t_ref_const_float_ref.H0.MR_C_std_pair_const_int32_t_ref_const_float_ref_second.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)

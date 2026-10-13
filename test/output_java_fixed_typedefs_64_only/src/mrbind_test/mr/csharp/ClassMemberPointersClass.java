@@ -40,6 +40,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -71,6 +72,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_ConstructFrom.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptrNonNull(c, "c"), mrbind_test.Ffi.ptrNonNull(d, "d"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -96,6 +98,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_sa.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -115,6 +118,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Set_sa.invokeExact(mrbind_test.Ffi.ptr(value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -136,6 +140,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_sb.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -155,6 +160,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Set_sb.invokeExact(mrbind_test.Ffi.ptr(value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -176,6 +182,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_sc.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.csharp.A(__ret, false, __owner);
         }
@@ -195,6 +202,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_sd.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.csharp.A(__ret, false, __owner);
         }
@@ -215,6 +223,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_a.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -238,6 +247,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Set_a.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -261,6 +271,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_b.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -284,6 +295,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Set_b.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -307,6 +319,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_c.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.A(__ret, false, __owner);
         }
@@ -331,6 +344,7 @@ public final class ClassMemberPointersClass extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersClass_Get_d.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.A(__ret, false, __owner);
         }

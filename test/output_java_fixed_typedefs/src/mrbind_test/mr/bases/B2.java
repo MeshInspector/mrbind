@@ -43,6 +43,7 @@ public final class B2 extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -67,6 +68,7 @@ public final class B2 extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -90,6 +92,7 @@ public final class B2 extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.bases.B2(__ret, false, __owner);
         }
@@ -101,6 +104,86 @@ public final class B2 extends mrbind_test.CppObject
         {
             java.lang.ref.Reference.reachabilityFence(this);
             java.lang.ref.Reference.reachabilityFence(_other);
+        }
+    }
+
+    /** Upcasts to the base class `MR::Bases::A`. The result refers to this object.
+     *
+     * Calls `MR_Bases_B2_MutableUpcastTo_MR_Bases_A()`. */
+    public mrbind_test.mr.bases.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_MutableUpcastTo_MR_Bases_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.bases.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::Bases::A`. Undefined behavior if the object isn't actually a `B2`. The result refers to `object`.
+     *
+     * Calls `MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_A()`. */
+    public static mrbind_test.mr.bases.B2 staticDowncastFromA(mrbind_test.mr.bases.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.bases.B2(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::Bases::B`. The result refers to this object.
+     *
+     * Calls `MR_Bases_B2_MutableUpcastTo_MR_Bases_B()`. */
+    public mrbind_test.mr.bases.B upcastToB()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_MutableUpcastTo_MR_Bases_B.invokeExact(rawPointer());
+            return new mrbind_test.mr.bases.B(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::Bases::B`. Undefined behavior if the object isn't actually a `B2`. The result refers to `object`.
+     *
+     * Calls `MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_B()`. */
+    public static mrbind_test.mr.bases.B2 staticDowncastFromB(mrbind_test.mr.bases.B object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_bases.H0.MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_B.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.bases.B2(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
         }
     }
 }

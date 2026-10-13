@@ -39,6 +39,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -77,6 +78,7 @@ public final class TestFields extends mrbind_test.CppObject
             java.lang.foreign.MemorySegment __str_const_s = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(const_s, "const_s"));
             java.lang.foreign.MemorySegment __str_const_s_ref = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(const_s_ref, "const_s_ref"));
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_ConstructFrom.invokeExact(i, const_i, i_ref, mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, const_i_ref), __str_s, mrbind_test.Ffi.end(__str_s), __str_const_s, mrbind_test.Ffi.end(__str_const_s), mrbind_test.Ffi.ptrNonNull(s_ref, "s_ref"), __str_const_s_ref, mrbind_test.Ffi.end(__str_const_s_ref));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -99,6 +101,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_i.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -118,6 +121,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Set_static_i.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -135,6 +139,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_const_i.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -153,6 +158,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_i_ref.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -171,6 +177,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_const_i_ref.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -189,6 +196,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_s.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -210,6 +218,7 @@ public final class TestFields extends mrbind_test.CppObject
         {
             java.lang.foreign.MemorySegment __str_value = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(value, "value"));
             mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Set_static_s.invokeExact(__str_value, mrbind_test.Ffi.end(__str_value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -227,6 +236,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_const_s.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -246,6 +256,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_s_ref.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -265,6 +276,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_static_const_s_ref.invokeExact();
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -286,6 +298,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_i.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -310,6 +323,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Set_i.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -332,6 +346,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_const_i.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -355,6 +370,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_i_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -378,6 +394,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_const_i_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -401,6 +418,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_s.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -426,6 +444,7 @@ public final class TestFields extends mrbind_test.CppObject
         {
             java.lang.foreign.MemorySegment __str_value = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(value, "value"));
             mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Set_s.invokeExact(rawPointer(), __str_value, mrbind_test.Ffi.end(__str_value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -448,6 +467,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_const_s.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -472,6 +492,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_s_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -496,6 +517,7 @@ public final class TestFields extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_Get_const_s_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }

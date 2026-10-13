@@ -38,6 +38,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             long __ret = (long)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -151,6 +156,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_resize.invokeExact(rawPointer(), new_size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +178,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -194,6 +201,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -216,6 +224,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -240,6 +249,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -264,6 +274,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -288,6 +299,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -312,6 +324,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_push_back.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -334,6 +347,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -356,6 +370,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_push_front.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -378,6 +393,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_pop_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -400,6 +416,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -423,6 +440,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -446,6 +464,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -469,6 +488,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -492,6 +512,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -514,6 +535,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -538,6 +560,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -560,6 +583,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -584,6 +608,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -606,6 +631,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -630,6 +656,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -652,6 +679,7 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

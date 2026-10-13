@@ -39,6 +39,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -91,6 +93,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(first, "first"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(second, "second"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -115,6 +118,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_first.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.SeparateA(__ret, false, __owner);
         }
@@ -139,6 +143,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.SeparateA(__ret, false, __owner);
         }
@@ -163,6 +168,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_second.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.SeparateB(__ret, false, __owner);
         }
@@ -187,6 +193,7 @@ public final class std_pair_MR_SeparateA_MR_SeparateB extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.AB.common.std_pair_MR_SeparateA_MR_SeparateB.H0.MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.SeparateB(__ret, false, __owner);
         }

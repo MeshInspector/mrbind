@@ -40,6 +40,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -68,6 +69,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_uint64_t.invokeExact(_1);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -92,6 +94,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int.invokeExact(_1);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -111,6 +114,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.testsimpletypes.ClassTemplate_uint64_t(__ret, false, __owner);
         }
@@ -136,6 +140,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -158,6 +163,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -179,6 +185,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_LONG, 0);
         }
         catch (java.lang.Throwable __e)
@@ -198,6 +205,7 @@ public final class ClassTemplate_uint64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

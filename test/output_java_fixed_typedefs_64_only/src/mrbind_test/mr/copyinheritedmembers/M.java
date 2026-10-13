@@ -49,6 +49,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -73,6 +74,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -95,6 +97,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_ConvertTo_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -118,6 +121,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.copyinheritedmembers.M(__ret, false, __owner);
         }
@@ -142,6 +146,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_Method.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -163,6 +168,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_StaticFunc.invokeExact();
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -180,6 +186,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_Get_StaticField.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -198,6 +205,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_Set_StaticField.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -216,6 +224,7 @@ public final class M extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_Get_Field.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -238,6 +247,47 @@ public final class M extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_Set_Field.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CopyInheritedMembers::A`. The result refers to this object.
+     *
+     * Calls `MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_A()`. */
+    public mrbind_test.mr.copyinheritedmembers.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.copyinheritedmembers.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CopyInheritedMembers::J`. The result refers to this object.
+     *
+     * Calls `MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_J()`. */
+    public mrbind_test.mr.copyinheritedmembers.J upcastToJ()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_J.invokeExact(rawPointer());
+            return new mrbind_test.mr.copyinheritedmembers.J(__ret, false, this);
         }
         catch (java.lang.Throwable __e)
         {

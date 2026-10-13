@@ -39,6 +39,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -69,6 +70,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_ConstructFrom.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f1, "f1"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f2, "f2"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f3, "f3"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f4, "f4"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f5, "f5"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f6, "f6"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(f7, "f7"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -103,6 +105,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -126,6 +129,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.TestStdFunction(__ret, false, __owner);
         }
@@ -150,6 +154,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Call.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +177,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f1.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_int32_t_from_std_string(__ret, false, __owner);
         }
@@ -196,6 +202,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f1.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -219,6 +226,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f2.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_std_string_from_int32_t_int32_t(__ret, false, __owner);
         }
@@ -243,6 +251,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f2.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -266,6 +275,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f3.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1(__ret, false, __owner);
         }
@@ -290,6 +300,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f3.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -313,6 +324,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f4.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC(__ret, false, __owner);
         }
@@ -337,6 +349,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f4.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -360,6 +373,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f5.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref(__ret, false, __owner);
         }
@@ -384,6 +398,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f5.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -407,6 +422,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f6.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_int32_t_rvalue_ref(__ret, false, __owner);
         }
@@ -431,6 +447,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f6.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -454,6 +471,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f7.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_function_void(__ret, false, __owner);
         }
@@ -478,6 +496,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Set_f7.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

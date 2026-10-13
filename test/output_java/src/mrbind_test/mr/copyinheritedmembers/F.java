@@ -107,4 +107,124 @@ public final class F extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(_other);
         }
     }
+
+    /** Upcasts to the base class `MR::CopyInheritedMembers::B`. The result refers to this object.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_B()`. */
+    public mrbind_test.mr.copyinheritedmembers.B upcastToB()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_B.invokeExact(rawPointer());
+            return new mrbind_test.mr.copyinheritedmembers.B(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CopyInheritedMembers::B`. Undefined behavior if the object isn't actually a `F`. The result refers to `object`.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B()`. */
+    public static mrbind_test.mr.copyinheritedmembers.F staticDowncastFromB(mrbind_test.mr.copyinheritedmembers.B object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.copyinheritedmembers.F(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CopyInheritedMembers::D`. The result refers to this object.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_D()`. */
+    public mrbind_test.mr.copyinheritedmembers.D upcastToD()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_D.invokeExact(rawPointer());
+            return new mrbind_test.mr.copyinheritedmembers.D(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CopyInheritedMembers::D`. Undefined behavior if the object isn't actually a `F`. The result refers to `object`.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_D()`. */
+    public static mrbind_test.mr.copyinheritedmembers.F staticDowncastFromD(mrbind_test.mr.copyinheritedmembers.D object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_D.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.copyinheritedmembers.F(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CopyInheritedMembers::A`. The result refers to this object.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_A()`. */
+    public mrbind_test.mr.copyinheritedmembers.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.copyinheritedmembers.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CopyInheritedMembers::A`. Undefined behavior if the object isn't actually a `F`. The result refers to `object`.
+     *
+     * Calls `MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A()`. */
+    public static mrbind_test.mr.copyinheritedmembers.F staticDowncastFromA(mrbind_test.mr.copyinheritedmembers.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.copyinheritedmembers.F(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
 }

@@ -114,6 +114,7 @@ public final class IterableD extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableD_Get_arr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -136,6 +137,7 @@ public final class IterableD extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableD_GetSize_arr.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

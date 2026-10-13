@@ -38,6 +38,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -112,6 +115,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_ConstructFromRange.invokeExact((java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_LONG, ptr)), size);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_AssignFromRange.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_LONG, ptr)), size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -151,6 +156,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -173,6 +179,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -195,6 +202,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_resize.invokeExact(rawPointer(), new_size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -216,6 +224,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_resize_with_default_value.invokeExact(rawPointer(), new_size, value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -237,6 +246,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -258,6 +268,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_capacity.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -280,6 +291,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_reserve.invokeExact(rawPointer(), new_capacity);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -301,6 +313,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_shrink_to_fit.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -323,6 +336,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_LONG, 0);
         }
         catch (java.lang.Throwable __e)
@@ -346,6 +360,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_at_mut.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -369,6 +384,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Long)__ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_LONG, 0);
         }
         catch (java.lang.Throwable __e)
@@ -392,6 +408,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -415,6 +432,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Long)__ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_LONG, 0);
         }
         catch (java.lang.Throwable __e)
@@ -438,6 +456,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -461,6 +480,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_data.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -484,6 +504,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_data_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -507,6 +528,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_push_back.invokeExact(rawPointer(), new_elem);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -528,6 +550,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -550,6 +573,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_insert.invokeExact(rawPointer(), position, new_elem);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -571,6 +595,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_erase.invokeExact(rawPointer(), position);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -593,6 +618,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), new_elem);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -615,6 +641,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -638,6 +665,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), new_elem);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -660,6 +688,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -683,6 +712,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_int64_t_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -705,6 +735,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -729,6 +760,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_int64_t_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -751,6 +783,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -775,6 +808,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_int64_t_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -797,6 +831,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -821,6 +856,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_int64_t_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -843,6 +879,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -866,6 +903,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_to_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -889,6 +927,7 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_to_index_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

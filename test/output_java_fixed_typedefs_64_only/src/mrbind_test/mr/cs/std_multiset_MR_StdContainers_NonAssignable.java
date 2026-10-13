@@ -38,6 +38,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             long __ret = (long)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -151,6 +156,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +178,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             long __ret = (long)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_count.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -196,6 +203,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_find.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -220,6 +228,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_insert.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -243,6 +252,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -265,6 +275,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -289,6 +300,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -311,6 +323,7 @@ public final class std_multiset_MR_StdContainers_NonAssignable extends mrbind_te
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_multiset_MR_StdContainers_NonAssignable_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

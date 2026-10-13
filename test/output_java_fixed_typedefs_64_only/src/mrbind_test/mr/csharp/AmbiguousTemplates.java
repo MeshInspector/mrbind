@@ -38,6 +38,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.AmbiguousTemplates(__ret, false, __owner);
         }
@@ -109,6 +112,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_a_int.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -130,6 +134,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_a_float.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -151,6 +156,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_b_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -173,6 +179,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             float __ret = (float)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_b_float.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -195,6 +202,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_c_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -216,6 +224,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_template_c_float.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -237,6 +246,7 @@ public final class AmbiguousTemplates extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_AmbiguousTemplates_instantiate.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

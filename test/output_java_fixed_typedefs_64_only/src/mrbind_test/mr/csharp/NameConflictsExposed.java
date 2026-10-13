@@ -39,6 +39,7 @@ public final class NameConflictsExposed extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_NameConflictsExposed_name_Conflicts_exposed.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

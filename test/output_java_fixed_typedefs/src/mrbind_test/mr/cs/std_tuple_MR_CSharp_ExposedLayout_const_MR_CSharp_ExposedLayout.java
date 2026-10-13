@@ -38,6 +38,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -91,6 +93,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Construct.invokeExact(mrbind_test.Ffi.ptrNonNull(_0, "_0"), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -115,6 +118,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -139,6 +143,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -163,6 +168,7 @@ public final class std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayo
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }

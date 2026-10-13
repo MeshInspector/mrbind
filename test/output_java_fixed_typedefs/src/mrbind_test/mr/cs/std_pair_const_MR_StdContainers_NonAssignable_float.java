@@ -38,6 +38,7 @@ public final class std_pair_const_MR_StdContainers_NonAssignable_float extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_MR_StdContainers_NonAssignable_float.H0.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_pair_const_MR_StdContainers_NonAssignable_float extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_MR_StdContainers_NonAssignable_float.H0.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(first, "first"), second);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_pair_const_MR_StdContainers_NonAssignable_float extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_MR_StdContainers_NonAssignable_float.H0.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -109,6 +112,7 @@ public final class std_pair_const_MR_StdContainers_NonAssignable_float extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_MR_StdContainers_NonAssignable_float.H0.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -132,6 +136,7 @@ public final class std_pair_const_MR_StdContainers_NonAssignable_float extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_const_MR_StdContainers_NonAssignable_float.H0.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

@@ -35,6 +35,7 @@ public final class C_true extends mrbind_test.CppStruct
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_declaration_order.H0.MR_DeclOrder_C_true_blah.invokeExact((java.lang.foreign.SegmentAllocator)java.lang.foreign.Arena.ofAuto(), rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.declorder.C_false(__ret, null);
         }
         catch (java.lang.Throwable __e)

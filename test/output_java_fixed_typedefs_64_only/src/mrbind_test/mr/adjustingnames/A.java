@@ -40,6 +40,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -64,6 +65,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -86,6 +88,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_ConvertTo_uint64_t.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -109,6 +112,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.adjustingnames.A(__ret, false, __owner);
         }
@@ -133,6 +137,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_foo.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -154,6 +159,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_bar.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -175,6 +181,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_Get_var_uint64_t.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(8).get(java.lang.foreign.ValueLayout.JAVA_LONG, 0);
         }
         catch (java.lang.Throwable __e)
@@ -194,6 +201,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_adjusting_names.H0.MR_AdjustingNames_A_Set_var_uint64_t.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

@@ -161,6 +161,7 @@ public final class IndexerA extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IndexerA_Get_x.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -183,6 +184,7 @@ public final class IndexerA extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IndexerA_Set_x.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

@@ -38,6 +38,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -112,6 +115,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable.invokeExact(mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -135,6 +139,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_deref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_pair_const_MR_StdContainers_NonAssignable_float(__ret, false, __owner);
         }
@@ -159,6 +164,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_deref_key.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdcontainers.NonAssignable(__ret, false, __owner);
         }
@@ -183,6 +189,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_deref_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -205,6 +212,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_incr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -226,6 +234,7 @@ public final class std_map_MR_StdContainers_NonAssignable_float_const_iterator e
         try
         {
             mrbind_test.ffi.std_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator_decr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

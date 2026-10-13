@@ -38,6 +38,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -151,6 +156,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_resize.invokeExact(rawPointer(), new_size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +178,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -194,6 +201,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -215,6 +223,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_capacity.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -237,6 +246,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_reserve.invokeExact(rawPointer(), new_capacity);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -258,6 +268,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_shrink_to_fit.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -280,6 +291,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -304,6 +316,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_at_mut.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -328,6 +341,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -352,6 +366,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -376,6 +391,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -400,6 +416,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, false, __owner);
         }
@@ -424,6 +441,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_push_back.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -446,6 +464,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -468,6 +487,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_insert.invokeExact(rawPointer(), position, mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -490,6 +510,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_erase.invokeExact(rawPointer(), position);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -512,6 +533,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -535,6 +557,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -558,6 +581,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -581,6 +605,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -604,6 +629,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_expected_int32_t_std_string_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -626,6 +652,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -650,6 +677,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_expected_int32_t_std_string_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -672,6 +700,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -696,6 +725,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_expected_int32_t_std_string_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -718,6 +748,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -742,6 +773,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_expected_int32_t_std_string_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -764,6 +796,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -787,6 +820,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_to_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -810,6 +844,7 @@ public final class std_vector_expected_int32_t_std_string extends mrbind_test.Cp
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_expected_int32_t_std_string.H0.MR_C_std_vector_expected_int32_t_std_string_to_index_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

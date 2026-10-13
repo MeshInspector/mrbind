@@ -167,4 +167,66 @@ public final class std_function_MR_StdFunction_A extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
+
+    /** A Java callable that an instance can hold, see `of()`. */
+    @java.lang.FunctionalInterface
+    public interface Fn
+    {
+        mrbind_test.mr.stdfunction.A call();
+    }
+
+    private static final java.lang.foreign.MemorySegment CALL_STUB = mrbind_test.Ffi.upcall(java.lang.invoke.MethodHandles.lookup(), std_function_MR_StdFunction_A.class, "__call", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+
+    private static java.lang.foreign.MemorySegment __call(java.lang.foreign.MemorySegment _return_pass_by, java.lang.foreign.MemorySegment _userdata, java.lang.foreign.MemorySegment _cleanup_value)
+    {
+        Fn func = (Fn)mrbind_test.Ffi.callbackState(_userdata);
+        try
+        {
+            mrbind_test.mr.stdfunction.A __ret = func.call();
+            _return_pass_by.reinterpret(4).set(java.lang.foreign.ValueLayout.JAVA_INT, 0, mrbind_test.Ffi.PASS_BY_MOVE_AND_DESTROY);
+            return java.util.Objects.requireNonNull(__ret, "The callback returned null.").release();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            mrbind_test.Ffi.callbackFailed(__e);
+            return java.lang.foreign.MemorySegment.NULL;
+        }
+    }
+
+    /** Constructs an instance holding a Java callable. The copies of the instance share it. An exception thrown by the callable is rethrown by the wrapper that called into C.
+     *
+     * Calls `MR_C_std_function_MR_StdFunction_A_ConstructEx()`. */
+    public static mrbind_test.mr.cs.std_function_MR_StdFunction_A of(Fn func)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_MR_StdFunction_A.H0.MR_C_std_function_MR_StdFunction_A_ConstructEx.invokeExact(CALL_STUB, mrbind_test.Ffi.newCallbackState(java.util.Objects.requireNonNull(func, "func")), java.lang.foreign.MemorySegment.NULL, mrbind_test.Ffi.CALLBACK_STATE_STUB);
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_function_MR_StdFunction_A(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /** Replaces the stored callable with a Java one.
+     *
+     * Calls `MR_C_std_function_MR_StdFunction_A_AssignEx()`. */
+    public void assignFn(Fn func)
+    {
+        try
+        {
+            mrbind_test.ffi.std_function_MR_StdFunction_A.H0.MR_C_std_function_MR_StdFunction_A_AssignEx.invokeExact(rawPointer(), CALL_STUB, mrbind_test.Ffi.newCallbackState(java.util.Objects.requireNonNull(func, "func")), java.lang.foreign.MemorySegment.NULL, mrbind_test.Ffi.CALLBACK_STATE_STUB);
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
 }

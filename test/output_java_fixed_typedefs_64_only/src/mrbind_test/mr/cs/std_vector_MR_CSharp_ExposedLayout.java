@@ -38,6 +38,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -112,6 +115,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange.invokeExact(mrbind_test.Ffi.ptr(ptr), size);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -134,6 +138,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(ptr), size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -156,6 +161,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -178,6 +184,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -200,6 +207,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_resize.invokeExact(rawPointer(), new_size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -221,6 +229,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -243,6 +252,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -264,6 +274,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_capacity.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -286,6 +297,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_reserve.invokeExact(rawPointer(), new_capacity);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -307,6 +319,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -329,6 +342,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -353,6 +367,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -377,6 +392,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -401,6 +417,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -425,6 +442,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -449,6 +467,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
         }
@@ -473,6 +492,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_data.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -496,6 +516,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -519,6 +540,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_push_back.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -541,6 +563,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -563,6 +586,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_insert.invokeExact(rawPointer(), position, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -585,6 +609,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_erase.invokeExact(rawPointer(), position);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -607,6 +632,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -630,6 +656,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -653,6 +680,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -676,6 +704,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -699,6 +728,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_CSharp_ExposedLayout_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -721,6 +751,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -745,6 +776,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_CSharp_ExposedLayout_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -767,6 +799,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -791,6 +824,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_CSharp_ExposedLayout_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -813,6 +847,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -837,6 +872,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_CSharp_ExposedLayout_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -859,6 +895,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -882,6 +919,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_to_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -905,6 +943,7 @@ public final class std_vector_MR_CSharp_ExposedLayout extends mrbind_test.CppObj
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_CSharp_ExposedLayout.H0.MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

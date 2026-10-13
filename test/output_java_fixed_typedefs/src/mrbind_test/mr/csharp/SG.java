@@ -16,7 +16,7 @@ public final class SG extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_SG_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SG_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {

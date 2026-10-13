@@ -138,6 +138,7 @@ public final class IterableK_Sentinel extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Sentinel_Get_ptr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -161,6 +162,7 @@ public final class IterableK_Sentinel extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Sentinel_Set_ptr.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

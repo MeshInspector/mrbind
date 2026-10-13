@@ -58,7 +58,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_foo.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_foo.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -80,7 +80,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_bar.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_bar.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -102,7 +102,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_blah.invokeExact();
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_blah.invokeExact();
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -121,7 +121,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_incr_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_incr_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

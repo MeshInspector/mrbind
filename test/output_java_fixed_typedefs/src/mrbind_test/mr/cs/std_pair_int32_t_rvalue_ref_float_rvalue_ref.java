@@ -39,6 +39,7 @@ public final class std_pair_int32_t_rvalue_ref_float_rvalue_ref extends mrbind_t
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -68,6 +69,7 @@ public final class std_pair_int32_t_rvalue_ref_float_rvalue_ref extends mrbind_t
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct.invokeExact(first, second);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -87,6 +89,7 @@ public final class std_pair_int32_t_rvalue_ref_float_rvalue_ref extends mrbind_t
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_first.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -110,6 +113,7 @@ public final class std_pair_int32_t_rvalue_ref_float_rvalue_ref extends mrbind_t
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_second.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

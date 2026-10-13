@@ -186,6 +186,7 @@ public final class ClassTemplate_unsigned_long extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long.invokeExact();
+            mrbind_test.Ffi.checkException();
             return mrbind_test.Ffi.getCLong(__ret.reinterpret(8), 0);
         }
         catch (java.lang.Throwable __e)
@@ -205,6 +206,7 @@ public final class ClassTemplate_unsigned_long extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long.invokeExact(value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

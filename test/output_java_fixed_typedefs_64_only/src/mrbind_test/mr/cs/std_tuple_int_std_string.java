@@ -38,6 +38,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -114,6 +117,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         {
             java.lang.foreign.MemorySegment __str__1 = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(_1, "_1"));
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_Construct.invokeExact(_0, __str__1, mrbind_test.Ffi.end(__str__1));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -133,6 +137,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_get_int.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -156,6 +161,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_get_int_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -179,6 +185,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_get_std_string.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -203,6 +210,7 @@ public final class std_tuple_int_std_string extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int_std_string.H0.MR_C_std_tuple_int_std_string_get_std_string_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }

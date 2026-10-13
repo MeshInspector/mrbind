@@ -39,6 +39,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -86,6 +88,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -109,6 +112,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdsharedptr.A(__ret, false, __owner);
         }
@@ -132,6 +136,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -155,6 +160,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdsharedptr.A(__ret, false, __owner);
         }
@@ -180,6 +186,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             int __ret = (int)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -202,6 +209,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_reset.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -228,6 +236,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize.invokeExact(size);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -246,6 +255,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct.invokeExact(java.util.Objects.requireNonNull(ptr, "ptr").release());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_MR_StdSharedPtr_A_array(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -264,6 +274,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign.invokeExact(rawPointer(), java.util.Objects.requireNonNull(ptr, "ptr").release());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -286,6 +297,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructNonOwning.invokeExact(mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_MR_StdSharedPtr_A_array(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -309,6 +321,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignNonOwning.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -338,6 +351,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructAliasing.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -363,6 +377,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignAliasing.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -386,6 +401,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConvertTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_shared_ptr_void(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -408,6 +424,7 @@ public final class std_shared_ptr_MR_StdSharedPtr_A_array extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_shared_ptr_MR_StdSharedPtr_A_array.H0.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_AssignTo_MR_C_std_shared_ptr_void.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_target, "_target"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

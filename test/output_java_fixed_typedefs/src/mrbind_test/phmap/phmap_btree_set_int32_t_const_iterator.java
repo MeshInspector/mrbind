@@ -38,6 +38,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -108,6 +111,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_deref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_incr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -151,6 +156,7 @@ public final class phmap_btree_set_int32_t_const_iterator extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.phmap_btree_set_int32_t.H0.MR_C_phmap_btree_set_int32_t_const_iterator_decr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

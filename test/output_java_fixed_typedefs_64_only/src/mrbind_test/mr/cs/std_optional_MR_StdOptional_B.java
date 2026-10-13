@@ -38,6 +38,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother.invokeExact((int)(other == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(other));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_ConstructFrom.invokeExact((int)(other == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(other));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -112,6 +115,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_AssignFromAnother.invokeExact(rawPointer(), (int)(other == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(other));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -134,6 +138,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_AssignFrom.invokeExact(rawPointer(), (int)(other == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(other));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -156,6 +161,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -179,6 +185,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdoptional.B(__ret, false, __owner);
         }
@@ -203,6 +210,7 @@ public final class std_optional_MR_StdOptional_B extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_B.H0.MR_C_std_optional_MR_StdOptional_B_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdoptional.B(__ret, false, __owner);
         }

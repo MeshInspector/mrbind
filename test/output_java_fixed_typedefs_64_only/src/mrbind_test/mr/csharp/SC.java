@@ -42,6 +42,7 @@ public final class SC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -66,6 +67,7 @@ public final class SC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class SC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.SC(__ret, false, __owner);
         }
@@ -115,6 +118,7 @@ public final class SC extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_Get_s.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -141,6 +145,7 @@ public final class SC extends mrbind_test.CppObject
         {
             java.lang.foreign.MemorySegment __str_value = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(value, "value"));
             mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_Set_s.invokeExact(rawPointer(), __str_value, mrbind_test.Ffi.end(__str_value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -149,6 +154,86 @@ public final class SC extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CSharp::SA`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA()`. */
+    public mrbind_test.mr.csharp.SA upcastToSA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.SA(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CSharp::SA`. Undefined behavior if the object isn't actually a `SC`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SA()`. */
+    public static mrbind_test.mr.csharp.SC staticDowncastFromSA(mrbind_test.mr.csharp.SA object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SA.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.csharp.SC(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CSharp::SB`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB()`. */
+    public mrbind_test.mr.csharp.SB upcastToSB()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.SB(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CSharp::SB`. Undefined behavior if the object isn't actually a `SC`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SB()`. */
+    public static mrbind_test.mr.csharp.SC staticDowncastFromSB(mrbind_test.mr.csharp.SB object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SB.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.csharp.SC(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
         }
     }
 }

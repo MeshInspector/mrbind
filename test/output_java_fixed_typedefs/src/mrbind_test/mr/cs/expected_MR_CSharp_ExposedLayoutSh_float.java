@@ -38,6 +38,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_success.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayoutSh(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayoutSh.LAYOUT.byteSize()), __owner);
         }
@@ -154,6 +159,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_error.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -177,6 +183,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_value_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.ExposedLayoutSh(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayoutSh.LAYOUT.byteSize()), __owner);
         }
@@ -201,6 +208,7 @@ public final class expected_MR_CSharp_ExposedLayoutSh_float extends mrbind_test.
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.expected_MR_CSharp_ExposedLayoutSh_float.H0.MR_C_expected_MR_CSharp_ExposedLayoutSh_float_error_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

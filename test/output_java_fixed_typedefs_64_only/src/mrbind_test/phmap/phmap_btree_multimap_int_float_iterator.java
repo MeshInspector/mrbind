@@ -38,6 +38,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -108,6 +111,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_deref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_pair_const_int_float(__ret, false, __owner);
         }
@@ -132,6 +136,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_deref_key.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
         }
         catch (java.lang.Throwable __e)
@@ -155,6 +160,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_deref_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -177,6 +183,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_incr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -198,6 +205,7 @@ public final class phmap_btree_multimap_int_float_iterator extends mrbind_test.C
         try
         {
             mrbind_test.ffi.phmap_btree_multimap_int_float.H0.MR_C_phmap_btree_multimap_int_float_iterator_decr.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

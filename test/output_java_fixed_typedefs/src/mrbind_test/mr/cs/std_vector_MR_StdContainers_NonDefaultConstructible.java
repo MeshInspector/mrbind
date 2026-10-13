@@ -38,6 +38,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -151,6 +156,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -173,6 +179,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -194,6 +201,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -216,6 +224,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve.invokeExact(rawPointer(), new_capacity);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -237,6 +246,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -259,6 +269,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -283,6 +294,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at_mut.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -307,6 +319,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -331,6 +344,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -355,6 +369,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -379,6 +394,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stdcontainers.NonDefaultConstructible(__ret, false, __owner);
         }
@@ -403,6 +419,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_push_back.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -425,6 +442,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -447,6 +465,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert.invokeExact(rawPointer(), position, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -469,6 +488,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase.invokeExact(rawPointer(), position);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -491,6 +511,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -514,6 +535,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -537,6 +559,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -560,6 +583,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -583,6 +607,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -605,6 +630,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -629,6 +655,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -651,6 +678,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -675,6 +703,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -697,6 +726,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -721,6 +751,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -743,6 +774,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -766,6 +798,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -789,6 +822,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

@@ -43,6 +43,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         {
             java.lang.foreign.MemorySegment __str__3 = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(_3, "_3"));
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct.invokeExact(_0, _1, mrbind_test.Ffi.ptrNonNull(_2, "_2"), __str__3, mrbind_test.Ffi.end(__str__3));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -66,6 +67,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_int32_t_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_float_rvalue_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -112,6 +115,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }
@@ -136,6 +140,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_rvalue_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.cs.std_string(__ret, false, __owner);
         }

@@ -343,4 +343,124 @@ public final class G extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
+
+    /** Upcasts to the base class `MR::CSharp::A`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_G_MutableUpcastTo_MR_CSharp_A()`. */
+    public mrbind_test.mr.csharp.A upcastToA()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableUpcastTo_MR_CSharp_A.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.A(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CSharp::A`. Undefined behavior if the object isn't actually a `G`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_A()`. */
+    public static mrbind_test.mr.csharp.G staticDowncastFromA(mrbind_test.mr.csharp.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.csharp.G(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Dynamic downcast from the base class `MR::CSharp::A`. Returns null if the object isn't actually a `G`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_G_MutableDynamicDowncastFrom_MR_CSharp_A()`. */
+    public static mrbind_test.mr.csharp.G dynamicDowncastFromA(mrbind_test.mr.csharp.A object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableDynamicDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.G(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CSharp::D`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_G_MutableUpcastTo_MR_CSharp_D()`. */
+    public mrbind_test.mr.csharp.D upcastToD()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableUpcastTo_MR_CSharp_D.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.D(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** Static downcast from the base class `MR::CSharp::D`. Undefined behavior if the object isn't actually a `G`. The result refers to `object`.
+     *
+     * Calls `MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_D()`. */
+    public static mrbind_test.mr.csharp.G staticDowncastFromD(mrbind_test.mr.csharp.D object)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_D.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            return new mrbind_test.mr.csharp.G(__ret, false, object);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(object);
+        }
+    }
+
+    /** Upcasts to the base class `MR::CSharp::E`. The result refers to this object.
+     *
+     * Calls `MR_CSharp_G_MutableUpcastTo_MR_CSharp_E()`. */
+    public mrbind_test.mr.csharp.E upcastToE()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_G_MutableUpcastTo_MR_CSharp_E.invokeExact(rawPointer());
+            return new mrbind_test.mr.csharp.E(__ret, false, this);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
 }

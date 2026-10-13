@@ -36,6 +36,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ConstNonconstConflicts_foo_mut_int32_t.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -57,6 +58,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ConstNonconstConflicts_foo_float.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -78,6 +80,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ConstNonconstConflicts_foo_mut_char.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -99,6 +102,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ConstNonconstConflicts_foo_char.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -120,6 +124,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -142,6 +147,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -165,6 +171,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -186,6 +193,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             mrbind_test.ffi.MR.test_csharp.H2.MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -207,6 +215,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int32_t.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -229,6 +238,7 @@ public final class ConstNonconstConflicts extends mrbind_test.CppStruct
         try
         {
             int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int32_t.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

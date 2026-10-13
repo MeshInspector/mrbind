@@ -38,6 +38,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -112,6 +115,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_ConstructFromRange.invokeExact((java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -130,6 +134,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_AssignFromRange.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -151,6 +156,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             long __ret = (long)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -173,6 +179,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -195,6 +202,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -216,6 +224,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_contains.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -239,6 +248,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_find.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_unordered_set_int32_t_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -262,6 +272,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_insert.invokeExact(rawPointer(), new_elem);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -284,6 +295,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_unordered_set_int32_t_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -306,6 +318,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -330,6 +343,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_unordered_set_int32_t_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -352,6 +366,7 @@ public final class std_unordered_set_int32_t extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_unordered_set_int32_t.H0.MR_C_std_unordered_set_int32_t_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)

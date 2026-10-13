@@ -38,6 +38,7 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_has_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_reset.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -150,7 +155,69 @@ public final class std_function_MR_CSharp_E1_from_MR_CSharp_E1 extends mrbind_te
         try
         {
             int __ret = (int)mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_call.invokeExact(rawPointer(), java.util.Objects.requireNonNull(_1, "_1").value);
+            mrbind_test.Ffi.checkException();
             return mrbind_test.mr.csharp.E1.of(__ret);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /** A Java callable that an instance can hold, see `of()`. */
+    @java.lang.FunctionalInterface
+    public interface Fn
+    {
+        mrbind_test.mr.csharp.E1 call(mrbind_test.mr.csharp.E1 _1);
+    }
+
+    private static final java.lang.foreign.MemorySegment CALL_STUB = mrbind_test.Ffi.upcall(java.lang.invoke.MethodHandles.lookup(), std_function_MR_CSharp_E1_from_MR_CSharp_E1.class, "__call", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+
+    private static int __call(int _1, java.lang.foreign.MemorySegment _userdata, java.lang.foreign.MemorySegment _cleanup_value)
+    {
+        Fn func = (Fn)mrbind_test.Ffi.callbackState(_userdata);
+        try
+        {
+            mrbind_test.mr.csharp.E1 __ret = func.call(mrbind_test.mr.csharp.E1.of(_1));
+            return java.util.Objects.requireNonNull(__ret, "The callback returned null.").value;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            mrbind_test.Ffi.callbackFailed(__e);
+            return 0;
+        }
+    }
+
+    /** Constructs an instance holding a Java callable. The copies of the instance share it. An exception thrown by the callable is rethrown by the wrapper that called into C.
+     *
+     * Calls `MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructEx()`. */
+    public static mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1 of(Fn func)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructEx.invokeExact(CALL_STUB, mrbind_test.Ffi.newCallbackState(java.util.Objects.requireNonNull(func, "func")), java.lang.foreign.MemorySegment.NULL, mrbind_test.Ffi.CALLBACK_STATE_STUB);
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /** Replaces the stored callable with a Java one.
+     *
+     * Calls `MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignEx()`. */
+    public void assignFn(Fn func)
+    {
+        try
+        {
+            mrbind_test.ffi.std_function_MR_CSharp_E1_from_MR_CSharp_E1.H0.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignEx.invokeExact(rawPointer(), CALL_STUB, mrbind_test.Ffi.newCallbackState(java.util.Objects.requireNonNull(func, "func")), java.lang.foreign.MemorySegment.NULL, mrbind_test.Ffi.CALLBACK_STATE_STUB);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

@@ -40,6 +40,7 @@ public final class A_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_omitting_template_args_and_quals.H0.MR_OmittingTargsAndQuals_A_int32_t_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -64,6 +65,7 @@ public final class A_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_omitting_template_args_and_quals.H0.MR_OmittingTargsAndQuals_A_int32_t_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -87,6 +89,7 @@ public final class A_int32_t extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_omitting_template_args_and_quals.H0.MR_OmittingTargsAndQuals_A_int32_t_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.omittingtargsandquals.A_int32_t(__ret, false, __owner);
         }
@@ -111,6 +114,7 @@ public final class A_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_omitting_template_args_and_quals.H0.MR_C_pos_MR_OmittingTargsAndQuals_A_int32_t.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -132,6 +136,7 @@ public final class A_int32_t extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_omitting_template_args_and_quals.H0.MR_C_sub_MR_OmittingTargsAndQuals_A_int32_t_MR_OmittingTargsAndQuals_A_float.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

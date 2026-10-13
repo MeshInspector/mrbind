@@ -38,6 +38,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -63,6 +64,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_ConstructFrom.invokeExact(mrbind_test.Ffi.ptrNonNull(b, "b"), java.util.Objects.requireNonNull(e, "e").value);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -91,6 +93,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -114,6 +117,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.nestedtypes.A(__ret, false, __owner);
         }
@@ -139,6 +143,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_Get_b.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.nestedtypes.A_B(__ret, false, __owner);
         }
@@ -163,6 +168,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_Set_b.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(value, "value"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -186,6 +192,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_Get_e.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return mrbind_test.mr.nestedtypes.A_E.of(__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0));
         }
         catch (java.lang.Throwable __e)
@@ -209,6 +216,7 @@ public final class A extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.MR.test_nested_types.H0.MR_NestedTypes_A_Set_e.invokeExact(rawPointer(), java.util.Objects.requireNonNull(value, "value").value);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {

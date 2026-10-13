@@ -38,6 +38,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -89,6 +91,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFrom.invokeExact(java.util.Objects.requireNonNull(other, "other").release());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -108,6 +111,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -130,6 +134,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFrom.invokeExact(rawPointer(), java.util.Objects.requireNonNull(other, "other").release());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -152,6 +157,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_get.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stduniqueptr.A(__ret, false, __owner);
         }
@@ -176,6 +182,7 @@ public final class std_unique_ptr_MR_StdUniquePtr_A extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unique_ptr_MR_StdUniquePtr_A.H0.MR_C_std_unique_ptr_MR_StdUniquePtr_A_release.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return __ret.address() == 0 ? null : new mrbind_test.mr.stduniqueptr.A(__ret, false, __owner);
         }

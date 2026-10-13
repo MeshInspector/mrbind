@@ -38,6 +38,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -62,6 +63,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_ConstructFromAnother.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -85,6 +87,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -107,6 +110,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_size.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -129,6 +133,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_empty.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -151,6 +156,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_resize.invokeExact(rawPointer(), new_size);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -172,6 +178,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptr(value));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -194,6 +201,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_clear.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -215,6 +223,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_capacity.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -237,6 +246,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_reserve.invokeExact(rawPointer(), new_capacity);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -258,6 +268,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_shrink_to_fit.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -280,6 +291,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_at.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -303,6 +315,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut.invokeExact(rawPointer(), i);
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -326,6 +339,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_front.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -349,6 +363,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_front_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -372,6 +387,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -395,6 +411,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_back_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -418,6 +435,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_push_back.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(new_elem));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -440,6 +458,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_pop_back.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -462,6 +481,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_insert.invokeExact(rawPointer(), position, mrbind_test.Ffi.ptr(new_elem));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -484,6 +504,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_erase.invokeExact(rawPointer(), position);
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -506,6 +527,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptr(new_elem));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -529,6 +551,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -552,6 +575,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.ptr(new_elem));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -575,6 +599,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
+            mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
@@ -598,6 +623,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_const_MR_CSharp_A_ptr_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -620,6 +646,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -644,6 +671,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_const_MR_CSharp_A_ptr_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -666,6 +694,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -690,6 +719,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_const_MR_CSharp_A_ptr_const_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -712,6 +742,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -736,6 +767,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_end_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_vector_const_MR_CSharp_A_ptr_iterator(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
@@ -758,6 +790,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -781,6 +814,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_to_index.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
@@ -804,6 +838,7 @@ public final class std_vector_const_MR_CSharp_A_ptr extends mrbind_test.CppObjec
         try
         {
             long __ret = (long)mrbind_test.ffi.std_vector_const_MR_CSharp_A_ptr.H0.MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
+            mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
