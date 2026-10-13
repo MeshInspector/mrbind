@@ -1540,6 +1540,10 @@ namespace mrbind::C
 
                 // If true, this parameter has a default argument that's considered useful, i.e. affects the parameter passing style.
                 bool has_useful_default_arg = false;
+
+                // The C parameters that this C++ parameter expanded to. This goes to the interop description.
+                // You can get the same parameters from `decl`, but here they are split per original C++ parameters.
+                std::vector<cppdecl::Decl> c_params;
             };
 
             // Stores additional information about the parameters. Has the same size as `params.params`.

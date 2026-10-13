@@ -2973,7 +2973,6 @@ namespace mrbind::C
         }
 
         cppdecl::Function new_func;
-        cppdecl::Function new_func_decl;
 
         if (!params.c_comment.empty())
         {
@@ -3187,12 +3186,7 @@ namespace mrbind::C
                         new_param.type = c_param.c_type;
                         new_param.name.parts.emplace_back(param_name_fixed + c_param.name_suffix);
 
-                        auto &new_param_decl = new_func_decl.params.emplace_back();
-                        new_param_decl.type = c_param.c_type;
-                        // Skip the parameter name in the declarator if it's unnamed in the input AND it doesn't correspond to multiple parameters in the output.
-                        // The latter requirement is solely for our sanity, as otherwise it becomes difficult to understand what the multiple parameters are doing in there.
-                        if (!param.name.empty() || param_usage.c_params.size() > 1)
-                            new_param_decl.name = new_param.name;
+                        out_param_info.c_params.push_back(new_param);
                     }
 
                     // Custom comment?
@@ -3244,6 +3238,8 @@ namespace mrbind::C
                     auto &new_param = new_func.params.emplace_back();
                     new_param.type = param_cpp_type_fixed;
                     new_param.name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed);
+
+                    out_param_info.c_params.push_back(new_param);
                 }
 
                 if (param.omit_from_call)
@@ -3812,6 +3808,7 @@ namespace mrbind::C
                         .name = "_this",
                         .name_or_placeholder = "_this",
                         .is_this_param = true,
+                        .c_params = {}, // Empty for constructors.
                     });
 
                     // Shift parameter indices in the lifetime information to handle the new parameter.
@@ -3857,6 +3854,7 @@ namespace mrbind::C
                 func_like->ret.cpp_type = CppdeclToCodeForComments(params.cpp_return_type);
                 func_like->ret.uses_sugar = !params.remove_return_type_sugar && FindBindableType(params.cpp_return_type).return_usage.value().considered_sugar_for_interop;
                 func_like->ret.is_array_pointer = params.mark_as_returning_pointer_to_array;
+                func_like->ret.c_type = CppdeclToCodeForComments(cppdecl::Type(strings.decl.type).RemoveModifier());
 
                 // Parameters.
                 func_like->params.reserve(params.params.size());
@@ -3885,6 +3883,11 @@ namespace mrbind::C
                     new_param.is_this_param = input_param.kind == EmitFuncParams::Param::Kind::this_ref || input_param.kind == EmitFuncParams::Param::Kind::static_;
 
                     new_param.is_array_pointer = params.params[i].mark_as_pointer_to_array;
+
+                    const auto &input_c_params = strings.params_info[i].c_params;
+                    new_param.c_params.reserve(input_c_params.size());
+                    for (std::size_t j = 0; j < input_c_params.size(); j++)
+                        new_param.c_params.push_back({.c_type = CppdeclToCodeForComments(input_c_params[j].type), .name = CppdeclToCodeForComments(input_c_params[j].name)});
 
                     i++;
                 }
