@@ -882,8 +882,18 @@ public abstract class CppStruct implements Native
             String lib = LIB_NAMES.get(group);
             if (lib == null)
                 throw new IllegalArgumentException("Unknown library group: `" + group + "`.");
+            Throwable windowsError = null;
             if (IS_WINDOWS)
-                ret = windowsLookup(System.mapLibraryName(lib));
+            {
+                try
+                {
+                    ret = windowsLookup(System.mapLibraryName(lib));
+                }
+                catch (Throwable e)
+                {
+                    windowsError = e;
+                }
+            }
             if (ret == null)
             {
                 try
@@ -893,6 +903,8 @@ public abstract class CppStruct implements Native
                 }
                 catch (UnsatisfiedLinkError e)
                 {
+                    if (windowsError != null)
+                        e.addSuppressed(windowsError);
                     try
                     {
                         ret = java.lang.foreign.SymbolLookup.libraryLookup(System.mapLibraryName(lib), java.lang.foreign.Arena.global());
@@ -909,8 +921,8 @@ public abstract class CppStruct implements Native
         return ret;
     }
 
-    // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there or can't be loaded.
-    private static java.lang.foreign.SymbolLookup windowsLookup(String fileName)
+    // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
+    private static java.lang.foreign.SymbolLookup windowsLookup(String fileName) throws Throwable
     {
         java.nio.file.Path path = null;
         for (String dir : System.getProperty("java.library.path", "").split(java.io.File.pathSeparator))
@@ -926,36 +938,34 @@ public abstract class CppStruct implements Native
         }
         if (path == null)
             return null;
-        try
+        java.lang.foreign.SymbolLookup kernel32 = java.lang.foreign.SymbolLookup.libraryLookup("kernel32.dll", java.lang.foreign.Arena.global());
+        java.lang.foreign.Linker.Option errorState = java.lang.foreign.Linker.Option.captureCallState("GetLastError");
+        java.lang.foreign.StructLayout errorLayout = java.lang.foreign.Linker.Option.captureStateLayout();
+        java.lang.invoke.MethodHandle loadLibraryEx = LINKER.downcallHandle(kernel32.find("LoadLibraryExW").orElseThrow(), java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT), errorState);
+        java.lang.invoke.MethodHandle getProcAddress = LINKER.downcallHandle(kernel32.find("GetProcAddress").orElseThrow(), java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        java.lang.foreign.MemorySegment module;
+        int error;
+        try (java.lang.foreign.Arena arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.SymbolLookup kernel32 = java.lang.foreign.SymbolLookup.libraryLookup("kernel32.dll", java.lang.foreign.Arena.global());
-            java.lang.invoke.MethodHandle loadLibraryEx = LINKER.downcallHandle(kernel32.find("LoadLibraryExW").orElseThrow(), java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT));
-            java.lang.invoke.MethodHandle getProcAddress = LINKER.downcallHandle(kernel32.find("GetProcAddress").orElseThrow(), java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
-            java.lang.foreign.MemorySegment module;
+            final int LOAD_WITH_ALTERED_SEARCH_PATH = 0x8;
+            java.lang.foreign.MemorySegment state = arena.allocate(errorLayout);
+            module = (java.lang.foreign.MemorySegment)loadLibraryEx.invokeExact(state, arena.allocateFrom(path.toString(), java.nio.charset.StandardCharsets.UTF_16LE), java.lang.foreign.MemorySegment.NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+            error = state.get(java.lang.foreign.ValueLayout.JAVA_INT, errorLayout.byteOffset(java.lang.foreign.MemoryLayout.PathElement.groupElement("GetLastError")));
+        }
+        if (module.address() == 0)
+            throw new UnsatisfiedLinkError("LoadLibraryExW failed for `" + path + "` with the Windows error " + error + (error == 127 ? ": a procedure is missing from one of its dependencies. A DLL of the same name that's already loaded (such as the C++ runtime bundled with the JDK, which java.exe loads first) can be older than the one the library needs" : "") + ".");
+        return name ->
+        {
             try (java.lang.foreign.Arena arena = java.lang.foreign.Arena.ofConfined())
             {
-                final int LOAD_WITH_ALTERED_SEARCH_PATH = 0x8;
-                module = (java.lang.foreign.MemorySegment)loadLibraryEx.invokeExact(arena.allocateFrom(path.toString(), java.nio.charset.StandardCharsets.UTF_16LE), java.lang.foreign.MemorySegment.NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+                java.lang.foreign.MemorySegment address = (java.lang.foreign.MemorySegment)getProcAddress.invokeExact(module, arena.allocateFrom(name));
+                return address.address() == 0 ? java.util.Optional.empty() : java.util.Optional.of(address);
             }
-            if (module.address() == 0)
-                return null;
-            return name ->
+            catch (Throwable e)
             {
-                try (java.lang.foreign.Arena arena = java.lang.foreign.Arena.ofConfined())
-                {
-                    java.lang.foreign.MemorySegment address = (java.lang.foreign.MemorySegment)getProcAddress.invokeExact(module, arena.allocateFrom(name));
-                    return address.address() == 0 ? java.util.Optional.empty() : java.util.Optional.of(address);
-                }
-                catch (Throwable e)
-                {
-                    throw rethrow(e);
-                }
-            };
-        }
-        catch (Throwable e)
-        {
-            return null;
-        }
+                throw rethrow(e);
+            }
+        };
     }
 
     /**
@@ -1131,7 +1141,7 @@ public abstract class CppStruct implements Native
             ffi += "            java.lang.invoke.MethodHandle handler = java.lang.invoke.MethodHandles.lookup().findStatic(Ffi.class, \"exceptionHandler\", java.lang.invoke.MethodType.methodType(void.class, java.lang.foreign.MemorySegment.class, java.lang.foreign.MemorySegment.class, java.lang.foreign.MemorySegment.class));\n";
             ffi += "            java.lang.foreign.MemorySegment stub = LINKER.upcallStub(handler, java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS), java.lang.foreign.Arena.global());\n";
             ffi += "            downcall(\"\", \"" + hp + "SetExceptionHandler\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)).invokeExact(stub, java.lang.foreign.MemorySegment.NULL);\n";
-            ffi += "        }\n        catch (Throwable e)\n        {\n            throw new ExceptionInInitializerError(e);\n        }\n    }\n\n";
+            ffi += "        }\n        catch (Throwable e)\n        {\n            // The message survives the `NoClassDefFoundError` that the later uses of this class get.\n            throw new IllegalStateException(\"Failed to register the C++ exception handler: \" + e, e);\n        }\n    }\n\n";
             ffi += "    /** Throws if the last call into the C bindings threw a C++ exception. */\n";
             ffi += "    public static void checkException()\n    {\n";
             ffi += "        String message = PENDING_EXCEPTION.get();\n";
