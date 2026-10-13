@@ -1,12 +1,18 @@
 # mrbind
 
-MRBind parses C++ headers and generates **C**, **C#**, **Rust**, and **Python** bindings for them. The parse results can also be dumped for reflection purposes (either as JSON or as C macros).
+MRBind parses C++ headers and can generates bindings for them for the following languages:
 
-* The C backend is custom. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C# and Rust.
+* **C** - Uses a custom code generator. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C#.
 
-* The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly can be made cross-platform (at least across all of: Win/Linux/Mac (both x64 and ARM64) and Wasm) as long as you compile the generated C shared library for every platform you want to support.
+* **C#** - Uses a custom code generator, and uses `[DllImport]` to load the C bindings. The resulting C# assembly can be made cross-platform (at least across all of: Win/Linux/Mac (both x64 and ARM64) and Wasm) as long as you compile the generated C shared library for every platform you want to support.
 
-* The Python backend uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
+* **Python** - Uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
+
+* **Rust**, **Java** - Custom vibecoded code generators. Seem to work ok despite being vibecoded. Live in [a separate aptly named branch](https://github.com/MeshInspector/mrbind/tree/vibecoded). Also see [note on AI usage below.](#ai-usage-and-policy)
+
+The parser is shared between all the output languages, so the APIs produced for different languages should match closely.
+
+The parse results can also be dumped for reflection purposes (either as JSON or as C macros).
 
 Our main features are:
 
@@ -22,11 +28,15 @@ MRBind still has some rough edges, but it is used in production for [MeshLib](ht
 
 MRBind is meant to cover a large API surface area with minimal effort, but in turn you give up the flexibility of handwritten bindings.
 
-#### Note on AI usage:
+### AI usage and policy
 
-All MRBind features were developed without any use of AI.
+TL;DR: The parser and C/C#/Python backends are handwritten. Rust/Java backends are vibecoded, kept [in a separate branch](https://github.com/MeshInspector/mrbind/tree/vibecoded).
 
-I received some simple vibecoded contributions (bugfixes, binary size reductions) that were merged after manual cleanup, which among other things includes replacing the generated comments. I've also merged some generated testcases for those bugs.
+While it would be nice to live in a universe where vibecoding isn't a thing, we aren't in one. I can't refuse vibecoded internal contributions if they are useful, on the grounds of being vibecoded alone. So I'm doing the next best thing:
+
+The `master` branch is kept mostly untained by generated code, except for simple bugfixes and binary size reductions (which get cleaned up manually, which includes replaced any non-trivial generated comments).
+
+Large vibecoded contributions go into the [a separate `vibecoded` branch](https://github.com/MeshInspector/mrbind/tree/vibecoded) with minimal review (but vibecoded language backends do pass some internal tests, so they should work alright).
 
 ## Usage
 
