@@ -34,6 +34,16 @@ It parses all C++ headers in  `examples/input` and generates the C# bindings in 
 
 Then it runs the test executable at `examples/csharp/example_consumer`, which calls into this library.
 
+## Rust
+
+You need to have [Rust](https://rustup.rs/) installed.
+
+Run `examples/rust/run.sh`.
+
+It parses all C++ headers in  `examples/input` and generates the Rust crate in `examples/rust/library` (only `src` is generated, the `Cargo.toml` and `build.rs` are a part of the example). It also generates the C bindings required for Rust, like the C example, in `examples/rust/c_library`.
+
+Then it runs the test executable at `examples/rust/example_consumer`, which calls into this library.
+
 ## Python
 
 Run `examples/python/run.sh`.

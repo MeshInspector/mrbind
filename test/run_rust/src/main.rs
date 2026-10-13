@@ -61,5 +61,43 @@ fn main()
     });
     assert!(result.is_err());
 
+    // `std::function` from a closure. The copies of the `std::function` share the closure.
+    use std::sync::atomic::{AtomicI32, Ordering};
+    let counter = std::sync::Arc::new(AtomicI32::new(0));
+    let counter2 = counter.clone();
+    let f = mr::cs::std_function_int_from_int_int::from_fn(move |x, y| {counter2.fetch_add(1, Ordering::Relaxed); x + y});
+    assert!(f.has_value());
+    assert_eq!(f.call(2, 3), 5);
+    let f2 = f.clone();
+    assert_eq!(f2.call(10, 20), 30);
+    assert_eq!(counter.load(Ordering::Relaxed), 2);
+    mr::std_function::foo_std_function_int_func_from_int_int(&f);
+    drop(f);
+    drop(f2);
+    assert_eq!(std::sync::Arc::strong_count(&counter), 1); // The closure got destroyed with the last copy.
+    let mut e = mr::cs::std_function_void::new();
+    assert!(!e.has_value());
+    e.assign_fn(|| {});
+    assert!(e.has_value());
+    // Classes passed and returned by value.
+    let g = mr::cs::std_function_MR_StdFunction_A::from_fn(||
+    {
+        let mut a = mr::std_function::A::new();
+        a.set_a("made in rust");
+        a
+    });
+    assert_eq!(g.call().a().to_string(), "made in rust");
+    let h = mr::cs::std_function_void_from_MR_StdFunction_A::from_fn(|a| assert_eq!(a.a().to_string(), "made in rust"));
+    h.call(&g.call());
+
+    // Casts between a class and its bases.
+    let mut b = mr::bases::B::new();
+    let a_base: &mr::bases::A = b.upcast_to_a();
+    let back = unsafe {mr::bases::B::static_downcast_from_a(a_base)};
+    assert!(std::ptr::eq(back, &*b));
+    let _: &mr::bases::A = b.as_ref();
+    let _: &mut mr::bases::A = b.as_mut();
+    let _ = b.upcast_to_a_mut();
+
     println!("All Rust binding tests passed.");
 }

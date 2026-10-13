@@ -70,7 +70,10 @@ namespace mrbind::Rust
             std::string ffi_funcs;
         };
         std::map<std::string, FileModule> file_modules;
+        // Registers the file. The identifiers are assigned later by `AssignFileIdents()`.
         [[nodiscard]] FileModule &GetFileModule(const CInterop::OutputFile &file);
+        // Assigns the module identifiers to all the files, avoiding clashes with the namespace modules.
+        void AssignFileIdents();
 
         struct TypeInfo
         {
@@ -99,6 +102,9 @@ namespace mrbind::Rust
 
         [[nodiscard]] Module &GetModuleForNamespace(const std::vector<std::string> &ns_parts);
         [[nodiscard]] std::string UniqueName(std::set<std::string> &used, std::string name);
+
+        // The namespace of a free function, as parts. Optionally returns the snake-cased unqualified name for the regular functions.
+        [[nodiscard]] std::vector<std::string> FuncNamespaceParts(const CInterop::Function &func, std::string *simple_name) const;
 
         void CollectTypes();
         void EmitFfi();
@@ -137,6 +143,12 @@ namespace mrbind::Rust
 
         // Emits one safe wrapper. `this_type` is null for free functions. Returns false if the function got skipped entirely.
         bool EmitFuncLike(std::string &out, const CInterop::BasicFuncLike &func, const CInterop::BasicClassMethodLike *method_like, const TypeInfo *this_type, std::string rust_name, int indent);
+
+        // Emits the casts to the base classes and from them, which the C bindings have but the description doesn't list.
+        // The methods go to `methods`, the trait impls to `extra`.
+        void EmitCasts(TypeInfo &info, std::string &methods, std::set<std::string> &used_names, std::string &extra);
+        // Emits the construction of a `std::function` from a closure.
+        void EmitStdFunction(TypeInfo &info, std::string &methods, std::set<std::string> &used_names);
 
         // Writes the re-export of a type from its file module to its namespace module.
         void ReExportType(const TypeInfo &info);

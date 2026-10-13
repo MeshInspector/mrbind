@@ -446,6 +446,13 @@ namespace mrbind::C::Modules
 
                         cppdecl::Type funcptr_with_extra_ptr_params = cppdecl::Type(c_func_type_with_extra_ptr_params).AddModifier(cppdecl::Pointer{});
 
+                        if (generator.output_desc)
+                        {
+                            auto &info = generator.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(binder.cpp_type_name)).std_function.emplace();
+                            info.stateless_func_c_type = generator.CppdeclToCode(cppdecl::Type(c_func_type).AddModifier(cppdecl::Pointer{}));
+                            info.stateful_func_c_type = generator.CppdeclToCode(funcptr_with_extra_ptr_params);
+                        }
+
                         std::vector<cppdecl::MaybeAmbiguousDecl> postcall_cb_params;
                         postcall_cb_params.emplace_back();
                         postcall_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_userdata");

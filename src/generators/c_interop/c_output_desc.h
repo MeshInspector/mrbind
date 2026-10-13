@@ -630,6 +630,19 @@ namespace mrbind::CInterop
                 SizeAndAlignment() {} // Ugh!
             };
 
+            // The C function pointer types accepted by the `..._ConstructStateless()`/`..._Assign()` and `..._ConstructEx()`/`..._AssignEx()`
+            //   functions of a `std::function` instantiation. Those functions themselves are hidden from this description,
+            //   since the languages wrapping the C bindings implement callbacks in their own ways.
+            struct StdFunctionInfo
+            {
+                MBREFL_STRUCT(
+                    (std::string)(stateless_func_c_type)
+                    (std::string)(stateful_func_c_type)
+                )
+
+                StdFunctionInfo() {} // Ugh!
+            };
+
             MBREFL_STRUCT(
                 (OutputFile)(output_file)
 
@@ -655,6 +668,9 @@ namespace mrbind::CInterop
 
                 // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
                 (bool)(is_polymorphic, false)
+
+                // Only set for the `std::function` instantiations.
+                (std::optional<StdFunctionInfo>)(std_function)
             )
         };
     }

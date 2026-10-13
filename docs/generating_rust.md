@@ -71,7 +71,7 @@ Then `MYLIB_LIB_DIR=/path/to/c/bindings cargo build`. On Windows the `raw-dylib`
 
 ## What the generated crate looks like
 
-The source hierarchy mirrors that of the C bindings. For every C source `foo/bar.h` there's a `src/foo/bar.rs` with the safe wrappers and a `src/ffi/foo/bar.rs` with the raw declarations (directories get a `mod.rs`; file names that aren't valid Rust identifiers get an identifier derived from them, with `#[path]` pointing to the file). Those file modules are where everything is defined, but you normally don't name them directly.
+The source hierarchy mirrors that of the C bindings. For every C source `foo/bar.h` there's a `src/foo/bar.rs` with the safe wrappers and a `src/ffi/foo/bar.rs` with the raw declarations (directories get a `mod.rs`). Those file modules are where everything is defined, but you normally don't name them directly, so their identifiers are adjusted freely when the file names aren't valid Rust identifiers or clash with the namespace modules (e.g. `example.h` next to `namespace Example` becomes `mod example_`), with `#[path]` pointing to the file.
 
 Instead, `src/lib.rs` declares a module per C++ namespace (`MR::Foo` → `mr::foo`), which re-exports the types and functions of that namespace from wherever they're defined. So `mr::Mesh` is the right name of a class regardless of which C file it came from, and moving an entity to a different file is not a breaking change. The entities of the global namespace are re-exported into the module given by `--force-namespace`, or at the crate root without it.
 
@@ -91,7 +91,13 @@ The safe layer sits on top of it. Classes become types, and their methods become
 
 * Exposed structs are used by value, with public fields.
 
-* Functions that the safe layer doesn't understand (callbacks, `std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return the raw `ffi` types, and are `unsafe fn`. The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
+* The `[[clang::lifetimebound]]` annotations (and the lifetimes the C generator infers, e.g. for field getters) become explicit lifetimes: `fn at<'a>(&'a self, ...) -> &'a T`. Without annotations the returned reference is tied to `self`, or to the only reference parameter.
+
+* A class with bases gets `upcast_to_<base>()` / `upcast_to_<base>_mut()` methods and `AsRef<Base>` / `AsMut<Base>` impls, `unsafe fn static_downcast_from_<base>()` for the non-virtual bases, and `dynamic_downcast_from_<base>()` returning `Option<&Self>` for the polymorphic ones. Those call the cast functions of the C bindings.
+
+* `std::function<R(Args...)>` parameters take the `std_function_...` wrapper class, which you construct from a closure with `from_fn(|args| ...)` (or replace with `assign_fn()`). The closure must be `Fn + Send + Sync + 'static`; the copies of the `std::function` share it. The closure receives scalars, enums and exposed structs by value, and classes by reference (`&T` or `&mut T`), and returns scalars by value or classes as `Owned<T>`. The wrappers with other signatures (e.g. returning a reference) only have the raw `ffi` functions.
+
+* Functions that the safe layer doesn't understand (`std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return the raw `ffi` types, and are `unsafe fn`. The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
 
 Overloaded functions get the disambiguated names of their C functions, converted to `snake_case`. Functions that aren't overloaded keep their C++ names.
 
@@ -101,7 +107,6 @@ C++ exceptions are caught by the C bindings (unless the C generator ran with `--
 
 This is the youngest backend, and it's missing things that the C# backend has:
 
-* Inherited members are only available if the C generator copied them (`--copy-inherited-members`); there are no conversions between a class and its bases.
-* `std::function` parameters take raw C function pointers.
+* Inherited members are only available if the C generator copied them (`--copy-inherited-members`). Otherwise upcast to the base explicitly to call its methods, there are no implicit conversions.
 * Containers only expose the methods that the C bindings have (`size()`, `at()`, ...), there's no `Iterator` or `Index` integration yet.
-* Lifetimes of returned references are inferred from the function shape, not from the `[[clang::lifetimebound]]` annotations.
+* Objects don't keep alive what they reference (the `[[clang::lifetime_capture_by]]` annotations), the doc comments only mention it. A reference parameter that gets stored must outlive the object, which the borrow checker doesn't enforce.
