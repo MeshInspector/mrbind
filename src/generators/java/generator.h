@@ -4,6 +4,7 @@
 
 #include <cppdecl/declarations/data.h>
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <optional>
@@ -106,6 +107,7 @@ namespace mrbind::Java
         std::unordered_map<std::string, TypeInfo *> types_by_c_name;
         std::set<std::string> platform_dependent_structs; // By C++ name.
         std::unordered_map<std::string, std::string> handle_paths; // C function name -> the fully qualified downcall handle.
+        std::vector<std::string> base_package_segments;
 
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);
@@ -177,6 +179,7 @@ namespace mrbind::Java
             std::string preferred_name;
             std::string fallback_name; // Derived from the C name, unique.
             bool is_raw = false;
+            std::vector<std::size_t> param_indices; // The index in the description -> the index in `params`, or -1.
         };
         // Returns null if the function has to be skipped entirely.
         [[nodiscard]] std::optional<PreparedFunc> PrepareFunc(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, bool is_ctor, std::string preferred_name, std::string fallback_name);
@@ -184,6 +187,13 @@ namespace mrbind::Java
         void ResolveNames(std::vector<PreparedFunc> &funcs, std::set<std::string> &used_names, std::vector<std::string> &names);
         // Emits one wrapper method or constructor. `indent` is in levels.
         void EmitPrepared(std::string &out, const PreparedFunc &func, const std::string &name, int indent);
+
+        // Calls `func` with every base class the C bindings have casts for, in order, with the inheritance kind.
+        void ForEachCastBase(const TypeInfo &info, const std::function<void(const TypeInfo &base, CInterop::InheritanceInfo::Kind kind)> &func) const;
+        // Emits the casts to the base classes and from them, which the C bindings have but the description doesn't list.
+        void EmitCasts(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys);
+        // Emits the construction of a `std::function` from a Java lambda.
+        void EmitStdFunction(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys);
 
         [[nodiscard]] std::string MakeDocComment(const CInterop::Comment &comment, int indent, const std::string &extra_line = "") const;
 

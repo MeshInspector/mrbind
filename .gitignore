@@ -32,5 +32,8 @@ parallel-hashmap/
 /examples/rust/library/Cargo.lock
 /examples/rust/example_consumer/target
 /examples/rust/example_consumer/Cargo.lock
+/examples/java/c_library
+/examples/java/library
+/examples/java/example_consumer/classes
 /examples/python/pybind11
 /examples/python/output

@@ -3,6 +3,10 @@
 import mrbind_test.CppException;
 import mrbind_test.mr.A;
 import mrbind_test.mr.cs.std_string;
+import mrbind_test.mr.cs.std_function_MR_StdFunction_A;
+import mrbind_test.mr.cs.std_function_int_from_int_int;
+import mrbind_test.mr.cs.std_function_void;
+import mrbind_test.mr.cs.std_function_void_from_MR_StdFunction_A;
 import mrbind_test.mr.cs.std_vector_int;
 import mrbind_test.mr.csharp.E1;
 import mrbind_test.mr.csharp.ExposedLayout;
@@ -88,6 +92,49 @@ public class Main
             caught = true;
         }
         check(caught, "exception");
+
+        // `std::function` from a Java lambda. The copies of the `std::function` share it.
+        int[] counter = {0};
+        std_function_int_from_int_int f = std_function_int_from_int_int.of((x, y) -> {counter[0]++; return x + y;});
+        check(f.has_value(), "has_value");
+        check(f.call(2, 3) == 5, "call");
+        std_function_int_from_int_int f2 = new std_function_int_from_int_int(f);
+        check(f2.call(10, 20) == 30, "call the copy");
+        check(counter[0] == 2, "shared lambda");
+        mrbind_test.mr.stdfunction.Functions.foo(f);
+        std_function_void e = new std_function_void();
+        check(!e.has_value(), "empty");
+        e.assignFn(() -> {});
+        check(e.has_value(), "assigned");
+        // Classes passed and returned by value.
+        std_function_MR_StdFunction_A g = std_function_MR_StdFunction_A.of(() ->
+        {
+            mrbind_test.mr.stdfunction.A a = new mrbind_test.mr.stdfunction.A();
+            a.setA("made in java");
+            return a;
+        });
+        check(g.call().a().toString().equals("made in java"), "class returned by value");
+        std_function_void_from_MR_StdFunction_A h = std_function_void_from_MR_StdFunction_A.of(a -> check(a.a().toString().equals("made in java"), "class passed by reference"));
+        h.call(g.call());
+        // An exception thrown by the lambda is rethrown by the wrapper that called into C.
+        std_function_void bad = std_function_void.of(() -> {throw new IllegalStateException("from the lambda");});
+        caught = false;
+        try
+        {
+            bad.call();
+        }
+        catch (IllegalStateException error)
+        {
+            caught = error.getMessage().equals("from the lambda");
+        }
+        check(caught, "lambda exception");
+
+        // Casts between a class and its bases.
+        mrbind_test.mr.bases.B b = new mrbind_test.mr.bases.B();
+        mrbind_test.mr.bases.A aBase = b.upcastToA();
+        mrbind_test.mr.bases.B back = mrbind_test.mr.bases.B.staticDowncastFromA(aBase);
+        check(back.rawPointer().address() == b.rawPointer().address(), "downcast gives the same object");
+        check(!aBase.isOwned() && b.isOwned(), "the cast result is a reference");
 
         System.out.println("All Java binding tests passed.");
     }

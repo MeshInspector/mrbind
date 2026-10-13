@@ -187,6 +187,8 @@ namespace mrbind::Java
                 iter->second.package = m->package + "." + name;
                 iter->second.dir = m->dir + "/" + name;
                 iter->second.used_names.insert("Functions"); // The holder of the free functions.
+                for (const auto &segment : base_package_segments)
+                    iter->second.used_names.insert(segment);
             }
             m = &iter->second;
         }
@@ -475,6 +477,13 @@ namespace mrbind::Java
         root.used_names.insert("Functions");
         for (std::string_view name : {"Ffi", "Native", "CppObject", "CppStruct", "CppException"})
             root.used_names.insert(std::string(name));
+        // A class named like a segment of the base package would shadow the package in the qualified names inside of it.
+        Strings::Split(base_package, ".", [&](std::string_view segment)
+        {
+            base_package_segments.push_back(std::string(segment));
+            root.used_names.insert(std::string(segment));
+            return false;
+        });
 
         // First pass: register all names, so that nested classes can find their enclosing classes.
         for (const auto &cpp_name : c_desc.cpp_types.Vec())
@@ -698,7 +707,273 @@ namespace mrbind::Java
                 AddHandle(*info.file, c_name, "static final java.lang.invoke.MethodHandle " + JavaIdent(c_name) + " = " + RuntimeClass("Ffi") + ".downcall(\"\", \"" + c_name + "\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));\n");
                 info.destroy_handle = handle_paths.at(c_name);
             }
+
+            // The casts, which the description doesn't list. The names mirror what the C generator emits.
+            auto AddSimple = [&](const std::string &c_name, std::size_t num_ptr_args, bool returns_ptr)
+            {
+                std::string desc = returns_ptr ? "java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS" : "java.lang.foreign.FunctionDescriptor.ofVoid(";
+                for (std::size_t i = 0; i < num_ptr_args; i++)
+                    desc += (returns_ptr || i > 0 ? ", " : "") + std::string("java.lang.foreign.ValueLayout.ADDRESS");
+                desc += ")";
+                AddHandle(*info.file, c_name, "static final java.lang.invoke.MethodHandle " + JavaIdent(c_name) + " = " + RuntimeClass("Ffi") + ".downcall(\"\", \"" + c_name + "\", " + desc + ");\n");
+            };
+            ForEachCastBase(info, [&](const TypeInfo &base, CInterop::InheritanceInfo::Kind kind)
+            {
+                AddSimple(info.c_name + "_MutableUpcastTo_" + base.c_name, 1, true);
+                if (kind == CInterop::InheritanceInfo::Kind::non_virt)
+                    AddSimple(info.c_name + "_MutableStaticDowncastFrom_" + base.c_name, 1, true);
+                if (base.class_desc->is_polymorphic)
+                    AddSimple(info.c_name + "_MutableDynamicDowncastFrom_" + base.c_name, 1, true);
+            });
+            if (cl.std_function && info.has_destroy)
+            {
+                AddSimple(info.c_name + "_ConstructEx", 4, true);
+                AddSimple(info.c_name + "_AssignEx", 5, false);
+            }
         }
+    }
+
+    void Generator::ForEachCastBase(const TypeInfo &info, const std::function<void(const TypeInfo &base, CInterop::InheritanceInfo::Kind kind)> &func) const
+    {
+        // This mirrors what the C generator emits: casts to all the bases up to the first ambiguous one,
+        //   static downcasts from the non-virtual bases, dynamic downcasts from the polymorphic bases.
+        const auto &inh = info.class_desc->inheritance_info;
+        for (const std::string &base_cpp : inh.bases_indirect.Vec())
+        {
+            const auto kind = inh.bases_indirect.Map().at(base_cpp);
+            if (kind == CInterop::InheritanceInfo::Kind::ambiguous)
+                break;
+            auto iter = types_by_cpp_name.find(base_cpp);
+            if (iter == types_by_cpp_name.end() || !iter->second.class_desc)
+                continue;
+            func(iter->second, kind);
+        }
+    }
+
+    void Generator::EmitCasts(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys)
+    {
+        const std::string F = RuntimeClass("Ffi");
+        const std::string MS(kMemorySegment);
+
+        // A non-owning wrapper around a pointer returned by a cast.
+        auto WrapRef = [&](const TypeInfo &t, const std::string &owner)
+        {
+            if (t.IsExposedStruct())
+                return "new " + t.java_path + "(__ret.reinterpret(" + t.java_path + ".LAYOUT.byteSize()), " + owner + ")";
+            return "new " + t.java_path + "(__ret, " + (t.has_destroy ? "false, " : "") + owner + ")";
+        };
+        auto UniqueMethod = [&](std::string name, const std::string &sig)
+        {
+            std::string base = name;
+            for (int i = 2; !used_keys.insert(name + "(" + sig + ")").second; i++)
+                name = base + "_" + std::to_string(i);
+            return name;
+        };
+        auto Method = [&](const std::string &doc, const std::string &head, const std::string &c_name, const std::string &arg, const std::string &result, const std::string &fence)
+        {
+            members += "/** " + doc + "\n *\n * Calls `" + c_name + "()`. */\n";
+            members += head + "\n{\n    try\n    {\n";
+            members += "        " + MS + " __ret = (" + MS + ")" + handle_paths.at(c_name) + ".invokeExact(" + arg + ");\n";
+            members += "        return " + result + ";\n";
+            members += "    }\n    catch (java.lang.Throwable __e)\n    {\n        throw " + F + ".rethrow(__e);\n    }\n";
+            members += "    finally\n    {\n        java.lang.ref.Reference.reachabilityFence(" + fence + ");\n    }\n}\n\n";
+        };
+
+        ForEachCastBase(info, [&](const TypeInfo &base, CInterop::InheritanceInfo::Kind kind)
+        {
+            const std::string suffix = Capitalize(base.java_unqual);
+            std::string name = UniqueMethod("upcastTo" + suffix, "");
+            Method("Upcasts to the base class `" + base.cpp_name + "`. The result refers to this object.",
+                "public " + base.java_path + " " + name + "()", info.c_name + "_MutableUpcastTo_" + base.c_name, "rawPointer()", WrapRef(base, "this"), "this");
+            if (kind == CInterop::InheritanceInfo::Kind::non_virt)
+            {
+                name = UniqueMethod("staticDowncastFrom" + suffix, base.java_path);
+                Method("Static downcast from the base class `" + base.cpp_name + "`. Undefined behavior if the object isn't actually a `" + info.java_unqual + "`. The result refers to `object`.",
+                    "public static " + info.java_path + " " + name + "(" + base.java_path + " object)", info.c_name + "_MutableStaticDowncastFrom_" + base.c_name, F + ".ptrNonNull(object, \"object\")", WrapRef(info, "object"), "object");
+            }
+            if (base.class_desc->is_polymorphic)
+            {
+                name = UniqueMethod("dynamicDowncastFrom" + suffix, base.java_path);
+                Method("Dynamic downcast from the base class `" + base.cpp_name + "`. Returns null if the object isn't actually a `" + info.java_unqual + "`. The result refers to `object`.",
+                    "public static " + info.java_path + " " + name + "(" + base.java_path + " object)", info.c_name + "_MutableDynamicDowncastFrom_" + base.c_name, F + ".ptrNonNull(object, \"object\")", "__ret.address() == 0 ? null : " + WrapRef(info, "object"), "object");
+            }
+        });
+    }
+
+    void Generator::EmitStdFunction(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys)
+    {
+        const auto &sf = *info.class_desc->std_function;
+        const std::string F = RuntimeClass("Ffi");
+        const std::string MS(kMemorySegment);
+        const std::string ctor_c_name = info.c_name + "_ConstructEx";
+        const std::string assign_c_name = info.c_name + "_AssignEx";
+        if (!handle_paths.contains(ctor_c_name) || !handle_paths.contains(assign_c_name))
+            return;
+
+        // The C callback: `R (*)(args..., [out params], void *_userdata, void **_cleanup_value)`.
+        const cppdecl::Type &type = ParseTypeOrThrow(sf.stateful_func_c_type);
+        const cppdecl::Function *fn = type.As<cppdecl::Function>(1);
+        if (!fn || fn->params.size() < 2)
+            return;
+        cppdecl::Type ret_c = type;
+        ret_c.modifiers.erase(ret_c.modifiers.begin(), ret_c.modifiers.begin() + 2);
+        auto ret_type = CTypeToJava(ret_c);
+        if (!ret_type || ret_type->is_c_long)
+            return;
+
+        struct Arg
+        {
+            std::string name;
+            JavaType c_type;
+            std::string fn_type; // The parameter type of the Java callable, empty for the parameters it doesn't see.
+            std::string convert; // An expression in terms of `name`.
+        };
+        std::vector<Arg> args;
+        std::string ret_fn_type = ret_type->java;
+        std::string ret_convert; // Statements, `__ret` holds the result of the Java callable.
+        std::string default_ret; // What the trampoline returns if the callable throws.
+        bool returns_class = false;
+        const std::string pass_by = c_desc.helpers_prefix + "PassBy";
+
+        auto DefaultOf = [&](const std::string &java_type) -> std::string
+        {
+            if (java_type == "void") return "";
+            if (java_type == "boolean") return "false";
+            if (java_type == "float") return "0f";
+            if (java_type == "double") return "0.0";
+            if (java_type == MS) return MS + ".NULL";
+            return "0";
+        };
+
+        for (std::size_t i = 0; i + 2 < fn->params.size(); i++)
+        {
+            const auto &param = fn->params[i];
+            const std::string name = param.name.AsSingleWord().empty() ? "_" + std::to_string(i + 1) : std::string(param.name.AsSingleWord());
+            auto c_type = CTypeToJava(param.type);
+            if (!c_type || c_type->java == "void" || c_type->is_c_long)
+                return;
+
+            if (name.starts_with("_return"))
+            {
+                // The output parameters of the return value. We only understand a class returned by value.
+                if (name != "_return_pass_by" || i != 0 || param.type.modifiers.size() != 1 || !param.type.Is<cppdecl::Pointer>() || cppdecl::ToCode(param.type.simple_type.name, {}) != pass_by)
+                    return;
+                if (ret_c.modifiers.size() != 1 || !ret_c.Is<cppdecl::Pointer>() || ret_c.IsConst(1))
+                    return;
+                auto iter = types_by_c_name.find(cppdecl::ToCode(ret_c.simple_type.name, {}));
+                if (iter == types_by_c_name.end() || !iter->second->has_destroy)
+                    return;
+                returns_class = true;
+                ret_fn_type = iter->second->java_path;
+                ret_convert = name + ".reinterpret(4).set(java.lang.foreign.ValueLayout.JAVA_INT, 0, " + F + ".PASS_BY_MOVE_AND_DESTROY);\nreturn java.util.Objects.requireNonNull(__ret, \"The callback returned null.\").release();\n";
+                // On failure the C bindings default-construct the result.
+                default_ret = MS + ".NULL";
+                args.push_back({name, *c_type, "", ""});
+                continue;
+            }
+
+            Arg arg{name, *c_type, c_type->java, name};
+            if (param.type.modifiers.empty())
+            {
+                if (c_type->type_info && c_type->type_info->IsEnum())
+                {
+                    arg.fn_type = c_type->type_info->java_path;
+                    arg.convert = c_type->type_info->java_path + ".of(" + name + ")";
+                }
+                else if (c_type->type_info && c_type->type_info->IsExposedStruct())
+                {
+                    // The segment only lives for the duration of the call, so copy it.
+                    arg.fn_type = c_type->type_info->java_path;
+                    arg.convert = "new " + c_type->type_info->java_path + "(" + F + ".allocStruct(" + c_type->type_info->java_path + ".LAYOUT).copyFrom(" + name + "), null)";
+                }
+            }
+            else if (param.type.modifiers.size() == 1 && param.type.Is<cppdecl::Pointer>())
+            {
+                auto iter = types_by_c_name.find(cppdecl::ToCode(param.type.simple_type.name, {}));
+                if (iter != types_by_c_name.end() && iter->second->class_desc)
+                {
+                    const TypeInfo &t = *iter->second;
+                    arg.fn_type = t.java_path;
+                    if (t.IsExposedStruct())
+                        arg.convert = name + ".address() == 0 ? null : new " + t.java_path + "(" + name + ".reinterpret(" + t.java_path + ".LAYOUT.byteSize()), null)";
+                    else
+                        arg.convert = name + ".address() == 0 ? null : new " + t.java_path + "(" + name + ", " + (t.has_destroy ? "false, " : "") + "null)";
+                }
+            }
+            args.push_back(std::move(arg));
+        }
+
+        if (!returns_class)
+        {
+            default_ret = DefaultOf(ret_type->java);
+            if (ret_type->java == "void")
+                ret_convert = "";
+            else if (ret_c.modifiers.empty() && ret_type->type_info && ret_type->type_info->IsEnum())
+            {
+                ret_fn_type = ret_type->type_info->java_path;
+                ret_convert = "return java.util.Objects.requireNonNull(__ret, \"The callback returned null.\").value;\n";
+            }
+            else if (ret_c.modifiers.empty() && ret_type->type_info && ret_type->type_info->IsExposedStruct())
+            {
+                ret_fn_type = ret_type->type_info->java_path;
+                ret_convert = "return " + F + ".ptrNonNull(__ret, \"the callback result\");\n";
+            }
+            else
+                ret_convert = "return __ret;\n";
+        }
+
+        // The callable interface, the trampoline, and the construction.
+        std::string fn_params, call_args, c_params, layouts;
+        for (const Arg &arg : args)
+        {
+            c_params += arg.c_type.java + " " + arg.name + ", ";
+            layouts += arg.c_type.layout + ", ";
+            if (arg.fn_type.empty())
+                continue;
+            fn_params += (fn_params.empty() ? "" : ", ") + arg.fn_type + " " + arg.name;
+            call_args += (call_args.empty() ? "" : ", ") + arg.convert;
+        }
+        const std::string desc = ret_type->java == "void"
+            ? "java.lang.foreign.FunctionDescriptor.ofVoid(" + layouts + "java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)"
+            : "java.lang.foreign.FunctionDescriptor.of(" + ret_type->layout + ", " + layouts + "java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)";
+
+        members += "/** A Java callable that an instance can hold, see `of()`. */\n";
+        members += "@java.lang.FunctionalInterface\npublic interface Fn\n{\n    " + ret_fn_type + " call(" + fn_params + ");\n}\n\n";
+        members += "private static final " + MS + " CALL_STUB = " + F + ".upcall(java.lang.invoke.MethodHandles.lookup(), " + info.java_unqual + ".class, \"__call\", " + desc + ");\n\n";
+        members += "private static " + ret_type->java + " __call(" + c_params + MS + " _userdata, " + MS + " _cleanup_value)\n{\n";
+        members += "    Fn func = (Fn)" + F + ".callbackState(_userdata);\n";
+        members += "    try\n    {\n";
+        if (ret_fn_type == "void")
+            members += "        func.call(" + call_args + ");\n";
+        else
+            members += "        " + ret_fn_type + " __ret = func.call(" + call_args + ");\n";
+        members += Indent(ret_convert, 2);
+        members += "    }\n    catch (java.lang.Throwable __e)\n    {\n        " + F + ".callbackFailed(__e);\n";
+        if (!default_ret.empty())
+            members += "        return " + default_ret + ";\n";
+        members += "    }\n}\n\n";
+
+        auto UniqueMethod = [&](std::string name, const std::string &sig)
+        {
+            std::string base = name;
+            for (int i = 2; !used_keys.insert(name + "(" + sig + ")").second; i++)
+                name = base + "_" + std::to_string(i);
+            return name;
+        };
+        const std::string fn_type = info.java_path + ".Fn";
+        const std::string callbacks = "CALL_STUB, " + F + ".newCallbackState(java.util.Objects.requireNonNull(func, \"func\")), " + MS + ".NULL, " + F + ".CALLBACK_STATE_STUB";
+        std::string name = UniqueMethod("of", fn_type);
+        members += "/** Constructs an instance holding a Java callable. The copies of the instance share it. An exception thrown by the callable is rethrown by the wrapper that called into C.\n *\n * Calls `" + ctor_c_name + "()`. */\n";
+        members += "public static " + info.java_path + " " + name + "(Fn func)\n{\n    try\n    {\n";
+        members += "        " + MS + " __ret = (" + MS + ")" + handle_paths.at(ctor_c_name) + ".invokeExact(" + callbacks + ");\n";
+        members += "        " + F + ".checkException();\n        return new " + info.java_path + "(__ret, true, null);\n";
+        members += "    }\n    catch (java.lang.Throwable __e)\n    {\n        throw " + F + ".rethrow(__e);\n    }\n}\n\n";
+        name = UniqueMethod("assignFn", fn_type);
+        members += "/** Replaces the stored callable with a Java one.\n *\n * Calls `" + assign_c_name + "()`. */\n";
+        members += "public void " + name + "(Fn func)\n{\n    try\n    {\n";
+        members += "        " + handle_paths.at(assign_c_name) + ".invokeExact(rawPointer(), " + callbacks + ");\n";
+        members += "        " + F + ".checkException();\n";
+        members += "    }\n    catch (java.lang.Throwable __e)\n    {\n        throw " + F + ".rethrow(__e);\n    }\n    finally\n    {\n        java.lang.ref.Reference.reachabilityFence(this);\n    }\n}\n\n";
     }
 
     void Generator::EmitRuntime()
@@ -707,7 +982,7 @@ namespace mrbind::Java
         const std::string &hp = c_desc.helpers_prefix;
 
         // Native.
-        output_files[root.dir + "/Native.java"] = pkg_line + R"(/** Implemented by the wrappers of native objects. Generated by mrbind, do not edit. */
+        output_files[root.dir + "/Native.java"] = pkg_line + R"(/** Implemented by the wrappers of native objects. */
 public interface Native
 {
     /** The address of the native object. For opaque classes it's a zero-length segment, for exposed structs it covers the struct. */
@@ -716,7 +991,7 @@ public interface Native
 )";
 
         // CppException.
-        output_files[root.dir + "/CppException.java"] = pkg_line + R"(/** A C++ exception thrown by the C bindings. Generated by mrbind, do not edit. */
+        output_files[root.dir + "/CppException.java"] = pkg_line + R"(/** A C++ exception thrown by the C bindings. */
 public class CppException extends RuntimeException
 {
     private static final long serialVersionUID = 1;
@@ -727,7 +1002,7 @@ public class CppException extends RuntimeException
 
         // CppObject.
         output_files[root.dir + "/CppObject.java"] = pkg_line + R"(/**
- * The base class of the wrappers of the opaque C++ classes. Generated by mrbind, do not edit.
+ * The base class of the wrappers of the opaque C++ classes.
  *
  * An instance either owns its C++ object (then the object is destroyed when the wrapper is garbage-collected or closed),
  * or is a reference to an object owned by something else. References returned by methods keep their owner alive.
@@ -818,7 +1093,7 @@ public abstract class CppObject implements Native, AutoCloseable
 
         // CppStruct.
         output_files[root.dir + "/CppStruct.java"] = pkg_line + R"(/**
- * The base class of the wrappers of the C++ structs exposed with `--expose-as-struct`. Generated by mrbind, do not edit.
+ * The base class of the wrappers of the C++ structs exposed with `--expose-as-struct`.
  *
  * An instance is a view over a memory segment holding the struct. Instances created in Java own their memory (freed by the garbage collector),
  * those returned by reference from the bindings point into memory owned by something else, which they keep alive.
@@ -841,7 +1116,7 @@ public abstract class CppStruct implements Native
 
         // Ffi.
         std::string ffi = pkg_line;
-        ffi += "/** The runtime support of the generated bindings. Generated by mrbind, do not edit. */\n";
+        ffi += "/** The runtime support of the bindings. */\n";
         ffi += "@SuppressWarnings(\"restricted\") // The restricted methods warn unless `--enable-native-access` is passed, this is where we use them.\n";
         ffi += "public final class Ffi\n{\n";
         ffi += "    private Ffi() {}\n\n";
@@ -1122,10 +1397,92 @@ public abstract class CppStruct implements Native
     }
 )";
 
+        ffi += R"JAVA(
+    // What the wrapper must throw once the C call returns: a C++ exception message reported by the C bindings (a String),
+    // or an exception thrown by a Java callback (a Throwable). Per thread, since the C bindings report per thread.
+    private static final ThreadLocal<Object> PENDING = new ThreadLocal<>();
+
+    /** Throws if the last call into the C bindings threw a C++ exception, or a Java callback threw. */
+    public static void checkException()
+    {
+        Object pending = PENDING.get();
+        if (pending == null)
+            return;
+        PENDING.remove();
+        if (pending instanceof Throwable error)
+            throw rethrow(error);
+        throw new CppException((String)pending);
+    }
+
+    /** Called by the callback trampolines when the Java callable throws. The exception is rethrown by the wrapper that made the C call. */
+    public static void callbackFailed(Throwable error)
+    {
+        if (PENDING.get() == null)
+            PENDING.set(error);
+    }
+
+    /** Creates an upcall stub for a static method of `cls`. The lookup must be able to see the method. */
+    public static java.lang.foreign.MemorySegment upcall(java.lang.invoke.MethodHandles.Lookup lookup, Class<?> cls, String name, java.lang.foreign.FunctionDescriptor desc)
+    {
+        try
+        {
+            return LINKER.upcallStub(lookup.findStatic(cls, name, desc.toMethodType()), desc, java.lang.foreign.Arena.global());
+        }
+        catch (ReflectiveOperationException e)
+        {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    // The Java callables held by the `std::function` instances, keyed by the ids that are passed to C as the user data pointers.
+    // Each entry is the callable and its reference count: the copies of a `std::function` share the user data.
+    private static final java.util.concurrent.ConcurrentHashMap<Long, Object[]> CALLBACKS = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.concurrent.atomic.AtomicLong NEXT_CALLBACK_ID = new java.util.concurrent.atomic.AtomicLong(1);
+
+    /** Registers a callable and returns its user data pointer, with one reference. */
+    public static java.lang.foreign.MemorySegment newCallbackState(Object callable)
+    {
+        long id = NEXT_CALLBACK_ID.getAndIncrement();
+        CALLBACKS.put(id, new Object[]{callable, new java.util.concurrent.atomic.AtomicInteger(1)});
+        return java.lang.foreign.MemorySegment.ofAddress(id);
+    }
+
+    /** The callable registered under a user data pointer. */
+    public static Object callbackState(java.lang.foreign.MemorySegment userdata)
+    {
+        Object[] entry = CALLBACKS.get(userdata.address());
+        if (entry == null)
+            throw new IllegalStateException("Unknown callback state: " + userdata.address() + ".");
+        return entry[0];
+    }
+
+    // The `userdata_callback` of the C bindings: releases the user data of `this` object, then copies the other one into it, if any.
+    private static void callbackStateChanged(java.lang.foreign.MemorySegment thisUserdata, java.lang.foreign.MemorySegment otherUserdata)
+    {
+        java.lang.foreign.MemorySegment slot = thisUserdata.reinterpret(java.lang.foreign.ValueLayout.ADDRESS.byteSize());
+        long current = slot.get(java.lang.foreign.ValueLayout.ADDRESS, 0).address();
+        if (current != 0)
+        {
+            Object[] entry = CALLBACKS.get(current);
+            if (entry != null && ((java.util.concurrent.atomic.AtomicInteger)entry[1]).decrementAndGet() == 0)
+                CALLBACKS.remove(current);
+            slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, java.lang.foreign.MemorySegment.NULL);
+        }
+        if (otherUserdata.address() != 0)
+        {
+            Object[] entry = CALLBACKS.get(otherUserdata.address());
+            if (entry != null)
+                ((java.util.concurrent.atomic.AtomicInteger)entry[1]).incrementAndGet();
+            slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, otherUserdata);
+        }
+    }
+
+    public static final java.lang.foreign.MemorySegment CALLBACK_STATE_STUB = upcall(java.lang.invoke.MethodHandles.lookup(), Ffi.class, "callbackStateChanged", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+)JAVA";
+
         if (c_desc.exception_handling_enabled)
         {
-            ffi += "\n    // C++ exceptions are reported by the C bindings through a callback, which stores the message here until the wrapper checks it.\n";
-            ffi += "    private static final ThreadLocal<String> PENDING_EXCEPTION = new ThreadLocal<>();\n\n";
+            ffi += "\n    // C++ exceptions are reported by the C bindings through this callback, which stores the message until the wrapper checks it.\n";
             ffi += "    private static void exceptionHandler(java.lang.foreign.MemorySegment messages, java.lang.foreign.MemorySegment typeNames, java.lang.foreign.MemorySegment userdata)\n    {\n";
             ffi += "        StringBuilder text = new StringBuilder();\n";
             ffi += "        java.lang.foreign.MemorySegment array = messages.reinterpret(Long.MAX_VALUE);\n";
@@ -1135,17 +1492,12 @@ public abstract class CppStruct implements Native
             ffi += "            if (i > 0)\n                text.append('\\n');\n";
             ffi += "            text.append(message.reinterpret(Long.MAX_VALUE).getString(0));\n";
             ffi += "        }\n";
-            ffi += "        PENDING_EXCEPTION.set(text.toString());\n    }\n\n";
+            ffi += "        PENDING.set(text.toString());\n    }\n\n";
             ffi += "    static\n    {\n";
             ffi += "        try\n        {\n";
-            ffi += "            java.lang.invoke.MethodHandle handler = java.lang.invoke.MethodHandles.lookup().findStatic(Ffi.class, \"exceptionHandler\", java.lang.invoke.MethodType.methodType(void.class, java.lang.foreign.MemorySegment.class, java.lang.foreign.MemorySegment.class, java.lang.foreign.MemorySegment.class));\n";
-            ffi += "            java.lang.foreign.MemorySegment stub = LINKER.upcallStub(handler, java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS), java.lang.foreign.Arena.global());\n";
+            ffi += "            java.lang.foreign.MemorySegment stub = upcall(java.lang.invoke.MethodHandles.lookup(), Ffi.class, \"exceptionHandler\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));\n";
             ffi += "            downcall(\"\", \"" + hp + "SetExceptionHandler\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)).invokeExact(stub, java.lang.foreign.MemorySegment.NULL);\n";
-            ffi += "        }\n        catch (Throwable e)\n        {\n            // The message survives the `NoClassDefFoundError` that the later uses of this class get.\n            throw new IllegalStateException(\"Failed to register the C++ exception handler: \" + e, e);\n        }\n    }\n\n";
-            ffi += "    /** Throws if the last call into the C bindings threw a C++ exception. */\n";
-            ffi += "    public static void checkException()\n    {\n";
-            ffi += "        String message = PENDING_EXCEPTION.get();\n";
-            ffi += "        if (message != null)\n        {\n            PENDING_EXCEPTION.remove();\n            throw new CppException(message);\n        }\n    }\n";
+            ffi += "        }\n        catch (Throwable e)\n        {\n            // The message survives the `NoClassDefFoundError` that the later uses of this class get.\n            throw new IllegalStateException(\"Failed to register the C++ exception handler: \" + e, e);\n        }\n    }\n";
         }
         ffi += "}\n";
         output_files[root.dir + "/Ffi.java"] = ffi;
@@ -1572,8 +1924,10 @@ public abstract class CppStruct implements Native
         ret.fallback_name = std::move(fallback_name);
 
         std::vector<std::string> sig_parts;
-        for (const auto &param : func.params)
+        ret.param_indices.assign(func.params.size(), std::size_t(-1));
+        for (std::size_t i = 0; i < func.params.size(); i++)
         {
+            const auto &param = func.params[i];
             auto mapped = MapParam(param, this_type);
             if (!mapped)
             {
@@ -1588,6 +1942,7 @@ public abstract class CppStruct implements Native
             ret.is_raw |= mapped->is_raw;
             for (const auto &[pname, ptype] : mapped->java_params)
                 sig_parts.push_back(ptype);
+            ret.param_indices[i] = ret.params.size();
             ret.params.push_back(std::move(*mapped));
         }
         ret.signature = JoinNameParts(sig_parts, ",");
@@ -1641,7 +1996,6 @@ public abstract class CppStruct implements Native
     {
         const CInterop::BasicFuncLike &f = *func.func;
         const std::string F = RuntimeClass("Ffi");
-        const bool handle_exceptions = c_desc.exception_handling_enabled && !f.is_noexcept;
 
         std::string extra_doc = "Calls `" + f.c_name + "()`.";
         if (func.is_raw)
@@ -1681,7 +2035,34 @@ public abstract class CppStruct implements Native
                 num_object_params++;
             }
         }
-        std::string owner = func.is_static ? (num_object_params == 1 ? object_param : "null") : "this";
+        // The `[[clang::lifetimebound]]` annotations (and the lifetimes the C generator infers) tell what the returned reference points into,
+        //   and that's what the wrapper keeps alive. Without them it's `this`, or the only object parameter.
+        std::vector<std::string> owners;
+        for (const auto &rel : f.lifetimes.relations)
+        {
+            if (!std::holds_alternative<LifetimeRelation::ReturnValue>(rel.holder))
+                continue;
+            std::string target;
+            if (std::holds_alternative<LifetimeRelation::ThisObject>(rel.target))
+            {
+                if (!func.is_static)
+                    target = "this";
+            }
+            else if (auto param = std::get_if<LifetimeRelation::Param>(&rel.target))
+            {
+                if (param->index >= 0 && std::size_t(param->index) < func.param_indices.size() && func.param_indices[std::size_t(param->index)] != std::size_t(-1))
+                    target = func.params[func.param_indices[std::size_t(param->index)]].object_param;
+            }
+            if (!target.empty() && std::find(owners.begin(), owners.end(), target) == owners.end())
+                owners.push_back(target);
+        }
+        std::string owner;
+        if (owners.empty())
+            owner = func.is_static ? (num_object_params == 1 ? object_param : "null") : "this";
+        else if (owners.size() == 1)
+            owner = owners.front();
+        else
+            owner = "new java.lang.Object[]{" + JoinNameParts(owners, ", ") + "}";
 
         // The call.
         std::string args;
@@ -1702,8 +2083,7 @@ public abstract class CppStruct implements Native
             body += call + ";\n";
         else
             body += func.ret.handle_type + " __ret = (" + func.ret.handle_type + ")" + call + ";\n";
-        if (handle_exceptions)
-            body += F + ".checkException();\n";
+        body += F + ".checkException();\n";
         if (func.is_ctor)
             body += "return __ret;\n"; // The constructor wraps it.
         else if (func.ret.handle_type != "void")
@@ -2015,6 +2395,10 @@ public abstract class CppStruct implements Native
                 members += "public " + def_name + "() {super(" + F + ".allocStruct(LAYOUT), null);}\n\n";
             }
 
+            EmitCasts(info, members, used_keys);
+            if (cl.std_function && info.has_destroy)
+                EmitStdFunction(info, members, used_keys);
+
             // Conveniences for `std::string`.
             if (cpp_name == "std::string")
             {
@@ -2119,7 +2503,7 @@ public abstract class CppStruct implements Native
         }
         for (auto &[relative_name, file] : file_classes)
         {
-            if (dir_packages.contains(file.java_path))
+            if (dir_packages.contains(file.java_path) || std::find(base_package_segments.begin(), base_package_segments.end(), file.idents.back()) != base_package_segments.end())
             {
                 // Rename the class, and fix up the handle paths pointing to it.
                 std::string old_path = file.java_path;
@@ -2149,7 +2533,7 @@ public abstract class CppStruct implements Native
                 dir += "/" + file.idents[i];
             }
             std::string out = "package " + pkg + ";\n\n";
-            out += "/** The downcall handles of the C bindings file `" + relative_name + "`. Generated by mrbind, do not edit. */\n";
+            out += "/** The downcall handles of the C bindings file `" + relative_name + "`. */\n";
             out += "public final class " + file.idents.back() + "\n{\n";
             out += "    private " + file.idents.back() + "() {}\n";
             for (std::size_t i = 0; i < file.handles.size(); i += handles_per_chunk)
@@ -2196,7 +2580,7 @@ public abstract class CppStruct implements Native
             if (!module.free_funcs.empty())
             {
                 std::string out = "package " + module.package + ";\n\n";
-                out += "/** The free functions of this namespace. Generated by mrbind, do not edit. */\n";
+                out += "/** The free functions of this namespace. */\n";
                 out += "@java.lang.SuppressWarnings({\"restricted\", \"cast\"})\npublic final class Functions\n{\n    private Functions() {}\n\n";
                 std::string body = module.free_funcs;
                 while (body.ends_with("\n\n"))

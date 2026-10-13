@@ -67,7 +67,7 @@ The runtime support classes live in the base package: `Ffi` (library loading, th
 
 The wrappers:
 
-* Classes that need to live on the heap are opaque, their wrappers hold a pointer. A wrapper created by a constructor or returned by value *owns* the C++ object: it's destroyed when the wrapper is garbage-collected (through `java.lang.ref.Cleaner`), or earlier when `close()` is called (the wrappers are `AutoCloseable`, so `try (var mesh = ...)` works). A wrapper returned by reference doesn't own the object, and keeps the wrapper it was obtained from alive, so the reference doesn't dangle.
+* Classes that need to live on the heap are opaque, their wrappers hold a pointer. A wrapper created by a constructor or returned by value *owns* the C++ object: it's destroyed when the wrapper is garbage-collected (through `java.lang.ref.Cleaner`), or earlier when `close()` is called (the wrappers are `AutoCloseable`, so `try (var mesh = ...)` works). A wrapper returned by reference doesn't own the object, and keeps alive what the reference points into, so it doesn't dangle: the objects named by the `[[clang::lifetimebound]]` annotations (and by the lifetimes the C generator infers, e.g. for field getters), or without annotations `this` for methods and the only object parameter for free functions.
 
 * Parameters take wrappers: `const T &`, `T &` and by-value copies all take a `T`. Pointers and parameters with default arguments are nullable, `null` passes a null pointer or asks for the default argument. `std::optional<T>` parameters are nullable too. Passing a non-copyable class by value moves from the wrapper, which can't be used after that (see `CppObject.release()`).
 
@@ -79,7 +79,11 @@ The wrappers:
 
 * The structs exposed with `--expose-as-struct` are views over native memory with the C++ layout: the fields are accessed in place with `x()`/`setX()` (arrays with an index), `copy()` makes an independent copy, `set()` overwrites the contents. Instances created in Java own their memory, those returned by reference point into the memory of their owner. The layout is built at runtime with the C alignment rules, and checked against the sizes the C bindings were generated with when the struct has no platform-sized fields.
 
-* Functions that the safe layer doesn't understand (callbacks, `std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return raw `MemorySegment`s and primitives. The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
+* A class with bases gets `upcastTo<Base>()`, `staticDowncastFrom<Base>(base)` for the non-virtual bases (undefined behavior if the object isn't actually of the derived class), and `dynamicDowncastFrom<Base>(base)` for the polymorphic ones (returns null if it isn't). Those call the cast functions of the C bindings, and the results are references to the object that was cast.
+
+* `std::function<R(Args...)>` parameters take the `std_function_...` wrapper class, which you construct from a Java lambda with `of(lambda)` (or replace with `assignFn()`). The lambda implements the nested `Fn` interface: it receives scalars and enums by value, exposed structs by value (as copies), and classes by reference, and returns scalars by value or classes by value (an owned wrapper, which the C++ side takes over). The copies of the `std::function` share the lambda. An exception thrown by the lambda is rethrown by the wrapper that called into C, once the C call returns. Callback parameters the generator doesn't understand are raw `MemorySegment`s in `Fn`.
+
+* Functions that the safe layer doesn't understand (`std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return raw `MemorySegment`s and primitives. The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
 
 Overloaded functions keep their names as long as their Java parameter types differ. Those that would clash get the disambiguated names of their C functions (e.g. `boolean_4_const_MR_Mesh_ref`). Constructors become Java constructors on the same condition, else static factories. Overloaded operators are `opAdd`, `opEqual`, `opNotEqual`, `opAddAssign`, etc.
 
@@ -89,7 +93,7 @@ C++ exceptions are caught by the C bindings (unless the C generator ran with `--
 
 This backend is as young as the Rust one, and shares its limitations:
 
-* Inherited members are only available if the C generator copied them (`--copy-inherited-members`); there are no conversions between a class and its bases.
-* `std::function` parameters take raw function pointers.
+* Inherited members are only available if the C generator copied them (`--copy-inherited-members`). Otherwise upcast to the base explicitly to call its methods, there are no implicit conversions.
 * Containers only expose the methods that the C bindings have (`size()`, `at()`, ...), there's no `Iterable` or `List` integration yet.
 * Output parameters of scalar types (`int &`) are raw.
+* Objects don't keep alive what they reference (the `[[clang::lifetime_capture_by]]` annotations), the doc comments only mention it. A reference parameter that gets stored must outlive the object.
