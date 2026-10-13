@@ -1542,11 +1542,9 @@ namespace mrbind::C
                 bool has_useful_default_arg = false;
 
                 // The C parameters that this C++ parameter expanded to. This goes to the interop description.
-                std::vector<CInterop::CParam> c_params;
+                // You can get the same parameters from `decl`, but here they are split per original C++ parameters.
+                std::vector<cppdecl::Decl> c_params;
             };
-
-            // The C return type, spelled as a string. This goes to the interop description.
-            std::string c_return_type;
 
             // Stores additional information about the parameters. Has the same size as `params.params`.
             std::vector<ParamInfo> params_info;
