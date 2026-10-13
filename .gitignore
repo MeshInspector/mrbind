@@ -14,6 +14,9 @@
 /test/output_rust*/Cargo.lock
 /test/run_rust/target/
 /test/run_rust/Cargo.lock
+/test/output_java*/classes/
+/test/output_java*/sources.txt
+/test/run_java/classes/
 parallel-hashmap/
 /examples/cxx.txt
 /examples/c/output
