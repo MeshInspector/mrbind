@@ -91,6 +91,14 @@ int main(int argc, char **argv)
             }
         },
     });
+    args_parser.AddFlag("--max-class-name-length", {
+        .arg_names = {"n"},
+        .desc = "Shorten the generated class names to this length, plus a hash. Each class is a file, and Windows has a small default path length limit. The default is 100, 0 disables this.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.max_class_name_length = mrbind::CommandLineParser::ParseSizeT(std::string(args.front()));
+        },
+    });
     args_parser.AddFlag("--verbose", {
         .desc = "List the functions that got skipped because their C types can't be spelled in Java.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)

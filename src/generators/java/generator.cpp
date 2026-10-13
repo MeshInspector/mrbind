@@ -1,5 +1,6 @@
 #include "generators/java/generator.h"
 
+#include "common/hash.h"
 #include "common/strings.h"
 
 #include <cppdecl/declarations/parse.h>
@@ -10,6 +11,7 @@
 #include <cassert>
 #include <cctype>
 #include <cstdint>
+#include <cstdio>
 #include <stdexcept>
 #include <variant>
 
@@ -222,6 +224,20 @@ namespace mrbind::Java
     std::string Generator::HandleHolder(const FileClass &file, std::size_t index)
     {
         return file.java_path + ".H" + std::to_string(index / handles_per_chunk);
+    }
+
+    std::string Generator::ShortenClassName(std::string name) const
+    {
+        // A Java class is a file, so the name counts towards the path length limit of Windows. Same scheme as the C generator uses for the headers.
+        if (max_class_name_length != 0 && name.size() > max_class_name_length)
+        {
+            auto hash = Hash(std::string_view(name).substr(max_class_name_length));
+            name.resize(max_class_name_length);
+            char buffer[32];
+            std::snprintf(buffer, sizeof buffer, "__%x", (unsigned int)hash);
+            name += buffer;
+        }
+        return name;
     }
 
     std::string Generator::UniqueName(std::set<std::string> &used, std::string name)
@@ -530,7 +546,7 @@ namespace mrbind::Java
                 if (ns_parts.empty())
                     ns_parts = forced_namespace;
                 info.module = &GetModuleForNamespace(ns_parts);
-                info.java_unqual = UniqueName(info.module->used_names, JavaIdent(ident));
+                info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(ident)));
             }
             else
             {
@@ -558,7 +574,7 @@ namespace mrbind::Java
                 if (ns_parts.empty())
                     ns_parts = forced_namespace;
                 info.module = &GetModuleForNamespace(ns_parts);
-                info.java_unqual = UniqueName(info.module->used_names, JavaIdent(unqual));
+                info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(unqual)));
             }
             info.java_path = info.module->package + "." + info.java_unqual;
             info.file = &GetFileClass(info.class_desc ? info.class_desc->output_file : info.enum_desc->output_file);

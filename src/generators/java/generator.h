@@ -35,6 +35,9 @@ namespace mrbind::Java
         // Without this, those end up directly in the base package.
         std::vector<std::string> forced_namespace;
 
+        // Class names longer than this get truncated and suffixed with a hash, since the file names must fit the Windows path length limit. 0 disables this.
+        std::size_t max_class_name_length = 100;
+
         // ]
 
         // Output: relative paths to file contents.
@@ -109,6 +112,7 @@ namespace mrbind::Java
 
         [[nodiscard]] Module &GetModuleForNamespace(const std::vector<std::string> &ns_parts);
         [[nodiscard]] std::string UniqueName(std::set<std::string> &used, std::string name);
+        [[nodiscard]] std::string ShortenClassName(std::string name) const;
 
         void CollectTypes();
         void EmitRuntime();
