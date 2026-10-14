@@ -633,6 +633,16 @@ namespace mrbind::CInterop
                 SizeAndAlignment() {} // Ugh!
             };
 
+            struct CallableInfo
+            {
+                MBREFL_STRUCT(
+                    (std::string)(stateless_func_c_type) // C function pointer type without an extra `void *` data parameter.
+                    (std::string)(stateful_func_c_type) // C function pointer type with an extra `void *` data parameter.
+                )
+
+                CallableInfo() {} // Ugh!
+            };
+
             MBREFL_STRUCT(
                 (OutputFile)(output_file)
 
@@ -658,6 +668,11 @@ namespace mrbind::CInterop
 
                 // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
                 (bool)(is_polymorphic, false)
+
+                // This is currently only set for `std::function<...>`, and stores the C function types that can be assigned to it.
+                // This is a hack originally added for the vibecoded Rust bindings. Since they wrap C code more naively, they benefit from knowing the C funciton pointer types.
+                // Normally they would be able to get them from the ctors and assignment operators, but they are currently hidden from interop, because e.g. C# needs custom handling for them.
+                (std::optional<CallableInfo>)(callable_info)
             )
         };
     }
