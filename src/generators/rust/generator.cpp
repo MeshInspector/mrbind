@@ -1411,7 +1411,7 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
 
             std::string extra;
             EmitCasts(info, methods, used_names, extra);
-            if (cl.std_function)
+            if (cl.callable_info)
                 EmitStdFunction(info, methods, used_names);
 
             if (!methods.empty())
@@ -1544,7 +1544,7 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
 
     void Generator::EmitStdFunction(TypeInfo &info, std::string &methods, std::set<std::string> &used_names)
     {
-        const auto &sf = *info.class_desc->std_function;
+        const auto &sf = *info.class_desc->callable_info;
         const std::string self_ffi = "crate::ffi::" + RustIdent(info.c_name);
         const std::string c_void = "core::ffi::c_void";
         auto stateless = CTypeToRust(sf.stateless_func_c_type);

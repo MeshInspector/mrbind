@@ -446,11 +446,14 @@ namespace mrbind::C::Modules
 
                         cppdecl::Type funcptr_with_extra_ptr_params = cppdecl::Type(c_func_type_with_extra_ptr_params).AddModifier(cppdecl::Pointer{});
 
+                        // A hack! Store the signatures (stateless and stateful) in the type description. See the comment on `callable_info` for more details.
                         if (generator.output_desc)
                         {
-                            auto &info = generator.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(binder.cpp_type_name)).std_function.emplace();
-                            info.stateless_func_c_type = generator.CppdeclToCode(cppdecl::Type(c_func_type).AddModifier(cppdecl::Pointer{}));
-                            info.stateful_func_c_type = generator.CppdeclToCode(funcptr_with_extra_ptr_params);
+                            auto &info = generator.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(binder.cpp_type_name)).callable_info.emplace();
+
+                            // Note, using `CppdeclToCodeForComments()` instead of `CppdeclToCode()` here, like everywhere else in the interop json.
+                            info.stateless_func_c_type = generator.CppdeclToCodeForComments(cppdecl::Type(c_func_type).AddModifier(cppdecl::Pointer{}));
+                            info.stateful_func_c_type = generator.CppdeclToCodeForComments(funcptr_with_extra_ptr_params);
                         }
 
                         std::vector<cppdecl::MaybeAmbiguousDecl> postcall_cb_params;
