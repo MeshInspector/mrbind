@@ -125,7 +125,7 @@ int main(int argc, char **argv)
         if (std::filesystem::exists(out_path))
             throw std::runtime_error("Output file already exists: `" + relative_path + "`.");
 
-        std::ofstream out(out_path, std::ios_base::out);
+        std::ofstream out(out_path, std::ios_base::out | std::ios_base::binary); // Binary, for LF line endings on Windows too.
         if (!out)
             throw std::runtime_error("Failed to open file for writing: `" + mrbind::PathToString(out_path) + "`.");
         out << contents;
