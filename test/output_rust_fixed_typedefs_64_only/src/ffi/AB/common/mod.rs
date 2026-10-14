@@ -1,0 +1,12 @@
+pub mod std_pair_MR_SeparateA_MR_SeparateB;
+pub use self::std_pair_MR_SeparateA_MR_SeparateB::*;
+pub mod std_shared_ptr_MR_SeparateA;
+pub use self::std_shared_ptr_MR_SeparateA::*;
+pub mod std_shared_ptr_MR_SeparateB;
+pub use self::std_shared_ptr_MR_SeparateB::*;
+pub mod std_vector_MR_SeparateA;
+pub use self::std_vector_MR_SeparateA::*;
+pub mod std_vector_MR_SeparateB;
+pub use self::std_vector_MR_SeparateB::*;
+pub mod std_vector_std_pair_MR_SeparateA_MR_SeparateB;
+pub use self::std_vector_std_pair_MR_SeparateA_MR_SeparateB::*;

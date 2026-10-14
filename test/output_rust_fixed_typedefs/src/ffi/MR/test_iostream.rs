@@ -1,0 +1,19 @@
+/// Generated from class `MR::IOStream::A`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_IOStream_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_print_MR_IOStream_A(_1: *mut crate::ffi::MR_C_std_ostream, _2: *const crate::ffi::MR_IOStream_A);
+    pub fn MR_C_input_MR_IOStream_A(_1: *mut crate::ffi::MR_C_std_istream, _2: *mut crate::ffi::MR_IOStream_A);
+    pub fn MR_IOStream_A_DefaultConstruct() -> *mut crate::ffi::MR_IOStream_A;
+    pub fn MR_IOStream_A_ConstructFromAnother(_other: *const crate::ffi::MR_IOStream_A) -> *mut crate::ffi::MR_IOStream_A;
+    pub fn MR_IOStream_A_AssignFromAnother(_this: *mut crate::ffi::MR_IOStream_A, _other: *const crate::ffi::MR_IOStream_A) -> *mut crate::ffi::MR_IOStream_A;
+    pub fn MR_IOStream_A_Destroy(_this: *const MR_IOStream_A);
+}

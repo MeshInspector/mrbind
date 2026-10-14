@@ -1,0 +1,12 @@
+/// Make sure that the `.cpp` implementation file includes the header for `E` correctly.
+/// Generated from function `MR::IncludesForEnumConstants::foo`.
+///
+/// Calls `MR_IncludesForEnumConstants_foo()`.
+pub fn foo() -> crate::Owned<crate::mr::includes_for_enum_constants::A_MR_IncludesForEnumConstants_E_e1>
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_IncludesForEnumConstants_foo()};
+    crate::__check_exception();
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::includes_for_enum_constants::A_MR_IncludesForEnumConstants_E_e1)}
+}
+

@@ -1,0 +1,48 @@
+/// A C++ input stream.
+///
+/// Generated from class `std::istream`. Can't be created from Rust, only references to it are used.
+#[repr(transparent)]
+pub struct std_istream(crate::ffi::MR_C_std_istream);
+
+/// A C++ output stream.
+///
+/// Generated from class `std::ostream`. Can't be created from Rust, only references to it are used.
+#[repr(transparent)]
+pub struct std_ostream(crate::ffi::MR_C_std_ostream);
+
+/// Returns the `stdout` stream.
+///
+/// Calls `MR_C_GetStdCout()`.
+pub fn get_std_cout() -> *mut crate::ffi::MR_C_std_ostream
+{
+    let __ret = unsafe {crate::ffi::MR_C_GetStdCout()};
+    __ret
+}
+
+/// Returns the `stderr` stream, buffered.
+///
+/// Calls `MR_C_GetStdCerr()`.
+pub fn get_std_cerr() -> *mut crate::ffi::MR_C_std_ostream
+{
+    let __ret = unsafe {crate::ffi::MR_C_GetStdCerr()};
+    __ret
+}
+
+/// Returns the `stderr` stream, unbuffered.
+///
+/// Calls `MR_C_GetStdClog()`.
+pub fn get_std_clog() -> *mut crate::ffi::MR_C_std_ostream
+{
+    let __ret = unsafe {crate::ffi::MR_C_GetStdClog()};
+    __ret
+}
+
+/// Returns the `stdin` stream.
+///
+/// Calls `MR_C_GetStdCin()`.
+pub fn get_std_cin() -> *mut crate::ffi::MR_C_std_istream
+{
+    let __ret = unsafe {crate::ffi::MR_C_GetStdCin()};
+    __ret
+}
+

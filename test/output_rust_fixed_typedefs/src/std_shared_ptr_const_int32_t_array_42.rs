@@ -1,0 +1,184 @@
+/// Wraps a pointer to a shared reference-counted heap-allocated array of type `const int32_t`, of size 42.
+///
+/// Generated from class `std::shared_ptr<const int32_t[42]>`. Heap-allocated instances are held in `Owned<std_shared_ptr_const_int32_t_array_42>`.
+#[repr(transparent)]
+pub struct std_shared_ptr_const_int32_t_array_42(crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42);
+
+unsafe impl crate::CppClass for std_shared_ptr_const_int32_t_array_42
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_Destroy(ptr as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)}
+}
+
+impl std_shared_ptr_const_int32_t_array_42
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_shared_ptr_const_int32_t_array_42) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, other as *const crate::mr::cs::std_shared_ptr_const_int32_t_array_42 as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_shared_ptr_const_int32_t_array_42)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, crate::ffi::MR_C_PassBy_Copy, other as *const crate::mr::cs::std_shared_ptr_const_int32_t_array_42 as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        __ret
+    }
+
+    /// Returns the stored pointer, possibly null.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_get()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get<'a>(&'a self) -> Option<&'a i32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_get(self as *const Self as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        unsafe {(__ret as *const i32).as_ref()}
+    }
+
+    /// Returns true if non-null.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_has_value()`.
+    pub fn has_value(&self) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_has_value(self as *const Self as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        __ret
+    }
+
+    /// How many shared pointers share the managed object. Zero if no object is being managed.
+    /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int32_t_array_42_get()` returning null, but is ultimately orthogonal.
+    /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_use_count()`.
+    pub fn use_count(&self) -> core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_use_count(self as *const Self as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        __ret
+    }
+
+    /// Resets the pointer to null.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_reset()`.
+    pub fn reset(&mut self)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_reset(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        __ret
+    }
+
+    /// Create a new instance, taking ownership of an existing pointer.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_Construct()`.
+    pub fn construct(ptr: &i32) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_Construct(ptr as *const i32 as *const i32)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_Assign()`.
+    pub fn assign(&mut self, ptr: &i32)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_Assign(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, ptr as *const i32 as *const i32)};
+        __ret
+    }
+
+    /// Create a new instance, storing a non-owning pointer.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_ConstructNonOwning()`.
+    /// The reference to the parameter `ptr` might be preserved in the constructed object.
+    pub fn construct_non_owning(ptr: Option<&i32>) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_ConstructNonOwning(ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_AssignNonOwning()`.
+    /// The reference to the parameter `ptr` might be preserved in this object.
+    pub fn assign_non_owning(&mut self, ptr: Option<&i32>)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_AssignNonOwning(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
+        __ret
+    }
+
+    /// Create a new instance from a non-const pointer to the same type.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_ConstructFromMutable()`.
+    pub fn construct_from_mutable(ptr: &crate::mr::cs::std_shared_ptr_int32_t_array_42) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_ConstructFromMutable(crate::ffi::MR_C_PassBy_Copy, ptr as *const crate::mr::cs::std_shared_ptr_int32_t_array_42 as *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// Overwrite the existing instance with a non-const pointer to the same type.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_AssignFromMutable()`.
+    pub fn assign_from_mutable(&mut self, ptr: &crate::mr::cs::std_shared_ptr_int32_t_array_42)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_AssignFromMutable(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, crate::ffi::MR_C_PassBy_Copy, ptr as *const crate::mr::cs::std_shared_ptr_int32_t_array_42 as *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42)};
+        __ret
+    }
+
+    /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
+    /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_ConstructAliasing()`.
+    /// The reference to the parameter `ptr` might be preserved in the constructed object.
+    pub fn construct_aliasing(ownership: &crate::mr::cs::std_shared_ptr_const_void, ptr: Option<&i32>) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_int32_t_array_42>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_ConstructAliasing(crate::ffi::MR_C_PassBy_Copy, ownership as *const crate::mr::cs::std_shared_ptr_const_void as *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_int32_t_array_42)}
+    }
+
+    /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
+    /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_AssignAliasing()`.
+    /// The reference to the parameter `ptr` might be preserved in this object.
+    pub fn assign_aliasing(&mut self, ownership: &crate::mr::cs::std_shared_ptr_const_void, ptr: Option<&i32>)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_AssignAliasing(self as *mut Self as *mut crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, crate::ffi::MR_C_PassBy_Copy, ownership as *const crate::mr::cs::std_shared_ptr_const_void as *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
+        __ret
+    }
+
+    /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_ConvertTo_MR_C_std_shared_ptr_const_void()`.
+    pub fn convert_to_mr_c_std_shared_ptr_const_void(&self) -> crate::Owned<crate::mr::cs::std_shared_ptr_const_void>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_ConvertTo_MR_C_std_shared_ptr_const_void(self as *const Self as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_const_void)}
+    }
+
+    /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
+    ///
+    /// Calls `MR_C_std_shared_ptr_const_int32_t_array_42_AssignTo_MR_C_std_shared_ptr_const_void()`.
+    pub fn assign_to_mr_c_std_shared_ptr_const_void(&self, _target: &mut crate::mr::cs::std_shared_ptr_const_void)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42_AssignTo_MR_C_std_shared_ptr_const_void(self as *const Self as *const crate::ffi::MR_C_std_shared_ptr_const_int32_t_array_42, _target as *mut crate::mr::cs::std_shared_ptr_const_void as *mut crate::ffi::MR_C_std_shared_ptr_const_void)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_shared_ptr_const_int32_t_array_42
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

@@ -1,0 +1,18 @@
+/// Generated from class `std::pair<const int &, const float &>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_pair_const_int_ref_const_float_ref
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(other: *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref) -> *mut crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref;
+    pub fn MR_C_std_pair_const_int_ref_const_float_ref_Construct(first: *const core::ffi::c_int, second: *const f32) -> *mut crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref;
+    pub fn MR_C_std_pair_const_int_ref_const_float_ref_first(_this: *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref) -> *const core::ffi::c_int;
+    pub fn MR_C_std_pair_const_int_ref_const_float_ref_second(_this: *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref) -> *const f32;
+    pub fn MR_C_std_pair_const_int_ref_const_float_ref_Destroy(_this: *const MR_C_std_pair_const_int_ref_const_float_ref);
+}

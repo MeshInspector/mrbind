@@ -1,0 +1,83 @@
+/// Stores 4 objects: `const int &`, `const float &&`, `const std::string &`, `const std::string &&`.
+///
+/// Generated from class `std::tuple<const int &, const float &&, const std::string &, const std::string &&>`. Heap-allocated instances are held in `Owned<std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref>`.
+#[repr(transparent)]
+pub struct std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref(crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref);
+
+unsafe impl crate::CppClass for std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Destroy(ptr as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)}
+}
+
+impl std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
+{
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> crate::Owned<crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(other as *const crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)}
+    }
+
+    /// Constructs the tuple elementwise.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct()`.
+    /// The reference to the parameter `_0` might be preserved in the constructed object.
+    /// The reference to the parameter `_1` might be preserved in the constructed object.
+    /// The reference to the parameter `_2` might be preserved in the constructed object.
+    /// The reference to the parameter `_3` might be preserved in the constructed object.
+    pub fn construct(_0: &core::ffi::c_int, _1: &f32, _2: &str, _3: &str) -> crate::Owned<crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct(_0 as *const core::ffi::c_int as *const core::ffi::c_int, _1 as *const f32 as *const f32, _2.as_ptr() as *const core::ffi::c_char, _2.as_ptr().wrapping_add(_2.len()) as *const core::ffi::c_char, _3.as_ptr() as *const core::ffi::c_char, _3.as_ptr().wrapping_add(_3.len()) as *const core::ffi::c_char)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)}
+    }
+
+    /// The element 0, of type `const int &`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_const_int_ref<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref(self as *const Self as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The element 1, of type `const float &&`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_const_float_rvalue_ref<'a>(&'a self) -> &'a f32
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref(self as *const Self as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)};
+        unsafe {&*(__ret as *const f32)}
+    }
+
+    /// The element 2, of type `const std::string &`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_const_std_string_ref<'a>(&'a self) -> &'a crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref(self as *const Self as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)};
+        unsafe {&*(__ret as *const crate::mr::cs::std_string)}
+    }
+
+    /// The element 3, of type `const std::string &&`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_const_std_string_rvalue_ref<'a>(&'a self) -> &'a crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref(self as *const Self as *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref)};
+        unsafe {&*(__ret as *const crate::mr::cs::std_string)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

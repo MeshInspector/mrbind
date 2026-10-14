@@ -54,6 +54,8 @@ Large vibecoded contributions go into the [a separate `vibecoded` branch](https:
 
    * [Generate C# / .NET bindings.](/docs/generating_csharp.md)
 
+   * [Generate Rust bindings.](/docs/generating_rust.md)
+
 5. Additional articles:
 
    * [Skipping certain types/functions/etc.](/docs/skipping_entities.md)

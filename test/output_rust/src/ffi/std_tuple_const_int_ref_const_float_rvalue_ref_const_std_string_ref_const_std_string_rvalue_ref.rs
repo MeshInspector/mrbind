@@ -1,0 +1,20 @@
+/// Generated from class `std::tuple<const int &, const float &&, const std::string &, const std::string &&>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(other: *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> *mut crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct(_0: *const core::ffi::c_int, _1: *const f32, _2: *const core::ffi::c_char, _2_end: *const core::ffi::c_char, _3: *const core::ffi::c_char, _3_end: *const core::ffi::c_char) -> *mut crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref(_this: *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> *const core::ffi::c_int;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref(_this: *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> *const f32;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref(_this: *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> *const crate::ffi::MR_C_std_string;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref(_this: *const crate::ffi::MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref) -> *const crate::ffi::MR_C_std_string;
+    pub fn MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Destroy(_this: *const MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref);
+}

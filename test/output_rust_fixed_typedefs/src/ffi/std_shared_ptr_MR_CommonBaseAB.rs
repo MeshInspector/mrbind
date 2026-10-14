@@ -1,0 +1,30 @@
+/// Generated from class `std::shared_ptr<MR::CommonBaseAB>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_shared_ptr_MR_CommonBaseAB
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_DefaultConstruct() -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_get(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB) -> *mut crate::ffi::MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_has_value(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB) -> bool;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_use_count(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB) -> core::ffi::c_int;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_reset(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_ConstructFromValue(value_pass_by: crate::ffi::MR_C_PassBy, value: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_Construct(ptr: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_Assign(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB, ptr: *mut crate::ffi::MR_CommonBaseAB);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_ConstructNonOwning(ptr: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_AssignNonOwning(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB, ptr: *mut crate::ffi::MR_CommonBaseAB);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_ConstructAliasing(ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_AssignAliasing(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB, ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_CommonBaseAB);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_ConvertTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB) -> *mut crate::ffi::MR_C_std_shared_ptr_void;
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_AssignTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CommonBaseAB, _target: *mut crate::ffi::MR_C_std_shared_ptr_void);
+    pub fn MR_C_std_shared_ptr_MR_CommonBaseAB_Destroy(_this: *const MR_C_std_shared_ptr_MR_CommonBaseAB);
+}

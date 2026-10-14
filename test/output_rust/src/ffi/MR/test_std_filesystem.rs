@@ -1,0 +1,10 @@
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_StdFilesystem_GetPath() -> *mut crate::ffi::MR_C_std_filesystem_path;
+    pub fn MR_StdFilesystem_SetPath(_1: *const core::ffi::c_char, _1_end: *const core::ffi::c_char);
+    pub fn MR_StdFilesystem_SetPathConstRef(_1: *const core::ffi::c_char, _1_end: *const core::ffi::c_char);
+    pub fn MR_StdFilesystem_SetPathDefTrivial(_1: *const core::ffi::c_char, _1_end: *const core::ffi::c_char);
+    pub fn MR_StdFilesystem_SetPathDef(_1: *const core::ffi::c_char, _1_end: *const core::ffi::c_char);
+}

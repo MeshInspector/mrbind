@@ -1,0 +1,14 @@
+/// Generated from struct `std::array<int, 43>`. Has the same layout in C, C++, and Rust.
+#[repr(C, align(4))]
+#[derive(Clone, Copy, Debug)]
+pub struct MR_C_std_array_int_43
+{
+    pub elems: [core::ffi::c_int; 43],
+}
+const _: () =
+{
+    assert!(core::mem::size_of::<MR_C_std_array_int_43>() == 172);
+    assert!(core::mem::align_of::<MR_C_std_array_int_43>() == 4);
+    assert!(core::mem::offset_of!(MR_C_std_array_int_43, elems) == 0);
+};
+

@@ -1,0 +1,25 @@
+/// Generated from class `MR::SeparateB`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_SeparateB
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh_B", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh_B"))]
+unsafe extern "C"
+{
+    pub fn MR_GetSeparateVecB() -> *mut crate::ffi::MR_C_std_vector_MR_SeparateB;
+    pub fn MR_SeparateB_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_SeparateB) -> *mut crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_AssignFromAnother(_this: *mut crate::ffi::MR_SeparateB, _other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_SeparateB) -> *mut crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_Destroy(_this: *const MR_SeparateB);
+    pub fn MR_SeparateB_UpcastTo_MR_CommonBaseAB(object: *const crate::ffi::MR_SeparateB) -> *const crate::ffi::MR_CommonBaseAB;
+    pub fn MR_SeparateB_MutableUpcastTo_MR_CommonBaseAB(object: *mut crate::ffi::MR_SeparateB) -> *mut crate::ffi::MR_CommonBaseAB;
+    pub fn MR_SeparateB_StaticDowncastFrom_MR_CommonBaseAB(object: *const crate::ffi::MR_CommonBaseAB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_MutableStaticDowncastFrom_MR_CommonBaseAB(object: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(object: *const crate::ffi::MR_CommonBaseAB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_DynamicDowncastFromOrFail_MR_CommonBaseAB(object: *const crate::ffi::MR_CommonBaseAB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_MutableDynamicDowncastFrom_MR_CommonBaseAB(object: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_SeparateB;
+    pub fn MR_SeparateB_MutableDynamicDowncastFromOrFail_MR_CommonBaseAB(object: *mut crate::ffi::MR_CommonBaseAB) -> *mut crate::ffi::MR_SeparateB;
+}

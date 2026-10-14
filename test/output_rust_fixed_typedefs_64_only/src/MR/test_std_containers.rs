@@ -1,0 +1,515 @@
+/// `std::array` behaves differently with simple types.
+/// Generated from class `MR::StdContainers::A`.
+///
+/// Generated from class `MR::StdContainers::A`. Heap-allocated instances are held in `Owned<A>`.
+#[repr(transparent)]
+pub struct A(crate::ffi::MR_StdContainers_A);
+
+unsafe impl crate::CppClass for A
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_StdContainers_A_Destroy(ptr as *const crate::ffi::MR_StdContainers_A)}
+}
+
+impl A
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_StdContainers_A_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::std_containers::A>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_A_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::A)}
+    }
+
+    /// Generated from constructor `MR::StdContainers::A::A`.
+    ///
+    /// Calls `MR_StdContainers_A_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::std_containers::A) -> crate::Owned<crate::mr::std_containers::A>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_A_ConstructFromAnother(_other as *const crate::mr::std_containers::A as *const crate::ffi::MR_StdContainers_A)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::A)}
+    }
+
+    /// Generated from method `MR::StdContainers::A::operator=`.
+    ///
+    /// Calls `MR_StdContainers_A_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::std_containers::A) -> &mut crate::mr::std_containers::A
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_A_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_StdContainers_A, _other as *const crate::mr::std_containers::A as *const crate::ffi::MR_StdContainers_A)};
+        unsafe {&mut *(__ret as *mut crate::mr::std_containers::A)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for A
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// A non-assignable type?
+/// Generated from class `MR::StdContainers::NonAssignable`.
+///
+/// Generated from class `MR::StdContainers::NonAssignable`. Heap-allocated instances are held in `Owned<NonAssignable>`.
+#[repr(transparent)]
+pub struct NonAssignable(crate::ffi::MR_StdContainers_NonAssignable);
+
+unsafe impl crate::CppClass for NonAssignable
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_StdContainers_NonAssignable_Destroy(ptr as *const crate::ffi::MR_StdContainers_NonAssignable)}
+}
+
+impl NonAssignable
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_StdContainers_NonAssignable_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::std_containers::NonAssignable>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_NonAssignable_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::NonAssignable)}
+    }
+
+    /// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+    ///
+    /// Calls `MR_StdContainers_NonAssignable_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::std_containers::NonAssignable) -> crate::Owned<crate::mr::std_containers::NonAssignable>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_NonAssignable_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::std_containers::NonAssignable as *mut crate::ffi::MR_StdContainers_NonAssignable)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::NonAssignable)}
+    }
+
+    /// Generated from method `MR::StdContainers::NonAssignable::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_StdContainers_NonAssignable()`.
+    pub fn op_less(&self, _1: &crate::mr::std_containers::NonAssignable) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_StdContainers_NonAssignable(self as *const Self as *const crate::ffi::MR_StdContainers_NonAssignable, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::std_containers::NonAssignable as *mut crate::ffi::MR_StdContainers_NonAssignable)};
+        __ret
+    }
+
+    /// Generated from method `MR::StdContainers::NonAssignable::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_StdContainers_NonAssignable()`.
+    pub fn op_equal(&self, _1: &crate::mr::std_containers::NonAssignable) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_StdContainers_NonAssignable(self as *const Self as *const crate::ffi::MR_StdContainers_NonAssignable, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::std_containers::NonAssignable as *mut crate::ffi::MR_StdContainers_NonAssignable)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for NonAssignable
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Test vectors of a non-default-constructible type.
+/// Generated from class `MR::StdContainers::NonDefaultConstructible`.
+///
+/// Generated from class `MR::StdContainers::NonDefaultConstructible`. Heap-allocated instances are held in `Owned<NonDefaultConstructible>`.
+#[repr(transparent)]
+pub struct NonDefaultConstructible(crate::ffi::MR_StdContainers_NonDefaultConstructible);
+
+unsafe impl crate::CppClass for NonDefaultConstructible
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_StdContainers_NonDefaultConstructible_Destroy(ptr as *const crate::ffi::MR_StdContainers_NonDefaultConstructible)}
+}
+
+impl NonDefaultConstructible
+{
+    /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
+    ///
+    /// Calls `MR_StdContainers_NonDefaultConstructible_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::std_containers::NonDefaultConstructible) -> crate::Owned<crate::mr::std_containers::NonDefaultConstructible>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other as *const crate::mr::std_containers::NonDefaultConstructible as *const crate::ffi::MR_StdContainers_NonDefaultConstructible)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::NonDefaultConstructible)}
+    }
+
+    /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
+    ///
+    /// Calls `MR_StdContainers_NonDefaultConstructible_Construct()`.
+    pub fn construct(_1: core::ffi::c_int) -> crate::Owned<crate::mr::std_containers::NonDefaultConstructible>
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_NonDefaultConstructible_Construct(_1)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_containers::NonDefaultConstructible)}
+    }
+
+    /// Generated from method `MR::StdContainers::NonDefaultConstructible::operator=`.
+    ///
+    /// Calls `MR_StdContainers_NonDefaultConstructible_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::std_containers::NonDefaultConstructible) -> &mut crate::mr::std_containers::NonDefaultConstructible
+    {
+        let __ret = unsafe {crate::ffi::MR_StdContainers_NonDefaultConstructible_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_StdContainers_NonDefaultConstructible, _other as *const crate::mr::std_containers::NonDefaultConstructible as *const crate::ffi::MR_StdContainers_NonDefaultConstructible)};
+        unsafe {&mut *(__ret as *mut crate::mr::std_containers::NonDefaultConstructible)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for NonDefaultConstructible
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from function `MR::StdContainers::Set`.
+///
+/// Calls `MR_StdContainers_Set()`.
+pub fn set(_1: &crate::mr::cs::std_vector_int)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_Set(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_vector_int as *mut crate::ffi::MR_C_std_vector_int)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::SetWithDefault`.
+///
+/// Calls `MR_StdContainers_SetWithDefault()`.
+pub fn set_with_default(_1: Option<&crate::mr::cs::std_vector_int>)
+{
+    let (__pb__1, __ptr__1) = match _1 {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_vector_int as *mut crate::ffi::MR_C_std_vector_int), None => (crate::ffi::MR_C_PassBy_DefaultArgument, core::ptr::null_mut())};
+    let __ret = unsafe {crate::ffi::MR_StdContainers_SetWithDefault(__pb__1, __ptr__1)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::Get`.
+///
+/// Calls `MR_StdContainers_Get()`.
+pub fn get() -> crate::Owned<crate::mr::cs::std_vector_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_Get()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_vector_int)}
+}
+
+/// Generated from function `MR::StdContainers::WriteToRef`.
+///
+/// Calls `MR_StdContainers_WriteToRef()`.
+pub fn write_to_ref(_1: &mut crate::mr::cs::std_vector_int)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_WriteToRef(_1 as *mut crate::mr::cs::std_vector_int as *mut crate::ffi::MR_C_std_vector_int)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::WriteToPtr`.
+///
+/// Calls `MR_StdContainers_WriteToPtr()`.
+pub fn write_to_ptr(_1: Option<&mut crate::mr::cs::std_vector_int>)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_WriteToPtr(_1.map_or(core::ptr::null_mut(), |r| r as *mut crate::mr::cs::std_vector_int as *mut crate::ffi::MR_C_std_vector_int))};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::ConstRef`.
+///
+/// Calls `MR_StdContainers_ConstRef()`.
+pub fn const_ref(_1: &crate::mr::cs::std_vector_int)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_ConstRef(_1 as *const crate::mr::cs::std_vector_int as *const crate::ffi::MR_C_std_vector_int)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::RvalueRef`.
+///
+/// Calls `MR_StdContainers_RvalueRef()`.
+pub fn rvalue_ref(_1: &mut crate::mr::cs::std_vector_int)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_RvalueRef(_1 as *mut crate::mr::cs::std_vector_int as *mut crate::ffi::MR_C_std_vector_int)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::ConstRvalueRef`.
+///
+/// Calls `MR_StdContainers_ConstRvalueRef()`.
+pub fn const_rvalue_ref(_1: &crate::mr::cs::std_vector_int)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_ConstRvalueRef(_1 as *const crate::mr::cs::std_vector_int as *const crate::ffi::MR_C_std_vector_int)};
+    __ret
+}
+
+/// Just the list of other containers.
+/// Generated from function `MR::StdContainers::GetDeque`.
+///
+/// Calls `MR_StdContainers_GetDeque()`.
+pub fn get_deque() -> crate::Owned<crate::mr::cs::std_deque_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetDeque()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_deque_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetList`.
+///
+/// Calls `MR_StdContainers_GetList()`.
+pub fn get_list() -> crate::Owned<crate::mr::cs::std_list_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetList()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_list_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetSet`.
+///
+/// Calls `MR_StdContainers_GetSet()`.
+pub fn get_set() -> crate::Owned<crate::mr::cs::std_set_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetSet()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetMultiSet`.
+///
+/// Calls `MR_StdContainers_GetMultiSet()`.
+pub fn get_multi_set() -> crate::Owned<crate::mr::cs::std_multiset_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMultiSet()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multiset_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedSet`.
+///
+/// Calls `MR_StdContainers_GetUnorderedSet()`.
+pub fn get_unordered_set() -> crate::Owned<crate::mr::cs::std_unordered_set_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedSet()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_set_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiSet`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMultiSet()`.
+pub fn get_unordered_multi_set() -> crate::Owned<crate::mr::cs::std_unordered_multiset_int>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMultiSet()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_multiset_int)}
+}
+
+/// Generated from function `MR::StdContainers::GetMap`.
+///
+/// Calls `MR_StdContainers_GetMap()`.
+pub fn get_map() -> crate::Owned<crate::mr::cs::std_map_int_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMap()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_map_int_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetMultiMap`.
+///
+/// Calls `MR_StdContainers_GetMultiMap()`.
+pub fn get_multi_map() -> crate::Owned<crate::mr::cs::std_multimap_int_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMultiMap()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multimap_int_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMap`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMap()`.
+pub fn get_unordered_map() -> crate::Owned<crate::mr::cs::std_unordered_map_int_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMap()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiMap`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMultiMap()`.
+pub fn get_unordered_multi_map() -> crate::Owned<crate::mr::cs::std_unordered_multimap_int_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMultiMap()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_multimap_int_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetStdArray`.
+///
+/// Calls `MR_StdContainers_GetStdArray()`.
+pub fn get_std_array() -> crate::Owned<crate::mr::cs::std_array_MR_StdContainers_A_42>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetStdArray()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_array_MR_StdContainers_A_42)}
+}
+
+/// Generated from function `MR::StdContainers::GetStdArraySimple`.
+///
+/// Calls `MR_StdContainers_GetStdArraySimple()`.
+pub fn get_std_array_simple() -> crate::ffi::MR_C_std_array_int_43
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetStdArraySimple()};
+    __ret
+}
+
+/// The custom simple array needs a bit more testing:
+/// Generated from function `MR::StdContainers::StdArraySimpleParam`.
+///
+/// Calls `MR_StdContainers_StdArraySimpleParam()`.
+pub fn std_array_simple_param(_1: crate::ffi::MR_C_std_array_int_43)
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_StdArraySimpleParam(_1)};
+    __ret
+}
+
+/// Generated from function `MR::StdContainers::StdArraySimplePtr`.
+///
+/// Calls `MR_StdContainers_StdArraySimplePtr()`.
+pub fn std_array_simple_ptr(param: Option<&mut crate::ffi::MR_C_std_array_int_43>) -> Option<&mut crate::ffi::MR_C_std_array_int_43>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_StdArraySimplePtr(param.map_or(core::ptr::null_mut(), |r| r as *mut crate::ffi::MR_C_std_array_int_43 as *mut crate::ffi::MR_C_std_array_int_43))};
+    unsafe {(__ret as *mut crate::ffi::MR_C_std_array_int_43).as_mut()}
+}
+
+/// For this `std::multiset` specialization, mention all iterators so that they get merged.
+/// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.
+///
+/// Calls `MR_StdContainers_GetMultiSetWithMergedIters()`.
+pub fn get_multi_set_with_merged_iters() -> crate::Owned<crate::mr::cs::std_multiset_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMultiSetWithMergedIters()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multiset_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetMergedIter`.
+///
+/// Calls `MR_StdContainers_GetMergedIter()`.
+pub fn get_merged_iter() -> crate::Owned<crate::mr::cs::std_set_float_const_iterator>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMergedIter()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_float_const_iterator)}
+}
+
+/// Generated from function `MR::StdContainers::GetMergedIterConst`.
+///
+/// Calls `MR_StdContainers_GetMergedIterConst()`.
+pub fn get_merged_iter_const() -> crate::Owned<crate::mr::cs::std_set_float_const_iterator>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMergedIterConst()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_float_const_iterator)}
+}
+
+/// Generated from function `MR::StdContainers::NonDefCon`.
+///
+/// Calls `MR_StdContainers_NonDefCon()`.
+pub fn non_def_con() -> crate::Owned<crate::mr::cs::std_vector_MR_StdContainers_NonDefaultConstructible>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_NonDefCon()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_vector_MR_StdContainers_NonDefaultConstructible)}
+}
+
+/// Generated from function `MR::StdContainers::GetVectorNA`.
+///
+/// Calls `MR_StdContainers_GetVectorNA()`.
+pub fn get_vector_na() -> crate::Owned<crate::mr::cs::std_vector_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetVectorNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_vector_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetDequeNA`.
+///
+/// Calls `MR_StdContainers_GetDequeNA()`.
+pub fn get_deque_na() -> crate::Owned<crate::mr::cs::std_deque_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetDequeNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_deque_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetListNA`.
+///
+/// Calls `MR_StdContainers_GetListNA()`.
+pub fn get_list_na() -> crate::Owned<crate::mr::cs::std_list_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetListNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_list_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetSetNA`.
+///
+/// Calls `MR_StdContainers_GetSetNA()`.
+pub fn get_set_na() -> crate::Owned<crate::mr::cs::std_set_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetSetNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetMultiSetNA`.
+///
+/// Calls `MR_StdContainers_GetMultiSetNA()`.
+pub fn get_multi_set_na() -> crate::Owned<crate::mr::cs::std_multiset_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMultiSetNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multiset_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedSetNA`.
+///
+/// Calls `MR_StdContainers_GetUnorderedSetNA()`.
+pub fn get_unordered_set_na() -> crate::Owned<crate::mr::cs::std_unordered_set_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedSetNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_set_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiSetNA`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMultiSetNA()`.
+pub fn get_unordered_multi_set_na() -> crate::Owned<crate::mr::cs::std_unordered_multiset_MR_StdContainers_NonAssignable>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMultiSetNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_multiset_MR_StdContainers_NonAssignable)}
+}
+
+/// Generated from function `MR::StdContainers::GetMapNA`.
+///
+/// Calls `MR_StdContainers_GetMapNA()`.
+pub fn get_map_na() -> crate::Owned<crate::mr::cs::std_map_MR_StdContainers_NonAssignable_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMapNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_map_MR_StdContainers_NonAssignable_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetMultiMapNA`.
+///
+/// Calls `MR_StdContainers_GetMultiMapNA()`.
+pub fn get_multi_map_na() -> crate::Owned<crate::mr::cs::std_multimap_MR_StdContainers_NonAssignable_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetMultiMapNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multimap_MR_StdContainers_NonAssignable_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMapNA`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMapNA()`.
+pub fn get_unordered_map_na() -> crate::Owned<crate::mr::cs::std_unordered_map_MR_StdContainers_NonAssignable_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMapNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_MR_StdContainers_NonAssignable_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetUnorderedMultiMapNA`.
+///
+/// Calls `MR_StdContainers_GetUnorderedMultiMapNA()`.
+pub fn get_unordered_multi_map_na() -> crate::Owned<crate::mr::cs::std_unordered_multimap_MR_StdContainers_NonAssignable_float>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetUnorderedMultiMapNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_multimap_MR_StdContainers_NonAssignable_float)}
+}
+
+/// Generated from function `MR::StdContainers::GetStdArrayNA`.
+///
+/// Calls `MR_StdContainers_GetStdArrayNA()`.
+pub fn get_std_array_na() -> crate::Owned<crate::mr::cs::std_array_MR_StdContainers_NonAssignable_42>
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetStdArrayNA()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_array_MR_StdContainers_NonAssignable_42)}
+}
+
+/// Fun stuff!
+/// The type name is a bit weird for this, but at least it works.
+/// Generated from function `MR::StdContainers::GetStdArrayOfPlainArray`.
+///
+/// Calls `MR_StdContainers_GetStdArrayOfPlainArray()`.
+pub fn get_std_array_of_plain_array() -> crate::ffi::MR_C_std_array_int_array_4_array_3_5
+{
+    let __ret = unsafe {crate::ffi::MR_StdContainers_GetStdArrayOfPlainArray()};
+    __ret
+}
+

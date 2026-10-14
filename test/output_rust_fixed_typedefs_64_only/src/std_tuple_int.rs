@@ -1,0 +1,78 @@
+/// Stores 1 object: `int`.
+///
+/// Generated from class `std::tuple<int>`. Heap-allocated instances are held in `Owned<std_tuple_int>`.
+#[repr(transparent)]
+pub struct std_tuple_int(crate::ffi::MR_C_std_tuple_int);
+
+unsafe impl crate::CppClass for std_tuple_int
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_tuple_int_Destroy(ptr as *const crate::ffi::MR_C_std_tuple_int)}
+}
+
+impl std_tuple_int
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_tuple_int_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_tuple_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_tuple_int_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_tuple_int) -> crate::Owned<crate::mr::cs::std_tuple_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_ConstructFromAnother(other as *const crate::mr::cs::std_tuple_int as *const crate::ffi::MR_C_std_tuple_int)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_tuple_int_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_tuple_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_int, other as *const crate::mr::cs::std_tuple_int as *const crate::ffi::MR_C_std_tuple_int)};
+        __ret
+    }
+
+    /// Constructs the tuple elementwise.
+    ///
+    /// Calls `MR_C_std_tuple_int_Construct()`.
+    pub fn construct(_0: core::ffi::c_int) -> crate::Owned<crate::mr::cs::std_tuple_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_Construct(_0)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int)}
+    }
+
+    /// The element 0, of type `int`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_int_get_int()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_get_int(self as *const Self as *const crate::ffi::MR_C_std_tuple_int)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The element 0, of type `int`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_int_get_int_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_get_int_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_int)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_tuple_int
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

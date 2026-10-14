@@ -1,0 +1,247 @@
+/// Generated from C++ container `phmap::btree_set<int32_t>`.
+///
+/// Generated from class `phmap::btree_set<int32_t>`. Heap-allocated instances are held in `Owned<phmap_btree_set_int32_t>`.
+#[repr(transparent)]
+pub struct phmap_btree_set_int32_t(crate::ffi::MR_C_phmap_btree_set_int32_t);
+
+unsafe impl crate::CppClass for phmap_btree_set_int32_t
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_phmap_btree_set_int32_t_Destroy(ptr as *const crate::ffi::MR_C_phmap_btree_set_int32_t)}
+}
+
+impl phmap_btree_set_int32_t
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::phmap::phmap_btree_set_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::phmap::phmap_btree_set_int32_t) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, other as *const crate::phmap::phmap_btree_set_int32_t as *mut crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::phmap::phmap_btree_set_int32_t)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t, crate::ffi::MR_C_PassBy_Copy, other as *const crate::phmap::phmap_btree_set_int32_t as *mut crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        __ret
+    }
+
+    /// Construct from a range of elements.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_ConstructFromRange()`.
+    pub fn construct_from_range(ptr: Option<&i32>, size: usize) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_ConstructFromRange(ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32), size)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t)}
+    }
+
+    /// Assign from a range of elements, overwriting previous contents.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_AssignFromRange()`.
+    pub fn assign_from_range(&mut self, ptr: Option<&i32>, size: usize)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_AssignFromRange(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t, ptr.map_or(core::ptr::null(), |r| r as *const i32 as *const i32), size)};
+        __ret
+    }
+
+    /// The number of elements.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_size()`.
+    pub fn size(&self) -> usize
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_size(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        __ret
+    }
+
+    /// Returns true if the size is zero.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_empty()`.
+    pub fn empty(&self) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_empty(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        __ret
+    }
+
+    /// Removes all elements from the container.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_clear()`.
+    pub fn clear(&mut self)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_clear(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        __ret
+    }
+
+    /// Checks if the contain contains this key.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_contains()`.
+    pub fn contains(&self, key: &i32) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_contains(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t, key as *const i32 as *const i32)};
+        __ret
+    }
+
+    /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_find()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find(&self, key: &i32) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t_const_iterator>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_find(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t, key as *const i32 as *const i32)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t_const_iterator)}
+    }
+
+    /// Inserts a new element.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_insert()`.
+    /// The reference to the parameter `new_elem` might be preserved in this object.
+    pub fn insert(&mut self, new_elem: i32)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_insert(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t, new_elem)};
+        __ret
+    }
+
+    /// The begin iterator, const.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_begin()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn begin(&self) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t_const_iterator>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_begin(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t_const_iterator)}
+    }
+
+    /// Tests whether a const iterator is the begin iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_is_begin()`.
+    pub fn is_begin(&self, iter: &crate::phmap::phmap_btree_set_int32_t_const_iterator) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_is_begin(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t, iter as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        __ret
+    }
+
+    /// The end iterator, const.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_end()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn end(&self) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t_const_iterator>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_end(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t_const_iterator)}
+    }
+
+    /// Tests whether a const iterator is the end iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_is_end()`.
+    pub fn is_end(&self, iter: &crate::phmap::phmap_btree_set_int32_t_const_iterator) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_is_end(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t, iter as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for phmap_btree_set_int32_t
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Read-only iterator for `MR_C_phmap_btree_set_int32_t`.
+///
+/// Generated from class `phmap::btree_set<int32_t>::const_iterator`. Heap-allocated instances are held in `Owned<phmap_btree_set_int32_t_const_iterator>`.
+#[repr(transparent)]
+pub struct phmap_btree_set_int32_t_const_iterator(crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator);
+
+unsafe impl crate::CppClass for phmap_btree_set_int32_t_const_iterator
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_Destroy(ptr as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)}
+}
+
+impl phmap_btree_set_int32_t_const_iterator
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::phmap::phmap_btree_set_int32_t_const_iterator>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t_const_iterator)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::phmap::phmap_btree_set_int32_t_const_iterator) -> crate::Owned<crate::phmap::phmap_btree_set_int32_t_const_iterator>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_ConstructFromAnother(other as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_btree_set_int32_t_const_iterator)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::phmap::phmap_btree_set_int32_t_const_iterator)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator, other as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        __ret
+    }
+
+    /// Dereferences a const iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_deref()`.
+    /// The reference to things referred to by this object (if any) might be preserved as the return value.
+    pub fn deref<'a>(&'a self) -> &'a i32
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_deref(self as *const Self as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        unsafe {&*(__ret as *const i32)}
+    }
+
+    /// Increments a const iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_incr()`.
+    pub fn incr(&mut self)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_incr(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        __ret
+    }
+
+    /// Decrements a const iterator.
+    ///
+    /// Calls `MR_C_phmap_btree_set_int32_t_const_iterator_decr()`.
+    pub fn decr(&mut self)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator_decr(self as *mut Self as *mut crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for phmap_btree_set_int32_t_const_iterator
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Compares two const iterators for equality.
+///
+/// Calls `MR_C_equal_MR_C_phmap_btree_set_int32_t_const_iterator()`.
+pub fn op_equal_mr_c_phmap_btree_set_int32_t_const_iterator(a: &crate::phmap::phmap_btree_set_int32_t_const_iterator, b: &crate::phmap::phmap_btree_set_int32_t_const_iterator) -> bool
+{
+    let __ret = unsafe {crate::ffi::MR_C_equal_MR_C_phmap_btree_set_int32_t_const_iterator(a as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator, b as *const crate::phmap::phmap_btree_set_int32_t_const_iterator as *const crate::ffi::MR_C_phmap_btree_set_int32_t_const_iterator)};
+    __ret
+}
+

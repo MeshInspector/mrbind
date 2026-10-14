@@ -1,0 +1,22 @@
+/// Generated from class `std::string_view`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_string_view
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_string_view_DefaultConstruct() -> *mut crate::ffi::MR_C_std_string_view;
+    pub fn MR_C_std_string_view_ConstructFromAnother(other: *const crate::ffi::MR_C_std_string_view) -> *mut crate::ffi::MR_C_std_string_view;
+    pub fn MR_C_std_string_view_ConstructFrom(other: *const core::ffi::c_char, other_end: *const core::ffi::c_char) -> *mut crate::ffi::MR_C_std_string_view;
+    pub fn MR_C_std_string_view_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_string_view, other: *const crate::ffi::MR_C_std_string_view);
+    pub fn MR_C_std_string_view_AssignFrom(_this: *mut crate::ffi::MR_C_std_string_view, other: *const core::ffi::c_char, other_end: *const core::ffi::c_char);
+    pub fn MR_C_std_string_view_size(_this: *const crate::ffi::MR_C_std_string_view) -> usize;
+    pub fn MR_C_std_string_view_data(_this: *const crate::ffi::MR_C_std_string_view) -> *const core::ffi::c_char;
+    pub fn MR_C_std_string_view_data_end(_this: *const crate::ffi::MR_C_std_string_view) -> *const core::ffi::c_char;
+    pub fn MR_C_std_string_view_Destroy(_this: *const MR_C_std_string_view);
+}

@@ -1,0 +1,112 @@
+/// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
+///
+/// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`. Heap-allocated instances are held in `Owned<A_uint64_t>`.
+#[repr(transparent)]
+pub struct A_uint64_t(crate::ffi::MR_TestSizeT_A_uint64_t);
+
+unsafe impl crate::CppClass for A_uint64_t
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_TestSizeT_A_uint64_t_Destroy(ptr as *const crate::ffi::MR_TestSizeT_A_uint64_t)}
+}
+
+impl A_uint64_t
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_TestSizeT_A_uint64_t_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::test_size_t::A_uint64_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TestSizeT_A_uint64_t_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::test_size_t::A_uint64_t)}
+    }
+
+    /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
+    ///
+    /// Calls `MR_TestSizeT_A_uint64_t_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::test_size_t::A_uint64_t) -> crate::Owned<crate::mr::test_size_t::A_uint64_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other as *const crate::mr::test_size_t::A_uint64_t as *const crate::ffi::MR_TestSizeT_A_uint64_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::test_size_t::A_uint64_t)}
+    }
+
+    /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::operator=`.
+    ///
+    /// Calls `MR_TestSizeT_A_uint64_t_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::test_size_t::A_uint64_t) -> &mut crate::mr::test_size_t::A_uint64_t
+    {
+        let __ret = unsafe {crate::ffi::MR_TestSizeT_A_uint64_t_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_TestSizeT_A_uint64_t, _other as *const crate::mr::test_size_t::A_uint64_t as *const crate::ffi::MR_TestSizeT_A_uint64_t)};
+        unsafe {&mut *(__ret as *mut crate::mr::test_size_t::A_uint64_t)}
+    }
+
+    /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::foo`.
+    ///
+    /// Calls `MR_TestSizeT_A_uint64_t_foo()`.
+    pub fn foo(&mut self) -> u64
+    {
+        let __ret = unsafe {crate::ffi::MR_TestSizeT_A_uint64_t_foo(self as *mut Self as *mut crate::ffi::MR_TestSizeT_A_uint64_t)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for A_uint64_t
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_uint64_t()`.
+pub fn foo_uint64_t(_1: u64) -> u64
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_uint64_t(_1)};
+    __ret
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_uint64_t_ptr()`. Some types are raw C types, see the C bindings for the details.
+pub unsafe fn foo_uint64_t_ptr(_1: *mut *mut u64) -> *mut *mut u64
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_uint64_t_ptr(_1)};
+    __ret
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_std_vector_uint64_t()`.
+pub fn foo_std_vector_uint64_t(_1: &crate::mr::cs::std_vector_uint64_t) -> crate::Owned<crate::mr::cs::std_vector_uint64_t>
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_std_vector_uint64_t(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_vector_uint64_t as *mut crate::ffi::MR_C_std_vector_uint64_t)};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_vector_uint64_t)}
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_int64_t()`.
+pub fn foo_int64_t(_1: i64) -> i64
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_int64_t(_1)};
+    __ret
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_int64_t_ptr()`. Some types are raw C types, see the C bindings for the details.
+pub unsafe fn foo_int64_t_ptr(_1: *mut *mut i64) -> *mut *mut i64
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_int64_t_ptr(_1)};
+    __ret
+}
+
+/// Generated from function `MR::TestSizeT::foo`.
+///
+/// Calls `MR_TestSizeT_foo_std_vector_int64_t()`.
+pub fn foo_std_vector_int64_t(_1: &crate::mr::cs::std_vector_int64_t) -> crate::Owned<crate::mr::cs::std_vector_int64_t>
+{
+    let __ret = unsafe {crate::ffi::MR_TestSizeT_foo_std_vector_int64_t(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_vector_int64_t as *mut crate::ffi::MR_C_std_vector_int64_t)};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_vector_int64_t)}
+}
+

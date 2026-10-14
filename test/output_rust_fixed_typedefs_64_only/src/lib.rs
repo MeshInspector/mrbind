@@ -1,0 +1,1630 @@
+//! The `ffi` module holds the raw C declarations. The definitions of the safe wrappers mirror the C file hierarchy,
+//! and the modules named after the C++ namespaces re-export them.
+#![allow(non_camel_case_types, non_snake_case, non_upper_case_globals, dead_code, deprecated, unused_unsafe, unused_variables, unused_imports, clippy::all)]
+
+pub mod ffi;
+pub mod A;
+pub mod AB;
+pub mod AB_base;
+pub mod B;
+pub mod MR;
+pub mod iostream;
+pub mod phmap_btree_map_int_float;
+pub mod phmap_btree_multimap_int_float;
+pub mod phmap_btree_multiset_int;
+pub mod phmap_btree_set_int;
+pub mod phmap_flat_hash_map_int_float;
+pub mod phmap_flat_hash_set_int;
+pub mod phmap_node_hash_map_int_float;
+pub mod phmap_node_hash_set_int;
+pub mod phmap_parallel_flat_hash_map_int_float;
+pub mod phmap_parallel_flat_hash_set_int;
+pub mod phmap_parallel_node_hash_map_int_float;
+pub mod phmap_parallel_node_hash_set_int;
+pub mod std_array_MR_StdContainers_A_42;
+pub mod std_array_MR_StdContainers_NonAssignable_42;
+pub mod std_array_int_43;
+pub mod std_array_int_array_4_array_3_5;
+pub mod std_deque_MR_StdContainers_NonAssignable;
+pub mod std_deque_int;
+pub mod std_expected_MR_CSharp_E1_float;
+pub mod std_expected_MR_CSharp_ExposedLayoutSh_float;
+pub mod std_expected_MR_CSharp_ExposedLayout_float;
+pub mod std_expected_MR_CSharp_NonTrivial_float;
+pub mod std_expected_MR_CSharp_SA_float;
+pub mod std_expected_MR_CSharp_Trivial_float;
+pub mod std_expected_int_float;
+pub mod std_expected_int_std_string;
+pub mod std_expected_void_float;
+pub mod std_filesystem_path;
+pub mod std_function_MR_CSharp_E1_from_MR_CSharp_E1;
+pub mod std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC;
+pub mod std_function_MR_StdFunction_A;
+pub mod std_function_MR_StdFunction_E_from_int_MR_StdFunction_E;
+pub mod std_function_int;
+pub mod std_function_int_from_int_int;
+pub mod std_function_int_from_std_string;
+pub mod std_function_int_ref_from_int_ref_int_rvalue_ref;
+pub mod std_function_int_rvalue_ref;
+pub mod std_function_std_string_from_int_float;
+pub mod std_function_std_string_from_int_int;
+pub mod std_function_void;
+pub mod std_function_void_from_MR_StdFunction_A;
+pub mod std_function_void_from_int_int;
+pub mod std_function_void_from_std_string;
+pub mod std_list_MR_StdContainers_NonAssignable;
+pub mod std_list_int;
+pub mod std_map_MR_StdContainers_NonAssignable_float;
+pub mod std_map_int_float;
+pub mod std_multimap_MR_StdContainers_NonAssignable_float;
+pub mod std_multimap_int_float;
+pub mod std_multiset_MR_StdContainers_NonAssignable;
+pub mod std_multiset_float;
+pub mod std_multiset_int;
+pub mod std_optional_MR_CSharp_ExposedLayoutSh;
+pub mod std_optional_MR_CSharp_NonTrivial;
+pub mod std_optional_MR_CSharp_SA;
+pub mod std_optional_MR_CSharp_Trivial;
+pub mod std_optional_MR_StdOptional_A;
+pub mod std_optional_MR_StdOptional_B;
+pub mod std_optional_MR_StdOptional_E;
+pub mod std_optional_int;
+pub mod std_optional_std_string;
+pub mod std_pair_const_MR_StdContainers_NonAssignable_float;
+pub mod std_pair_const_int_float;
+pub mod std_pair_const_int_ref_const_float_ref;
+pub mod std_pair_const_int_rvalue_ref_const_float_rvalue_ref;
+pub mod std_pair_int_float;
+pub mod std_pair_int_ref_float_ref;
+pub mod std_pair_int_rvalue_ref_float_rvalue_ref;
+pub mod std_pair_int_std_string;
+pub mod std_set_MR_StdContainers_NonAssignable;
+pub mod std_set_float;
+pub mod std_set_int;
+pub mod std_shared_ptr_MR_CSharp_ExposedLayoutSh;
+pub mod std_shared_ptr_MR_CSharp_SA;
+pub mod std_shared_ptr_MR_CSharp_SB;
+pub mod std_shared_ptr_MR_CSharp_SC;
+pub mod std_shared_ptr_MR_CSharp_SD;
+pub mod std_shared_ptr_MR_CSharp_SE;
+pub mod std_shared_ptr_MR_CSharp_SF;
+pub mod std_shared_ptr_MR_CSharp_SG;
+pub mod std_shared_ptr_MR_CommonBaseAB;
+pub mod std_shared_ptr_MR_StdSharedPtr_A;
+pub mod std_shared_ptr_MR_StdSharedPtr_A_array;
+pub mod std_shared_ptr_MR_StdSharedPtr_A_array_42;
+pub mod std_shared_ptr_const_MR_CSharp_SA;
+pub mod std_shared_ptr_const_MR_StdSharedPtr_A;
+pub mod std_shared_ptr_const_MR_StdSharedPtr_A_array;
+pub mod std_shared_ptr_const_MR_StdSharedPtr_A_array_42;
+pub mod std_shared_ptr_const_int;
+pub mod std_shared_ptr_const_int_array;
+pub mod std_shared_ptr_const_int_array_42;
+pub mod std_shared_ptr_const_void;
+pub mod std_shared_ptr_int;
+pub mod std_shared_ptr_int_array;
+pub mod std_shared_ptr_int_array_42;
+pub mod std_shared_ptr_void;
+pub mod std_string;
+pub mod std_string_view;
+pub mod std_tuple;
+pub mod std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout;
+pub mod std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref;
+pub mod std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref;
+pub mod std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_flo__22dd;
+pub mod std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref;
+pub mod std_tuple_const_int_std_string;
+pub mod std_tuple_float_double_int_int;
+pub mod std_tuple_int;
+pub mod std_tuple_int_float;
+pub mod std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref;
+pub mod std_tuple_int_std_string;
+pub mod std_unique_ptr_MR_StdUniquePtr_A;
+pub mod std_unique_ptr_MR_StdUniquePtr_A_array;
+pub mod std_unique_ptr_int;
+pub mod std_unique_ptr_int_array;
+pub mod std_unordered_map_MR_StdContainers_NonAssignable_float;
+pub mod std_unordered_map_int_float;
+pub mod std_unordered_multimap_MR_StdContainers_NonAssignable_float;
+pub mod std_unordered_multimap_int_float;
+pub mod std_unordered_multiset_MR_StdContainers_NonAssignable;
+pub mod std_unordered_multiset_int;
+pub mod std_unordered_set_MR_StdContainers_NonAssignable;
+pub mod std_unordered_set_int;
+pub mod std_variant_int_float;
+pub mod std_variant_int_float_float;
+pub mod std_variant_int_float_std_string;
+pub mod std_variant_std_monostate_int_float;
+pub mod std_variant_std_monostate_int_float_float;
+pub mod std_vector_MR_A;
+pub mod std_vector_MR_CSharp_A_ptr;
+pub mod std_vector_MR_CSharp_ExposedLayout;
+pub mod std_vector_MR_StdContainers_NonAssignable;
+pub mod std_vector_MR_StdContainers_NonDefaultConstructible;
+pub mod std_vector_const_MR_CSharp_A_ptr;
+pub mod std_vector_int;
+pub mod std_vector_int64_t;
+pub mod std_vector_std_expected_int_std_string;
+pub mod std_vector_uint64_t;
+
+use core::ops::{Deref, DerefMut};
+
+/// Implemented by the opaque C++ classes that can be destroyed.
+pub unsafe trait CppClass
+{
+    unsafe fn destroy(ptr: *mut Self);
+}
+
+/// Implemented by the opaque C++ classes that can be copied.
+pub unsafe trait CppCopy: CppClass
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self;
+}
+
+/// An owning handle to a heap-allocated C++ object. Destroys the object when dropped.
+/// Dereferences to the class itself, which holds all the methods.
+pub struct Owned<T: CppClass>(core::ptr::NonNull<T>);
+
+impl<T: CppClass> Owned<T>
+{
+    /// Takes ownership of a pointer returned by the C bindings. The pointer must not be null.
+    pub unsafe fn from_raw(ptr: *mut T) -> Self
+    {
+        Self(core::ptr::NonNull::new(ptr).expect("The C bindings returned a null pointer."))
+    }
+
+    /// Releases ownership. The caller must destroy the object.
+    pub fn into_raw(self) -> *mut T
+    {
+        let ptr = self.0.as_ptr();
+        core::mem::forget(self);
+        ptr
+    }
+
+    pub fn as_ptr(&self) -> *const T {self.0.as_ptr()}
+    pub fn as_mut_ptr(&mut self) -> *mut T {self.0.as_ptr()}
+}
+
+impl<T: CppClass> Deref for Owned<T>
+{
+    type Target = T;
+    fn deref(&self) -> &T {unsafe {self.0.as_ref()}}
+}
+
+impl<T: CppClass> DerefMut for Owned<T>
+{
+    fn deref_mut(&mut self) -> &mut T {unsafe {self.0.as_mut()}}
+}
+
+impl<T: CppClass> Drop for Owned<T>
+{
+    fn drop(&mut self) {unsafe {T::destroy(self.0.as_ptr())}}
+}
+
+impl<T: CppCopy> Clone for Owned<T>
+{
+    fn clone(&self) -> Self {unsafe {Self::from_raw(T::copy(self.0.as_ptr()))}}
+}
+
+impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
+{
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {(**self).fmt(f)}
+}
+
+
+pub mod mr
+{
+    pub use crate::MR::_1::A;
+    pub use crate::AB_base::ab_base::CommonBaseAB;
+    pub use crate::A::a::SeparateA;
+    pub use crate::B::b::SeparateB;
+    pub use crate::MR::_1::foo;
+    pub use crate::MR::_1::bar;
+    pub use crate::AB_base::ab_base::mark_shared_common_base_ab;
+    pub use crate::A::a::get_separate_vec_a;
+    pub use crate::B::b::get_separate_vec_b;
+    pub use crate::MR::test_combined_a_b::get_combined_vec_ab;
+    pub mod abstract_classes
+    {
+        pub use crate::MR::test_abstract_classes::A;
+        pub use crate::MR::test_abstract_classes::B;
+        pub use crate::MR::test_abstract_classes::C;
+    }
+
+    pub mod adjusting_names
+    {
+        pub use crate::MR::test_adjusting_names::A;
+        pub use crate::MR::test_adjusting_names::foo;
+        pub use crate::MR::test_adjusting_names::bar;
+    }
+
+    pub mod aggregates
+    {
+        pub use crate::MR::test_aggregates::A;
+        pub use crate::MR::test_aggregates::B;
+        pub use crate::MR::test_aggregates::C;
+        pub use crate::MR::test_aggregates::D;
+        pub use crate::MR::test_aggregates::E;
+        pub use crate::MR::test_aggregates::NonDefaultConstructible;
+    }
+
+    pub mod bases
+    {
+        pub use crate::MR::test_bases::A;
+        pub use crate::MR::test_bases::B;
+        pub use crate::MR::test_bases::B2;
+        pub use crate::MR::test_bases::C;
+        pub use crate::MR::test_bases::D;
+        pub use crate::MR::test_bases::D2;
+        pub use crate::MR::test_bases::D3;
+        pub use crate::MR::test_bases::E;
+        pub use crate::MR::test_bases::F;
+        pub use crate::MR::test_bases::G;
+        pub use crate::MR::test_bases::H;
+        pub use crate::MR::test_bases::I;
+    }
+
+    pub mod c_sharp
+    {
+        pub use crate::MR::test_csharp::E1;
+        pub use crate::MR::test_csharp::E2;
+        pub use crate::MR::test_csharp::StaticOpsEnum;
+        pub use crate::MR::test_csharp::A;
+        pub use crate::MR::test_csharp::AmbiguousTemplates;
+        pub use crate::MR::test_csharp::ArrayMembers;
+        pub use crate::MR::test_csharp::B;
+        pub use crate::MR::test_csharp::C;
+        pub use crate::MR::test_csharp::CallOp;
+        pub use crate::MR::test_csharp::ClassMemberPointersBool;
+        pub use crate::MR::test_csharp::ClassMemberPointersClass;
+        pub use crate::MR::test_csharp::ClassMemberPointersExposed;
+        pub use crate::MR::test_csharp::ClassMemberPointersUshort;
+        pub use crate::MR::test_csharp::ConstNonconstConflicts;
+        pub use crate::MR::test_csharp::ConvCtor;
+        pub use crate::MR::test_csharp::ConvCtorCopyButNoMove;
+        pub use crate::MR::test_csharp::ConvCtorExposed;
+        pub use crate::MR::test_csharp::ConvCtorNonTrivial;
+        pub use crate::MR::test_csharp::ConvCtorNonTrivialRestricted;
+        pub use crate::MR::test_csharp::ConvCtorTrivial;
+        pub use crate::MR::test_csharp::ConvCtorWithDefArg;
+        pub use crate::MR::test_csharp::ConvOp;
+        pub use crate::MR::test_csharp::ConvOpToRef;
+        pub use crate::MR::test_csharp::D;
+        pub use crate::MR::test_csharp::E;
+        pub use crate::MR::test_csharp::EqualityA;
+        pub use crate::MR::test_csharp::EqualityB;
+        pub use crate::MR::test_csharp::EqualityC;
+        pub use crate::MR::test_csharp::EqualityD;
+        pub use crate::MR::test_csharp::EqualityE;
+        pub use crate::MR::test_csharp::ExposedLayout;
+        pub use crate::MR::test_csharp::ExposedLayoutB;
+        pub use crate::MR::test_csharp::ExposedLayoutC;
+        pub use crate::MR::test_csharp::ExposedLayoutSh;
+        pub use crate::MR::test_csharp::F;
+        pub use crate::MR::test_csharp::G;
+        pub use crate::MR::test_csharp::IncrDecrA;
+        pub use crate::MR::test_csharp::IncrDecrB;
+        pub use crate::MR::test_csharp::IncrDecrC;
+        pub use crate::MR::test_csharp::IncrDecrD;
+        pub use crate::MR::test_csharp::IncrDecrE;
+        pub use crate::MR::test_csharp::IncrDecrF;
+        pub use crate::MR::test_csharp::IncrDecrG;
+        pub use crate::MR::test_csharp::IncrDecrH;
+        pub use crate::MR::test_csharp::IncrDecrI;
+        pub use crate::MR::test_csharp::IndexerA;
+        pub use crate::MR::test_csharp::IndexerB;
+        pub use crate::MR::test_csharp::IndexerC;
+        pub use crate::MR::test_csharp::IterableA;
+        pub use crate::MR::test_csharp::IterableB;
+        pub use crate::MR::test_csharp::IterableC;
+        pub use crate::MR::test_csharp::IterableD;
+        pub use crate::MR::test_csharp::IterableE;
+        pub use crate::MR::test_csharp::IterableF;
+        pub use crate::MR::test_csharp::IterableG;
+        pub use crate::MR::test_csharp::IterableH;
+        pub use crate::MR::test_csharp::IterableI;
+        pub use crate::MR::test_csharp::IterableJ;
+        pub use crate::MR::test_csharp::IterableK;
+        pub use crate::MR::test_csharp::IterableK_Iter;
+        pub use crate::MR::test_csharp::IterableK_Sentinel;
+        pub use crate::MR::test_csharp::IterableL_int;
+        pub use crate::MR::test_csharp::LifetimesA;
+        pub use crate::MR::test_csharp::LifetimesB;
+        pub use crate::MR::test_csharp::LifetimesC;
+        pub use crate::MR::test_csharp::LifetimesD;
+        pub use crate::MR::test_csharp::LifetimesE;
+        pub use crate::MR::test_csharp::NameConflicts;
+        pub use crate::MR::test_csharp::NameConflicts_A;
+        pub use crate::MR::test_csharp::NameConflictsExposed;
+        pub use crate::MR::test_csharp::NameConflictsExposed_A;
+        pub use crate::MR::test_csharp::NonCopyableClassByValueOps;
+        pub use crate::MR::test_csharp::NonTrivial;
+        pub use crate::MR::test_csharp::NonTrivialClassOps;
+        pub use crate::MR::test_csharp::NonTrivialDerived;
+        pub use crate::MR::test_csharp::Outer;
+        pub use crate::MR::test_csharp::Outer_Inner;
+        pub use crate::MR::test_csharp::RelationalA;
+        pub use crate::MR::test_csharp::RelationalB;
+        pub use crate::MR::test_csharp::RelationalC;
+        pub use crate::MR::test_csharp::RelationalD;
+        pub use crate::MR::test_csharp::RelationalE;
+        pub use crate::MR::test_csharp::RelationalF;
+        pub use crate::MR::test_csharp::SA;
+        pub use crate::MR::test_csharp::SB;
+        pub use crate::MR::test_csharp::SC;
+        pub use crate::MR::test_csharp::SD;
+        pub use crate::MR::test_csharp::SE;
+        pub use crate::MR::test_csharp::SF;
+        pub use crate::MR::test_csharp::SG;
+        pub use crate::MR::test_csharp::StaticOpsLhsA;
+        pub use crate::MR::test_csharp::StaticOpsLhsB;
+        pub use crate::MR::test_csharp::StaticOpsLhsC;
+        pub use crate::MR::test_csharp::StaticOpsLhsD;
+        pub use crate::MR::test_csharp::StaticOpsLhsE;
+        pub use crate::MR::test_csharp::StaticOpsLhsF;
+        pub use crate::MR::test_csharp::StaticOpsLhsG;
+        pub use crate::MR::test_csharp::StaticOpsLhsH;
+        pub use crate::MR::test_csharp::StaticOpsMixedLhs;
+        pub use crate::MR::test_csharp::StaticOpsMixedRhs;
+        pub use crate::MR::test_csharp::StaticOpsRhsA;
+        pub use crate::MR::test_csharp::StaticOpsRhsB;
+        pub use crate::MR::test_csharp::StaticOpsRhsC;
+        pub use crate::MR::test_csharp::StaticOpsRhsD;
+        pub use crate::MR::test_csharp::StaticOpsRhsE;
+        pub use crate::MR::test_csharp::StaticOpsRhsF;
+        pub use crate::MR::test_csharp::StaticOpsRhsG;
+        pub use crate::MR::test_csharp::StaticOpsRhsH;
+        pub use crate::MR::test_csharp::StringConvFsPath;
+        pub use crate::MR::test_csharp::StringConvString;
+        pub use crate::MR::test_csharp::StringConvStringView;
+        pub use crate::MR::test_csharp::TestConstness;
+        pub use crate::MR::test_csharp::TestFields;
+        pub use crate::MR::test_csharp::TestOpsA;
+        pub use crate::MR::test_csharp::TestOpsB;
+        pub use crate::MR::test_csharp::TestOpsC;
+        pub use crate::MR::test_csharp::TestStdFunction;
+        pub use crate::MR::test_csharp::Trivial;
+        pub use crate::MR::test_csharp::TrivialDerived;
+        pub use crate::MR::test_csharp::foo;
+        pub use crate::MR::test_csharp::test_int;
+        pub use crate::MR::test_csharp::test_bool;
+        pub use crate::MR::test_csharp::test_bool_ref;
+        pub use crate::MR::test_csharp::test_bool_ref2;
+        pub use crate::MR::test_csharp::get_bool_ref;
+        pub use crate::MR::test_csharp::print_bool_ref;
+        pub use crate::MR::test_csharp::test_bool_cref;
+        pub use crate::MR::test_csharp::test_int_ref;
+        pub use crate::MR::test_csharp::test_int_cref;
+        pub use crate::MR::test_csharp::test_int_rref;
+        pub use crate::MR::test_csharp::test_int_crref;
+        pub use crate::MR::test_csharp::test_int_ptr;
+        pub use crate::MR::test_csharp::test_int_cptr;
+        pub use crate::MR::test_csharp::test_ushort;
+        pub use crate::MR::test_csharp::test_ushort_ref;
+        pub use crate::MR::test_csharp::test_ushort_cref;
+        pub use crate::MR::test_csharp::test_ushort_rref;
+        pub use crate::MR::test_csharp::test_ushort_crref;
+        pub use crate::MR::test_csharp::test_ushort_ptr;
+        pub use crate::MR::test_csharp::test_ushort_cptr;
+        pub use crate::MR::test_csharp::test_constness_int;
+        pub use crate::MR::test_csharp::test_constness_str;
+        pub use crate::MR::test_csharp::test_keyword_in_param_name;
+        pub use crate::MR::test_csharp::test_enum_mr_c_sharp_e1;
+        pub use crate::MR::test_csharp::test_enum_ref_mr_c_sharp_e1;
+        pub use crate::MR::test_csharp::test_enum_cref_mr_c_sharp_e1;
+        pub use crate::MR::test_csharp::test_enum_rref_mr_c_sharp_e1;
+        pub use crate::MR::test_csharp::test_enum_crref_mr_c_sharp_e1;
+        pub use crate::MR::test_csharp::test_enum_ptr_mr_c_sharp_e1_ptr;
+        pub use crate::MR::test_csharp::test_enum_cptr_const_mr_c_sharp_e1_ptr;
+        pub use crate::MR::test_csharp::test_enum_mr_c_sharp_e2;
+        pub use crate::MR::test_csharp::test_enum_ref_mr_c_sharp_e2;
+        pub use crate::MR::test_csharp::test_enum_cref_mr_c_sharp_e2;
+        pub use crate::MR::test_csharp::test_enum_rref_mr_c_sharp_e2;
+        pub use crate::MR::test_csharp::test_enum_crref_mr_c_sharp_e2;
+        pub use crate::MR::test_csharp::test_enum_ptr_mr_c_sharp_e2_ptr;
+        pub use crate::MR::test_csharp::test_enum_cptr_const_mr_c_sharp_e2_ptr;
+        pub use crate::MR::test_csharp::test_class_trivial;
+        pub use crate::MR::test_csharp::test_class_trivial_ref;
+        pub use crate::MR::test_csharp::test_class_trivial_cref;
+        pub use crate::MR::test_csharp::test_class_trivial_rref;
+        pub use crate::MR::test_csharp::test_class_trivial_crref;
+        pub use crate::MR::test_csharp::test_class_trivial_ptr;
+        pub use crate::MR::test_csharp::test_class_trivial_cptr;
+        pub use crate::MR::test_csharp::test_class_nontrivial;
+        pub use crate::MR::test_csharp::test_class_nontrivial_ref;
+        pub use crate::MR::test_csharp::test_class_nontrivial_cref;
+        pub use crate::MR::test_csharp::test_class_nontrivial_rref;
+        pub use crate::MR::test_csharp::test_class_nontrivial_crref;
+        pub use crate::MR::test_csharp::test_class_nontrivial_ptr;
+        pub use crate::MR::test_csharp::test_class_nontrivial_cptr;
+        pub use crate::MR::test_csharp::test_void_ptr;
+        pub use crate::MR::test_csharp::test_void_cptr;
+        pub use crate::MR::test_csharp::mark_se_as_shared;
+        pub use crate::MR::test_csharp::test_shptr;
+        pub use crate::MR::test_csharp::test_shptr_ref;
+        pub use crate::MR::test_csharp::test_shptr_cref;
+        pub use crate::MR::test_csharp::test_shptr_rref;
+        pub use crate::MR::test_csharp::test_shptr_crref;
+        pub use crate::MR::test_csharp::test_shptr_ptr;
+        pub use crate::MR::test_csharp::test_shptr_cptr;
+        pub use crate::MR::test_csharp::test_shcptr;
+        pub use crate::MR::test_csharp::test_shcptr_ref;
+        pub use crate::MR::test_csharp::test_shcptr_cref;
+        pub use crate::MR::test_csharp::test_shcptr_rref;
+        pub use crate::MR::test_csharp::test_shcptr_crref;
+        pub use crate::MR::test_csharp::test_shcptr_ptr;
+        pub use crate::MR::test_csharp::test_shcptr_cptr;
+        pub use crate::MR::test_csharp::mark_sg_as_shared;
+        pub use crate::MR::test_csharp::test_string;
+        pub use crate::MR::test_csharp::test_string_ref;
+        pub use crate::MR::test_csharp::test_string_cref;
+        pub use crate::MR::test_csharp::test_string_rref;
+        pub use crate::MR::test_csharp::test_string_crref;
+        pub use crate::MR::test_csharp::test_string_ptr;
+        pub use crate::MR::test_csharp::test_string_cptr;
+        pub use crate::MR::test_csharp::test_stringview;
+        pub use crate::MR::test_csharp::test_stringview_ref;
+        pub use crate::MR::test_csharp::test_stringview_cref;
+        pub use crate::MR::test_csharp::test_stringview_rref;
+        pub use crate::MR::test_csharp::test_stringview_crref;
+        pub use crate::MR::test_csharp::test_stringview_ptr;
+        pub use crate::MR::test_csharp::test_stringview_cptr;
+        pub use crate::MR::test_csharp::test_fspath;
+        pub use crate::MR::test_csharp::test_fspath_ref;
+        pub use crate::MR::test_csharp::test_fspath_cref;
+        pub use crate::MR::test_csharp::test_fspath_rref;
+        pub use crate::MR::test_csharp::test_fspath_crref;
+        pub use crate::MR::test_csharp::test_fspath_ptr;
+        pub use crate::MR::test_csharp::test_fspath_cptr;
+        pub use crate::MR::test_csharp::op_incr_mr_c_sharp_incr_decr_i;
+        pub use crate::MR::test_csharp::op_post_incr_mr_c_sharp_incr_decr_i;
+        pub use crate::MR::test_csharp::op_decr_mr_c_sharp_incr_decr_i;
+        pub use crate::MR::test_csharp::op_post_decr_mr_c_sharp_incr_decr_i;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_a_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_b_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_c_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_d_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_e_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_f_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_g_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_lhs_h_int;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_a;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_b;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_c;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_d;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_e;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_f;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_g;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_static_ops_rhs_h;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_enum_int;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_static_ops_mixed_lhs_mr_c_sharp_static_ops_mixed_rhs;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_non_trivial_class_ops_float;
+        pub use crate::MR::test_csharp::op_add_float_mr_c_sharp_non_trivial_class_ops;
+        pub use crate::MR::test_csharp::op_add_mr_c_sharp_non_copyable_class_by_value_ops_int;
+        pub use crate::MR::test_csharp::op_add_int_mr_c_sharp_non_copyable_class_by_value_ops;
+        pub use crate::MR::test_csharp::test_class_convtrivial;
+        pub use crate::MR::test_csharp::test_class_convtrivial_ref;
+        pub use crate::MR::test_csharp::test_class_convtrivial_cref;
+        pub use crate::MR::test_csharp::test_class_convtrivial_ptr;
+        pub use crate::MR::test_csharp::test_class_convtrivial_cptr;
+        pub use crate::MR::test_csharp::test_class_convnontrivial;
+        pub use crate::MR::test_csharp::test_class_convnontrivial_ref;
+        pub use crate::MR::test_csharp::test_class_convnontrivial_cref;
+        pub use crate::MR::test_csharp::test_class_convnontrivial_ptr;
+        pub use crate::MR::test_csharp::test_class_convnontrivial_cptr;
+        pub use crate::MR::test_csharp::op_sub_int_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::op_div_int_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::op_mod_int_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::op_decr_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::test_exposed_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::test_exposed_ref_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::test_exposed_cref_mr_c_sharp_exposed_layout;
+        pub use crate::MR::test_csharp::test_exposed_rref;
+        pub use crate::MR::test_csharp::test_exposed_crref;
+        pub use crate::MR::test_csharp::test_exposed_ptr_mr_c_sharp_exposed_layout_ptr;
+        pub use crate::MR::test_csharp::test_exposed_cptr_const_mr_c_sharp_exposed_layout_ptr;
+        pub use crate::MR::test_csharp::test_exposed_vec;
+        pub use crate::MR::test_csharp::asave_ref_in_exposed_layout;
+        pub use crate::MR::test_csharp::op_sub_int_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::op_div_int_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::op_mod_int_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::op_decr_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::make_exposed_sh;
+        pub use crate::MR::test_csharp::test_exposed_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::test_exposed_ref_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::test_exposed_cref_mr_c_sharp_exposed_layout_sh;
+        pub use crate::MR::test_csharp::test_exposed_ptr_mr_c_sharp_exposed_layout_sh_ptr;
+        pub use crate::MR::test_csharp::test_exposed_cptr_const_mr_c_sharp_exposed_layout_sh_ptr;
+        pub use crate::MR::test_csharp::op_equal_mr_c_sharp_exposed_layout_b;
+        pub use crate::MR::test_csharp::test_optint;
+        pub use crate::MR::test_csharp::test_optint_ref;
+        pub use crate::MR::test_csharp::test_optint_cref;
+        pub use crate::MR::test_csharp::test_optint_ptr;
+        pub use crate::MR::test_csharp::test_optint_cptr;
+        pub use crate::MR::test_csharp::test_optstr;
+        pub use crate::MR::test_csharp::test_optstr_ref;
+        pub use crate::MR::test_csharp::test_optstr_cref;
+        pub use crate::MR::test_csharp::test_optstr_ptr;
+        pub use crate::MR::test_csharp::test_optstr_cptr;
+        pub use crate::MR::test_csharp::test_opttriv;
+        pub use crate::MR::test_csharp::test_opttriv_ref;
+        pub use crate::MR::test_csharp::test_opttriv_cref;
+        pub use crate::MR::test_csharp::test_opttriv_ptr;
+        pub use crate::MR::test_csharp::test_opttriv_cptr;
+        pub use crate::MR::test_csharp::test_optnontriv;
+        pub use crate::MR::test_csharp::test_optnontriv_ref;
+        pub use crate::MR::test_csharp::test_optnontriv_cref;
+        pub use crate::MR::test_csharp::test_optnontriv_ptr;
+        pub use crate::MR::test_csharp::test_optnontriv_cptr;
+        pub use crate::MR::test_csharp::test_optshexp;
+        pub use crate::MR::test_csharp::test_optshexp_ref;
+        pub use crate::MR::test_csharp::test_optshexp_cref;
+        pub use crate::MR::test_csharp::test_optshexp_ptr;
+        pub use crate::MR::test_csharp::test_optshexp_cptr;
+        pub use crate::MR::test_csharp::test_optshtriv;
+        pub use crate::MR::test_csharp::test_optshtriv_ref;
+        pub use crate::MR::test_csharp::test_optshtriv_cref;
+        pub use crate::MR::test_csharp::test_optshtriv_ptr;
+        pub use crate::MR::test_csharp::test_optshtriv_cptr;
+        pub use crate::MR::test_csharp::test_tag;
+        pub use crate::MR::test_csharp::test_tag_cref;
+        pub use crate::MR::test_csharp::test_tag_ptr;
+        pub use crate::MR::test_csharp::test_tag_cptr;
+        pub use crate::MR::test_csharp::test_variant;
+        pub use crate::MR::test_csharp::test_variant_ref;
+        pub use crate::MR::test_csharp::test_variant_cref;
+        pub use crate::MR::test_csharp::test_variant_ptr;
+        pub use crate::MR::test_csharp::test_variant_cptr;
+        pub use crate::MR::test_csharp::test_variant_with_repeated_types;
+        pub use crate::MR::test_csharp::test_iostreams_ref;
+        pub use crate::MR::test_csharp::test_iostreams_ptr;
+        pub use crate::MR::test_csharp::test_iostreams_cref;
+        pub use crate::MR::test_csharp::test_iostreams_cptr;
+        pub use crate::MR::test_csharp::test_uniqueptr;
+        pub use crate::MR::test_csharp::test_uniqueptr_ref;
+        pub use crate::MR::test_csharp::test_uniqueptr_cref;
+        pub use crate::MR::test_csharp::test_uniqueptr_ptr;
+        pub use crate::MR::test_csharp::test_uniqueptr_cptr;
+        pub use crate::MR::test_csharp::test_plainarr_ref;
+        pub use crate::MR::test_csharp::test_plainarr_cref;
+        pub use crate::MR::test_csharp::test_plainarr_rref;
+        pub use crate::MR::test_csharp::test_plainarr_crref;
+        pub use crate::MR::test_csharp::test_plainarr_ptr;
+        pub use crate::MR::test_csharp::test_plainarr_cptr;
+        pub use crate::MR::test_csharp::test_plainarr2_ref;
+        pub use crate::MR::test_csharp::test_plainarr2_cref;
+        pub use crate::MR::test_csharp::test_plainarr2_rref;
+        pub use crate::MR::test_csharp::test_plainarr2_crref;
+        pub use crate::MR::test_csharp::test_plainarr2_ptr;
+        pub use crate::MR::test_csharp::test_plainarr2_cptr;
+        pub use crate::MR::test_csharp::test_plainarrenum_ref;
+        pub use crate::MR::test_csharp::test_plainarrenum_cref;
+        pub use crate::MR::test_csharp::test_plainarrenum_ptr;
+        pub use crate::MR::test_csharp::test_plainarrenum_cptr;
+        pub use crate::MR::test_csharp::test_plainarrenum2_ref;
+        pub use crate::MR::test_csharp::test_plainarrenum2_cref;
+        pub use crate::MR::test_csharp::test_plainarrenum2_ptr;
+        pub use crate::MR::test_csharp::test_plainarrenum2_cptr;
+        pub use crate::MR::test_csharp::test_ptrs1;
+        pub use crate::MR::test_csharp::test_ptrs2;
+        pub use crate::MR::test_csharp::test_intptr_ref;
+        pub use crate::MR::test_csharp::test_intptr_cref;
+        pub use crate::MR::test_csharp::test_intptr_ptr;
+        pub use crate::MR::test_csharp::test_intptr_cptr;
+        pub use crate::MR::test_csharp::test_intcptr_ref;
+        pub use crate::MR::test_csharp::test_intcptr_cref;
+        pub use crate::MR::test_csharp::test_intcptr_ptr;
+        pub use crate::MR::test_csharp::test_intcptr_cptr;
+        pub use crate::MR::test_csharp::test_intptrptr_ref;
+        pub use crate::MR::test_csharp::test_intptrptr_cref;
+        pub use crate::MR::test_csharp::test_intptrptr_ptr;
+        pub use crate::MR::test_csharp::test_intptrptr_cptr;
+        pub use crate::MR::test_csharp::test_voidptr_ref;
+        pub use crate::MR::test_csharp::test_voidptr_cref;
+        pub use crate::MR::test_csharp::test_voidptr_ptr;
+        pub use crate::MR::test_csharp::test_voidptr_cptr;
+        pub use crate::MR::test_csharp::test_voidptrptr_ref;
+        pub use crate::MR::test_csharp::test_voidptrptr_cref;
+        pub use crate::MR::test_csharp::test_voidptrptr_ptr;
+        pub use crate::MR::test_csharp::test_voidptrptr_cptr;
+        pub use crate::MR::test_csharp::test_arrptr_ref;
+        pub use crate::MR::test_csharp::test_arrptr_cref;
+        pub use crate::MR::test_csharp::test_arrptr_ptr;
+        pub use crate::MR::test_csharp::test_arrptr_cptr;
+        pub use crate::MR::test_csharp::test_arrcptr_ref;
+        pub use crate::MR::test_csharp::test_arrcptr_cref;
+        pub use crate::MR::test_csharp::test_arrcptr_ptr;
+        pub use crate::MR::test_csharp::test_arrcptr_cptr;
+        pub use crate::MR::test_csharp::name_conflicts;
+        pub use crate::MR::test_csharp::name_conflicts_exposed;
+        pub use crate::MR::test_csharp::template_a_int;
+        pub use crate::MR::test_csharp::template_a_float;
+        pub use crate::MR::test_csharp::template_b_int;
+        pub use crate::MR::test_csharp::template_b_float;
+        pub use crate::MR::test_csharp::template_c_int;
+        pub use crate::MR::test_csharp::template_c_float;
+        pub use crate::MR::test_csharp::instantiate;
+        pub use crate::MR::test_csharp::op_neg_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::op_neg_const_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::op_not_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::op_not_const_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::op_bitand_int_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::op_bitand_int_const_mr_c_sharp_const_nonconst_conflicts_ref;
+        pub use crate::MR::test_csharp::begin_const_mr_c_sharp_lifetimes_b_ref;
+        pub use crate::MR::test_csharp::end_const_mr_c_sharp_lifetimes_b_ref;
+        pub use crate::MR::test_csharp::op_deref_const_mr_c_sharp_lifetimes_b_ref;
+        pub use crate::MR::test_csharp::begin_const_mr_c_sharp_lifetimes_c_ref;
+        pub use crate::MR::test_csharp::end_const_mr_c_sharp_lifetimes_c_ref;
+        pub use crate::MR::test_csharp::op_deref_mr_c_sharp_lifetimes_c;
+        pub use crate::MR::test_csharp::begin_const_mr_c_sharp_iterable_d_ref;
+        pub use crate::MR::test_csharp::end_const_mr_c_sharp_iterable_d_ref;
+        pub use crate::MR::test_csharp::begin_mr_c_sharp_iterable_e_ref;
+        pub use crate::MR::test_csharp::end_mr_c_sharp_iterable_e_ref;
+        pub use crate::MR::test_csharp::begin_const_mr_c_sharp_iterable_f_ref;
+        pub use crate::MR::test_csharp::end_const_mr_c_sharp_iterable_f_ref;
+        pub use crate::MR::test_csharp::begin_mr_c_sharp_iterable_f_ref;
+        pub use crate::MR::test_csharp::end_mr_c_sharp_iterable_f_ref;
+        pub use crate::MR::test_csharp::begin_int;
+        pub use crate::MR::test_csharp::end_int;
+        pub use crate::MR::test_csharp::test_vec_of_mut_ptr_to_class;
+        pub use crate::MR::test_csharp::test_vec_of_const_ptr_to_class;
+        pub use crate::MR::test_csharp::get_tuple0;
+        pub use crate::MR::test_csharp::get_tuple1;
+        pub use crate::MR::test_csharp::get_tuple2;
+        pub use crate::MR::test_csharp::get_pair2;
+        pub use crate::MR::test_csharp::get_tuple_const;
+        pub use crate::MR::test_csharp::get_tuple_refs;
+        pub use crate::MR::test_csharp::get_tuple_crefs;
+        pub use crate::MR::test_csharp::get_tuple_exposed_value;
+        pub use crate::MR::test_csharp::get_tuple_exposed_lvalue_ref;
+        pub use crate::MR::test_csharp::get_tuple_exposed_rvalue_ref;
+        pub use crate::MR::test_csharp::test_expected_int;
+        pub use crate::MR::test_csharp::test_expected_int_ref;
+        pub use crate::MR::test_csharp::test_expected_int_cref;
+        pub use crate::MR::test_csharp::test_expected_int_ptr;
+        pub use crate::MR::test_csharp::test_expected_int_cptr;
+        pub use crate::MR::test_csharp::test_expected_void;
+        pub use crate::MR::test_csharp::test_expected_void_ref;
+        pub use crate::MR::test_csharp::test_expected_void_cref;
+        pub use crate::MR::test_csharp::test_expected_void_ptr;
+        pub use crate::MR::test_csharp::test_expected_void_cptr;
+        pub use crate::MR::test_csharp::test_expected_enum;
+        pub use crate::MR::test_csharp::test_expected_enum_ref;
+        pub use crate::MR::test_csharp::test_expected_enum_cref;
+        pub use crate::MR::test_csharp::test_expected_enum_ptr;
+        pub use crate::MR::test_csharp::test_expected_enum_cptr;
+        pub use crate::MR::test_csharp::test_expected_triv;
+        pub use crate::MR::test_csharp::test_expected_triv_ref;
+        pub use crate::MR::test_csharp::test_expected_triv_cref;
+        pub use crate::MR::test_csharp::test_expected_triv_ptr;
+        pub use crate::MR::test_csharp::test_expected_triv_cptr;
+        pub use crate::MR::test_csharp::test_expected_nontriv;
+        pub use crate::MR::test_csharp::test_expected_nontriv_ref;
+        pub use crate::MR::test_csharp::test_expected_nontriv_cref;
+        pub use crate::MR::test_csharp::test_expected_nontriv_ptr;
+        pub use crate::MR::test_csharp::test_expected_nontriv_cptr;
+        pub use crate::MR::test_csharp::test_expected_shared;
+        pub use crate::MR::test_csharp::test_expected_shared_ref;
+        pub use crate::MR::test_csharp::test_expected_shared_cref;
+        pub use crate::MR::test_csharp::test_expected_shared_ptr;
+        pub use crate::MR::test_csharp::test_expected_shared_cptr;
+        pub use crate::MR::test_csharp::test_expected_exposed;
+        pub use crate::MR::test_csharp::test_expected_exposed_ref;
+        pub use crate::MR::test_csharp::test_expected_exposed_cref;
+        pub use crate::MR::test_csharp::test_expected_exposed_ptr;
+        pub use crate::MR::test_csharp::test_expected_exposed_cptr;
+        pub use crate::MR::test_csharp::test_expected_exposed_shared;
+        pub use crate::MR::test_csharp::test_expected_exposed_shared_ref;
+        pub use crate::MR::test_csharp::test_expected_exposed_shared_cref;
+        pub use crate::MR::test_csharp::test_expected_exposed_shared_ptr;
+        pub use crate::MR::test_csharp::test_expected_exposed_shared_cptr;
+    }
+
+    pub mod conv_ops
+    {
+        pub use crate::MR::test_conv_ops::A;
+    }
+
+    pub mod copy_inherited_members
+    {
+        pub use crate::MR::test_copy_inherited_members::A;
+        pub use crate::MR::test_copy_inherited_members::B;
+        pub use crate::MR::test_copy_inherited_members::C;
+        pub use crate::MR::test_copy_inherited_members::D;
+        pub use crate::MR::test_copy_inherited_members::E;
+        pub use crate::MR::test_copy_inherited_members::F;
+        pub use crate::MR::test_copy_inherited_members::G;
+        pub use crate::MR::test_copy_inherited_members::H;
+        pub use crate::MR::test_copy_inherited_members::I;
+        pub use crate::MR::test_copy_inherited_members::J;
+        pub use crate::MR::test_copy_inherited_members::K;
+        pub use crate::MR::test_copy_inherited_members::L;
+        pub use crate::MR::test_copy_inherited_members::M;
+        pub use crate::MR::test_copy_inherited_members::N;
+        pub use crate::MR::test_copy_inherited_members::O;
+    }
+
+    pub mod cs
+    {
+        pub use crate::std_array_MR_StdContainers_A_42::std_array_MR_StdContainers_A_42;
+        pub use crate::std_array_MR_StdContainers_NonAssignable_42::std_array_MR_StdContainers_NonAssignable_42;
+        pub use crate::std_array_int_43::std_array_int_43;
+        pub use crate::std_array_int_array_4_array_3_5::std_array_int_array_4_array_3_5;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::std_deque_MR_StdContainers_NonAssignable;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::std_deque_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::std_deque_MR_StdContainers_NonAssignable_iterator;
+        pub use crate::std_deque_int::std_deque_int;
+        pub use crate::std_deque_int::std_deque_int_const_iterator;
+        pub use crate::std_deque_int::std_deque_int_iterator;
+        pub use crate::std_expected_MR_CSharp_E1_float::std_expected_MR_CSharp_E1_float;
+        pub use crate::std_expected_MR_CSharp_ExposedLayout_float::std_expected_MR_CSharp_ExposedLayout_float;
+        pub use crate::std_expected_MR_CSharp_ExposedLayoutSh_float::std_expected_MR_CSharp_ExposedLayoutSh_float;
+        pub use crate::std_expected_MR_CSharp_NonTrivial_float::std_expected_MR_CSharp_NonTrivial_float;
+        pub use crate::std_expected_MR_CSharp_SA_float::std_expected_MR_CSharp_SA_float;
+        pub use crate::std_expected_MR_CSharp_Trivial_float::std_expected_MR_CSharp_Trivial_float;
+        pub use crate::std_expected_int_float::std_expected_int_float;
+        pub use crate::std_expected_int_std_string::std_expected_int_std_string;
+        pub use crate::std_expected_void_float::std_expected_void_float;
+        pub use crate::std_filesystem_path::std_filesystem_path;
+        pub use crate::std_function_MR_CSharp_E1_from_MR_CSharp_E1::std_function_MR_CSharp_E1_from_MR_CSharp_E1;
+        pub use crate::std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC::std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC;
+        pub use crate::std_function_MR_StdFunction_A::std_function_MR_StdFunction_A;
+        pub use crate::std_function_MR_StdFunction_E_from_int_MR_StdFunction_E::std_function_MR_StdFunction_E_from_int_MR_StdFunction_E;
+        pub use crate::std_function_int_rvalue_ref::std_function_int_rvalue_ref;
+        pub use crate::std_function_int_ref_from_int_ref_int_rvalue_ref::std_function_int_ref_from_int_ref_int_rvalue_ref;
+        pub use crate::std_function_int_from_int_int::std_function_int_from_int_int;
+        pub use crate::std_function_int_from_std_string::std_function_int_from_std_string;
+        pub use crate::std_function_int::std_function_int;
+        pub use crate::std_function_std_string_from_int_float::std_function_std_string_from_int_float;
+        pub use crate::std_function_std_string_from_int_int::std_function_std_string_from_int_int;
+        pub use crate::std_function_void_from_MR_StdFunction_A::std_function_void_from_MR_StdFunction_A;
+        pub use crate::std_function_void_from_int_int::std_function_void_from_int_int;
+        pub use crate::std_function_void_from_std_string::std_function_void_from_std_string;
+        pub use crate::std_function_void::std_function_void;
+        pub use crate::iostream::std_istream;
+        pub use crate::std_list_MR_StdContainers_NonAssignable::std_list_MR_StdContainers_NonAssignable;
+        pub use crate::std_list_MR_StdContainers_NonAssignable::std_list_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_list_MR_StdContainers_NonAssignable::std_list_MR_StdContainers_NonAssignable_iterator;
+        pub use crate::std_list_int::std_list_int;
+        pub use crate::std_list_int::std_list_int_const_iterator;
+        pub use crate::std_list_int::std_list_int_iterator;
+        pub use crate::std_map_MR_StdContainers_NonAssignable_float::std_map_MR_StdContainers_NonAssignable_float;
+        pub use crate::std_map_MR_StdContainers_NonAssignable_float::std_map_MR_StdContainers_NonAssignable_float_const_iterator;
+        pub use crate::std_map_MR_StdContainers_NonAssignable_float::std_map_MR_StdContainers_NonAssignable_float_iterator;
+        pub use crate::std_map_int_float::std_map_int_float;
+        pub use crate::std_map_int_float::std_map_int_float_const_iterator;
+        pub use crate::std_map_int_float::std_map_int_float_iterator;
+        pub use crate::std_multimap_MR_StdContainers_NonAssignable_float::std_multimap_MR_StdContainers_NonAssignable_float;
+        pub use crate::std_multimap_MR_StdContainers_NonAssignable_float::std_multimap_MR_StdContainers_NonAssignable_float_const_iterator;
+        pub use crate::std_multimap_MR_StdContainers_NonAssignable_float::std_multimap_MR_StdContainers_NonAssignable_float_iterator;
+        pub use crate::std_multimap_int_float::std_multimap_int_float;
+        pub use crate::std_multimap_int_float::std_multimap_int_float_const_iterator;
+        pub use crate::std_multimap_int_float::std_multimap_int_float_iterator;
+        pub use crate::std_multiset_MR_StdContainers_NonAssignable::std_multiset_MR_StdContainers_NonAssignable;
+        pub use crate::std_multiset_MR_StdContainers_NonAssignable::std_multiset_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_multiset_float::std_multiset_float;
+        pub use crate::std_multiset_float::std_multiset_float_const_iterator;
+        pub use crate::std_multiset_int::std_multiset_int;
+        pub use crate::std_multiset_int::std_multiset_int_const_iterator;
+        pub use crate::std_optional_MR_CSharp_ExposedLayoutSh::std_optional_MR_CSharp_ExposedLayoutSh;
+        pub use crate::std_optional_MR_CSharp_NonTrivial::std_optional_MR_CSharp_NonTrivial;
+        pub use crate::std_optional_MR_CSharp_SA::std_optional_MR_CSharp_SA;
+        pub use crate::std_optional_MR_CSharp_Trivial::std_optional_MR_CSharp_Trivial;
+        pub use crate::std_optional_MR_StdOptional_A::std_optional_MR_StdOptional_A;
+        pub use crate::std_optional_MR_StdOptional_B::std_optional_MR_StdOptional_B;
+        pub use crate::std_optional_MR_StdOptional_E::std_optional_MR_StdOptional_E;
+        pub use crate::std_optional_int::std_optional_int;
+        pub use crate::std_optional_std_string::std_optional_std_string;
+        pub use crate::iostream::std_ostream;
+        pub use crate::AB::common::std_pair_MR_SeparateA_MR_SeparateB::std_pair_MR_SeparateA_MR_SeparateB;
+        pub use crate::std_pair_const_MR_StdContainers_NonAssignable_float::std_pair_const_MR_StdContainers_NonAssignable_float;
+        pub use crate::std_pair_const_int_rvalue_ref_const_float_rvalue_ref::std_pair_const_int_rvalue_ref_const_float_rvalue_ref;
+        pub use crate::std_pair_const_int_ref_const_float_ref::std_pair_const_int_ref_const_float_ref;
+        pub use crate::std_pair_const_int_float::std_pair_const_int_float;
+        pub use crate::std_pair_int_rvalue_ref_float_rvalue_ref::std_pair_int_rvalue_ref_float_rvalue_ref;
+        pub use crate::std_pair_int_ref_float_ref::std_pair_int_ref_float_ref;
+        pub use crate::std_pair_int_float::std_pair_int_float;
+        pub use crate::std_pair_int_std_string::std_pair_int_std_string;
+        pub use crate::std_set_MR_StdContainers_NonAssignable::std_set_MR_StdContainers_NonAssignable;
+        pub use crate::std_set_MR_StdContainers_NonAssignable::std_set_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_set_float::std_set_float;
+        pub use crate::std_set_float::std_set_float_const_iterator;
+        pub use crate::std_set_int::std_set_int;
+        pub use crate::std_set_int::std_set_int_const_iterator;
+        pub use crate::std_shared_ptr_MR_CSharp_ExposedLayoutSh::std_shared_ptr_MR_CSharp_ExposedLayoutSh;
+        pub use crate::std_shared_ptr_MR_CSharp_SA::std_shared_ptr_MR_CSharp_SA;
+        pub use crate::std_shared_ptr_MR_CSharp_SB::std_shared_ptr_MR_CSharp_SB;
+        pub use crate::std_shared_ptr_MR_CSharp_SC::std_shared_ptr_MR_CSharp_SC;
+        pub use crate::std_shared_ptr_MR_CSharp_SD::std_shared_ptr_MR_CSharp_SD;
+        pub use crate::std_shared_ptr_MR_CSharp_SE::std_shared_ptr_MR_CSharp_SE;
+        pub use crate::std_shared_ptr_MR_CSharp_SF::std_shared_ptr_MR_CSharp_SF;
+        pub use crate::std_shared_ptr_MR_CSharp_SG::std_shared_ptr_MR_CSharp_SG;
+        pub use crate::std_shared_ptr_MR_CommonBaseAB::std_shared_ptr_MR_CommonBaseAB;
+        pub use crate::AB::common::std_shared_ptr_MR_SeparateA::std_shared_ptr_MR_SeparateA;
+        pub use crate::AB::common::std_shared_ptr_MR_SeparateB::std_shared_ptr_MR_SeparateB;
+        pub use crate::std_shared_ptr_MR_StdSharedPtr_A::std_shared_ptr_MR_StdSharedPtr_A;
+        pub use crate::std_shared_ptr_MR_StdSharedPtr_A_array_42::std_shared_ptr_MR_StdSharedPtr_A_array_42;
+        pub use crate::std_shared_ptr_MR_StdSharedPtr_A_array::std_shared_ptr_MR_StdSharedPtr_A_array;
+        pub use crate::std_shared_ptr_const_MR_CSharp_SA::std_shared_ptr_const_MR_CSharp_SA;
+        pub use crate::std_shared_ptr_const_MR_StdSharedPtr_A::std_shared_ptr_const_MR_StdSharedPtr_A;
+        pub use crate::std_shared_ptr_const_MR_StdSharedPtr_A_array_42::std_shared_ptr_const_MR_StdSharedPtr_A_array_42;
+        pub use crate::std_shared_ptr_const_MR_StdSharedPtr_A_array::std_shared_ptr_const_MR_StdSharedPtr_A_array;
+        pub use crate::std_shared_ptr_const_int::std_shared_ptr_const_int;
+        pub use crate::std_shared_ptr_const_int_array_42::std_shared_ptr_const_int_array_42;
+        pub use crate::std_shared_ptr_const_int_array::std_shared_ptr_const_int_array;
+        pub use crate::std_shared_ptr_const_void::std_shared_ptr_const_void;
+        pub use crate::std_shared_ptr_int::std_shared_ptr_int;
+        pub use crate::std_shared_ptr_int_array_42::std_shared_ptr_int_array_42;
+        pub use crate::std_shared_ptr_int_array::std_shared_ptr_int_array;
+        pub use crate::std_shared_ptr_void::std_shared_ptr_void;
+        pub use crate::std_string::std_string;
+        pub use crate::std_string_view::std_string_view;
+        pub use crate::std_tuple::std_tuple;
+        pub use crate::std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref::std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref;
+        pub use crate::std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref::std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref;
+        pub use crate::std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout::std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout;
+        pub use crate::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref::std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref;
+        pub use crate::std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_flo__22dd::std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref;
+        pub use crate::std_tuple_const_int_std_string::std_tuple_const_int_std_string;
+        pub use crate::std_tuple_float_double_int_int::std_tuple_float_double_int_int;
+        pub use crate::std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref::std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref;
+        pub use crate::std_tuple_int_float::std_tuple_int_float;
+        pub use crate::std_tuple_int_std_string::std_tuple_int_std_string;
+        pub use crate::std_tuple_int::std_tuple_int;
+        pub use crate::std_unique_ptr_MR_StdUniquePtr_A::std_unique_ptr_MR_StdUniquePtr_A;
+        pub use crate::std_unique_ptr_MR_StdUniquePtr_A_array::std_unique_ptr_MR_StdUniquePtr_A_array;
+        pub use crate::std_unique_ptr_int::std_unique_ptr_int;
+        pub use crate::std_unique_ptr_int_array::std_unique_ptr_int_array;
+        pub use crate::std_unordered_map_MR_StdContainers_NonAssignable_float::std_unordered_map_MR_StdContainers_NonAssignable_float;
+        pub use crate::std_unordered_map_MR_StdContainers_NonAssignable_float::std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator;
+        pub use crate::std_unordered_map_MR_StdContainers_NonAssignable_float::std_unordered_map_MR_StdContainers_NonAssignable_float_iterator;
+        pub use crate::std_unordered_map_int_float::std_unordered_map_int_float;
+        pub use crate::std_unordered_map_int_float::std_unordered_map_int_float_const_iterator;
+        pub use crate::std_unordered_map_int_float::std_unordered_map_int_float_iterator;
+        pub use crate::std_unordered_multimap_MR_StdContainers_NonAssignable_float::std_unordered_multimap_MR_StdContainers_NonAssignable_float;
+        pub use crate::std_unordered_multimap_MR_StdContainers_NonAssignable_float::std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator;
+        pub use crate::std_unordered_multimap_MR_StdContainers_NonAssignable_float::std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator;
+        pub use crate::std_unordered_multimap_int_float::std_unordered_multimap_int_float;
+        pub use crate::std_unordered_multimap_int_float::std_unordered_multimap_int_float_const_iterator;
+        pub use crate::std_unordered_multimap_int_float::std_unordered_multimap_int_float_iterator;
+        pub use crate::std_unordered_multiset_MR_StdContainers_NonAssignable::std_unordered_multiset_MR_StdContainers_NonAssignable;
+        pub use crate::std_unordered_multiset_MR_StdContainers_NonAssignable::std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_unordered_multiset_int::std_unordered_multiset_int;
+        pub use crate::std_unordered_multiset_int::std_unordered_multiset_int_const_iterator;
+        pub use crate::std_unordered_set_MR_StdContainers_NonAssignable::std_unordered_set_MR_StdContainers_NonAssignable;
+        pub use crate::std_unordered_set_MR_StdContainers_NonAssignable::std_unordered_set_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_unordered_set_int::std_unordered_set_int;
+        pub use crate::std_unordered_set_int::std_unordered_set_int_const_iterator;
+        pub use crate::std_variant_int_float_float::std_variant_int_float_float;
+        pub use crate::std_variant_int_float_std_string::std_variant_int_float_std_string;
+        pub use crate::std_variant_int_float::std_variant_int_float;
+        pub use crate::std_variant_std_monostate_int_float_float::std_variant_std_monostate_int_float_float;
+        pub use crate::std_variant_std_monostate_int_float::std_variant_std_monostate_int_float;
+        pub use crate::std_vector_MR_A::std_vector_MR_A;
+        pub use crate::std_vector_MR_A::std_vector_MR_A_const_iterator;
+        pub use crate::std_vector_MR_A::std_vector_MR_A_iterator;
+        pub use crate::std_vector_MR_CSharp_A_ptr::std_vector_MR_CSharp_A_ptr;
+        pub use crate::std_vector_MR_CSharp_A_ptr::std_vector_MR_CSharp_A_ptr_const_iterator;
+        pub use crate::std_vector_MR_CSharp_A_ptr::std_vector_MR_CSharp_A_ptr_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::std_vector_MR_CSharp_ExposedLayout;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::std_vector_MR_CSharp_ExposedLayout_const_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::std_vector_MR_CSharp_ExposedLayout_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::std_vector_MR_SeparateA;
+        pub use crate::AB::common::std_vector_MR_SeparateA::std_vector_MR_SeparateA_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::std_vector_MR_SeparateA_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::std_vector_MR_SeparateB;
+        pub use crate::AB::common::std_vector_MR_SeparateB::std_vector_MR_SeparateB_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::std_vector_MR_SeparateB_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::std_vector_MR_StdContainers_NonAssignable;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::std_vector_MR_StdContainers_NonAssignable_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::std_vector_MR_StdContainers_NonAssignable_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::std_vector_MR_StdContainers_NonDefaultConstructible;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::std_vector_MR_StdContainers_NonDefaultConstructible_iterator;
+        pub use crate::std_vector_int64_t::std_vector_int64_t;
+        pub use crate::std_vector_int64_t::std_vector_int64_t_const_iterator;
+        pub use crate::std_vector_int64_t::std_vector_int64_t_iterator;
+        pub use crate::std_vector_uint64_t::std_vector_uint64_t;
+        pub use crate::std_vector_uint64_t::std_vector_uint64_t_const_iterator;
+        pub use crate::std_vector_uint64_t::std_vector_uint64_t_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::std_vector_const_MR_CSharp_A_ptr;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::std_vector_const_MR_CSharp_A_ptr_const_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::std_vector_const_MR_CSharp_A_ptr_iterator;
+        pub use crate::std_vector_int::std_vector_int;
+        pub use crate::std_vector_int::std_vector_int_const_iterator;
+        pub use crate::std_vector_int::std_vector_int_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::std_vector_std_expected_int_std_string;
+        pub use crate::std_vector_std_expected_int_std_string::std_vector_std_expected_int_std_string_const_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::std_vector_std_expected_int_std_string_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::std_vector_std_pair_MR_SeparateA_MR_SeparateB;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator;
+        pub use crate::std_vector_MR_A::op_sub_mr_c_std_vector_mr_a_const_iterator;
+        pub use crate::std_vector_MR_A::op_equal_mr_c_std_vector_mr_a_const_iterator;
+        pub use crate::std_vector_MR_A::op_sub_mr_c_std_vector_mr_a_iterator;
+        pub use crate::std_vector_MR_A::op_equal_mr_c_std_vector_mr_a_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::op_sub_mr_c_std_vector_mr_separate_a_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::op_equal_mr_c_std_vector_mr_separate_a_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::op_sub_mr_c_std_vector_mr_separate_a_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateA::op_equal_mr_c_std_vector_mr_separate_a_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::op_sub_mr_c_std_vector_mr_separate_b_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::op_equal_mr_c_std_vector_mr_separate_b_const_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::op_sub_mr_c_std_vector_mr_separate_b_iterator;
+        pub use crate::AB::common::std_vector_MR_SeparateB::op_equal_mr_c_std_vector_mr_separate_b_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::op_sub_mr_c_std_vector_std_pair_mr_separate_a_mr_separate_b_const_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::op_equal_mr_c_std_vector_std_pair_mr_separate_a_mr_separate_b_const_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::op_sub_mr_c_std_vector_std_pair_mr_separate_a_mr_separate_b_iterator;
+        pub use crate::AB::common::std_vector_std_pair_MR_SeparateA_MR_SeparateB::op_equal_mr_c_std_vector_std_pair_mr_separate_a_mr_separate_b_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::op_sub_mr_c_std_vector_mr_c_sharp_exposed_layout_const_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::op_equal_mr_c_std_vector_mr_c_sharp_exposed_layout_const_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::op_sub_mr_c_std_vector_mr_c_sharp_exposed_layout_iterator;
+        pub use crate::std_vector_MR_CSharp_ExposedLayout::op_equal_mr_c_std_vector_mr_c_sharp_exposed_layout_iterator;
+        pub use crate::iostream::get_std_cout;
+        pub use crate::iostream::get_std_cerr;
+        pub use crate::iostream::get_std_clog;
+        pub use crate::iostream::get_std_cin;
+        pub use crate::std_vector_MR_CSharp_A_ptr::op_sub_mr_c_std_vector_mr_c_sharp_a_ptr_const_iterator;
+        pub use crate::std_vector_MR_CSharp_A_ptr::op_equal_mr_c_std_vector_mr_c_sharp_a_ptr_const_iterator;
+        pub use crate::std_vector_MR_CSharp_A_ptr::op_sub_mr_c_std_vector_mr_c_sharp_a_ptr_iterator;
+        pub use crate::std_vector_MR_CSharp_A_ptr::op_equal_mr_c_std_vector_mr_c_sharp_a_ptr_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::op_sub_mr_c_std_vector_const_mr_c_sharp_a_ptr_const_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::op_equal_mr_c_std_vector_const_mr_c_sharp_a_ptr_const_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::op_sub_mr_c_std_vector_const_mr_c_sharp_a_ptr_iterator;
+        pub use crate::std_vector_const_MR_CSharp_A_ptr::op_equal_mr_c_std_vector_const_mr_c_sharp_a_ptr_iterator;
+        pub use crate::phmap_flat_hash_set_int::op_equal_mr_c_phmap_flat_hash_set_int_const_iterator;
+        pub use crate::phmap_flat_hash_map_int_float::op_equal_mr_c_phmap_flat_hash_map_int_float_const_iterator;
+        pub use crate::phmap_flat_hash_map_int_float::op_equal_mr_c_phmap_flat_hash_map_int_float_iterator;
+        pub use crate::phmap_node_hash_set_int::op_equal_mr_c_phmap_node_hash_set_int_const_iterator;
+        pub use crate::phmap_node_hash_map_int_float::op_equal_mr_c_phmap_node_hash_map_int_float_const_iterator;
+        pub use crate::phmap_node_hash_map_int_float::op_equal_mr_c_phmap_node_hash_map_int_float_iterator;
+        pub use crate::phmap_parallel_flat_hash_set_int::op_equal_mr_c_phmap_parallel_flat_hash_set_int_const_iterator;
+        pub use crate::phmap_parallel_flat_hash_map_int_float::op_equal_mr_c_phmap_parallel_flat_hash_map_int_float_const_iterator;
+        pub use crate::phmap_parallel_flat_hash_map_int_float::op_equal_mr_c_phmap_parallel_flat_hash_map_int_float_iterator;
+        pub use crate::phmap_parallel_node_hash_set_int::op_equal_mr_c_phmap_parallel_node_hash_set_int_const_iterator;
+        pub use crate::phmap_parallel_node_hash_map_int_float::op_equal_mr_c_phmap_parallel_node_hash_map_int_float_const_iterator;
+        pub use crate::phmap_parallel_node_hash_map_int_float::op_equal_mr_c_phmap_parallel_node_hash_map_int_float_iterator;
+        pub use crate::phmap_btree_set_int::op_equal_mr_c_phmap_btree_set_int_const_iterator;
+        pub use crate::phmap_btree_map_int_float::op_equal_mr_c_phmap_btree_map_int_float_const_iterator;
+        pub use crate::phmap_btree_map_int_float::op_equal_mr_c_phmap_btree_map_int_float_iterator;
+        pub use crate::phmap_btree_multiset_int::op_equal_mr_c_phmap_btree_multiset_int_const_iterator;
+        pub use crate::phmap_btree_multimap_int_float::op_equal_mr_c_phmap_btree_multimap_int_float_const_iterator;
+        pub use crate::phmap_btree_multimap_int_float::op_equal_mr_c_phmap_btree_multimap_int_float_iterator;
+        pub use crate::std_vector_uint64_t::op_sub_mr_c_std_vector_uint64_t_const_iterator;
+        pub use crate::std_vector_uint64_t::op_equal_mr_c_std_vector_uint64_t_const_iterator;
+        pub use crate::std_vector_uint64_t::op_sub_mr_c_std_vector_uint64_t_iterator;
+        pub use crate::std_vector_uint64_t::op_equal_mr_c_std_vector_uint64_t_iterator;
+        pub use crate::std_vector_int64_t::op_sub_mr_c_std_vector_int64_t_const_iterator;
+        pub use crate::std_vector_int64_t::op_equal_mr_c_std_vector_int64_t_const_iterator;
+        pub use crate::std_vector_int64_t::op_sub_mr_c_std_vector_int64_t_iterator;
+        pub use crate::std_vector_int64_t::op_equal_mr_c_std_vector_int64_t_iterator;
+        pub use crate::std_vector_int::op_sub_mr_c_std_vector_int_const_iterator;
+        pub use crate::std_vector_int::op_equal_mr_c_std_vector_int_const_iterator;
+        pub use crate::std_vector_int::op_sub_mr_c_std_vector_int_iterator;
+        pub use crate::std_vector_int::op_equal_mr_c_std_vector_int_iterator;
+        pub use crate::std_deque_int::op_sub_mr_c_std_deque_int_const_iterator;
+        pub use crate::std_deque_int::op_equal_mr_c_std_deque_int_const_iterator;
+        pub use crate::std_deque_int::op_sub_mr_c_std_deque_int_iterator;
+        pub use crate::std_deque_int::op_equal_mr_c_std_deque_int_iterator;
+        pub use crate::std_list_int::op_equal_mr_c_std_list_int_const_iterator;
+        pub use crate::std_list_int::op_equal_mr_c_std_list_int_iterator;
+        pub use crate::std_set_int::op_equal_mr_c_std_set_int_const_iterator;
+        pub use crate::std_multiset_int::op_equal_mr_c_std_multiset_int_const_iterator;
+        pub use crate::std_unordered_set_int::op_equal_mr_c_std_unordered_set_int_const_iterator;
+        pub use crate::std_unordered_multiset_int::op_equal_mr_c_std_unordered_multiset_int_const_iterator;
+        pub use crate::std_map_int_float::op_equal_mr_c_std_map_int_float_const_iterator;
+        pub use crate::std_map_int_float::op_equal_mr_c_std_map_int_float_iterator;
+        pub use crate::std_multimap_int_float::op_equal_mr_c_std_multimap_int_float_const_iterator;
+        pub use crate::std_multimap_int_float::op_equal_mr_c_std_multimap_int_float_iterator;
+        pub use crate::std_unordered_map_int_float::op_equal_mr_c_std_unordered_map_int_float_const_iterator;
+        pub use crate::std_unordered_map_int_float::op_equal_mr_c_std_unordered_map_int_float_iterator;
+        pub use crate::std_unordered_multimap_int_float::op_equal_mr_c_std_unordered_multimap_int_float_const_iterator;
+        pub use crate::std_unordered_multimap_int_float::op_equal_mr_c_std_unordered_multimap_int_float_iterator;
+        pub use crate::std_multiset_float::op_equal_mr_c_std_multiset_float_const_iterator;
+        pub use crate::std_set_float::op_equal_mr_c_std_set_float_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::op_sub_mr_c_std_vector_mr_std_containers_non_default_constructible_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::op_equal_mr_c_std_vector_mr_std_containers_non_default_constructible_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::op_sub_mr_c_std_vector_mr_std_containers_non_default_constructible_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::op_equal_mr_c_std_vector_mr_std_containers_non_default_constructible_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::op_sub_mr_c_std_vector_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::op_equal_mr_c_std_vector_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::op_sub_mr_c_std_vector_mr_std_containers_non_assignable_iterator;
+        pub use crate::std_vector_MR_StdContainers_NonAssignable::op_equal_mr_c_std_vector_mr_std_containers_non_assignable_iterator;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::op_sub_mr_c_std_deque_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::op_equal_mr_c_std_deque_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::op_sub_mr_c_std_deque_mr_std_containers_non_assignable_iterator;
+        pub use crate::std_deque_MR_StdContainers_NonAssignable::op_equal_mr_c_std_deque_mr_std_containers_non_assignable_iterator;
+        pub use crate::std_list_MR_StdContainers_NonAssignable::op_equal_mr_c_std_list_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_list_MR_StdContainers_NonAssignable::op_equal_mr_c_std_list_mr_std_containers_non_assignable_iterator;
+        pub use crate::std_set_MR_StdContainers_NonAssignable::op_equal_mr_c_std_set_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_multiset_MR_StdContainers_NonAssignable::op_equal_mr_c_std_multiset_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_unordered_set_MR_StdContainers_NonAssignable::op_equal_mr_c_std_unordered_set_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_unordered_multiset_MR_StdContainers_NonAssignable::op_equal_mr_c_std_unordered_multiset_mr_std_containers_non_assignable_const_iterator;
+        pub use crate::std_map_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_map_mr_std_containers_non_assignable_float_const_iterator;
+        pub use crate::std_map_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_map_mr_std_containers_non_assignable_float_iterator;
+        pub use crate::std_multimap_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_multimap_mr_std_containers_non_assignable_float_const_iterator;
+        pub use crate::std_multimap_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_multimap_mr_std_containers_non_assignable_float_iterator;
+        pub use crate::std_unordered_map_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_unordered_map_mr_std_containers_non_assignable_float_const_iterator;
+        pub use crate::std_unordered_map_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_unordered_map_mr_std_containers_non_assignable_float_iterator;
+        pub use crate::std_unordered_multimap_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_unordered_multimap_mr_std_containers_non_assignable_float_const_iterator;
+        pub use crate::std_unordered_multimap_MR_StdContainers_NonAssignable_float::op_equal_mr_c_std_unordered_multimap_mr_std_containers_non_assignable_float_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::op_sub_mr_c_std_vector_std_expected_int_std_string_const_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::op_equal_mr_c_std_vector_std_expected_int_std_string_const_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::op_sub_mr_c_std_vector_std_expected_int_std_string_iterator;
+        pub use crate::std_vector_std_expected_int_std_string::op_equal_mr_c_std_vector_std_expected_int_std_string_iterator;
+    }
+
+    pub mod custom_pref_names
+    {
+        pub use crate::MR::test_custom_preferred_names::Af;
+        pub use crate::MR::test_custom_preferred_names::Ai;
+        pub use crate::MR::test_custom_preferred_names::blah;
+    }
+
+    pub mod decl_order
+    {
+        pub use crate::MR::test_declaration_order::A_E;
+        pub use crate::MR::test_declaration_order::A;
+        pub use crate::MR::test_declaration_order::A_B;
+        pub use crate::MR::test_declaration_order::C_false;
+        pub use crate::MR::test_declaration_order::C_true;
+    }
+
+    pub mod deprecation
+    {
+        pub use crate::MR::test_deprecation::foo;
+        pub use crate::MR::test_deprecation::bar;
+    }
+
+    pub mod includes_for_enum_constants
+    {
+        pub use crate::MR::test_includes_for_enum_constants_3::E;
+        pub use crate::MR::test_includes_for_enum_constants_2::A_MR_IncludesForEnumConstants_E_e1;
+        pub use crate::MR::test_includes_for_enum_constants::foo;
+    }
+
+    pub mod incomplete_array_elem_type
+    {
+        pub use crate::MR::test_arrays_of_incomplete_types_2::E;
+        pub use crate::MR::test_arrays_of_incomplete_types_2::bar;
+        pub use crate::MR::test_arrays_of_incomplete_types::foo;
+    }
+
+    pub mod io_stream
+    {
+        pub use crate::MR::test_iostream::A;
+        pub use crate::MR::test_iostream::op_print_mr_io_stream_a;
+        pub use crate::MR::test_iostream::op_input_mr_io_stream_a;
+    }
+
+    pub mod lifetime_inference
+    {
+        pub use crate::MR::test_lifetime_inference::A;
+        pub use crate::MR::test_lifetime_inference::B;
+        pub use crate::MR::test_lifetime_inference::C;
+        pub use crate::MR::test_lifetime_inference::begin_mr_lifetime_inference_a;
+        pub use crate::MR::test_lifetime_inference::end_mr_lifetime_inference_a;
+        pub use crate::MR::test_lifetime_inference::begin_mr_lifetime_inference_b;
+        pub use crate::MR::test_lifetime_inference::end_mr_lifetime_inference_b;
+    }
+
+    pub mod matching_layout
+    {
+        pub use crate::MR::test_matching_layout::A;
+        pub use crate::MR::test_matching_layout::B;
+        pub use crate::MR::test_matching_layout::foo;
+        pub use crate::MR::test_matching_layout::bar;
+        pub use crate::MR::test_matching_layout::baz;
+        pub use crate::MR::test_matching_layout::bleh;
+    }
+
+    pub mod member_vars
+    {
+        pub use crate::MR::test_member_vars::A;
+    }
+
+    pub mod nested_template_inst
+    {
+        pub use crate::MR::test_nested_class_template_inst::A_int;
+        pub use crate::MR::test_nested_class_template_inst::A_int_AA_float;
+    }
+
+    pub mod nested_types
+    {
+        pub use crate::MR::test_nested_types::A_E;
+        pub use crate::MR::test_nested_types::A;
+        pub use crate::MR::test_nested_types::A_B;
+    }
+
+    pub mod omitting_targs_and_quals
+    {
+        pub use crate::MR::test_omitting_template_args_and_quals::A_float;
+        pub use crate::MR::test_omitting_template_args_and_quals::A_int;
+        pub use crate::MR::test_omitting_template_args_and_quals::a_mr_omitting_targs_and_quals_a_int;
+        pub use crate::MR::test_omitting_template_args_and_quals::b;
+        pub use crate::MR::test_omitting_template_args_and_quals::a_mr_omitting_targs_and_quals_a_float;
+        pub use crate::MR::test_omitting_template_args_and_quals::op_deref_mr_omitting_targs_and_quals_a_int;
+        pub use crate::MR::test_omitting_template_args_and_quals::op_compl_mr_omitting_targs_and_quals_a_int;
+        pub use crate::MR::test_omitting_template_args_and_quals::c;
+        pub use crate::MR::test_omitting_template_args_and_quals::d;
+        pub use crate::MR::test_omitting_template_args_and_quals::inst;
+    }
+
+    pub mod overloaded_ops
+    {
+        pub use crate::MR::test_overloaded_operators::A;
+        pub use crate::MR::test_overloaded_operators::B;
+        pub use crate::MR::test_overloaded_operators::C;
+        pub use crate::MR::test_overloaded_operators::D;
+        pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_neg_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_sub_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_deref_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_mul_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_div_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_mod_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_xor_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_bitand_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_bitor_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_compl_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_not_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_less_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_greater_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_add_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_sub_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_mul_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_div_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_mod_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_xor_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_bitand_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_bitor_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_lshift_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_rshift_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_lshift_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_rshift_assign_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_equal_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_not_equal_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_less_equal_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_greater_equal_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_compare_three_way_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_and_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_or_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_incr_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_post_incr_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_decr_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_post_decr_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_comma_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_arrow_star_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_c;
+        pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_c_mr_overloaded_ops_b;
+        pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_d_ref;
+        pub use crate::MR::test_overloaded_operators::op_pos_const_mr_overloaded_ops_d_ref;
+    }
+
+    pub mod overloads
+    {
+        pub use crate::MR::test_overloads::a_1;
+        pub use crate::MR::test_overloads::a_2;
+        pub use crate::MR::test_overloads::b_int;
+        pub use crate::MR::test_overloads::b_float;
+        pub use crate::MR::test_overloads::c_int;
+        pub use crate::MR::test_overloads::c_float;
+        pub use crate::MR::test_overloads::d_int;
+        pub use crate::MR::test_overloads::d_float;
+        pub use crate::MR::test_overloads::e_const_int_ref;
+        pub use crate::MR::test_overloads::e_int_rvalue_ref_int;
+        pub use crate::MR::test_overloads::e_int_rvalue_ref_float;
+        pub use crate::MR::test_overloads::f_float;
+        pub use crate::MR::test_overloads::f_int_rvalue_ref;
+        pub use crate::MR::test_overloads::f_const_int_ref;
+    }
+
+    pub mod phmap
+    {
+        pub use crate::MR::test_phmap::foo_phmap_flat_hash_set_int;
+        pub use crate::MR::test_phmap::foo_phmap_flat_hash_map_int_float;
+        pub use crate::MR::test_phmap::foo_phmap_node_hash_set_int;
+        pub use crate::MR::test_phmap::foo_phmap_node_hash_map_int_float;
+        pub use crate::MR::test_phmap::foo_phmap_parallel_flat_hash_set_int;
+        pub use crate::MR::test_phmap::foo_phmap_parallel_flat_hash_map_int_float;
+        pub use crate::MR::test_phmap::foo_phmap_parallel_node_hash_set_int;
+        pub use crate::MR::test_phmap::foo_phmap_parallel_node_hash_map_int_float;
+        pub use crate::MR::test_phmap::foo_phmap_btree_set_int;
+        pub use crate::MR::test_phmap::foo_phmap_btree_map_int_float;
+        pub use crate::MR::test_phmap::foo_phmap_btree_multiset_int;
+        pub use crate::MR::test_phmap::foo_phmap_btree_multimap_int_float;
+    }
+
+    pub mod signature_filters
+    {
+        pub use crate::MR::test_mention_blacklists::A;
+        pub use crate::MR::test_mention_blacklists::Blah;
+        pub use crate::MR::test_mention_blacklists::foo_1;
+        pub use crate::MR::test_mention_blacklists::foo_0;
+        pub use crate::MR::test_mention_blacklists::foo2_1;
+        pub use crate::MR::test_mention_blacklists::foo2_0;
+        pub use crate::MR::test_mention_blacklists::foo3_1;
+        pub use crate::MR::test_mention_blacklists::foo3_0;
+        pub use crate::MR::test_mention_blacklists::foo4_1;
+        pub use crate::MR::test_mention_blacklists::foo4_0;
+        pub use crate::MR::test_mention_blacklists::foo5_1;
+        pub use crate::MR::test_mention_blacklists::foo5_0;
+    }
+
+    pub mod static_funcs
+    {
+        pub use crate::MR::test_static_memberr::A;
+    }
+
+    pub mod std_containers
+    {
+        pub use crate::MR::test_std_containers::A;
+        pub use crate::MR::test_std_containers::NonAssignable;
+        pub use crate::MR::test_std_containers::NonDefaultConstructible;
+        pub use crate::MR::test_std_containers::set;
+        pub use crate::MR::test_std_containers::set_with_default;
+        pub use crate::MR::test_std_containers::get;
+        pub use crate::MR::test_std_containers::write_to_ref;
+        pub use crate::MR::test_std_containers::write_to_ptr;
+        pub use crate::MR::test_std_containers::const_ref;
+        pub use crate::MR::test_std_containers::rvalue_ref;
+        pub use crate::MR::test_std_containers::const_rvalue_ref;
+        pub use crate::MR::test_std_containers::get_deque;
+        pub use crate::MR::test_std_containers::get_list;
+        pub use crate::MR::test_std_containers::get_set;
+        pub use crate::MR::test_std_containers::get_multi_set;
+        pub use crate::MR::test_std_containers::get_unordered_set;
+        pub use crate::MR::test_std_containers::get_unordered_multi_set;
+        pub use crate::MR::test_std_containers::get_map;
+        pub use crate::MR::test_std_containers::get_multi_map;
+        pub use crate::MR::test_std_containers::get_unordered_map;
+        pub use crate::MR::test_std_containers::get_unordered_multi_map;
+        pub use crate::MR::test_std_containers::get_std_array;
+        pub use crate::MR::test_std_containers::get_std_array_simple;
+        pub use crate::MR::test_std_containers::std_array_simple_param;
+        pub use crate::MR::test_std_containers::std_array_simple_ptr;
+        pub use crate::MR::test_std_containers::get_multi_set_with_merged_iters;
+        pub use crate::MR::test_std_containers::get_merged_iter;
+        pub use crate::MR::test_std_containers::get_merged_iter_const;
+        pub use crate::MR::test_std_containers::non_def_con;
+        pub use crate::MR::test_std_containers::get_vector_na;
+        pub use crate::MR::test_std_containers::get_deque_na;
+        pub use crate::MR::test_std_containers::get_list_na;
+        pub use crate::MR::test_std_containers::get_set_na;
+        pub use crate::MR::test_std_containers::get_multi_set_na;
+        pub use crate::MR::test_std_containers::get_unordered_set_na;
+        pub use crate::MR::test_std_containers::get_unordered_multi_set_na;
+        pub use crate::MR::test_std_containers::get_map_na;
+        pub use crate::MR::test_std_containers::get_multi_map_na;
+        pub use crate::MR::test_std_containers::get_unordered_map_na;
+        pub use crate::MR::test_std_containers::get_unordered_multi_map_na;
+        pub use crate::MR::test_std_containers::get_std_array_na;
+        pub use crate::MR::test_std_containers::get_std_array_of_plain_array;
+    }
+
+    pub mod std_expected
+    {
+        pub use crate::MR::test_std_expected::get_exp;
+        pub use crate::MR::test_std_expected::set_exp;
+        pub use crate::MR::test_std_expected::set_exp_const_ref;
+        pub use crate::MR::test_std_expected::set_exp_def_trivial;
+        pub use crate::MR::test_std_expected::set_exp_def;
+        pub use crate::MR::test_std_expected::get_exp_void;
+        pub use crate::MR::test_std_expected::set_exp_void;
+        pub use crate::MR::test_std_expected::set_exp_void_const_ref;
+        pub use crate::MR::test_std_expected::set_exp_void_def_trivial;
+        pub use crate::MR::test_std_expected::set_exp_void_def;
+        pub use crate::MR::test_std_expected::get_exp_vec;
+    }
+
+    pub mod std_filesystem
+    {
+        pub use crate::MR::test_std_filesystem::get_path;
+        pub use crate::MR::test_std_filesystem::set_path;
+        pub use crate::MR::test_std_filesystem::set_path_const_ref;
+        pub use crate::MR::test_std_filesystem::set_path_def_trivial;
+        pub use crate::MR::test_std_filesystem::set_path_def;
+    }
+
+    pub mod std_function
+    {
+        pub use crate::MR::test_std_function::E;
+        pub use crate::MR::test_std_function::A;
+        pub use crate::MR::test_std_function::foo_std_function_int_func;
+        pub use crate::MR::test_std_function::foo_std_function_void_func_from_int_int;
+        pub use crate::MR::test_std_function::foo_std_function_int_func_from_int_int;
+        pub use crate::MR::test_std_function::foo_std_function_mr_std_function_e_func_from_int_mr_std_function_e;
+        pub use crate::MR::test_std_function::foo_std_function_std_string_func_from_int_float;
+        pub use crate::MR::test_std_function::foo_std_function_void_func_from_std_string;
+        pub use crate::MR::test_std_function::foo_std_function_void_func_from_mr_std_function_a;
+        pub use crate::MR::test_std_function::foo_std_function_mr_std_function_a_func;
+    }
+
+    pub mod std_optional
+    {
+        pub use crate::MR::test_std_optional::E;
+        pub use crate::MR::test_std_optional::A;
+        pub use crate::MR::test_std_optional::B;
+        pub use crate::MR::test_std_optional::get_int;
+        pub use crate::MR::test_std_optional::set_int;
+        pub use crate::MR::test_std_optional::set_int_const_ref;
+        pub use crate::MR::test_std_optional::set_int_def_trivial;
+        pub use crate::MR::test_std_optional::set_int_def;
+        pub use crate::MR::test_std_optional::get_enum;
+        pub use crate::MR::test_std_optional::set_enum;
+        pub use crate::MR::test_std_optional::set_enum_const_ref;
+        pub use crate::MR::test_std_optional::set_enum_def_trivial;
+        pub use crate::MR::test_std_optional::set_enum_def;
+        pub use crate::MR::test_std_optional::get_class;
+        pub use crate::MR::test_std_optional::set_class;
+        pub use crate::MR::test_std_optional::set_class_const_ref;
+        pub use crate::MR::test_std_optional::set_class_def_trivial;
+        pub use crate::MR::test_std_optional::set_class_def;
+        pub use crate::MR::test_std_optional::get_class2;
+        pub use crate::MR::test_std_optional::set_class2;
+        pub use crate::MR::test_std_optional::set_class2_const_ref;
+        pub use crate::MR::test_std_optional::set_class2_def_trivial;
+        pub use crate::MR::test_std_optional::set_class2_def;
+    }
+
+    pub mod std_shared_ptr
+    {
+        pub use crate::MR::test_std_shared_ptr::A;
+        pub use crate::MR::test_std_shared_ptr::get_int;
+        pub use crate::MR::test_std_shared_ptr::set_int;
+        pub use crate::MR::test_std_shared_ptr::set_int_const_ref;
+        pub use crate::MR::test_std_shared_ptr::set_int_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_int_def;
+        pub use crate::MR::test_std_shared_ptr::set_int_lvalue_ref;
+        pub use crate::MR::test_std_shared_ptr::set_int_lvalue_const_ref;
+        pub use crate::MR::test_std_shared_ptr::set_int_rvalue_ref;
+        pub use crate::MR::test_std_shared_ptr::set_int_rvalue_const_ref;
+        pub use crate::MR::test_std_shared_ptr::get_int_arr;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr_def;
+        pub use crate::MR::test_std_shared_ptr::get_int_arr42;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr42;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr42_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_int_arr42_def;
+        pub use crate::MR::test_std_shared_ptr::get_class;
+        pub use crate::MR::test_std_shared_ptr::set_class;
+        pub use crate::MR::test_std_shared_ptr::set_class_const_ref;
+        pub use crate::MR::test_std_shared_ptr::set_class_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_class_def;
+        pub use crate::MR::test_std_shared_ptr::set_class_lvalue_ref;
+        pub use crate::MR::test_std_shared_ptr::set_class_lvalue_const_ref;
+        pub use crate::MR::test_std_shared_ptr::set_class_rvalue_ref;
+        pub use crate::MR::test_std_shared_ptr::set_class_rvalue_const_ref;
+        pub use crate::MR::test_std_shared_ptr::get_class_arr;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr_def;
+        pub use crate::MR::test_std_shared_ptr::get_class_arr42;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr42;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr42_def_trivial;
+        pub use crate::MR::test_std_shared_ptr::set_class_arr42_def;
+        pub use crate::MR::test_std_shared_ptr::get_const_int;
+        pub use crate::MR::test_std_shared_ptr::get_const_int_arr;
+        pub use crate::MR::test_std_shared_ptr::get_const_int_arr42;
+        pub use crate::MR::test_std_shared_ptr::get_const_class;
+        pub use crate::MR::test_std_shared_ptr::get_const_class_arr;
+        pub use crate::MR::test_std_shared_ptr::get_const_class_arr42;
+    }
+
+    pub mod std_string
+    {
+        pub use crate::MR::test_std_string::set;
+        pub use crate::MR::test_std_string::set_with_default;
+        pub use crate::MR::test_std_string::get;
+        pub use crate::MR::test_std_string::write_to_ref;
+        pub use crate::MR::test_std_string::write_to_ptr;
+        pub use crate::MR::test_std_string::const_ref;
+        pub use crate::MR::test_std_string::rvalue_ref;
+        pub use crate::MR::test_std_string::const_rvalue_ref;
+    }
+
+    pub mod std_string_view
+    {
+        pub use crate::MR::test_std_string_view::set;
+        pub use crate::MR::test_std_string_view::set_with_default;
+        pub use crate::MR::test_std_string_view::get;
+        pub use crate::MR::test_std_string_view::write_to_ref;
+        pub use crate::MR::test_std_string_view::write_to_ptr;
+        pub use crate::MR::test_std_string_view::const_ref;
+        pub use crate::MR::test_std_string_view::rvalue_ref;
+        pub use crate::MR::test_std_string_view::const_rvalue_ref;
+    }
+
+    pub mod std_tuple_like
+    {
+        pub use crate::MR::test_std_tuple_like::set_pair;
+        pub use crate::MR::test_std_tuple_like::get_pair;
+        pub use crate::MR::test_std_tuple_like::get_pair2;
+        pub use crate::MR::test_std_tuple_like::get_pair3;
+        pub use crate::MR::test_std_tuple_like::get_pair4;
+        pub use crate::MR::test_std_tuple_like::get_pair5;
+        pub use crate::MR::test_std_tuple_like::get_pair6;
+        pub use crate::MR::test_std_tuple_like::set_tuple;
+        pub use crate::MR::test_std_tuple_like::get_tuple;
+        pub use crate::MR::test_std_tuple_like::get_tuple2;
+        pub use crate::MR::test_std_tuple_like::get_tuple7;
+        pub use crate::MR::test_std_tuple_like::get_tuple8;
+    }
+
+    pub mod std_unique_ptr
+    {
+        pub use crate::MR::test_std_unique_ptr::A;
+        pub use crate::MR::test_std_unique_ptr::get_int;
+        pub use crate::MR::test_std_unique_ptr::set_int;
+        pub use crate::MR::test_std_unique_ptr::set_int_const_ref;
+        pub use crate::MR::test_std_unique_ptr::set_int_def_trivial;
+        pub use crate::MR::test_std_unique_ptr::set_int_def;
+        pub use crate::MR::test_std_unique_ptr::set_int_lvalue_ref;
+        pub use crate::MR::test_std_unique_ptr::set_int_lvalue_const_ref;
+        pub use crate::MR::test_std_unique_ptr::set_int_rvalue_ref;
+        pub use crate::MR::test_std_unique_ptr::set_int_rvalue_const_ref;
+        pub use crate::MR::test_std_unique_ptr::get_int_arr;
+        pub use crate::MR::test_std_unique_ptr::set_int_arr;
+        pub use crate::MR::test_std_unique_ptr::set_int_arr_def_trivial;
+        pub use crate::MR::test_std_unique_ptr::set_int_arr_def;
+        pub use crate::MR::test_std_unique_ptr::get_class;
+        pub use crate::MR::test_std_unique_ptr::set_class;
+        pub use crate::MR::test_std_unique_ptr::set_class_const_ref;
+        pub use crate::MR::test_std_unique_ptr::set_class_def_trivial;
+        pub use crate::MR::test_std_unique_ptr::set_class_def;
+        pub use crate::MR::test_std_unique_ptr::set_class_lvalue_ref;
+        pub use crate::MR::test_std_unique_ptr::set_class_lvalue_const_ref;
+        pub use crate::MR::test_std_unique_ptr::set_class_rvalue_ref;
+        pub use crate::MR::test_std_unique_ptr::set_class_rvalue_const_ref;
+        pub use crate::MR::test_std_unique_ptr::get_class_arr;
+        pub use crate::MR::test_std_unique_ptr::set_class_arr;
+        pub use crate::MR::test_std_unique_ptr::set_class_arr_def_trivial;
+        pub use crate::MR::test_std_unique_ptr::set_class_arr_def;
+        pub use crate::MR::test_std_unique_ptr::get_const_int;
+        pub use crate::MR::test_std_unique_ptr::get_const_int_arr;
+        pub use crate::MR::test_std_unique_ptr::get_const_class;
+        pub use crate::MR::test_std_unique_ptr::get_const_class_arr;
+        pub use crate::MR::test_std_unique_ptr::get_float;
+        pub use crate::MR::test_std_unique_ptr::set_float;
+        pub use crate::MR::test_std_unique_ptr::set_float_def_trivial;
+    }
+
+    pub mod std_variant
+    {
+        pub use crate::MR::test_variant::foo;
+        pub use crate::MR::test_variant::bar;
+        pub use crate::MR::test_variant::baz;
+        pub use crate::MR::test_variant::blah;
+    }
+
+    pub mod tags
+    {
+        pub use crate::MR::test_tags::foo_1_std_less_int;
+        pub use crate::MR::test_tags::foo_1_std_less_void;
+        pub use crate::MR::test_tags::foo_1_std_greater_int;
+        pub use crate::MR::test_tags::foo_1_std_greater_void;
+        pub use crate::MR::test_tags::foo_0;
+    }
+
+    pub mod test_simple_types
+    {
+        pub use crate::MR::test_simple_types::ClassTemplate_uint64_t_Enum;
+        pub use crate::MR::test_simple_types::E;
+        pub use crate::MR::test_simple_types::E2;
+        pub use crate::MR::test_simple_types::E3;
+        pub use crate::MR::test_simple_types::E4;
+        pub use crate::MR::test_simple_types::E5;
+        pub use crate::MR::test_simple_types::ClassTemplate_uint64_t;
+        pub use crate::MR::test_simple_types::get_int;
+        pub use crate::MR::test_simple_types::set_int;
+        pub use crate::MR::test_simple_types::set_int_def;
+        pub use crate::MR::test_simple_types::get_int_ptr;
+        pub use crate::MR::test_simple_types::set_int_ptr;
+        pub use crate::MR::test_simple_types::set_int_ptr_def;
+        pub use crate::MR::test_simple_types::set_int_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_int_ref;
+        pub use crate::MR::test_simple_types::set_int_ref;
+        pub use crate::MR::test_simple_types::set_int_ref_def;
+        pub use crate::MR::test_simple_types::get_void_ptr;
+        pub use crate::MR::test_simple_types::set_void_ptr;
+        pub use crate::MR::test_simple_types::set_void_ptr_def;
+        pub use crate::MR::test_simple_types::set_void_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_const_void_ptr;
+        pub use crate::MR::test_simple_types::set_const_void_ptr;
+        pub use crate::MR::test_simple_types::set_const_void_ptr_def;
+        pub use crate::MR::test_simple_types::set_const_void_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_void_ptr_ptr;
+        pub use crate::MR::test_simple_types::set_void_ptr_ptr;
+        pub use crate::MR::test_simple_types::set_void_ptr_ptr_def;
+        pub use crate::MR::test_simple_types::set_void_ptr_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_enum;
+        pub use crate::MR::test_simple_types::set_enum;
+        pub use crate::MR::test_simple_types::set_enum_def;
+        pub use crate::MR::test_simple_types::get_enum_ptr;
+        pub use crate::MR::test_simple_types::set_enum_ptr;
+        pub use crate::MR::test_simple_types::set_enum_ptr_def;
+        pub use crate::MR::test_simple_types::set_enum_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_enum_ref;
+        pub use crate::MR::test_simple_types::set_enum_ref;
+        pub use crate::MR::test_simple_types::set_enum_ref_def;
+        pub use crate::MR::test_simple_types::get_enum2;
+        pub use crate::MR::test_simple_types::set_enum2;
+        pub use crate::MR::test_simple_types::set_enum2_def;
+        pub use crate::MR::test_simple_types::get_enum2_ptr;
+        pub use crate::MR::test_simple_types::set_enum2_ptr;
+        pub use crate::MR::test_simple_types::set_enum2_ptr_def;
+        pub use crate::MR::test_simple_types::set_enum2_ptr_def_null;
+        pub use crate::MR::test_simple_types::get_enum2_ref;
+        pub use crate::MR::test_simple_types::set_enum2_ref;
+        pub use crate::MR::test_simple_types::set_enum2_ref_def;
+        pub use crate::MR::test_simple_types::check_char_maybe_unsigned;
+        pub use crate::MR::test_simple_types::check_char_unsigned_char_ptr;
+        pub use crate::MR::test_simple_types::check_char_signed_char_ptr;
+        pub use crate::MR::test_simple_types::blah_uint64_t;
+        pub use crate::MR::test_simple_types::blah_int64_t;
+        pub use crate::MR::test_simple_types::func_template_uint64_t;
+        pub use crate::MR::test_simple_types::func_template_int;
+    }
+
+    pub mod test_size_t
+    {
+        pub use crate::MR::test_size_t_ptrdiff_t::A_uint64_t;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_uint64_t;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_uint64_t_ptr;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_std_vector_uint64_t;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_int64_t;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_int64_t_ptr;
+        pub use crate::MR::test_size_t_ptrdiff_t::foo_std_vector_int64_t;
+    }
+
+    pub mod typedefs_in_templates
+    {
+        pub use crate::MR::test_typedefs_in_templates::A_int;
+        pub use crate::MR::test_typedefs_in_templates::B_int;
+        pub use crate::MR::test_typedefs_in_templates::B_int_BB_float;
+        pub use crate::MR::test_typedefs_in_templates::bar;
+    }
+
+    pub mod using_decls
+    {
+        pub use crate::MR::test_using_decls::A_E;
+        pub use crate::MR::test_using_decls::A;
+        pub use crate::MR::test_using_decls::B;
+    }
+
+}
+
+pub mod phmap
+{
+    pub use crate::phmap_btree_map_int_float::phmap_btree_map_int_float;
+    pub use crate::phmap_btree_map_int_float::phmap_btree_map_int_float_const_iterator;
+    pub use crate::phmap_btree_map_int_float::phmap_btree_map_int_float_iterator;
+    pub use crate::phmap_btree_multimap_int_float::phmap_btree_multimap_int_float;
+    pub use crate::phmap_btree_multimap_int_float::phmap_btree_multimap_int_float_const_iterator;
+    pub use crate::phmap_btree_multimap_int_float::phmap_btree_multimap_int_float_iterator;
+    pub use crate::phmap_btree_multiset_int::phmap_btree_multiset_int;
+    pub use crate::phmap_btree_multiset_int::phmap_btree_multiset_int_const_iterator;
+    pub use crate::phmap_btree_set_int::phmap_btree_set_int;
+    pub use crate::phmap_btree_set_int::phmap_btree_set_int_const_iterator;
+    pub use crate::phmap_flat_hash_map_int_float::phmap_flat_hash_map_int_float;
+    pub use crate::phmap_flat_hash_map_int_float::phmap_flat_hash_map_int_float_const_iterator;
+    pub use crate::phmap_flat_hash_map_int_float::phmap_flat_hash_map_int_float_iterator;
+    pub use crate::phmap_flat_hash_set_int::phmap_flat_hash_set_int;
+    pub use crate::phmap_flat_hash_set_int::phmap_flat_hash_set_int_const_iterator;
+    pub use crate::phmap_node_hash_map_int_float::phmap_node_hash_map_int_float;
+    pub use crate::phmap_node_hash_map_int_float::phmap_node_hash_map_int_float_const_iterator;
+    pub use crate::phmap_node_hash_map_int_float::phmap_node_hash_map_int_float_iterator;
+    pub use crate::phmap_node_hash_set_int::phmap_node_hash_set_int;
+    pub use crate::phmap_node_hash_set_int::phmap_node_hash_set_int_const_iterator;
+    pub use crate::phmap_parallel_flat_hash_map_int_float::phmap_parallel_flat_hash_map_int_float;
+    pub use crate::phmap_parallel_flat_hash_map_int_float::phmap_parallel_flat_hash_map_int_float_const_iterator;
+    pub use crate::phmap_parallel_flat_hash_map_int_float::phmap_parallel_flat_hash_map_int_float_iterator;
+    pub use crate::phmap_parallel_flat_hash_set_int::phmap_parallel_flat_hash_set_int;
+    pub use crate::phmap_parallel_flat_hash_set_int::phmap_parallel_flat_hash_set_int_const_iterator;
+    pub use crate::phmap_parallel_node_hash_map_int_float::phmap_parallel_node_hash_map_int_float;
+    pub use crate::phmap_parallel_node_hash_map_int_float::phmap_parallel_node_hash_map_int_float_const_iterator;
+    pub use crate::phmap_parallel_node_hash_map_int_float::phmap_parallel_node_hash_map_int_float_iterator;
+    pub use crate::phmap_parallel_node_hash_set_int::phmap_parallel_node_hash_set_int;
+    pub use crate::phmap_parallel_node_hash_set_int::phmap_parallel_node_hash_set_int_const_iterator;
+}

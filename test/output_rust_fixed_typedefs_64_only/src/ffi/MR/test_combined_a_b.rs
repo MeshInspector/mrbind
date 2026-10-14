@@ -1,0 +1,6 @@
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_GetCombinedVecAB() -> *mut crate::ffi::MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB;
+}

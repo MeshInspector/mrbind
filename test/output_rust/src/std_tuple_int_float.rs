@@ -1,0 +1,114 @@
+/// Stores 2 objects: `int`, `float`.
+///
+/// Generated from class `std::tuple<int, float>`. Heap-allocated instances are held in `Owned<std_tuple_int_float>`.
+#[repr(transparent)]
+pub struct std_tuple_int_float(crate::ffi::MR_C_std_tuple_int_float);
+
+unsafe impl crate::CppClass for std_tuple_int_float
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_tuple_int_float_Destroy(ptr as *const crate::ffi::MR_C_std_tuple_int_float)}
+}
+
+impl std_tuple_int_float
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_tuple_int_float>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int_float)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_tuple_int_float) -> crate::Owned<crate::mr::cs::std_tuple_int_float>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_ConstructFromAnother(other as *const crate::mr::cs::std_tuple_int_float as *const crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int_float)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_tuple_int_float)
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_int_float, other as *const crate::mr::cs::std_tuple_int_float as *const crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Constructs the tuple elementwise.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_Construct()`.
+    pub fn construct(_0: core::ffi::c_int, _1: f32) -> crate::Owned<crate::mr::cs::std_tuple_int_float>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_Construct(_0, _1)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_int_float)}
+    }
+
+    /// The element 0, of type `int`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_get_int()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_get_int(self as *const Self as *const crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The element 0, of type `int`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_get_int_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_get_int_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// The element 1, of type `float`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_get_float()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_float<'a>(&'a self) -> &'a f32
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_get_float(self as *const Self as *const crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        unsafe {&*(__ret as *const f32)}
+    }
+
+    /// The element 1, of type `float`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_int_float_get_float_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_float_mut<'a>(&'a mut self) -> &'a mut f32
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_int_float_get_float_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_int_float)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut f32)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_tuple_int_float
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

@@ -1,0 +1,42 @@
+/// Generated from class `MR::AbstractClasses::A`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_AbstractClasses_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::AbstractClasses::B`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_AbstractClasses_B
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::AbstractClasses::C`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_AbstractClasses_C
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_AbstractClasses_A_foo(_this: *mut crate::ffi::MR_AbstractClasses_A);
+    pub fn MR_AbstractClasses_B_foo(_this: *mut crate::ffi::MR_AbstractClasses_B);
+    pub fn MR_AbstractClasses_B_Destroy(_this: *const MR_AbstractClasses_B);
+    pub fn MR_AbstractClasses_C_foo(_this: *mut crate::ffi::MR_AbstractClasses_C);
+    pub fn MR_AbstractClasses_C_Destroy(_this: *const MR_AbstractClasses_C);
+    pub fn MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(object: *const crate::ffi::MR_AbstractClasses_C) -> *const crate::ffi::MR_AbstractClasses_B;
+    pub fn MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(object: *mut crate::ffi::MR_AbstractClasses_C) -> *mut crate::ffi::MR_AbstractClasses_B;
+    pub fn MR_AbstractClasses_C_StaticDowncastFrom_MR_AbstractClasses_B(object: *const crate::ffi::MR_AbstractClasses_B) -> *const crate::ffi::MR_AbstractClasses_C;
+    pub fn MR_AbstractClasses_C_MutableStaticDowncastFrom_MR_AbstractClasses_B(object: *mut crate::ffi::MR_AbstractClasses_B) -> *mut crate::ffi::MR_AbstractClasses_C;
+    pub fn MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(object: *const crate::ffi::MR_AbstractClasses_B) -> *const crate::ffi::MR_AbstractClasses_C;
+    pub fn MR_AbstractClasses_C_DynamicDowncastFromOrFail_MR_AbstractClasses_B(object: *const crate::ffi::MR_AbstractClasses_B) -> *const crate::ffi::MR_AbstractClasses_C;
+    pub fn MR_AbstractClasses_C_MutableDynamicDowncastFrom_MR_AbstractClasses_B(object: *mut crate::ffi::MR_AbstractClasses_B) -> *mut crate::ffi::MR_AbstractClasses_C;
+    pub fn MR_AbstractClasses_C_MutableDynamicDowncastFromOrFail_MR_AbstractClasses_B(object: *mut crate::ffi::MR_AbstractClasses_B) -> *mut crate::ffi::MR_AbstractClasses_C;
+}

@@ -1,0 +1,7 @@
+[package]
+name = "run_rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mrbind_test_bindings = { path = "../output_rust" }

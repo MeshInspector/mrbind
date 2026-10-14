@@ -1,0 +1,165 @@
+/// Generated from class `MR::Aggregates::A`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::Aggregates::B`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_B
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::Aggregates::C`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_C
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::Aggregates::D`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_D
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::Aggregates::E`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_E
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::Aggregates::NonDefaultConstructible`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_Aggregates_NonDefaultConstructible
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_Aggregates_A_DefaultConstruct() -> *mut crate::ffi::MR_Aggregates_A;
+    pub fn MR_Aggregates_A_ConstructFrom(x: i32, y: *const core::ffi::c_char, y_end: *const core::ffi::c_char) -> *mut crate::ffi::MR_Aggregates_A;
+    pub fn MR_Aggregates_A_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_Aggregates_A) -> *mut crate::ffi::MR_Aggregates_A;
+    pub fn MR_Aggregates_A_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_A, _other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_Aggregates_A) -> *mut crate::ffi::MR_Aggregates_A;
+    pub fn MR_Aggregates_A_Get_x(_this: *const crate::ffi::MR_Aggregates_A) -> *const i32;
+    pub fn MR_Aggregates_A_GetMutable_x(_this: *mut crate::ffi::MR_Aggregates_A) -> *mut i32;
+    pub fn MR_Aggregates_A_Set_x(_this: *mut crate::ffi::MR_Aggregates_A, value: i32);
+    pub fn MR_Aggregates_A_Get_y(_this: *const crate::ffi::MR_Aggregates_A) -> *const crate::ffi::MR_C_std_string;
+    pub fn MR_Aggregates_A_GetMutable_y(_this: *mut crate::ffi::MR_Aggregates_A) -> *mut crate::ffi::MR_C_std_string;
+    pub fn MR_Aggregates_A_Set_y(_this: *mut crate::ffi::MR_Aggregates_A, value: *const core::ffi::c_char, value_end: *const core::ffi::c_char);
+    pub fn MR_Aggregates_A_Destroy(_this: *const MR_Aggregates_A);
+    pub fn MR_Aggregates_B_DefaultConstruct() -> *mut crate::ffi::MR_Aggregates_B;
+    pub fn MR_Aggregates_B_ConstructFromAnother(_other: *const crate::ffi::MR_Aggregates_B) -> *mut crate::ffi::MR_Aggregates_B;
+    pub fn MR_Aggregates_B_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_B, _other: *const crate::ffi::MR_Aggregates_B) -> *mut crate::ffi::MR_Aggregates_B;
+    pub fn MR_Aggregates_B_Destroy(_this: *const MR_Aggregates_B);
+    pub fn MR_Aggregates_C_DefaultConstruct() -> *mut crate::ffi::MR_Aggregates_C;
+    pub fn MR_Aggregates_C_ConstructFrom(a: i32, b: i32, c: i32, d: i32, e: i32, f: i32, g: i32, h: i32) -> *mut crate::ffi::MR_Aggregates_C;
+    pub fn MR_Aggregates_C_ConstructFromAnother(_other: *const crate::ffi::MR_Aggregates_C) -> *mut crate::ffi::MR_Aggregates_C;
+    pub fn MR_Aggregates_C_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_C, _other: *const crate::ffi::MR_Aggregates_C) -> *mut crate::ffi::MR_Aggregates_C;
+    pub fn MR_Aggregates_C_Get_a(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_a(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_a(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_b(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_b(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_b(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_c(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_c(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_c(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_d(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_d(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_d(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_e(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_e(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_e(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_f(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_f(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_f(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_g(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_g(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_g(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Get_h(_this: *const crate::ffi::MR_Aggregates_C) -> *const i32;
+    pub fn MR_Aggregates_C_GetMutable_h(_this: *mut crate::ffi::MR_Aggregates_C) -> *mut i32;
+    pub fn MR_Aggregates_C_Set_h(_this: *mut crate::ffi::MR_Aggregates_C, value: i32);
+    pub fn MR_Aggregates_C_Destroy(_this: *const MR_Aggregates_C);
+    pub fn MR_Aggregates_D_DefaultConstruct() -> *mut crate::ffi::MR_Aggregates_D;
+    pub fn MR_Aggregates_D_ConstructFromAnother(_other: *const crate::ffi::MR_Aggregates_D) -> *mut crate::ffi::MR_Aggregates_D;
+    pub fn MR_Aggregates_D_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_D, _other: *const crate::ffi::MR_Aggregates_D) -> *mut crate::ffi::MR_Aggregates_D;
+    pub fn MR_Aggregates_D_Get_a(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_a(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_a(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_b(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_b(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_b(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_c(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_c(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_c(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_d(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_d(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_d(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_e(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_e(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_e(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_f(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_f(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_f(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_g(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_g(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_g(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_h(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_h(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_h(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Get_i(_this: *const crate::ffi::MR_Aggregates_D) -> *const i32;
+    pub fn MR_Aggregates_D_GetMutable_i(_this: *mut crate::ffi::MR_Aggregates_D) -> *mut i32;
+    pub fn MR_Aggregates_D_Set_i(_this: *mut crate::ffi::MR_Aggregates_D, value: i32);
+    pub fn MR_Aggregates_D_Destroy(_this: *const MR_Aggregates_D);
+    pub fn MR_Aggregates_E_ConstructFromAnother(_other: *const crate::ffi::MR_Aggregates_E) -> *mut crate::ffi::MR_Aggregates_E;
+    pub fn MR_Aggregates_E_ConstructFrom(a: i32, b: i32, c: i32, d: i32, e: i32, f: i32, g: i32, h: i32, i: i32, j: *const crate::ffi::MR_Aggregates_NonDefaultConstructible) -> *mut crate::ffi::MR_Aggregates_E;
+    pub fn MR_Aggregates_E_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_E, _other: *const crate::ffi::MR_Aggregates_E) -> *mut crate::ffi::MR_Aggregates_E;
+    pub fn MR_Aggregates_E_Get_a(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_a(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_a(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_b(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_b(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_b(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_c(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_c(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_c(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_d(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_d(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_d(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_e(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_e(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_e(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_f(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_f(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_f(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_g(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_g(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_g(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_h(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_h(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_h(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_i(_this: *const crate::ffi::MR_Aggregates_E) -> *const i32;
+    pub fn MR_Aggregates_E_GetMutable_i(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut i32;
+    pub fn MR_Aggregates_E_Set_i(_this: *mut crate::ffi::MR_Aggregates_E, value: i32);
+    pub fn MR_Aggregates_E_Get_j(_this: *const crate::ffi::MR_Aggregates_E) -> *const crate::ffi::MR_Aggregates_NonDefaultConstructible;
+    pub fn MR_Aggregates_E_GetMutable_j(_this: *mut crate::ffi::MR_Aggregates_E) -> *mut crate::ffi::MR_Aggregates_NonDefaultConstructible;
+    pub fn MR_Aggregates_E_Set_j(_this: *mut crate::ffi::MR_Aggregates_E, value: *const crate::ffi::MR_Aggregates_NonDefaultConstructible);
+    pub fn MR_Aggregates_E_Destroy(_this: *const MR_Aggregates_E);
+    pub fn MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other: *const crate::ffi::MR_Aggregates_NonDefaultConstructible) -> *mut crate::ffi::MR_Aggregates_NonDefaultConstructible;
+    pub fn MR_Aggregates_NonDefaultConstructible_AssignFromAnother(_this: *mut crate::ffi::MR_Aggregates_NonDefaultConstructible, _other: *const crate::ffi::MR_Aggregates_NonDefaultConstructible) -> *mut crate::ffi::MR_Aggregates_NonDefaultConstructible;
+    pub fn MR_Aggregates_NonDefaultConstructible_Destroy(_this: *const MR_Aggregates_NonDefaultConstructible);
+}

@@ -1,0 +1,34 @@
+/// Generated from class `MR::StdFunction::A`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_StdFunction_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from enum `MR::StdFunction::E`.
+#[repr(transparent)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
+pub struct MR_StdFunction_E(pub core::ffi::c_int);
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_StdFunction_foo_std_function_int32_t_func(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_int32_t);
+    pub fn MR_StdFunction_foo_std_function_void_func_from_int32_t_int32_t(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_void_from_int32_t_int32_t);
+    pub fn MR_StdFunction_foo_std_function_int32_t_func_from_int32_t_int32_t(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_int32_t_from_int32_t_int32_t);
+    pub fn MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int32_t_MR_StdFunction_E(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E);
+    pub fn MR_StdFunction_foo_std_function_std_string_func_from_int32_t_float(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_std_string_from_int32_t_float);
+    pub fn MR_StdFunction_foo_std_function_void_func_from_std_string(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_void_from_std_string);
+    pub fn MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A);
+    pub fn MR_StdFunction_foo_std_function_MR_StdFunction_A_func(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_function_MR_StdFunction_A);
+    pub fn MR_StdFunction_A_DefaultConstruct() -> *mut crate::ffi::MR_StdFunction_A;
+    pub fn MR_StdFunction_A_ConstructFrom(a: *const core::ffi::c_char, a_end: *const core::ffi::c_char) -> *mut crate::ffi::MR_StdFunction_A;
+    pub fn MR_StdFunction_A_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_StdFunction_A) -> *mut crate::ffi::MR_StdFunction_A;
+    pub fn MR_StdFunction_A_AssignFromAnother(_this: *mut crate::ffi::MR_StdFunction_A, _other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_StdFunction_A) -> *mut crate::ffi::MR_StdFunction_A;
+    pub fn MR_StdFunction_A_Get_a(_this: *const crate::ffi::MR_StdFunction_A) -> *const crate::ffi::MR_C_std_string;
+    pub fn MR_StdFunction_A_GetMutable_a(_this: *mut crate::ffi::MR_StdFunction_A) -> *mut crate::ffi::MR_C_std_string;
+    pub fn MR_StdFunction_A_Set_a(_this: *mut crate::ffi::MR_StdFunction_A, value: *const core::ffi::c_char, value_end: *const core::ffi::c_char);
+    pub fn MR_StdFunction_A_Destroy(_this: *const MR_StdFunction_A);
+}

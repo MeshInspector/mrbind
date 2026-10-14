@@ -1,0 +1,32 @@
+/// Generated from class `std::shared_ptr<const MR::StdSharedPtr::A>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_shared_ptr_const_MR_StdSharedPtr_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_DefaultConstruct() -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_get(_this: *const crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A) -> *const crate::ffi::MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_has_value(_this: *const crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A) -> bool;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_use_count(_this: *const crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A) -> core::ffi::c_int;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_reset(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructFromValue(value: *const crate::ffi::MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Construct(ptr: *const crate::ffi::MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Assign(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, ptr: *const crate::ffi::MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructNonOwning(ptr: *const crate::ffi::MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignNonOwning(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, ptr: *const crate::ffi::MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructFromMutable(ptr_pass_by: crate::ffi::MR_C_PassBy, ptr: *mut crate::ffi::MR_C_std_shared_ptr_MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignFromMutable(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, ptr_pass_by: crate::ffi::MR_C_PassBy, ptr: *mut crate::ffi::MR_C_std_shared_ptr_MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructAliasing(ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *const crate::ffi::MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignAliasing(_this: *mut crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *const crate::ffi::MR_StdSharedPtr_A);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConvertTo_MR_C_std_shared_ptr_const_void(_this: *const crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A) -> *mut crate::ffi::MR_C_std_shared_ptr_const_void;
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignTo_MR_C_std_shared_ptr_const_void(_this: *const crate::ffi::MR_C_std_shared_ptr_const_MR_StdSharedPtr_A, _target: *mut crate::ffi::MR_C_std_shared_ptr_const_void);
+    pub fn MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy(_this: *const MR_C_std_shared_ptr_const_MR_StdSharedPtr_A);
+}

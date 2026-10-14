@@ -1,0 +1,30 @@
+/// Generated from class `std::shared_ptr<MR::CSharp::SF>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_shared_ptr_MR_CSharp_SF
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_DefaultConstruct() -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_get(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF) -> *mut crate::ffi::MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_has_value(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF) -> bool;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_use_count(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF) -> core::ffi::c_int;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_reset(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromValue(value_pass_by: crate::ffi::MR_C_PassBy, value: *mut crate::ffi::MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr: *mut crate::ffi::MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_Assign(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF, ptr: *mut crate::ffi::MR_CSharp_SF);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr: *mut crate::ffi::MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_AssignNonOwning(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF, ptr: *mut crate::ffi::MR_CSharp_SF);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_AssignAliasing(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF, ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_CSharp_SF);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_ConvertTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF) -> *mut crate::ffi::MR_C_std_shared_ptr_void;
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_AssignTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_CSharp_SF, _target: *mut crate::ffi::MR_C_std_shared_ptr_void);
+    pub fn MR_C_std_shared_ptr_MR_CSharp_SF_Destroy(_this: *const MR_C_std_shared_ptr_MR_CSharp_SF);
+}

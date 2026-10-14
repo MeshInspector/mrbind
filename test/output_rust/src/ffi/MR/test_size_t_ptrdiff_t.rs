@@ -1,0 +1,24 @@
+/// Generated from class `MR::TestSizeT::A<unsigned long>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_TestSizeT_A_unsigned_long
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_TestSizeT_foo_unsigned_long(_1: core::ffi::c_ulong) -> core::ffi::c_ulong;
+    pub fn MR_TestSizeT_foo_unsigned_long_ptr(_1: *mut *mut core::ffi::c_ulong) -> *mut *mut core::ffi::c_ulong;
+    pub fn MR_TestSizeT_foo_std_vector_unsigned_long(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_vector_unsigned_long) -> *mut crate::ffi::MR_C_std_vector_unsigned_long;
+    pub fn MR_TestSizeT_foo_long(_1: core::ffi::c_long) -> core::ffi::c_long;
+    pub fn MR_TestSizeT_foo_long_ptr(_1: *mut *mut core::ffi::c_long) -> *mut *mut core::ffi::c_long;
+    pub fn MR_TestSizeT_foo_std_vector_long(_1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_C_std_vector_long) -> *mut crate::ffi::MR_C_std_vector_long;
+    pub fn MR_TestSizeT_A_unsigned_long_DefaultConstruct() -> *mut crate::ffi::MR_TestSizeT_A_unsigned_long;
+    pub fn MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other: *const crate::ffi::MR_TestSizeT_A_unsigned_long) -> *mut crate::ffi::MR_TestSizeT_A_unsigned_long;
+    pub fn MR_TestSizeT_A_unsigned_long_AssignFromAnother(_this: *mut crate::ffi::MR_TestSizeT_A_unsigned_long, _other: *const crate::ffi::MR_TestSizeT_A_unsigned_long) -> *mut crate::ffi::MR_TestSizeT_A_unsigned_long;
+    pub fn MR_TestSizeT_A_unsigned_long_foo(_this: *mut crate::ffi::MR_TestSizeT_A_unsigned_long) -> core::ffi::c_ulong;
+    pub fn MR_TestSizeT_A_unsigned_long_Destroy(_this: *const MR_TestSizeT_A_unsigned_long);
+}

@@ -1,0 +1,111 @@
+/// Stores either a single `MR::CSharp::NonTrivial` or nothing.
+///
+/// Generated from class `std::optional<MR::CSharp::NonTrivial>`. Heap-allocated instances are held in `Owned<std_optional_MR_CSharp_NonTrivial>`.
+#[repr(transparent)]
+pub struct std_optional_MR_CSharp_NonTrivial(crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial);
+
+unsafe impl crate::CppClass for std_optional_MR_CSharp_NonTrivial
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_Destroy(ptr as *const crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial)}
+}
+
+impl std_optional_MR_CSharp_NonTrivial
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_NonTrivial>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_NonTrivial)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: Option<&crate::mr::cs::std_optional_MR_CSharp_NonTrivial>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_NonTrivial>
+    {
+        let (__pb_other, __ptr_other) = match other {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_optional_MR_CSharp_NonTrivial as *mut crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(__pb_other, __ptr_other)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_NonTrivial)}
+    }
+
+    /// Constructs a new instance.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom()`.
+    pub fn construct_from(other: Option<&crate::mr::c_sharp::NonTrivial>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_NonTrivial>
+    {
+        let (__pb_other, __ptr_other) = match other {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::c_sharp::NonTrivial as *mut crate::ffi::MR_CSharp_NonTrivial), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFrom(__pb_other, __ptr_other)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_NonTrivial)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: Option<&crate::mr::cs::std_optional_MR_CSharp_NonTrivial>)
+    {
+        let (__pb_other, __ptr_other) = match other {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_optional_MR_CSharp_NonTrivial as *mut crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial, __pb_other, __ptr_other)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Assigns the contents.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom()`.
+    pub fn assign_from(&mut self, other: Option<&crate::mr::c_sharp::NonTrivial>)
+    {
+        let (__pb_other, __ptr_other) = match other {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::c_sharp::NonTrivial as *mut crate::ffi::MR_CSharp_NonTrivial), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial, __pb_other, __ptr_other)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Returns true if this instance stores an object, as opposed to being empty.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_has_value()`.
+    pub fn has_value(&self) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_has_value(self as *const Self as *const crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// The stored element or null if none, read-only.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_value()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn value<'a>(&'a self) -> Option<&'a crate::mr::c_sharp::NonTrivial>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_value(self as *const Self as *const crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial)};
+        crate::__check_exception();
+        unsafe {(__ret as *const crate::mr::c_sharp::NonTrivial).as_ref()}
+    }
+
+    /// The stored element or null if none, mutable.
+    ///
+    /// Calls `MR_C_std_optional_MR_CSharp_NonTrivial_value_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn value_mut<'a>(&'a mut self) -> Option<&'a mut crate::mr::c_sharp::NonTrivial>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_NonTrivial)};
+        crate::__check_exception();
+        unsafe {(__ret as *mut crate::mr::c_sharp::NonTrivial).as_mut()}
+    }
+
+}
+

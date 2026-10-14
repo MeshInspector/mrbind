@@ -1,0 +1,138 @@
+/// Stores 4 objects: `float`, `double`, `int`, `int`.
+///
+/// Generated from class `std::tuple<float, double, int, int>`. Heap-allocated instances are held in `Owned<std_tuple_float_double_int_int>`.
+#[repr(transparent)]
+pub struct std_tuple_float_double_int_int(crate::ffi::MR_C_std_tuple_float_double_int_int);
+
+unsafe impl crate::CppClass for std_tuple_float_double_int_int
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_tuple_float_double_int_int_Destroy(ptr as *const crate::ffi::MR_C_std_tuple_float_double_int_int)}
+}
+
+impl std_tuple_float_double_int_int
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_tuple_float_double_int_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_float_double_int_int)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_tuple_float_double_int_int) -> crate::Owned<crate::mr::cs::std_tuple_float_double_int_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other as *const crate::mr::cs::std_tuple_float_double_int_int as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_float_double_int_int)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_tuple_float_double_int_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_float_double_int_int, other as *const crate::mr::cs::std_tuple_float_double_int_int as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        __ret
+    }
+
+    /// Constructs the tuple elementwise.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_Construct()`.
+    pub fn construct(_0: f32, _1: f64, _2: core::ffi::c_int, _3: core::ffi::c_int) -> crate::Owned<crate::mr::cs::std_tuple_float_double_int_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_Construct(_0, _1, _2, _3)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_float_double_int_int)}
+    }
+
+    /// The element 0, of type `float`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_float()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_float<'a>(&'a self) -> &'a f32
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_float(self as *const Self as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&*(__ret as *const f32)}
+    }
+
+    /// The element 0, of type `float`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_float_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_float_mut<'a>(&'a mut self) -> &'a mut f32
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_float_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&mut *(__ret as *mut f32)}
+    }
+
+    /// The element 1, of type `double`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_double()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_double<'a>(&'a self) -> &'a f64
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_double(self as *const Self as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&*(__ret as *const f64)}
+    }
+
+    /// The element 1, of type `double`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_double_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_double_mut<'a>(&'a mut self) -> &'a mut f64
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_double_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&mut *(__ret as *mut f64)}
+    }
+
+    /// The element 2, of type `int`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_int_2()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_2<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_int_2(self as *const Self as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The element 2, of type `int`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_int_2_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_2_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_int_2_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// The element 3, of type `int`, read-only.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_int_3()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_3<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_int_3(self as *const Self as *const crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The element 3, of type `int`, mutable.
+    ///
+    /// Calls `MR_C_std_tuple_float_double_int_int_get_int_3_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn get_int_3_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_float_double_int_int_get_int_3_mut(self as *mut Self as *mut crate::ffi::MR_C_std_tuple_float_double_int_int)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_tuple_float_double_int_int
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

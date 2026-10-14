@@ -161,6 +161,7 @@ build/mrbind_gen_c \
     test/output_c/source/A/*.cpp \
     test/output_c/source/B/*.cpp \
     test/output_c/source/AB/*.cpp \
+    test/static_members.cpp \
     -o test/output_c/libbleh$EXT_SHARED \
     -Itest/output_c/include \
     -Itest/output_c/source \

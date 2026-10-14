@@ -1,0 +1,21 @@
+/// Generated from class `std::pair<MR::SeparateA, MR::SeparateB>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_pair_MR_SeparateA_MR_SeparateB
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh_AB", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh_AB"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB) -> *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB);
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first_pass_by: crate::ffi::MR_C_PassBy, first: *mut crate::ffi::MR_SeparateA, second_pass_by: crate::ffi::MR_C_PassBy, second: *mut crate::ffi::MR_SeparateB) -> *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(_this: *const crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB) -> *const crate::ffi::MR_SeparateA;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(_this: *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB) -> *mut crate::ffi::MR_SeparateA;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(_this: *const crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(_this: *mut crate::ffi::MR_C_std_pair_MR_SeparateA_MR_SeparateB) -> *mut crate::ffi::MR_SeparateB;
+    pub fn MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy(_this: *const MR_C_std_pair_MR_SeparateA_MR_SeparateB);
+}

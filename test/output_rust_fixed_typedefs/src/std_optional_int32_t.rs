@@ -1,0 +1,96 @@
+/// Stores either a single `int32_t` or nothing.
+///
+/// Generated from class `std::optional<int32_t>`. Heap-allocated instances are held in `Owned<std_optional_int32_t>`.
+#[repr(transparent)]
+pub struct std_optional_int32_t(crate::ffi::MR_C_std_optional_int32_t);
+
+unsafe impl crate::CppClass for std_optional_int32_t
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_optional_int32_t_Destroy(ptr as *const crate::ffi::MR_C_std_optional_int32_t)}
+}
+
+impl std_optional_int32_t
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_optional_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int32_t)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_optional_int32_t) -> crate::Owned<crate::mr::cs::std_optional_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_ConstructFromAnother(other as *const crate::mr::cs::std_optional_int32_t as *const crate::ffi::MR_C_std_optional_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int32_t)}
+    }
+
+    /// Constructs a new instance.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_ConstructFrom()`.
+    pub fn construct_from(other: &i32) -> crate::Owned<crate::mr::cs::std_optional_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_ConstructFrom(other as *const i32 as *const i32)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int32_t)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_optional_int32_t)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int32_t, other as *const crate::mr::cs::std_optional_int32_t as *const crate::ffi::MR_C_std_optional_int32_t)};
+        __ret
+    }
+
+    /// Assigns the contents.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_AssignFrom()`.
+    pub fn assign_from(&mut self, other: &i32)
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int32_t, other as *const i32 as *const i32)};
+        __ret
+    }
+
+    /// Returns true if this instance stores an object, as opposed to being empty.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_has_value()`.
+    pub fn has_value(&self) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_has_value(self as *const Self as *const crate::ffi::MR_C_std_optional_int32_t)};
+        __ret
+    }
+
+    /// The stored element or null if none, read-only.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_value()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn value<'a>(&'a self) -> Option<&'a i32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_value(self as *const Self as *const crate::ffi::MR_C_std_optional_int32_t)};
+        unsafe {(__ret as *const i32).as_ref()}
+    }
+
+    /// The stored element or null if none, mutable.
+    ///
+    /// Calls `MR_C_std_optional_int32_t_value_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn value_mut<'a>(&'a mut self) -> Option<&'a mut i32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_value_mut(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int32_t)};
+        unsafe {(__ret as *mut i32).as_mut()}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_optional_int32_t
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

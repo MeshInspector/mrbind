@@ -1,0 +1,29 @@
+/// Generated from class `std::shared_ptr<int32_t[42]>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_shared_ptr_int32_t_array_42
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_DefaultConstruct() -> *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42) -> *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_get(_this: *const crate::ffi::MR_C_std_shared_ptr_int32_t_array_42) -> *mut i32;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_has_value(_this: *const crate::ffi::MR_C_std_shared_ptr_int32_t_array_42) -> bool;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_use_count(_this: *const crate::ffi::MR_C_std_shared_ptr_int32_t_array_42) -> core::ffi::c_int;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_reset(_this: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_Construct(ptr: *mut i32) -> *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_Assign(_this: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42, ptr: *mut i32);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_ConstructNonOwning(ptr: *mut i32) -> *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_AssignNonOwning(_this: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42, ptr: *mut i32);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_ConstructAliasing(ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut i32) -> *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_AssignAliasing(_this: *mut crate::ffi::MR_C_std_shared_ptr_int32_t_array_42, ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut i32);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_ConvertTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_int32_t_array_42) -> *mut crate::ffi::MR_C_std_shared_ptr_void;
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_AssignTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_int32_t_array_42, _target: *mut crate::ffi::MR_C_std_shared_ptr_void);
+    pub fn MR_C_std_shared_ptr_int32_t_array_42_Destroy(_this: *const MR_C_std_shared_ptr_int32_t_array_42);
+}

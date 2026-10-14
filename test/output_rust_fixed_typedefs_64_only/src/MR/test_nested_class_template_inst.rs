@@ -1,0 +1,99 @@
+/// Generated from class `MR::NestedTemplateInst::A<int>`.
+///
+/// Generated from class `MR::NestedTemplateInst::A<int>`. Heap-allocated instances are held in `Owned<A_int>`.
+#[repr(transparent)]
+pub struct A_int(crate::ffi::MR_NestedTemplateInst_A_int);
+
+unsafe impl crate::CppClass for A_int
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_NestedTemplateInst_A_int_Destroy(ptr as *const crate::ffi::MR_NestedTemplateInst_A_int)}
+}
+
+impl A_int
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::nested_template_inst::A_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::nested_template_inst::A_int)}
+    }
+
+    /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::nested_template_inst::A_int) -> crate::Owned<crate::mr::nested_template_inst::A_int>
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_ConstructFromAnother(_other as *const crate::mr::nested_template_inst::A_int as *const crate::ffi::MR_NestedTemplateInst_A_int)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::nested_template_inst::A_int)}
+    }
+
+    /// Generated from method `MR::NestedTemplateInst::A<int>::operator=`.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::nested_template_inst::A_int) -> &mut crate::mr::nested_template_inst::A_int
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_NestedTemplateInst_A_int, _other as *const crate::mr::nested_template_inst::A_int as *const crate::ffi::MR_NestedTemplateInst_A_int)};
+        unsafe {&mut *(__ret as *mut crate::mr::nested_template_inst::A_int)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for A_int
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// This struct needs special care to be instantiated, even with the typedef below. Hmm.
+/// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`.
+///
+/// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`. Heap-allocated instances are held in `Owned<A_int_AA_float>`.
+#[repr(transparent)]
+pub struct A_int_AA_float(crate::ffi::MR_NestedTemplateInst_A_int_AA_float);
+
+unsafe impl crate::CppClass for A_int_AA_float
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_NestedTemplateInst_A_int_AA_float_Destroy(ptr as *const crate::ffi::MR_NestedTemplateInst_A_int_AA_float)}
+}
+
+impl A_int_AA_float
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::nested_template_inst::A_int_AA_float>
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::nested_template_inst::A_int_AA_float)}
+    }
+
+    /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::nested_template_inst::A_int_AA_float) -> crate::Owned<crate::mr::nested_template_inst::A_int_AA_float>
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other as *const crate::mr::nested_template_inst::A_int_AA_float as *const crate::ffi::MR_NestedTemplateInst_A_int_AA_float)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::nested_template_inst::A_int_AA_float)}
+    }
+
+    /// Generated from method `MR::NestedTemplateInst::A<int>::AA<float>::operator=`.
+    ///
+    /// Calls `MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::nested_template_inst::A_int_AA_float) -> &mut crate::mr::nested_template_inst::A_int_AA_float
+    {
+        let __ret = unsafe {crate::ffi::MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_NestedTemplateInst_A_int_AA_float, _other as *const crate::mr::nested_template_inst::A_int_AA_float as *const crate::ffi::MR_NestedTemplateInst_A_int_AA_float)};
+        unsafe {&mut *(__ret as *mut crate::mr::nested_template_inst::A_int_AA_float)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for A_int_AA_float
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

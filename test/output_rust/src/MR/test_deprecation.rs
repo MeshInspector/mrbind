@@ -1,0 +1,24 @@
+/// Generated from function `MR::Deprecation::foo`.
+///
+/// Calls `MR_Deprecation_foo()`.
+#[deprecated(note = "")]
+pub fn foo()
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_Deprecation_foo()};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::Deprecation::bar`.
+///
+/// Calls `MR_Deprecation_bar()`.
+#[deprecated(note = "Some \\message\n")]
+pub fn bar()
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_Deprecation_bar()};
+    crate::__check_exception();
+    __ret
+}
+

@@ -1,0 +1,55 @@
+/// Stores 0 objects.
+///
+/// Generated from class `std::tuple<>`. Heap-allocated instances are held in `Owned<std_tuple>`.
+#[repr(transparent)]
+pub struct std_tuple(crate::ffi::MR_C_std_tuple);
+
+unsafe impl crate::CppClass for std_tuple
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_tuple_Destroy(ptr as *const crate::ffi::MR_C_std_tuple)}
+}
+
+impl std_tuple
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_tuple_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_tuple>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_tuple_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_tuple) -> crate::Owned<crate::mr::cs::std_tuple>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_ConstructFromAnother(other as *const crate::mr::cs::std_tuple as *const crate::ffi::MR_C_std_tuple)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_tuple_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_tuple)
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_tuple_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_tuple, other as *const crate::mr::cs::std_tuple as *const crate::ffi::MR_C_std_tuple)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_tuple
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

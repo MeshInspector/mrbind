@@ -1,0 +1,188 @@
+/// Generated from enum `MR::StdFunction::E`. The constants are associated constants of this type.
+pub use crate::ffi::MR_StdFunction_E as E;
+
+/// Generated from class `MR::StdFunction::A`.
+///
+/// Generated from class `MR::StdFunction::A`. Heap-allocated instances are held in `Owned<A>`.
+#[repr(transparent)]
+pub struct A(crate::ffi::MR_StdFunction_A);
+
+unsafe impl crate::CppClass for A
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_StdFunction_A_Destroy(ptr as *const crate::ffi::MR_StdFunction_A)}
+}
+
+impl A
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_StdFunction_A_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::std_function::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_function::A)}
+    }
+
+    /// Constructs `MR::StdFunction::A` elementwise.
+    ///
+    /// Calls `MR_StdFunction_A_ConstructFrom()`.
+    /// The reference to the parameter `a` might be preserved in the constructed object.
+    pub fn construct_from(a: &str) -> crate::Owned<crate::mr::std_function::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_ConstructFrom(a.as_ptr() as *const core::ffi::c_char, a.as_ptr().wrapping_add(a.len()) as *const core::ffi::c_char)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_function::A)}
+    }
+
+    /// Generated from constructor `MR::StdFunction::A::A`.
+    ///
+    /// Calls `MR_StdFunction_A_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::std_function::A) -> crate::Owned<crate::mr::std_function::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::std_function::A as *mut crate::ffi::MR_StdFunction_A)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::std_function::A)}
+    }
+
+    /// Generated from method `MR::StdFunction::A::operator=`.
+    ///
+    /// Calls `MR_StdFunction_A_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::std_function::A) -> &mut crate::mr::std_function::A
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_StdFunction_A, crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::std_function::A as *mut crate::ffi::MR_StdFunction_A)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::std_function::A)}
+    }
+
+    /// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
+    ///
+    /// Calls `MR_StdFunction_A_Get_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a<'a>(&'a self) -> &'a crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_Get_a(self as *const Self as *const crate::ffi::MR_StdFunction_A)};
+        unsafe {&*(__ret as *const crate::mr::cs::std_string)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::StdFunction::A` named `a`.
+    ///
+    /// Calls `MR_StdFunction_A_GetMutable_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a_mut<'a>(&'a mut self) -> &'a mut crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_GetMutable_a(self as *mut Self as *mut crate::ffi::MR_StdFunction_A)};
+        unsafe {&mut *(__ret as *mut crate::mr::cs::std_string)}
+    }
+
+    /// Modifies a member variable of class `MR::StdFunction::A` named `a`.
+    ///
+    /// Calls `MR_StdFunction_A_Set_a()`.
+    /// The reference to the parameter `value` might be preserved in this object in element `a`.
+    pub fn set_a(&mut self, value: &str)
+    {
+        let __ret = unsafe {crate::ffi::MR_StdFunction_A_Set_a(self as *mut Self as *mut crate::ffi::MR_StdFunction_A, value.as_ptr() as *const core::ffi::c_char, value.as_ptr().wrapping_add(value.len()) as *const core::ffi::c_char)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for A
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_int_func()`.
+pub fn foo_std_function_int_func(_1: &crate::mr::cs::std_function_int)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_int_func(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_int as *mut crate::ffi::MR_C_std_function_int)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_void_func_from_int_int()`.
+pub fn foo_std_function_void_func_from_int_int(_1: &crate::mr::cs::std_function_void_from_int_int)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_void_func_from_int_int(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_void_from_int_int as *mut crate::ffi::MR_C_std_function_void_from_int_int)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_int_func_from_int_int()`.
+pub fn foo_std_function_int_func_from_int_int(_1: &crate::mr::cs::std_function_int_from_int_int)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_int_func_from_int_int(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_int_from_int_int as *mut crate::ffi::MR_C_std_function_int_from_int_int)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E()`.
+pub fn foo_std_function_mr_std_function_e_func_from_int_mr_std_function_e(_1: &crate::mr::cs::std_function_MR_StdFunction_E_from_int_MR_StdFunction_E)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_MR_StdFunction_E_from_int_MR_StdFunction_E as *mut crate::ffi::MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_std_string_func_from_int_float()`.
+pub fn foo_std_function_std_string_func_from_int_float(_1: &crate::mr::cs::std_function_std_string_from_int_float)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_std_string_func_from_int_float(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_std_string_from_int_float as *mut crate::ffi::MR_C_std_function_std_string_from_int_float)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_void_func_from_std_string()`.
+pub fn foo_std_function_void_func_from_std_string(_1: &crate::mr::cs::std_function_void_from_std_string)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_void_func_from_std_string(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_void_from_std_string as *mut crate::ffi::MR_C_std_function_void_from_std_string)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A()`.
+pub fn foo_std_function_void_func_from_mr_std_function_a(_1: &crate::mr::cs::std_function_void_from_MR_StdFunction_A)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_void_from_MR_StdFunction_A as *mut crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::StdFunction::foo`.
+///
+/// Calls `MR_StdFunction_foo_std_function_MR_StdFunction_A_func()`.
+pub fn foo_std_function_mr_std_function_a_func(_1: &crate::mr::cs::std_function_MR_StdFunction_A)
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_StdFunction_foo_std_function_MR_StdFunction_A_func(crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::cs::std_function_MR_StdFunction_A as *mut crate::ffi::MR_C_std_function_MR_StdFunction_A)};
+    crate::__check_exception();
+    __ret
+}
+

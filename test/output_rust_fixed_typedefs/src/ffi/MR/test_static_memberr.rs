@@ -1,0 +1,21 @@
+/// Generated from class `MR::StaticFuncs::A`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_StaticFuncs_A
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_StaticFuncs_A_DefaultConstruct() -> *mut crate::ffi::MR_StaticFuncs_A;
+    pub fn MR_StaticFuncs_A_ConstructFromAnother(_other: *const crate::ffi::MR_StaticFuncs_A) -> *mut crate::ffi::MR_StaticFuncs_A;
+    pub fn MR_StaticFuncs_A_AssignFromAnother(_this: *mut crate::ffi::MR_StaticFuncs_A, _other: *const crate::ffi::MR_StaticFuncs_A) -> *mut crate::ffi::MR_StaticFuncs_A;
+    pub fn MR_StaticFuncs_A_blah();
+    pub fn MR_StaticFuncs_A_Get_x() -> *const i32;
+    pub fn MR_StaticFuncs_A_GetMutable_x() -> *mut i32;
+    pub fn MR_StaticFuncs_A_Set_x(value: i32);
+    pub fn MR_StaticFuncs_A_Destroy(_this: *const MR_StaticFuncs_A);
+}

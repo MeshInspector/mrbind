@@ -1,0 +1,61 @@
+/// Generated from class `MR::CommonBaseAB`.
+/// Derived classes:
+///   Direct: (non-virtual)
+///     `MR::SeparateA`
+///     `MR::SeparateB`
+///
+/// Generated from class `MR::CommonBaseAB`. Heap-allocated instances are held in `Owned<CommonBaseAB>`.
+#[repr(transparent)]
+pub struct CommonBaseAB(crate::ffi::MR_CommonBaseAB);
+
+unsafe impl crate::CppClass for CommonBaseAB
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CommonBaseAB_Destroy(ptr as *const crate::ffi::MR_CommonBaseAB)}
+}
+
+impl CommonBaseAB
+{
+    /// Generated from constructor `MR::CommonBaseAB::CommonBaseAB`.
+    ///
+    /// Calls `MR_CommonBaseAB_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::CommonBaseAB) -> crate::Owned<crate::mr::CommonBaseAB>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CommonBaseAB_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::CommonBaseAB as *mut crate::ffi::MR_CommonBaseAB)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::CommonBaseAB)}
+    }
+
+    /// Generated from method `MR::CommonBaseAB::operator=`.
+    ///
+    /// Calls `MR_CommonBaseAB_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    /// The reference to this object might be preserved in the return value.
+    pub fn assign_from_another<'a>(&'a mut self, _other: &crate::mr::CommonBaseAB) -> &'a mut crate::mr::CommonBaseAB
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CommonBaseAB_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CommonBaseAB, crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::CommonBaseAB as *mut crate::ffi::MR_CommonBaseAB)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::CommonBaseAB)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for CommonBaseAB
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generate a `shared_ptr` for this as well, to test how that gets separated.
+/// Generated from function `MR::mark_shared_common_base_ab`.
+///
+/// Calls `MR_mark_shared_common_base_ab()`.
+pub fn mark_shared_common_base_ab() -> crate::Owned<crate::mr::cs::std_shared_ptr_MR_CommonBaseAB>
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_mark_shared_common_base_ab()};
+    crate::__check_exception();
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_shared_ptr_MR_CommonBaseAB)}
+}
+

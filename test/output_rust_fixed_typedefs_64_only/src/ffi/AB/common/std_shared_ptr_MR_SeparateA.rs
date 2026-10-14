@@ -1,0 +1,30 @@
+/// Generated from class `std::shared_ptr<MR::SeparateA>`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_shared_ptr_MR_SeparateA
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh_AB", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh_AB"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_DefaultConstruct() -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_get(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_SeparateA) -> *mut crate::ffi::MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_has_value(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_SeparateA) -> bool;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_use_count(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_SeparateA) -> core::ffi::c_int;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_reset(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_ConstructFromValue(value_pass_by: crate::ffi::MR_C_PassBy, value: *mut crate::ffi::MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_Construct(ptr: *mut crate::ffi::MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_Assign(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA, ptr: *mut crate::ffi::MR_SeparateA);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_ConstructNonOwning(ptr: *mut crate::ffi::MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_AssignNonOwning(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA, ptr: *mut crate::ffi::MR_SeparateA);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_ConstructAliasing(ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_AssignAliasing(_this: *mut crate::ffi::MR_C_std_shared_ptr_MR_SeparateA, ownership_pass_by: crate::ffi::MR_C_PassBy, ownership: *mut crate::ffi::MR_C_std_shared_ptr_const_void, ptr: *mut crate::ffi::MR_SeparateA);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_ConvertTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_SeparateA) -> *mut crate::ffi::MR_C_std_shared_ptr_void;
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_AssignTo_MR_C_std_shared_ptr_void(_this: *const crate::ffi::MR_C_std_shared_ptr_MR_SeparateA, _target: *mut crate::ffi::MR_C_std_shared_ptr_void);
+    pub fn MR_C_std_shared_ptr_MR_SeparateA_Destroy(_this: *const MR_C_std_shared_ptr_MR_SeparateA);
+}

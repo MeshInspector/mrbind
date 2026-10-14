@@ -1,0 +1,1231 @@
+/// Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
+///   because otherwise there would be no way to construct them.
+/// Generated from class `MR::Aggregates::A`.
+///
+/// Generated from class `MR::Aggregates::A`. Heap-allocated instances are held in `Owned<A>`.
+#[repr(transparent)]
+pub struct A(crate::ffi::MR_Aggregates_A);
+
+unsafe impl crate::CppClass for A
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_A_Destroy(ptr as *const crate::ffi::MR_Aggregates_A)}
+}
+
+impl A
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_Aggregates_A_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::aggregates::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::A)}
+    }
+
+    /// Constructs `MR::Aggregates::A` elementwise.
+    ///
+    /// Calls `MR_Aggregates_A_ConstructFrom()`.
+    /// The reference to the parameter `y` might be preserved in the constructed object.
+    pub fn construct_from(x: core::ffi::c_int, y: &str) -> crate::Owned<crate::mr::aggregates::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_ConstructFrom(x, y.as_ptr() as *const core::ffi::c_char, y.as_ptr().wrapping_add(y.len()) as *const core::ffi::c_char)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::A)}
+    }
+
+    /// Generated from constructor `MR::Aggregates::A::A`.
+    ///
+    /// Calls `MR_Aggregates_A_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::A) -> crate::Owned<crate::mr::aggregates::A>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_ConstructFromAnother(crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::aggregates::A as *mut crate::ffi::MR_Aggregates_A)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::A)}
+    }
+
+    /// Generated from method `MR::Aggregates::A::operator=`.
+    ///
+    /// Calls `MR_Aggregates_A_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::A) -> &mut crate::mr::aggregates::A
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_A, crate::ffi::MR_C_PassBy_Copy, _other as *const crate::mr::aggregates::A as *mut crate::ffi::MR_Aggregates_A)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::A)}
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::A` named `x`.
+    ///
+    /// Calls `MR_Aggregates_A_Get_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_Get_x(self as *const Self as *const crate::ffi::MR_Aggregates_A)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `x`.
+    ///
+    /// Calls `MR_Aggregates_A_GetMutable_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_GetMutable_x(self as *mut Self as *mut crate::ffi::MR_Aggregates_A)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::A` named `x`.
+    ///
+    /// Calls `MR_Aggregates_A_Set_x()`.
+    pub fn set_x(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_Set_x(self as *mut Self as *mut crate::ffi::MR_Aggregates_A, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::A` named `y`.
+    ///
+    /// Calls `MR_Aggregates_A_Get_y()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn y<'a>(&'a self) -> &'a crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_Get_y(self as *const Self as *const crate::ffi::MR_Aggregates_A)};
+        unsafe {&*(__ret as *const crate::mr::cs::std_string)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `y`.
+    ///
+    /// Calls `MR_Aggregates_A_GetMutable_y()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn y_mut<'a>(&'a mut self) -> &'a mut crate::mr::cs::std_string
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_GetMutable_y(self as *mut Self as *mut crate::ffi::MR_Aggregates_A)};
+        unsafe {&mut *(__ret as *mut crate::mr::cs::std_string)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::A` named `y`.
+    ///
+    /// Calls `MR_Aggregates_A_Set_y()`.
+    /// The reference to the parameter `value` might be preserved in this object in element `y`.
+    pub fn set_y(&mut self, value: &str)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_A_Set_y(self as *mut Self as *mut crate::ffi::MR_Aggregates_A, value.as_ptr() as *const core::ffi::c_char, value.as_ptr().wrapping_add(value.len()) as *const core::ffi::c_char)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for A
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// This is an empty aggregate, it doesn't need an elementwise constructor.
+/// Generated from class `MR::Aggregates::B`.
+///
+/// Generated from class `MR::Aggregates::B`. Heap-allocated instances are held in `Owned<B>`.
+#[repr(transparent)]
+pub struct B(crate::ffi::MR_Aggregates_B);
+
+unsafe impl crate::CppClass for B
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_B_Destroy(ptr as *const crate::ffi::MR_Aggregates_B)}
+}
+
+impl B
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_Aggregates_B_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::aggregates::B>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_B_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::B)}
+    }
+
+    /// Generated from constructor `MR::Aggregates::B::B`.
+    ///
+    /// Calls `MR_Aggregates_B_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::B) -> crate::Owned<crate::mr::aggregates::B>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_B_ConstructFromAnother(_other as *const crate::mr::aggregates::B as *const crate::ffi::MR_Aggregates_B)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::B)}
+    }
+
+    /// Generated from method `MR::Aggregates::B::operator=`.
+    ///
+    /// Calls `MR_Aggregates_B_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::B) -> &mut crate::mr::aggregates::B
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_B_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_B, _other as *const crate::mr::aggregates::B as *const crate::ffi::MR_Aggregates_B)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::B)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for B
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Test the optional limit on the number of fields that we aggregate-initialize.
+/// Generated from class `MR::Aggregates::C`.
+///
+/// Generated from class `MR::Aggregates::C`. Heap-allocated instances are held in `Owned<C>`.
+#[repr(transparent)]
+pub struct C(crate::ffi::MR_Aggregates_C);
+
+unsafe impl crate::CppClass for C
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_C_Destroy(ptr as *const crate::ffi::MR_Aggregates_C)}
+}
+
+impl C
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_Aggregates_C_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::aggregates::C>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::C)}
+    }
+
+    /// Constructs `MR::Aggregates::C` elementwise.
+    ///
+    /// Calls `MR_Aggregates_C_ConstructFrom()`.
+    pub fn construct_from(a: core::ffi::c_int, b: core::ffi::c_int, c: core::ffi::c_int, d: core::ffi::c_int, e: core::ffi::c_int, f: core::ffi::c_int, g: core::ffi::c_int, h: core::ffi::c_int) -> crate::Owned<crate::mr::aggregates::C>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::C)}
+    }
+
+    /// Generated from constructor `MR::Aggregates::C::C`.
+    ///
+    /// Calls `MR_Aggregates_C_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::C) -> crate::Owned<crate::mr::aggregates::C>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_ConstructFromAnother(_other as *const crate::mr::aggregates::C as *const crate::ffi::MR_Aggregates_C)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::C)}
+    }
+
+    /// Generated from method `MR::Aggregates::C::operator=`.
+    ///
+    /// Calls `MR_Aggregates_C_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::C) -> &mut crate::mr::aggregates::C
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, _other as *const crate::mr::aggregates::C as *const crate::ffi::MR_Aggregates_C)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::C)}
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `a`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_a(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `a`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `a`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_a()`.
+    pub fn set_a(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `b`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_b(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `b`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `b`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_b()`.
+    pub fn set_b(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `c`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_c(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `c`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `c`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_c()`.
+    pub fn set_c(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `d`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_d(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `d`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `d`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_d()`.
+    pub fn set_d(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `e`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_e(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `e`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `e`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_e()`.
+    pub fn set_e(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `f`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_f(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `f`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `f`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_f()`.
+    pub fn set_f(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `g`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_g(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `g`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `g`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_g()`.
+    pub fn set_g(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `h`.
+    ///
+    /// Calls `MR_Aggregates_C_Get_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Get_h(self as *const Self as *const crate::ffi::MR_Aggregates_C)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `h`.
+    ///
+    /// Calls `MR_Aggregates_C_GetMutable_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_GetMutable_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_C)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::C` named `h`.
+    ///
+    /// Calls `MR_Aggregates_C_Set_h()`.
+    pub fn set_h(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_C_Set_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_C, value)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for C
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::Aggregates::D`.
+///
+/// Generated from class `MR::Aggregates::D`. Heap-allocated instances are held in `Owned<D>`.
+#[repr(transparent)]
+pub struct D(crate::ffi::MR_Aggregates_D);
+
+unsafe impl crate::CppClass for D
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_D_Destroy(ptr as *const crate::ffi::MR_Aggregates_D)}
+}
+
+impl D
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_Aggregates_D_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::aggregates::D>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::D)}
+    }
+
+    /// Constructs `MR::Aggregates::D` elementwise.
+    ///
+    /// Calls `MR_Aggregates_D_ConstructFrom()`.
+    pub fn construct_from(a: core::ffi::c_int, b: core::ffi::c_int, c: core::ffi::c_int, d: core::ffi::c_int, e: core::ffi::c_int, f: core::ffi::c_int, g: core::ffi::c_int, h: core::ffi::c_int, i: core::ffi::c_int) -> crate::Owned<crate::mr::aggregates::D>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::D)}
+    }
+
+    /// Generated from constructor `MR::Aggregates::D::D`.
+    ///
+    /// Calls `MR_Aggregates_D_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::D) -> crate::Owned<crate::mr::aggregates::D>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_ConstructFromAnother(_other as *const crate::mr::aggregates::D as *const crate::ffi::MR_Aggregates_D)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::D)}
+    }
+
+    /// Generated from method `MR::Aggregates::D::operator=`.
+    ///
+    /// Calls `MR_Aggregates_D_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::D) -> &mut crate::mr::aggregates::D
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, _other as *const crate::mr::aggregates::D as *const crate::ffi::MR_Aggregates_D)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::D)}
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `a`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_a(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `a`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `a`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_a()`.
+    pub fn set_a(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `b`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_b(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `b`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `b`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_b()`.
+    pub fn set_b(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `c`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_c(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `c`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `c`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_c()`.
+    pub fn set_c(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `d`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_d(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `d`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `d`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_d()`.
+    pub fn set_d(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `e`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_e(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `e`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `e`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_e()`.
+    pub fn set_e(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `f`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_f(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `f`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `f`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_f()`.
+    pub fn set_f(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `g`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_g(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `g`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `g`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_g()`.
+    pub fn set_g(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `h`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_h(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `h`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `h`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_h()`.
+    pub fn set_h(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `i`.
+    ///
+    /// Calls `MR_Aggregates_D_Get_i()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn i<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Get_i(self as *const Self as *const crate::ffi::MR_Aggregates_D)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `i`.
+    ///
+    /// Calls `MR_Aggregates_D_GetMutable_i()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn i_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_GetMutable_i(self as *mut Self as *mut crate::ffi::MR_Aggregates_D)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::Aggregates::D` named `i`.
+    ///
+    /// Calls `MR_Aggregates_D_Set_i()`.
+    pub fn set_i(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_D_Set_i(self as *mut Self as *mut crate::ffi::MR_Aggregates_D, value)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for D
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::Aggregates::E`.
+///
+/// Generated from class `MR::Aggregates::E`. Heap-allocated instances are held in `Owned<E>`.
+#[repr(transparent)]
+pub struct E(crate::ffi::MR_Aggregates_E);
+
+unsafe impl crate::CppClass for E
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_E_Destroy(ptr as *const crate::ffi::MR_Aggregates_E)}
+}
+
+impl E
+{
+    /// Generated from constructor `MR::Aggregates::E::E`.
+    ///
+    /// Calls `MR_Aggregates_E_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::E) -> crate::Owned<crate::mr::aggregates::E>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_ConstructFromAnother(_other as *const crate::mr::aggregates::E as *const crate::ffi::MR_Aggregates_E)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::E)}
+    }
+
+    /// Constructs `MR::Aggregates::E` elementwise.
+    ///
+    /// Calls `MR_Aggregates_E_ConstructFrom()`.
+    /// The reference to the parameter `j` might be preserved in the constructed object.
+    pub fn construct_from(a: core::ffi::c_int, b: core::ffi::c_int, c: core::ffi::c_int, d: core::ffi::c_int, e: core::ffi::c_int, f: core::ffi::c_int, g: core::ffi::c_int, h: core::ffi::c_int, i: core::ffi::c_int, j: &crate::mr::aggregates::NonDefaultConstructible) -> crate::Owned<crate::mr::aggregates::E>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_ConstructFrom(a, b, c, d, e, f, g, h, i, j as *const crate::mr::aggregates::NonDefaultConstructible as *const crate::ffi::MR_Aggregates_NonDefaultConstructible)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::E)}
+    }
+
+    /// Generated from method `MR::Aggregates::E::operator=`.
+    ///
+    /// Calls `MR_Aggregates_E_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::E) -> &mut crate::mr::aggregates::E
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, _other as *const crate::mr::aggregates::E as *const crate::ffi::MR_Aggregates_E)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::E)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `a`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_a(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `a`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_a()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn a_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `a`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_a()`.
+    pub fn set_a(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_a(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `b`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_b(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `b`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_b()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn b_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `b`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_b()`.
+    pub fn set_b(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_b(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `c`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_c(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `c`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_c()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn c_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `c`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_c()`.
+    pub fn set_c(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_c(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `d`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_d(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `d`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_d()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn d_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `d`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_d()`.
+    pub fn set_d(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_d(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `e`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_e(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `e`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_e()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn e_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `e`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_e()`.
+    pub fn set_e(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_e(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `f`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_f(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `f`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_f()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn f_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `f`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_f()`.
+    pub fn set_f(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_f(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `g`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_g(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `g`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_g()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn g_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `g`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_g()`.
+    pub fn set_g(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_g(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `h`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_h(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `h`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_h()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn h_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `h`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_h()`.
+    pub fn set_h(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_h(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `i`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_i()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn i<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_i(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `i`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_i()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn i_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_i(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `i`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_i()`.
+    pub fn set_i(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_i(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value)};
+        __ret
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `j`.
+    ///
+    /// Calls `MR_Aggregates_E_Get_j()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn j<'a>(&'a self) -> &'a crate::mr::aggregates::NonDefaultConstructible
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Get_j(self as *const Self as *const crate::ffi::MR_Aggregates_E)};
+        unsafe {&*(__ret as *const crate::mr::aggregates::NonDefaultConstructible)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `j`.
+    ///
+    /// Calls `MR_Aggregates_E_GetMutable_j()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn j_mut<'a>(&'a mut self) -> &'a mut crate::mr::aggregates::NonDefaultConstructible
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_GetMutable_j(self as *mut Self as *mut crate::ffi::MR_Aggregates_E)};
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::NonDefaultConstructible)}
+    }
+
+    /// This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
+    /// Modifies a member variable of class `MR::Aggregates::E` named `j`.
+    ///
+    /// Calls `MR_Aggregates_E_Set_j()`.
+    /// The reference to the parameter `value` might be preserved in this object in element `j`.
+    pub fn set_j(&mut self, value: &crate::mr::aggregates::NonDefaultConstructible)
+    {
+        let __ret = unsafe {crate::ffi::MR_Aggregates_E_Set_j(self as *mut Self as *mut crate::ffi::MR_Aggregates_E, value as *const crate::mr::aggregates::NonDefaultConstructible as *const crate::ffi::MR_Aggregates_NonDefaultConstructible)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for E
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::Aggregates::NonDefaultConstructible`.
+///
+/// Generated from class `MR::Aggregates::NonDefaultConstructible`. Heap-allocated instances are held in `Owned<NonDefaultConstructible>`.
+#[repr(transparent)]
+pub struct NonDefaultConstructible(crate::ffi::MR_Aggregates_NonDefaultConstructible);
+
+unsafe impl crate::CppClass for NonDefaultConstructible
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_Aggregates_NonDefaultConstructible_Destroy(ptr as *const crate::ffi::MR_Aggregates_NonDefaultConstructible)}
+}
+
+impl NonDefaultConstructible
+{
+    /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+    ///
+    /// Calls `MR_Aggregates_NonDefaultConstructible_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::aggregates::NonDefaultConstructible) -> crate::Owned<crate::mr::aggregates::NonDefaultConstructible>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other as *const crate::mr::aggregates::NonDefaultConstructible as *const crate::ffi::MR_Aggregates_NonDefaultConstructible)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::aggregates::NonDefaultConstructible)}
+    }
+
+    /// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
+    ///
+    /// Calls `MR_Aggregates_NonDefaultConstructible_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::aggregates::NonDefaultConstructible) -> &mut crate::mr::aggregates::NonDefaultConstructible
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_Aggregates_NonDefaultConstructible_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_Aggregates_NonDefaultConstructible, _other as *const crate::mr::aggregates::NonDefaultConstructible as *const crate::ffi::MR_Aggregates_NonDefaultConstructible)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::aggregates::NonDefaultConstructible)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for NonDefaultConstructible
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

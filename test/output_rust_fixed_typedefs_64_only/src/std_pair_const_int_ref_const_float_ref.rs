@@ -1,0 +1,61 @@
+/// Stores two objects: `const int &` and `const int &`.
+///
+/// Generated from class `std::pair<const int &, const float &>`. Heap-allocated instances are held in `Owned<std_pair_const_int_ref_const_float_ref>`.
+#[repr(transparent)]
+pub struct std_pair_const_int_ref_const_float_ref(crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref);
+
+unsafe impl crate::CppClass for std_pair_const_int_ref_const_float_ref
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref_Destroy(ptr as *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref)}
+}
+
+impl std_pair_const_int_ref_const_float_ref
+{
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_pair_const_int_ref_const_float_ref) -> crate::Owned<crate::mr::cs::std_pair_const_int_ref_const_float_ref>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref_ConstructFromAnother(other as *const crate::mr::cs::std_pair_const_int_ref_const_float_ref as *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_pair_const_int_ref_const_float_ref)}
+    }
+
+    /// Constructs the pair elementwise.
+    ///
+    /// Calls `MR_C_std_pair_const_int_ref_const_float_ref_Construct()`.
+    /// The reference to the parameter `first` might be preserved in the constructed object.
+    /// The reference to the parameter `second` might be preserved in the constructed object.
+    pub fn construct(first: &core::ffi::c_int, second: &f32) -> crate::Owned<crate::mr::cs::std_pair_const_int_ref_const_float_ref>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref_Construct(first as *const core::ffi::c_int as *const core::ffi::c_int, second as *const f32 as *const f32)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_pair_const_int_ref_const_float_ref)}
+    }
+
+    /// The first of the two elements, read-only.
+    ///
+    /// Calls `MR_C_std_pair_const_int_ref_const_float_ref_first()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn first<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref_first(self as *const Self as *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// The second of the two elements, read-only.
+    ///
+    /// Calls `MR_C_std_pair_const_int_ref_const_float_ref_second()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn second<'a>(&'a self) -> &'a f32
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref_second(self as *const Self as *const crate::ffi::MR_C_std_pair_const_int_ref_const_float_ref)};
+        unsafe {&*(__ret as *const f32)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_pair_const_int_ref_const_float_ref
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+

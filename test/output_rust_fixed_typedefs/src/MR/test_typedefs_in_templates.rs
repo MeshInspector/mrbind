@@ -1,0 +1,185 @@
+/// This tests a specific Clang bug/quirk.
+/// Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
+/// Generated from class `MR::TypedefsInTemplates::A<int32_t>`.
+///
+/// Generated from class `MR::TypedefsInTemplates::A<int32_t>`. Heap-allocated instances are held in `Owned<A_int32_t>`.
+#[repr(transparent)]
+pub struct A_int32_t(crate::ffi::MR_TypedefsInTemplates_A_int32_t);
+
+unsafe impl crate::CppClass for A_int32_t
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_TypedefsInTemplates_A_int32_t_Destroy(ptr as *const crate::ffi::MR_TypedefsInTemplates_A_int32_t)}
+}
+
+impl A_int32_t
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_TypedefsInTemplates_A_int32_t_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::typedefs_in_templates::A_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_A_int32_t_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::A_int32_t)}
+    }
+
+    /// Generated from constructor `MR::TypedefsInTemplates::A<int32_t>::A`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::typedefs_in_templates::A_int32_t) -> crate::Owned<crate::mr::typedefs_in_templates::A_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_A_int32_t_ConstructFromAnother(_other as *const crate::mr::typedefs_in_templates::A_int32_t as *const crate::ffi::MR_TypedefsInTemplates_A_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::A_int32_t)}
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::A<int32_t>::operator=`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_A_int32_t_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::typedefs_in_templates::A_int32_t) -> &mut crate::mr::typedefs_in_templates::A_int32_t
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_A_int32_t_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_A_int32_t, _other as *const crate::mr::typedefs_in_templates::A_int32_t as *const crate::ffi::MR_TypedefsInTemplates_A_int32_t)};
+        unsafe {&mut *(__ret as *mut crate::mr::typedefs_in_templates::A_int32_t)}
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::A<int32_t>::foo`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_A_int32_t_foo()`.
+    pub fn foo(&mut self) -> i32
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_A_int32_t_foo(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_A_int32_t)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for A_int32_t
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::TypedefsInTemplates::B<int32_t>`.
+///
+/// Generated from class `MR::TypedefsInTemplates::B<int32_t>`. Heap-allocated instances are held in `Owned<B_int32_t>`.
+#[repr(transparent)]
+pub struct B_int32_t(crate::ffi::MR_TypedefsInTemplates_B_int32_t);
+
+unsafe impl crate::CppClass for B_int32_t
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_TypedefsInTemplates_B_int32_t_Destroy(ptr as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t)}
+}
+
+impl B_int32_t
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::typedefs_in_templates::B_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t)}
+    }
+
+    /// Generated from constructor `MR::TypedefsInTemplates::B<int32_t>::B`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::typedefs_in_templates::B_int32_t) -> crate::Owned<crate::mr::typedefs_in_templates::B_int32_t>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_ConstructFromAnother(_other as *const crate::mr::typedefs_in_templates::B_int32_t as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t)}
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::B<int32_t>::operator=`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::typedefs_in_templates::B_int32_t) -> &mut crate::mr::typedefs_in_templates::B_int32_t
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_B_int32_t, _other as *const crate::mr::typedefs_in_templates::B_int32_t as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t)};
+        unsafe {&mut *(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for B_int32_t
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::TypedefsInTemplates::B<int32_t>::BB<float>`.
+///
+/// Generated from class `MR::TypedefsInTemplates::B<int32_t>::BB<float>`. Heap-allocated instances are held in `Owned<B_int32_t_BB_float>`.
+#[repr(transparent)]
+pub struct B_int32_t_BB_float(crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float);
+
+unsafe impl crate::CppClass for B_int32_t_BB_float
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_Destroy(ptr as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float)}
+}
+
+impl B_int32_t_BB_float
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::typedefs_in_templates::B_int32_t_BB_float>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t_BB_float)}
+    }
+
+    /// Generated from constructor `MR::TypedefsInTemplates::B<int32_t>::BB<float>::BB`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::typedefs_in_templates::B_int32_t_BB_float) -> crate::Owned<crate::mr::typedefs_in_templates::B_int32_t_BB_float>
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_ConstructFromAnother(_other as *const crate::mr::typedefs_in_templates::B_int32_t_BB_float as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t_BB_float)}
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::B<int32_t>::BB<float>::operator=`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::typedefs_in_templates::B_int32_t_BB_float) -> &mut crate::mr::typedefs_in_templates::B_int32_t_BB_float
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float, _other as *const crate::mr::typedefs_in_templates::B_int32_t_BB_float as *const crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float)};
+        unsafe {&mut *(__ret as *mut crate::mr::typedefs_in_templates::B_int32_t_BB_float)}
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::B<int32_t>::BB<float>::foo`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_BB_float_foo()`.
+    pub fn foo(&mut self) -> i32
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_foo(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float)};
+        __ret
+    }
+
+    /// Generated from method `MR::TypedefsInTemplates::B<int32_t>::BB<float>::foo2`.
+    ///
+    /// Calls `MR_TypedefsInTemplates_B_int32_t_BB_float_foo2()`.
+    pub fn foo2(&mut self) -> i32
+    {
+        let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float_foo2(self as *mut Self as *mut crate::ffi::MR_TypedefsInTemplates_B_int32_t_BB_float)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for B_int32_t_BB_float
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from function `MR::TypedefsInTemplates::bar`.
+///
+/// Calls `MR_TypedefsInTemplates_bar()`.
+pub fn bar(_1: i32)
+{
+    let __ret = unsafe {crate::ffi::MR_TypedefsInTemplates_bar(_1)};
+    __ret
+}
+

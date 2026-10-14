@@ -1,0 +1,25 @@
+/// Generated from class `std::istream`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_istream
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `std::ostream`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_ostream
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_GetStdCout() -> *mut crate::ffi::MR_C_std_ostream;
+    pub fn MR_C_GetStdCerr() -> *mut crate::ffi::MR_C_std_ostream;
+    pub fn MR_C_GetStdClog() -> *mut crate::ffi::MR_C_std_ostream;
+    pub fn MR_C_GetStdCin() -> *mut crate::ffi::MR_C_std_istream;
+}

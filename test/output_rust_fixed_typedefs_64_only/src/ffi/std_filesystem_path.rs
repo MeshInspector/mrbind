@@ -1,0 +1,20 @@
+/// Generated from class `std::filesystem::path`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_C_std_filesystem_path
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+#[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
+#[cfg_attr(not(windows), link(name = "bleh"))]
+unsafe extern "C"
+{
+    pub fn MR_C_std_filesystem_path_DefaultConstruct() -> *mut crate::ffi::MR_C_std_filesystem_path;
+    pub fn MR_C_std_filesystem_path_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_filesystem_path) -> *mut crate::ffi::MR_C_std_filesystem_path;
+    pub fn MR_C_std_filesystem_path_ConstructFrom(other: *const core::ffi::c_char, other_end: *const core::ffi::c_char) -> *mut crate::ffi::MR_C_std_filesystem_path;
+    pub fn MR_C_std_filesystem_path_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_filesystem_path, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_filesystem_path);
+    pub fn MR_C_std_filesystem_path_AssignFrom(_this: *mut crate::ffi::MR_C_std_filesystem_path, other: *const core::ffi::c_char, other_end: *const core::ffi::c_char);
+    pub fn MR_C_std_filesystem_path_string(_this: *const crate::ffi::MR_C_std_filesystem_path) -> *mut crate::ffi::MR_C_std_string;
+    pub fn MR_C_std_filesystem_path_Destroy(_this: *const MR_C_std_filesystem_path);
+}

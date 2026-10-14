@@ -1,0 +1,47 @@
+/// Generated from function `MR::StdFilesystem::GetPath`.
+///
+/// Calls `MR_StdFilesystem_GetPath()`.
+pub fn get_path() -> crate::Owned<crate::mr::cs::std_filesystem_path>
+{
+    let __ret = unsafe {crate::ffi::MR_StdFilesystem_GetPath()};
+    unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_filesystem_path)}
+}
+
+/// Generated from function `MR::StdFilesystem::SetPath`.
+///
+/// Calls `MR_StdFilesystem_SetPath()`.
+pub fn set_path(_1: &str)
+{
+    let __ret = unsafe {crate::ffi::MR_StdFilesystem_SetPath(_1.as_ptr() as *const core::ffi::c_char, _1.as_ptr().wrapping_add(_1.len()) as *const core::ffi::c_char)};
+    __ret
+}
+
+/// Generated from function `MR::StdFilesystem::SetPathConstRef`.
+///
+/// Calls `MR_StdFilesystem_SetPathConstRef()`.
+pub fn set_path_const_ref(_1: &str)
+{
+    let __ret = unsafe {crate::ffi::MR_StdFilesystem_SetPathConstRef(_1.as_ptr() as *const core::ffi::c_char, _1.as_ptr().wrapping_add(_1.len()) as *const core::ffi::c_char)};
+    __ret
+}
+
+/// Generated from function `MR::StdFilesystem::SetPathDefTrivial`.
+///
+/// Calls `MR_StdFilesystem_SetPathDefTrivial()`.
+pub fn set_path_def_trivial(_1: Option<&str>)
+{
+    let (__begin__1, __end__1) = match _1 {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
+    let __ret = unsafe {crate::ffi::MR_StdFilesystem_SetPathDefTrivial(__begin__1, __end__1)};
+    __ret
+}
+
+/// Generated from function `MR::StdFilesystem::SetPathDef`.
+///
+/// Calls `MR_StdFilesystem_SetPathDef()`.
+pub fn set_path_def(_1: Option<&str>)
+{
+    let (__begin__1, __end__1) = match _1 {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
+    let __ret = unsafe {crate::ffi::MR_StdFilesystem_SetPathDef(__begin__1, __end__1)};
+    __ret
+}
+

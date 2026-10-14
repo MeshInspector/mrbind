@@ -1,0 +1,114 @@
+/// A non-owning string view. Not necessarily null-terminated.
+///
+/// Generated from class `std::string_view`. Heap-allocated instances are held in `Owned<std_string_view>`.
+#[repr(transparent)]
+pub struct std_string_view(crate::ffi::MR_C_std_string_view);
+
+unsafe impl crate::CppClass for std_string_view
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_string_view_Destroy(ptr as *const crate::ffi::MR_C_std_string_view)}
+}
+
+impl std_string_view
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_C_std_string_view_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::cs::std_string_view>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_string_view)}
+    }
+
+    /// Constructs a copy of another instance. The source remains alive.
+    ///
+    /// Calls `MR_C_std_string_view_ConstructFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from_another(other: &crate::mr::cs::std_string_view) -> crate::Owned<crate::mr::cs::std_string_view>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_ConstructFromAnother(other as *const crate::mr::cs::std_string_view as *const crate::ffi::MR_C_std_string_view)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_string_view)}
+    }
+
+    /// Constructs a new instance.
+    ///
+    /// Calls `MR_C_std_string_view_ConstructFrom()`.
+    /// The reference to the parameter `other` might be preserved in the constructed object.
+    pub fn construct_from(other: &str) -> crate::Owned<crate::mr::cs::std_string_view>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_ConstructFrom(other.as_ptr() as *const core::ffi::c_char, other.as_ptr().wrapping_add(other.len()) as *const core::ffi::c_char)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_string_view)}
+    }
+
+    /// Assigns the contents from another instance. Both objects remain alive after the call.
+    ///
+    /// Calls `MR_C_std_string_view_AssignFromAnother()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_string_view)
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_string_view, other as *const crate::mr::cs::std_string_view as *const crate::ffi::MR_C_std_string_view)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Assigns the contents.
+    ///
+    /// Calls `MR_C_std_string_view_AssignFrom()`.
+    /// The reference to the parameter `other` might be preserved in this object.
+    pub fn assign_from(&mut self, other: &str)
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_string_view, other.as_ptr() as *const core::ffi::c_char, other.as_ptr().wrapping_add(other.len()) as *const core::ffi::c_char)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// The number of characters in the string.
+    ///
+    /// Calls `MR_C_std_string_view_size()`.
+    pub fn size(&self) -> usize
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_size(self as *const Self as *const crate::ffi::MR_C_std_string_view)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Returns the string contents, NOT necessarily null-terminated.
+    ///
+    /// Calls `MR_C_std_string_view_data()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn data(&self) -> *const core::ffi::c_char
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_data(self as *const Self as *const crate::ffi::MR_C_std_string_view)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Returns a pointer to the end of string. Not dereferencable.
+    ///
+    /// Calls `MR_C_std_string_view_data_end()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn data_end(&self) -> *const core::ffi::c_char
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_string_view_data_end(self as *const Self as *const crate::ffi::MR_C_std_string_view)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for std_string_view
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
