@@ -3709,12 +3709,6 @@ namespace mrbind::C
         try
         {
             EmittedFunctionStrings strings = EmitFunctionAsStrings(file, params);
-
-            if (params.name.c == "MR_getAllObjectsInTree_MR_ObjectDistanceMap")
-            {
-                std::printf("huh\n");
-            }
-
             std::string new_decl_str = CppdeclToCode(strings.decl);
 
             file.header.contents += '\n';
