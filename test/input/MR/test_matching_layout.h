@@ -19,7 +19,7 @@ namespace MR::MatchingLayout
         int arr2d[4][5];
 
         // Having static fields is not an error! Those get their normal getters and setters.
-        static int x;
+        static inline int x = 0;
     };
 
     struct B
