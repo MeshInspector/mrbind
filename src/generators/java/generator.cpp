@@ -725,7 +725,7 @@ namespace mrbind::Java
                 if (base.class_desc->is_polymorphic)
                     AddSimple(info.c_name + "_MutableDynamicDowncastFrom_" + base.c_name, 1, true);
             });
-            if (cl.std_function && info.has_destroy)
+            if (cl.callable_info && info.has_destroy)
             {
                 AddSimple(info.c_name + "_ConstructEx", 4, true);
                 AddSimple(info.c_name + "_AssignEx", 5, false);
@@ -802,7 +802,7 @@ namespace mrbind::Java
 
     void Generator::EmitStdFunction(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys)
     {
-        const auto &sf = *info.class_desc->std_function;
+        const auto &sf = *info.class_desc->callable_info;
         const std::string F = RuntimeClass("Ffi");
         const std::string MS(kMemorySegment);
         const std::string ctor_c_name = info.c_name + "_ConstructEx";
@@ -2396,7 +2396,7 @@ public abstract class CppStruct implements Native
             }
 
             EmitCasts(info, members, used_keys);
-            if (cl.std_function && info.has_destroy)
+            if (cl.callable_info && info.has_destroy)
                 EmitStdFunction(info, members, used_keys);
 
             // Conveniences for `std::string`.
