@@ -1963,7 +1963,7 @@ public final class Functions
      *
      * Calls `MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator()`.
      */
-    public static long opSub(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator a, mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator b)
+    public static long opSub(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 a, mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 b)
     {
         try
         {
@@ -1987,7 +1987,7 @@ public final class Functions
      *
      * Calls `MR_C_equal_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator()`.
      */
-    public static boolean opEqual(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator a, mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator b)
+    public static boolean opEqual(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 a, mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 b)
     {
         try
         {
@@ -2371,7 +2371,7 @@ public final class Functions
      *
      * Calls `MR_C_equal_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator()`.
      */
-    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator a, mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator b)
+    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 a, mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 b)
     {
         try
         {
@@ -2491,7 +2491,7 @@ public final class Functions
      *
      * Calls `MR_C_equal_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator()`.
      */
-    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator a, mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator b)
+    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 a, mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 b)
     {
         try
         {
@@ -2539,7 +2539,7 @@ public final class Functions
      *
      * Calls `MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator()`.
      */
-    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator a, mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator b)
+    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_cons__8276285 a, mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_cons__8276285 b)
     {
         try
         {
@@ -2563,7 +2563,7 @@ public final class Functions
      *
      * Calls `MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator()`.
      */
-    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator a, mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator b)
+    public static boolean opEqual(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 a, mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 b)
     {
         try
         {

@@ -554,7 +554,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_iter()`.
      */
-    public void insert_at_iter(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator position, mrbind_test.mr.stdcontainers.NonDefaultConstructible new_elem)
+    public void insert_at_iter(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 position, mrbind_test.mr.stdcontainers.NonDefaultConstructible new_elem)
     {
         try
         {
@@ -578,7 +578,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_iter()`.
      */
-    public void erase_at_iter(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator position)
+    public void erase_at_iter(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 position)
     {
         try
         {
@@ -602,13 +602,13 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin()`.
      */
-    public mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator begin()
+    public mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 begin()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -625,7 +625,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin()`.
      */
-    public boolean is_begin(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator iter)
+    public boolean is_begin(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 iter)
     {
         try
         {
@@ -698,13 +698,13 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end()`.
      */
-    public mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator end()
+    public mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 end()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_MR_StdContainers_NonDefaultConstructible.H0.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -721,7 +721,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end()`.
      */
-    public boolean is_end(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator iter)
+    public boolean is_end(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 iter)
     {
         try
         {
@@ -793,7 +793,7 @@ public final class std_vector_MR_StdContainers_NonDefaultConstructible extends m
      *
      * Calls `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index()`.
      */
-    public long to_index(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator iter)
+    public long to_index(mrbind_test.mr.cs.std_vector_MR_StdContainers_NonDefaultConstructible_const_iterat__7063b67 iter)
     {
         try
         {

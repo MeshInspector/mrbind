@@ -1,0 +1,106 @@
+package mrbind_test.mr.cs;
+
+/**
+ * Stores 2 objects: `MR::CSharp::ExposedLayout &`, `const MR::CSharp::ExposedLayout &`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`.
+ */
+@java.lang.SuppressWarnings({"restricted", "cast"})
+public final class std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140 extends mrbind_test.CppObject
+{
+    /** Wraps a pointer from the C bindings. If `owned`, the object is destroyed when the wrapper dies. `owner` is kept alive as long as this wrapper is. Not for normal use. */
+    public std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140(java.lang.foreign.MemorySegment ptr, boolean owned, java.lang.Object owner) {super(ptr, owned ? std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140::__destroy : null, owner);}
+
+    private static void __destroy(java.lang.foreign.MemorySegment ptr)
+    {
+        try
+        {
+            mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy.invokeExact(ptr);
+        }
+        catch (java.lang.Throwable e)
+        {
+            throw mrbind_test.Ffi.rethrow(e);
+        }
+    }
+
+    /**
+     * Constructs the tuple elementwise.
+     * The reference to the parameter `_0` might be preserved in the constructed object.
+     * The reference to the parameter `_1` might be preserved in the constructed object.
+     *
+     * Calls `MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct()`.
+     */
+    public std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140(mrbind_test.mr.csharp.ExposedLayout _0, mrbind_test.mr.csharp.ExposedLayout _1)
+    {
+        this(__ctor_construct(_0, _1), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_construct(mrbind_test.mr.csharp.ExposedLayout _0, mrbind_test.mr.csharp.ExposedLayout _1)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct.invokeExact(mrbind_test.Ffi.ptrNonNull(_0, "_0"), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_0);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * The element 0, of type `MR::CSharp::ExposedLayout &`, read-only.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref()`.
+     */
+    public mrbind_test.mr.csharp.ExposedLayout get_MR_CSharp_ExposedLayout_ref()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            java.lang.Object __owner = this;
+            return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * The element 1, of type `const MR::CSharp::ExposedLayout &`, read-only.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref()`.
+     */
+    public mrbind_test.mr.csharp.ExposedLayout get_const_MR_CSharp_ExposedLayout_ref()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140.H0.MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            java.lang.Object __owner = this;
+            return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+}

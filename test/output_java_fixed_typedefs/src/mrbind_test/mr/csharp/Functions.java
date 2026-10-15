@@ -6350,13 +6350,13 @@ public final class Functions
      *
      * Calls `MR_CSharp_get_tuple_refs()`.
      */
-    public static mrbind_test.mr.cs.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref get_tuple_refs()
+    public static mrbind_test.mr.cs.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a get_tuple_refs()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_get_tuple_refs.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref(__ret, true, null);
+            return new mrbind_test.mr.cs.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -6369,13 +6369,13 @@ public final class Functions
      *
      * Calls `MR_CSharp_get_tuple_crefs()`.
      */
-    public static mrbind_test.mr.cs.std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref get_tuple_crefs()
+    public static mrbind_test.mr.cs.std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_str__f9497869 get_tuple_crefs()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_get_tuple_crefs.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref(__ret, true, null);
+            return new mrbind_test.mr.cs.std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_str__f9497869(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -6407,13 +6407,13 @@ public final class Functions
      *
      * Calls `MR_CSharp_get_tuple_exposed_lvalue_ref()`.
      */
-    public static mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref get_tuple_exposed_lvalue_ref()
+    public static mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140 get_tuple_exposed_lvalue_ref()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_get_tuple_exposed_lvalue_ref.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref(__ret, true, null);
+            return new mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLay__1bab9140(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -6426,13 +6426,13 @@ public final class Functions
      *
      * Calls `MR_CSharp_get_tuple_exposed_rvalue_ref()`.
      */
-    public static mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref get_tuple_exposed_rvalue_ref()
+    public static mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_Exp__2c745d14 get_tuple_exposed_rvalue_ref()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_get_tuple_exposed_rvalue_ref.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref(__ret, true, null);
+            return new mrbind_test.mr.cs.std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_Exp__2c745d14(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {

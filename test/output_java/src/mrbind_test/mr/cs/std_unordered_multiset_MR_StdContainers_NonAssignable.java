@@ -198,13 +198,13 @@ public final class std_unordered_multiset_MR_StdContainers_NonAssignable extends
      *
      * Calls `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_find()`.
      */
-    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator find(mrbind_test.mr.stdcontainers.NonAssignable key)
+    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 find(mrbind_test.mr.stdcontainers.NonAssignable key)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_find.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -223,13 +223,13 @@ public final class std_unordered_multiset_MR_StdContainers_NonAssignable extends
      *
      * Calls `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_begin()`.
      */
-    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator begin()
+    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 begin()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_begin.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -246,7 +246,7 @@ public final class std_unordered_multiset_MR_StdContainers_NonAssignable extends
      *
      * Calls `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_is_begin()`.
      */
-    public boolean is_begin(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator iter)
+    public boolean is_begin(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 iter)
     {
         try
         {
@@ -271,13 +271,13 @@ public final class std_unordered_multiset_MR_StdContainers_NonAssignable extends
      *
      * Calls `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_end()`.
      */
-    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator end()
+    public mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 end()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multiset_MR_StdContainers_NonAssignable.H0.MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_end.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -294,7 +294,7 @@ public final class std_unordered_multiset_MR_StdContainers_NonAssignable extends
      *
      * Calls `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_is_end()`.
      */
-    public boolean is_end(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator iter)
+    public boolean is_end(mrbind_test.mr.cs.std_unordered_multiset_MR_StdContainers_NonAssignable_const_iter__8fb8fc8 iter)
     {
         try
         {
