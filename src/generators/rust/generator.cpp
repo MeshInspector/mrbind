@@ -153,8 +153,20 @@ namespace mrbind::Rust
         return iter->second;
     }
 
-    Generator::Module &Generator::GetModuleForNamespace(const std::vector<std::string> &ns_parts)
+    Generator::Module &Generator::GetModuleForNamespace(std::vector<std::string> ns_parts)
     {
+        // Like in the C# generator, `--replace-namespace` goes first, then `--force-namespace` applies to what ended up in the global namespace.
+        for (const auto &[from, to] : replaced_namespaces)
+        {
+            if (ns_parts.size() >= from.size() && std::equal(from.begin(), from.end(), ns_parts.begin()))
+            {
+                ns_parts.erase(ns_parts.begin(), ns_parts.begin() + std::ptrdiff_t(from.size()));
+                ns_parts.insert(ns_parts.begin(), to.begin(), to.end());
+            }
+        }
+        if (ns_parts.empty())
+            ns_parts = forced_namespace;
+
         Module *m = &root;
         for (const auto &part : ns_parts)
         {
@@ -192,7 +204,7 @@ namespace mrbind::Rust
         {
             (void)GetFileModule(func.output_file);
             std::vector<std::string> ns_parts = FuncNamespaceParts(func, nullptr);
-            (void)GetModuleForNamespace(ns_parts.empty() ? forced_namespace : ns_parts);
+            (void)GetModuleForNamespace(std::move(ns_parts));
         }
 
         // The top-level identifiers can't clash with the namespace modules and the other entities at the crate root.
@@ -431,6 +443,10 @@ namespace mrbind::Rust
     {
         root.rust_path = "crate";
 
+        // The runtime items of `EmitRuntime()`, which share the crate root with the entities moved there by `--replace-namespace`.
+        for (const char *name : {"CppClass", "CppCopy", "Owned", "PENDING_EXCEPTION", "INIT_EXCEPTIONS", "exception_handler", "__init_exceptions", "__check_exception"})
+            root.used_names.insert(name);
+
         // First pass: register all names, so that nested classes can find their enclosing classes.
         for (const auto &cpp_name : c_desc.cpp_types.Vec())
         {
@@ -497,9 +513,7 @@ namespace mrbind::Rust
                     ident.erase(0, c_desc.helpers_prefix.size());
                 else
                     ns_parts.clear();
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.rust_unqual = UniqueName(info.module->used_names, RustIdent(ident));
             }
             else
@@ -525,9 +539,7 @@ namespace mrbind::Rust
                 }
                 if (unqual.empty())
                     unqual = PartToString(parts.back());
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.rust_unqual = UniqueName(info.module->used_names, RustIdent(unqual));
             }
             info.rust_path = info.module->rust_path + "::" + info.rust_unqual;
@@ -1728,7 +1740,7 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
         {
             FuncInfo &info = infos.emplace_back();
             std::vector<std::string> ns_parts = FuncNamespaceParts(func, &info.simple_name);
-            info.module = &GetModuleForNamespace(ns_parts.empty() ? forced_namespace : ns_parts);
+            info.module = &GetModuleForNamespace(ns_parts);
             if (!info.simple_name.empty())
                 simple_name_counts[{info.module, info.simple_name}]++;
 

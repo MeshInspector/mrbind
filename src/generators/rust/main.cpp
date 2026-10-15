@@ -65,22 +65,40 @@ int main(int argc, char **argv)
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
+    // Splits a C++-style `Foo::Bar` namespace name into parts.
+    auto ParseNamespace = [](std::string_view name)
+    {
+        std::vector<std::string> ret;
+        std::string_view str = name;
+        while (!str.empty())
+        {
+            std::size_t sep = str.find("::");
+            std::string_view part = str.substr(0, sep);
+            if (part.empty())
+                throw std::runtime_error("Bad namespace name: `" + std::string(name) + "`.");
+            ret.emplace_back(part);
+            str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
+        }
+        return ret;
+    };
     args_parser.AddFlag("--force-namespace", {
         .arg_names = {"name"},
         .desc = "A C++-style `Foo::Bar` namespace name. The entities of the global namespace (including the `std::` types) are put into the module of this namespace. Without this they go to the crate root, where they can clash with the modules of the C files.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            std::string_view str = args.front();
-            generator.forced_namespace.clear();
-            while (!str.empty())
-            {
-                std::size_t sep = str.find("::");
-                std::string_view part = str.substr(0, sep);
-                if (part.empty())
-                    throw std::runtime_error("Bad namespace name: `" + std::string(args.front()) + "`.");
-                generator.forced_namespace.emplace_back(part);
-                str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
-            }
+            generator.forced_namespace = ParseNamespace(args.front());
+        },
+    });
+    args_parser.AddFlag("--replace-namespace", {
+        .allow_repeat = true,
+        .arg_names = {"from", "to"},
+        .desc = "Takes two C++-style namespace names. Replaces the leading namespaces of the entities, which decides their modules. The flag can be specified multiple times, the replacements are applied in the same order. The second argument can be `::` to remove a namespace entirely, e.g. `--replace-namespace MyLib ::` puts the entities of `MyLib` at the crate root, so the users write `mylib::Foo` and not `mylib::mylib::Foo`. Like in the C# generator.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            // The second argument specifically can be `::`, which is otherwise not a valid namespace name.
+            if (args[0].empty())
+                throw std::runtime_error("The first argument of `--replace-namespace` can't be empty, use `--force-namespace` instead.");
+            generator.replaced_namespaces.emplace_back(ParseNamespace(args[0]), args[1] == "::" ? std::vector<std::string>{} : ParseNamespace(args[1]));
         },
     });
     args_parser.AddFlag("--no-windows-raw-dylib", {
