@@ -89,12 +89,16 @@ int main(int argc, char **argv)
             generator.forced_namespace = ParseNamespace(args.front());
         },
     });
-    args_parser.AddFlag("--root-namespace", {
-        .arg_names = {"name"},
-        .desc = "A C++-style `Foo::Bar` namespace name. The entities of this namespace go to the crate root instead of the `foo::bar` module, and its nested namespaces become top-level modules. Use it for the namespace of the whole library, so that the users write `mylib::Mesh` and not `mylib::foo::bar::Mesh`.",
+    args_parser.AddFlag("--replace-namespace", {
+        .allow_repeat = true,
+        .arg_names = {"from", "to"},
+        .desc = "Takes two C++-style namespace names. Replaces the leading namespaces of the entities, which decides their modules. The flag can be specified multiple times, the replacements are applied in the same order. The second argument can be `::` to remove a namespace entirely, e.g. `--replace-namespace MyLib ::` puts the entities of `MyLib` at the crate root, so the users write `mylib::Foo` and not `mylib::mylib::Foo`. Like in the C# generator.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            generator.root_namespace = ParseNamespace(args.front());
+            // The second argument specifically can be `::`, which is otherwise not a valid namespace name.
+            if (args[0].empty())
+                throw std::runtime_error("The first argument of `--replace-namespace` can't be empty, use `--force-namespace` instead.");
+            generator.replaced_namespaces.emplace_back(ParseNamespace(args[0]), args[1] == "::" ? std::vector<std::string>{} : ParseNamespace(args[1]));
         },
     });
     args_parser.AddFlag("--no-windows-raw-dylib", {

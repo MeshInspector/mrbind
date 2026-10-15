@@ -33,8 +33,9 @@ namespace mrbind::Rust
         // Without this, those end up at the crate root, where they can clash with the file modules.
         std::vector<std::string> forced_namespace;
 
-        // The C++ namespace (as parts) whose entities go to the crate root, so `MR::Mesh` becomes `crate::Mesh` and not `crate::mr::Mesh`.
-        std::vector<std::string> root_namespace;
+        // `--replace-namespace`, like in the C# generator: replaces the leading namespaces (as parts), applied in order. An empty `second` removes them,
+        // so `MR` -> nothing makes `MR::Mesh` `crate::Mesh` and not `crate::mr::Mesh`.
+        std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
 
         // ]
 
@@ -103,7 +104,7 @@ namespace mrbind::Rust
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);
 
-        [[nodiscard]] Module &GetModuleForNamespace(const std::vector<std::string> &ns_parts);
+        [[nodiscard]] Module &GetModuleForNamespace(std::vector<std::string> ns_parts);
         [[nodiscard]] std::string UniqueName(std::set<std::string> &used, std::string name);
 
         // The namespace of a free function, as parts. Optionally returns the snake-cased unqualified name for the regular functions.
