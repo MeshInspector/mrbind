@@ -1,0 +1,294 @@
+package mrbind_test.mr.copyinheritedmembers;
+
+/**
+ * Generated from class `MR::CopyInheritedMembers::A`.
+ * Derived classes:
+ *   Virtual:
+ *     `MR::CopyInheritedMembers::G`
+ *     `MR::CopyInheritedMembers::H`
+ *     `MR::CopyInheritedMembers::I`
+ *   Non-virtual along a virtual path:
+ *     `MR::CopyInheritedMembers::M`
+ *     `MR::CopyInheritedMembers::N`
+ *     `MR::CopyInheritedMembers::O`
+ *   Direct: (non-virtual)
+ *     `MR::CopyInheritedMembers::C`
+ *     `MR::CopyInheritedMembers::E`
+ *     `MR::CopyInheritedMembers::F`
+ *     `MR::CopyInheritedMembers::J`
+ *   Ambiguous:
+ *     `MR::CopyInheritedMembers::K`
+ *     `MR::CopyInheritedMembers::L`
+ *
+ * Instances created here own their C++ objects, see `CppObject`.
+ */
+@java.lang.SuppressWarnings({"restricted", "cast"})
+public final class A extends mrbind_test.CppObject
+{
+    /** Wraps a pointer from the C bindings. If `owned`, the object is destroyed when the wrapper dies. `owner` is kept alive as long as this wrapper is. Not for normal use. */
+    public A(java.lang.foreign.MemorySegment ptr, boolean owned, java.lang.Object owner) {super(ptr, owned ? A::__destroy : null, owner);}
+
+    private static void __destroy(java.lang.foreign.MemorySegment ptr)
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Destroy.invokeExact(ptr);
+        }
+        catch (java.lang.Throwable e)
+        {
+            throw mrbind_test.Ffi.rethrow(e);
+        }
+    }
+
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CopyInheritedMembers_A_DefaultConstruct()`.
+     */
+    public A()
+    {
+        this(__ctor_defaultConstruct(), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_defaultConstruct()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_DefaultConstruct.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Constructs `MR::CopyInheritedMembers::A` elementwise.
+     * The reference to the parameter `Field` might be preserved in the constructed object.
+     *
+     * Calls `MR_CopyInheritedMembers_A_ConstructFrom()`.
+     */
+    public A(int Field)
+    {
+        this(__ctor_constructFrom(Field), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(int Field)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_ConstructFrom.invokeExact(Field);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from constructor `MR::CopyInheritedMembers::A::A`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CopyInheritedMembers_A_ConstructFromAnother()`.
+     */
+    public A(mrbind_test.mr.copyinheritedmembers.A _other)
+    {
+        this(__ctor_constructFromAnother(_other), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_constructFromAnother(mrbind_test.mr.copyinheritedmembers.A _other)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_other);
+        }
+    }
+
+    /**
+     * Generated from conversion operator `MR::CopyInheritedMembers::A::operator int32_t`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_ConvertTo_int32_t()`.
+     */
+    public int convertTo_int32_t()
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_ConvertTo_int32_t.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CopyInheritedMembers::A::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CopyInheritedMembers_A_AssignFromAnother()`.
+     */
+    public mrbind_test.mr.copyinheritedmembers.A assignFromAnother(mrbind_test.mr.copyinheritedmembers.A _other)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            mrbind_test.Ffi.checkException();
+            java.lang.Object __owner = this;
+            return new mrbind_test.mr.copyinheritedmembers.A(__ret, false, __owner);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_other);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CopyInheritedMembers::A::Method`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_Method()`.
+     */
+    public void Method()
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Method.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CopyInheritedMembers::A::StaticFunc`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_StaticFunc()`.
+     */
+    public static void StaticFunc()
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_StaticFunc.invokeExact();
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Returns a pointer to a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_Get_StaticField()`.
+     */
+    public static int StaticField()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Get_StaticField.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Modifies a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
+     * The reference to the parameter `value` might be preserved in this object in element `StaticField`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_Set_StaticField()`.
+     */
+    public static void setStaticField(int value)
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Set_StaticField.invokeExact(value);
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Returns a pointer to a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_CopyInheritedMembers_A_Get_Field()`.
+     */
+    public int Field()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Get_Field.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_INT, 0);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Modifies a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
+     * The reference to the parameter `value` might be preserved in this object in element `Field`.
+     *
+     * Calls `MR_CopyInheritedMembers_A_Set_Field()`.
+     */
+    public void setField(int value)
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_copy_inherited_members.H0.MR_CopyInheritedMembers_A_Set_Field.invokeExact(rawPointer(), value);
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+}

@@ -1,0 +1,28 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_nested_types`. */
+public final class test_nested_types
+{
+    private test_nested_types() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_ConstructFrom = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_ConstructFrom", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_Get_b = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_Get_b", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_GetMutable_b = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_GetMutable_b", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_Set_b = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_Set_b", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_Get_e = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_Get_e", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_GetMutable_e = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_GetMutable_e", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_Set_e = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_Set_e", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_Destroy = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_B_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_B_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_B_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_B_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_B_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_B_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_NestedTypes_A_B_Destroy = mrbind_test.Ffi.downcall("", "MR_NestedTypes_A_B_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

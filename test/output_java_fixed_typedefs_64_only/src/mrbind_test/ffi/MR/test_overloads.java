@@ -1,0 +1,27 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_overloads`. */
+public final class test_overloads
+{
+    private test_overloads() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_Overloads_a_1 = mrbind_test.Ffi.downcall("", "MR_Overloads_a_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_a_2 = mrbind_test.Ffi.downcall("", "MR_Overloads_a_2", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_b_int = mrbind_test.Ffi.downcall("", "MR_Overloads_b_int", java.lang.foreign.FunctionDescriptor.ofVoid());
+        public static final java.lang.invoke.MethodHandle MR_Overloads_b_float = mrbind_test.Ffi.downcall("", "MR_Overloads_b_float", java.lang.foreign.FunctionDescriptor.ofVoid());
+        public static final java.lang.invoke.MethodHandle MR_Overloads_c_int = mrbind_test.Ffi.downcall("", "MR_Overloads_c_int", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_c_float = mrbind_test.Ffi.downcall("", "MR_Overloads_c_float", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_FLOAT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_d_int = mrbind_test.Ffi.downcall("", "MR_Overloads_d_int", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_BYTE, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.JAVA_BYTE));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_d_float = mrbind_test.Ffi.downcall("", "MR_Overloads_d_float", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_BYTE, java.lang.foreign.ValueLayout.JAVA_FLOAT, java.lang.foreign.ValueLayout.JAVA_BYTE));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_e_const_int_ref = mrbind_test.Ffi.downcall("", "MR_Overloads_e_const_int_ref", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_e_int_rvalue_ref_int = mrbind_test.Ffi.downcall("", "MR_Overloads_e_int_rvalue_ref_int", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_e_int_rvalue_ref_float = mrbind_test.Ffi.downcall("", "MR_Overloads_e_int_rvalue_ref_float", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_f_float = mrbind_test.Ffi.downcall("", "MR_Overloads_f_float", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_FLOAT, java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_f_int_rvalue_ref = mrbind_test.Ffi.downcall("", "MR_Overloads_f_int_rvalue_ref", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_FLOAT));
+        public static final java.lang.invoke.MethodHandle MR_Overloads_f_const_int_ref = mrbind_test.Ffi.downcall("", "MR_Overloads_f_const_int_ref", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_FLOAT));
+    }
+}

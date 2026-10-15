@@ -1,0 +1,26 @@
+package mrbind_test.mr.customprefnames;
+
+/** The free functions of this namespace. */
+@java.lang.SuppressWarnings({"restricted", "cast"})
+public final class Functions
+{
+    private Functions() {}
+
+    /**
+     * Generated from function `MR::CustomPrefNames::blah`.
+     *
+     * Calls `MR_CustomPrefNames_blah()`.
+     */
+    public static void blah()
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_custom_preferred_names.H0.MR_CustomPrefNames_blah.invokeExact();
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+}

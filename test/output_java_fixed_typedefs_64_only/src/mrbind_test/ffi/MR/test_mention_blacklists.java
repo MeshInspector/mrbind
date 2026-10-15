@@ -1,0 +1,34 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_mention_blacklists`. */
+public final class test_mention_blacklists
+{
+    private test_mention_blacklists() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo_1 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo_0 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo_0", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo2_1 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo2_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo2_0 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo2_0", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo3_1 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo3_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo3_0 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo3_0", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo4_1 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo4_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo4_0 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo4_0", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo5_1 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo5_1", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_foo5_0 = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_foo5_0", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_A_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_A_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_A_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_A_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_A_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_A_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_A_Destroy = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_A_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_Get_a = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_Get_a", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_GetMutable_a = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_GetMutable_a", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_Set_a = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_Set_a", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_SignatureFilters_Blah_Destroy = mrbind_test.Ffi.downcall("", "MR_SignatureFilters_Blah_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

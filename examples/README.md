@@ -44,6 +44,16 @@ It parses all C++ headers in  `examples/input` and generates the Rust crate in `
 
 Then it runs the test executable at `examples/rust/example_consumer`, which calls into this library.
 
+## Java
+
+You need to have a JDK 22 or newer installed (`javac` and `java` in `PATH`, or `JAVA_HOME` set).
+
+Run `examples/java/run.sh`.
+
+It parses all C++ headers in  `examples/input` and generates the Java sources in `examples/java/library/src`, which it compiles into `examples/java/library/example.jar`. It also generates the C bindings required for Java, like the C example, in `examples/java/c_library`.
+
+Then it runs the test program at `examples/java/example_consumer`, which calls into this library.
+
 ## Python
 
 Run `examples/python/run.sh`.

@@ -1,0 +1,27 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_member_vars`. */
+public final class test_member_vars
+{
+    private test_member_vars() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_z = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_z", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_GetMutable_z = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_GetMutable_z", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Set_z = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Set_z", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_w = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_w", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_x = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_x", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_GetMutable_x = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_GetMutable_x", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Set_x = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Set_x", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_y = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_y", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_ref = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_ref", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Get_arr = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Get_arr", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_GetMutable_arr = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_GetMutable_arr", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_GetSize_arr = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_GetSize_arr", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_LONG));
+        public static final java.lang.invoke.MethodHandle MR_MemberVars_A_Destroy = mrbind_test.Ffi.downcall("", "MR_MemberVars_A_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

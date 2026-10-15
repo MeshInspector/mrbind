@@ -1,0 +1,14 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_arrays_of_incomplete_types`. */
+public final class test_arrays_of_incomplete_types
+{
+    private test_arrays_of_incomplete_types() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_IncompleteArrayElemType_foo = mrbind_test.Ffi.downcall("", "MR_IncompleteArrayElemType_foo", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

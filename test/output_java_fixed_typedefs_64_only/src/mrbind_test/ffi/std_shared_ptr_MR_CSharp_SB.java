@@ -1,0 +1,30 @@
+package mrbind_test.ffi;
+
+/** The downcall handles of the C bindings file `std_shared_ptr_MR_CSharp_SB`. */
+public final class std_shared_ptr_MR_CSharp_SB
+{
+    private std_shared_ptr_MR_CSharp_SB() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_AssignFromAnother", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_get = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_get", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_has_value = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_has_value", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_BOOLEAN, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_use_count = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_use_count", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_reset = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_reset", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromValue = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromValue", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_Construct = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_Assign = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_Assign", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_AssignNonOwning = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_AssignNonOwning", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructAliasing", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_AssignAliasing = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_AssignAliasing", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_ConvertTo_MR_C_std_shared_ptr_void = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_ConvertTo_MR_C_std_shared_ptr_void", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_AssignTo_MR_C_std_shared_ptr_void = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_AssignTo_MR_C_std_shared_ptr_void", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_shared_ptr_MR_CSharp_SB_Destroy = mrbind_test.Ffi.downcall("", "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

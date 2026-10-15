@@ -1,0 +1,19 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_declaration_order`. */
+public final class test_declaration_order
+{
+    private test_declaration_order() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_A_c = mrbind_test.Ffi.downcall("", "MR_DeclOrder_A_c", java.lang.foreign.FunctionDescriptor.of(mrbind_test.mr.declorder.A_B.LAYOUT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_A_d = mrbind_test.Ffi.downcall("", "MR_DeclOrder_A_d", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_A_B_a = mrbind_test.Ffi.downcall("", "MR_DeclOrder_A_B_a", java.lang.foreign.FunctionDescriptor.of(mrbind_test.mr.declorder.A.LAYOUT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_A_B_b = mrbind_test.Ffi.downcall("", "MR_DeclOrder_A_B_b", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_C_false_blah = mrbind_test.Ffi.downcall("", "MR_DeclOrder_C_false_blah", java.lang.foreign.FunctionDescriptor.of(mrbind_test.mr.declorder.C_true.LAYOUT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_DeclOrder_C_true_blah = mrbind_test.Ffi.downcall("", "MR_DeclOrder_C_true_blah", java.lang.foreign.FunctionDescriptor.of(mrbind_test.mr.declorder.C_false.LAYOUT, java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

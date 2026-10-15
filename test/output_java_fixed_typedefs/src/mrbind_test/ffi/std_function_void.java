@@ -1,0 +1,22 @@
+package mrbind_test.ffi;
+
+/** The downcall handles of the C bindings file `std_function_void`. */
+public final class std_function_void
+{
+    private std_function_void() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_AssignFromAnother", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_has_value = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_has_value", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_BOOLEAN, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_reset = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_reset", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_call = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_call", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_Destroy = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_ConstructEx = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_ConstructEx", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_function_void_AssignEx = mrbind_test.Ffi.downcall("", "MR_C_std_function_void_AssignEx", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

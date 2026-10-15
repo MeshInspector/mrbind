@@ -1,0 +1,243 @@
+package mrbind_test.mr.stdtuplelike;
+
+/** The free functions of this namespace. */
+@java.lang.SuppressWarnings({"restricted", "cast"})
+public final class Functions
+{
+    private Functions() {}
+
+    /**
+     * Generated from function `MR::StdTupleLike::SetPair`.
+     *
+     * Calls `MR_StdTupleLike_SetPair()`.
+     */
+    public static void SetPair(mrbind_test.mr.cs.std_pair_int32_t_float _1)
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_SetPair.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair`.
+     *
+     * Calls `MR_StdTupleLike_GetPair()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_int32_t_float GetPair()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_int32_t_float(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair2`.
+     *
+     * Calls `MR_StdTupleLike_GetPair2()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_const_int32_t_float GetPair2()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair2.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_const_int32_t_float(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair3`.
+     *
+     * Calls `MR_StdTupleLike_GetPair3()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_int32_t_ref_float_ref GetPair3()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair3.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_int32_t_ref_float_ref(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair4`.
+     *
+     * Calls `MR_StdTupleLike_GetPair4()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_const_int32_t_ref_const_float_ref GetPair4()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair4.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_const_int32_t_ref_const_float_ref(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair5`.
+     *
+     * Calls `MR_StdTupleLike_GetPair5()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_int32_t_rvalue_ref_float_rvalue_ref GetPair5()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair5.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_int32_t_rvalue_ref_float_rvalue_ref(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetPair6`.
+     *
+     * Calls `MR_StdTupleLike_GetPair6()`.
+     */
+    public static mrbind_test.mr.cs.std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref GetPair6()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetPair6.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::SetTuple`.
+     *
+     * Calls `MR_StdTupleLike_SetTuple()`.
+     */
+    public static void SetTuple(mrbind_test.mr.cs.std_tuple_int32_t_float _1)
+    {
+        try
+        {
+            mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_SetTuple.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetTuple`.
+     *
+     * Calls `MR_StdTupleLike_GetTuple()`.
+     */
+    public static mrbind_test.mr.cs.std_tuple_int32_t_float GetTuple()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetTuple.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_tuple_int32_t_float(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Three separate tuples to avoid generating file paths that are too long, as those cause issues on some filesystems apparently.
+     * Generated from function `MR::StdTupleLike::GetTuple2`.
+     *
+     * Calls `MR_StdTupleLike_GetTuple2()`.
+     */
+    public static mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t___a385e102 GetTuple2()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetTuple2.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t___a385e102(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetTuple7`.
+     *
+     * Calls `MR_StdTupleLike_GetTuple7()`.
+     */
+    public static mrbind_test.mr.cs.std_tuple GetTuple7()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetTuple7.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_tuple(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::StdTupleLike::GetTuple8`.
+     *
+     * Calls `MR_StdTupleLike_GetTuple8()`.
+     */
+    public static mrbind_test.mr.cs.std_tuple_float_double_int32_t_int32_t GetTuple8()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetTuple8.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_tuple_float_double_int32_t_int32_t(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+}

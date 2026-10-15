@@ -1,0 +1,21 @@
+package mrbind_test.ffi.AB;
+
+/** The downcall handles of the C bindings file `AB/std_pair_MR_SeparateA_MR_SeparateB`. */
+public final class std_pair_MR_SeparateA_MR_SeparateB
+{
+    private std_pair_MR_SeparateA_MR_SeparateB() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_first = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_first", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_second = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_second", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy = mrbind_test.Ffi.downcall("MR_AB_", "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

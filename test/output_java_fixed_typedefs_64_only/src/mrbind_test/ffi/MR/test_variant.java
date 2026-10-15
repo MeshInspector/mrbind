@@ -1,0 +1,17 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_variant`. */
+public final class test_variant
+{
+    private test_variant() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_StdVariant_foo = mrbind_test.Ffi.downcall("", "MR_StdVariant_foo", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_StdVariant_bar = mrbind_test.Ffi.downcall("", "MR_StdVariant_bar", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_StdVariant_baz = mrbind_test.Ffi.downcall("", "MR_StdVariant_baz", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_StdVariant_blah = mrbind_test.Ffi.downcall("", "MR_StdVariant_blah", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

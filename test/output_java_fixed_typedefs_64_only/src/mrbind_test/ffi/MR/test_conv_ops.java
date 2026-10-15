@@ -1,0 +1,18 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_conv_ops`. */
+public final class test_conv_ops
+{
+    private test_conv_ops() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_ConvOps_A_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_ConvOps_A_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_ConvOps_A_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_ConvOps_A_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_ConvOps_A_ConvertTo_bool = mrbind_test.Ffi.downcall("", "MR_ConvOps_A_ConvertTo_bool", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_BOOLEAN, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_ConvOps_A_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_ConvOps_A_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_ConvOps_A_Destroy = mrbind_test.Ffi.downcall("", "MR_ConvOps_A_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

@@ -149,8 +149,9 @@ endif()
 option(MRBIND_BUILD_GENERATOR_C "Build the C binding generator." ON)
 option(MRBIND_BUILD_GENERATOR_CSHARP "Build the C# binding generator." ON)
 option(MRBIND_BUILD_GENERATOR_RUST "Build the Rust binding generator." ON)
+option(MRBIND_BUILD_GENERATOR_JAVA "Build the Java binding generator." ON)
 
-if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP OR MRBIND_BUILD_GENERATOR_RUST)
+if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP OR MRBIND_BUILD_GENERATOR_RUST OR MRBIND_BUILD_GENERATOR_JAVA)
     add_library(mrbind_gen_common STATIC
         src/generators/common/data_from_json.cpp
         src/generators/common/load_file.cpp
@@ -235,5 +236,23 @@ if(MRBIND_BUILD_GENERATOR_RUST)
     )
     if(MRBIND_STATIC_BUILD)
         apply_static_stdlib(mrbind_gen_rust)
+    endif()
+endif()
+
+if(MRBIND_BUILD_GENERATOR_JAVA)
+    add_executable(mrbind_gen_java
+        src/generators/java/generator.cpp
+        src/generators/java/main.cpp
+    )
+    target_include_directories(mrbind_gen_java PRIVATE
+        deps/cppdecl/include
+    )
+    target_link_libraries(mrbind_gen_java PRIVATE
+        mrbind_common
+        mrbind_gen_common
+        mrbind_c_interop
+    )
+    if(MRBIND_STATIC_BUILD)
+        apply_static_stdlib(mrbind_gen_java)
     endif()
 endif()

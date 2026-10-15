@@ -1,0 +1,24 @@
+package mrbind_test.ffi.MR;
+
+/** The downcall handles of the C bindings file `MR/test_size_t_ptrdiff_t`. */
+public final class test_size_t_ptrdiff_t
+{
+    private test_size_t_ptrdiff_t() {}
+
+    public static final class H0
+    {
+        private H0() {}
+
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_unsigned_long = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_unsigned_long", java.lang.foreign.FunctionDescriptor.of(mrbind_test.Ffi.C_LONG, mrbind_test.Ffi.C_LONG));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_unsigned_long_ptr = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_unsigned_long_ptr", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_std_vector_unsigned_long = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_std_vector_unsigned_long", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_long = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_long", java.lang.foreign.FunctionDescriptor.of(mrbind_test.Ffi.C_LONG, mrbind_test.Ffi.C_LONG));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_long_ptr = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_long_ptr", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_foo_std_vector_long = mrbind_test.Ffi.downcall("", "MR_TestSizeT_foo_std_vector_long", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_A_unsigned_long_DefaultConstruct = mrbind_test.Ffi.downcall("", "MR_TestSizeT_A_unsigned_long_DefaultConstruct", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_A_unsigned_long_ConstructFromAnother = mrbind_test.Ffi.downcall("", "MR_TestSizeT_A_unsigned_long_ConstructFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_A_unsigned_long_AssignFromAnother = mrbind_test.Ffi.downcall("", "MR_TestSizeT_A_unsigned_long_AssignFromAnother", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_A_unsigned_long_foo = mrbind_test.Ffi.downcall("", "MR_TestSizeT_A_unsigned_long_foo", java.lang.foreign.FunctionDescriptor.of(mrbind_test.Ffi.C_LONG, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_TestSizeT_A_unsigned_long_Destroy = mrbind_test.Ffi.downcall("", "MR_TestSizeT_A_unsigned_long_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
+    }
+}

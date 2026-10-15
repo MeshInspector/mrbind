@@ -14,6 +14,9 @@
 /test/output_rust*/Cargo.lock
 /test/run_rust/target/
 /test/run_rust/Cargo.lock
+/test/output_java*/classes/
+/test/output_java*/sources.txt
+/test/run_java/classes/
 parallel-hashmap/
 /examples/cxx.txt
 /examples/c/output
@@ -29,5 +32,8 @@ parallel-hashmap/
 /examples/rust/library/Cargo.lock
 /examples/rust/example_consumer/target
 /examples/rust/example_consumer/Cargo.lock
+/examples/java/c_library
+/examples/java/library
+/examples/java/example_consumer/classes
 /examples/python/pybind11
 /examples/python/output
