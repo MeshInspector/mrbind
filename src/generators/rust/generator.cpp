@@ -9,6 +9,7 @@
 #include <cassert>
 #include <cctype>
 #include <cstdint>
+#include <span>
 #include <stdexcept>
 #include <variant>
 
@@ -156,7 +157,8 @@ namespace mrbind::Rust
     Generator::Module &Generator::GetModuleForNamespace(const std::vector<std::string> &ns_parts)
     {
         Module *m = &root;
-        for (const auto &part : ns_parts)
+        bool in_root_namespace = !root_namespace.empty() && ns_parts.size() >= root_namespace.size() && std::equal(root_namespace.begin(), root_namespace.end(), ns_parts.begin());
+        for (const auto &part : std::span(ns_parts).subspan(in_root_namespace ? root_namespace.size() : 0))
         {
             std::string name = RustIdent(SnakeCase(part));
             if (name == "ffi" || name == "std" || name == "core" || name == "alloc")
@@ -430,6 +432,10 @@ namespace mrbind::Rust
     void Generator::CollectTypes()
     {
         root.rust_path = "crate";
+
+        // The runtime items of `EmitRuntime()`, which share the crate root with the entities of `root_namespace`.
+        for (const char *name : {"CppClass", "CppCopy", "Owned", "PENDING_EXCEPTION", "INIT_EXCEPTIONS", "exception_handler", "__init_exceptions", "__check_exception"})
+            root.used_names.insert(name);
 
         // First pass: register all names, so that nested classes can find their enclosing classes.
         for (const auto &cpp_name : c_desc.cpp_types.Vec())

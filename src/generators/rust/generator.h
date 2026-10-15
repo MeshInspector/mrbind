@@ -33,6 +33,9 @@ namespace mrbind::Rust
         // Without this, those end up at the crate root, where they can clash with the file modules.
         std::vector<std::string> forced_namespace;
 
+        // The C++ namespace (as parts) whose entities go to the crate root, so `MR::Mesh` becomes `crate::Mesh` and not `crate::mr::Mesh`.
+        std::vector<std::string> root_namespace;
+
         // ]
 
         // Output: relative paths to file contents.

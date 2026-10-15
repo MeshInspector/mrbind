@@ -65,22 +65,36 @@ int main(int argc, char **argv)
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
+    // Splits a C++-style `Foo::Bar` namespace name into parts.
+    auto ParseNamespace = [](std::string_view name)
+    {
+        std::vector<std::string> ret;
+        std::string_view str = name;
+        while (!str.empty())
+        {
+            std::size_t sep = str.find("::");
+            std::string_view part = str.substr(0, sep);
+            if (part.empty())
+                throw std::runtime_error("Bad namespace name: `" + std::string(name) + "`.");
+            ret.emplace_back(part);
+            str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
+        }
+        return ret;
+    };
     args_parser.AddFlag("--force-namespace", {
         .arg_names = {"name"},
         .desc = "A C++-style `Foo::Bar` namespace name. The entities of the global namespace (including the `std::` types) are put into the module of this namespace. Without this they go to the crate root, where they can clash with the modules of the C files.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            std::string_view str = args.front();
-            generator.forced_namespace.clear();
-            while (!str.empty())
-            {
-                std::size_t sep = str.find("::");
-                std::string_view part = str.substr(0, sep);
-                if (part.empty())
-                    throw std::runtime_error("Bad namespace name: `" + std::string(args.front()) + "`.");
-                generator.forced_namespace.emplace_back(part);
-                str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
-            }
+            generator.forced_namespace = ParseNamespace(args.front());
+        },
+    });
+    args_parser.AddFlag("--root-namespace", {
+        .arg_names = {"name"},
+        .desc = "A C++-style `Foo::Bar` namespace name. The entities of this namespace go to the crate root instead of the `foo::bar` module, and its nested namespaces become top-level modules. Use it for the namespace of the whole library, so that the users write `mylib::Mesh` and not `mylib::foo::bar::Mesh`.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.root_namespace = ParseNamespace(args.front());
         },
     });
     args_parser.AddFlag("--no-windows-raw-dylib", {
