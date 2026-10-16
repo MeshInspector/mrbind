@@ -6,7 +6,7 @@ if [[ "$(uname -o)" == Msys ]]; then
     CXX=clang++
 else
     EXT_SHARED=.so
-    CXX=clang++-21
+    CXX=clang++-22
 fi
 
 # Clone phmap if missing:
