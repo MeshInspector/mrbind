@@ -55,7 +55,9 @@ jar --create --file mylib.jar -C mylib/classes .
 ```
 The generated code has no dependencies. It compiles with `-Xlint:all -Werror`.
 
-At runtime the C bindings library must be in `java.library.path` (`-Djava.library.path=/path/to/c/bindings`), or at least loadable by its file name through the system library search path. The foreign function API is a restricted API, so pass `--enable-native-access=ALL-UNNAMED` (or the name of your module) to `java` to avoid a warning on the first call.
+At runtime the C bindings library must be in `java.library.path` (`-Djava.library.path=/path/to/c/bindings`), or at least loadable by its file name through the system library search path.
+
+The libraries can also be bundled in a jar on the classpath, as resources `<package dir>/native/<os>-<arch>/` (e.g. `example/native/linux-x86_64/`, see `Ffi.nativePlatform()`) with a `files.txt` listing them in the format of `sha256sum` (`<sha256> <file name>` lines). These take precedence: on the first use they all are extracted to `<package>-native-<hash of files.txt>` in `java.io.tmpdir` (or in the directory from the system property `<package>.native.cache`), reused by later runs, and the C bindings library is loaded from there by its full path. Its dependencies must be found next to it: rpath `$ORIGIN` on Linux, `@loader_path` on macOS; on Windows the library's directory is searched first anyway. The foreign function API is a restricted API, so pass `--enable-native-access=ALL-UNNAMED` (or the name of your module) to `java` to avoid a warning on the first call.
 
 ## What the generated code looks like
 
