@@ -459,6 +459,25 @@ namespace mrbind
         return {};
     }
 
+    // If the declaration has `mrbind::overload_suffix=...`, returns the `...`. Otherwise null.
+    // This is used when targeting C or another language with no function overloading.
+    // This suffix is appended after the C function name. It can be empty. It shouldn't start with `_`, that separator is added automatically if it's not empty.
+    // You shouldn't use this if the function is not overloaded.
+    [[nodiscard]] std::optional<std::string> GetOverloadSuffixFromCustomAttribute(const clang::Decl &decl)
+    {
+        static constexpr std::string_view prefix = "mrbind::overload_suffix=";
+        for (const clang::AnnotateAttr *attr : decl.specific_attrs<clang::AnnotateAttr>())
+        {
+            std::string_view view = attr->getAnnotation();
+            if (view.starts_with(prefix))
+            {
+                view.remove_prefix(prefix.size());
+                return std::string(view);
+            }
+        }
+        return {};
+    }
+
 
     // Applies the common post-processing to a `cppdecl::Type` or `cppdecl::QualifiedName` or something similar.
     void AdjustCppdeclEntity(auto &entity, const clang::CompilerInstance &ci, const VisitorParams &params, bool canonicalize)
@@ -2020,6 +2039,7 @@ namespace mrbind
                 basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
                 basic_func->deprecation_message = GetDeprecationMessage(*method);
                 basic_func->is_noexcept = clang::isNoexceptExceptionSpec(method->getExceptionSpecType());
+                basic_func->overload_suffix = GetOverloadSuffixFromCustomAttribute(*decl);
 
                 // Lifetime reference. This only runs if there is no existing lifetime information (from the attributes).
                 // This is there in part to avoid circular relations, when the inferred one is the inverse of the one specified with an attribute.
@@ -2095,6 +2115,7 @@ namespace mrbind
             new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false, false);
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.is_noexcept = clang::isNoexceptExceptionSpec(decl->getExceptionSpecType());
+            new_func.overload_suffix = GetOverloadSuffixFromCustomAttribute(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
             // Infer lifetime for `begin`/`end`, and for dereferencing.

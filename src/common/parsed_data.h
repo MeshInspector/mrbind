@@ -352,6 +352,7 @@ namespace mrbind
             (std::vector<FuncParam>)(params)
             (std::optional<std::string>)(deprecation_message) // Null if not deprecated. Empty string if deprecated without a message.
             (bool)(is_noexcept, false)
+            (std::optional<std::string>)(overload_suffix) // The value of attribute `mrbind::overload_suffix=...`, if any. See docs (or comments in the parser) for more details.
             (Lifetimes)(lifetimes) // An ordered `set` to get consistent serialization.
         )
 

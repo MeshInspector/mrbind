@@ -141,6 +141,50 @@ The specified name needs to be fully qualified (with all namespaces), and includ
 
 You can expose several classes via a regex, e.g. to expose `Foo::Bar<T>` for any `T`, you could do `--expose-as-struct '/Foo::Bar<.*>/'`. (Again,  the `'...'` are your shell's quotes, while `/.../` is a part of the syntax, to indicate that this is a regex.)
 
+### Customize specific overloaded function names
+
+Since C doesn't have function overloading, when C++ functions are overloaded, we add various suffixes to them to disambiguate (the parameter count and their types, etc).
+
+If you don't like the default suffixes, you can provide your own using `[[clang::annotate("mrbind::overload_suffix=...")]]`, where `...` may or may not be empty (see example below).
+
+It's recommended that you add a following macro to your library:
+```cpp
+// Replace `@MYLIB@` with your library name.
+#ifdef __clang__
+#define @MYLIB@_OVERLOAD_SUFFIX(x) [[clang::annotate("mrbind::overload_suffix=" #x)]]
+#else
+#define @MYLIB@_OVERLOAD_SUFFIX(x)
+#endif
+```
+
+Now, given this input:
+```cpp
+namespace Example
+{
+    void foo(int);
+    void foo(float);
+}
+```
+The default output is:
+```cpp
+EXAMPLE_API void Example_foo_int(int _1);
+EXAMPLE_API void Example_foo_float(float _1);
+```
+If you change the first function to `EXAMPLE_OVERLOAD_SUFFIX() void foo(int);`, the output becomes:
+```cpp
+EXAMPLE_API void Example_foo(int _1);
+EXAMPLE_API void Example_foo_float(float _1);
+```
+Or if you change the first function to `EXAMPLE_OVERLOAD_SUFFIX(blah) void foo(int);`, the output becomes:
+```cpp
+EXAMPLE_API void Example_foo_blah(int _1);
+EXAMPLE_API void Example_foo(float _1);
+```
+
+Note that if your function is not overloaded, those annotations are normally useless. (A non-empty one will add the suffix even if there are no other overloads. This can make sense if you're planning to add more overloads in the future.)
+
+This annotation also works on class methods and constructors, and on some overloaded operators. (E.g. it works on `operator[]`, since it gets named as a class method, but ignored on `operator+`, since that is named as a free function, even when declared in a class.)
+
 ### Make generated headers compatible with earlier C standards
 
 By default the generated C headers need C11 or newer.

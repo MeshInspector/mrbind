@@ -2,15 +2,14 @@
 
 #include <iostream>
 
+#ifdef __clang__
+#define EXAMPLE_OVERLOAD_SUFFIX(x) [[clang::annotate("mrbind::overload_suffix=" #x)]]
+#else
+#define EXAMPLE_OVERLOAD_SUFFIX(x)
+#endif
+
 namespace Example
 {
-    inline void SayHello()
-    {
-        std::cout << "Hello!\n";
-    }
-
-    inline int Square(int x)
-    {
-        return x * x;
-    }
+    EXAMPLE_OVERLOAD_SUFFIX(blah) void foo(int);
+    void foo(float);
 }
