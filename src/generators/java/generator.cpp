@@ -1144,7 +1144,8 @@ public abstract class CppStruct implements Native
         ffi += ");\n";
         ffi += "    private static final java.util.Map<String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();\n\n";
         ffi += R"(    /**
-     * The symbols of the library of a file group. The library is loaded on the first use from `java.library.path`
+     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
+     * (see `bundledLibrary()`), else from `java.library.path`
      * (on Windows with `LOAD_WITH_ALTERED_SEARCH_PATH`, so its dependencies are found next to it before anything else: the directory of `java.exe`
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
      * If that fails, it's loaded with `System.loadLibrary()`, and then by its platform-specific file name through the system loader.
@@ -1157,6 +1158,20 @@ public abstract class CppStruct implements Native
             String lib = LIB_NAMES.get(group);
             if (lib == null)
                 throw new IllegalArgumentException("Unknown library group: `" + group + "`.");
+            java.nio.file.Path bundled = bundledLibrary(System.mapLibraryName(lib));
+            if (bundled != null)
+            {
+                try
+                {
+                    ret = IS_WINDOWS ? windowsLoad(bundled) : java.lang.foreign.SymbolLookup.libraryLookup(bundled, java.lang.foreign.Arena.global());
+                }
+                catch (Throwable e)
+                {
+                    throw rethrow(e);
+                }
+                LOOKUPS.put(group, ret);
+                return ret;
+            }
             Throwable windowsError = null;
             if (IS_WINDOWS)
             {
@@ -1196,6 +1211,112 @@ public abstract class CppStruct implements Native
         return ret;
     }
 
+    /**
+     * `<os>-<arch>` of the libraries bundled for this platform, e.g. `windows-x86_64`, `linux-aarch64`, `macos-aarch64`
+     * (the names of Rust's `target_os` and `target_arch`).
+     */
+    public static String nativePlatform()
+    {
+        String os = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT);
+        String arch = System.getProperty("os.arch", "").toLowerCase(java.util.Locale.ROOT);
+        os = IS_WINDOWS ? "windows" : os.startsWith("mac") ? "macos" : os.startsWith("linux") ? "linux" : os.replace(' ', '_');
+        arch = switch (arch) {case "amd64", "x86_64" -> "x86_64"; case "aarch64", "arm64" -> "aarch64"; default -> arch;};
+        return os + "-" + arch;
+    }
+
+    private static java.nio.file.Path bundledDir;
+    private static boolean bundledDirSearched;
+
+    /**
+     * The path of a library bundled in the jar for this platform, or null if there's none. The bundled libraries are listed in the resource
+     * `native/<nativePlatform()>/files.txt` next to this class, one `<sha256> <file name>` line each. On the first use they all are extracted to
+     * `<package>-native-<hash of files.txt>` in the directory from the system property `<package>.native.cache`, by default `java.io.tmpdir`,
+     * and reused by later runs. The libraries find their dependencies next to themselves (rpath `$ORIGIN`, `@loader_path`, or Windows' altered search path).
+     */
+    private static java.nio.file.Path bundledLibrary(String fileName)
+    {
+        if (!bundledDirSearched)
+        {
+            bundledDirSearched = true;
+            try
+            {
+                bundledDir = extractBundledLibraries();
+            }
+            catch (java.io.IOException e)
+            {
+                throw new java.io.UncheckedIOException("Can't extract the native libraries bundled in the jar.", e);
+            }
+        }
+        if (bundledDir == null)
+            return null;
+        java.nio.file.Path path = bundledDir.resolve(fileName);
+        return java.nio.file.Files.isRegularFile(path) ? path : null;
+    }
+
+    private static java.nio.file.Path extractBundledLibraries() throws java.io.IOException
+    {
+        String resourceDir = "native/" + nativePlatform() + "/";
+        byte[] list;
+        try (java.io.InputStream in = Ffi.class.getResourceAsStream(resourceDir + "files.txt"))
+        {
+            if (in == null)
+                return null;
+            list = in.readAllBytes();
+        }
+        String hash;
+        try
+        {
+            hash = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(list), 0, 8);
+        }
+        catch (java.security.NoSuchAlgorithmException e)
+        {
+            throw new IllegalStateException(e);
+        }
+        String pkg = Ffi.class.getPackageName();
+        java.nio.file.Path parent = java.nio.file.Path.of(System.getProperty(pkg + ".native.cache", System.getProperty("java.io.tmpdir"))).toAbsolutePath();
+        java.nio.file.Path dir = parent.resolve(pkg + "-native-" + hash);
+        if (java.nio.file.Files.exists(dir.resolve(".complete")))
+            return dir;
+        // Extracted to a temporary directory renamed at the end, so another process never sees an incomplete set.
+        java.nio.file.Files.createDirectories(parent);
+        java.nio.file.Path temp = java.nio.file.Files.createTempDirectory(parent, pkg + "-native-");
+        for (String line : new String(list, java.nio.charset.StandardCharsets.UTF_8).split("\n"))
+        {
+            String name = line.strip();
+            int space = name.indexOf(' ');
+            if (space >= 0)
+                name = name.substring(space + 1).strip();
+            if (name.startsWith("*")) // `sha256sum` in binary mode.
+                name = name.substring(1);
+            if (name.isEmpty())
+                continue;
+            try (java.io.InputStream in = Ffi.class.getResourceAsStream(resourceDir + name))
+            {
+                if (in == null)
+                    throw new java.io.FileNotFoundException("The resource `" + resourceDir + name + "` listed in `files.txt` is missing.");
+                java.nio.file.Files.copy(in, temp.resolve(name));
+            }
+        }
+        java.nio.file.Files.createFile(temp.resolve(".complete"));
+        try
+        {
+            java.nio.file.Files.move(temp, dir, java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+        }
+        catch (java.io.IOException e)
+        {
+            // Another process was faster.
+            if (!java.nio.file.Files.exists(dir.resolve(".complete")))
+                throw e;
+            try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
+            {
+                for (java.nio.file.Path file : (Iterable<java.nio.file.Path>)files::iterator)
+                    java.nio.file.Files.deleteIfExists(file);
+            }
+            java.nio.file.Files.deleteIfExists(temp);
+        }
+        return dir;
+    }
+
     // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
     private static java.lang.foreign.SymbolLookup windowsLookup(String fileName) throws Throwable
     {
@@ -1211,8 +1332,12 @@ public abstract class CppStruct implements Native
                 break;
             }
         }
-        if (path == null)
-            return null;
+        return path == null ? null : windowsLoad(path);
+    }
+
+    // Loads a DLL by its absolute path with `LoadLibraryExW(LOAD_WITH_ALTERED_SEARCH_PATH)`, see `lookup()`.
+    private static java.lang.foreign.SymbolLookup windowsLoad(java.nio.file.Path path) throws Throwable
+    {
         java.lang.foreign.SymbolLookup kernel32 = java.lang.foreign.SymbolLookup.libraryLookup("kernel32.dll", java.lang.foreign.Arena.global());
         java.lang.foreign.Linker.Option errorState = java.lang.foreign.Linker.Option.captureCallState("GetLastError");
         java.lang.foreign.StructLayout errorLayout = java.lang.foreign.Linker.Option.captureStateLayout();
