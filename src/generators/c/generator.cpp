@@ -2155,6 +2155,8 @@ namespace mrbind::C
 
     std::string Generator::MakeFreeFuncNameForOverloadedOperator(const ClassEntity *enclosing_class, std::variant<const FuncEntity *, const ClassMethod *> parsed_func, bool fallback) const
     {
+        // This currently ignores `overload_suffix`, which is intentional.
+
         return std::visit([&](const auto &elem)
         {
             static constexpr bool is_method = std::is_same_v<std::remove_cvref_t<decltype(elem)>, const ClassMethod *>;
@@ -4584,7 +4586,7 @@ namespace mrbind::C
             const auto &info = self.parsed_type_info.at(self.CppdeclToCode(self.ParseTypeOrThrow(cl.full_type)));
             const auto &c_type_str = info.c_type_str;
 
-            auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name = "")
+            auto AddFunc = [&](const BasicFunc &func, std::string name, std::string fallback_name, bool allow_adding_params)
             {
                 auto [iter, is_new] = self.overloaded_names.try_emplace(&func);
                 if (!is_new)
@@ -4593,7 +4595,9 @@ namespace mrbind::C
                 OverloadedName &ovl = iter->second;
                 ovl.name = std::move(name);
                 ovl.fallback_name = std::move(fallback_name);
-                ovl.AddParams(self, func.params);
+                ovl.allow_adding_params = allow_adding_params;
+                if (allow_adding_params)
+                    ovl.AddParams(self, func.params);
             };
 
             for (const ClassMemberVariant &var : cl.members)
@@ -4619,11 +4623,16 @@ namespace mrbind::C
                             return;
 
                         std::string name = c_type_str + "_Construct";
+                        if (elem.overload_suffix && !elem.overload_suffix->empty())
+                        {
+                            name += '_';
+                            name += *elem.overload_suffix;
+                        }
 
                         std::string fallback_name;
                         if (elem.template_args)
                             fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(name + *elem.template_args));
-                        AddFunc(elem, std::move(name), std::move(fallback_name));
+                        AddFunc(elem, std::move(name), std::move(fallback_name), !elem.overload_suffix);
                     },
                     [&](const ClassMethod &elem)
                     {
@@ -4641,7 +4650,11 @@ namespace mrbind::C
                             OverloadedName &ovl = iter->second;
                             ovl.name = self.MakeFreeFuncNameForOverloadedOperator(&cl, &elem, false);
                             ovl.fallback_name = self.MakeFreeFuncNameForOverloadedOperator(&cl, &elem, true);
+
                             // Don't set the parameters for those, as we already embed their types in those names.
+
+                            // So I guess we can make this false unconditionally. (And currently `MakeFreeFuncNameForOverloadedOperator*(` doesn't support `mrbind::overload_suffix`.)
+                            ovl.allow_adding_params = false;
                             return;
                         }
 
@@ -4661,14 +4674,21 @@ namespace mrbind::C
                             name += elem.name;
                         }
 
+                        if (elem.overload_suffix && !elem.overload_suffix->empty())
+                        {
+                            name += '_';
+                            name += *elem.overload_suffix;
+                        }
+
                         std::string fallback_name;
                         if (elem.HasTemplateArguments())
                             fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(name + std::string(elem.TemplateArguments())));
-                        AddFunc(elem, std::move(name), std::move(fallback_name));
+                        AddFunc(elem, std::move(name), std::move(fallback_name), !elem.overload_suffix);
                     },
                     [&](const ClassConvOp &elem)
                     {
                         // Those have fixed names.
+                        // Yes, currently we ignore `mrbind::overload_suffix=...` here. Not a big deal.
                         (void)elem;
                     },
                     [&](const ClassDtor &elem)
@@ -4692,7 +4712,11 @@ namespace mrbind::C
                 OverloadedName &ovl = iter->second;
                 ovl.name = self.MakeFreeFuncNameForOverloadedOperator(nullptr, &func, false);
                 ovl.fallback_name = self.MakeFreeFuncNameForOverloadedOperator(nullptr, &func, true);
+
                 // Don't set the parameters for those, as we already embed their types in those names.
+
+                // So I guess we can make this false unconditionally. (And currently `MakeFreeFuncNameForOverloadedOperator*(` doesn't support `mrbind::overload_suffix`.)
+                ovl.allow_adding_params = false;
                 return;
             }
 
@@ -4702,7 +4726,14 @@ namespace mrbind::C
 
             OverloadedName &ovl = iter->second;
             ovl.name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(func.qual_name));
-            ovl.fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(func.full_qual_name));
+            if (func.overload_suffix && !func.overload_suffix->empty())
+            {
+                ovl.name += '_';
+                ovl.name += *func.overload_suffix;
+            }
+            // This is the same as `func.full_qual_name`, except that this allows injecting `func.overload_suffix` in the middle.
+            ovl.fallback_name = self.CppdeclToIdentifier(self.ParseQualNameOrThrow(ovl.name + std::string(func.TemplateArguments())));
+            ovl.allow_adding_params = !func.overload_suffix;
             ovl.AddParams(self, func.params);
         }
     };
@@ -4860,10 +4891,19 @@ namespace mrbind::C
                 for (const auto &elem : ambig_names)
                 {
                     { // Check if the sizes are different.
-                        std::size_t first_size = elem.second.front()->second.params.size();
+                        std::size_t first_size = std::size_t(-1);
                         bool have_different_sizes = false;
-                        for (const auto &subelem : elem.second | std::views::drop(1))
+                        for (const auto &subelem : elem.second)
                         {
+                            if (!subelem->second.allow_adding_params)
+                                continue;
+
+                            if (first_size == std::size_t(-1))
+                            {
+                                first_size = subelem->second.params.size();
+                                continue;
+                            }
+
                             if (subelem->second.params.size() != first_size)
                             {
                                 have_different_sizes = true;
@@ -4880,6 +4920,9 @@ namespace mrbind::C
 
                     for (const auto &subelem : elem.second)
                     {
+                        if (!subelem->second.allow_adding_params)
+                            continue;
+
                         subelem->second.name += '_';
                         subelem->second.name += std::to_string(subelem->second.params.size());
                     }
@@ -4926,7 +4969,7 @@ namespace mrbind::C
                     for (const auto &subelem : elem.second)
                     {
                         std::string this_type_string;
-                        if (subelem->second.num_params_consumed < subelem->second.params.size())
+                        if (subelem->second.allow_adding_params && subelem->second.num_params_consumed < subelem->second.params.size())
                             this_type_string = ParamTypeToString(subelem->second.params[subelem->second.num_params_consumed].cpp_type);
 
                         // Still insert even if the string is empty.
@@ -4946,12 +4989,12 @@ namespace mrbind::C
 
                     std::string first_type_str;
                     const auto &first_elem = *elem.second.front();
-                    if (first_elem.second.num_params_consumed < first_elem.second.params.size())
+                    if (first_elem.second.allow_adding_params && first_elem.second.num_params_consumed < first_elem.second.params.size())
                         first_type_str = ParamTypeToString(first_elem.second.params[first_elem.second.num_params_consumed].cpp_type);
 
                     for (const auto &subelem : elem.second | std::views::drop(1))
                     {
-                        bool subelem_has_more_params = subelem->second.num_params_consumed < subelem->second.params.size();
+                        bool subelem_has_more_params = subelem.second.allow_adding_params && subelem->second.num_params_consumed < subelem->second.params.size();
                         if (subelem_has_more_params == first_type_str.empty())
                         {
                             // One string is empty (because no more parameters to consume) and another isn't. This is good enough.
@@ -4977,6 +5020,9 @@ namespace mrbind::C
 
                 for (const auto &subelem : elem.second)
                 {
+                    if (!subelem->second.allow_adding_params)
+                        continue;
+
                     if (subelem->second.num_params_consumed < subelem->second.params.size())
                     {
                         if (have_different_types)

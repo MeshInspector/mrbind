@@ -27,6 +27,7 @@
 #include <input/MR/test_omitting_template_args_and_quals.h>
 #include <input/MR/test_overloaded_operators.h>
 #include <input/MR/test_overloads.h>
+#include <input/MR/test_overload_suffix.h>
 #include <input/MR/test_phmap.h>
 #include <input/MR/test_simple_types.h>
 #include <input/MR/test_size_t_ptrdiff_t.h>
