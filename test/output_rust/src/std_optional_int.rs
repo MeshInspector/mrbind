@@ -105,6 +105,15 @@ impl std_optional_int
 
 }
 
+impl crate::Owned<std_optional_int>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<core::ffi::c_int>
+    {
+        self.value_mut().map(|x| *x)
+    }
+}
+
 unsafe impl crate::CppCopy for std_optional_int
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}

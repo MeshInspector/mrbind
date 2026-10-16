@@ -89,6 +89,15 @@ impl std_optional_int32_t
 
 }
 
+impl crate::Owned<std_optional_int32_t>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<i32>
+    {
+        self.value_mut().map(|x| *x)
+    }
+}
+
 unsafe impl crate::CppCopy for std_optional_int32_t
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}

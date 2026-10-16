@@ -153,6 +153,8 @@ namespace mrbind::Rust
         void EmitCasts(TypeInfo &info, std::string &methods, std::set<std::string> &used_names, std::string &extra);
         // Emits the construction of a `std::function` from a closure.
         void EmitStdFunction(TypeInfo &info, std::string &methods, std::set<std::string> &used_names);
+        // Emits `as_result()`, `as_result_mut()` and `Owned::into_result()` for `std::expected` and `tl::expected`, or `Owned::into_option()` for `std::optional`.
+        void EmitExpectedOrOptional(const TypeInfo &info, bool is_optional, std::string &methods, std::set<std::string> &used_names, std::string &extra);
 
         // Writes the re-export of a type from its file module to its namespace module.
         void ReExportType(const TypeInfo &info);

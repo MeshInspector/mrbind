@@ -89,6 +89,15 @@ impl std_optional_MR_StdOptional_A
 
 }
 
+impl crate::Owned<std_optional_MR_StdOptional_A>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<crate::Owned<crate::mr::std_optional::A>>
+    {
+        self.value_mut().map(|x| unsafe {crate::Owned::from_raw(crate::ffi::MR_StdOptional_A_ConstructFromAnother(x as *mut crate::mr::std_optional::A as *mut crate::ffi::MR_StdOptional_A) as *mut crate::mr::std_optional::A)})
+    }
+}
+
 unsafe impl crate::CppCopy for std_optional_MR_StdOptional_A
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}

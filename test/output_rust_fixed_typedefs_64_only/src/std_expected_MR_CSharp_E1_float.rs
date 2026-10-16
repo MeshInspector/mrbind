@@ -89,6 +89,29 @@ impl std_expected_MR_CSharp_E1_float
         unsafe {(__ret as *mut f32).as_mut()}
     }
 
+    /// The value as `Ok`, or the error as `Err`.
+    pub fn as_result<'a>(&'a self) -> Result<&'a crate::ffi::MR_CSharp_E1, &'a f32>
+    {
+        let __this = self as *const Self as *const crate::ffi::MR_C_std_expected_MR_CSharp_E1_float;
+        unsafe {match (crate::ffi::MR_C_std_expected_MR_CSharp_E1_float_value(__this) as *const crate::ffi::MR_CSharp_E1).as_ref() {Some(x) => Ok(x), None => Err(&*(crate::ffi::MR_C_std_expected_MR_CSharp_E1_float_error(__this) as *const f32))}}
+    }
+
+    /// The value as `Ok`, or the error as `Err`, as mutable references.
+    pub fn as_result_mut<'a>(&'a mut self) -> Result<&'a mut crate::ffi::MR_CSharp_E1, &'a mut f32>
+    {
+        let __this = self as *mut Self as *mut crate::ffi::MR_C_std_expected_MR_CSharp_E1_float;
+        unsafe {match (crate::ffi::MR_C_std_expected_MR_CSharp_E1_float_value_mut(__this) as *mut crate::ffi::MR_CSharp_E1).as_mut() {Some(x) => Ok(x), None => Err(&mut *(crate::ffi::MR_C_std_expected_MR_CSharp_E1_float_error_mut(__this) as *mut f32))}}
+    }
+
+}
+
+impl crate::Owned<std_expected_MR_CSharp_E1_float>
+{
+    /// Converts to a Rust `Result`, taking the value or the error out, so `?` works on the return values: `let mesh = mesh_load(...).into_result()?;`.
+    pub fn into_result(mut self) -> Result<crate::ffi::MR_CSharp_E1, f32>
+    {
+        match self.as_result_mut() {Ok(x) => Ok(*x), Err(x) => Err(*x)}
+    }
 }
 
 unsafe impl crate::CppCopy for std_expected_MR_CSharp_E1_float
