@@ -1231,6 +1231,11 @@ namespace mrbind::C
             // If that fails, we then proceed to adding `params` to the name.
             std::string fallback_name;
 
+            // Are we allowed to add parameter types to the name?
+            // This is set to false when `mrbind::overload_suffix` is involved.
+            // This isn't exactly the same thing as leaving `params` empty, since disabling this also disables adding the `_i` suffix with the number of parameters (which would be `_0` if you just left `params` empty).
+            bool allow_adding_params = true;
+
             // How many parameter types we already added to the `name`.
             std::size_t num_params_consumed = 0;
 

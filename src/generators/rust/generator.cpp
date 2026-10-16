@@ -1425,6 +1425,10 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
             EmitCasts(info, methods, used_names, extra);
             if (cl.callable_info)
                 EmitStdFunction(info, methods, used_names);
+            if (cpp_name.starts_with("expected<") || cpp_name.starts_with("std::expected<") || cpp_name.starts_with("tl::expected<"))
+                EmitExpectedOrOptional(info, false, methods, used_names, extra);
+            else if (cpp_name.starts_with("std::optional<"))
+                EmitExpectedOrOptional(info, true, methods, used_names, extra);
 
             if (!methods.empty())
             {
@@ -1457,6 +1461,131 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
                 }
             }
         }
+    }
+
+    void Generator::EmitExpectedOrOptional(const TypeInfo &info, bool is_optional, std::string &methods, std::set<std::string> &used_names, std::string &extra)
+    {
+        const CInterop::ClassMethod *value = nullptr, *value_mut = nullptr, *error = nullptr, *error_mut = nullptr, *success = nullptr;
+        for (const auto &method : info.class_desc->methods)
+        {
+            const std::string &n = method.c_name;
+            if (n == info.c_name + "_value") value = &method;
+            else if (n == info.c_name + "_value_mut") value_mut = &method;
+            else if (n == info.c_name + "_error") error = &method;
+            else if (n == info.c_name + "_error_mut") error_mut = &method;
+            else if (n == info.c_name + "_success") success = &method;
+        }
+        // `expected<void, E>` has a `value()` returning `bool`.
+        if (value && !ParseTypeOrThrow(value->ret.c_type).Is<cppdecl::Pointer>())
+            value = value_mut = nullptr;
+        if (!is_optional && (!error || !success || bool(value) != bool(value_mut)))
+            return;
+
+        // The type behind the pointer that a getter returns, and how `into_result()` takes it out: a move into `Owned<T>`, a copy, or a `String`.
+        struct Side
+        {
+            std::string path;
+            std::string owned_type;
+            std::string take_out; // An expression in terms of `x: &mut <path>`.
+        };
+        auto GetSide = [&](const CInterop::ClassMethod &getter) -> std::optional<Side>
+        {
+            const cppdecl::Type &ct = ParseTypeOrThrow(getter.ret.c_type);
+            if (ct.modifiers.size() != 1 || !ct.Is<cppdecl::Pointer>())
+                return {};
+            auto type_iter = types_by_c_name.find(cppdecl::ToCode(ct.simple_type.name, {}));
+            const TypeInfo *type = type_iter != types_by_c_name.end() ? type_iter->second : nullptr;
+            auto ffi_type = CTypeToRust(ct, 1, false);
+            if (!ffi_type)
+                return {};
+            if (!type || type->IsExposedStruct() || type->IsEnum())
+            {
+                if (!type && (ct.simple_type.name.AsSingleWord().empty() || ct.simple_type.name.AsSingleWord() == "void"))
+                    return {};
+                return Side{.path = *ffi_type, .owned_type = *ffi_type, .take_out = "*x"};
+            }
+            Side ret;
+            ret.path = type->rust_path;
+            if (type->cpp_name == "std::string")
+            {
+                ret.owned_type = "String";
+                ret.take_out = "x.to_string()";
+                return ret;
+            }
+            if (!type->has_destroy)
+                return ret;
+            // Moves with the pass-by enum, or copies when the C bindings pass the type by a plain pointer (copyable or trivially movable).
+            for (const auto &method : type->class_desc->methods)
+            {
+                auto ctor = std::get_if<CInterop::MethodKinds::Constructor>(&method.var);
+                if (!ctor || !ctor->is_copying_ctor || method.params.empty())
+                    continue;
+                const std::size_t num_c_params = method.params.back().c_params.size();
+                if (num_c_params != 1 && num_c_params != 2)
+                    continue;
+                const std::string arg = "x as *mut " + ret.path + " as *mut crate::ffi::" + type->c_name;
+                ret.owned_type = "crate::Owned<" + ret.path + ">";
+                ret.take_out = "unsafe {crate::Owned::from_raw(crate::ffi::" + method.c_name + "(" + (num_c_params == 2 ? "crate::ffi::" + c_desc.helpers_prefix + "PassBy_Move, " + arg : arg) + ") as *mut " + ret.path + ")}";
+                break;
+            }
+            return ret;
+        };
+
+        if (is_optional)
+        {
+            if (!value || !value_mut || !info.has_destroy)
+                return;
+            std::optional<Side> value_side = GetSide(*value);
+            if (!value_side || value_side->owned_type.empty())
+                return;
+            extra += "impl crate::Owned<" + info.file_unqual + ">\n{\n";
+            extra += "    /// Converts to a Rust `Option`, taking the value out.\n";
+            extra += "    pub fn into_option(mut self) -> Option<" + value_side->owned_type + ">\n    {\n";
+            extra += "        self." + RustIdent("value_mut") + "().map(|x| " + value_side->take_out + ")\n";
+            extra += "    }\n}\n\n";
+            return;
+        }
+
+        std::optional<Side> value_side;
+        if (value)
+        {
+            value_side = GetSide(*value);
+            if (!value_side)
+                return;
+        }
+        std::optional<Side> error_side = GetSide(*error);
+        if (!error_side)
+            return;
+
+        const std::string ffi_this = "crate::ffi::" + RustIdent(info.c_name);
+        auto Emit = [&](bool is_mut, const CInterop::ClassMethod *value_getter, const CInterop::ClassMethod &error_getter) -> std::string
+        {
+            const std::string ref = is_mut ? "&'a mut " : "&'a ";
+            const std::string ptr = is_mut ? "*mut " : "*const ";
+            std::string name = UniqueName(used_names, is_mut ? "as_result_mut" : "as_result");
+            methods += "    /// The value as `Ok`, or the error as `Err`" + std::string(is_mut ? ", as mutable references" : "") + ".\n";
+            methods += "    pub fn " + name + "<'a>(" + (is_mut ? "&'a mut self" : "&'a self") + ") -> Result<" + (value_side ? ref + value_side->path : "()") + ", " + ref + error_side->path + ">\n    {\n";
+            methods += "        let __this = self as " + ptr + "Self as " + ptr + ffi_this + ";\n";
+            const std::string err = "Err(&" + std::string(is_mut ? "mut " : "") + "*(crate::ffi::" + error_getter.c_name + "(__this) as " + ptr + error_side->path + "))";
+            if (value_getter)
+                methods += "        unsafe {match (crate::ffi::" + value_getter->c_name + "(__this) as " + ptr + value_side->path + ")." + (is_mut ? "as_mut" : "as_ref") + "() {Some(x) => Ok(x), None => " + err + "}}\n";
+            else
+                methods += "        unsafe {if crate::ffi::" + success->c_name + "(__this as *const " + ffi_this + ") {Ok(())} else {" + err + "}}\n";
+            methods += "    }\n\n";
+            return name;
+        };
+        Emit(false, value, *error);
+        if (!error_mut)
+            return;
+        std::string as_result_mut = Emit(true, value_mut, *error_mut);
+
+        if (!info.has_destroy || error_side->owned_type.empty() || (value_side && value_side->owned_type.empty()))
+            return;
+        extra += "impl crate::Owned<" + info.file_unqual + ">\n{\n";
+        extra += "    /// Converts to a Rust `Result`, taking the value or the error out, so `?` works on the return values: `let mesh = mesh_load(...).into_result()?;`.\n";
+        extra += "    pub fn into_result(mut self) -> Result<" + (value_side ? value_side->owned_type : "()") + ", " + error_side->owned_type + ">\n    {\n";
+        extra += "        match self." + as_result_mut + "() {Ok(" + std::string(value_side ? "x) => Ok(" + value_side->take_out + ")" : "()) => Ok(())") + ", Err(x) => Err(" + error_side->take_out + ")}\n";
+        extra += "    }\n}\n\n";
     }
 
     std::vector<std::string> Generator::FuncNamespaceParts(const CInterop::Function &func, std::string *simple_name) const

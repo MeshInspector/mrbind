@@ -109,3 +109,12 @@ impl std_optional_MR_StdOptional_B
 
 }
 
+impl crate::Owned<std_optional_MR_StdOptional_B>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<crate::Owned<crate::mr::std_optional::B>>
+    {
+        self.value_mut().map(|x| unsafe {crate::Owned::from_raw(crate::ffi::MR_StdOptional_B_ConstructFromAnother(crate::ffi::MR_C_PassBy_Move, x as *mut crate::mr::std_optional::B as *mut crate::ffi::MR_StdOptional_B) as *mut crate::mr::std_optional::B)})
+    }
+}
+

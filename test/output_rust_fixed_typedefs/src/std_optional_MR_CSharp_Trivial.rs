@@ -89,6 +89,15 @@ impl std_optional_MR_CSharp_Trivial
 
 }
 
+impl crate::Owned<std_optional_MR_CSharp_Trivial>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<crate::Owned<crate::mr::c_sharp::Trivial>>
+    {
+        self.value_mut().map(|x| unsafe {crate::Owned::from_raw(crate::ffi::MR_CSharp_Trivial_ConstructFromAnother(x as *mut crate::mr::c_sharp::Trivial as *mut crate::ffi::MR_CSharp_Trivial) as *mut crate::mr::c_sharp::Trivial)})
+    }
+}
+
 unsafe impl crate::CppCopy for std_optional_MR_CSharp_Trivial
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
