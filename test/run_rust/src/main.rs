@@ -99,5 +99,12 @@ fn main()
     let _: &mut mr::bases::A = b.as_mut();
     let _ = b.upcast_to_a_mut();
 
+    // `std::expected` and `std::optional` as `Result` and `Option`.
+    assert_eq!(mr::std_expected::get_exp().as_result().ok().copied(), Some(0));
+    assert_eq!(mr::std_expected::get_exp().into_result(), Ok(0));
+    assert_eq!(mr::std_expected::get_exp_void().into_result(), Ok(()));
+    assert_eq!(mr::std_optional::get_int().into_option(), None);
+    assert!(mr::std_optional::get_class().into_option().is_none());
+
     println!("All Rust binding tests passed.");
 }
