@@ -89,6 +89,15 @@ impl std_optional_MR_CSharp_ExposedLayoutSh
 
 }
 
+impl crate::Owned<std_optional_MR_CSharp_ExposedLayoutSh>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<crate::ffi::MR_CSharp_ExposedLayoutSh>
+    {
+        self.value_mut().map(|x| *x)
+    }
+}
+
 unsafe impl crate::CppCopy for std_optional_MR_CSharp_ExposedLayoutSh
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}

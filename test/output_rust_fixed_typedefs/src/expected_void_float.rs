@@ -78,6 +78,29 @@ impl expected_void_float
         unsafe {(__ret as *mut f32).as_mut()}
     }
 
+    /// The value as `Ok`, or the error as `Err`.
+    pub fn as_result<'a>(&'a self) -> Result<(), &'a f32>
+    {
+        let __this = self as *const Self as *const crate::ffi::MR_C_expected_void_float;
+        unsafe {if crate::ffi::MR_C_expected_void_float_success(__this as *const crate::ffi::MR_C_expected_void_float) {Ok(())} else {Err(&*(crate::ffi::MR_C_expected_void_float_error(__this) as *const f32))}}
+    }
+
+    /// The value as `Ok`, or the error as `Err`, as mutable references.
+    pub fn as_result_mut<'a>(&'a mut self) -> Result<(), &'a mut f32>
+    {
+        let __this = self as *mut Self as *mut crate::ffi::MR_C_expected_void_float;
+        unsafe {if crate::ffi::MR_C_expected_void_float_success(__this as *const crate::ffi::MR_C_expected_void_float) {Ok(())} else {Err(&mut *(crate::ffi::MR_C_expected_void_float_error_mut(__this) as *mut f32))}}
+    }
+
+}
+
+impl crate::Owned<expected_void_float>
+{
+    /// Converts to a Rust `Result`, taking the value or the error out, so `?` works on the return values: `let mesh = mesh_load(...).into_result()?;`.
+    pub fn into_result(mut self) -> Result<(), f32>
+    {
+        match self.as_result_mut() {Ok(()) => Ok(()), Err(x) => Err(*x)}
+    }
 }
 
 unsafe impl crate::CppCopy for expected_void_float

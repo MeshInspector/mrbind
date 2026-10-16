@@ -109,3 +109,12 @@ impl std_optional_MR_CSharp_NonTrivial
 
 }
 
+impl crate::Owned<std_optional_MR_CSharp_NonTrivial>
+{
+    /// Converts to a Rust `Option`, taking the value out.
+    pub fn into_option(mut self) -> Option<crate::Owned<crate::mr::c_sharp::NonTrivial>>
+    {
+        self.value_mut().map(|x| unsafe {crate::Owned::from_raw(crate::ffi::MR_CSharp_NonTrivial_ConstructFromAnother(crate::ffi::MR_C_PassBy_Move, x as *mut crate::mr::c_sharp::NonTrivial as *mut crate::ffi::MR_CSharp_NonTrivial) as *mut crate::mr::c_sharp::NonTrivial)})
+    }
+}
+

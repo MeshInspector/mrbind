@@ -105,6 +105,29 @@ impl std_expected_int_std_string
         unsafe {(__ret as *mut crate::mr::cs::std_string).as_mut()}
     }
 
+    /// The value as `Ok`, or the error as `Err`.
+    pub fn as_result<'a>(&'a self) -> Result<&'a core::ffi::c_int, &'a crate::mr::cs::std_string>
+    {
+        let __this = self as *const Self as *const crate::ffi::MR_C_std_expected_int_std_string;
+        unsafe {match (crate::ffi::MR_C_std_expected_int_std_string_value(__this) as *const core::ffi::c_int).as_ref() {Some(x) => Ok(x), None => Err(&*(crate::ffi::MR_C_std_expected_int_std_string_error(__this) as *const crate::mr::cs::std_string))}}
+    }
+
+    /// The value as `Ok`, or the error as `Err`, as mutable references.
+    pub fn as_result_mut<'a>(&'a mut self) -> Result<&'a mut core::ffi::c_int, &'a mut crate::mr::cs::std_string>
+    {
+        let __this = self as *mut Self as *mut crate::ffi::MR_C_std_expected_int_std_string;
+        unsafe {match (crate::ffi::MR_C_std_expected_int_std_string_value_mut(__this) as *mut core::ffi::c_int).as_mut() {Some(x) => Ok(x), None => Err(&mut *(crate::ffi::MR_C_std_expected_int_std_string_error_mut(__this) as *mut crate::mr::cs::std_string))}}
+    }
+
+}
+
+impl crate::Owned<std_expected_int_std_string>
+{
+    /// Converts to a Rust `Result`, taking the value or the error out, so `?` works on the return values: `let mesh = mesh_load(...).into_result()?;`.
+    pub fn into_result(mut self) -> Result<core::ffi::c_int, String>
+    {
+        match self.as_result_mut() {Ok(x) => Ok(*x), Err(x) => Err(x.to_string())}
+    }
 }
 
 unsafe impl crate::CppCopy for std_expected_int_std_string
