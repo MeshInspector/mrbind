@@ -214,6 +214,7 @@ namespace mrbind::Java
             }
             if (ret.idents.empty())
                 throw std::runtime_error("Bad relative file name in the input JSON: `" + file.relative_name + "`.");
+            ret.idents.back() = ShortenClassName(ret.idents.back());
             ret.java_path = base_package + ".ffi." + JoinNameParts(ret.idents, ".");
         }
         else if (ret.group != file.group)

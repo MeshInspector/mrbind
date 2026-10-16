@@ -6,6 +6,8 @@ shopt -s nullglob
 
 JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/}"
 
+# The class names are shortened more than by default: the output paths here are long already,
+# and Windows checkouts of this repo as a submodule are limited to 260 characters per path.
 build/mrbind_gen_java \
     --input-json test/output_c/desc.json \
     --output-dir test/output_java/src \
@@ -13,6 +15,7 @@ build/mrbind_gen_java \
     --package mrbind_test \
     --force-namespace MR::CS \
     --imported-lib-name bleh \
+    --max-class-name-length 64 \
 
 build/mrbind_gen_java \
     --input-json test/output_c_fixed_typedefs/desc.json \
@@ -21,6 +24,7 @@ build/mrbind_gen_java \
     --package mrbind_test \
     --force-namespace MR::CS \
     --imported-lib-name bleh \
+    --max-class-name-length 64 \
     --imported-split-lib-name MR_A_ bleh_A \
     --imported-split-lib-name MR_B_ bleh_B \
     --imported-split-lib-name MR_AB_ bleh_AB \
@@ -32,6 +36,7 @@ build/mrbind_gen_java \
     --package mrbind_test \
     --force-namespace MR::CS \
     --imported-lib-name bleh \
+    --max-class-name-length 64 \
     --imported-split-lib-name MR_AB_ bleh_AB \
 
 # Compile each output. `javac` reads the list of sources from a file, the command line would be too long otherwise.

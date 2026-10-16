@@ -223,13 +223,13 @@ public final class std_unordered_map_MR_StdContainers_NonAssignable_float extend
      *
      * Calls `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_find()`.
      */
-    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator find(mrbind_test.mr.stdcontainers.NonAssignable key)
+    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 find(mrbind_test.mr.stdcontainers.NonAssignable key)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_find.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -273,13 +273,13 @@ public final class std_unordered_map_MR_StdContainers_NonAssignable_float extend
      *
      * Calls `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_begin()`.
      */
-    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator begin()
+    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 begin()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_begin.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -296,7 +296,7 @@ public final class std_unordered_map_MR_StdContainers_NonAssignable_float extend
      *
      * Calls `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_is_begin()`.
      */
-    public boolean is_begin(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator iter)
+    public boolean is_begin(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 iter)
     {
         try
         {
@@ -369,13 +369,13 @@ public final class std_unordered_map_MR_StdContainers_NonAssignable_float extend
      *
      * Calls `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_end()`.
      */
-    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator end()
+    public mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 end()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_map_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_end.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator(__ret, true, null);
+            return new mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
@@ -392,7 +392,7 @@ public final class std_unordered_map_MR_StdContainers_NonAssignable_float extend
      *
      * Calls `MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_is_end()`.
      */
-    public boolean is_end(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator iter)
+    public boolean is_end(mrbind_test.mr.cs.std_unordered_map_MR_StdContainers_NonAssignable_float_const_ite__97007713 iter)
     {
         try
         {
