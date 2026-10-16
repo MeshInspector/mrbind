@@ -60,12 +60,12 @@ public final class TestStdFunction extends mrbind_test.CppObject
      *
      * Calls `MR_CSharp_TestStdFunction_ConstructFrom()`.
      */
-    public TestStdFunction(mrbind_test.mr.cs.std_function_int_from_std_string f1, mrbind_test.mr.cs.std_function_std_string_from_int_int f2, mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1 f3, mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC f4, mrbind_test.mr.cs.std_function_int_ref_from_int_ref_int_rvalue_ref f5, mrbind_test.mr.cs.std_function_int_rvalue_ref f6, mrbind_test.mr.cs.std_function_void f7)
+    public TestStdFunction(mrbind_test.mr.cs.std_function_int_from_std_string f1, mrbind_test.mr.cs.std_function_std_string_from_int_int f2, mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1 f3, mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayo__90003873 f4, mrbind_test.mr.cs.std_function_int_ref_from_int_ref_int_rvalue_ref f5, mrbind_test.mr.cs.std_function_int_rvalue_ref f6, mrbind_test.mr.cs.std_function_void f7)
     {
         this(__ctor_constructFrom(f1, f2, f3, f4, f5, f6, f7), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(mrbind_test.mr.cs.std_function_int_from_std_string f1, mrbind_test.mr.cs.std_function_std_string_from_int_int f2, mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1 f3, mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC f4, mrbind_test.mr.cs.std_function_int_ref_from_int_ref_int_rvalue_ref f5, mrbind_test.mr.cs.std_function_int_rvalue_ref f6, mrbind_test.mr.cs.std_function_void f7)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(mrbind_test.mr.cs.std_function_int_from_std_string f1, mrbind_test.mr.cs.std_function_std_string_from_int_int f2, mrbind_test.mr.cs.std_function_MR_CSharp_E1_from_MR_CSharp_E1 f3, mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayo__90003873 f4, mrbind_test.mr.cs.std_function_int_ref_from_int_ref_int_rvalue_ref f5, mrbind_test.mr.cs.std_function_int_rvalue_ref f6, mrbind_test.mr.cs.std_function_void f7)
     {
         try
         {
@@ -319,14 +319,14 @@ public final class TestStdFunction extends mrbind_test.CppObject
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f4()`.
      */
-    public mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC f4()
+    public mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayo__90003873 f4()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H6.MR_CSharp_TestStdFunction_Get_f4.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
-            return new mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC(__ret, false, __owner);
+            return new mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayo__90003873(__ret, false, __owner);
         }
         catch (java.lang.Throwable __e)
         {
@@ -344,7 +344,7 @@ public final class TestStdFunction extends mrbind_test.CppObject
      *
      * Calls `MR_CSharp_TestStdFunction_Set_f4()`.
      */
-    public void setF4(mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC value)
+    public void setF4(mrbind_test.mr.cs.std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayo__90003873 value)
     {
         try
         {

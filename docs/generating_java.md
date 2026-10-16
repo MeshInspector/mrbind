@@ -41,7 +41,7 @@ Where:
 
 * `--force-namespace MyLib` is optional, but you'll usually want it. It puts the entities of the global C++ namespace (which includes the `std::` container instantiations) into the package of this namespace (`com.example.mylib.mylib` here, `Foo::Bar` becomes `foo.bar`). Without it they go directly to the base package, next to the runtime classes.
 
-Class names longer than 100 characters (some `std::function` instantiations) are truncated and suffixed with a hash, since each class is a file and Windows limits the path length. `--max-class-name-length` changes the limit, 0 disables it.
+Class names longer than 100 characters (some `std::function` instantiations, and the `ffi` classes named after long C file names) are truncated and suffixed with a hash, since each class is a file and Windows limits the path length. `--max-class-name-length` changes the limit, 0 disables it.
 
 The generator prints a summary at the end: how many functions got wrappers, how many of those use raw C types, and how many were skipped because their C types can't be spelled in Java (`long double` and such). Pass `--verbose` to list the skipped ones.
 

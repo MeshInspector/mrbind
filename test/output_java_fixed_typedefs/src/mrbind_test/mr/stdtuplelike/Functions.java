@@ -189,13 +189,13 @@ public final class Functions
      *
      * Calls `MR_StdTupleLike_GetTuple2()`.
      */
-    public static mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t___a385e102 GetTuple2()
+    public static mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const___332c5840 GetTuple2()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_tuple_like.H0.MR_StdTupleLike_GetTuple2.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t___a385e102(__ret, true, null);
+            return new mrbind_test.mr.cs.std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const___332c5840(__ret, true, null);
         }
         catch (java.lang.Throwable __e)
         {
