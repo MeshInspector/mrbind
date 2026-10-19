@@ -173,8 +173,20 @@ namespace mrbind::Java
         return iter->second;
     }
 
-    Generator::Module &Generator::GetModuleForNamespace(const std::vector<std::string> &ns_parts)
+    Generator::Module &Generator::GetModuleForNamespace(std::vector<std::string> ns_parts)
     {
+        // Like in the C# and Rust generators, `--replace-namespace` goes first, then `--force-namespace` applies to what ended up in the global namespace.
+        for (const auto &[from, to] : replaced_namespaces)
+        {
+            if (ns_parts.size() >= from.size() && std::equal(from.begin(), from.end(), ns_parts.begin()))
+            {
+                ns_parts.erase(ns_parts.begin(), ns_parts.begin() + std::ptrdiff_t(from.size()));
+                ns_parts.insert(ns_parts.begin(), to.begin(), to.end());
+            }
+        }
+        if (ns_parts.empty())
+            ns_parts = forced_namespace;
+
         Module *m = &root;
         for (const auto &part : ns_parts)
         {
@@ -553,9 +565,7 @@ namespace mrbind::Java
                     ident.erase(0, c_desc.helpers_prefix.size());
                 else
                     ns_parts.clear();
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(ident)));
             }
             else
@@ -581,9 +591,7 @@ namespace mrbind::Java
                 }
                 if (unqual.empty())
                     unqual = PartToString(parts.back());
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(unqual)));
             }
             info.java_path = info.module->package + "." + info.java_unqual;
@@ -993,11 +1001,11 @@ public interface Native
 
         // CppException.
         output_files[root.dir + "/CppException.java"] = pkg_line + R"(/** A C++ exception thrown by the C bindings. */
-public class CppException extends RuntimeException
+public class CppException extends java.lang.RuntimeException
 {
     private static final long serialVersionUID = 1;
 
-    public CppException(String message) {super(message);}
+    public CppException(java.lang.String message) {super(message);}
 }
 )";
 
@@ -1008,10 +1016,10 @@ public class CppException extends RuntimeException
  * An instance either owns its C++ object (then the object is destroyed when the wrapper is garbage-collected or closed),
  * or is a reference to an object owned by something else. References returned by methods keep their owner alive.
  */
-public abstract class CppObject implements Native, AutoCloseable
+public abstract class CppObject implements Native, java.lang.AutoCloseable
 {
     // Runs the destructor from the cleaner. Must not reference the wrapper, or it would never be collected.
-    private static final class State implements Runnable
+    private static final class State implements java.lang.Runnable
     {
         final java.lang.foreign.MemorySegment ptr;
         final java.util.function.Consumer<java.lang.foreign.MemorySegment> destroy;
@@ -1023,7 +1031,7 @@ public abstract class CppObject implements Native, AutoCloseable
             this.destroy = destroy;
         }
 
-        @Override public void run()
+        @java.lang.Override public void run()
         {
             if (owned)
             {
@@ -1036,18 +1044,18 @@ public abstract class CppObject implements Native, AutoCloseable
     private final java.lang.foreign.MemorySegment ptr;
     private final State state; // Null if not owned.
     private final java.lang.ref.Cleaner.Cleanable cleanable;
-    @SuppressWarnings("unused") private final Object owner; // Only here to keep the owner of a reference alive.
+    @java.lang.SuppressWarnings("unused") private final java.lang.Object owner; // Only here to keep the owner of a reference alive.
     private boolean closed;
 
     /**
      * Wraps a pointer from the C bindings. If `destroy` is not null, the object is owned and `destroy` is called on it when the wrapper dies.
      * `owner` is kept alive as long as this wrapper is.
      */
-    @SuppressWarnings("this-escape")
-    protected CppObject(java.lang.foreign.MemorySegment ptr, java.util.function.Consumer<java.lang.foreign.MemorySegment> destroy, Object owner)
+    @java.lang.SuppressWarnings("this-escape")
+    protected CppObject(java.lang.foreign.MemorySegment ptr, java.util.function.Consumer<java.lang.foreign.MemorySegment> destroy, java.lang.Object owner)
     {
         if (ptr.address() == 0)
-            throw new NullPointerException("The C bindings returned a null pointer.");
+            throw new java.lang.NullPointerException("The C bindings returned a null pointer.");
         this.ptr = ptr;
         this.owner = owner;
         if (destroy != null)
@@ -1062,10 +1070,10 @@ public abstract class CppObject implements Native, AutoCloseable
         }
     }
 
-    @Override public final java.lang.foreign.MemorySegment rawPointer()
+    @java.lang.Override public final java.lang.foreign.MemorySegment rawPointer()
     {
         if (closed)
-            throw new IllegalStateException("This object was closed or moved from.");
+            throw new java.lang.IllegalStateException("This object was closed or moved from.");
         return ptr;
     }
 
@@ -1073,7 +1081,7 @@ public abstract class CppObject implements Native, AutoCloseable
     public final boolean isOwned() {return state != null && state.owned;}
 
     /** Destroys the C++ object now, if owned. The wrapper can't be used after this. Calling it again does nothing. */
-    @Override public final void close()
+    @java.lang.Override public final void close()
     {
         closed = true;
         if (cleanable != null)
@@ -1084,7 +1092,7 @@ public abstract class CppObject implements Native, AutoCloseable
     public final java.lang.foreign.MemorySegment release()
     {
         if (!isOwned())
-            throw new IllegalStateException("This object is not owned by the wrapper, it can't be moved from.");
+            throw new java.lang.IllegalStateException("This object is not owned by the wrapper, it can't be moved from.");
         state.owned = false;
         closed = true;
         return ptr;
@@ -1102,28 +1110,28 @@ public abstract class CppObject implements Native, AutoCloseable
 public abstract class CppStruct implements Native
 {
     protected final java.lang.foreign.MemorySegment segment;
-    @SuppressWarnings("unused") private final Object owner; // Only here to keep the owner of a reference alive.
+    @java.lang.SuppressWarnings("unused") private final java.lang.Object owner; // Only here to keep the owner of a reference alive.
 
     /** Wraps a segment of the exact struct size. `owner` is kept alive as long as this wrapper is. */
-    protected CppStruct(java.lang.foreign.MemorySegment segment, Object owner)
+    protected CppStruct(java.lang.foreign.MemorySegment segment, java.lang.Object owner)
     {
         this.segment = segment;
         this.owner = owner;
     }
 
-    @Override public final java.lang.foreign.MemorySegment rawPointer() {return segment;}
+    @java.lang.Override public final java.lang.foreign.MemorySegment rawPointer() {return segment;}
 }
 )";
 
         // Ffi.
         std::string ffi = pkg_line;
         ffi += "/** The runtime support of the bindings. */\n";
-        ffi += "@SuppressWarnings(\"restricted\") // The restricted methods warn unless `--enable-native-access` is passed, this is where we use them.\n";
+        ffi += "@java.lang.SuppressWarnings(\"restricted\") // The restricted methods warn unless `--enable-native-access` is passed, this is where we use them.\n";
         ffi += "public final class Ffi\n{\n";
         ffi += "    private Ffi() {}\n\n";
         ffi += "    public static final java.lang.foreign.Linker LINKER = java.lang.foreign.Linker.nativeLinker();\n";
         ffi += "    public static final java.lang.ref.Cleaner CLEANER = java.lang.ref.Cleaner.create();\n";
-        ffi += "    public static final boolean IS_WINDOWS = System.getProperty(\"os.name\", \"\").toLowerCase(java.util.Locale.ROOT).startsWith(\"windows\");\n\n";
+        ffi += "    public static final boolean IS_WINDOWS = java.lang.System.getProperty(\"os.name\", \"\").toLowerCase(java.util.Locale.ROOT).startsWith(\"windows\");\n\n";
         ffi += "    /** The layout of C `long`: 4 bytes on Windows, 8 bytes elsewhere. The name lets `downcall()` widen it to a Java `long`. */\n";
         ffi += "    public static final java.lang.foreign.ValueLayout C_LONG = (IS_WINDOWS ? java.lang.foreign.ValueLayout.JAVA_INT : java.lang.foreign.ValueLayout.JAVA_LONG).withName(\"mrbind_c_long\");\n\n";
         ffi += "    /** How an object is passed to a C function. Matches the C enum `" + hp + "PassBy`. */\n";
@@ -1134,7 +1142,7 @@ public abstract class CppStruct implements Native
 
         // The libraries.
         ffi += "    // The library of each file group of the C bindings, see `--split-library` in the C generator.\n";
-        ffi += "    private static final java.util.Map<String, String> LIB_NAMES = java.util.Map.of(";
+        ffi += "    private static final java.util.Map<java.lang.String, java.lang.String> LIB_NAMES = java.util.Map.of(";
         {
             std::vector<std::string> pairs;
             std::map<std::string, std::string> sorted(imported_lib_names.begin(), imported_lib_names.end());
@@ -1143,7 +1151,7 @@ public abstract class CppStruct implements Native
             ffi += JoinNameParts(pairs, ", ");
         }
         ffi += ");\n";
-        ffi += "    private static final java.util.Map<String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();\n\n";
+        ffi += "    private static final java.util.Map<java.lang.String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();\n\n";
         ffi += R"(    /**
      * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
      * (see `bundledLibrary()`), else from `java.library.path`
@@ -1151,36 +1159,36 @@ public abstract class CppStruct implements Native
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
      * If that fails, it's loaded with `System.loadLibrary()`, and then by its platform-specific file name through the system loader.
      */
-    public static synchronized java.lang.foreign.SymbolLookup lookup(String group)
+    public static synchronized java.lang.foreign.SymbolLookup lookup(java.lang.String group)
     {
         java.lang.foreign.SymbolLookup ret = LOOKUPS.get(group);
         if (ret == null)
         {
-            String lib = LIB_NAMES.get(group);
+            java.lang.String lib = LIB_NAMES.get(group);
             if (lib == null)
-                throw new IllegalArgumentException("Unknown library group: `" + group + "`.");
-            java.nio.file.Path bundled = bundledLibrary(System.mapLibraryName(lib));
+                throw new java.lang.IllegalArgumentException("Unknown library group: `" + group + "`.");
+            java.nio.file.Path bundled = bundledLibrary(java.lang.System.mapLibraryName(lib));
             if (bundled != null)
             {
                 try
                 {
                     ret = IS_WINDOWS ? windowsLoad(bundled) : java.lang.foreign.SymbolLookup.libraryLookup(bundled, java.lang.foreign.Arena.global());
                 }
-                catch (Throwable e)
+                catch (java.lang.Throwable e)
                 {
                     throw rethrow(e);
                 }
                 LOOKUPS.put(group, ret);
                 return ret;
             }
-            Throwable windowsError = null;
+            java.lang.Throwable windowsError = null;
             if (IS_WINDOWS)
             {
                 try
                 {
-                    ret = windowsLookup(System.mapLibraryName(lib));
+                    ret = windowsLookup(java.lang.System.mapLibraryName(lib));
                 }
-                catch (Throwable e)
+                catch (java.lang.Throwable e)
                 {
                     windowsError = e;
                 }
@@ -1189,18 +1197,18 @@ public abstract class CppStruct implements Native
             {
                 try
                 {
-                    System.loadLibrary(lib);
+                    java.lang.System.loadLibrary(lib);
                     ret = java.lang.foreign.SymbolLookup.loaderLookup();
                 }
-                catch (UnsatisfiedLinkError e)
+                catch (java.lang.UnsatisfiedLinkError e)
                 {
                     if (windowsError != null)
                         e.addSuppressed(windowsError);
                     try
                     {
-                        ret = java.lang.foreign.SymbolLookup.libraryLookup(System.mapLibraryName(lib), java.lang.foreign.Arena.global());
+                        ret = java.lang.foreign.SymbolLookup.libraryLookup(java.lang.System.mapLibraryName(lib), java.lang.foreign.Arena.global());
                     }
-                    catch (IllegalArgumentException e2)
+                    catch (java.lang.IllegalArgumentException e2)
                     {
                         e.addSuppressed(e2);
                         throw e;
@@ -1216,10 +1224,10 @@ public abstract class CppStruct implements Native
      * `<os>-<arch>` of the libraries bundled for this platform, e.g. `windows-x86_64`, `linux-aarch64`, `macos-aarch64`
      * (the names of Rust's `target_os` and `target_arch`).
      */
-    public static String nativePlatform()
+    public static java.lang.String nativePlatform()
     {
-        String os = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT);
-        String arch = System.getProperty("os.arch", "").toLowerCase(java.util.Locale.ROOT);
+        java.lang.String os = java.lang.System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT);
+        java.lang.String arch = java.lang.System.getProperty("os.arch", "").toLowerCase(java.util.Locale.ROOT);
         os = IS_WINDOWS ? "windows" : os.startsWith("mac") ? "macos" : os.startsWith("linux") ? "linux" : os.replace(' ', '_');
         arch = switch (arch) {case "amd64", "x86_64" -> "x86_64"; case "aarch64", "arm64" -> "aarch64"; default -> arch;};
         return os + "-" + arch;
@@ -1234,7 +1242,7 @@ public abstract class CppStruct implements Native
      * `<package>-native-<hash of files.txt>` in the directory from the system property `<package>.native.cache`, by default `java.io.tmpdir`,
      * and reused by later runs. The libraries find their dependencies next to themselves (rpath `$ORIGIN`, `@loader_path`, or Windows' altered search path).
      */
-    private static java.nio.file.Path bundledLibrary(String fileName)
+    private static java.nio.file.Path bundledLibrary(java.lang.String fileName)
     {
         if (!bundledDirSearched)
         {
@@ -1256,7 +1264,7 @@ public abstract class CppStruct implements Native
 
     private static java.nio.file.Path extractBundledLibraries() throws java.io.IOException
     {
-        String resourceDir = "native/" + nativePlatform() + "/";
+        java.lang.String resourceDir = "native/" + nativePlatform() + "/";
         byte[] list;
         try (java.io.InputStream in = Ffi.class.getResourceAsStream(resourceDir + "files.txt"))
         {
@@ -1264,26 +1272,26 @@ public abstract class CppStruct implements Native
                 return null;
             list = in.readAllBytes();
         }
-        String hash;
+        java.lang.String hash;
         try
         {
             hash = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(list), 0, 8);
         }
         catch (java.security.NoSuchAlgorithmException e)
         {
-            throw new IllegalStateException(e);
+            throw new java.lang.IllegalStateException(e);
         }
-        String pkg = Ffi.class.getPackageName();
-        java.nio.file.Path parent = java.nio.file.Path.of(System.getProperty(pkg + ".native.cache", System.getProperty("java.io.tmpdir"))).toAbsolutePath();
+        java.lang.String pkg = Ffi.class.getPackageName();
+        java.nio.file.Path parent = java.nio.file.Path.of(java.lang.System.getProperty(pkg + ".native.cache", java.lang.System.getProperty("java.io.tmpdir"))).toAbsolutePath();
         java.nio.file.Path dir = parent.resolve(pkg + "-native-" + hash);
         if (java.nio.file.Files.exists(dir.resolve(".complete")))
             return dir;
         // Extracted to a temporary directory renamed at the end, so another process never sees an incomplete set.
         java.nio.file.Files.createDirectories(parent);
         java.nio.file.Path temp = java.nio.file.Files.createTempDirectory(parent, pkg + "-native-");
-        for (String line : new String(list, java.nio.charset.StandardCharsets.UTF_8).split("\n"))
+        for (java.lang.String line : new java.lang.String(list, java.nio.charset.StandardCharsets.UTF_8).split("\n"))
         {
-            String name = line.strip();
+            java.lang.String name = line.strip();
             int space = name.indexOf(' ');
             if (space >= 0)
                 name = name.substring(space + 1).strip();
@@ -1310,7 +1318,7 @@ public abstract class CppStruct implements Native
                 throw e;
             try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
             {
-                for (java.nio.file.Path file : (Iterable<java.nio.file.Path>)files::iterator)
+                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files::iterator)
                     java.nio.file.Files.deleteIfExists(file);
             }
             java.nio.file.Files.deleteIfExists(temp);
@@ -1319,10 +1327,10 @@ public abstract class CppStruct implements Native
     }
 
     // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
-    private static java.lang.foreign.SymbolLookup windowsLookup(String fileName) throws Throwable
+    private static java.lang.foreign.SymbolLookup windowsLookup(java.lang.String fileName) throws java.lang.Throwable
     {
         java.nio.file.Path path = null;
-        for (String dir : System.getProperty("java.library.path", "").split(java.io.File.pathSeparator))
+        for (java.lang.String dir : java.lang.System.getProperty("java.library.path", "").split(java.io.File.pathSeparator))
         {
             if (dir.isEmpty())
                 continue;
@@ -1337,7 +1345,7 @@ public abstract class CppStruct implements Native
     }
 
     // Loads a DLL by its absolute path with `LoadLibraryExW(LOAD_WITH_ALTERED_SEARCH_PATH)`, see `lookup()`.
-    private static java.lang.foreign.SymbolLookup windowsLoad(java.nio.file.Path path) throws Throwable
+    private static java.lang.foreign.SymbolLookup windowsLoad(java.nio.file.Path path) throws java.lang.Throwable
     {
         java.lang.foreign.SymbolLookup kernel32 = java.lang.foreign.SymbolLookup.libraryLookup("kernel32.dll", java.lang.foreign.Arena.global());
         java.lang.foreign.Linker.Option errorState = java.lang.foreign.Linker.Option.captureCallState("GetLastError");
@@ -1354,7 +1362,7 @@ public abstract class CppStruct implements Native
             error = state.get(java.lang.foreign.ValueLayout.JAVA_INT, errorLayout.byteOffset(java.lang.foreign.MemoryLayout.PathElement.groupElement("GetLastError")));
         }
         if (module.address() == 0)
-            throw new UnsatisfiedLinkError("LoadLibraryExW failed for `" + path + "` with the Windows error " + error + (error == 127 ? ": a procedure is missing from one of its dependencies. A DLL of the same name that's already loaded (such as the C++ runtime bundled with the JDK, which java.exe loads first) can be older than the one the library needs" : "") + ".");
+            throw new java.lang.UnsatisfiedLinkError("LoadLibraryExW failed for `" + path + "` with the Windows error " + error + (error == 127 ? ": a procedure is missing from one of its dependencies. A DLL of the same name that's already loaded (such as the C++ runtime bundled with the JDK, which java.exe loads first) can be older than the one the library needs" : "") + ".");
         return name ->
         {
             try (java.lang.foreign.Arena arena = java.lang.foreign.Arena.ofConfined())
@@ -1362,7 +1370,7 @@ public abstract class CppStruct implements Native
                 java.lang.foreign.MemorySegment address = (java.lang.foreign.MemorySegment)getProcAddress.invokeExact(module, arena.allocateFrom(name));
                 return address.address() == 0 ? java.util.Optional.empty() : java.util.Optional.of(address);
             }
-            catch (Throwable e)
+            catch (java.lang.Throwable e)
             {
                 throw rethrow(e);
             }
@@ -1373,7 +1381,7 @@ public abstract class CppStruct implements Native
      * Creates the downcall handle of a C function. C `long` parameters and return values are widened to Java `long`.
      * If the library lacks the function, the handle throws `UnsatisfiedLinkError` when called, so the other functions of its class stay usable.
      */
-    public static java.lang.invoke.MethodHandle downcall(String group, String name, java.lang.foreign.FunctionDescriptor desc)
+    public static java.lang.invoke.MethodHandle downcall(java.lang.String group, java.lang.String name, java.lang.foreign.FunctionDescriptor desc)
     {
         java.util.Optional<java.lang.foreign.MemorySegment> symbol = lookup(group).find(name);
         java.lang.invoke.MethodHandle handle;
@@ -1386,8 +1394,8 @@ public abstract class CppStruct implements Native
             java.lang.invoke.MethodType type = desc.toMethodType();
             if (desc.returnLayout().isPresent() && desc.returnLayout().get() instanceof java.lang.foreign.GroupLayout)
                 type = type.insertParameterTypes(0, java.lang.foreign.SegmentAllocator.class); // Struct returns take an allocator first.
-            UnsatisfiedLinkError error = new UnsatisfiedLinkError("The function `" + name + "` is missing from the library `" + LIB_NAMES.get(group) + "`.");
-            handle = java.lang.invoke.MethodHandles.throwException(type.returnType(), UnsatisfiedLinkError.class).bindTo(error);
+            java.lang.UnsatisfiedLinkError error = new java.lang.UnsatisfiedLinkError("The function `" + name + "` is missing from the library `" + LIB_NAMES.get(group) + "`.");
+            handle = java.lang.invoke.MethodHandles.throwException(type.returnType(), java.lang.UnsatisfiedLinkError.class).bindTo(error);
             handle = java.lang.invoke.MethodHandles.dropArguments(handle, 0, type.parameterList());
         }
         java.lang.invoke.MethodType type = handle.type();
@@ -1437,10 +1445,10 @@ public abstract class CppStruct implements Native
     }
 
     /** The pointer of a wrapper. Throws if the wrapper is null. */
-    public static java.lang.foreign.MemorySegment ptrNonNull(Native object, String name)
+    public static java.lang.foreign.MemorySegment ptrNonNull(Native object, java.lang.String name)
     {
         if (object == null)
-            throw new NullPointerException("The parameter `" + name + "` must not be null.");
+            throw new java.lang.NullPointerException("The parameter `" + name + "` must not be null.");
         return object.rawPointer();
     }
 
@@ -1454,7 +1462,7 @@ public abstract class CppStruct implements Native
     public static java.lang.foreign.MemorySegment alloc(java.lang.foreign.SegmentAllocator allocator, java.lang.foreign.ValueLayout.OfDouble layout, double value) {return allocator.allocateFrom(layout, value);}
 
     /** Allocates the UTF-8 bytes of a string, without a null terminator. Returns `NULL` for null. */
-    public static java.lang.foreign.MemorySegment utf8(java.lang.foreign.SegmentAllocator allocator, String str)
+    public static java.lang.foreign.MemorySegment utf8(java.lang.foreign.SegmentAllocator allocator, java.lang.String str)
     {
         if (str == null)
             return java.lang.foreign.MemorySegment.NULL;
@@ -1469,15 +1477,15 @@ public abstract class CppStruct implements Native
     }
 
     /** Decodes a UTF-8 string from `size` bytes at `data`. */
-    public static String string(java.lang.foreign.MemorySegment data, long size)
+    public static java.lang.String string(java.lang.foreign.MemorySegment data, long size)
     {
         if (size == 0)
             return "";
-        return new String(data.reinterpret(size).toArray(java.lang.foreign.ValueLayout.JAVA_BYTE), java.nio.charset.StandardCharsets.UTF_8);
+        return new java.lang.String(data.reinterpret(size).toArray(java.lang.foreign.ValueLayout.JAVA_BYTE), java.nio.charset.StandardCharsets.UTF_8);
     }
 
     /** Builds a struct layout with the C alignment rules: each field is aligned naturally, and the struct is padded to its alignment. */
-    public static java.lang.foreign.StructLayout structLayout(String[] names, java.lang.foreign.MemoryLayout[] fields)
+    public static java.lang.foreign.StructLayout structLayout(java.lang.String[] names, java.lang.foreign.MemoryLayout[] fields)
     {
         java.util.List<java.lang.foreign.MemoryLayout> elems = new java.util.ArrayList<>();
         long offset = 0, align = 1;
@@ -1489,7 +1497,7 @@ public abstract class CppStruct implements Native
                 elems.add(java.lang.foreign.MemoryLayout.paddingLayout(pad));
             elems.add(fields[i].withName(names[i]));
             offset += pad + fields[i].byteSize();
-            align = Math.max(align, a);
+            align = java.lang.Math.max(align, a);
         }
         long pad = (align - offset % align) % align;
         if (pad > 0)
@@ -1500,10 +1508,10 @@ public abstract class CppStruct implements Native
     }
 
     /** Checks a struct layout against the size and alignment the C bindings were generated with. */
-    public static void checkLayout(java.lang.foreign.StructLayout layout, long size, long alignment, String name)
+    public static void checkLayout(java.lang.foreign.StructLayout layout, long size, long alignment, java.lang.String name)
     {
         if (layout.byteSize() != size || layout.byteAlignment() != alignment)
-            throw new IllegalStateException("The Java layout of `" + name + "` (" + layout.byteSize() + " bytes, aligned to " + layout.byteAlignment() + ") doesn't match C++ (" + size + " bytes, aligned to " + alignment + ").");
+            throw new java.lang.IllegalStateException("The Java layout of `" + name + "` (" + layout.byteSize() + " bytes, aligned to " + layout.byteAlignment() + ") doesn't match C++ (" + size + " bytes, aligned to " + alignment + ").");
     }
 
     /** Allocates zeroed memory for a struct. It's freed when the segment becomes unreachable. */
@@ -1513,42 +1521,42 @@ public abstract class CppStruct implements Native
     }
 
     /** Converts a `Throwable` from `invokeExact()` to something that can be thrown from a method without a `throws` clause. */
-    public static RuntimeException rethrow(Throwable e)
+    public static java.lang.RuntimeException rethrow(java.lang.Throwable e)
     {
-        if (e instanceof RuntimeException r)
+        if (e instanceof java.lang.RuntimeException r)
             return r;
-        if (e instanceof Error err)
+        if (e instanceof java.lang.Error err)
             throw err;
-        return new RuntimeException(e);
+        return new java.lang.RuntimeException(e);
     }
 )";
 
         ffi += R"JAVA(
     // What the wrapper must throw once the C call returns: a C++ exception message reported by the C bindings (a String),
     // or an exception thrown by a Java callback (a Throwable). Per thread, since the C bindings report per thread.
-    private static final ThreadLocal<Object> PENDING = new ThreadLocal<>();
+    private static final java.lang.ThreadLocal<java.lang.Object> PENDING = new java.lang.ThreadLocal<>();
 
     /** Throws if the last call into the C bindings threw a C++ exception, or a Java callback threw. */
     public static void checkException()
     {
-        Object pending = PENDING.get();
+        java.lang.Object pending = PENDING.get();
         if (pending == null)
             return;
         PENDING.remove();
-        if (pending instanceof Throwable error)
+        if (pending instanceof java.lang.Throwable error)
             throw rethrow(error);
-        throw new CppException((String)pending);
+        throw new CppException((java.lang.String)pending);
     }
 
     /** Called by the callback trampolines when the Java callable throws. The exception is rethrown by the wrapper that made the C call. */
-    public static void callbackFailed(Throwable error)
+    public static void callbackFailed(java.lang.Throwable error)
     {
         if (PENDING.get() == null)
             PENDING.set(error);
     }
 
     /** Creates an upcall stub for a static method of `cls`. The lookup must be able to see the method. */
-    public static java.lang.foreign.MemorySegment upcall(java.lang.invoke.MethodHandles.Lookup lookup, Class<?> cls, String name, java.lang.foreign.FunctionDescriptor desc)
+    public static java.lang.foreign.MemorySegment upcall(java.lang.invoke.MethodHandles.Lookup lookup, java.lang.Class<?> cls, java.lang.String name, java.lang.foreign.FunctionDescriptor desc)
     {
         try
         {
@@ -1556,29 +1564,29 @@ public abstract class CppStruct implements Native
         }
         catch (ReflectiveOperationException e)
         {
-            throw new IllegalStateException(e);
+            throw new java.lang.IllegalStateException(e);
         }
     }
 
     // The Java callables held by the `std::function` instances, keyed by the ids that are passed to C as the user data pointers.
     // Each entry is the callable and its reference count: the copies of a `std::function` share the user data.
-    private static final java.util.concurrent.ConcurrentHashMap<Long, Object[]> CALLBACKS = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.concurrent.ConcurrentHashMap<java.lang.Long, java.lang.Object[]> CALLBACKS = new java.util.concurrent.ConcurrentHashMap<>();
     private static final java.util.concurrent.atomic.AtomicLong NEXT_CALLBACK_ID = new java.util.concurrent.atomic.AtomicLong(1);
 
     /** Registers a callable and returns its user data pointer, with one reference. */
-    public static java.lang.foreign.MemorySegment newCallbackState(Object callable)
+    public static java.lang.foreign.MemorySegment newCallbackState(java.lang.Object callable)
     {
         long id = NEXT_CALLBACK_ID.getAndIncrement();
-        CALLBACKS.put(id, new Object[]{callable, new java.util.concurrent.atomic.AtomicInteger(1)});
+        CALLBACKS.put(id, new java.lang.Object[]{callable, new java.util.concurrent.atomic.AtomicInteger(1)});
         return java.lang.foreign.MemorySegment.ofAddress(id);
     }
 
     /** The callable registered under a user data pointer. */
-    public static Object callbackState(java.lang.foreign.MemorySegment userdata)
+    public static java.lang.Object callbackState(java.lang.foreign.MemorySegment userdata)
     {
-        Object[] entry = CALLBACKS.get(userdata.address());
+        java.lang.Object[] entry = CALLBACKS.get(userdata.address());
         if (entry == null)
-            throw new IllegalStateException("Unknown callback state: " + userdata.address() + ".");
+            throw new java.lang.IllegalStateException("Unknown callback state: " + userdata.address() + ".");
         return entry[0];
     }
 
@@ -1589,14 +1597,14 @@ public abstract class CppStruct implements Native
         long current = slot.get(java.lang.foreign.ValueLayout.ADDRESS, 0).address();
         if (current != 0)
         {
-            Object[] entry = CALLBACKS.get(current);
+            java.lang.Object[] entry = CALLBACKS.get(current);
             if (entry != null && ((java.util.concurrent.atomic.AtomicInteger)entry[1]).decrementAndGet() == 0)
                 CALLBACKS.remove(current);
             slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, java.lang.foreign.MemorySegment.NULL);
         }
         if (otherUserdata.address() != 0)
         {
-            Object[] entry = CALLBACKS.get(otherUserdata.address());
+            java.lang.Object[] entry = CALLBACKS.get(otherUserdata.address());
             if (entry != null)
                 ((java.util.concurrent.atomic.AtomicInteger)entry[1]).incrementAndGet();
             slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, otherUserdata);
@@ -1610,20 +1618,20 @@ public abstract class CppStruct implements Native
         {
             ffi += "\n    // C++ exceptions are reported by the C bindings through this callback, which stores the message until the wrapper checks it.\n";
             ffi += "    private static void exceptionHandler(java.lang.foreign.MemorySegment messages, java.lang.foreign.MemorySegment typeNames, java.lang.foreign.MemorySegment userdata)\n    {\n";
-            ffi += "        StringBuilder text = new StringBuilder();\n";
-            ffi += "        java.lang.foreign.MemorySegment array = messages.reinterpret(Long.MAX_VALUE);\n";
+            ffi += "        java.lang.StringBuilder text = new java.lang.StringBuilder();\n";
+            ffi += "        java.lang.foreign.MemorySegment array = messages.reinterpret(java.lang.Long.MAX_VALUE);\n";
             ffi += "        for (long i = 0;; i++)\n        {\n";
             ffi += "            java.lang.foreign.MemorySegment message = array.getAtIndex(java.lang.foreign.ValueLayout.ADDRESS, i);\n";
             ffi += "            if (message.address() == 0)\n                break;\n";
             ffi += "            if (i > 0)\n                text.append('\\n');\n";
-            ffi += "            text.append(message.reinterpret(Long.MAX_VALUE).getString(0));\n";
+            ffi += "            text.append(message.reinterpret(java.lang.Long.MAX_VALUE).getString(0));\n";
             ffi += "        }\n";
             ffi += "        PENDING.set(text.toString());\n    }\n\n";
             ffi += "    static\n    {\n";
             ffi += "        try\n        {\n";
             ffi += "            java.lang.foreign.MemorySegment stub = upcall(java.lang.invoke.MethodHandles.lookup(), Ffi.class, \"exceptionHandler\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));\n";
             ffi += "            downcall(\"\", \"" + hp + "SetExceptionHandler\", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)).invokeExact(stub, java.lang.foreign.MemorySegment.NULL);\n";
-            ffi += "        }\n        catch (Throwable e)\n        {\n            // The message survives the `NoClassDefFoundError` that the later uses of this class get.\n            throw new IllegalStateException(\"Failed to register the C++ exception handler: \" + e, e);\n        }\n    }\n";
+            ffi += "        }\n        catch (java.lang.Throwable e)\n        {\n            // The message survives the `NoClassDefFoundError` that the later uses of this class get.\n            throw new java.lang.IllegalStateException(\"Failed to register the C++ exception handler: \" + e, e);\n        }\n    }\n";
         }
         ffi += "}\n";
         output_files[root.dir + "/Ffi.java"] = ffi;
@@ -2579,7 +2587,7 @@ public abstract class CppStruct implements Native
                         info.simple_name = JavaIdent(PartToString(name->parts.back()));
                 }
             }
-            info.module = &GetModuleForNamespace(ns_parts.empty() ? forced_namespace : ns_parts);
+            info.module = &GetModuleForNamespace(ns_parts);
 
             // Derive the name from the C name, which is unique.
             std::string suffix = func.c_name;

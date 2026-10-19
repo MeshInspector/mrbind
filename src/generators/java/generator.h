@@ -35,6 +35,9 @@ namespace mrbind::Java
         // The C++ namespace (as parts) to put the entities of the global namespace into, including the `std::` types.
         // Without this, those end up directly in the base package.
         std::vector<std::string> forced_namespace;
+        // `--replace-namespace`, like in the C# and Rust generators: replaces the leading namespaces (as parts), applied in order. An empty `second` removes them,
+        // so `MR` -> nothing makes `MR::Mesh` `<base>.Mesh` and not `<base>.mr.Mesh`.
+        std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
 
         // Class names longer than this get truncated and suffixed with a hash, since the file names must fit the Windows path length limit. 0 disables this.
         std::size_t max_class_name_length = 100;
@@ -112,7 +115,7 @@ namespace mrbind::Java
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);
 
-        [[nodiscard]] Module &GetModuleForNamespace(const std::vector<std::string> &ns_parts);
+        [[nodiscard]] Module &GetModuleForNamespace(std::vector<std::string> ns_parts);
         [[nodiscard]] std::string UniqueName(std::set<std::string> &used, std::string name);
         [[nodiscard]] std::string ShortenClassName(std::string name) const;
 
