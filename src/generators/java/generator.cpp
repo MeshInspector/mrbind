@@ -488,7 +488,7 @@ namespace mrbind::Java
         std::replace(base_dir.begin(), base_dir.end(), '.', '/');
         root.dir = base_dir;
         root.used_names.insert("Functions");
-        for (std::string_view name : {"Ffi", "Native", "CppObject", "CppStruct", "CppException"})
+        for (std::string_view name : {"Ffi", "Native", "CppObject", "CppStruct", "CppException", "UnexpectedResultException"})
             root.used_names.insert(std::string(name));
         // A class named like a segment of the base package would shadow the package in the qualified names inside of it.
         Strings::Split(base_package, ".", [&](std::string_view segment)
@@ -1006,6 +1006,15 @@ public class CppException extends java.lang.RuntimeException
     private static final long serialVersionUID = 1;
 
     public CppException(java.lang.String message) {super(message);}
+}
+)";
+
+        output_files[root.dir + "/UnexpectedResultException.java"] = pkg_line + R"(/** Thrown by the wrappers of C++ functions returning `expected<T, E>` when the result holds an error. The message is the error converted to a string. */
+public class UnexpectedResultException extends java.lang.RuntimeException
+{
+    private static final long serialVersionUID = 1;
+
+    public UnexpectedResultException(java.lang.String message) {super(message);}
 }
 )";
 
@@ -1939,7 +1948,74 @@ public abstract class CppStruct implements Native
         return ret;
     }
 
-    std::optional<Generator::ReturnStrings> Generator::MapReturn(const CInterop::FuncReturn &ret)
+    void Generator::CollectExpected()
+    {
+        for (auto &[cpp_name, info] : types_by_cpp_name)
+        {
+            if (!info.class_desc || !info.has_destroy)
+                continue;
+            if (!cpp_name.starts_with("expected<") && !cpp_name.starts_with("std::expected<") && !cpp_name.starts_with("tl::expected<"))
+                continue;
+            TypeInfo::Expected e;
+            for (const auto &method : info.class_desc->methods)
+            {
+                if (method.c_name == info.c_name + "_success") e.success = &method;
+                else if (method.c_name == info.c_name + "_value") e.value = &method;
+                else if (method.c_name == info.c_name + "_error") e.error = &method;
+            }
+            if (!e.success || !e.error || !e.value || CTypeToJava(e.success->ret.c_type).value_or(JavaType{}).java != "boolean")
+                continue;
+            auto error_ret = MapReturn(e.error->ret, true);
+            if (!error_ret || error_ret->java_type == "void")
+                continue;
+            e.error_handle_type = error_ret->handle_type;
+            e.error_convert = error_ret->convert;
+            // `expected<void, E>` has a `value()` returning `bool`.
+            if (ParseTypeOrThrow(e.value->ret.c_type).Is<cppdecl::Pointer>())
+            {
+                auto value_ret = MapReturn(e.value->ret, true);
+                if (!value_ret || value_ret->java_type == "void")
+                    continue;
+                e.value_java_type = value_ret->java_type;
+                e.value_handle_type = value_ret->handle_type;
+                e.value_convert = value_ret->convert;
+            }
+            else
+            {
+                e.value = nullptr;
+                e.value_java_type = "void";
+            }
+            info.expected = std::move(e);
+        }
+    }
+
+    void Generator::EmitExpected(const TypeInfo &info, std::string &members)
+    {
+        const auto &e = *info.expected;
+        const std::string F = RuntimeClass("Ffi");
+        auto Get = [&](const CInterop::ClassMethod &method, const std::string &handle_type, const std::string &convert)
+        {
+            std::string ret = "        " + handle_type + " __ret = (" + handle_type + ")" + handle_paths.at(method.c_name) + ".invokeExact(rawPointer());\n";
+            ret += "        " + F + ".checkException();\n";
+            if (convert.find("__owner") != std::string::npos)
+                ret += "        java.lang.Object __owner = this;\n";
+            return ret;
+        };
+        std::string doc = e.value ? "The value, or throws `UnexpectedResultException` with the error. The returned reference keeps this object alive." : "Throws `UnexpectedResultException` with the error, if any.";
+        members += "/** " + doc + " The wrappers of the functions returning this type do this automatically. */\n";
+        members += "public " + e.value_java_type + " valueOrThrow()\n{\n    try\n    {\n";
+        members += "        if (!(boolean)" + handle_paths.at(e.success->c_name) + ".invokeExact(rawPointer()))\n        {\n";
+        members += Indent(Get(*e.error, e.error_handle_type, e.error_convert), 1);
+        members += "            throw new " + RuntimeClass("UnexpectedResultException") + "(java.lang.String.valueOf(" + e.error_convert + "));\n        }\n";
+        if (e.value)
+        {
+            members += Get(*e.value, e.value_handle_type, e.value_convert);
+            members += "        return " + e.value_convert + ";\n";
+        }
+        members += "    }\n    catch (java.lang.Throwable __e)\n    {\n        throw " + F + ".rethrow(__e);\n    }\n    finally\n    {\n        java.lang.ref.Reference.reachabilityFence(this);\n    }\n}\n\n";
+    }
+
+    std::optional<Generator::ReturnStrings> Generator::MapReturn(const CInterop::FuncReturn &ret, bool non_null)
     {
         ReturnStrings out;
         auto ffi_type = CTypeToJava(ret.c_type);
@@ -1985,6 +2061,7 @@ public abstract class CppStruct implements Native
             cppdecl::Type cpp_base = cpp;
             const bool cpp_is_ref = cpp.modifiers.size() == 1 && cpp.Is<cppdecl::Reference>();
             const bool cpp_is_ptr = cpp.modifiers.size() == 1 && cpp.Is<cppdecl::Pointer>();
+            const bool nullable = cpp_is_ptr && !non_null;
             if (cpp_is_ref || cpp_is_ptr)
                 cpp_base.RemoveModifier();
             cpp_base.RemoveQualifiers(cppdecl::CvQualifiers::const_);
@@ -1997,13 +2074,15 @@ public abstract class CppStruct implements Native
                 {
                     out.java_type = pointee_type->java_path;
                     out.convert = "new " + pointee_type->java_path + "(__ret, true, null)";
+                    if (cpp.modifiers.empty())
+                        out.owned_type = pointee_type;
                     return out;
                 }
                 if (cpp_is_ref || cpp_is_ptr)
                 {
                     out.java_type = pointee_type->java_path;
                     std::string make = "new " + pointee_type->java_path + "(__ret, " + (pointee_type->has_destroy ? "false, " : "") + "__owner)";
-                    out.convert = cpp_is_ptr ? "__ret.address() == 0 ? null : " + make : make;
+                    out.convert = nullable ? "__ret.address() == 0 ? null : " + make : make;
                     return out;
                 }
             }
@@ -2011,14 +2090,14 @@ public abstract class CppStruct implements Native
             {
                 out.java_type = pointee_type->java_path;
                 std::string make = "new " + pointee_type->java_path + "(__ret.reinterpret(" + pointee_type->java_path + ".LAYOUT.byteSize()), __owner)";
-                out.convert = cpp_is_ptr ? "__ret.address() == 0 ? null : " + make : make;
+                out.convert = nullable ? "__ret.address() == 0 ? null : " + make : make;
                 return out;
             }
             else if (pointee_type && pointee_type->IsEnum() && is_const && !pointee_type->enum_is_c_long && (cpp_is_ref || cpp_is_ptr || cpp.modifiers.empty()))
             {
                 out.java_type = pointee_type->java_path;
                 std::string make = pointee_type->java_path + ".of(__ret.reinterpret(" + pointee_type->enum_size + ").get(" + pointee_type->enum_layout + ", 0))";
-                out.convert = cpp_is_ptr ? "__ret.address() == 0 ? null : " + make : make;
+                out.convert = nullable ? "__ret.address() == 0 ? null : " + make : make;
                 return out;
             }
             else if (pointee_builtin && !pointee_builtin->is_pointer && !pointee_builtin->type_info && pointee_builtin->array_dims.empty() && is_const && (cpp_is_ref || cpp_is_ptr || cpp.modifiers.empty()))
@@ -2026,7 +2105,7 @@ public abstract class CppStruct implements Native
                 std::string read = pointee_builtin->is_c_long
                     ? F + ".getCLong(__ret.reinterpret(8), 0)"
                     : "__ret.reinterpret(" + pointee_builtin->size_expr + ").get(" + pointee_builtin->layout + ", 0)";
-                if (cpp_is_ptr)
+                if (nullable)
                 {
                     out.java_type = Boxed(pointee_builtin->java);
                     out.convert = "__ret.address() == 0 ? null : (" + out.java_type + ")" + read;
@@ -2089,6 +2168,15 @@ public abstract class CppStruct implements Native
             return {};
         }
         ret.ret = std::move(*mapped_ret);
+        // `expected<T, E>` returned by value: the wrapper returns `T` and throws on an error, like the Python and C# bindings.
+        if (deref_expected && ret.ret.owned_type && ret.ret.owned_type->expected && !is_ctor)
+        {
+            const auto &e = *ret.ret.owned_type->expected;
+            ret.ret.convert = "(" + ret.ret.convert + ").valueOrThrow()";
+            ret.ret.java_type = e.value_java_type;
+            ret.ret.is_statement = e.value_java_type == "void";
+            ret.ret.unwraps_expected = true;
+        }
         ret.is_raw |= ret.ret.is_raw;
         if (ret.is_raw)
             num_funcs_raw++;
@@ -2132,6 +2220,8 @@ public abstract class CppStruct implements Native
         const std::string F = RuntimeClass("Ffi");
 
         std::string extra_doc = "Calls `" + f.c_name + "()`.";
+        if (func.ret.unwraps_expected)
+            extra_doc += " The C++ function returns `" + f.ret.cpp_type + "`: the value is returned and an error is thrown as `UnexpectedResultException`.";
         if (func.is_raw)
             extra_doc += " Some types are raw C types, see the C bindings for the details.";
         CInterop::Comment comment;
@@ -2224,7 +2314,7 @@ public abstract class CppStruct implements Native
         {
             if (func.ret.convert.find("__owner") != std::string::npos)
                 body += "java.lang.Object __owner = " + owner + ";\n";
-            body += "return " + func.ret.convert + ";\n";
+            body += (func.ret.is_statement ? "" : "return ") + func.ret.convert + ";\n";
         }
 
         std::string wrapped;
@@ -2297,6 +2387,8 @@ public abstract class CppStruct implements Native
             std::set<std::string> used_keys; // `name(signature)` of the methods.
             for (std::string_view key : {"equals(java.lang.Object)", "hashCode()", "toString()", "getClass()", "notify()", "notifyAll()", "wait()", "wait(long)", "wait(long,int)", "finalize()", "clone()", "rawPointer()"})
                 used_keys.insert(std::string(key));
+            if (info.expected)
+                used_keys.insert("valueOrThrow()");
 
             if (info.IsExposedStruct())
             {
@@ -2532,6 +2624,8 @@ public abstract class CppStruct implements Native
             EmitCasts(info, members, used_keys);
             if (cl.callable_info && info.has_destroy)
                 EmitStdFunction(info, members, used_keys);
+            if (info.expected)
+                EmitExpected(info, members);
 
             // Conveniences for `std::string`.
             if (cpp_name == "std::string")
@@ -2700,6 +2794,7 @@ public abstract class CppStruct implements Native
     void Generator::Generate()
     {
         CollectTypes();
+        CollectExpected();
         EmitHandles();
         EmitRuntime();
         EmitEnums();

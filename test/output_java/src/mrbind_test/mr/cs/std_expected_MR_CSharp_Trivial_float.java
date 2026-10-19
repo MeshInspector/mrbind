@@ -220,4 +220,30 @@ public final class std_expected_MR_CSharp_Trivial_float extends mrbind_test.CppO
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
+
+    /** The value, or throws `UnexpectedResultException` with the error. The returned reference keeps this object alive. The wrappers of the functions returning this type do this automatically. */
+    public mrbind_test.mr.csharp.Trivial valueOrThrow()
+    {
+        try
+        {
+            if (!(boolean)mrbind_test.ffi.std_expected_MR_CSharp_Trivial_float.H0.MR_C_std_expected_MR_CSharp_Trivial_float_success.invokeExact(rawPointer()))
+            {
+                java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_Trivial_float.H0.MR_C_std_expected_MR_CSharp_Trivial_float_error.invokeExact(rawPointer());
+                mrbind_test.Ffi.checkException();
+                throw new mrbind_test.UnexpectedResultException(java.lang.String.valueOf(__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0)));
+            }
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_expected_MR_CSharp_Trivial_float.H0.MR_C_std_expected_MR_CSharp_Trivial_float_value.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            java.lang.Object __owner = this;
+            return new mrbind_test.mr.csharp.Trivial(__ret, false, __owner);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
 }
