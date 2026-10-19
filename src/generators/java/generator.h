@@ -41,6 +41,8 @@ namespace mrbind::Java
 
         // Class names longer than this get truncated and suffixed with a hash, since the file names must fit the Windows path length limit. 0 disables this.
         std::size_t max_class_name_length = 100;
+        // `--no-deref-expected` disables this: a function returning `expected<T, E>` by value returns `T` and throws on an error, like in the C# generator.
+        bool deref_expected = true;
 
         // ]
 

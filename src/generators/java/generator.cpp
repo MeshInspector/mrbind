@@ -2169,7 +2169,7 @@ public abstract class CppStruct implements Native
         }
         ret.ret = std::move(*mapped_ret);
         // `expected<T, E>` returned by value: the wrapper returns `T` and throws on an error, like the Python and C# bindings.
-        if (ret.ret.owned_type && ret.ret.owned_type->expected && !is_ctor)
+        if (deref_expected && ret.ret.owned_type && ret.ret.owned_type->expected && !is_ctor)
         {
             const auto &e = *ret.ret.owned_type->expected;
             ret.ret.convert = "(" + ret.ret.convert + ").valueOrThrow()";

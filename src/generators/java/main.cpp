@@ -114,6 +114,14 @@ int main(int argc, char **argv)
             generator.replaced_namespaces.emplace_back(ParseNamespace(args[0]), args[1] == "::" ? std::vector<std::string>{} : ParseNamespace(args[1]));
         },
     });
+    args_parser.AddFlag("--no-deref-expected", {
+        .desc = "When a C++ function returns `std/tl::expected`, don't automatically dereference it and throw on failure, and instead return the `expected` object as is. Like in the C# generator.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.deref_expected = false;
+        },
+    });
     args_parser.AddFlag("--max-class-name-length", {
         .arg_names = {"n"},
         .desc = "Shorten the generated class names to this length, plus a hash. Each class is a file, and Windows has a small default path length limit. The default is 100, 0 disables this.",
