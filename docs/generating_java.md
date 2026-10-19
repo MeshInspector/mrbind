@@ -40,6 +40,7 @@ Where:
   If you used `--split-library` in the C generator, pass `--imported-split-lib-name <macro_prefix> <name>` for every part, like with the C# generator.
 
 * `--force-namespace MyLib` is optional, but you'll usually want it. It puts the entities of the global C++ namespace (which includes the `std::` container instantiations) into the package of this namespace (`com.example.mylib.mylib` here, `Foo::Bar` becomes `foo.bar`). Without it they go directly to the base package, next to the runtime classes.
+* `--replace-namespace A::B C::D` is optional and works like in the C# and Rust generators: it replaces the leading namespaces of the entities, which decides their packages (`A::B::Foo` goes to `c.d`). It can be repeated, the replacements apply in order, and the second argument can be `::` to remove a namespace: `--replace-namespace MyLib ::` puts the entities of `MyLib` directly into the base package and its nested namespaces at the top level, so the users write `com.example.mylib.Foo` and not `com.example.mylib.mylib.Foo`. `--force-namespace` applies after the replacements, to what ended up in the global namespace.
 
 Class names longer than 100 characters (some `std::function` instantiations, and the `ffi` classes named after long C file names) are truncated and suffixed with a hash, since each class is a file and Windows limits the path length. `--max-class-name-length` changes the limit, 0 disables it.
 
@@ -61,7 +62,7 @@ The libraries can also be bundled in a jar on the classpath, as resources `<pack
 
 ## What the generated code looks like
 
-A C++ namespace becomes a Java package named after it in lower case (`MR::Foo` → `mr.foo`), nested in the base package. A class in it becomes a Java class of the same name (nested C++ classes are flattened: `A::B` → `A_B`, template instantiations and `std::` types get the names of their C types minus the prefix: `std_vector_int`). The free functions of a namespace are the static methods of its `Functions` class.
+A C++ namespace becomes a Java package named after it in lower case (`MR::Foo` → `mr.foo`), nested in the base package; with `--replace-namespace MR ::`, `MR` maps to the base package itself (`Mesh`, `foo.Bar`). A class in it becomes a Java class of the same name (nested C++ classes are flattened: `A::B` → `A_B`, template instantiations and `std::` types get the names of their C types minus the prefix: `std_vector_int`). The free functions of a namespace are the static methods of its `Functions` class.
 
 The `ffi` subpackage mirrors the file hierarchy of the C bindings: for every C source `foo/bar.h` there's a `ffi/foo/bar.java` holding the downcall `MethodHandle` of every function of that file (in nested classes of 200 handles each, to keep the static initializers small). You don't normally name those, the wrappers do.
 

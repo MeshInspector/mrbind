@@ -173,8 +173,20 @@ namespace mrbind::Java
         return iter->second;
     }
 
-    Generator::Module &Generator::GetModuleForNamespace(const std::vector<std::string> &ns_parts)
+    Generator::Module &Generator::GetModuleForNamespace(std::vector<std::string> ns_parts)
     {
+        // Like in the C# and Rust generators, `--replace-namespace` goes first, then `--force-namespace` applies to what ended up in the global namespace.
+        for (const auto &[from, to] : replaced_namespaces)
+        {
+            if (ns_parts.size() >= from.size() && std::equal(from.begin(), from.end(), ns_parts.begin()))
+            {
+                ns_parts.erase(ns_parts.begin(), ns_parts.begin() + std::ptrdiff_t(from.size()));
+                ns_parts.insert(ns_parts.begin(), to.begin(), to.end());
+            }
+        }
+        if (ns_parts.empty())
+            ns_parts = forced_namespace;
+
         Module *m = &root;
         for (const auto &part : ns_parts)
         {
@@ -553,9 +565,7 @@ namespace mrbind::Java
                     ident.erase(0, c_desc.helpers_prefix.size());
                 else
                     ns_parts.clear();
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(ident)));
             }
             else
@@ -581,9 +591,7 @@ namespace mrbind::Java
                 }
                 if (unqual.empty())
                     unqual = PartToString(parts.back());
-                if (ns_parts.empty())
-                    ns_parts = forced_namespace;
-                info.module = &GetModuleForNamespace(ns_parts);
+                info.module = &GetModuleForNamespace(std::move(ns_parts));
                 info.java_unqual = UniqueName(info.module->used_names, ShortenClassName(JavaIdent(unqual)));
             }
             info.java_path = info.module->package + "." + info.java_unqual;
@@ -2579,7 +2587,7 @@ public abstract class CppStruct implements Native
                         info.simple_name = JavaIdent(PartToString(name->parts.back()));
                 }
             }
-            info.module = &GetModuleForNamespace(ns_parts.empty() ? forced_namespace : ns_parts);
+            info.module = &GetModuleForNamespace(ns_parts);
 
             // Derive the name from the C name, which is unique.
             std::string suffix = func.c_name;
