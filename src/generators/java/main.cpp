@@ -5,6 +5,8 @@
 #include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/java/generator.h"
 
+#include <cppdecl/declarations/parse.h>
+
 #include <cstdio>
 #include <exception>
 #include <fstream>
@@ -73,19 +75,22 @@ int main(int argc, char **argv)
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
-    // Splits a C++-style `Foo::Bar` namespace name into parts.
+    // Parses a C++-style `Foo::Bar` namespace name into its parts, like the C# generator does.
     auto ParseNamespace = [](std::string_view name)
     {
+        std::string_view view = name;
+        auto parsed = cppdecl::ParseQualifiedName(view);
+        if (auto error = std::get_if<cppdecl::ParseError>(&parsed))
+            throw std::runtime_error("Unable to parse the namespace name `" + std::string(name) + "`, error at offset " + std::to_string(view.data() - name.data()) + ": " + error->message);
+        if (!view.empty())
+            throw std::runtime_error("Unable to parse the namespace name `" + std::string(name) + "`, junk starting at offset " + std::to_string(view.data() - name.data()) + ".");
         std::vector<std::string> ret;
-        std::string_view str = name;
-        while (!str.empty())
+        for (const auto &part : std::get<cppdecl::QualifiedName>(parsed).parts)
         {
-            std::size_t sep = str.find("::");
-            std::string_view part = str.substr(0, sep);
-            if (part.empty())
-                throw std::runtime_error("Bad namespace name: `" + std::string(name) + "`.");
-            ret.emplace_back(part);
-            str = sep == std::string_view::npos ? std::string_view{} : str.substr(sep + 2);
+            auto str = std::get_if<std::string>(&part.var);
+            if (!str || part.template_args)
+                throw std::runtime_error("Not a namespace name: `" + std::string(name) + "`.");
+            ret.push_back(*str);
         }
         return ret;
     };
