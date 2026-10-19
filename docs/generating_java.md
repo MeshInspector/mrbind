@@ -66,7 +66,9 @@ A C++ namespace becomes a Java package named after it in lower case (`MR::Foo` â
 
 The `ffi` subpackage mirrors the file hierarchy of the C bindings: for every C source `foo/bar.h` there's a `ffi/foo/bar.java` holding the downcall `MethodHandle` of every function of that file (in nested classes of 200 handles each, to keep the static initializers small). You don't normally name those, the wrappers do.
 
-The runtime support classes live in the base package: `Ffi` (library loading, the struct layout helper, the exception handler), `CppObject`, `CppStruct`, `Native` and `CppException`.
+The runtime support classes live in the base package: `Ffi` (library loading, the struct layout helper, the exception handler), `CppObject`, `CppStruct`, `Native`, `CppException` and `UnexpectedResultException`.
+
+A function returning `expected<T, E>` (`std::` or `tl::`) by value returns `T` instead, nothing for `expected<void, E>`, and throws `UnexpectedResultException` with the error converted to a string when the result holds an error, like the Python and C# bindings do. The `expected` classes themselves are still generated, since they appear as parameters and fields, and get a `valueOrThrow()` doing the same.
 
 The wrappers:
 

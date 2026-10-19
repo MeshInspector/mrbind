@@ -137,5 +137,10 @@ public class Main
         check(!aBase.isOwned() && b.isOwned(), "the cast result is a reference");
 
         System.out.println("All Java binding tests passed.");
+
+        // `expected<T, E>` returned by value is unwrapped: the value, or `UnexpectedResultException`.
+        check(mrbind_test.mr.stdexpected.Functions.GetExp() == 0, "expected<int> unwrapped");
+        mrbind_test.mr.stdexpected.Functions.GetExpVoid();
+        check(new mrbind_test.mr.cs.std_expected_int_std_string().valueOrThrow() == 0, "valueOrThrow");
     }
 }

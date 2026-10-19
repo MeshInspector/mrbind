@@ -103,6 +103,18 @@ namespace mrbind::Java
             std::string enum_size; // For enums: the size in bytes, as an expression.
             bool enum_is_c_long = false; // For enums: the underlying type is C `long`, which needs special care.
 
+            // For `expected<T, E>`: what `valueOrThrow()` needs. Set by `CollectExpected()`.
+            struct Expected
+            {
+                const CInterop::ClassMethod *success = nullptr;
+                const CInterop::ClassMethod *value = nullptr; // Null for `expected<void, E>`.
+                const CInterop::ClassMethod *error = nullptr;
+                std::string value_java_type; // `void` for `expected<void, E>`.
+                std::string value_handle_type, value_convert; // Like in `ReturnStrings`.
+                std::string error_handle_type, error_convert;
+            };
+            std::optional<Expected> expected;
+
             [[nodiscard]] bool IsExposedStruct() const {return class_desc && class_desc->kind == CInterop::ClassKind::exposed_struct;}
             [[nodiscard]] bool IsEnum() const {return enum_desc != nullptr;}
         };
@@ -166,8 +178,14 @@ namespace mrbind::Java
             std::string convert; // An expression in terms of `__ret` and `__owner`.
             bool returns_struct = false; // The handle takes a `SegmentAllocator` first.
             bool is_raw = false;
+            const TypeInfo *owned_type = nullptr; // Set when `convert` wraps a new owned object of this class returned by value.
+            bool is_statement = false; // `convert` is a whole statement and the function returns `void` (an unwrapped `expected<void, E>`).
+            bool unwraps_expected = false;
         };
-        [[nodiscard]] std::optional<ReturnStrings> MapReturn(const CInterop::FuncReturn &ret);
+        // `non_null` means a returned pointer is known to be non-null (the getters of `expected` after a successful check), so the Java type isn't nullable.
+        [[nodiscard]] std::optional<ReturnStrings> MapReturn(const CInterop::FuncReturn &ret, bool non_null = false);
+        // Fills `TypeInfo::expected` for the `expected<T, E>` classes.
+        void CollectExpected();
 
         // A wrapper that is ready to be emitted, once its name is known.
         struct PreparedFunc
@@ -195,6 +213,8 @@ namespace mrbind::Java
         void ForEachCastBase(const TypeInfo &info, const std::function<void(const TypeInfo &base, CInterop::InheritanceInfo::Kind kind)> &func) const;
         // Emits the casts to the base classes and from them, which the C bindings have but the description doesn't list.
         void EmitCasts(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys);
+        // `valueOrThrow()` of an `expected<T, E>` class.
+        void EmitExpected(const TypeInfo &info, std::string &members);
         // Emits the construction of a `std::function` from a Java lambda.
         void EmitStdFunction(const TypeInfo &info, std::string &members, std::set<std::string> &used_keys);
 
