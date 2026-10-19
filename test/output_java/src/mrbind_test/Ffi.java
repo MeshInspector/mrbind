@@ -1,14 +1,14 @@
 package mrbind_test;
 
 /** The runtime support of the bindings. */
-@SuppressWarnings("restricted") // The restricted methods warn unless `--enable-native-access` is passed, this is where we use them.
+@java.lang.SuppressWarnings("restricted") // The restricted methods warn unless `--enable-native-access` is passed, this is where we use them.
 public final class Ffi
 {
     private Ffi() {}
 
     public static final java.lang.foreign.Linker LINKER = java.lang.foreign.Linker.nativeLinker();
     public static final java.lang.ref.Cleaner CLEANER = java.lang.ref.Cleaner.create();
-    public static final boolean IS_WINDOWS = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT).startsWith("windows");
+    public static final boolean IS_WINDOWS = java.lang.System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT).startsWith("windows");
 
     /** The layout of C `long`: 4 bytes on Windows, 8 bytes elsewhere. The name lets `downcall()` widen it to a Java `long`. */
     public static final java.lang.foreign.ValueLayout C_LONG = (IS_WINDOWS ? java.lang.foreign.ValueLayout.JAVA_INT : java.lang.foreign.ValueLayout.JAVA_LONG).withName("mrbind_c_long");
@@ -22,8 +22,8 @@ public final class Ffi
     public static final int PASS_BY_NO_OBJECT = 5;
 
     // The library of each file group of the C bindings, see `--split-library` in the C generator.
-    private static final java.util.Map<String, String> LIB_NAMES = java.util.Map.of("", "bleh");
-    private static final java.util.Map<String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();
+    private static final java.util.Map<java.lang.String, java.lang.String> LIB_NAMES = java.util.Map.of("", "bleh");
+    private static final java.util.Map<java.lang.String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();
 
     /**
      * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
@@ -32,36 +32,36 @@ public final class Ffi
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
      * If that fails, it's loaded with `System.loadLibrary()`, and then by its platform-specific file name through the system loader.
      */
-    public static synchronized java.lang.foreign.SymbolLookup lookup(String group)
+    public static synchronized java.lang.foreign.SymbolLookup lookup(java.lang.String group)
     {
         java.lang.foreign.SymbolLookup ret = LOOKUPS.get(group);
         if (ret == null)
         {
-            String lib = LIB_NAMES.get(group);
+            java.lang.String lib = LIB_NAMES.get(group);
             if (lib == null)
-                throw new IllegalArgumentException("Unknown library group: `" + group + "`.");
-            java.nio.file.Path bundled = bundledLibrary(System.mapLibraryName(lib));
+                throw new java.lang.IllegalArgumentException("Unknown library group: `" + group + "`.");
+            java.nio.file.Path bundled = bundledLibrary(java.lang.System.mapLibraryName(lib));
             if (bundled != null)
             {
                 try
                 {
                     ret = IS_WINDOWS ? windowsLoad(bundled) : java.lang.foreign.SymbolLookup.libraryLookup(bundled, java.lang.foreign.Arena.global());
                 }
-                catch (Throwable e)
+                catch (java.lang.Throwable e)
                 {
                     throw rethrow(e);
                 }
                 LOOKUPS.put(group, ret);
                 return ret;
             }
-            Throwable windowsError = null;
+            java.lang.Throwable windowsError = null;
             if (IS_WINDOWS)
             {
                 try
                 {
-                    ret = windowsLookup(System.mapLibraryName(lib));
+                    ret = windowsLookup(java.lang.System.mapLibraryName(lib));
                 }
-                catch (Throwable e)
+                catch (java.lang.Throwable e)
                 {
                     windowsError = e;
                 }
@@ -70,18 +70,18 @@ public final class Ffi
             {
                 try
                 {
-                    System.loadLibrary(lib);
+                    java.lang.System.loadLibrary(lib);
                     ret = java.lang.foreign.SymbolLookup.loaderLookup();
                 }
-                catch (UnsatisfiedLinkError e)
+                catch (java.lang.UnsatisfiedLinkError e)
                 {
                     if (windowsError != null)
                         e.addSuppressed(windowsError);
                     try
                     {
-                        ret = java.lang.foreign.SymbolLookup.libraryLookup(System.mapLibraryName(lib), java.lang.foreign.Arena.global());
+                        ret = java.lang.foreign.SymbolLookup.libraryLookup(java.lang.System.mapLibraryName(lib), java.lang.foreign.Arena.global());
                     }
-                    catch (IllegalArgumentException e2)
+                    catch (java.lang.IllegalArgumentException e2)
                     {
                         e.addSuppressed(e2);
                         throw e;
@@ -97,10 +97,10 @@ public final class Ffi
      * `<os>-<arch>` of the libraries bundled for this platform, e.g. `windows-x86_64`, `linux-aarch64`, `macos-aarch64`
      * (the names of Rust's `target_os` and `target_arch`).
      */
-    public static String nativePlatform()
+    public static java.lang.String nativePlatform()
     {
-        String os = System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT);
-        String arch = System.getProperty("os.arch", "").toLowerCase(java.util.Locale.ROOT);
+        java.lang.String os = java.lang.System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT);
+        java.lang.String arch = java.lang.System.getProperty("os.arch", "").toLowerCase(java.util.Locale.ROOT);
         os = IS_WINDOWS ? "windows" : os.startsWith("mac") ? "macos" : os.startsWith("linux") ? "linux" : os.replace(' ', '_');
         arch = switch (arch) {case "amd64", "x86_64" -> "x86_64"; case "aarch64", "arm64" -> "aarch64"; default -> arch;};
         return os + "-" + arch;
@@ -115,7 +115,7 @@ public final class Ffi
      * `<package>-native-<hash of files.txt>` in the directory from the system property `<package>.native.cache`, by default `java.io.tmpdir`,
      * and reused by later runs. The libraries find their dependencies next to themselves (rpath `$ORIGIN`, `@loader_path`, or Windows' altered search path).
      */
-    private static java.nio.file.Path bundledLibrary(String fileName)
+    private static java.nio.file.Path bundledLibrary(java.lang.String fileName)
     {
         if (!bundledDirSearched)
         {
@@ -137,7 +137,7 @@ public final class Ffi
 
     private static java.nio.file.Path extractBundledLibraries() throws java.io.IOException
     {
-        String resourceDir = "native/" + nativePlatform() + "/";
+        java.lang.String resourceDir = "native/" + nativePlatform() + "/";
         byte[] list;
         try (java.io.InputStream in = Ffi.class.getResourceAsStream(resourceDir + "files.txt"))
         {
@@ -145,26 +145,26 @@ public final class Ffi
                 return null;
             list = in.readAllBytes();
         }
-        String hash;
+        java.lang.String hash;
         try
         {
             hash = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(list), 0, 8);
         }
         catch (java.security.NoSuchAlgorithmException e)
         {
-            throw new IllegalStateException(e);
+            throw new java.lang.IllegalStateException(e);
         }
-        String pkg = Ffi.class.getPackageName();
-        java.nio.file.Path parent = java.nio.file.Path.of(System.getProperty(pkg + ".native.cache", System.getProperty("java.io.tmpdir"))).toAbsolutePath();
+        java.lang.String pkg = Ffi.class.getPackageName();
+        java.nio.file.Path parent = java.nio.file.Path.of(java.lang.System.getProperty(pkg + ".native.cache", java.lang.System.getProperty("java.io.tmpdir"))).toAbsolutePath();
         java.nio.file.Path dir = parent.resolve(pkg + "-native-" + hash);
         if (java.nio.file.Files.exists(dir.resolve(".complete")))
             return dir;
         // Extracted to a temporary directory renamed at the end, so another process never sees an incomplete set.
         java.nio.file.Files.createDirectories(parent);
         java.nio.file.Path temp = java.nio.file.Files.createTempDirectory(parent, pkg + "-native-");
-        for (String line : new String(list, java.nio.charset.StandardCharsets.UTF_8).split("\n"))
+        for (java.lang.String line : new java.lang.String(list, java.nio.charset.StandardCharsets.UTF_8).split("\n"))
         {
-            String name = line.strip();
+            java.lang.String name = line.strip();
             int space = name.indexOf(' ');
             if (space >= 0)
                 name = name.substring(space + 1).strip();
@@ -191,7 +191,7 @@ public final class Ffi
                 throw e;
             try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
             {
-                for (java.nio.file.Path file : (Iterable<java.nio.file.Path>)files::iterator)
+                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files::iterator)
                     java.nio.file.Files.deleteIfExists(file);
             }
             java.nio.file.Files.deleteIfExists(temp);
@@ -200,10 +200,10 @@ public final class Ffi
     }
 
     // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
-    private static java.lang.foreign.SymbolLookup windowsLookup(String fileName) throws Throwable
+    private static java.lang.foreign.SymbolLookup windowsLookup(java.lang.String fileName) throws java.lang.Throwable
     {
         java.nio.file.Path path = null;
-        for (String dir : System.getProperty("java.library.path", "").split(java.io.File.pathSeparator))
+        for (java.lang.String dir : java.lang.System.getProperty("java.library.path", "").split(java.io.File.pathSeparator))
         {
             if (dir.isEmpty())
                 continue;
@@ -218,7 +218,7 @@ public final class Ffi
     }
 
     // Loads a DLL by its absolute path with `LoadLibraryExW(LOAD_WITH_ALTERED_SEARCH_PATH)`, see `lookup()`.
-    private static java.lang.foreign.SymbolLookup windowsLoad(java.nio.file.Path path) throws Throwable
+    private static java.lang.foreign.SymbolLookup windowsLoad(java.nio.file.Path path) throws java.lang.Throwable
     {
         java.lang.foreign.SymbolLookup kernel32 = java.lang.foreign.SymbolLookup.libraryLookup("kernel32.dll", java.lang.foreign.Arena.global());
         java.lang.foreign.Linker.Option errorState = java.lang.foreign.Linker.Option.captureCallState("GetLastError");
@@ -235,7 +235,7 @@ public final class Ffi
             error = state.get(java.lang.foreign.ValueLayout.JAVA_INT, errorLayout.byteOffset(java.lang.foreign.MemoryLayout.PathElement.groupElement("GetLastError")));
         }
         if (module.address() == 0)
-            throw new UnsatisfiedLinkError("LoadLibraryExW failed for `" + path + "` with the Windows error " + error + (error == 127 ? ": a procedure is missing from one of its dependencies. A DLL of the same name that's already loaded (such as the C++ runtime bundled with the JDK, which java.exe loads first) can be older than the one the library needs" : "") + ".");
+            throw new java.lang.UnsatisfiedLinkError("LoadLibraryExW failed for `" + path + "` with the Windows error " + error + (error == 127 ? ": a procedure is missing from one of its dependencies. A DLL of the same name that's already loaded (such as the C++ runtime bundled with the JDK, which java.exe loads first) can be older than the one the library needs" : "") + ".");
         return name ->
         {
             try (java.lang.foreign.Arena arena = java.lang.foreign.Arena.ofConfined())
@@ -243,7 +243,7 @@ public final class Ffi
                 java.lang.foreign.MemorySegment address = (java.lang.foreign.MemorySegment)getProcAddress.invokeExact(module, arena.allocateFrom(name));
                 return address.address() == 0 ? java.util.Optional.empty() : java.util.Optional.of(address);
             }
-            catch (Throwable e)
+            catch (java.lang.Throwable e)
             {
                 throw rethrow(e);
             }
@@ -254,7 +254,7 @@ public final class Ffi
      * Creates the downcall handle of a C function. C `long` parameters and return values are widened to Java `long`.
      * If the library lacks the function, the handle throws `UnsatisfiedLinkError` when called, so the other functions of its class stay usable.
      */
-    public static java.lang.invoke.MethodHandle downcall(String group, String name, java.lang.foreign.FunctionDescriptor desc)
+    public static java.lang.invoke.MethodHandle downcall(java.lang.String group, java.lang.String name, java.lang.foreign.FunctionDescriptor desc)
     {
         java.util.Optional<java.lang.foreign.MemorySegment> symbol = lookup(group).find(name);
         java.lang.invoke.MethodHandle handle;
@@ -267,8 +267,8 @@ public final class Ffi
             java.lang.invoke.MethodType type = desc.toMethodType();
             if (desc.returnLayout().isPresent() && desc.returnLayout().get() instanceof java.lang.foreign.GroupLayout)
                 type = type.insertParameterTypes(0, java.lang.foreign.SegmentAllocator.class); // Struct returns take an allocator first.
-            UnsatisfiedLinkError error = new UnsatisfiedLinkError("The function `" + name + "` is missing from the library `" + LIB_NAMES.get(group) + "`.");
-            handle = java.lang.invoke.MethodHandles.throwException(type.returnType(), UnsatisfiedLinkError.class).bindTo(error);
+            java.lang.UnsatisfiedLinkError error = new java.lang.UnsatisfiedLinkError("The function `" + name + "` is missing from the library `" + LIB_NAMES.get(group) + "`.");
+            handle = java.lang.invoke.MethodHandles.throwException(type.returnType(), java.lang.UnsatisfiedLinkError.class).bindTo(error);
             handle = java.lang.invoke.MethodHandles.dropArguments(handle, 0, type.parameterList());
         }
         java.lang.invoke.MethodType type = handle.type();
@@ -318,10 +318,10 @@ public final class Ffi
     }
 
     /** The pointer of a wrapper. Throws if the wrapper is null. */
-    public static java.lang.foreign.MemorySegment ptrNonNull(Native object, String name)
+    public static java.lang.foreign.MemorySegment ptrNonNull(Native object, java.lang.String name)
     {
         if (object == null)
-            throw new NullPointerException("The parameter `" + name + "` must not be null.");
+            throw new java.lang.NullPointerException("The parameter `" + name + "` must not be null.");
         return object.rawPointer();
     }
 
@@ -335,7 +335,7 @@ public final class Ffi
     public static java.lang.foreign.MemorySegment alloc(java.lang.foreign.SegmentAllocator allocator, java.lang.foreign.ValueLayout.OfDouble layout, double value) {return allocator.allocateFrom(layout, value);}
 
     /** Allocates the UTF-8 bytes of a string, without a null terminator. Returns `NULL` for null. */
-    public static java.lang.foreign.MemorySegment utf8(java.lang.foreign.SegmentAllocator allocator, String str)
+    public static java.lang.foreign.MemorySegment utf8(java.lang.foreign.SegmentAllocator allocator, java.lang.String str)
     {
         if (str == null)
             return java.lang.foreign.MemorySegment.NULL;
@@ -350,15 +350,15 @@ public final class Ffi
     }
 
     /** Decodes a UTF-8 string from `size` bytes at `data`. */
-    public static String string(java.lang.foreign.MemorySegment data, long size)
+    public static java.lang.String string(java.lang.foreign.MemorySegment data, long size)
     {
         if (size == 0)
             return "";
-        return new String(data.reinterpret(size).toArray(java.lang.foreign.ValueLayout.JAVA_BYTE), java.nio.charset.StandardCharsets.UTF_8);
+        return new java.lang.String(data.reinterpret(size).toArray(java.lang.foreign.ValueLayout.JAVA_BYTE), java.nio.charset.StandardCharsets.UTF_8);
     }
 
     /** Builds a struct layout with the C alignment rules: each field is aligned naturally, and the struct is padded to its alignment. */
-    public static java.lang.foreign.StructLayout structLayout(String[] names, java.lang.foreign.MemoryLayout[] fields)
+    public static java.lang.foreign.StructLayout structLayout(java.lang.String[] names, java.lang.foreign.MemoryLayout[] fields)
     {
         java.util.List<java.lang.foreign.MemoryLayout> elems = new java.util.ArrayList<>();
         long offset = 0, align = 1;
@@ -370,7 +370,7 @@ public final class Ffi
                 elems.add(java.lang.foreign.MemoryLayout.paddingLayout(pad));
             elems.add(fields[i].withName(names[i]));
             offset += pad + fields[i].byteSize();
-            align = Math.max(align, a);
+            align = java.lang.Math.max(align, a);
         }
         long pad = (align - offset % align) % align;
         if (pad > 0)
@@ -381,10 +381,10 @@ public final class Ffi
     }
 
     /** Checks a struct layout against the size and alignment the C bindings were generated with. */
-    public static void checkLayout(java.lang.foreign.StructLayout layout, long size, long alignment, String name)
+    public static void checkLayout(java.lang.foreign.StructLayout layout, long size, long alignment, java.lang.String name)
     {
         if (layout.byteSize() != size || layout.byteAlignment() != alignment)
-            throw new IllegalStateException("The Java layout of `" + name + "` (" + layout.byteSize() + " bytes, aligned to " + layout.byteAlignment() + ") doesn't match C++ (" + size + " bytes, aligned to " + alignment + ").");
+            throw new java.lang.IllegalStateException("The Java layout of `" + name + "` (" + layout.byteSize() + " bytes, aligned to " + layout.byteAlignment() + ") doesn't match C++ (" + size + " bytes, aligned to " + alignment + ").");
     }
 
     /** Allocates zeroed memory for a struct. It's freed when the segment becomes unreachable. */
@@ -394,40 +394,40 @@ public final class Ffi
     }
 
     /** Converts a `Throwable` from `invokeExact()` to something that can be thrown from a method without a `throws` clause. */
-    public static RuntimeException rethrow(Throwable e)
+    public static java.lang.RuntimeException rethrow(java.lang.Throwable e)
     {
-        if (e instanceof RuntimeException r)
+        if (e instanceof java.lang.RuntimeException r)
             return r;
-        if (e instanceof Error err)
+        if (e instanceof java.lang.Error err)
             throw err;
-        return new RuntimeException(e);
+        return new java.lang.RuntimeException(e);
     }
 
     // What the wrapper must throw once the C call returns: a C++ exception message reported by the C bindings (a String),
     // or an exception thrown by a Java callback (a Throwable). Per thread, since the C bindings report per thread.
-    private static final ThreadLocal<Object> PENDING = new ThreadLocal<>();
+    private static final java.lang.ThreadLocal<java.lang.Object> PENDING = new java.lang.ThreadLocal<>();
 
     /** Throws if the last call into the C bindings threw a C++ exception, or a Java callback threw. */
     public static void checkException()
     {
-        Object pending = PENDING.get();
+        java.lang.Object pending = PENDING.get();
         if (pending == null)
             return;
         PENDING.remove();
-        if (pending instanceof Throwable error)
+        if (pending instanceof java.lang.Throwable error)
             throw rethrow(error);
-        throw new CppException((String)pending);
+        throw new CppException((java.lang.String)pending);
     }
 
     /** Called by the callback trampolines when the Java callable throws. The exception is rethrown by the wrapper that made the C call. */
-    public static void callbackFailed(Throwable error)
+    public static void callbackFailed(java.lang.Throwable error)
     {
         if (PENDING.get() == null)
             PENDING.set(error);
     }
 
     /** Creates an upcall stub for a static method of `cls`. The lookup must be able to see the method. */
-    public static java.lang.foreign.MemorySegment upcall(java.lang.invoke.MethodHandles.Lookup lookup, Class<?> cls, String name, java.lang.foreign.FunctionDescriptor desc)
+    public static java.lang.foreign.MemorySegment upcall(java.lang.invoke.MethodHandles.Lookup lookup, java.lang.Class<?> cls, java.lang.String name, java.lang.foreign.FunctionDescriptor desc)
     {
         try
         {
@@ -435,29 +435,29 @@ public final class Ffi
         }
         catch (ReflectiveOperationException e)
         {
-            throw new IllegalStateException(e);
+            throw new java.lang.IllegalStateException(e);
         }
     }
 
     // The Java callables held by the `std::function` instances, keyed by the ids that are passed to C as the user data pointers.
     // Each entry is the callable and its reference count: the copies of a `std::function` share the user data.
-    private static final java.util.concurrent.ConcurrentHashMap<Long, Object[]> CALLBACKS = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.concurrent.ConcurrentHashMap<java.lang.Long, java.lang.Object[]> CALLBACKS = new java.util.concurrent.ConcurrentHashMap<>();
     private static final java.util.concurrent.atomic.AtomicLong NEXT_CALLBACK_ID = new java.util.concurrent.atomic.AtomicLong(1);
 
     /** Registers a callable and returns its user data pointer, with one reference. */
-    public static java.lang.foreign.MemorySegment newCallbackState(Object callable)
+    public static java.lang.foreign.MemorySegment newCallbackState(java.lang.Object callable)
     {
         long id = NEXT_CALLBACK_ID.getAndIncrement();
-        CALLBACKS.put(id, new Object[]{callable, new java.util.concurrent.atomic.AtomicInteger(1)});
+        CALLBACKS.put(id, new java.lang.Object[]{callable, new java.util.concurrent.atomic.AtomicInteger(1)});
         return java.lang.foreign.MemorySegment.ofAddress(id);
     }
 
     /** The callable registered under a user data pointer. */
-    public static Object callbackState(java.lang.foreign.MemorySegment userdata)
+    public static java.lang.Object callbackState(java.lang.foreign.MemorySegment userdata)
     {
-        Object[] entry = CALLBACKS.get(userdata.address());
+        java.lang.Object[] entry = CALLBACKS.get(userdata.address());
         if (entry == null)
-            throw new IllegalStateException("Unknown callback state: " + userdata.address() + ".");
+            throw new java.lang.IllegalStateException("Unknown callback state: " + userdata.address() + ".");
         return entry[0];
     }
 
@@ -468,14 +468,14 @@ public final class Ffi
         long current = slot.get(java.lang.foreign.ValueLayout.ADDRESS, 0).address();
         if (current != 0)
         {
-            Object[] entry = CALLBACKS.get(current);
+            java.lang.Object[] entry = CALLBACKS.get(current);
             if (entry != null && ((java.util.concurrent.atomic.AtomicInteger)entry[1]).decrementAndGet() == 0)
                 CALLBACKS.remove(current);
             slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, java.lang.foreign.MemorySegment.NULL);
         }
         if (otherUserdata.address() != 0)
         {
-            Object[] entry = CALLBACKS.get(otherUserdata.address());
+            java.lang.Object[] entry = CALLBACKS.get(otherUserdata.address());
             if (entry != null)
                 ((java.util.concurrent.atomic.AtomicInteger)entry[1]).incrementAndGet();
             slot.set(java.lang.foreign.ValueLayout.ADDRESS, 0, otherUserdata);
@@ -487,8 +487,8 @@ public final class Ffi
     // C++ exceptions are reported by the C bindings through this callback, which stores the message until the wrapper checks it.
     private static void exceptionHandler(java.lang.foreign.MemorySegment messages, java.lang.foreign.MemorySegment typeNames, java.lang.foreign.MemorySegment userdata)
     {
-        StringBuilder text = new StringBuilder();
-        java.lang.foreign.MemorySegment array = messages.reinterpret(Long.MAX_VALUE);
+        java.lang.StringBuilder text = new java.lang.StringBuilder();
+        java.lang.foreign.MemorySegment array = messages.reinterpret(java.lang.Long.MAX_VALUE);
         for (long i = 0;; i++)
         {
             java.lang.foreign.MemorySegment message = array.getAtIndex(java.lang.foreign.ValueLayout.ADDRESS, i);
@@ -496,7 +496,7 @@ public final class Ffi
                 break;
             if (i > 0)
                 text.append('\n');
-            text.append(message.reinterpret(Long.MAX_VALUE).getString(0));
+            text.append(message.reinterpret(java.lang.Long.MAX_VALUE).getString(0));
         }
         PENDING.set(text.toString());
     }
@@ -508,10 +508,10 @@ public final class Ffi
             java.lang.foreign.MemorySegment stub = upcall(java.lang.invoke.MethodHandles.lookup(), Ffi.class, "exceptionHandler", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
             downcall("", "MR_C_SetExceptionHandler", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS)).invokeExact(stub, java.lang.foreign.MemorySegment.NULL);
         }
-        catch (Throwable e)
+        catch (java.lang.Throwable e)
         {
             // The message survives the `NoClassDefFoundError` that the later uses of this class get.
-            throw new IllegalStateException("Failed to register the C++ exception handler: " + e, e);
+            throw new java.lang.IllegalStateException("Failed to register the C++ exception handler: " + e, e);
         }
     }
 }

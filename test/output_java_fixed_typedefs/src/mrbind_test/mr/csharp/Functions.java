@@ -6443,15 +6443,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_int`.
      *
-     * Calls `MR_CSharp_test_expected_int()`.
+     * Calls `MR_CSharp_test_expected_int()`. The C++ function returns `expected<int32_t, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_int32_t_float test_expected_int(mrbind_test.mr.cs.expected_int32_t_float a, mrbind_test.mr.cs.expected_int32_t_float b)
+    public static int test_expected_int(mrbind_test.mr.cs.expected_int32_t_float a, mrbind_test.mr.cs.expected_int32_t_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_int.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_int32_t_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_int32_t_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -6567,15 +6567,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_void`.
      *
-     * Calls `MR_CSharp_test_expected_void()`.
+     * Calls `MR_CSharp_test_expected_void()`. The C++ function returns `expected<void, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_void_float test_expected_void(mrbind_test.mr.cs.expected_void_float a, mrbind_test.mr.cs.expected_void_float b)
+    public static void test_expected_void(mrbind_test.mr.cs.expected_void_float a, mrbind_test.mr.cs.expected_void_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_void.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_void_float(__ret, true, null);
+            (new mrbind_test.mr.cs.expected_void_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -6691,15 +6691,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_enum`.
      *
-     * Calls `MR_CSharp_test_expected_enum()`.
+     * Calls `MR_CSharp_test_expected_enum()`. The C++ function returns `expected<MR::CSharp::E1, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_E1_float test_expected_enum(mrbind_test.mr.cs.expected_MR_CSharp_E1_float a, mrbind_test.mr.cs.expected_MR_CSharp_E1_float b)
+    public static mrbind_test.mr.csharp.E1 test_expected_enum(mrbind_test.mr.cs.expected_MR_CSharp_E1_float a, mrbind_test.mr.cs.expected_MR_CSharp_E1_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_enum.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_E1_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_E1_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -6815,15 +6815,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_triv`.
      *
-     * Calls `MR_CSharp_test_expected_triv()`.
+     * Calls `MR_CSharp_test_expected_triv()`. The C++ function returns `expected<MR::CSharp::Trivial, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float test_expected_triv(mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float a, mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float b)
+    public static mrbind_test.mr.csharp.Trivial test_expected_triv(mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float a, mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_triv.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_Trivial_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -6939,15 +6939,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_nontriv`.
      *
-     * Calls `MR_CSharp_test_expected_nontriv()`.
+     * Calls `MR_CSharp_test_expected_nontriv()`. The C++ function returns `expected<MR::CSharp::NonTrivial, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float test_expected_nontriv(mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float a, mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float b)
+    public static mrbind_test.mr.csharp.NonTrivial test_expected_nontriv(mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float a, mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_nontriv.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(a, "a"), (int)(b == null ? mrbind_test.Ffi.PASS_BY_DEFAULT_ARGUMENT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_NonTrivial_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -7063,15 +7063,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_shared`.
      *
-     * Calls `MR_CSharp_test_expected_shared()`.
+     * Calls `MR_CSharp_test_expected_shared()`. The C++ function returns `expected<MR::CSharp::SA, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_SA_float test_expected_shared(mrbind_test.mr.cs.expected_MR_CSharp_SA_float a, mrbind_test.mr.cs.expected_MR_CSharp_SA_float b)
+    public static mrbind_test.mr.csharp.SA test_expected_shared(mrbind_test.mr.cs.expected_MR_CSharp_SA_float a, mrbind_test.mr.cs.expected_MR_CSharp_SA_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_shared.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_SA_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_SA_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -7187,15 +7187,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_exposed`.
      *
-     * Calls `MR_CSharp_test_expected_exposed()`.
+     * Calls `MR_CSharp_test_expected_exposed()`. The C++ function returns `expected<MR::CSharp::ExposedLayout, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float test_expected_exposed(mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float a, mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float b)
+    public static mrbind_test.mr.csharp.ExposedLayout test_expected_exposed(mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float a, mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_exposed.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayout_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -7311,15 +7311,15 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_expected_exposed_shared`.
      *
-     * Calls `MR_CSharp_test_expected_exposed_shared()`.
+     * Calls `MR_CSharp_test_expected_exposed_shared()`. The C++ function returns `expected<MR::CSharp::ExposedLayoutSh, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float test_expected_exposed_shared(mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float a, mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float b)
+    public static mrbind_test.mr.csharp.ExposedLayoutSh test_expected_exposed_shared(mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float a, mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float b)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_expected_exposed_shared.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_MR_CSharp_ExposedLayoutSh_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {

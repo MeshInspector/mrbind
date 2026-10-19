@@ -9,15 +9,15 @@ public final class Functions
     /**
      * Generated from function `MR::StdExpected::GetExp`.
      *
-     * Calls `MR_StdExpected_GetExp()`.
+     * Calls `MR_StdExpected_GetExp()`. The C++ function returns `expected<int32_t, std::string>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_int32_t_std_string GetExp()
+    public static int GetExp()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_expected.H0.MR_StdExpected_GetExp.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, true, null);
+            return (new mrbind_test.mr.cs.expected_int32_t_std_string(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {
@@ -116,15 +116,15 @@ public final class Functions
     /**
      * Generated from function `MR::StdExpected::GetExpVoid`.
      *
-     * Calls `MR_StdExpected_GetExpVoid()`.
+     * Calls `MR_StdExpected_GetExpVoid()`. The C++ function returns `expected<void, float>`: the value is returned and an error is thrown as `UnexpectedResultException`.
      */
-    public static mrbind_test.mr.cs.expected_void_float GetExpVoid()
+    public static void GetExpVoid()
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_std_expected.H0.MR_StdExpected_GetExpVoid.invokeExact();
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.expected_void_float(__ret, true, null);
+            (new mrbind_test.mr.cs.expected_void_float(__ret, true, null)).valueOrThrow();
         }
         catch (java.lang.Throwable __e)
         {

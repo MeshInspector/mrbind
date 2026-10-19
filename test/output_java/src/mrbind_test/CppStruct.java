@@ -9,14 +9,14 @@ package mrbind_test;
 public abstract class CppStruct implements Native
 {
     protected final java.lang.foreign.MemorySegment segment;
-    @SuppressWarnings("unused") private final Object owner; // Only here to keep the owner of a reference alive.
+    @java.lang.SuppressWarnings("unused") private final java.lang.Object owner; // Only here to keep the owner of a reference alive.
 
     /** Wraps a segment of the exact struct size. `owner` is kept alive as long as this wrapper is. */
-    protected CppStruct(java.lang.foreign.MemorySegment segment, Object owner)
+    protected CppStruct(java.lang.foreign.MemorySegment segment, java.lang.Object owner)
     {
         this.segment = segment;
         this.owner = owner;
     }
 
-    @Override public final java.lang.foreign.MemorySegment rawPointer() {return segment;}
+    @java.lang.Override public final java.lang.foreign.MemorySegment rawPointer() {return segment;}
 }
