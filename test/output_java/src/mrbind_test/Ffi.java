@@ -26,7 +26,7 @@ public final class Ffi
     private static final java.util.Map<java.lang.String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();
 
     /**
-     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar or downloaded
+     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
      * (see `bundledLibrary()`), else from `java.library.path`
      * (on Windows with `LOAD_WITH_ALTERED_SEARCH_PATH`, so its dependencies are found next to it before anything else: the directory of `java.exe`
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
@@ -190,7 +190,24 @@ public final class Ffi
                 java.nio.file.Files.copy(in, temp.resolve(name));
             }
         }
-        return finishExtraction(temp, dir);
+        java.nio.file.Files.createFile(temp.resolve(".complete"));
+        try
+        {
+            java.nio.file.Files.move(temp, dir, java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+        }
+        catch (java.io.IOException e)
+        {
+            // Another process was faster.
+            if (!java.nio.file.Files.exists(dir.resolve(".complete")))
+                throw e;
+            try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
+            {
+                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files::iterator)
+                    java.nio.file.Files.deleteIfExists(file);
+            }
+            java.nio.file.Files.deleteIfExists(temp);
+        }
+        return dir;
     }
 
     // Marks a fully extracted temporary directory complete and renames it to `dir`, unless another process was faster.

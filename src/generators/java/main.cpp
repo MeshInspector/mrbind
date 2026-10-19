@@ -122,6 +122,14 @@ int main(int argc, char **argv)
             generator.deref_expected = false;
         },
     });
+    args_parser.AddFlag("--download-native-libraries", {
+        .desc = "If the jar bundles no native libraries for the current platform, download them on the first use from the locations listed in the resource `native/native.txt` next to `Ffi`: the line `url <base URL>`, then `<sha256> <archive name>` per platform, the archive names ending with `_<os>-<arch>.zip`. See `docs/generating_java.md`.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.download_native_libraries = true;
+        },
+    });
     args_parser.AddFlag("--max-class-name-length", {
         .arg_names = {"n"},
         .desc = "Shorten the generated class names to this length, plus a hash. Each class is a file, and Windows has a small default path length limit. The default is 100, 0 disables this.",

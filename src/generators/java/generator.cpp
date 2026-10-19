@@ -1162,7 +1162,7 @@ public abstract class CppStruct implements Native
         ffi += ");\n";
         ffi += "    private static final java.util.Map<java.lang.String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();\n\n";
         ffi += R"(    /**
-     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar or downloaded
+     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
      * (see `bundledLibrary()`), else from `java.library.path`
      * (on Windows with `LOAD_WITH_ALTERED_SEARCH_PATH`, so its dependencies are found next to it before anything else: the directory of `java.exe`
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
@@ -1264,7 +1264,9 @@ public abstract class CppStruct implements Native
             {
                 throw new java.io.UncheckedIOException("Can't extract the native libraries bundled in the jar.", e);
             }
-            if (bundledDir == null)
+)";
+        if (download_native_libraries)
+            ffi += R"(            if (bundledDir == null)
             {
                 try
                 {
@@ -1275,7 +1277,8 @@ public abstract class CppStruct implements Native
                     throw new java.io.UncheckedIOException("Can't get the native libraries listed in `native/native.txt`: " + e.getMessage(), e);
                 }
             }
-        }
+)";
+        ffi += R"(        }
         if (bundledDir == null)
             return null;
         java.nio.file.Path path = bundledDir.resolve(fileName);
@@ -1326,10 +1329,29 @@ public abstract class CppStruct implements Native
                 java.nio.file.Files.copy(in, temp.resolve(name));
             }
         }
-        return finishExtraction(temp, dir);
+        java.nio.file.Files.createFile(temp.resolve(".complete"));
+        try
+        {
+            java.nio.file.Files.move(temp, dir, java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+        }
+        catch (java.io.IOException e)
+        {
+            // Another process was faster.
+            if (!java.nio.file.Files.exists(dir.resolve(".complete")))
+                throw e;
+            try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
+            {
+                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files::iterator)
+                    java.nio.file.Files.deleteIfExists(file);
+            }
+            java.nio.file.Files.deleteIfExists(temp);
+        }
+        return dir;
     }
 
-    // Marks a fully extracted temporary directory complete and renames it to `dir`, unless another process was faster.
+)";
+        if (download_native_libraries)
+            ffi += R"(    // Marks a fully extracted temporary directory complete and renames it to `dir`, unless another process was faster.
     private static java.nio.file.Path finishExtraction(java.nio.file.Path temp, java.nio.file.Path dir) throws java.io.IOException
     {
         java.nio.file.Files.createFile(temp.resolve(".complete"));
@@ -1484,7 +1506,8 @@ public abstract class CppStruct implements Native
         return java.nio.file.Path.of(dir == null || dir.isEmpty() ? java.lang.System.getProperty("java.io.tmpdir") : dir).toAbsolutePath();
     }
 
-    // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
+)";
+        ffi += R"(    // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
     private static java.lang.foreign.SymbolLookup windowsLookup(java.lang.String fileName) throws java.lang.Throwable
     {
         java.nio.file.Path path = null;

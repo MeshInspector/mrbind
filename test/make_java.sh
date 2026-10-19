@@ -8,6 +8,7 @@ JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/}"
 
 # The class names are shortened more than by default: the output paths here are long already,
 # and Windows checkouts of this repo as a submodule are limited to 260 characters per path.
+# Only the first output downloads the native libraries on the first use, to show the difference.
 build/mrbind_gen_java \
     --input-json test/output_c/desc.json \
     --output-dir test/output_java/src \
@@ -16,6 +17,7 @@ build/mrbind_gen_java \
     --force-namespace MR::CS \
     --imported-lib-name bleh \
     --max-class-name-length 64 \
+    --download-native-libraries \
 
 build/mrbind_gen_java \
     --input-json test/output_c_fixed_typedefs/desc.json \

@@ -43,6 +43,8 @@ namespace mrbind::Java
         std::size_t max_class_name_length = 100;
         // `--no-deref-expected` disables this: a function returning `expected<T, E>` by value returns `T` and throws on an error, like in the C# generator.
         bool deref_expected = true;
+        // `--download-native-libraries`: if the jar bundles no libraries, `Ffi` downloads them on the first use as listed in the resource `native/native.txt`.
+        bool download_native_libraries = false;
 
         // ]
 
