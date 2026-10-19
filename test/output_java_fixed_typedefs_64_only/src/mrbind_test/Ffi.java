@@ -26,7 +26,7 @@ public final class Ffi
     private static final java.util.Map<java.lang.String, java.lang.foreign.SymbolLookup> LOOKUPS = new java.util.HashMap<>();
 
     /**
-     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar
+     * The symbols of the library of a file group. The library is loaded on the first use from the libraries bundled in the jar or downloaded
      * (see `bundledLibrary()`), else from `java.library.path`
      * (on Windows with `LOAD_WITH_ALTERED_SEARCH_PATH`, so its dependencies are found next to it before anything else: the directory of `java.exe`
      * comes first in the default search order, and it has DLLs like `freetype.dll` that can shadow the real ones).
@@ -128,6 +128,17 @@ public final class Ffi
             {
                 throw new java.io.UncheckedIOException("Can't extract the native libraries bundled in the jar.", e);
             }
+            if (bundledDir == null)
+            {
+                try
+                {
+                    bundledDir = downloadNativeLibraries();
+                }
+                catch (java.io.IOException e)
+                {
+                    throw new java.io.UncheckedIOException("Can't get the native libraries listed in `native/native.txt`: " + e.getMessage(), e);
+                }
+            }
         }
         if (bundledDir == null)
             return null;
@@ -179,6 +190,12 @@ public final class Ffi
                 java.nio.file.Files.copy(in, temp.resolve(name));
             }
         }
+        return finishExtraction(temp, dir);
+    }
+
+    // Marks a fully extracted temporary directory complete and renames it to `dir`, unless another process was faster.
+    private static java.nio.file.Path finishExtraction(java.nio.file.Path temp, java.nio.file.Path dir) throws java.io.IOException
+    {
         java.nio.file.Files.createFile(temp.resolve(".complete"));
         try
         {
@@ -186,17 +203,149 @@ public final class Ffi
         }
         catch (java.io.IOException e)
         {
-            // Another process was faster.
             if (!java.nio.file.Files.exists(dir.resolve(".complete")))
                 throw e;
-            try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.list(temp))
+            try (java.util.stream.Stream<java.nio.file.Path> files = java.nio.file.Files.walk(temp))
             {
-                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files::iterator)
+                for (java.nio.file.Path file : (java.lang.Iterable<java.nio.file.Path>)files.sorted(java.util.Comparator.reverseOrder())::iterator)
                     java.nio.file.Files.deleteIfExists(file);
             }
-            java.nio.file.Files.deleteIfExists(temp);
         }
         return dir;
+    }
+
+    // A system property, else an environment variable, or null if neither is set.
+    private static java.lang.String setting(java.lang.String property, java.lang.String variable)
+    {
+        java.lang.String value = java.lang.System.getProperty(property);
+        if (value == null || value.isEmpty())
+            value = java.lang.System.getenv(variable);
+        return value == null || value.isEmpty() ? null : value;
+    }
+
+    /**
+     * The libraries of this platform downloaded on the first use, or null if the resource `native/native.txt` next to this class doesn't exist.
+     * It's the line `url <base URL>`, then `<sha256> <archive name>` per platform, the archive names ending with `_<nativePlatform()>.zip`.
+     * The system property `<package>.native.url` or the environment variable `<PACKAGE>_NATIVE_URL` replaces the URL: another http(s) location,
+     * or a local directory with the archives. An archive is unpacked once per user into `<cache>/<package>/<archive name without .zip>`, `<cache>` being
+     * the system property `<package>.native.cache`, the environment variable `<PACKAGE>_CACHE_DIR`, or else the user's cache directory.
+     */
+    private static java.nio.file.Path downloadNativeLibraries() throws java.io.IOException
+    {
+        java.lang.String text;
+        try (java.io.InputStream in = Ffi.class.getResourceAsStream("native/native.txt"))
+        {
+            if (in == null)
+                return null;
+            text = new java.lang.String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        }
+        java.lang.String url = null;
+        java.lang.String sha256 = null;
+        java.lang.String name = null;
+        java.lang.String suffix = "_" + nativePlatform() + ".zip";
+        for (java.lang.String line : text.split("\n"))
+        {
+            line = line.strip();
+            int space = line.indexOf(' ');
+            if (line.startsWith("url "))
+                url = line.substring(4).strip();
+            else if (space > 0 && line.endsWith(suffix))
+            {
+                sha256 = line.substring(0, space);
+                name = line.substring(space + 1).strip();
+            }
+        }
+        if (name == null)
+            throw new java.io.FileNotFoundException("no native libraries for " + nativePlatform() + ".");
+
+        java.lang.String pkg = Ffi.class.getPackageName();
+        java.lang.String envPrefix = pkg.toUpperCase(java.util.Locale.ROOT).replace('.', '_');
+        java.nio.file.Path dir = nativeCacheDir(pkg, envPrefix).resolve(pkg).resolve(name.substring(0, name.length() - 4));
+        if (java.nio.file.Files.exists(dir.resolve(".complete")))
+            return dir;
+
+        java.lang.String override = setting(pkg + ".native.url", envPrefix + "_NATIVE_URL");
+        if (override != null)
+            url = override;
+        if (url == null)
+            throw new java.io.FileNotFoundException("no `url` line.");
+        byte[] archive;
+        if (url.startsWith("http://") || url.startsWith("https://"))
+        {
+            java.lang.String fullUrl = url.replaceAll("/+$", "") + "/" + name;
+            java.lang.System.err.println("Downloading the native libraries from " + fullUrl);
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder().followRedirects(java.net.http.HttpClient.Redirect.NORMAL).build();
+            java.net.http.HttpResponse<byte[]> response;
+            try
+            {
+                response = client.send(java.net.http.HttpRequest.newBuilder(java.net.URI.create(fullUrl)).build(), java.net.http.HttpResponse.BodyHandlers.ofByteArray());
+            }
+            catch (java.lang.InterruptedException e)
+            {
+                java.lang.Thread.currentThread().interrupt();
+                throw new java.io.InterruptedIOException("Interrupted while downloading " + fullUrl + ".");
+            }
+            catch (java.io.IOException e)
+            {
+                throw new java.io.IOException("failed to download " + fullUrl + " (" + e + "). Offline, set the system property `" + pkg + ".native.url` or the environment variable `" + envPrefix + "_NATIVE_URL` to a directory with " + name + ".", e);
+            }
+            if (response.statusCode() != 200)
+                throw new java.io.IOException("failed to download " + fullUrl + ": HTTP status " + response.statusCode() + ".");
+            archive = response.body();
+        }
+        else
+        {
+            archive = java.nio.file.Files.readAllBytes(java.nio.file.Path.of(url).resolve(name));
+        }
+
+        java.lang.String actual;
+        try
+        {
+            actual = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(archive));
+        }
+        catch (java.security.NoSuchAlgorithmException e)
+        {
+            throw new java.lang.IllegalStateException(e);
+        }
+        if (!actual.equalsIgnoreCase(sha256))
+            throw new java.io.IOException(name + " has SHA-256 " + actual + ", expected " + sha256 + ".");
+
+        java.nio.file.Files.createDirectories(dir.getParent());
+        java.nio.file.Path temp = java.nio.file.Files.createTempDirectory(dir.getParent(), dir.getFileName() + ".tmp");
+        try (java.util.zip.ZipInputStream zip = new java.util.zip.ZipInputStream(new java.io.ByteArrayInputStream(archive)))
+        {
+            for (java.util.zip.ZipEntry entry; (entry = zip.getNextEntry()) != null;)
+            {
+                if (entry.isDirectory())
+                    continue;
+                java.nio.file.Path target = temp.resolve(entry.getName()).normalize();
+                if (!target.startsWith(temp))
+                    throw new java.io.IOException(name + " has the entry " + entry.getName() + " outside of its directory.");
+                java.nio.file.Files.createDirectories(target.getParent());
+                java.nio.file.Files.copy(zip, target);
+            }
+        }
+        return finishExtraction(temp, dir);
+    }
+
+    // Where `downloadNativeLibraries()` keeps the libraries, see there.
+    private static java.nio.file.Path nativeCacheDir(java.lang.String pkg, java.lang.String envPrefix)
+    {
+        java.lang.String dir = setting(pkg + ".native.cache", envPrefix + "_CACHE_DIR");
+        if (dir != null)
+            return java.nio.file.Path.of(dir).toAbsolutePath();
+        java.lang.String home = java.lang.System.getProperty("user.home", "");
+        if (IS_WINDOWS)
+            dir = java.lang.System.getenv("LOCALAPPDATA");
+        else if (java.lang.System.getProperty("os.name", "").toLowerCase(java.util.Locale.ROOT).startsWith("mac"))
+            dir = home.isEmpty() ? null : home + "/Library/Caches";
+        else
+        {
+            dir = java.lang.System.getenv("XDG_CACHE_HOME");
+            if ((dir == null || dir.isEmpty()) && !home.isEmpty())
+                dir = home + "/.cache";
+        }
+        return java.nio.file.Path.of(dir == null || dir.isEmpty() ? java.lang.System.getProperty("java.io.tmpdir") : dir).toAbsolutePath();
     }
 
     // Loads a DLL found in `java.library.path` with `LoadLibraryExW()`, see `lookup()`. Returns null if it's not there, throws if it can't be loaded.
