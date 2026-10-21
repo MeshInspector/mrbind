@@ -1907,7 +1907,7 @@ namespace MRBind::pb11
             c.def(+"__len__", +[](const T &t){return std::size_t(t.size());});
     }
 
-    // If the class is a contiguous sequence container that can be filled with `push_back()`, adds a constructor from a Python list,
+    // If the class is a contiguous sequence container that can be constructed from `std::initializer_list` and filled with `push_back()`, adds a constructor from a Python list,
     // and registers it as an implicit conversion, like for `std::vector`.
     template <typename T>
     concept IsListConstructibleSequence =
@@ -1915,6 +1915,8 @@ namespace MRBind::pb11
         std::is_default_constructible_v<T> &&
         std::is_move_constructible_v<T> &&
         std::is_copy_constructible_v<typename T::value_type> &&
+        // Not used, but confirms that the class is intended to be constructed from a list of elements.
+        std::is_constructible_v<T, std::initializer_list<typename T::value_type>> &&
         requires(T &t, const typename T::value_type &v){t.push_back(v);};
 
     template <typename T>
