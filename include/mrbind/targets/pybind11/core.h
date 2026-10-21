@@ -1889,11 +1889,66 @@ namespace MRBind::pb11
         }
     }
 
+    // Whether `T` looks like a contiguous sequence container: has `value_type`, `size()`, and `data()` returning a pointer to `value_type`.
+    // This intentionally excludes classes that only have `size()`, or that iterate over something other than their elements (e.g. bitsets).
+    template <typename T>
+    concept IsContiguousSequence = requires(const T &t)
+    {
+        typename T::value_type;
+        requires std::is_integral_v<std::remove_cvref_t<decltype(t.size())>>;
+        requires std::is_same_v<std::remove_cvref_t<decltype(*t.data())>, typename T::value_type>;
+    };
+
+    // If the class is a contiguous sequence container, adds `__len__` (and therefore also the truthiness).
+    template <typename T>
+    void TryMakeSized(auto &c)
+    {
+        if constexpr (IsContiguousSequence<T>)
+            c.def(+"__len__", +[](const T &t){return std::size_t(t.size());});
+    }
+
+    // If the class is a contiguous sequence container that can be constructed from `std::initializer_list` and filled with `push_back()`, adds a constructor from a Python list,
+    // and registers it as an implicit conversion, like for `std::vector`.
+    template <typename T>
+    concept IsListConstructibleSequence =
+        IsContiguousSequence<T> &&
+        std::is_default_constructible_v<T> &&
+        std::is_move_constructible_v<T> &&
+        std::is_copy_constructible_v<typename T::value_type> &&
+        // Not used, but confirms that the class is intended to be constructed from a list of elements.
+        std::is_constructible_v<T, std::initializer_list<typename T::value_type>> &&
+        requires(T &t, const typename T::value_type &v){t.push_back(v);};
+
+    template <typename T>
+    void TryMakeListConvertible(auto &c)
+    {
+        if constexpr (IsListConstructibleSequence<T>)
+        {
+            c.def(
+                pybind11::init(
+                    [](const pybind11::list &list)
+                    {
+                        T ret;
+                        for (pybind11::handle elem : list)
+                            ret.push_back(elem.cast<typename T::value_type>());
+                        return ret;
+                    }
+                ),
+                // The elements can hold references to other objects (which are kept alive by the Python objects of the elements), so keep the list alive.
+                pybind11::keep_alive<1, 2>()
+            );
+            // Only `list`, not any iterable, for the same reasons as for `std::vector` in `bind_std.h`.
+            pybind11::implicitly_convertible<pybind11::list, T>();
+        }
+    }
+
     template <typename T>
     void FinalizeClass(auto &c, TryAddFuncScopeState &scope_state)
     {
         TryMakeIterable<T>(c);
         TryMakePrintable<T>(c);
+        TryMakeSized<T>(c);
+        TryMakeListConvertible<T>(c);
 
 
         // Those shouldn't be necessary anymore, now that we updated the parser to hopefully always emit the implicit constructors.
