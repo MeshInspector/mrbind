@@ -2328,6 +2328,20 @@ namespace mrbind::C
                             auto headers = generator.ParsedFilenameToRelativeNamesForInclusion(parsed_iter->second.GetParsedFileName());
                             cache_iter->second.generated.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
                         }
+                        else if (auto custom_iter = generator.custom_cpp_includes_for_names.find(generator.CppdeclToCode(
+                                [&]{
+                                    cppdecl::QualifiedName name_without_targs = name;
+                                    for (auto &part : name_without_targs.parts)
+                                        part.template_args.reset();
+                                    return name_without_targs;
+                                }()
+                            ));
+                            custom_iter != generator.custom_cpp_includes_for_names.end()
+                        )
+                        {
+                            // A header specified by the user with `--cpp-include-for-name`.
+                            cache_iter->second.stdlib.insert(custom_iter->second);
+                        }
                         else
                         {
                             // Perhaps a custom type? Ask the modules.

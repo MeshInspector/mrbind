@@ -574,9 +574,41 @@ namespace mrbind
         }
     }
 
+    // If `type` is spelled through a `iterator` or `const_iterator` member typedef of a standard class template specialization,
+    //   returns `<canonical specialization>::<typedef name>`.
+    // We need this because the canonical iterator types don't always mention the container: libc++ uses `std::__wrap_iter<T *>` for any
+    //   `std::vector<T, A>::iterator`, and normalizing that back to the container iterator (see cppdecl) has to assume the default allocator.
+    [[nodiscard]] std::optional<std::string> GetStdContainerIteratorSpelling(const clang::QualType &type, const clang::CompilerInstance &ci, const clang::PrintingPolicy &printing_policy)
+    {
+        clang::QualType cur = type;
+        while (const auto *typedef_type = cur->getAs<clang::TypedefType>())
+        {
+            const clang::TypedefNameDecl *decl = typedef_type->getDecl();
+            const auto *spec = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(decl->getDeclContext());
+            if (spec && spec->isInStdNamespace() && (decl->getName() == "iterator" || decl->getName() == "const_iterator"))
+            {
+                #if CLANG_VERSION_MAJOR >= 22
+                clang::QualType spec_type = ci.getASTContext().getCanonicalTagType(spec);
+                #else
+                clang::QualType spec_type = ci.getASTContext().getRecordType(spec).getCanonicalType();
+                #endif
+                std::string ret = spec_type.getAsString(printing_policy) + "::" + decl->getName().str();
+                if (type.getCanonicalType().isConstQualified())
+                    ret = "const " + ret;
+                return ret;
+            }
+            cur = typedef_type->desugar();
+        }
+        return {};
+    }
+
     [[nodiscard]] std::string GetCanonicalTypeName(const clang::QualType &type, const clang::CompilerInstance &ci, const VisitorParams &params, const clang::PrintingPolicy &printing_policy, bool strip_cvref_if_cppdecl_is_enabled)
     {
-        std::string ret = type.getCanonicalType().getAsString(printing_policy);
+        std::string ret;
+        if (auto iter_spelling = GetStdContainerIteratorSpelling(type, ci, printing_policy))
+            ret = std::move(*iter_spelling);
+        else
+            ret = type.getCanonicalType().getAsString(printing_policy);
 
         if (params.enable_cppdecl_processing)
         {

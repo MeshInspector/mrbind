@@ -207,6 +207,17 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--cpp-include-for-name", {
+            .allow_repeat = true,
+            .arg_names = {"name", "header"},
+            .desc = "When a C++ type with this qualified name (ignoring template arguments) is mentioned, include `<header>` in the generated source files. Useful for the names that we can't find the headers for otherwise, e.g. ignored types appearing as template arguments: `--cpp-include-for-name MR::Allocator MRMesh/MRAllocator.h`. Can be repeated.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                if (!generator.custom_cpp_includes_for_names.try_emplace(std::string(args[0]), std::string(args[1])).second)
+                    throw std::runtime_error("Duplicate `--cpp-include-for-name` for `" + std::string(args[0]) + "`.");
+            },
+        });
+
         args_parser.AddFlag("--max-header-name-length", {
             .arg_names = {"n"},
             .desc = "Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.",

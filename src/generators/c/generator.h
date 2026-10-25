@@ -347,6 +347,11 @@ namespace mrbind::C
         // All of those are already canonicalized. Those are set from the `--assume-include-dir` flags.
         std::unordered_set<std::filesystem::path> assumed_include_directories;
 
+        // Extra headers to include for the C++ names that we can't find the headers for otherwise (e.g. ignored types used as template arguments).
+        // The keys are qualified names without template arguments, the values are spelled as in `#include <...>`.
+        // Those are set from the `--cpp-include-for-name` flags.
+        std::unordered_map<std::string, std::string> custom_cpp_includes_for_names;
+
         // Figures out how to properly include a parsed file.
         // Returns one or more names that you should include, not the entire include directive.
         [[nodiscard]] std::set<std::string, std::less<>> ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input);
