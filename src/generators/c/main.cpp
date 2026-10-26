@@ -207,14 +207,22 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
-        args_parser.AddFlag("--cpp-include-for-name", {
+        args_parser.AddFlag("--custom-cpp-include-for-name", {
             .allow_repeat = true,
             .arg_names = {"name", "header"},
-            .desc = "When a C++ type with this qualified name (ignoring template arguments) is mentioned, include `<header>` in the generated source files. Useful for the names that we can't find the headers for otherwise, e.g. ignored types appearing as template arguments: `--cpp-include-for-name MR::Allocator MRMesh/MRAllocator.h`. Can be repeated.",
+            .desc = "Optional, can be repeated. Teaches mrbind that to get a declaration of `name` it needs to include a C++ `header` (in generated C++, not in C headers). This should only be needed in exceptional circumstances, e.g. if `name` is excluded from the bindings, but appears as a template argument, e.g. a custom allocator that's excluded from the bindings. `name` is a C++ type name, with template arguments omitted. `header` is a header name without `\"...\"` or `<...>`.",
             .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                if (!generator.custom_cpp_includes_for_names.try_emplace(std::string(args[0]), std::string(args[1])).second)
-                    throw std::runtime_error("Duplicate `--cpp-include-for-name` for `" + std::string(args[0]) + "`.");
+                cppdecl::QualifiedName name = generator.ParseQualNameOrThrow(std::string(args[0]));
+
+                // We reject template arguments at any level. And similarly remove them from all levels for lookup. See `Generator::TryFindCppHeaders()` for more details.
+                if (std::any_of(name.parts.begin(), name.parts.end(), [](const cppdecl::UnqualifiedName &part){return bool(part.template_args);}))
+                    throw std::runtime_error("Names passed to `--custom-cpp-include-for-name` must not have template arguments, got `" + std::string(args[0]) + "`.");
+
+                std::string name_fixed = generator.CppdeclToCode(name); // Roundtrip through cppdecl.
+
+                if (!generator.custom_cpp_includes_for_names.try_emplace(name_fixed, std::string(args[1])).second)
+                    throw std::runtime_error("Duplicate `--custom-cpp-include-for-name " + name_fixed + " ...`.");
             },
         });
 

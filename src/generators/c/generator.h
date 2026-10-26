@@ -140,14 +140,16 @@ namespace mrbind::C
         // Note that the resulting C++ code will still build even with exceptions turned off, as the exception handling is wrapped in `#if`s.
         bool enable_exceptions_support = true;
 
+        // Maps C++ qualified names to headers that need to be included to get them.
+        // This comes from `--custom-cpp-include-for-name`.
+        // Keys are C++ qualified names with template arguments removed at all levels, and values are include names without `<...>` or `"..."`.
+        std::unordered_map<std::string, std::string> custom_cpp_includes_for_names;
+
         // ]
 
         // Output JSON description: [
         // If this is not empty, all emitted output is also added to this.
         std::optional<CInterop::OutputDesc> output_desc;
-
-        // All methods are accumulated here, since the
-        std::vector<CInterop::ClassMethod> output_desc_pending_methods;
 
         // ]
 
@@ -346,11 +348,6 @@ namespace mrbind::C
         // This is solely for the parsed files. Not for the generated files.
         // All of those are already canonicalized. Those are set from the `--assume-include-dir` flags.
         std::unordered_set<std::filesystem::path> assumed_include_directories;
-
-        // Extra headers to include for the C++ names that we can't find the headers for otherwise (e.g. ignored types used as template arguments).
-        // The keys are qualified names without template arguments, the values are spelled as in `#include <...>`.
-        // Those are set from the `--cpp-include-for-name` flags.
-        std::unordered_map<std::string, std::string> custom_cpp_includes_for_names;
 
         // Figures out how to properly include a parsed file.
         // Returns one or more names that you should include, not the entire include directive.

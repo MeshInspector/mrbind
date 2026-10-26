@@ -2329,17 +2329,18 @@ namespace mrbind::C
                             cache_iter->second.generated.insert(std::make_move_iterator(headers.begin()), std::make_move_iterator(headers.end()));
                         }
                         else if (auto custom_iter = generator.custom_cpp_includes_for_names.find(generator.CppdeclToCode(
-                                [&]{
-                                    cppdecl::QualifiedName name_without_targs = name;
-                                    for (auto &part : name_without_targs.parts)
-                                        part.template_args.reset();
-                                    return name_without_targs;
-                                }()
-                            ));
+                            [&]{
+                                // Remove template arguments at all levels. This is intentional (though probably not very useful).
+                                cppdecl::QualifiedName name_copy = name;
+                                for (auto &part : name_copy.parts)
+                                    part.template_args = {};
+                                return name_copy;
+                            }()));
                             custom_iter != generator.custom_cpp_includes_for_names.end()
                         )
                         {
-                            // A header specified by the user with `--cpp-include-for-name`.
+                            // A header specified in `--custom-cpp-include-for-name`.
+                            // Mildly annoying to lump those into `stdlib`, but we don't have a separate category for them.
                             cache_iter->second.stdlib.insert(custom_iter->second);
                         }
                         else
