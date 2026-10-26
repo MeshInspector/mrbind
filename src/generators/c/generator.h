@@ -146,9 +146,6 @@ namespace mrbind::C
         // If this is not empty, all emitted output is also added to this.
         std::optional<CInterop::OutputDesc> output_desc;
 
-        // All methods are accumulated here, since the
-        std::vector<CInterop::ClassMethod> output_desc_pending_methods;
-
         // ]
 
         // Constants: [
