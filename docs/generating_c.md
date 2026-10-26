@@ -207,6 +207,14 @@ This can get out of hand with huge structs. Use `--preferred-max-num-aggregate-i
 
 This flag is ignored for non-default-constructible structs, as this could make them impossible to construct.
 
+### Add missing headers for certain C++ template arguments
+
+When generating C++ implementation files, MRBind automatically determines what headers it needs to include. Sometimes those heuristics can fail, leading to missing includes can compilation errors caused by that.
+
+One such case is when you use custom allocators that are excluded from the bindings (excluding them is probably a good idea, they are not very useful directly).
+
+Pass `--custom-cpp-include-for-name My::Allocator foo/bar.h` to `#include <foo/bar.h>` whenever `My::Allocator` is used. Template arguments on the type must be omitted.
+
 ### Using fixed-size typedefs
 
 Passing `--canonicalize-to-fixed-size-typedefs` will use `int32_t` and other similar standard typedefs instead of all built-in integer types.

@@ -207,6 +207,25 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--custom-cpp-include-for-name", {
+            .allow_repeat = true,
+            .arg_names = {"name", "header"},
+            .desc = "Optional, can be repeated. Teaches mrbind that to get a declaration of `name` it needs to include a C++ `header` (in generated C++, not in C headers). This should only be needed in exceptional circumstances, e.g. if `name` is excluded from the bindings, but appears as a template argument, e.g. a custom allocator that's excluded from the bindings. `name` is a C++ type name, with template arguments omitted. `header` is a header name without `\"...\"` or `<...>`.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                cppdecl::QualifiedName name = generator.ParseQualNameOrThrow(std::string(args[0]));
+
+                // We reject template arguments at any level. And similarly remove them from all levels for lookup. See `Generator::TryFindCppHeaders()` for more details.
+                if (std::any_of(name.parts.begin(), name.parts.end(), [](const cppdecl::UnqualifiedName &part){return bool(part.template_args);}))
+                    throw std::runtime_error("Names passed to `--custom-cpp-include-for-name` must not have template arguments, got `" + std::string(args[0]) + "`.");
+
+                std::string name_fixed = generator.CppdeclToCode(name); // Roundtrip through cppdecl.
+
+                if (!generator.custom_cpp_includes_for_names.try_emplace(name_fixed, std::string(args[1])).second)
+                    throw std::runtime_error("Duplicate `--custom-cpp-include-for-name " + name_fixed + " ...`.");
+            },
+        });
+
         args_parser.AddFlag("--max-header-name-length", {
             .arg_names = {"n"},
             .desc = "Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.",

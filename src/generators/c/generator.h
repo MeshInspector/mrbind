@@ -140,14 +140,16 @@ namespace mrbind::C
         // Note that the resulting C++ code will still build even with exceptions turned off, as the exception handling is wrapped in `#if`s.
         bool enable_exceptions_support = true;
 
+        // Maps C++ qualified names to headers that need to be included to get them.
+        // This comes from `--custom-cpp-include-for-name`.
+        // Keys are C++ qualified names with template arguments removed at all levels, and values are include names without `<...>` or `"..."`.
+        std::unordered_map<std::string, std::string> custom_cpp_includes_for_names;
+
         // ]
 
         // Output JSON description: [
         // If this is not empty, all emitted output is also added to this.
         std::optional<CInterop::OutputDesc> output_desc;
-
-        // All methods are accumulated here, since the
-        std::vector<CInterop::ClassMethod> output_desc_pending_methods;
 
         // ]
 

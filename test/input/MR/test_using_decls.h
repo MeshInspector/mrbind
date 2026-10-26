@@ -1,6 +1,6 @@
 #pragma once
 
-// This class doesn't get a binding. We inherit from it and add `--ignore-mentions-of` to test that nothing gets imported from it.
+// This class doesn't get a binding. We inherit from it and add `--skip-mentions-of` to test that nothing gets imported from it.
 struct UsingDecls_IgnoreMentionsOf
 {
     UsingDecls_IgnoreMentionsOf(float) {}
