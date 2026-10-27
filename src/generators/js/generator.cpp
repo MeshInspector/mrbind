@@ -112,6 +112,8 @@ namespace mrbind::Js
             "false", "finally", "for", "function", "if", "import", "in", "instanceof", "new", "null", "return", "super", "switch", "this", "throw",
             "true", "try", "typeof", "var", "void", "while", "with", "yield", "let", "static", "implements", "interface", "package", "private",
             "protected", "public", "arguments", "eval", "undefined", "NaN", "Infinity",
+            // The imports and the locals of the generated modules.
+            "L", "ffi", "args", "__ret", "__sp", "__sret", "__owner", "__e", "__n", "__v", "__p",
         };
         str = JsPropertyName(std::move(str));
         if (keywords.contains(str))
@@ -197,25 +199,36 @@ namespace mrbind::Js
         }
     }
 
+    std::string Generator::HeapIndex(const std::string &addr, int shift) const
+    {
+        // `>>>` would truncate the wasm64 addresses above 4 GB. They stay below 2^53, so the division is exact for the aligned ones.
+        if (shift == 0)
+            return addr;
+        if (wasm64)
+            return "(" + addr + ") / " + std::to_string(1 << shift);
+        return "(" + addr + ") >>> " + std::to_string(shift);
+    }
+
     std::string Generator::HeapRead(Scalar s, const std::string &addr) const
     {
+        // The views are functions: in a `-pthread` module another thread can grow the memory at any time, see `ffi.mjs`.
         if (IsPointerSized(s) && wasm64)
-            return "Number(ffi.M." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "[(" + addr + ") >>> 3])";
+            return "Number(ffi." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "()[" + HeapIndex(addr, 3) + "])";
         switch (s)
         {
-            case Scalar::isize: return "ffi.M.HEAP32[(" + addr + ") >>> 2]";
-            case Scalar::usize: return "ffi.M.HEAPU32[(" + addr + ") >>> 2]";
-            case Scalar::bool_: return "(ffi.M.HEAPU8[" + addr + "] !== 0)";
-            case Scalar::i8: return "ffi.M.HEAP8[" + addr + "]";
-            case Scalar::u8: return "ffi.M.HEAPU8[" + addr + "]";
-            case Scalar::i16: return "ffi.M.HEAP16[(" + addr + ") >>> 1]";
-            case Scalar::u16: return "ffi.M.HEAPU16[(" + addr + ") >>> 1]";
-            case Scalar::i32: return "ffi.M.HEAP32[(" + addr + ") >>> 2]";
-            case Scalar::u32: case Scalar::ptr: return "ffi.M.HEAPU32[(" + addr + ") >>> 2]";
-            case Scalar::i64: return "ffi.M.HEAP64[(" + addr + ") >>> 3]";
-            case Scalar::u64: return "ffi.M.HEAPU64[(" + addr + ") >>> 3]";
-            case Scalar::f32: return "ffi.M.HEAPF32[(" + addr + ") >>> 2]";
-            case Scalar::f64: return "ffi.M.HEAPF64[(" + addr + ") >>> 3]";
+            case Scalar::isize: return "ffi.HEAP32()[" + HeapIndex(addr, 2) + "]";
+            case Scalar::usize: return "ffi.HEAPU32()[" + HeapIndex(addr, 2) + "]";
+            case Scalar::bool_: return "(ffi.HEAPU8()[" + addr + "] !== 0)";
+            case Scalar::i8: return "ffi.HEAP8()[" + addr + "]";
+            case Scalar::u8: return "ffi.HEAPU8()[" + addr + "]";
+            case Scalar::i16: return "ffi.HEAP16()[" + HeapIndex(addr, 1) + "]";
+            case Scalar::u16: return "ffi.HEAPU16()[" + HeapIndex(addr, 1) + "]";
+            case Scalar::i32: return "ffi.HEAP32()[" + HeapIndex(addr, 2) + "]";
+            case Scalar::u32: case Scalar::ptr: return "ffi.HEAPU32()[" + HeapIndex(addr, 2) + "]";
+            case Scalar::i64: return "ffi.HEAP64()[" + HeapIndex(addr, 3) + "]";
+            case Scalar::u64: return "ffi.HEAPU64()[" + HeapIndex(addr, 3) + "]";
+            case Scalar::f32: return "ffi.HEAPF32()[" + HeapIndex(addr, 2) + "]";
+            case Scalar::f64: return "ffi.HEAPF64()[" + HeapIndex(addr, 3) + "]";
             default: throw std::logic_error("Internal error: HeapRead() of a non-scalar.");
         }
     }
@@ -223,26 +236,26 @@ namespace mrbind::Js
     std::string Generator::HeapReadRaw(Scalar s, const std::string &addr) const
     {
         if (IsPointerSized(s) && wasm64)
-            return "ffi.M." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "[(" + addr + ") >>> 3]";
+            return "ffi." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "()[" + HeapIndex(addr, 3) + "]";
         if (s == Scalar::bool_)
-            return "ffi.M.HEAPU8[" + addr + "]";
+            return "ffi.HEAPU8()[" + addr + "]";
         return HeapRead(s, addr);
     }
 
     std::string Generator::HeapWrite(Scalar s, const std::string &addr, const std::string &value) const
     {
         if (IsPointerSized(s) && wasm64)
-            return "ffi.M.HEAPU64[(" + addr + ") >>> 3] = BigInt(" + value + ")";
+            return "ffi.HEAPU64()[" + HeapIndex(addr, 3) + "] = " + (s == Scalar::ptr ? "BigInt(" + value + ")" : "ffi.toI64(" + value + ")");
         switch (s)
         {
-            case Scalar::bool_: return "ffi.M.HEAPU8[" + addr + "] = " + value + " ? 1 : 0";
-            case Scalar::i8: case Scalar::u8: return "ffi.M.HEAPU8[" + addr + "] = " + value;
-            case Scalar::i16: case Scalar::u16: return "ffi.M.HEAPU16[(" + addr + ") >>> 1] = " + value;
-            case Scalar::i32: case Scalar::u32: case Scalar::ptr: case Scalar::isize: case Scalar::usize: return "ffi.M.HEAPU32[(" + addr + ") >>> 2] = " + value;
-            case Scalar::i64: return "ffi.M.HEAP64[(" + addr + ") >>> 3] = ffi.toI64(" + value + ")";
-            case Scalar::u64: return "ffi.M.HEAPU64[(" + addr + ") >>> 3] = ffi.toI64(" + value + ")";
-            case Scalar::f32: return "ffi.M.HEAPF32[(" + addr + ") >>> 2] = " + value;
-            case Scalar::f64: return "ffi.M.HEAPF64[(" + addr + ") >>> 3] = " + value;
+            case Scalar::bool_: return "ffi.HEAPU8()[" + addr + "] = " + value + " ? 1 : 0";
+            case Scalar::i8: case Scalar::u8: return "ffi.HEAPU8()[" + addr + "] = " + value;
+            case Scalar::i16: case Scalar::u16: return "ffi.HEAPU16()[" + HeapIndex(addr, 1) + "] = " + value;
+            case Scalar::i32: case Scalar::u32: case Scalar::ptr: case Scalar::isize: case Scalar::usize: return "ffi.HEAPU32()[" + HeapIndex(addr, 2) + "] = " + value;
+            case Scalar::i64: return "ffi.HEAP64()[" + HeapIndex(addr, 3) + "] = ffi.toI64(" + value + ")";
+            case Scalar::u64: return "ffi.HEAPU64()[" + HeapIndex(addr, 3) + "] = ffi.toI64(" + value + ")";
+            case Scalar::f32: return "ffi.HEAPF32()[" + HeapIndex(addr, 2) + "] = " + value;
+            case Scalar::f64: return "ffi.HEAPF64()[" + HeapIndex(addr, 3) + "] = " + value;
             default: throw std::logic_error("Internal error: HeapWrite() of a non-scalar.");
         }
     }
@@ -269,7 +282,7 @@ namespace mrbind::Js
     std::string Generator::ToWasm(Scalar s, const std::string &expr) const
     {
         if (IsPointerSized(s) && wasm64)
-            return "BigInt(" + expr + ")";
+            return s == Scalar::ptr ? "BigInt(" + expr + ")" : "ffi.toI64(" + expr + ")";
         switch (s)
         {
             case Scalar::bool_: return "(" + expr + " ? 1 : 0)";
@@ -732,7 +745,7 @@ namespace mrbind::Js
 
     void Generator::ComputeStructLayouts()
     {
-        // The wasm32 C ABI: natural alignment of every field, the struct is padded to its alignment, `long long` and `double` are aligned to 8.
+        // The wasm C ABI: natural alignment of every field, the struct is padded to its alignment, `long long` and `double` are aligned to 8.
         // Computed here instead of being read from the JSON, since the JSON describes the host platform of the C generator.
         std::set<std::string> done;
         auto Compute = [&](auto &self, TypeInfo &info) -> void
@@ -816,14 +829,14 @@ namespace mrbind::Js
             if (!l.platform_dependent && info.class_desc->size_and_alignment)
             {
                 if (info.class_desc->size_and_alignment->size != l.size || info.class_desc->size_and_alignment->alignment != l.alignment)
-                    throw std::runtime_error("Internal error: the computed wasm32 layout of `" + info.cpp_name + "` (" + std::to_string(l.size) + " bytes, aligned to " + std::to_string(l.alignment) + ") doesn't match the one in the description JSON (" + std::to_string(info.class_desc->size_and_alignment->size) + " bytes, aligned to " + std::to_string(info.class_desc->size_and_alignment->alignment) + ").");
+                    throw std::runtime_error("Internal error: the computed wasm layout of `" + info.cpp_name + "` (" + std::to_string(l.size) + " bytes, aligned to " + std::to_string(l.alignment) + ") doesn't match the one in the description JSON (" + std::to_string(info.class_desc->size_and_alignment->size) + " bytes, aligned to " + std::to_string(info.class_desc->size_and_alignment->alignment) + ").");
                 std::size_t i = 0;
                 for (const auto &field : info.class_desc->fields)
                 {
                     if (field.is_static)
                         continue;
                     if (field.layout && field.layout->byte_offset != l.field_offsets[i])
-                        throw std::runtime_error("Internal error: the computed wasm32 offset of the field `" + field.name + "` of `" + info.cpp_name + "` (" + std::to_string(l.field_offsets[i]) + ") doesn't match the one in the description JSON (" + std::to_string(field.layout->byte_offset) + ").");
+                        throw std::runtime_error("Internal error: the computed wasm offset of the field `" + field.name + "` of `" + info.cpp_name + "` (" + std::to_string(l.field_offsets[i]) + ") doesn't match the one in the description JSON (" + std::to_string(field.layout->byte_offset) + ").");
                     i++;
                 }
             }
@@ -1039,12 +1052,14 @@ namespace mrbind::Js
                         {
                             ret.args.push_back("(" + var + " == null ? " + none_mode + " : ffi.PASS_BY_MOVE_AND_DESTROY)");
                             ret.args.push_back(PtrToWasm("(" + var + " == null ? 0 : " + var + ".release())"));
+                            ret.releases = true;
                         }
                         else
                         {
                             ret.args.push_back("ffi.PASS_BY_MOVE_AND_DESTROY");
                             ret.args.push_back(PtrToWasm("ffi.nonNull(" + var + ", \"" + EscapeJsString(name) + "\").release()"));
                         }
+                        ret.releases = true;
                     }
                     return ret;
                 }
@@ -1063,7 +1078,7 @@ namespace mrbind::Js
                 ret.pre += "const __str_" + name + " = " + name + " == null ? 0 : ffi.utf8(" + name + ");\n";
             else
                 ret.pre += "const __str_" + name + " = ffi.utf8(ffi.nonNullString(" + name + ", \"" + EscapeJsString(name) + "\"));\n";
-            ret.pre += "const __end_" + name + " = ffi.utf8End();\n";
+            ret.pre += "const __end_" + name + " = " + (ret.optional ? name + " == null ? 0 : " : "") + "ffi.utf8End();\n";
             ret.args.push_back(PtrToWasm("__str_" + name));
             ret.args.push_back(PtrToWasm("__end_" + name));
             return ret;
@@ -1121,6 +1136,7 @@ namespace mrbind::Js
                 {
                     ClassParam(*ptr->pointee_type, false, false);
                     ret.args.push_back(PtrToWasm("ffi.nonNull(" + name + ", \"" + EscapeJsString(name) + "\").release()"));
+                    ret.releases = true;
                     return ret;
                 }
 
@@ -1147,7 +1163,7 @@ namespace mrbind::Js
                     ret.sig_key = TsScalar(s, true) + (optional ? "?" : "");
                     ret.check = optional ? "(__v == null || " + ScalarCheck(s, "__v") + ")" : ScalarCheck(s, "__v");
                     ret.needs_stack = true;
-                    std::string alloc = "ffi.stackScalar(" + std::to_string(ScalarSize(s)) + ", (p) => {" + HeapWrite(s, "p", ToWasm(s, name)) + ";})";
+                    std::string alloc = "ffi.stackScalar(" + std::to_string(ScalarSize(s)) + ", (p) => {" + HeapWrite(s, "p", name) + ";})";
                     if (optional)
                         ret.pre += "const __ptr_" + name + " = " + name + " == null ? 0 : " + alloc + ";\n";
                     else
@@ -1537,23 +1553,35 @@ namespace mrbind::Js
         else
             owner = "[" + JoinNameParts(owners, ", ") + "]";
 
-        // The call.
-        std::string args;
+        // The call. If an argument releases an object (`PASS_BY_MOVE_AND_DESTROY`), every argument goes into a local first, the releasing ones last:
+        //   a `TypeError` for a later argument must not leak the moved-from object.
+        const bool any_release = std::any_of(func.params.begin(), func.params.end(), [](const ParamStrings &p){return p.releases;});
+        std::vector<std::pair<std::string, bool>> all_args; // The expression and whether it releases.
         if (func.ret.sret)
-            args = PtrToWasm("__sret");
+            all_args.emplace_back(PtrToWasm("__sret"), false);
         if (!func.is_static)
-            args += (args.empty() ? "" : ", ") + PtrToWasm("this.rawPointer()");
+            all_args.emplace_back(PtrToWasm("this.rawPointer()"), false);
         for (const auto &param : func.params)
         {
             for (const auto &arg : param.args)
+                all_args.emplace_back(arg, param.releases);
+        }
+        std::string args;
+        for (std::size_t i = 0; i < all_args.size(); i++)
+            args += (i > 0 ? ", " : "") + (any_release ? "__a" + std::to_string(i) : all_args[i].first);
+        if (any_release)
+        {
+            for (bool releasing : {false, true})
             {
-                if (!args.empty())
-                    args += ", ";
-                args += arg;
+                for (std::size_t i = 0; i < all_args.size(); i++)
+                {
+                    if (all_args[i].second == releasing)
+                        pre += "const __a" + std::to_string(i) + " = " + all_args[i].first + ";\n";
+                }
             }
         }
         std::string call = "ffi.C." + f.c_name + "(" + args + ")";
-        std::string body = pre + func.ret.pre;
+        std::string body = pre;
         if (func.ret.wasm_scalar == Scalar::void_)
             body += call + ";\n";
         else
@@ -1575,18 +1603,28 @@ namespace mrbind::Js
 
         std::string wrapped;
         const bool catch_cpp = !c_desc.exception_handling_enabled;
-        if (needs_stack || !post.empty() || catch_cpp)
+        // `__sret` is allocated before the `try`, and freed if anything throws before it's wrapped into the result.
+        const bool has_sret = func.ret.returns_struct;
+        // A C++ exception escaping a wasm function leaves `__stack_pointer` where the throwing frame had it, so it's saved around every such call.
+        const bool save_stack = needs_stack || catch_cpp;
+        if (save_stack || !post.empty() || has_sret)
         {
-            wrapped += decl;
-            wrapped += needs_stack ? "const __sp = ffi.stackSave();\ntry\n{\n" : "try\n{\n";
+            wrapped += decl + func.ret.pre;
+            wrapped += save_stack ? "const __sp = ffi.stackSave();\ntry\n{\n" : "try\n{\n";
             wrapped += Indent(body, 1);
             wrapped += "}\n";
-            if (catch_cpp)
-                wrapped += "catch (__e)\n{\n    throw ffi.cppError(__e);\n}\n";
-            if (needs_stack || !post.empty())
+            if (catch_cpp || has_sret)
+            {
+                wrapped += "catch (__e)\n{\n";
+                if (has_sret)
+                    wrapped += "    ffi.free(__sret);\n";
+                wrapped += catch_cpp ? "    throw ffi.cppError(__e);\n" : "    throw __e;\n";
+                wrapped += "}\n";
+            }
+            if (save_stack || !post.empty())
             {
                 wrapped += "finally\n{\n";
-                if (needs_stack)
+                if (save_stack)
                     wrapped += "    ffi.stackRestore(__sp);\n";
                 wrapped += Indent(post, 1);
                 wrapped += "}\n";
@@ -1602,7 +1640,9 @@ namespace mrbind::Js
 
     std::string Generator::EmitDispatcher(const std::vector<PreparedFunc> &funcs, const OverloadGroup &group, const std::function<std::string(std::size_t index, const std::string &args)> &impl_call) const
     {
-        // First the overloads whose parameter count matches exactly, then those with optional parameters omitted. The first declared match wins.
+        // First the overloads whose parameter count matches exactly, then those with optional parameters omitted, the ones with the fewest
+        //   parameters first (an overload that only adds optional parameters must not capture the calls meant for the shorter one).
+        //   The declaration order breaks the ties.
         std::string out = "{\n    const __n = args.length;\n";
         auto Checks = [&](const PreparedFunc &func)
         {
@@ -1629,11 +1669,16 @@ namespace mrbind::Js
             const PreparedFunc &func = funcs[i];
             out += "    if (__n === " + std::to_string(func.params.size()) + Checks(func) + ")\n        return " + impl_call(i, Args(func)) + ";\n";
         }
+        std::vector<std::size_t> with_optional;
         for (std::size_t i : group.funcs)
         {
+            if (funcs[i].num_required < funcs[i].params.size())
+                with_optional.push_back(i);
+        }
+        std::stable_sort(with_optional.begin(), with_optional.end(), [&](std::size_t a, std::size_t b){return funcs[a].params.size() < funcs[b].params.size();});
+        for (std::size_t i : with_optional)
+        {
             const PreparedFunc &func = funcs[i];
-            if (func.num_required == func.params.size())
-                continue;
             out += "    if (__n >= " + std::to_string(func.num_required) + " && __n < " + std::to_string(func.params.size()) + Checks(func) + ")\n        return " + impl_call(i, Args(func)) + ";\n";
         }
         out += "    throw new TypeError(\"No overload of `" + EscapeJsString(group.name) + "` accepts these arguments.\");\n}\n";
@@ -1642,8 +1687,12 @@ namespace mrbind::Js
 
     std::string Generator::EmitDispatcherDts(const std::vector<PreparedFunc> &funcs, const std::vector<EmittedFunc> &emitted, const OverloadGroup &group, const std::string &head_prefix, const std::string &name, bool is_ctor) const
     {
+        // TypeScript picks the first declared signature that accepts the call, so the declarations go in the order of the runtime
+        //   dispatch: by the parameter count (an exact count is the smallest one that accepts the call), then the declaration order.
+        std::vector<std::size_t> order(group.funcs.begin(), group.funcs.end());
+        std::stable_sort(order.begin(), order.end(), [&](std::size_t a, std::size_t b){return funcs[a].params.size() < funcs[b].params.size();});
         std::string out;
-        for (std::size_t i : group.funcs)
+        for (std::size_t i : order)
         {
             out += emitted[i].doc;
             if (is_ctor)
@@ -1652,8 +1701,7 @@ namespace mrbind::Js
                 out += head_prefix + name + "(" + emitted[i].dts_params + "): " + emitted[i].dts_ret + ";\n";
         }
         if (group.funcs.size() > 1)
-            out += "/** The overloads of `" + EscapeJsString(is_ctor ? "constructor" : name) + "` are resolved at runtime by the argument types; the first declared match wins. */\n";
-        (void)funcs;
+            out += "/** The overloads of `" + EscapeJsString(is_ctor ? "constructor" : name) + "` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */\n";
         return out;
     }
 
@@ -1748,7 +1796,7 @@ namespace mrbind::Js
                 ret_fn_type = ret_type->type_info->js_ref;
                 sig += 'v';
                 sret_param = "__sret";
-                ret_convert = "ffi.M.HEAPU8.copyWithin(" + PtrFromWasm("__sret") + ", ffi.ptrNonNull(__ret, \"the callback result\"), ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.size) + ");\n";
+                ret_convert = "ffi.HEAPU8().copyWithin(" + PtrFromWasm("__sret") + ", ffi.ptrNonNull(__ret, \"the callback result\"), ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.size) + ");\n";
             }
         }
         else
@@ -1780,7 +1828,7 @@ namespace mrbind::Js
                     return;
                 returns_class = true;
                 ret_fn_type = iter->second->js_ref;
-                ret_convert = "ffi.M.HEAP32[" + PtrFromWasm(name) + " >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;\nreturn " + PtrToWasm("ffi.nonNull(__ret, \"the callback result\").release()") + ";\n";
+                ret_convert = HeapWrite(Scalar::i32, PtrFromWasm(name), "ffi.PASS_BY_MOVE_AND_DESTROY") + ";\nreturn " + PtrToWasm("ffi.nonNull(__ret, \"the callback result\").release()") + ";\n";
                 // On failure the C bindings default-construct the result.
                 default_ret = wasm64 ? "0n" : "0";
                 sig += 'p';
@@ -2035,12 +2083,22 @@ namespace mrbind::Js
         const std::string count = std::to_string(elem->count);
         const std::string n_expr = FromWasm(size_type->scalar, "ffi.cppCall(() => ffi.C." + size->c_name + "(" + self + "))");
         const std::string p_expr = PtrFromWasm("ffi.cppCall(() => ffi.C." + data->c_name + "(" + self + "))");
-        const std::string ts_elem = IsBigInt(elem->scalar) || (wasm64 && IsPointerSized(elem->scalar)) ? "bigint" : "number";
+        // `size_t` elements are numbers in the API like everywhere else, while the memory (and `view()`) holds `bigint`s.
+        const bool ptr_sized_elem = wasm64 && IsPointerSized(elem->scalar);
+        const std::string ts_elem = IsBigInt(elem->scalar) ? "bigint" : ptr_sized_elem ? "number | bigint" : "number";
         const std::string layout = elem->count == 1 ? "one scalar per element" : count + " scalars per element";
 
         std::string to_array = UniqueName(used_inst, "toArray");
-        dts += "/** The elements as a new `" + cls + "`, " + layout + ". */\n" + to_array + "(): " + cls + ";\n";
-        members += to_array + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return ffi.typedArrayCopy(" + cls + ", __p, __n * " + count + ");\n}\n\n";
+        if (ptr_sized_elem)
+        {
+            dts += "/** The elements as a new array of numbers, " + layout + ". */\n" + to_array + "(): number[];\n";
+            members += to_array + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return Array.from(ffi.typedArrayAt(" + cls + ", __p, __n * " + count + "), Number);\n}\n\n";
+        }
+        else
+        {
+            dts += "/** The elements as a new `" + cls + "`, " + layout + ". */\n" + to_array + "(): " + cls + ";\n";
+            members += to_array + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return ffi.typedArrayCopy(" + cls + ", __p, __n * " + count + ");\n}\n\n";
+        }
         std::string view = UniqueName(used_inst, "view");
         dts += "/** A `" + cls + "` over the wasm memory of the elements, " + layout + ", without a copy. It becomes invalid when the wasm memory grows (any allocation can do that) or the container changes, so use it right away. */\n" + view + "(): " + cls + ";\n";
         members += view + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ");\n}\n\n";
@@ -2051,7 +2109,10 @@ namespace mrbind::Js
             members += set_from + "(array)\n{\n    const __n = Math.floor(array.length / " + count + ");\n";
             members += "    ffi.cppCall(() => ffi.C." + resize->c_name + "(" + self + ", " + ToWasm(resize_type->scalar, "__n") + "));\n";
             members += "    const __p = " + PtrFromWasm("ffi.cppCall(() => ffi.C." + data_mut->c_name + "(" + self + "))") + ";\n";
-            members += "    ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ").set(array.length === __n * " + count + " ? array : Array.prototype.slice.call(array, 0, __n * " + count + "));\n}\n\n";
+            if (ptr_sized_elem)
+                members += "    const __src = Array.from(array, ffi.toI64);\n    ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ").set(__src.length === __n * " + count + " ? __src : __src.slice(0, __n * " + count + "));\n}\n\n";
+            else
+                members += "    ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ").set(array.length === __n * " + count + " ? array : Array.prototype.slice.call(array, 0, __n * " + count + "));\n}\n\n";
             if (has_default_ctor)
             {
                 std::string from = UniqueName(used_static, "fromArray");
@@ -2097,6 +2158,37 @@ namespace mrbind::Js
 export let M = null;
 /** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C = null;
+
+// The heap views. In a `-pthread` module another thread can grow the memory at any time, which makes the views of this thread stale
+// (reads past the old length give `undefined`, writes are dropped), so every access goes through these functions, which compare
+// the buffer first, like Emscripten's own `GROWABLE_HEAP_*`.
+let heapBuffer = null;
+let heap8, heapU8, heap16, heapU16, heap32, heapU32, heap64, heapU64, heapF32, heapF64;
+function updateHeapViews()
+{
+    heapBuffer = M.wasmMemory.buffer;
+    heap8 = new Int8Array(heapBuffer);
+    heapU8 = new Uint8Array(heapBuffer);
+    heap16 = new Int16Array(heapBuffer);
+    heapU16 = new Uint16Array(heapBuffer);
+    heap32 = new Int32Array(heapBuffer);
+    heapU32 = new Uint32Array(heapBuffer);
+    heap64 = new BigInt64Array(heapBuffer);
+    heapU64 = new BigUint64Array(heapBuffer);
+    heapF32 = new Float32Array(heapBuffer);
+    heapF64 = new Float64Array(heapBuffer);
+}
+/** The current view over the wasm memory. Don't keep it: it becomes stale when the memory grows. */
+export function HEAP8() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap8;}
+export function HEAPU8() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU8;}
+export function HEAP16() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap16;}
+export function HEAPU16() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU16;}
+export function HEAP32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap32;}
+export function HEAPU32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU32;}
+export function HEAP64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap64;}
+export function HEAPU64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU64;}
+export function HEAPF32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapF32;}
+export function HEAPF64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapF64;}
 
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
 export const RAW = Symbol("mrbind.raw");
@@ -2166,33 +2258,42 @@ export function cppError(thrown)
         if (typeof p !== "string")
             return p.thrown;
     }
-    if (typeof thrown === "bigint")
-        thrown = Number(thrown); // The exception pointer in a wasm64 module.
-    if (typeof thrown === "number" || (typeof WebAssembly.Exception === "function" && thrown instanceof WebAssembly.Exception))
+    // A C++ exception is the exception pointer (JS EH), a `WebAssembly.Exception` (wasm EH), or Emscripten's own `CppException`
+    // holding the pointer in `excPtr` (JS EH with `-sEXCEPTION_STACK_TRACES`, which `-sASSERTIONS` implies).
+    let exc = thrown;
+    if (exc !== null && typeof exc === "object" && "excPtr" in exc)
+        exc = exc.excPtr;
+    if (typeof exc === "bigint")
+        exc = Number(exc); // In a wasm64 module.
+    if (typeof exc === "number" || (typeof WebAssembly.Exception === "function" && exc instanceof WebAssembly.Exception))
     {
         let message = "C++ exception";
         if (typeof M.getExceptionMessage === "function")
         {
             try
             {
-                const [type, text] = M.getExceptionMessage(thrown);
+                const [type, text] = M.getExceptionMessage(exc);
                 message = text ? type + ": " + text : type;
             }
             catch (e)
             {
-                // Not a C++ exception after all.
+                return thrown; // Not a C++ exception after all.
             }
         }
-        if (typeof thrown === "number" && typeof M.decrementExceptionRefcount === "function")
-            M.decrementExceptionRefcount(thrown);
+        if (typeof M.decrementExceptionRefcount === "function")
+            M.decrementExceptionRefcount(exc); // Takes the same forms as `getExceptionMessage()`.
         return new CppException(message);
     }
     return thrown;
 }
 
-/** Calls `func` (which calls into C), converting what it throws with `cppError()` and checking for a pending exception. */
+/**
+ * Calls `func` (which calls into C), converting what it throws with `cppError()` and checking for a pending exception.
+ * An escaping C++ exception leaves the wasm stack pointer where the throwing frame had it, so it's restored here.
+ */
 export function cppCall(func)
 {
+    const sp = M.stackSave();
     let ret;
     try
     {
@@ -2200,6 +2301,7 @@ export function cppCall(func)
     }
     catch (e)
     {
+        M.stackRestore(sp);
         throw cppError(e);
     }
     check();
@@ -2271,33 +2373,61 @@ export function free(p)
     FREE(p);
 }
 
-export function stackSave() {return M.stackSave();}
-export function stackRestore(p) {M.stackRestore(p);}
-export function stackAlloc(size) {return M.stackAlloc(size) >>> 0;}
+// The wasm stack is small (64 KB by default) and `stackAlloc()` doesn't check for overflow, so the temporaries above this size go to the heap.
+// They're freed by the `stackRestore()` of the wrapper that allocated them: `stackSave()` opens a frame, the wrappers always pair the two.
+const STACK_TEMP_LIMIT = 4096;
+const heapTemps = [];
+const heapTempFrames = [];
 
-/** Copies `size` bytes from `src` to the wasm stack. */
-export function stackCopy(src, size)
+/** Saves the wasm stack pointer and opens a frame for the temporaries. Restore with `stackRestore()` in a `finally`. */
+export function stackSave()
 {
-    const p = M.stackAlloc(size) >>> 0;
-    M.HEAPU8.copyWithin(p, src, src + size);
+    heapTempFrames.push(heapTemps.length);
+    return M.stackSave();
+}
+
+/** Restores the wasm stack pointer and frees the heap temporaries of the frame. */
+export function stackRestore(p)
+{
+    M.stackRestore(p);
+    const n = heapTempFrames.pop();
+    while (heapTemps.length > n)
+        free(heapTemps.pop());
+}
+
+/** Allocates `size` bytes of temporary memory: on the wasm stack, or on the heap for the large ones. */
+export function stackAlloc(size)
+{
+    if (size <= STACK_TEMP_LIMIT)
+        return STACK_ALLOC(size);
+    const p = malloc(size);
+    heapTemps.push(p);
     return p;
 }
 
-/** Allocates `size` bytes on the wasm stack and calls `write` with the address. */
+/** Copies `size` bytes from `src` to temporary memory, see `stackAlloc()`. */
+export function stackCopy(src, size)
+{
+    const p = stackAlloc(size);
+    HEAPU8().copyWithin(p, src, src + size);
+    return p;
+}
+
+/** Allocates `size` bytes of temporary memory and calls `write` with the address, see `stackAlloc()`. */
 export function stackScalar(size, write)
 {
-    const p = M.stackAlloc(size) >>> 0;
+    const p = stackAlloc(size);
     write(p);
     return p;
 }
 
 let utf8End_ = 0;
 
-/** Copies the UTF-8 encoding of a string to the wasm stack, with a null terminator. `utf8End()` then returns the end pointer. */
+/** Copies the UTF-8 encoding of a string to temporary memory (see `stackAlloc()`), with a null terminator. `utf8End()` then returns the end pointer. */
 export function utf8(str)
 {
     const len = M.lengthBytesUTF8(str);
-    const p = M.stackAlloc(len + 1) >>> 0;
+    const p = stackAlloc(len + 1);
     M.stringToUTF8(str, p, len + 1);
     utf8End_ = p + len;
     return p;
@@ -2421,7 +2551,7 @@ export function callbackStateStub()
 export function structCopy(cls, src, size)
 {
     const p = malloc(size);
-    M.HEAPU8.copyWithin(p, src, src + size);
+    HEAPU8().copyWithin(p, src, src + size);
     return new cls(RAW, p, true, null);
 }
 
@@ -2429,7 +2559,7 @@ export function structCopy(cls, src, size)
 export function structFromScalar(cls, size, write)
 {
     const p = malloc(size);
-    M.HEAPU8.fill(0, p, p + size);
+    HEAPU8().fill(0, p, p + size);
     write(p);
     return new cls(RAW, p, true, null);
 }
@@ -2437,20 +2567,20 @@ export function structFromScalar(cls, size, write)
 /** A copy of `count` scalars of the typed array class `cls` at `ptr`. */
 export function typedArrayCopy(cls, ptr, count)
 {
-    return new cls(M.HEAPU8.buffer, ptr, count).slice();
+    return new cls(HEAPU8().buffer, ptr, count).slice();
 }
 
 /** A typed array of class `cls` over `count` scalars at `ptr` in the wasm memory, without a copy. Invalid once the memory grows. */
 export function typedArrayAt(cls, ptr, count)
 {
-    return new cls(M.HEAPU8.buffer, ptr, count);
+    return new cls(HEAPU8().buffer, ptr, count);
 }
 
 /** Zeroed memory for a struct. */
 export function zeroStruct(size)
 {
     const p = malloc(size);
-    M.HEAPU8.fill(0, p, p + size);
+    HEAPU8().fill(0, p, p + size);
     return p;
 }
 
@@ -2550,7 +2680,7 @@ export class CppStruct extends CppObject
     {
         const cls = this.constructor;
         const p = malloc(cls.SIZE);
-        M.HEAPU8.copyWithin(p, this.rawPointer(), this.rawPointer() + cls.SIZE);
+        HEAPU8().copyWithin(p, this.rawPointer(), this.rawPointer() + cls.SIZE);
         return new cls(RAW, p, true, null);
     }
 
@@ -2558,22 +2688,24 @@ export class CppStruct extends CppObject
     set(other)
     {
         const src = ptrNonNull(other, "other");
-        M.HEAPU8.copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
+        HEAPU8().copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
     }
 }
 )";
         // The pointer-size dependent spots of the runtime.
         js = Strings::Replace(js, "PROBE_FUNCTION", "\"" + EscapeJsString(exported_c_functions.empty() ? "malloc" : *exported_c_functions.begin()) + "\"");
         js = Strings::Replace(js, "PTR_FROM_WASM(messages)", PtrFromWasm("messages"));
-        js = Strings::Replace(js, "MESSAGE_AT(base, i)", Strings::Replace(HeapRead(Scalar::ptr, "base + i * " + std::to_string(PointerSize())), "ffi.M.", "M."));
-        // `_malloc()` and `_free()` are the wrappers Emscripten emits for its own exports, which take and return numbers in wasm64 too, unlike the raw exports.
-        js = Strings::Replace(js, "MALLOC(size)", "M._malloc(size) >>> 0");
+        js = Strings::Replace(js, "MESSAGE_AT(base, i)", Strings::Replace(HeapRead(Scalar::ptr, "base + i * " + std::to_string(PointerSize())), "ffi.", ""));
+        // `_malloc()`, `_free()` and `stackAlloc()` are the wrappers Emscripten emits for its own exports, which take and return numbers
+        //   in wasm64 too, unlike the raw exports. `>>> 0` makes the wasm32 addresses unsigned, and would truncate the wasm64 ones.
+        js = Strings::Replace(js, "MALLOC(size)", wasm64 ? "M._malloc(size)" : "M._malloc(size) >>> 0");
+        js = Strings::Replace(js, "STACK_ALLOC(size)", wasm64 ? "M.stackAlloc(size)" : "M.stackAlloc(size) >>> 0");
         js = Strings::Replace(js, "FREE(p)", "M._free(p)");
         js = Strings::Replace(js, "PTR_FROM_WASM(thisUserdata)", PtrFromWasm("thisUserdata"));
         js = Strings::Replace(js, "PTR_FROM_WASM(otherUserdata)", PtrFromWasm("otherUserdata"));
-        js = Strings::Replace(js, "PTR_READ(slot)", Strings::Replace(HeapRead(Scalar::ptr, "slot"), "ffi.M.", "M."));
-        js = Strings::Replace(js, "PTR_WRITE(slot, 0)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "0"), "ffi.M.", "M."));
-        js = Strings::Replace(js, "PTR_WRITE(slot, other)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "other"), "ffi.M.", "M."));
+        js = Strings::Replace(js, "PTR_READ(slot)", Strings::Replace(HeapRead(Scalar::ptr, "slot"), "ffi.", ""));
+        js = Strings::Replace(js, "PTR_WRITE(slot, 0)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "0"), "ffi.", ""));
+        js = Strings::Replace(js, "PTR_WRITE(slot, other)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "other"), "ffi.", ""));
         output_files["ffi.mjs"] = js;
 
         std::string dts = R"(// The runtime support of the bindings.
@@ -2591,6 +2723,17 @@ declare global
 export let M: any;
 /** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C: any;
+/** The current view over the wasm memory. Don't keep it: it becomes stale when the memory grows. */
+export function HEAP8(): Int8Array;
+export function HEAPU8(): Uint8Array;
+export function HEAP16(): Int16Array;
+export function HEAPU16(): Uint16Array;
+export function HEAP32(): Int32Array;
+export function HEAPU32(): Uint32Array;
+export function HEAP64(): BigInt64Array;
+export function HEAPU64(): BigUint64Array;
+export function HEAPF32(): Float32Array;
+export function HEAPF64(): Float64Array;
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
 export const RAW: unique symbol;
 export const PASS_BY_DEFAULT_CONSTRUCT: 0;
@@ -2867,14 +3010,14 @@ export class CppStruct extends CppObject
                         const TypeInfo &st = *elem.type_info;
                         ts_type = st.js_ref;
                         read = "new " + st.js_ref + "(ffi.RAW, " + offset_expr + ", false, this)";
-                        write = "ffi.M.HEAPU8.copyWithin(" + offset_expr + ", ffi.ptrNonNull(value, \"value\"), ffi.ptrNonNull(value, \"value\") + " + std::to_string(st.layout.size) + ")";
+                        write = "ffi.HEAPU8().copyWithin(" + offset_expr + ", ffi.ptrNonNull(value, \"value\"), ffi.ptrNonNull(value, \"value\") + " + std::to_string(st.layout.size) + ")";
                     }
                     else
                     {
                         const Scalar s = elem.type_info ? elem.type_info->enum_scalar : elem.scalar;
                         ts_type = elem.type_info ? elem.type_info->js_ref : TsScalar(s, false);
                         read = HeapRead(s, offset_expr);
-                        write = HeapWrite(s, offset_expr, ToWasm(s, "value"));
+                        write = HeapWrite(s, offset_expr, "value");
                         if (IsBigInt(s))
                             ts_type = elem.type_info ? elem.type_info->js_ref : "bigint";
                     }
@@ -2942,13 +3085,21 @@ export class CppStruct extends CppObject
             {
                 EmittedFunc g = EmitFuncBody(*acc.getter);
                 std::string st = acc.is_static ? "static " : "";
-                dts += g.doc + st + (acc.setter ? "" : "readonly ") + acc.name + ": " + g.dts_ret + ";\n";
                 members += st + "get " + acc.name + "()\n" + g.js + "\n";
                 if (acc.setter)
                 {
                     EmittedFunc s = EmitFuncBody(*acc.setter);
                     members += st + "set " + acc.name + "(" + s.params_decl + ")\n" + s.js + "\n";
+                    // E.g. a `std::string` field is read as the wrapper and written as a JS string.
+                    const ParamStrings &p = acc.setter->params[0];
+                    const std::string set_type = p.ts_type + (p.optional ? " | null | undefined" : "");
+                    if (set_type == g.dts_ret)
+                        dts += g.doc + st + acc.name + ": " + g.dts_ret + ";\n";
+                    else
+                        dts += g.doc + st + "get " + acc.name + "(): " + g.dts_ret + ";\n" + st + "set " + acc.name + "(" + p.name + ": " + set_type + ");\n";
                 }
+                else
+                    dts += g.doc + st + "readonly " + acc.name + ": " + g.dts_ret + ";\n";
             }
 
             for (const auto &method : cl.methods)
@@ -3068,12 +3219,8 @@ export class CppStruct extends CppObject
                     if (ctors[i].is_ctor)
                         continue;
                     std::string name = UniqueName(used_static, names[i]);
-                    std::string body = emitted[i].js;
-                    // The helper returns a pointer, wrap it.
-                    body = Strings::Replace(body, "return __sret;", "return new " + info.js_ref + "(ffi.RAW, __sret, true, null);");
-                    body = Strings::Replace(body, "return __ret;", "return new " + info.js_ref + "(ffi.RAW, __ret, true, null);");
                     dts += emitted[i].doc + "static " + name + "(" + emitted[i].dts_params + "): " + info.js_ref + ";\n";
-                    members += "static " + name + "(" + emitted[i].params_decl + ")\n" + body + "\n";
+                    members += "static " + name + "(" + emitted[i].params_decl + ")\n" + emitted[i].js + "\n";
                 }
             }
 
@@ -3314,7 +3461,7 @@ export class CppStruct extends CppObject
         // The exported functions aren't in the response file, since `@file` in `-sEXPORTED_FUNCTIONS=@file` is resolved relative to the current directory,
         //   and the output directory can be moved. The consumers pass `-sEXPORTED_FUNCTIONS=@<dir>/exported_functions.txt` themselves.
         output_files["emcc_link_flags.rsp"] =
-            "-sEXPORTED_RUNTIME_METHODS=wasmExports,HEAP8,HEAPU8,HEAP16,HEAPU16,HEAP32,HEAPU32,HEAP64,HEAPU64,HEAPF32,HEAPF64,stackAlloc,stackSave,stackRestore,addFunction,removeFunction,UTF8ToString,stringToUTF8,lengthBytesUTF8,FS\n"
+            "-sEXPORTED_RUNTIME_METHODS=wasmExports,wasmMemory,HEAP8,HEAPU8,HEAP16,HEAPU16,HEAP32,HEAPU32,HEAP64,HEAPU64,HEAPF32,HEAPF64,stackAlloc,stackSave,stackRestore,addFunction,removeFunction,UTF8ToString,stringToUTF8,lengthBytesUTF8,FS\n"
             "-sALLOW_TABLE_GROWTH=1\n"
             "-sWASM_BIGINT=1\n"
             + std::string(c_desc.exception_handling_enabled ? "" : "-sEXPORT_EXCEPTION_HANDLING_HELPERS=1\n");

@@ -59,7 +59,9 @@ em++ c_bindings/source/*.cpp ... -o mylib/js/MyLib.mjs \
 
 C++ exceptions must be enabled (`-fexceptions` or `-fwasm-exceptions`), unless the C generator ran with `--no-handle-exceptions`.
 
-For `-pthread` modules nothing changes on the JS side: the wrappers run on the thread that instantiated the module, the heap views are over the shared memory.
+For `-pthread` modules the wrappers run on the thread that instantiated the module. Another thread can grow the shared memory at any time, so the wrappers never cache the heap views: every access goes through `ffi.HEAPU8()` and the like, which re-create the views when the buffer changed (like Emscripten's own `GROWABLE_HEAP_*`). A `view()` of a container is a plain typed array, so it does go stale when the memory grows.
+
+Strings and the other temporaries of a call go on the wasm stack (64 KB by default, `-sSTACK_SIZE`), except the ones above 4 KB, which go on the heap and are freed when the call returns.
 
 ### Using the bindings
 
@@ -104,9 +106,9 @@ The wrappers:
 
 * Enums are frozen objects with the constants as numbers, with the reverse mapping like TypeScript's numeric enums (`E.a === 10`, `E[10] === "a"`), and are declared as `enum`s in the `.d.mts`. The values are passed and returned as plain numbers.
 
-* Class fields are accessor properties: `obj.x`, `obj.x = value`. Static fields are static accessors.
+* Class fields are accessor properties: `obj.x`, `obj.x = value`. Static fields are static accessors. When the setter takes another type than the getter returns (a `std::string` field is read as the wrapper and written as a JS string), the declaration has separate `get`/`set` types.
 
-* The structs exposed with `--expose-as-struct` are views over wasm memory with the C++ layout: the fields are accessor properties reading and writing the memory in place (array fields have `getX(i)`/`setX(i, value)`), `copy()` makes an independent copy, `set()` overwrites the contents, `SIZE` is the size in bytes. Instances created in JS own their memory, those returned by reference point into the memory of their owner. The layout is computed with the wasm32 C ABI rules, and checked against the description JSON.
+* The structs exposed with `--expose-as-struct` are views over wasm memory with the C++ layout: the fields are accessor properties reading and writing the memory in place (array fields have `getX(i)`/`setX(i, value)`), `copy()` makes an independent copy, `set()` overwrites the contents, `SIZE` is the size in bytes. Instances created in JS own their memory, those returned by reference point into the memory of their owner. The layout is computed with the wasm C ABI rules (wasm32, or wasm64 with `--wasm64`), and checked against the description JSON.
 
 * A class with bases gets `upcastTo<Base>()`, `staticDowncastFrom<Base>(base)` for the non-virtual bases (undefined behavior if the object isn't actually of the derived class), and `dynamicDowncastFrom<Base>(base)` for the polymorphic ones (returns null if it isn't). Those call the cast functions of the C bindings, and the results are references to the object that was cast.
 
@@ -116,7 +118,7 @@ The wrappers:
 
 * Functions that the safe layer doesn't understand (`std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return raw numbers (pointers and such). The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
 
-Overloaded functions keep their names: the overloads are resolved at runtime by the argument count and types (`instanceof` for the wrappers, `typeof` for the scalars and strings), the first declared match wins. Overloads that can't be told apart from JS (`int` vs `float`) get the disambiguated names of their C functions (e.g. `foo_float`). The disambiguated names are always exported too. Constructors are resolved the same way. Overloaded operators are `opAdd`, `opEqual`, `opNotEqual`, `opAddAssign`, etc.
+Overloaded functions keep their names: the overloads are resolved at runtime by the argument count and types (`instanceof` for the wrappers, `typeof` for the scalars and strings): an overload taking exactly that many parameters wins, then the one with the fewest parameters among those whose optional parameters were omitted, then the declaration order. Overloads that can't be told apart from JS (`int` vs `float`) get the disambiguated names of their C functions (e.g. `foo_float`). The disambiguated names are always exported too. Constructors are resolved the same way. Overloaded operators are `opAdd`, `opEqual`, `opNotEqual`, `opAddAssign`, etc.
 
 C++ exceptions are caught by the C bindings (unless the C generator ran with `--no-handle-exceptions`) and rethrown as `CppException` with the exception message.
 

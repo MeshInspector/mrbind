@@ -22,6 +22,10 @@ const MR = lib.MR;
     a.x.assignFrom("changed");
     check(a.x.toString() === "changed", "assign through the reference");
     check(a2.x.toString() === "hello", "the copy is independent");
+    // A string above the wasm stack size goes through the heap, and is freed after the call.
+    const long = "x".repeat(300000) + "é";
+    a.x = long;
+    check(a.x.toString() === long, "long string");
     check(a.isOwned() && !a.x.isOwned(), "ownership");
     a.delete();
     let threw = false;

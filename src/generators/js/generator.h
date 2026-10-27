@@ -23,7 +23,8 @@ namespace mrbind::Js
     // Two layers, like in the Java generator: `lib/<C file>.mjs` holds the wrappers of the entities of that C file, exported by their C names,
     //   and the namespace modules (`index.mjs` for the root, `ns/<path>.mjs` for the nested namespaces) re-export them by their C++ names,
     //   with the overloaded free functions merged into dispatchers.
-    // Only wasm32 is supported: the pointers are 32-bit, `size_t` and `long` are 32-bit, `long long` is 64-bit (a JS `bigint`).
+    // wasm32 by default: the pointers, `size_t` and `long` are 32-bit. `--wasm64` makes them 64-bit (JS numbers in the API, `bigint`s at the
+    //   wasm boundary). `long long` is a JS `bigint` in both.
     struct Generator
     {
         // Input: [
@@ -135,7 +136,7 @@ namespace mrbind::Js
             Scalar enum_scalar = Scalar::i32; // For enums.
             bool enum_is_signed = true;
 
-            // For exposed structs: the wasm32 layout.
+            // For exposed structs: the wasm layout (wasm32 or wasm64, see `wasm64`).
             struct StructLayout
             {
                 std::size_t size = 0;
@@ -203,6 +204,8 @@ namespace mrbind::Js
         [[nodiscard]] std::optional<JsType> CTypeToJs(const std::string &str);
 
         // The JS expressions reading and writing a scalar at a byte address.
+        // The index of the address `addr` into a heap view of `1 << shift`-byte elements.
+        [[nodiscard]] std::string HeapIndex(const std::string &addr, int shift) const;
         [[nodiscard]] std::string HeapRead(Scalar s, const std::string &addr) const;
         // Same, but the raw wasm value (a BigInt for the pointer-sized scalars of wasm64, a number for a bool), for passing to the exports.
         [[nodiscard]] std::string HeapReadRaw(Scalar s, const std::string &addr) const;
@@ -231,6 +234,7 @@ namespace mrbind::Js
             std::string pre; // Statements before the call. Each ends with a newline.
             std::string post; // Statements after the call, in a `finally`.
             bool needs_stack = false; // The statements allocate on the wasm stack.
+            bool releases = false; // An argument releases the object (`PASS_BY_MOVE_AND_DESTROY`), so it must be evaluated after the checks of the other arguments.
             bool is_raw = false; // Fell back to raw C types.
             std::string object_param; // The name of the parameter if it's a single wrapped object, for the owner of returned references.
             std::string default_arg; // The C++ spelling of the default argument, for the docs.
