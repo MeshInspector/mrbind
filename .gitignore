@@ -37,3 +37,5 @@ parallel-hashmap/
 /examples/java/example_consumer/classes
 /examples/python/pybind11
 /examples/python/output
+/test/output_js*/bleh.mjs
+/test/output_js*/bleh.wasm
