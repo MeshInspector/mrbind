@@ -73,6 +73,10 @@ namespace mrbind::C
         // Is the element type simple enough to allow assigning ranges?
         bool supports_range_assignment = false;
 
+        // For contiguous containers, `begin()` and `end()` return plain pointers, and the iterator classes aren't bound at all.
+        // This is like what we do for `std::array`, and saves two classes per container.
+        [[nodiscard]] bool IteratorsArePointers() const {return params.iter_category >= IteratorCategory::contiguous;}
+
         HeapAllocatedClassBinder iterator_binder_mutable;
         HeapAllocatedClassBinder iterator_binder_const;
     };
