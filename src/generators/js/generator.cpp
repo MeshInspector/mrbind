@@ -98,7 +98,7 @@ namespace mrbind::Js
         }
 
         constexpr std::string_view kReservedInstance[] = {
-            "constructor", "rawPointer", "isOwned", "delete", "release", "valueOrThrow", "toString", "valueOf", "toJSON", "__proto__", "__ptr", "__owner", "__state", "copy", "set",
+            "constructor", "rawPointer", "isOwned", "delete", "release", "valueOrThrow", "toString", "valueOf", "toJSON", "__proto__", "__ptr", "__owner", "__state",
         };
         constexpr std::string_view kReservedStatic[] = {
             "name", "length", "prototype", "caller", "arguments", "__ctor", "__destroy", "__stub", "__trampoline", "SIZE", "ALIGNMENT",
@@ -2752,6 +2752,12 @@ export class CppStruct extends CppObject
                 used_inst.insert(std::string(key));
             for (std::string_view key : kReservedStatic)
                 used_static.insert(std::string(key));
+            if (info.IsExposedStruct())
+            {
+                // `CppStruct` has these. The opaque classes keep their own `set()` (e.g. of the bitsets).
+                used_inst.insert("copy");
+                used_inst.insert("set");
+            }
             std::string head_doc, head;
             if (info.IsExposedStruct())
             {
