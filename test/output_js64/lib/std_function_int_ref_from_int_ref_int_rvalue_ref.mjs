@@ -101,7 +101,7 @@ export class MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref extends ffi.C
         catch (__e)
         {
             ffi.callbackFailed(__e);
-            return 0;
+            return 0n;
         }
     }
 
