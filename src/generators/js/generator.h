@@ -33,6 +33,8 @@ namespace mrbind::Js
         // The import specifier of the Emscripten module factory (the `.mjs` emitted by `emcc -sMODULARIZE -sEXPORT_ES6`), relative to the output directory,
         //   e.g. `./MyLib.mjs`. If empty, `index.mjs` doesn't import it, and the users must call `initWithModule()` with an instantiated module.
         std::string wasm_module_import;
+        // The same for a variant of the module built for Node (`-sENVIRONMENT=node`, `-sNODERAWFS=1`), which `init()` picks when running in Node. Optional.
+        std::string wasm_module_import_node;
 
         // The C++ namespace (as parts) to put the entities of the global namespace into, including the `std::` types.
         // Without this, those end up directly in the root module.
@@ -47,6 +49,10 @@ namespace mrbind::Js
         bool deref_expected = true;
         // `--no-string-conversion` disables this: a function returning `std::string` by value returns a JS string.
         bool convert_strings = true;
+        // `--wasm64`: the module is linked with `-sMEMORY64`, so the pointers, `size_t` and `long` are 64-bit, and are `bigint`s at the wasm boundary
+        //   (the JS side keeps them as numbers, which cover the addresses).
+        bool wasm64 = false;
+        [[nodiscard]] std::size_t PointerSize() const {return wasm64 ? 8 : 4;}
 
         // ]
 
@@ -69,15 +75,21 @@ namespace mrbind::Js
             bool_,
             i8, u8, i16, u16, i32, u32,
             i64, u64, // JS `bigint`.
+            isize, usize, // Pointer-sized: `long`, `size_t`, `ptrdiff_t`. JS numbers.
             f32, f64,
-            ptr, // 32-bit.
+            ptr, // Pointer-sized. JS numbers.
             struct_, // An exposed struct by value.
         };
-        [[nodiscard]] static bool IsInteger(Scalar s) {return s >= Scalar::i8 && s <= Scalar::u64;}
+        [[nodiscard]] static bool IsInteger(Scalar s) {return s >= Scalar::i8 && s <= Scalar::usize;}
         [[nodiscard]] static bool IsBigInt(Scalar s) {return s == Scalar::i64 || s == Scalar::u64;}
-        [[nodiscard]] static std::size_t ScalarSize(Scalar s);
-        // The signature character for `addFunction()`: `i`, `j`, `f`, `d`, `v`.
+        // Pointer-sized, so a `bigint` at the wasm boundary in wasm64.
+        [[nodiscard]] static bool IsPointerSized(Scalar s) {return s == Scalar::ptr || s == Scalar::isize || s == Scalar::usize;}
+        [[nodiscard]] std::size_t ScalarSize(Scalar s) const;
+        // The signature character for `addFunction()`: `i`, `j`, `p`, `f`, `d`, `v`.
         [[nodiscard]] static char ScalarSigChar(Scalar s);
+        // A pointer (a JS number) as the wasm function takes it, and back.
+        [[nodiscard]] std::string PtrToWasm(const std::string &expr) const {return wasm64 ? "BigInt(" + expr + ")" : expr;}
+        [[nodiscard]] std::string PtrFromWasm(const std::string &expr) const {return wasm64 ? "Number(" + expr + ")" : "(" + expr + " >>> 0)";}
 
         // A C++ namespace as a JS module.
         struct Module
@@ -191,12 +203,12 @@ namespace mrbind::Js
         [[nodiscard]] std::optional<JsType> CTypeToJs(const std::string &str);
 
         // The JS expressions reading and writing a scalar at a byte address.
-        [[nodiscard]] static std::string HeapRead(Scalar s, const std::string &addr);
-        [[nodiscard]] static std::string HeapWrite(Scalar s, const std::string &addr, const std::string &value);
+        [[nodiscard]] std::string HeapRead(Scalar s, const std::string &addr) const;
+        [[nodiscard]] std::string HeapWrite(Scalar s, const std::string &addr, const std::string &value) const;
         // Converts a scalar returned by a wasm function (in `expr`) to the JS value.
-        [[nodiscard]] static std::string FromWasm(Scalar s, const std::string &expr);
+        [[nodiscard]] std::string FromWasm(Scalar s, const std::string &expr) const;
         // Converts a JS value (in `expr`) to what a wasm function takes.
-        [[nodiscard]] static std::string ToWasm(Scalar s, const std::string &expr);
+        [[nodiscard]] std::string ToWasm(Scalar s, const std::string &expr) const;
         // The TypeScript type of a scalar, for parameters (`number | bigint` for the 64-bit ones) or for return values (`bigint`).
         [[nodiscard]] static std::string TsScalar(Scalar s, bool is_param);
         // The runtime type check of a JS value for the overload dispatch.
@@ -293,6 +305,19 @@ namespace mrbind::Js
         void EmitCasts(const TypeInfo &info, std::string &members, std::string &dts, std::set<std::string> &used_inst, std::set<std::string> &used_static);
         // `valueOrThrow()` of an `expected<T, E>` class.
         void EmitExpected(const TypeInfo &info, std::string &members, std::string &dts);
+
+        // The element type of a contiguous container, for the typed-array helpers: a scalar, an exposed struct of identical scalars, or a `std::array` of those.
+        struct ElemInfo
+        {
+            Scalar scalar = Scalar::void_;
+            std::size_t count = 0; // Scalars per element.
+            std::size_t size = 0; // Bytes per element.
+        };
+        [[nodiscard]] std::optional<ElemInfo> ContiguousElem(const cppdecl::Type &type);
+        // The typed array class of a scalar, or empty if none.
+        [[nodiscard]] std::string TypedArrayClass(Scalar s) const;
+        // `toArray()`, `view()`, `setFromArray()`, `fromArray()` of a class with `data()` and `size()`.
+        void EmitTypedArrayHelpers(const TypeInfo &info, bool has_default_ctor, std::string &members, std::string &dts, std::set<std::string> &used_inst, std::set<std::string> &used_static);
         // Emits the construction of a `std::function` from a JS function.
         void EmitStdFunction(const TypeInfo &info, std::string &members, std::string &dts, std::string &dts_after, std::set<std::string> &used_inst, std::set<std::string> &used_static);
 

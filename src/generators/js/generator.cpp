@@ -169,15 +169,16 @@ namespace mrbind::Js
         return JsPropertyName(ret);
     }
 
-    std::size_t Generator::ScalarSize(Scalar s)
+    std::size_t Generator::ScalarSize(Scalar s) const
     {
         switch (s)
         {
             case Scalar::void_: return 0;
             case Scalar::bool_: case Scalar::i8: case Scalar::u8: return 1;
             case Scalar::i16: case Scalar::u16: return 2;
-            case Scalar::i32: case Scalar::u32: case Scalar::f32: case Scalar::ptr: return 4;
+            case Scalar::i32: case Scalar::u32: case Scalar::f32: return 4;
             case Scalar::i64: case Scalar::u64: case Scalar::f64: return 8;
+            case Scalar::ptr: case Scalar::isize: case Scalar::usize: return PointerSize();
             case Scalar::struct_: return 0;
         }
         return 0;
@@ -189,16 +190,21 @@ namespace mrbind::Js
         {
             case Scalar::void_: return 'v';
             case Scalar::i64: case Scalar::u64: return 'j';
+            case Scalar::ptr: case Scalar::isize: case Scalar::usize: return 'p';
             case Scalar::f32: return 'f';
             case Scalar::f64: return 'd';
             default: return 'i';
         }
     }
 
-    std::string Generator::HeapRead(Scalar s, const std::string &addr)
+    std::string Generator::HeapRead(Scalar s, const std::string &addr) const
     {
+        if (IsPointerSized(s) && wasm64)
+            return "Number(ffi.M." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "[(" + addr + ") >>> 3])";
         switch (s)
         {
+            case Scalar::isize: return "ffi.M.HEAP32[(" + addr + ") >>> 2]";
+            case Scalar::usize: return "ffi.M.HEAPU32[(" + addr + ") >>> 2]";
             case Scalar::bool_: return "(ffi.M.HEAPU8[" + addr + "] !== 0)";
             case Scalar::i8: return "ffi.M.HEAP8[" + addr + "]";
             case Scalar::u8: return "ffi.M.HEAPU8[" + addr + "]";
@@ -214,14 +220,16 @@ namespace mrbind::Js
         }
     }
 
-    std::string Generator::HeapWrite(Scalar s, const std::string &addr, const std::string &value)
+    std::string Generator::HeapWrite(Scalar s, const std::string &addr, const std::string &value) const
     {
+        if (IsPointerSized(s) && wasm64)
+            return "ffi.M.HEAPU64[(" + addr + ") >>> 3] = BigInt(" + value + ")";
         switch (s)
         {
             case Scalar::bool_: return "ffi.M.HEAPU8[" + addr + "] = " + value + " ? 1 : 0";
             case Scalar::i8: case Scalar::u8: return "ffi.M.HEAPU8[" + addr + "] = " + value;
             case Scalar::i16: case Scalar::u16: return "ffi.M.HEAPU16[(" + addr + ") >>> 1] = " + value;
-            case Scalar::i32: case Scalar::u32: case Scalar::ptr: return "ffi.M.HEAPU32[(" + addr + ") >>> 2] = " + value;
+            case Scalar::i32: case Scalar::u32: case Scalar::ptr: case Scalar::isize: case Scalar::usize: return "ffi.M.HEAPU32[(" + addr + ") >>> 2] = " + value;
             case Scalar::i64: return "ffi.M.HEAP64[(" + addr + ") >>> 3] = ffi.toI64(" + value + ")";
             case Scalar::u64: return "ffi.M.HEAPU64[(" + addr + ") >>> 3] = ffi.toI64(" + value + ")";
             case Scalar::f32: return "ffi.M.HEAPF32[(" + addr + ") >>> 2] = " + value;
@@ -230,10 +238,14 @@ namespace mrbind::Js
         }
     }
 
-    std::string Generator::FromWasm(Scalar s, const std::string &expr)
+    std::string Generator::FromWasm(Scalar s, const std::string &expr) const
     {
+        if (IsPointerSized(s) && wasm64)
+            return "Number(" + expr + ")";
         switch (s)
         {
+            case Scalar::isize: return expr;
+            case Scalar::usize: return "(" + expr + " >>> 0)";
             case Scalar::bool_: return "(" + expr + " !== 0)";
             case Scalar::i8: return "((" + expr + " << 24) >> 24)";
             case Scalar::u8: return "(" + expr + " & 255)";
@@ -245,8 +257,10 @@ namespace mrbind::Js
         }
     }
 
-    std::string Generator::ToWasm(Scalar s, const std::string &expr)
+    std::string Generator::ToWasm(Scalar s, const std::string &expr) const
     {
+        if (IsPointerSized(s) && wasm64)
+            return "BigInt(" + expr + ")";
         switch (s)
         {
             case Scalar::bool_: return "(" + expr + " ? 1 : 0)";
@@ -441,7 +455,7 @@ namespace mrbind::Js
 
     std::optional<Generator::JsType> Generator::CTypeToJs(const cppdecl::Type &type, std::size_t i)
     {
-        auto Prim = [](Scalar s, bool platform_dependent = false)
+        auto Prim = [this](Scalar s, bool platform_dependent = false)
         {
             JsType ret;
             ret.scalar = s;
@@ -463,12 +477,12 @@ namespace mrbind::Js
                 if (word == "char") return Prim(is_unsigned ? Scalar::u8 : Scalar::i8);
                 if (word == "short") return Prim(is_unsigned ? Scalar::u16 : Scalar::i16);
                 if (word == "int") return Prim(is_unsigned ? Scalar::u32 : Scalar::i32);
-                if (word == "long") return Prim(is_unsigned ? Scalar::u32 : Scalar::i32, true); // ILP32.
+                if (word == "long") return Prim(is_unsigned ? Scalar::usize : Scalar::isize, true); // ILP32 in wasm32, LP64 in wasm64.
                 if (word == "long long") return Prim(is_unsigned ? Scalar::u64 : Scalar::i64);
                 if (word == "float") return Prim(Scalar::f32);
                 if (word == "double") return Prim(Scalar::f64);
-                if (word == "size_t" || word == "uintptr_t") return Prim(Scalar::u32, true);
-                if (word == "ptrdiff_t" || word == "intptr_t") return Prim(Scalar::i32, true);
+                if (word == "size_t" || word == "uintptr_t") return Prim(Scalar::usize, true);
+                if (word == "ptrdiff_t" || word == "intptr_t") return Prim(Scalar::isize, true);
                 if (word == "int8_t") return Prim(Scalar::i8);
                 if (word == "uint8_t") return Prim(Scalar::u8);
                 if (word == "int16_t") return Prim(Scalar::i16);
@@ -701,7 +715,7 @@ namespace mrbind::Js
                 info.enum_scalar = underlying->scalar;
                 auto prim = c_desc.platform_info.FindPrimitiveType(info.enum_desc->underlying_type);
                 info.enum_is_signed = !prim || prim->kind == PrimitiveTypeInfo::Kind::signed_integral;
-                if (info.enum_scalar == Scalar::u8 || info.enum_scalar == Scalar::u16 || info.enum_scalar == Scalar::u32 || info.enum_scalar == Scalar::u64)
+                if (info.enum_scalar == Scalar::u8 || info.enum_scalar == Scalar::u16 || info.enum_scalar == Scalar::u32 || info.enum_scalar == Scalar::u64 || info.enum_scalar == Scalar::usize)
                     info.enum_is_signed = false;
             }
         }
@@ -968,7 +982,7 @@ namespace mrbind::Js
             if (ptr && ptr->pointee_type && this_type && ptr->pointee_type == this_type)
             {
                 ret.is_receiver = true;
-                ret.args.push_back("this.rawPointer()");
+                ret.args.push_back(PtrToWasm("this.rawPointer()"));
                 return ret;
             }
         }
@@ -1001,12 +1015,12 @@ namespace mrbind::Js
                         if (optional)
                         {
                             ret.args.push_back("(" + var + " == null ? " + none_mode + " : ffi.PASS_BY_COPY)");
-                            ret.args.push_back("ffi.ptr(" + var + ")");
+                            ret.args.push_back(PtrToWasm("ffi.ptr(" + var + ")"));
                         }
                         else
                         {
                             ret.args.push_back("ffi.PASS_BY_COPY");
-                            ret.args.push_back(PtrOf(var, false));
+                            ret.args.push_back(PtrToWasm(PtrOf(var, false)));
                         }
                     }
                     else
@@ -1015,12 +1029,12 @@ namespace mrbind::Js
                         if (optional)
                         {
                             ret.args.push_back("(" + var + " == null ? " + none_mode + " : ffi.PASS_BY_MOVE_AND_DESTROY)");
-                            ret.args.push_back("(" + var + " == null ? 0 : " + var + ".release())");
+                            ret.args.push_back(PtrToWasm("(" + var + " == null ? 0 : " + var + ".release())"));
                         }
                         else
                         {
                             ret.args.push_back("ffi.PASS_BY_MOVE_AND_DESTROY");
-                            ret.args.push_back("ffi.nonNull(" + var + ", \"" + EscapeJsString(name) + "\").release()");
+                            ret.args.push_back(PtrToWasm("ffi.nonNull(" + var + ", \"" + EscapeJsString(name) + "\").release()"));
                         }
                     }
                     return ret;
@@ -1041,8 +1055,8 @@ namespace mrbind::Js
             else
                 ret.pre += "const __str_" + name + " = ffi.utf8(ffi.nonNullString(" + name + ", \"" + EscapeJsString(name) + "\"));\n";
             ret.pre += "const __end_" + name + " = ffi.utf8End();\n";
-            ret.args.push_back("__str_" + name);
-            ret.args.push_back("__end_" + name);
+            ret.args.push_back(PtrToWasm("__str_" + name));
+            ret.args.push_back(PtrToWasm("__end_" + name));
             return ret;
         }
 
@@ -1082,7 +1096,7 @@ namespace mrbind::Js
                     {
                         ret.needs_stack = true;
                         ret.pre += "const __copy_" + name + " = ffi.stackCopy(" + PtrOf(name, false) + ", " + std::to_string(l.size) + ");\n";
-                        ret.args.push_back("__copy_" + name);
+                        ret.args.push_back(PtrToWasm("__copy_" + name));
                     }
                     return ret;
                 }
@@ -1097,7 +1111,7 @@ namespace mrbind::Js
                 if (cpp_is_unique_ptr && ptr->pointee_type && ptr->pointee_type->has_destroy && !ptr->is_const)
                 {
                     ClassParam(*ptr->pointee_type, false, false);
-                    ret.args.push_back("ffi.nonNull(" + name + ", \"" + EscapeJsString(name) + "\").release()");
+                    ret.args.push_back(PtrToWasm("ffi.nonNull(" + name + ", \"" + EscapeJsString(name) + "\").release()"));
                     return ret;
                 }
 
@@ -1105,7 +1119,7 @@ namespace mrbind::Js
                 if (ptr->pointee_type && ptr->pointee_type->class_desc)
                 {
                     ClassParam(*ptr->pointee_type, optional, false);
-                    ret.args.push_back(PtrOf(name, optional));
+                    ret.args.push_back(PtrToWasm(PtrOf(name, optional)));
                     return ret;
                 }
 
@@ -1129,7 +1143,7 @@ namespace mrbind::Js
                         ret.pre += "const __ptr_" + name + " = " + name + " == null ? 0 : " + alloc + ";\n";
                     else
                         ret.pre += "const __ptr_" + name + " = " + alloc + ";\n";
-                    ret.args.push_back("__ptr_" + name);
+                    ret.args.push_back(PtrToWasm("__ptr_" + name));
                     return ret;
                 }
             }
@@ -1257,6 +1271,7 @@ namespace mrbind::Js
         if (ct.modifiers.size() == 1 && ct.Is<cppdecl::Pointer>() && !ret.is_array_pointer)
         {
             const bool is_const = ct.IsConst(1);
+            const std::string r = PtrFromWasm("__ret"); // The returned pointer as a number.
             std::string pointee_name = cppdecl::ToCode(ct.simple_type.name, {});
             auto type_iter = types_by_c_name.find(pointee_name);
             const TypeInfo *pointee_type = type_iter != types_by_c_name.end() ? type_iter->second : nullptr;
@@ -1280,7 +1295,7 @@ namespace mrbind::Js
                 if (pointee_type->has_destroy && !is_const && (cpp.modifiers.empty() || cpp_base_str.starts_with("std::unique_ptr<")))
                 {
                     out.ts_type = pointee_type->js_ref;
-                    out.convert = "new " + pointee_type->js_ref + "(ffi.RAW, __ret, true, null)";
+                    out.convert = "new " + pointee_type->js_ref + "(ffi.RAW, " + r + ", true, null)";
                     if (cpp.modifiers.empty())
                     {
                         out.owned_type = pointee_type;
@@ -1288,7 +1303,7 @@ namespace mrbind::Js
                         if (convert_strings && allow_string_conversion && pointee_type->cpp_name == "std::string" && exported_c_functions.contains(pointee_type->c_name + "_data") && exported_c_functions.contains(pointee_type->c_name + "_size"))
                         {
                             out.ts_type = "string";
-                            out.convert = "ffi.takeString(__ret)";
+                            out.convert = "ffi.takeString(" + r + ")";
                             out.converts_string = true;
                             out.owned_type = nullptr;
                         }
@@ -1298,30 +1313,30 @@ namespace mrbind::Js
                 if (cpp_is_ref || cpp_is_ptr)
                 {
                     out.ts_type = pointee_type->js_ref + (nullable ? " | null" : "");
-                    std::string make = "new " + pointee_type->js_ref + "(ffi.RAW, __ret, false, __owner)";
-                    out.convert = nullable ? "(__ret === 0 ? null : " + make + ")" : make;
+                    std::string make = "new " + pointee_type->js_ref + "(ffi.RAW, " + r + ", false, __owner)";
+                    out.convert = nullable ? "(" + r + " === 0 ? null : " + make + ")" : make;
                     return out;
                 }
             }
             else if (pointee_type && pointee_type->IsExposedStruct() && (cpp_is_ref || cpp_is_ptr))
             {
                 out.ts_type = pointee_type->js_ref + (nullable ? " | null" : "");
-                std::string make = "new " + pointee_type->js_ref + "(ffi.RAW, __ret, false, __owner)";
-                out.convert = nullable ? "(__ret === 0 ? null : " + make + ")" : make;
+                std::string make = "new " + pointee_type->js_ref + "(ffi.RAW, " + r + ", false, __owner)";
+                out.convert = nullable ? "(" + r + " === 0 ? null : " + make + ")" : make;
                 return out;
             }
             else if (pointee_type && pointee_type->IsEnum() && is_const && (cpp_is_ref || cpp_is_ptr || cpp.modifiers.empty()))
             {
                 out.ts_type = pointee_type->js_ref + (nullable ? " | null" : "");
-                std::string make = HeapRead(pointee_type->enum_scalar, "__ret");
-                out.convert = nullable ? "(__ret === 0 ? null : " + make + ")" : make;
+                std::string make = HeapRead(pointee_type->enum_scalar, r);
+                out.convert = nullable ? "(" + r + " === 0 ? null : " + make + ")" : make;
                 return out;
             }
             else if (pointee_builtin && !pointee_builtin->is_pointer && !pointee_builtin->type_info && pointee_builtin->array_dims.empty() && pointee_builtin->scalar != Scalar::struct_ && is_const && (cpp_is_ref || cpp_is_ptr || cpp.modifiers.empty()))
             {
-                std::string read = HeapRead(pointee_builtin->scalar, "__ret");
+                std::string read = HeapRead(pointee_builtin->scalar, r);
                 out.ts_type = TsScalar(pointee_builtin->scalar, false) + (nullable ? " | null" : "");
-                out.convert = nullable ? "(__ret === 0 ? null : " + read + ")" : read;
+                out.convert = nullable ? "(" + r + " === 0 ? null : " + read + ")" : read;
                 return out;
             }
         }
@@ -1516,9 +1531,9 @@ namespace mrbind::Js
         // The call.
         std::string args;
         if (func.ret.sret)
-            args = "__sret";
+            args = PtrToWasm("__sret");
         if (!func.is_static)
-            args += (args.empty() ? "" : ", ") + std::string("this.rawPointer()");
+            args += (args.empty() ? "" : ", ") + PtrToWasm("this.rawPointer()");
         for (const auto &param : func.params)
         {
             for (const auto &arg : param.args)
@@ -1540,7 +1555,7 @@ namespace mrbind::Js
             // The constructor wraps the pointer.
             if (!func.ret.sret_store.empty())
                 body += func.ret.sret_store + ";\n";
-            body += std::string("return ") + (func.ret.returns_struct ? "__sret" : "__ret >>> 0") + ";\n";
+            body += std::string("return ") + (func.ret.returns_struct ? "__sret" : PtrFromWasm("__ret")) + ";\n";
         }
         else if (func.ret.ts_type != "void" || func.ret.is_statement)
         {
@@ -1643,7 +1658,7 @@ namespace mrbind::Js
         {
             dts += "/** " + doc + "\n *\n * Calls `" + c_name + "()`. */\n" + (is_static ? "static " : "") + name + "(" + dts_params + "): " + dts_ret + ";\n";
             members += (is_static ? "static " : "") + name + "(" + params + ")\n{\n";
-            members += "    const __ret = ffi.cppCall(() => ffi.C." + c_name + "(" + arg + ")) >>> 0;\n";
+            members += "    const __ret = " + PtrFromWasm("ffi.cppCall(() => ffi.C." + c_name + "(" + PtrToWasm(arg) + "))") + ";\n";
             members += "    return " + result + ";\n}\n\n";
         };
 
@@ -1724,7 +1739,7 @@ namespace mrbind::Js
                 ret_fn_type = ret_type->type_info->js_ref;
                 sig += 'v';
                 sret_param = "__sret";
-                ret_convert = "ffi.M.HEAPU8.copyWithin(__sret, ffi.ptrNonNull(__ret, \"the callback result\"), ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.size) + ");\n";
+                ret_convert = "ffi.M.HEAPU8.copyWithin(" + PtrFromWasm("__sret") + ", ffi.ptrNonNull(__ret, \"the callback result\"), ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.size) + ");\n";
             }
         }
         else
@@ -1734,7 +1749,7 @@ namespace mrbind::Js
                 default_ret = DefaultOf(ret_type->scalar);
         }
         if (!sret_param.empty())
-            sig += 'i';
+            sig += 'p';
 
         for (std::size_t i = 0; i + 2 < fn->params.size(); i++)
         {
@@ -1756,10 +1771,10 @@ namespace mrbind::Js
                     return;
                 returns_class = true;
                 ret_fn_type = iter->second->js_ref;
-                ret_convert = "ffi.M.HEAP32[" + name + " >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;\nreturn ffi.nonNull(__ret, \"the callback result\").release();\n";
+                ret_convert = "ffi.M.HEAP32[" + PtrFromWasm(name) + " >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;\nreturn " + PtrToWasm("ffi.nonNull(__ret, \"the callback result\").release()") + ";\n";
                 // On failure the C bindings default-construct the result.
-                default_ret = "0";
-                sig += 'i';
+                default_ret = wasm64 ? "0n" : "0";
+                sig += 'p';
                 args.push_back({name, *c_type, "", ""});
                 continue;
             }
@@ -1785,8 +1800,8 @@ namespace mrbind::Js
                     }
                     else
                     {
-                        arg.convert = "ffi.structCopy(" + c_type->type_info->js_ref + ", " + name + ", " + std::to_string(l.size) + ")";
-                        sig += 'i';
+                        arg.convert = "ffi.structCopy(" + c_type->type_info->js_ref + ", " + PtrFromWasm(name) + ", " + std::to_string(l.size) + ")";
+                        sig += 'p';
                     }
                 }
                 else
@@ -1794,20 +1809,21 @@ namespace mrbind::Js
             }
             else if (param.type.modifiers.size() == 1 && param.type.Is<cppdecl::Pointer>())
             {
-                sig += 'i';
+                sig += 'p';
+                arg.convert = PtrFromWasm(name);
                 auto iter = types_by_c_name.find(cppdecl::ToCode(param.type.simple_type.name, {}));
                 if (iter != types_by_c_name.end() && iter->second->class_desc)
                 {
                     const TypeInfo &t = *iter->second;
                     arg.fn_type = t.js_ref + " | null";
-                    arg.convert = name + " === 0 ? null : new " + t.js_ref + "(ffi.RAW, " + name + ", false, null)";
+                    arg.convert = PtrFromWasm(name) + " === 0 ? null : new " + t.js_ref + "(ffi.RAW, " + PtrFromWasm(name) + ", false, null)";
                 }
             }
             else
                 sig += ScalarSigChar(c_type->scalar);
             args.push_back(std::move(arg));
         }
-        sig += "ii"; // `_userdata`, `_cleanup_value`.
+        sig += "pp"; // `_userdata`, `_cleanup_value`.
 
         if (!returns_class && sret_param.empty() && ret_type->scalar != Scalar::struct_)
         {
@@ -1845,7 +1861,7 @@ namespace mrbind::Js
 
         members += "static __stub = 0;\n";
         members += "static __trampoline(" + c_params + "_userdata, _cleanup_value)\n{\n";
-        members += "    const func = ffi.callbackState(_userdata);\n";
+        members += "    const func = ffi.callbackState(" + PtrFromWasm("_userdata") + ");\n";
         members += "    try\n    {\n";
         if (ret_fn_type == "void")
             members += "        func(" + call_args + ");\n";
@@ -1857,15 +1873,183 @@ namespace mrbind::Js
             members += "        return " + default_ret + ";\n";
         members += "    }\n}\n\n";
 
-        const std::string callbacks = "__stub, ffi.newCallbackState(ffi.nonNullFunction(func, \"func\")), 0, ffi.callbackStateStub()";
+        const std::string callbacks = PtrToWasm("__stub") + ", " + PtrToWasm("ffi.newCallbackState(ffi.nonNullFunction(func, \"func\"))") + ", " + PtrToWasm("0") + ", " + PtrToWasm("ffi.callbackStateStub()");
         members += "static " + of_name + "(func)\n{\n";
         members += "    const __stub = " + info.js_ref + ".__stub || (" + info.js_ref + ".__stub = ffi.addFunction(" + info.js_ref + ".__trampoline, \"" + sig + "\"));\n";
-        members += "    const __ret = ffi.cppCall(() => ffi.C." + ctor_c_name + "(" + callbacks + ")) >>> 0;\n";
+        members += "    const __ret = " + PtrFromWasm("ffi.cppCall(() => ffi.C." + ctor_c_name + "(" + callbacks + "))") + ";\n";
         members += "    ffi.check();\n    return new " + info.js_ref + "(ffi.RAW, __ret, true, null);\n}\n\n";
         members += assign_name + "(func)\n{\n";
         members += "    const __stub = " + info.js_ref + ".__stub || (" + info.js_ref + ".__stub = ffi.addFunction(" + info.js_ref + ".__trampoline, \"" + sig + "\"));\n";
-        members += "    ffi.cppCall(() => ffi.C." + assign_c_name + "(this.rawPointer(), " + callbacks + "));\n";
+        members += "    ffi.cppCall(() => ffi.C." + assign_c_name + "(" + PtrToWasm("this.rawPointer()") + ", " + callbacks + "));\n";
         members += "    ffi.check();\n}\n\n";
+    }
+
+    std::optional<Generator::ElemInfo> Generator::ContiguousElem(const cppdecl::Type &type)
+    {
+        if (!type.modifiers.empty())
+            return {};
+        auto js = CTypeToJs(type);
+        if (js && !js->is_pointer && js->array_dims.empty() && js->scalar != Scalar::void_)
+        {
+            if (js->scalar != Scalar::struct_)
+            {
+                const Scalar s = js->type_info ? js->type_info->enum_scalar : js->scalar;
+                if (s == Scalar::ptr)
+                    return {};
+                return ElemInfo{s, 1, ScalarSize(s)};
+            }
+            // An exposed struct: all the leaves must be the same scalar, filling the struct without padding.
+            ElemInfo ret;
+            ret.size = js->type_info->layout.size;
+            auto Walk = [&](auto &self, const JsType &t) -> bool
+            {
+                std::uint64_t n = 1;
+                for (auto d : t.array_dims)
+                    n *= d;
+                if (t.scalar == Scalar::struct_)
+                {
+                    for (const auto &field : t.type_info->class_desc->fields)
+                    {
+                        if (field.is_static)
+                            continue;
+                        auto ft = CTypeToJs(field.type);
+                        if (!ft)
+                            return false;
+                        for (std::uint64_t i = 0; i < n; i++)
+                        {
+                            if (!self(self, *ft))
+                                return false;
+                        }
+                    }
+                    return true;
+                }
+                const Scalar s = t.type_info ? t.type_info->enum_scalar : t.scalar;
+                if (s == Scalar::ptr || s == Scalar::void_)
+                    return false;
+                if (ret.count == 0)
+                    ret.scalar = s;
+                else if (ret.scalar != s)
+                    return false;
+                ret.count += n;
+                return true;
+            };
+            if (!Walk(Walk, *js) || ret.count == 0 || ret.count * ScalarSize(ret.scalar) != ret.size)
+                return {};
+            return ret;
+        }
+
+        // `std::array<T, N>`.
+        auto iter = types_by_cpp_name.find(cppdecl::ToCode(type, {}));
+        if (iter == types_by_cpp_name.end() || !iter->second.class_desc || !iter->second.cpp_name.starts_with("std::array<"))
+            return {};
+        const auto &parts = ParseTypeOrThrow(iter->second.cpp_name).simple_type.name.parts;
+        if (parts.empty() || !parts.back().template_args || parts.back().template_args->args.size() != 2)
+            return {};
+        const auto &args = parts.back().template_args->args;
+        auto elem_type = args[0].AsType();
+        auto num = std::get_if<cppdecl::PseudoExpr>(&args[1].var);
+        if (!elem_type || !num || num->tokens.size() != 1)
+            return {};
+        auto lit = std::get_if<cppdecl::NumericLiteral>(&num->tokens.front());
+        if (!lit)
+            return {};
+        auto n = lit->ToInteger<std::uint64_t>();
+        if (!n || *n == 0)
+            return {};
+        auto elem = ContiguousElem(*elem_type);
+        if (!elem)
+            return {};
+        return ElemInfo{elem->scalar, elem->count * *n, elem->size * *n};
+    }
+
+    std::string Generator::TypedArrayClass(Scalar s) const
+    {
+        switch (s)
+        {
+            case Scalar::bool_: case Scalar::u8: return "Uint8Array";
+            case Scalar::i8: return "Int8Array";
+            case Scalar::i16: return "Int16Array";
+            case Scalar::u16: return "Uint16Array";
+            case Scalar::i32: return "Int32Array";
+            case Scalar::u32: return "Uint32Array";
+            case Scalar::i64: return "BigInt64Array";
+            case Scalar::u64: return "BigUint64Array";
+            case Scalar::isize: return wasm64 ? "BigInt64Array" : "Int32Array";
+            case Scalar::usize: return wasm64 ? "BigUint64Array" : "Uint32Array";
+            case Scalar::f32: return "Float32Array";
+            case Scalar::f64: return "Float64Array";
+            default: return "";
+        }
+    }
+
+    void Generator::EmitTypedArrayHelpers(const TypeInfo &info, bool has_default_ctor, std::string &members, std::string &dts, std::set<std::string> &used_inst, std::set<std::string> &used_static)
+    {
+        // The pattern of the contiguous containers in the C bindings: `data()` returning `T *` (the const and the mutable overloads), `size()`, and optionally `resize(n)`.
+        const CInterop::ClassMethod *data = nullptr, *data_mut = nullptr, *size = nullptr, *resize = nullptr;
+        for (const auto &method : info.class_desc->methods)
+        {
+            auto reg = std::get_if<CInterop::MethodKinds::Regular>(&method.var);
+            if (!reg || method.is_static || method.params.empty() || !method.params.front().is_this_param || method.params.front().c_params.size() != 1 || !exported_c_functions.contains(method.c_name))
+                continue;
+            const bool const_this = ParseTypeOrThrow(method.params.front().c_params.front().c_type).IsConst(1);
+            const cppdecl::Type &ret_c = ParseTypeOrThrow(method.ret.c_type);
+            if (reg->name == "data" && method.params.size() == 1 && ret_c.modifiers.size() == 1 && ret_c.Is<cppdecl::Pointer>())
+                (const_this ? data : data_mut) = &method;
+            else if (reg->name == "size" && method.params.size() == 1 && ret_c.modifiers.empty())
+                size = &method;
+            else if (reg->name == "resize" && method.params.size() == 2 && method.params[1].c_params.size() == 1 && ParseTypeOrThrow(method.params[1].c_params[0].c_type).modifiers.empty() && !resize)
+                resize = &method;
+        }
+        if (!data || !size)
+            return;
+        cppdecl::Type elem_c = ParseTypeOrThrow(data->ret.c_type);
+        elem_c.RemoveModifier();
+        elem_c.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+        auto elem = ContiguousElem(elem_c);
+        if (!elem)
+            return;
+        const std::string cls = TypedArrayClass(elem->scalar);
+        if (cls.empty())
+            return;
+        auto size_type = CTypeToJs(size->ret.c_type);
+        if (!size_type || !IsInteger(size_type->scalar))
+            return;
+        std::optional<JsType> resize_type;
+        if (resize)
+        {
+            resize_type = CTypeToJs(resize->params[1].c_params[0].c_type);
+            if (!resize_type || !IsInteger(resize_type->scalar) || !data_mut || !exported_c_functions.contains(data_mut->c_name))
+                resize_type.reset();
+        }
+
+        const std::string self = PtrToWasm("this.rawPointer()");
+        const std::string count = std::to_string(elem->count);
+        const std::string n_expr = FromWasm(size_type->scalar, "ffi.cppCall(() => ffi.C." + size->c_name + "(" + self + "))");
+        const std::string p_expr = PtrFromWasm("ffi.cppCall(() => ffi.C." + data->c_name + "(" + self + "))");
+        const std::string ts_elem = IsBigInt(elem->scalar) || (wasm64 && IsPointerSized(elem->scalar)) ? "bigint" : "number";
+        const std::string layout = elem->count == 1 ? "one scalar per element" : count + " scalars per element";
+
+        std::string to_array = UniqueName(used_inst, "toArray");
+        dts += "/** The elements as a new `" + cls + "`, " + layout + ". */\n" + to_array + "(): " + cls + ";\n";
+        members += to_array + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return ffi.typedArrayCopy(" + cls + ", __p, __n * " + count + ");\n}\n\n";
+        std::string view = UniqueName(used_inst, "view");
+        dts += "/** A `" + cls + "` over the wasm memory of the elements, " + layout + ", without a copy. It becomes invalid when the wasm memory grows (any allocation can do that) or the container changes, so use it right away. */\n" + view + "(): " + cls + ";\n";
+        members += view + "()\n{\n    const __n = " + n_expr + ";\n    const __p = " + p_expr + ";\n    return ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ");\n}\n\n";
+        if (resize_type)
+        {
+            std::string set_from = UniqueName(used_inst, "setFromArray");
+            dts += "/** Resizes to `array.length / " + count + "` elements and copies the scalars in. */\n" + set_from + "(array: ArrayLike<" + ts_elem + ">): void;\n";
+            members += set_from + "(array)\n{\n    const __n = Math.floor(array.length / " + count + ");\n";
+            members += "    ffi.cppCall(() => ffi.C." + resize->c_name + "(" + self + ", " + ToWasm(resize_type->scalar, "__n") + "));\n";
+            members += "    const __p = " + PtrFromWasm("ffi.cppCall(() => ffi.C." + data_mut->c_name + "(" + self + "))") + ";\n";
+            members += "    ffi.typedArrayAt(" + cls + ", __p, __n * " + count + ").set(array.length === __n * " + count + " ? array : Array.prototype.slice.call(array, 0, __n * " + count + "));\n}\n\n";
+            if (has_default_ctor)
+            {
+                std::string from = UniqueName(used_static, "fromArray");
+                dts += "/** A new container with `array.length / " + count + "` elements, the scalars copied from `array`. */\nstatic " + from + "(array: ArrayLike<" + ts_elem + ">): " + info.js_ref + ";\n";
+                members += "static " + from + "(array)\n{\n    const __ret = new " + info.js_ref + "();\n    __ret." + set_from + "(array);\n    return __ret;\n}\n\n";
+            }
+        }
     }
 
     void Generator::EmitExpected(const TypeInfo &info, std::string &members, std::string &dts)
@@ -1876,15 +2060,15 @@ namespace mrbind::Js
         dts += "valueOrThrow(): " + e.value_ts_type + ";\n";
         members += "valueOrThrow()\n{\n";
         members += "    const __owner = this;\n";
-        members += "    if (!" + FromWasm(Scalar::bool_, "ffi.cppCall(() => ffi.C." + e.success->c_name + "(this.rawPointer()))") + ")\n    {\n";
+        members += "    if (!" + FromWasm(Scalar::bool_, "ffi.cppCall(() => ffi.C." + e.success->c_name + "(" + PtrToWasm("this.rawPointer()") + "))") + ")\n    {\n";
         members += Indent(e.error_pre, 2);
-        members += "        const __ret = ffi.cppCall(() => ffi.C." + e.error->c_name + "(this.rawPointer()));\n";
+        members += "        const __ret = ffi.cppCall(() => ffi.C." + e.error->c_name + "(" + PtrToWasm("this.rawPointer()") + "));\n";
         members += "        ffi.check();\n";
         members += "        throw new ffi.UnexpectedResultException(String(" + e.error_convert + "));\n    }\n";
         if (e.value)
         {
             members += Indent(e.value_pre, 1);
-            members += "    const __ret = ffi.cppCall(() => ffi.C." + e.value->c_name + "(this.rawPointer()));\n";
+            members += "    const __ret = ffi.cppCall(() => ffi.C." + e.value->c_name + "(" + PtrToWasm("this.rawPointer()") + "));\n";
             members += "    ffi.check();\n";
             members += "    return " + e.value_convert + ";\n";
         }
@@ -1902,7 +2086,7 @@ namespace mrbind::Js
 
 /** The Emscripten module, after `init()`. */
 export let M = null;
-/** The wasm exports of the module: the C functions of the bindings, `malloc`, `free`. */
+/** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C = null;
 
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
@@ -1973,6 +2157,8 @@ export function cppError(thrown)
         if (typeof p !== "string")
             return p.thrown;
     }
+    if (typeof thrown === "bigint")
+        thrown = Number(thrown); // The exception pointer in a wasm64 module.
     if (typeof thrown === "number" || (typeof WebAssembly.Exception === "function" && thrown instanceof WebAssembly.Exception))
     {
         let message = "C++ exception";
@@ -2013,10 +2199,11 @@ export function cppCall(func)
 
 function exceptionHandler(messages, typeNames, userdata)
 {
+    const base = PTR_FROM_WASM(messages);
     let text = "";
     for (let i = 0;; i++)
     {
-        const message = M.HEAPU32[(messages >>> 2) + i];
+        const message = MESSAGE_AT(base, i);
         if (message === 0)
             break;
         if (i > 0)
@@ -2043,14 +2230,14 @@ export function init(module)
         {
             js += "    // C++ exceptions are reported by the C bindings through this callback, which stores the message until the wrapper checks it.\n";
             js += "    if (typeof C." + hp + "SetExceptionHandler === \"function\")\n";
-            js += "        C." + hp + "SetExceptionHandler(addFunction(exceptionHandler, \"viii\"), 0);\n";
+            js += "        C." + hp + "SetExceptionHandler(" + PtrToWasm("addFunction(exceptionHandler, \"vppp\")") + ", " + PtrToWasm("0") + ");\n";
         }
         js += R"(}
 
 /** Allocates on the wasm heap. */
 export function malloc(size)
 {
-    const p = C.malloc(size) >>> 0;
+    const p = MALLOC(size);
     if (p === 0)
         throw new Error("The wasm heap is out of memory.");
     return p;
@@ -2059,7 +2246,7 @@ export function malloc(size)
 /** Frees memory allocated by `malloc()`. */
 export function free(p)
 {
-    C.free(p);
+    FREE(p);
 }
 
 export function stackSave() {return M.stackSave();}
@@ -2107,8 +2294,8 @@ export function string(ptr, size)
         {
             js += "\n/** The contents of a `std::string` owned by the C bindings, which is then destroyed. */\n";
             js += "export function takeString(ptr)\n{\n";
-            js += "    const ret = string(cppCall(() => C." + std_string->c_name + "_data(ptr)) >>> 0, cppCall(() => C." + std_string->c_name + "_size(ptr)) >>> 0);\n";
-            js += "    C." + std_string->c_name + "_Destroy(ptr);\n    return ret;\n}\n";
+            js += "    const ret = string(" + PtrFromWasm("cppCall(() => C." + std_string->c_name + "_data(" + PtrToWasm("ptr") + "))") + ", " + FromWasm(Scalar::usize, "cppCall(() => C." + std_string->c_name + "_size(" + PtrToWasm("ptr") + "))") + ");\n";
+            js += "    C." + std_string->c_name + "_Destroy(" + PtrToWasm("ptr") + ");\n    return ret;\n}\n";
         }
         js += R"(
 /** The pointer of a wrapper, or 0 for a null wrapper. */
@@ -2183,28 +2370,29 @@ export function callbackState(userdata)
 // The `userdata_callback` of the C bindings: releases the user data of `this` object, then copies the other one into it, if any.
 function callbackStateChanged(thisUserdata, otherUserdata)
 {
-    const slot = thisUserdata >>> 2;
-    const current = M.HEAPU32[slot];
+    const slot = PTR_FROM_WASM(thisUserdata);
+    const other = PTR_FROM_WASM(otherUserdata);
+    const current = PTR_READ(slot);
     if (current !== 0)
     {
         const entry = CALLBACKS.get(current);
         if (entry !== undefined && --entry.refs === 0)
             CALLBACKS.delete(current);
-        M.HEAPU32[slot] = 0;
+        PTR_WRITE(slot, 0);
     }
-    if (otherUserdata !== 0)
+    if (other !== 0)
     {
-        const entry = CALLBACKS.get(otherUserdata);
+        const entry = CALLBACKS.get(other);
         if (entry !== undefined)
             entry.refs++;
-        M.HEAPU32[slot] = otherUserdata;
+        PTR_WRITE(slot, other);
     }
 }
 
 let callbackStateStub_ = 0;
 export function callbackStateStub()
 {
-    return callbackStateStub_ || (callbackStateStub_ = addFunction(callbackStateChanged, "vii"));
+    return callbackStateStub_ || (callbackStateStub_ = addFunction(callbackStateChanged, "vpp"));
 }
 
 /** A copy of `size` bytes at `src` as an owned struct wrapper, for the callbacks receiving structs by value. */
@@ -2222,6 +2410,18 @@ export function structFromScalar(cls, size, write)
     M.HEAPU8.fill(0, p, p + size);
     write(p);
     return new cls(RAW, p, true, null);
+}
+
+/** A copy of `count` scalars of the typed array class `cls` at `ptr`. */
+export function typedArrayCopy(cls, ptr, count)
+{
+    return new cls(M.HEAPU8.buffer, ptr, count).slice();
+}
+
+/** A typed array of class `cls` over `count` scalars at `ptr` in the wasm memory, without a copy. Invalid once the memory grows. */
+export function typedArrayAt(cls, ptr, count)
+{
+    return new cls(M.HEAPU8.buffer, ptr, count);
 }
 
 /** Zeroed memory for a struct. */
@@ -2340,6 +2540,17 @@ export class CppStruct extends CppObject
     }
 }
 )";
+        // The pointer-size dependent spots of the runtime.
+        js = Strings::Replace(js, "PTR_FROM_WASM(messages)", PtrFromWasm("messages"));
+        js = Strings::Replace(js, "MESSAGE_AT(base, i)", Strings::Replace(HeapRead(Scalar::ptr, "base + i * " + std::to_string(PointerSize())), "ffi.M.", "M."));
+        // `_malloc()` and `_free()` are the wrappers Emscripten emits for its own exports, which take and return numbers in wasm64 too, unlike the raw exports.
+        js = Strings::Replace(js, "MALLOC(size)", "M._malloc(size) >>> 0");
+        js = Strings::Replace(js, "FREE(p)", "M._free(p)");
+        js = Strings::Replace(js, "PTR_FROM_WASM(thisUserdata)", PtrFromWasm("thisUserdata"));
+        js = Strings::Replace(js, "PTR_FROM_WASM(otherUserdata)", PtrFromWasm("otherUserdata"));
+        js = Strings::Replace(js, "PTR_READ(slot)", Strings::Replace(HeapRead(Scalar::ptr, "slot"), "ffi.M.", "M."));
+        js = Strings::Replace(js, "PTR_WRITE(slot, 0)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "0"), "ffi.M.", "M."));
+        js = Strings::Replace(js, "PTR_WRITE(slot, other)", Strings::Replace(HeapWrite(Scalar::ptr, "slot", "other"), "ffi.M.", "M."));
         output_files["ffi.mjs"] = js;
 
         std::string dts = R"(// The runtime support of the bindings.
@@ -2355,7 +2566,7 @@ declare global
 
 /** The Emscripten module, after `init()`. */
 export let M: any;
-/** The wasm exports of the module: the C functions of the bindings, `malloc`, `free`. */
+/** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C: any;
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
 export const RAW: unique symbol;
@@ -2400,6 +2611,8 @@ export function callbackStateStub(): number;
 export function structCopy<T>(cls: new (...args: any[]) => T, src: number, size: number): T;
 export function structFromScalar<T>(cls: new (...args: any[]) => T, size: number, write: (p: number) => void): T;
 export function zeroStruct(size: number): number;
+export function typedArrayCopy<T>(cls: new (buffer: ArrayBufferLike, byteOffset: number, length: number) => T, ptr: number, count: number): T;
+export function typedArrayAt<T>(cls: new (buffer: ArrayBufferLike, byteOffset: number, length: number) => T, ptr: number, count: number): T;
 /**
  * The base class of the wrappers of the opaque C++ classes.
  *
@@ -2542,7 +2755,7 @@ export class CppStruct extends CppObject
                 head_doc = MakeDocComment(cl.comment, 0, note);
                 head = "export class " + def_name + " extends ffi.CppObject\n{\n";
                 if (info.has_destroy)
-                    members += "static __destroy(ptr) {ffi.C." + info.c_name + "_Destroy(ptr);}\n\n";
+                    members += "static __destroy(ptr) {ffi.C." + info.c_name + "_Destroy(" + PtrToWasm("ptr") + ");}\n\n";
             }
 
             // Methods.
@@ -2780,6 +2993,7 @@ export class CppStruct extends CppObject
             };
 
             // Constructors: `__ctor(args)` dispatches to the `__ctor_...` helpers returning pointers.
+            bool has_default_ctor = false;
             {
                 std::vector<std::string> names;
                 std::vector<OverloadGroup> groups;
@@ -2796,6 +3010,7 @@ export class CppStruct extends CppObject
                     all.funcs.push_back(i);
                 }
                 const bool zero_init = info.IsExposedStruct() && std::none_of(all.funcs.begin(), all.funcs.end(), [&](std::size_t i){return ctors[i].params.empty();});
+                has_default_ctor = zero_init || std::any_of(all.funcs.begin(), all.funcs.end(), [&](std::size_t i){return ctors[i].params.empty();});
                 for (std::size_t i : all.funcs)
                 {
                     std::string helper = "__ctor_" + std::to_string(i);
@@ -2863,12 +3078,14 @@ export class CppStruct extends CppObject
                 EmitStdFunction(info, members, dts, dts_after, used_inst, used_static);
             if (info.expected)
                 EmitExpected(info, members, dts);
+            if (!info.IsExposedStruct())
+                EmitTypedArrayHelpers(info, has_default_ctor, members, dts, used_inst, used_static);
 
             // Conveniences for `std::string`.
             if (cpp_name == "std::string" && exported_c_functions.contains(info.c_name + "_data") && exported_c_functions.contains(info.c_name + "_size"))
             {
                 dts += "/** The contents, decoded as UTF-8. */\ntoString(): string;\n";
-                members += "toString()\n{\n    return ffi.string(ffi.cppCall(() => ffi.C." + info.c_name + "_data(this.rawPointer())) >>> 0, ffi.cppCall(() => ffi.C." + info.c_name + "_size(this.rawPointer())) >>> 0);\n}\n\n";
+                members += "toString()\n{\n    return ffi.string(" + PtrFromWasm("ffi.cppCall(() => ffi.C." + info.c_name + "_data(" + PtrToWasm("this.rawPointer()") + "))") + ", " + FromWasm(Scalar::usize, "ffi.cppCall(() => ffi.C." + info.c_name + "_size(" + PtrToWasm("this.rawPointer()") + "))") + ");\n}\n\n";
             }
 
             while (members.ends_with("\n\n"))
@@ -3009,14 +3226,23 @@ export class CppStruct extends CppObject
             if (&module == &root)
             {
                 js += "// The root module of the bindings.\n\n";
-                if (!wasm_module_import.empty())
+                if (!wasm_module_import.empty() && wasm_module_import_node.empty())
                     js += "import createModule from \"" + EscapeJsString(wasm_module_import) + "\";\n";
                 js += "import * as ffi from \"./ffi.mjs\";\nimport * as L from \"./lib/_all.mjs\";\n\n";
                 js += "export * as ffi from \"./ffi.mjs\";\nexport { CppObject, CppStruct, CppException, UnexpectedResultException } from \"./ffi.mjs\";\n\n";
                 if (!wasm_module_import.empty())
                 {
                     js += "/** Instantiates the wasm module with `createModule(options)` (the Emscripten factory) and binds the wrappers to it. Returns the module. Does nothing if already initialized. */\n";
-                    js += "export async function init(options)\n{\n    if (ffi.M !== null)\n        return ffi.M;\n    const module = await createModule(options);\n    if (ffi.M === null)\n        ffi.init(module);\n    return ffi.M;\n}\n\n";
+                    if (wasm_module_import_node.empty())
+                        js += "export async function init(options)\n{\n    if (ffi.M !== null)\n        return ffi.M;\n    const module = await createModule(options);\n    if (ffi.M === null)\n        ffi.init(module);\n    return ffi.M;\n}\n\n";
+                    else
+                    {
+                        // In Node the variant with the real file system, in the browser the other one. Dynamic imports with literal specifiers, so the bundlers see both.
+                        js += "export async function init(options)\n{\n    if (ffi.M !== null)\n        return ffi.M;\n";
+                        js += "    const isNode = typeof process !== \"undefined\" && process.versions != null && process.versions.node != null && typeof window === \"undefined\";\n";
+                        js += "    const { default: createModule } = isNode ? await import(\"" + EscapeJsString(wasm_module_import_node) + "\") : await import(\"" + EscapeJsString(wasm_module_import) + "\");\n";
+                        js += "    const module = await createModule(options);\n    if (ffi.M === null)\n        ffi.init(module);\n    return ffi.M;\n}\n\n";
+                    }
                 }
                 js += "/** Binds the wrappers to an already instantiated Emscripten module. */\nexport function initWithModule(module)\n{\n    ffi.init(module);\n}\n\n";
 

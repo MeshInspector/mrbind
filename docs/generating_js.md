@@ -2,7 +2,7 @@
 
 We generate JavaScript sources (ES modules, with TypeScript `.d.mts` declarations next to them) that call the C bindings compiled to WebAssembly with Emscripten, so you're required to [generate our C bindings first](/docs/generating_c.md). There's no Embind and no C++ glue: the JS calls the C functions directly through the raw `wasmExports` of the module, so the C bindings only need to be compiled with the link flags the generator writes out.
 
-Only `wasm32` is supported: the pointers, `size_t` and `long` are 32-bit, `long long` is a JS `bigint`.
+The pointers, `size_t` and `long` are JS numbers (32-bit in the default `wasm32` modules, 64-bit with `--wasm64` for the modules linked with `-sMEMORY64`), `long long` is a JS `bigint`.
 
 ## Generating the C bindings
 
@@ -34,6 +34,10 @@ Where:
 
 * `--wasm-module ./MyLib.mjs` is the import specifier (relative to the output directory) of the module factory that Emscripten emits for `-sMODULARIZE -sEXPORT_ES6`, see below. The root module imports it for `init()`. Without this flag the bindings can only be initialized with `initWithModule()`, from a module you instantiated yourself.
 
+* `--wasm-module-node ./MyLib.node.mjs` optionally names a second build of the module for Node (typically `-sENVIRONMENT=node -sNODERAWFS=1`, so the file functions see the real file system). `init()` then imports it instead of the other one when running in Node; both are imported dynamically, so the bundlers see both.
+
+* `--wasm64` generates for a module linked with `-sMEMORY64`: the pointers, `size_t` and `long` are 64-bit. They stay JS numbers in the API and become `bigint`s only at the wasm boundary. The output can't be shared with a wasm32 module, generate into another directory.
+
 * `--replace-namespace A::B C::D` is optional and works like in the C#, Rust and Java generators: it replaces the leading namespaces of the entities, which decides their modules. It can be repeated, the replacements apply in order, and the second argument can be `::` to remove a namespace: `--replace-namespace MyLib ::` exports the entities of `MyLib` from the root module and its nested namespaces at the top level, so the users write `lib.Foo` and not `lib.MyLib.Foo`.
 
 * `--force-namespace MyLib` puts the entities of the global C++ namespace (which includes the `std::` container instantiations) into the module of this namespace. Without it they're exported from the root module. It applies after the replacements, to what ended up in the global namespace.
@@ -55,7 +59,7 @@ em++ c_bindings/source/*.cpp ... -o mylib/js/MyLib.mjs \
 
 C++ exceptions must be enabled (`-fexceptions` or `-fwasm-exceptions`), unless the C generator ran with `--no-handle-exceptions`.
 
-Only single-threaded modules were tested (no `-pthread`).
+For `-pthread` modules nothing changes on the JS side: the wrappers run on the thread that instantiated the module, the heap views are over the shared memory.
 
 ### Using the bindings
 
@@ -66,7 +70,7 @@ const mesh = new lib.Mesh();
 ```
 `init()` instantiates the wasm module and binds the wrappers to it, and returns the module. `initWithModule(module)` binds to a module you instantiated yourself.
 
-The generated code needs ES2022 (class fields, `FinalizationRegistry`, `bigint`), and runs in Node 22+ and the current browsers. `using` declarations work where the runtime supports `Symbol.dispose`.
+The generated code needs ES2022 (class fields, `FinalizationRegistry`, `bigint`), and runs in Node 22+ and the current browsers (Node 24+ and the current browsers for the `-sMEMORY64` modules). `using` declarations work where the runtime supports `Symbol.dispose`.
 
 The `.d.mts` declarations make the bindings typed for TypeScript users; there's nothing to compile.
 
@@ -108,6 +112,8 @@ The wrappers:
 
 * `std::function<R(Args...)>` parameters take the `std_function_...` wrapper class, which you construct from a JS function with `of(func)` (or replace with `assignFn()`), or just a JS function, which is wrapped into a temporary for the call. The function receives scalars and enums by value, exposed structs by value (as copies), and classes by reference, and returns scalars by value or classes by value (an owned wrapper, which the C++ side takes over). The copies of the `std::function` share the function. An exception thrown by the function is rethrown by the wrapper that called into C, once the C call returns. Callback parameters the generator doesn't understand are raw numbers.
 
+* The contiguous containers (`std::vector<T>` and the like, anything with `data()` and `size()` in the C bindings) whose elements are scalars, exposed structs of identical scalars, or `std::array`s of those, get `toArray()` (a new typed array of the scalars, e.g. a `Float32Array` of `x, y, z, x, y, z, ...` for a vector of `Vector3f`), `view()` (a typed array over the wasm memory, valid until the memory grows or the container changes), and when the container is resizable, `setFromArray(array)` and `static fromArray(array)`.
+
 * Functions that the safe layer doesn't understand (`std::shared_ptr`, arrays of unknown bound, ...) are still generated, but take and return raw numbers (pointers and such). The doc comment of each wrapper names the C function it calls, so the C bindings documentation applies.
 
 Overloaded functions keep their names: the overloads are resolved at runtime by the argument count and types (`instanceof` for the wrappers, `typeof` for the scalars and strings), the first declared match wins. Overloads that can't be told apart from JS (`int` vs `float`) get the disambiguated names of their C functions (e.g. `foo_float`). The disambiguated names are always exported too. Constructors are resolved the same way. Overloaded operators are `opAdd`, `opEqual`, `opNotEqual`, `opAddAssign`, etc.
@@ -124,4 +130,4 @@ This backend is as young as the Rust and Java ones, and shares their limitations
 * Containers only expose the methods that the C bindings have (`size()`, `at()`, ...), there's no iterator integration yet.
 * Output parameters of scalar types (`int &`) are raw.
 * Objects don't keep alive what they reference (the `[[clang::lifetime_capture_by]]` annotations), the doc comments only mention it. A reference parameter that gets stored must outlive the object.
-* `wasm32` only, single-threaded modules only.
+* The wrappers must be called from the thread that initialized them, there's no worker-side API.

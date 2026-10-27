@@ -58,6 +58,14 @@ int main(int argc, char **argv)
             generator.wasm_module_import = args.front();
         },
     });
+    args_parser.AddFlag("--wasm-module-node", {
+        .arg_names = {"specifier"},
+        .desc = "Optional. The import specifier of a second build of the module for Node (e.g. with `-sENVIRONMENT=node -sNODERAWFS=1`), which `init()` imports instead of `--wasm-module` when running in Node. Both are then imported dynamically.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.wasm_module_import_node = args.front();
+        },
+    });
     // Parses a C++-style `Foo::Bar` namespace name into its parts, like the other generators do.
     auto ParseNamespace = [](std::string_view name)
     {
@@ -110,6 +118,14 @@ int main(int argc, char **argv)
         {
             (void)args;
             generator.convert_strings = false;
+        },
+    });
+    args_parser.AddFlag("--wasm64", {
+        .desc = "The module is linked with `-sMEMORY64`: the pointers, `size_t` and `long` are 64-bit. The JS side still uses numbers for them, converting to `bigint` at the wasm boundary.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.wasm64 = true;
         },
     });
     args_parser.AddFlag("--max-file-name-length", {

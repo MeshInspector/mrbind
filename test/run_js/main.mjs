@@ -1,6 +1,7 @@
-// A smoke test for the generated JS bindings. Needs the C bindings compiled to `test/output_js/bleh.mjs`, see `make_js.sh`.
+// A smoke test for the generated JS bindings. Needs the C bindings compiled to wasm next to the generated JS, see `make_js.sh`.
 
-import * as lib from "../output_js/index.mjs";
+// `MRBIND_JS_OUT` selects the output directory: `output_js_wasm` (the default) or `output_js_wasm64`.
+const lib = await import("../" + (process.env.MRBIND_JS_OUT || "output_js_wasm") + "/index.mjs");
 
 function check(condition, what)
 {
@@ -145,6 +146,17 @@ check(!aBase.isOwned() && b.isOwned(), "the cast result is a reference");
 check(MR.StdExpected.GetExp() === 0, "expected<int> unwrapped");
 MR.StdExpected.GetExpVoid();
 check(new MR.CS.std_expected_int_std_string().valueOrThrow() === 0, "valueOrThrow");
+
+// The contiguous containers expose their scalars as typed arrays.
+{
+    const va = MR.CS.std_vector_int.fromArray([1, 2, 3]);
+    check(va.size() === 3 && va.at(2) === 3, "fromArray");
+    const arr = va.toArray();
+    check(arr instanceof Int32Array && arr.length === 3 && arr[1] === 2, "toArray");
+    check(va.view()[0] === 1, "view");
+    va.setFromArray(new Int32Array([7, 8]));
+    check(va.size() === 2 && va.at(0) === 7, "setFromArray");
+}
 
 // `using` disposes.
 if (typeof Symbol.dispose === "symbol")
