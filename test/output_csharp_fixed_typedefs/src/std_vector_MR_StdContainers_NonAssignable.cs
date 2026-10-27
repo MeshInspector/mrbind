@@ -27,7 +27,7 @@ public static partial class MR
                 public class _Enumerator : IEnumerator<MR.CS.StdContainers.Const_NonAssignable>
                 {
                     Const_Vector_MRStdContainersNonAssignable _container;
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator _cur;
+                    MR.CS.StdContainers.ConstPtrNonAssignable _cur;
                     bool _first = true;
                     bool _done;
 
@@ -180,630 +180,21 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The begin iterator, const.
+                /// The begin iterator, const. Iterators of this container are plain pointers.
                 /// </summary>
-                public unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator begin()
+                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable begin()
                 {
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
 
                 /// <summary>
-                /// Tests whether a const iterator is the begin iterator.
+                /// The end iterator, const. Iterators of this container are plain pointers.
                 /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator iter)
+                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable end()
                 {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
-                {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
-                /// The end iterator, const.
-                /// </summary>
-                public unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator end()
-                {
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_end(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a const iterator is the end iterator.
-                /// </summary>
-                public unsafe bool isEnd(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator iter)
-                {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the end iterator.
-                /// </summary>
-                public unsafe bool isEnd(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
-                {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
-                /// Convert a const iterator to an index.
-                /// </summary>
-                public unsafe nint toIndex(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator iter)
-                {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// Convert a mutable iterator to an index.
-                /// </summary>
-                public unsafe nint toIndex(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter)
-                {
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// Read-only iterator for `MR_C_std_vector_MR_StdContainers_NonAssignable`.
-                /// This is the const half of the class.
-                /// </summary>
-                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable, System.IEquatable<Const_ConstIterator>
-                {
-                    internal struct _Underlying {} // Represents the underlying C++ type.
-
-                    internal unsafe _Underlying *_UnderlyingPtr;
-
-                    protected virtual unsafe void Dispose(bool disposing)
-                    {
-                        if (_UnderlyingPtr is null || !_IsOwningVal)
-                            return;
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Destroy(_UnderlyingPtr);
-                        _UnderlyingPtr = null;
-                    }
-                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                    ~Const_ConstIterator() {Dispose(false);}
-
-                    internal unsafe Const_ConstIterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                    /// <summary>
-                    /// Constructs an empty (default-constructed) instance.
-                    /// </summary>
-                    public unsafe Const_ConstIterator() : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct();
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator other) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
-
-                    /// <summary>
-                    /// Makes a const iterator from a mutable one.
-                    /// </summary>
-                    public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable(iter._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Makes a const iterator from a mutable one.
-                    /// </summary>
-                    public static unsafe implicit operator Const_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter) {return new(iter);}
-
-                    /// <summary>
-                    /// Dereferences a const iterator.
-                    /// </summary>
-                    public unsafe MR.CS.StdContainers.Const_NonAssignable deref()
-                    {
-                        MR.CS.StdContainers.Const_NonAssignable __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
-                    }
-
-                    /// <summary>
-                    /// Increments a const iterator.
-                    /// </summary>
-                    public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator _this)
-                    {
-                        ConstIterator __this_copy = new(_this);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr(__this_copy._UnderlyingPtr);
-                        return __this_copy;
-                    }
-
-                    /// <summary>
-                    /// Decrements a const iterator.
-                    /// </summary>
-                    public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator _this)
-                    {
-                        ConstIterator __this_copy = new(_this);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr(__this_copy._UnderlyingPtr);
-                        return __this_copy;
-                    }
-
-                    /// <summary>
-                    /// Computes the signed difference between two const iterators. Completes in constant time.
-                    /// </summary>
-                    public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator b)
-                    {
-                        return __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Compares two const iterators for equality.
-                    /// </summary>
-                    public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
-                    {
-                        return __MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
-                    }
-
-                    public static unsafe bool operator!=(Const_ConstIterator a, Const_ConstIterator b)
-                    {
-                        return !(a == b);
-                    }
-
-                    // IEquatable:
-
-                    public bool Equals(Const_ConstIterator? b)
-                    {
-                        if (b is null)
-                            return false;
-                        return this == b;
-                    }
-
-                    public override bool Equals(object? other)
-                    {
-                        if (other is null)
-                            return false;
-                        if (other is Const_ConstIterator)
-                            return this == (Const_ConstIterator)other;
-                        return false;
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *b);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Destroy", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Destroy(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_deref", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_deref(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *iter);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator", ExactSpelling = true)]
-                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *b);
-                }
-
-                /// <summary>
-                /// Read-only iterator for `MR_C_std_vector_MR_StdContainers_NonAssignable`.
-                /// This is the non-const half of the class.
-                /// </summary>
-                public class ConstIterator : Const_ConstIterator
-                {
-                    internal unsafe ConstIterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    /// <summary>
-                    /// Constructs an empty (default-constructed) instance.
-                    /// </summary>
-                    public unsafe ConstIterator() : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct();
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public unsafe ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator other) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
-
-                    /// <summary>
-                    /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    /// </summary>
-                    public unsafe void assign(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator other)
-                    {
-                        _DiscardKeepAlive();
-                        _KeepAlive(other);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Makes a const iterator from a mutable one.
-                    /// </summary>
-                    public unsafe ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable(iter._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Makes a const iterator from a mutable one.
-                    /// </summary>
-                    public static unsafe implicit operator ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter) {return new(iter);}
-
-                    /// <summary>
-                    /// Increments a const iterator.
-                    /// </summary>
-                    public unsafe void incr()
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr(_UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Decrements a const iterator.
-                    /// </summary>
-                    public unsafe void decr()
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr(_UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-                    /// </summary>
-                    public unsafe void addAssign(nint delta)
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_add_assign(_UnderlyingPtr, delta);
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_add_assign", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_add_assign(_Underlying *_this, nint delta);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_decr(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_from_mutable(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *iter);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_incr(_Underlying *_this);
-                }
-
-                /// <summary>
-                /// This is used for optional parameters of class `ConstIterator` with default arguments.
-                /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstIterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` directly.
-                /// </summary>
-                public class _InOptMut_ConstIterator
-                {
-                    public ConstIterator? Opt;
-
-                    public _InOptMut_ConstIterator() {}
-                    public _InOptMut_ConstIterator(ConstIterator value) {Opt = value;}
-                    public static implicit operator _InOptMut_ConstIterator(ConstIterator value) {return new(value);}
-                }
-
-                /// <summary>
-                /// This is used for optional parameters of class `ConstIterator` with default arguments.
-                /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstIterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` to pass it to the function.
-                /// </summary>
-                public class _InOptConst_ConstIterator
-                {
-                    public Const_ConstIterator? Opt;
-
-                    public _InOptConst_ConstIterator() {}
-                    public _InOptConst_ConstIterator(Const_ConstIterator value) {Opt = value;}
-                    public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
-
-                    /// <summary>
-                    /// Makes a const iterator from a mutable one.
-                    /// </summary>
-                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator iter) {return new Const_ConstIterator(iter);}
-                }
-
-                /// <summary>
-                /// Mutable iterator for `MR_C_std_vector_MR_StdContainers_NonAssignable`.
-                /// This is the const half of the class.
-                /// </summary>
-                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable, System.IEquatable<Const_Iterator>
-                {
-                    internal struct _Underlying {} // Represents the underlying C++ type.
-
-                    internal unsafe _Underlying *_UnderlyingPtr;
-
-                    protected virtual unsafe void Dispose(bool disposing)
-                    {
-                        if (_UnderlyingPtr is null || !_IsOwningVal)
-                            return;
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Destroy(_UnderlyingPtr);
-                        _UnderlyingPtr = null;
-                    }
-                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                    ~Const_Iterator() {Dispose(false);}
-
-                    internal unsafe Const_Iterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                    /// <summary>
-                    /// Constructs an empty (default-constructed) instance.
-                    /// </summary>
-                    public unsafe Const_Iterator() : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct();
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public unsafe Const_Iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator other) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
-
-                    /// <summary>
-                    /// Dereferences a mutable iterator.
-                    /// </summary>
-                    public unsafe MR.CS.StdContainers.NonAssignable deref()
-                    {
-                        MR.CS.StdContainers.NonAssignable __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
-                    }
-
-                    /// <summary>
-                    /// Increments a mutable iterator.
-                    /// </summary>
-                    public static unsafe Iterator operator++(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator _this)
-                    {
-                        Iterator __this_copy = new(_this);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr(__this_copy._UnderlyingPtr);
-                        return __this_copy;
-                    }
-
-                    /// <summary>
-                    /// Decrements a mutable iterator.
-                    /// </summary>
-                    public static unsafe Iterator operator--(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator _this)
-                    {
-                        Iterator __this_copy = new(_this);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr(__this_copy._UnderlyingPtr);
-                        return __this_copy;
-                    }
-
-                    /// <summary>
-                    /// Computes the signed difference between two mutable iterators. Completes in constant time.
-                    /// </summary>
-                    public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator b)
-                    {
-                        return __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Compares two mutable iterators for equality.
-                    /// </summary>
-                    public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
-                    {
-                        return __MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
-                    }
-
-                    public static unsafe bool operator!=(Const_Iterator a, Const_Iterator b)
-                    {
-                        return !(a == b);
-                    }
-
-                    // IEquatable:
-
-                    public bool Equals(Const_Iterator? b)
-                    {
-                        if (b is null)
-                            return false;
-                        return this == b;
-                    }
-
-                    public override bool Equals(object? other)
-                    {
-                        if (other is null)
-                            return false;
-                        if (other is Const_Iterator)
-                            return this == (Const_Iterator)other;
-                        return false;
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *b);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Destroy", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Destroy(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_deref", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_deref(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator", ExactSpelling = true)]
-                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonAssignable_iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *b);
-                }
-
-                /// <summary>
-                /// Mutable iterator for `MR_C_std_vector_MR_StdContainers_NonAssignable`.
-                /// This is the non-const half of the class.
-                /// </summary>
-                public class Iterator : Const_Iterator
-                {
-                    internal unsafe Iterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    /// <summary>
-                    /// Constructs an empty (default-constructed) instance.
-                    /// </summary>
-                    public unsafe Iterator() : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct();
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public unsafe Iterator(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator other) : this(null, is_owning: true)
-                    {
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                    }
-
-                    /// <summary>
-                    /// Constructs a copy of another instance. The source remains alive.
-                    /// </summary>
-                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
-
-                    /// <summary>
-                    /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    /// </summary>
-                    public unsafe void assign(MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator other)
-                    {
-                        _DiscardKeepAlive();
-                        _KeepAlive(other);
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Increments a mutable iterator.
-                    /// </summary>
-                    public unsafe void incr()
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr(_UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Decrements a mutable iterator.
-                    /// </summary>
-                    public unsafe void decr()
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr(_UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-                    /// </summary>
-                    public unsafe void addAssign(nint delta)
-                    {
-                        __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_add_assign(_UnderlyingPtr, delta);
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_AssignFromAnother", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_add_assign", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_add_assign(_Underlying *_this, nint delta);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_decr(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_incr(_Underlying *_this);
-                }
-
-                /// <summary>
-                /// This is used for optional parameters of class `Iterator` with default arguments.
-                /// This is only used mutable parameters. For const ones we have `_InOptConst_Iterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Iterator`/`Const_Iterator` directly.
-                /// </summary>
-                public class _InOptMut_Iterator
-                {
-                    public Iterator? Opt;
-
-                    public _InOptMut_Iterator() {}
-                    public _InOptMut_Iterator(Iterator value) {Opt = value;}
-                    public static implicit operator _InOptMut_Iterator(Iterator value) {return new(value);}
-                }
-
-                /// <summary>
-                /// This is used for optional parameters of class `Iterator` with default arguments.
-                /// This is only used const parameters. For non-const ones we have `_InOptMut_Iterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Iterator`/`Const_Iterator` to pass it to the function.
-                /// </summary>
-                public class _InOptConst_Iterator
-                {
-                    public Const_Iterator? Opt;
-
-                    public _InOptConst_Iterator() {}
-                    public _InOptConst_Iterator(Const_Iterator value) {Opt = value;}
-                    public static implicit operator _InOptConst_Iterator(Const_Iterator value) {return new(value);}
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_end(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
 
                 // DllImport:
@@ -824,7 +215,7 @@ public static partial class MR
                 extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_back(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_begin", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_Underlying *_this);
+                extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_capacity", ExactSpelling = true)]
                 extern static unsafe nuint __MR_C_std_vector_MR_StdContainers_NonAssignable_capacity(_Underlying *_this);
@@ -833,31 +224,13 @@ public static partial class MR
                 extern static unsafe byte __MR_C_std_vector_MR_StdContainers_NonAssignable_empty(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_end", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end(_Underlying *_this);
+                extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_front", ExactSpelling = true)]
                 extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_front(_Underlying *_this);
 
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin_mut", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_is_end", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_StdContainers_NonAssignable_is_end(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_is_end_mut", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_StdContainers_NonAssignable_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Const_Iterator._Underlying *iter);
-
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_size", ExactSpelling = true)]
                 extern static unsafe nuint __MR_C_std_vector_MR_StdContainers_NonAssignable_size(_Underlying *_this);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_to_index", ExactSpelling = true)]
-                extern static unsafe nint __MR_C_std_vector_MR_StdContainers_NonAssignable_to_index(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_to_index_mut", ExactSpelling = true)]
-                extern static unsafe nint __MR_C_std_vector_MR_StdContainers_NonAssignable_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *iter);
             }
 
             /// <summary>
@@ -869,7 +242,7 @@ public static partial class MR
                 public new class _Enumerator : IEnumerator<MR.CS.StdContainers.NonAssignable>
                 {
                     Vector_MRStdContainersNonAssignable _container;
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator _cur;
+                    MR.CS.StdContainers.PtrNonAssignable _cur;
                     bool _first = true;
                     bool _done;
 
@@ -1058,25 +431,21 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The begin iterator, mutable.
+                /// The begin iterator, mutable. Iterators of this container are plain pointers.
                 /// </summary>
-                public unsafe new MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator begin()
+                public unsafe new MR.CS.StdContainers.PtrNonAssignable begin()
                 {
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
 
                 /// <summary>
-                /// The end iterator, mutable.
+                /// The end iterator, mutable. Iterators of this container are plain pointers.
                 /// </summary>
-                public unsafe new MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator end()
+                public unsafe new MR.CS.StdContainers.PtrNonAssignable end()
                 {
-                    MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
 
                 // DllImport:
@@ -1097,13 +466,13 @@ public static partial class MR
                 extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_back_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_Underlying *_this);
+                extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_clear", ExactSpelling = true)]
                 extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_clear(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_Underlying *_this);
+                extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_front_mut", ExactSpelling = true)]
                 extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_front_mut(_Underlying *_this);
