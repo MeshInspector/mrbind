@@ -25,7 +25,7 @@ public static partial class MR
                 public class _Enumerator : IEnumerator<MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout>>
                 {
                     Const_Vector_MRCSharpExposedLayout _container;
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator _cur;
+                    MR.CS.CSharp.ConstPtrExposedLayout _cur;
                     bool _first = true;
                     bool _done;
 
@@ -186,609 +186,22 @@ public static partial class MR
                     return new(__c_ret);
                 }
 
-                /// The begin iterator, const.
-                public unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator Begin()
+                /// The begin iterator, const. Iterators of this container are plain pointers.
+                public unsafe MR.CS.CSharp.ConstPtrExposedLayout Begin()
                 {
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_UnderlyingPtr);
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
-                    __ret = new(__c_ret, is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __ret;
+                    return new(__c_ret);
                 }
 
-                /// Tests whether a const iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Tests whether a mutable iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// The end iterator, const.
-                public unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator End()
+                /// The end iterator, const. Iterators of this container are plain pointers.
+                public unsafe MR.CS.CSharp.ConstPtrExposedLayout End()
                 {
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_end(_UnderlyingPtr);
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
-                    __ret = new(__c_ret, is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __ret;
-                }
-
-                /// Tests whether a const iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Tests whether a mutable iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Convert a const iterator to an index.
-                public unsafe nint ToIndex(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret;
-                }
-
-                /// Convert a mutable iterator to an index.
-                public unsafe nint ToIndex(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret;
-                }
-
-                /// Read-only iterator for `MR_C_std_vector_MR_CSharp_ExposedLayout`.
-                /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable, System.IEquatable<Const_ConstIterator>
-                {
-                    internal struct _Underlying {} // Represents the underlying C++ type.
-
-                    internal unsafe _Underlying *_UnderlyingPtr;
-
-                    protected virtual unsafe void Dispose(bool disposing)
-                    {
-                        if (_UnderlyingPtr is null || !_IsOwningVal)
-                            return;
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy(_UnderlyingPtr);
-                        _UnderlyingPtr = null;
-                    }
-                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                    ~Const_ConstIterator() {Dispose(false);}
-
-                    internal unsafe Const_ConstIterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                    /// Constructs an empty (default-constructed) instance.
-                    public unsafe Const_ConstIterator() : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
-
-                    /// Makes a const iterator from a mutable one.
-                    public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(iter._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Makes a const iterator from a mutable one.
-                    public static unsafe implicit operator Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) {return new(iter);}
-
-                    /// Dereferences a const iterator.
-                    public unsafe ref readonly MR.CS.CSharp.ExposedLayout Deref()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
-                    }
-
-                    /// Increments a const iterator.
-                    public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator _this)
-                    {
-                        ConstIterator __this_copy = new(_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(__this_copy._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __this_copy;
-                    }
-
-                    /// Decrements a const iterator.
-                    public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator _this)
-                    {
-                        ConstIterator __this_copy = new(_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(__this_copy._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __this_copy;
-                    }
-
-                    /// Computes the signed difference between two const iterators. Completes in constant time.
-                    public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator b)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __c_ret;
-                    }
-
-                    /// Compares two const iterators for equality.
-                    public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __c_ret != 0;
-                    }
-
-                    public static unsafe bool operator!=(Const_ConstIterator a, Const_ConstIterator b)
-                    {
-                        return !(a == b);
-                    }
-
-                    // IEquatable:
-
-                    public bool Equals(Const_ConstIterator? b)
-                    {
-                        if (b is null)
-                            return false;
-                        return this == b;
-                    }
-
-                    public override bool Equals(object? other)
-                    {
-                        if (other is null)
-                            return false;
-                        if (other is Const_ConstIterator)
-                            return this == (Const_ConstIterator)other;
-                        return false;
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref", ExactSpelling = true)]
-                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_deref(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator", ExactSpelling = true)]
-                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *b);
-                }
-
-                /// Read-only iterator for `MR_C_std_vector_MR_CSharp_ExposedLayout`.
-                /// This is the non-const half of the class.
-                public class ConstIterator : Const_ConstIterator
-                {
-                    internal unsafe ConstIterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    /// Constructs an empty (default-constructed) instance.
-                    public unsafe ConstIterator() : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
-
-                    /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator other)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _DiscardKeepAlive();
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
-                    }
-
-                    /// Makes a const iterator from a mutable one.
-                    public unsafe ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(iter._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Makes a const iterator from a mutable one.
-                    public static unsafe implicit operator ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) {return new(iter);}
-
-                    /// Increments a const iterator.
-                    public unsafe void Incr()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Decrements a const iterator.
-                    public unsafe void Decr()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(nint delta)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign(_UnderlyingPtr, delta);
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_add_assign(_Underlying *_this, nint delta);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_decr(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_from_mutable(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_incr(_Underlying *_this);
-                }
-
-                /// This is used for optional parameters of class `ConstIterator` with default arguments.
-                /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstIterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` directly.
-                public class _InOptMut_ConstIterator
-                {
-                    public ConstIterator? Opt;
-
-                    public _InOptMut_ConstIterator() {}
-                    public _InOptMut_ConstIterator(ConstIterator value) {Opt = value;}
-                    public static implicit operator _InOptMut_ConstIterator(ConstIterator value) {return new(value);}
-                }
-
-                /// This is used for optional parameters of class `ConstIterator` with default arguments.
-                /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstIterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` to pass it to the function.
-                public class _InOptConst_ConstIterator
-                {
-                    public Const_ConstIterator? Opt;
-
-                    public _InOptConst_ConstIterator() {}
-                    public _InOptConst_ConstIterator(Const_ConstIterator value) {Opt = value;}
-                    public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
-
-                    /// Makes a const iterator from a mutable one.
-                    public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) {return new Const_ConstIterator(iter);}
-                }
-
-                /// Mutable iterator for `MR_C_std_vector_MR_CSharp_ExposedLayout`.
-                /// This is the const half of the class.
-                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable, System.IEquatable<Const_Iterator>
-                {
-                    internal struct _Underlying {} // Represents the underlying C++ type.
-
-                    internal unsafe _Underlying *_UnderlyingPtr;
-
-                    protected virtual unsafe void Dispose(bool disposing)
-                    {
-                        if (_UnderlyingPtr is null || !_IsOwningVal)
-                            return;
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy(_UnderlyingPtr);
-                        _UnderlyingPtr = null;
-                    }
-                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                    ~Const_Iterator() {Dispose(false);}
-
-                    internal unsafe Const_Iterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
-                    /// Constructs an empty (default-constructed) instance.
-                    public unsafe Const_Iterator() : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe Const_Iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
-
-                    /// Dereferences a mutable iterator.
-                    public unsafe ref MR.CS.CSharp.ExposedLayout Deref()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
-                    }
-
-                    /// Increments a mutable iterator.
-                    public static unsafe Iterator operator++(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator _this)
-                    {
-                        Iterator __this_copy = new(_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(__this_copy._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __this_copy;
-                    }
-
-                    /// Decrements a mutable iterator.
-                    public static unsafe Iterator operator--(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator _this)
-                    {
-                        Iterator __this_copy = new(_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(__this_copy._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __this_copy;
-                    }
-
-                    /// Computes the signed difference between two mutable iterators. Completes in constant time.
-                    public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator b)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __c_ret;
-                    }
-
-                    /// Compares two mutable iterators for equality.
-                    public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return __c_ret != 0;
-                    }
-
-                    public static unsafe bool operator!=(Const_Iterator a, Const_Iterator b)
-                    {
-                        return !(a == b);
-                    }
-
-                    // IEquatable:
-
-                    public bool Equals(Const_Iterator? b)
-                    {
-                        if (b is null)
-                            return false;
-                        return this == b;
-                    }
-
-                    public override bool Equals(object? other)
-                    {
-                        if (other is null)
-                            return false;
-                        if (other is Const_Iterator)
-                            return this == (Const_Iterator)other;
-                        return false;
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref", ExactSpelling = true)]
-                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator", ExactSpelling = true)]
-                    extern static unsafe nint __MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *a, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *b);
-                }
-
-                /// Mutable iterator for `MR_C_std_vector_MR_CSharp_ExposedLayout`.
-                /// This is the non-const half of the class.
-                public class Iterator : Const_Iterator
-                {
-                    internal unsafe Iterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    /// Constructs an empty (default-constructed) instance.
-                    public unsafe Iterator() : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public unsafe Iterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other) : this(null, is_owning: true)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(other._UnderlyingPtr);
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Constructs a copy of another instance. The source remains alive.
-                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
-
-                    /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator other)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        _DiscardKeepAlive();
-                        _KeepAlive(other);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
-                    }
-
-                    /// Increments a mutable iterator.
-                    public unsafe void Incr()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Decrements a mutable iterator.
-                    public unsafe void Decr()
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    }
-
-                    /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(nint delta)
-                    {
-                        MR.CS.Misc._Exceptions.Prepare();
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(_UnderlyingPtr, delta);
-                    }
-
-                    // DllImport:
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *other);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_DefaultConstruct();
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(_Underlying *_this, nint delta);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_decr(_Underlying *_this);
-
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_incr(_Underlying *_this);
-                }
-
-                /// This is used for optional parameters of class `Iterator` with default arguments.
-                /// This is only used mutable parameters. For const ones we have `_InOptConst_Iterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Iterator`/`Const_Iterator` directly.
-                public class _InOptMut_Iterator
-                {
-                    public Iterator? Opt;
-
-                    public _InOptMut_Iterator() {}
-                    public _InOptMut_Iterator(Iterator value) {Opt = value;}
-                    public static implicit operator _InOptMut_Iterator(Iterator value) {return new(value);}
-                }
-
-                /// This is used for optional parameters of class `Iterator` with default arguments.
-                /// This is only used const parameters. For non-const ones we have `_InOptMut_Iterator`.
-                /// Usage:
-                /// * Pass `null` to use the default argument.
-                /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Iterator`/`Const_Iterator` to pass it to the function.
-                public class _InOptConst_Iterator
-                {
-                    public Const_Iterator? Opt;
-
-                    public _InOptConst_Iterator() {}
-                    public _InOptConst_Iterator(Const_Iterator value) {Opt = value;}
-                    public static implicit operator _InOptConst_Iterator(Const_Iterator value) {return new(value);}
+                    return new(__c_ret);
                 }
 
                 // DllImport:
@@ -812,7 +225,7 @@ public static partial class MR
                 extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_Underlying *_this);
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_capacity", ExactSpelling = true)]
                 extern static unsafe nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_capacity(_Underlying *_this);
@@ -824,31 +237,13 @@ public static partial class MR
                 extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_empty(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end(_Underlying *_this);
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_end(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front", ExactSpelling = true)]
                 extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front(_Underlying *_this);
 
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_std_vector_MR_CSharp_ExposedLayout_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator._Underlying *iter);
-
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_size", ExactSpelling = true)]
                 extern static unsafe nuint __MR_C_std_vector_MR_CSharp_ExposedLayout_size(_Underlying *_this);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index", ExactSpelling = true)]
-                extern static unsafe nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *iter);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut", ExactSpelling = true)]
-                extern static unsafe nint __MR_C_std_vector_MR_CSharp_ExposedLayout_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *iter);
             }
 
             /// Generated from C++ container `std::vector<MR::CSharp::ExposedLayout>`.
@@ -858,7 +253,7 @@ public static partial class MR
                 public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>
                 {
                     Vector_MRCSharpExposedLayout _container;
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator _cur;
+                    MR.CS.CSharp.PtrExposedLayout _cur;
                     bool _first = true;
                     bool _done;
 
@@ -1087,60 +482,22 @@ public static partial class MR
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_UnderlyingPtr, position);
                 }
 
-                /// Inserts a new element right before the specified position.
-                public unsafe void InsertAtMutableIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator position, MR.CS.CSharp.ExposedLayout new_elem)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
-                }
-
-                /// Erases the element at the specified position.
-                public unsafe void EraseAtMutableIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator position)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
-                }
-
-                /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
-                public unsafe void InsertAtIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator position, MR.CS.CSharp.ExposedLayout new_elem)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
-                }
-
-                /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
-                public unsafe void EraseAtIter(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_ConstIterator position)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
-                }
-
-                /// The begin iterator, mutable.
-                public unsafe new MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator Begin()
+                /// The begin iterator, mutable. Iterators of this container are plain pointers.
+                public unsafe new MR.CS.CSharp.PtrExposedLayout Begin()
                 {
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_UnderlyingPtr);
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
-                    __ret = new(__c_ret, is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __ret;
+                    return new(__c_ret);
                 }
 
-                /// The end iterator, mutable.
-                public unsafe new MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator End()
+                /// The end iterator, mutable. Iterators of this container are plain pointers.
+                public unsafe new MR.CS.CSharp.PtrExposedLayout End()
                 {
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_UnderlyingPtr);
-                    MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
-                    __ret = new(__c_ret, is_owning: true);
-                    __ret._KeepAliveEnclosingObject = this;
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __ret;
+                    return new(__c_ret);
                 }
 
                 // DllImport:
@@ -1167,7 +524,7 @@ public static partial class MR
                 extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_back_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_Underlying *_this);
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_clear", ExactSpelling = true)]
                 extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_clear(_Underlying *_this);
@@ -1176,28 +533,16 @@ public static partial class MR
                 extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_data_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut", ExactSpelling = true)]
-                extern static unsafe MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_Underlying *_this);
+                extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase", ExactSpelling = true)]
                 extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_Underlying *_this, nuint position);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter", ExactSpelling = true)]
-                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter", ExactSpelling = true)]
-                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut", ExactSpelling = true)]
                 extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_front_mut(_Underlying *_this);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert", ExactSpelling = true)]
                 extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert(_Underlying *_this, nuint position, MR.CS.CSharp.ExposedLayout new_elem);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter", ExactSpelling = true)]
-                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter", ExactSpelling = true)]
-                extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *position, MR.CS.CSharp.ExposedLayout new_elem);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back", ExactSpelling = true)]
                 extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_pop_back(_Underlying *_this);
