@@ -1,0 +1,16 @@
+// The root module of the bindings.
+
+import * as ffi from "./ffi.mjs";
+import * as L from "./lib/_all.mjs";
+
+export * as ffi from "./ffi.mjs";
+export { CppObject, CppStruct, CppException, UnexpectedResultException } from "./ffi.mjs";
+
+/** Instantiates the wasm module with `createModule(options)` (the Emscripten factory) and binds the wrappers to it. Returns the module. Does nothing if already initialized. */
+export declare function init(options?: object): Promise<any>;
+/** Binds the wrappers to an already instantiated Emscripten module. */
+export declare function initWithModule(module: any): void;
+
+export * as MR from "./ns/MR.mjs";
+export * as phmap from "./ns/phmap.mjs";
+
