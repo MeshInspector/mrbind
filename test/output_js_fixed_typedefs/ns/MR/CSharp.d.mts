@@ -468,7 +468,7 @@ export declare function test_enum(a: L.MR_CSharp_E1, b?: L.MR_CSharp_E1 | null):
  * Calls `MR_CSharp_test_enum_MR_CSharp_E2()`. `b` defaults to `MR::CSharp::E2::b`.
  */
 export declare function test_enum(a: L.MR_CSharp_E2, b?: L.MR_CSharp_E2 | null): L.MR_CSharp_E2;
-/** The overloads of `test_enum` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_enum` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_enum_cref`.
  *
@@ -481,7 +481,7 @@ export declare function test_enum_cref(a: L.MR_CSharp_E1, b?: L.MR_CSharp_E1 | n
  * Calls `MR_CSharp_test_enum_cref_MR_CSharp_E2()`. `b` defaults to `MR::CSharp::default_e2`.
  */
 export declare function test_enum_cref(a: L.MR_CSharp_E2, b?: L.MR_CSharp_E2 | null): L.MR_CSharp_E2;
-/** The overloads of `test_enum_cref` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_enum_cref` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_enum_crref`.
  *
@@ -494,7 +494,7 @@ export declare function test_enum_crref(a: L.MR_CSharp_E1, b?: L.MR_CSharp_E1 | 
  * Calls `MR_CSharp_test_enum_crref_MR_CSharp_E2()`. `b` defaults to `(MR::CSharp::E2&&)MR::CSharp::default_e2`.
  */
 export declare function test_enum_crref(a: L.MR_CSharp_E2, b?: L.MR_CSharp_E2 | null): L.MR_CSharp_E2;
-/** The overloads of `test_enum_crref` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_enum_crref` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_enum_cptr`.
  *
@@ -507,7 +507,7 @@ export declare function test_enum_cptr(a: L.MR_CSharp_E1 | null | undefined, b: 
  * Calls `MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `nullptr`. `c` defaults to `&MR::CSharp::default_e2`.
  */
 export declare function test_enum_cptr(a: L.MR_CSharp_E2 | null | undefined, b: L.MR_CSharp_E2 | null | undefined, c: number): L.MR_CSharp_E2 | null;
-/** The overloads of `test_enum_cptr` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_enum_cptr` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::operator--`.
  *
@@ -526,7 +526,7 @@ export declare function opDecr(_1: L.MR_CSharp_ExposedLayout): void;
  * Calls `MR_C_decr_MR_CSharp_ExposedLayoutSh()`.
  */
 export declare function opDecr(_1: L.MR_CSharp_ExposedLayoutSh): void;
-/** The overloads of `opDecr` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opDecr` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::operator+`.
  *
@@ -661,7 +661,13 @@ export declare function opAdd(_1: L.MR_CSharp_NonCopyableClassByValueOps, _2: nu
  * Calls `MR_C_add_int32_t_MR_CSharp_NonCopyableClassByValueOps()`.
  */
 export declare function opAdd(_1: number, _2: L.MR_CSharp_NonCopyableClassByValueOps): number;
-/** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator-`.
+ *
+ * Calls `MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref()`.
+ */
+export declare function opSub(_1: L.MR_CSharp_ConstNonconstConflicts): number;
 /**
  * Generated from function `MR::CSharp::operator-`.
  *
@@ -674,13 +680,7 @@ export declare function opSub(_1: number, _2: L.MR_CSharp_ExposedLayout): number
  * Calls `MR_C_sub_int32_t_MR_CSharp_ExposedLayoutSh()`.
  */
 export declare function opSub(_1: number, _2: L.MR_CSharp_ExposedLayoutSh): number;
-/**
- * Generated from function `MR::CSharp::operator-`.
- *
- * Calls `MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref()`.
- */
-export declare function opSub(_1: L.MR_CSharp_ConstNonconstConflicts): number;
-/** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::operator/`.
  *
@@ -693,7 +693,7 @@ export declare function opDiv(_1: number, _2: L.MR_CSharp_ExposedLayout): number
  * Calls `MR_C_div_int32_t_MR_CSharp_ExposedLayoutSh()`.
  */
 export declare function opDiv(_1: number, _2: L.MR_CSharp_ExposedLayoutSh): number;
-/** The overloads of `opDiv` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opDiv` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::operator%`.
  *
@@ -706,7 +706,7 @@ export declare function opMod(_1: number, _2: L.MR_CSharp_ExposedLayout): number
  * Calls `MR_C_mod_int32_t_MR_CSharp_ExposedLayoutSh()`.
  */
 export declare function opMod(_1: number, _2: L.MR_CSharp_ExposedLayoutSh): number;
-/** The overloads of `opMod` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opMod` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_exposed`.
  *
@@ -719,7 +719,7 @@ export declare function test_exposed(a: L.MR_CSharp_ExposedLayout, b?: L.MR_CSha
  * Calls `MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh()`. `b` defaults to `MR::CSharp::default_exposed_sh`.
  */
 export declare function test_exposed(a: L.MR_CSharp_ExposedLayoutSh, b?: L.MR_CSharp_ExposedLayoutSh | null): L.MR_CSharp_ExposedLayoutSh;
-/** The overloads of `test_exposed` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_exposed` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_exposed_ref`.
  *
@@ -732,7 +732,7 @@ export declare function test_exposed_ref(a: L.MR_CSharp_ExposedLayout, b?: L.MR_
  * Calls `MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh()`. `b` defaults to `MR::CSharp::default_exposed_sh`.
  */
 export declare function test_exposed_ref(a: L.MR_CSharp_ExposedLayoutSh, b?: L.MR_CSharp_ExposedLayoutSh | null): L.MR_CSharp_ExposedLayoutSh;
-/** The overloads of `test_exposed_ref` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_exposed_ref` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_exposed_cref`.
  *
@@ -745,7 +745,7 @@ export declare function test_exposed_cref(a: L.MR_CSharp_ExposedLayout, b?: L.MR
  * Calls `MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh()`. `b` defaults to `MR::CSharp::default_exposed_sh`.
  */
 export declare function test_exposed_cref(a: L.MR_CSharp_ExposedLayoutSh, b?: L.MR_CSharp_ExposedLayoutSh | null): L.MR_CSharp_ExposedLayoutSh;
-/** The overloads of `test_exposed_cref` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_exposed_cref` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_exposed_ptr`.
  *
@@ -758,7 +758,7 @@ export declare function test_exposed_ptr(a: L.MR_CSharp_ExposedLayout | null | u
  * Calls `MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `nullptr`. `c` defaults to `&MR::CSharp::default_exposed_sh`.
  */
 export declare function test_exposed_ptr(a: L.MR_CSharp_ExposedLayoutSh | null | undefined, b: L.MR_CSharp_ExposedLayoutSh | null | undefined, c: number): L.MR_CSharp_ExposedLayoutSh | null;
-/** The overloads of `test_exposed_ptr` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_exposed_ptr` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::test_exposed_cptr`.
  *
@@ -771,7 +771,7 @@ export declare function test_exposed_cptr(a: L.MR_CSharp_ExposedLayout | null | 
  * Calls `MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `nullptr`. `c` defaults to `&MR::CSharp::default_exposed_sh`.
  */
 export declare function test_exposed_cptr(a: L.MR_CSharp_ExposedLayoutSh | null | undefined, b: L.MR_CSharp_ExposedLayoutSh | null | undefined, c: number): L.MR_CSharp_ExposedLayoutSh | null;
-/** The overloads of `test_exposed_cptr` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `test_exposed_cptr` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * `--infer-lifetime-iterators` should act on those:
  * Generated from function `MR::CSharp::begin`.
@@ -816,7 +816,7 @@ export declare function begin(self: L.MR_CSharp_IterableF): number | null;
  * Calls `MR_CSharp_begin_int32_t()`.
  */
 export declare function begin(self: L.MR_CSharp_IterableL_int32_t): number | null;
-/** The overloads of `begin` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `begin` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::end`.
  * The reference to the parameter `b` might be preserved in the return value.
@@ -859,7 +859,7 @@ export declare function end(self: L.MR_CSharp_IterableF): number | null;
  * Calls `MR_CSharp_end_int32_t()`.
  */
 export declare function end(self: L.MR_CSharp_IterableL_int32_t): number | null;
-/** The overloads of `end` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `end` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::CSharp::operator*`.
  * The reference to the parameter `b` might be preserved in the return value.
@@ -874,4 +874,4 @@ export declare function opMul(b: L.MR_CSharp_LifetimesB): L.MR_CSharp_LifetimesA
  * Calls `MR_C_deref_MR_CSharp_LifetimesC()`.
  */
 export declare function opMul(c: L.MR_CSharp_LifetimesC): L.MR_CSharp_LifetimesA;
-/** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

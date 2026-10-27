@@ -28,7 +28,7 @@ export declare class MR_C_std_variant_int_float extends ffi.CppObject
      * Calls `MR_C_std_variant_int_float_ConstructAs_int()`.
      */
     constructor(value: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Constructs the variant storing the element 1, of type `float`.
      *

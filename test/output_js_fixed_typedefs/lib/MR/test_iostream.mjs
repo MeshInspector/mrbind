@@ -13,6 +13,7 @@ export class MR_IOStream_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IOStream_A_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_IOStream_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IOStream_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_IOStream_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_IOStream_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IOStream_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -72,11 +83,16 @@ export class MR_IOStream_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_print_MR_IOStream_A(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_print_MR_IOStream_A(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -86,10 +102,15 @@ export function MR_C_print_MR_IOStream_A(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_input_MR_IOStream_A(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_input_MR_IOStream_A(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -98,6 +119,10 @@ export function MR_C_input_MR_IOStream_A(_1, _2)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

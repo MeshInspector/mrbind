@@ -47,7 +47,7 @@ export function MR_StdFilesystem_SetPathDefTrivial(_1)
     try
     {
         const __str__1 = _1 == null ? 0 : ffi.utf8(_1);
-        const __end__1 = ffi.utf8End();
+        const __end__1 = _1 == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdFilesystem_SetPathDefTrivial(BigInt(__str__1), BigInt(__end__1));
         ffi.check();
     }
@@ -63,7 +63,7 @@ export function MR_StdFilesystem_SetPathDef(_1)
     try
     {
         const __str__1 = _1 == null ? 0 : ffi.utf8(_1);
-        const __end__1 = ffi.utf8End();
+        const __end__1 = _1 == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdFilesystem_SetPathDef(BigInt(__str__1), BigInt(__end__1));
         ffi.check();
     }

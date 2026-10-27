@@ -233,7 +233,7 @@ export class MR_CSharp_ArrayMembers extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ArrayMembers_Get_i(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set i(value)
@@ -246,7 +246,7 @@ export class MR_CSharp_ArrayMembers extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ArrayMembers_Get_ia(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get iaa()
@@ -260,14 +260,14 @@ export class MR_CSharp_ArrayMembers extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ArrayMembers_Get_ci(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get cia()
     {
         const __ret = ffi.C.MR_CSharp_ArrayMembers_Get_cia(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get ciaa()
@@ -738,7 +738,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_value = value == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (value ? 1 : 0) ? 1 : 0;});
+            const __ptr_value = value == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = value ? 1 : 0;});
             ffi.C.MR_CSharp_ClassMemberPointersBool_Set_sb(BigInt(__ptr_value));
             ffi.check();
         }
@@ -759,7 +759,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ClassMemberPointersBool_Get_sd();
         ffi.check();
-        return (ffi.M.HEAPU8[Number(__ret)] !== 0);
+        return (ffi.HEAPU8()[Number(__ret)] !== 0);
     }
 
     get a()
@@ -787,7 +787,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_value = value == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (value ? 1 : 0) ? 1 : 0;});
+            const __ptr_value = value == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = value ? 1 : 0;});
             ffi.C.MR_CSharp_ClassMemberPointersBool_Set_b(BigInt(this.rawPointer()), BigInt(__ptr_value));
             ffi.check();
         }
@@ -808,7 +808,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ClassMemberPointersBool_Get_d(BigInt(this.rawPointer()));
         ffi.check();
-        return (ffi.M.HEAPU8[Number(__ret)] !== 0);
+        return (ffi.HEAPU8()[Number(__ret)] !== 0);
     }
 
     static __ctor_0(_other)
@@ -823,8 +823,8 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
-            const __ptr_d = ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (d ? 1 : 0) ? 1 : 0;});
+            const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
+            const __ptr_d = ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = d ? 1 : 0;});
             const __ret = ffi.C.MR_CSharp_ClassMemberPointersBool_ConstructFrom(BigInt(a), BigInt(__ptr_b), BigInt(c), BigInt(__ptr_d));
             ffi.check();
             return Number(__ret);
@@ -1147,7 +1147,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_value = value == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (value & 65535);});
+            const __ptr_value = value == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = value;});
             ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_sb(BigInt(__ptr_value));
             ffi.check();
         }
@@ -1168,7 +1168,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ClassMemberPointersUshort_Get_sd();
         ffi.check();
-        return ffi.M.HEAPU16[(Number(__ret)) >>> 1];
+        return ffi.HEAPU16()[(Number(__ret)) / 2];
     }
 
     get a()
@@ -1196,7 +1196,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_value = value == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (value & 65535);});
+            const __ptr_value = value == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = value;});
             ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_b(BigInt(this.rawPointer()), BigInt(__ptr_value));
             ffi.check();
         }
@@ -1217,7 +1217,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_ClassMemberPointersUshort_Get_d(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPU16[(Number(__ret)) >>> 1];
+        return ffi.HEAPU16()[(Number(__ret)) / 2];
     }
 
     static __ctor_0(_other)
@@ -1232,8 +1232,8 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (b & 65535);});
-            const __ptr_d = ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (d & 65535);});
+            const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = b;});
+            const __ptr_d = ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = d;});
             const __ret = ffi.C.MR_CSharp_ClassMemberPointersUshort_ConstructFrom(BigInt(a), BigInt(__ptr_b), BigInt(c), BigInt(__ptr_d));
             ffi.check();
             return Number(__ret);
@@ -1276,8 +1276,8 @@ export class MR_CSharp_ConstNonconstConflicts extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get x() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set x(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get x() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set x(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     static __ctor(args)
     {
@@ -1406,7 +1406,7 @@ export class MR_CSharp_ConvCtor extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _2;});
+            const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _2;});
             const __ret = ffi.C.MR_CSharp_ConvCtor_Construct_2_short(((_1 << 16) >> 16), BigInt(__ptr__2));
             ffi.check();
             return Number(__ret);
@@ -1533,16 +1533,24 @@ export class MR_CSharp_ConvCtorExposed extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get x() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set x(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get x() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set x(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     static __ctor_0(_1)
     {
         const __sret = ffi.malloc(4);
-        const __ret = ffi.C.MR_CSharp_ConvCtorExposed_Construct(_1);
-        ffi.check();
-        ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret;
-        return __sret;
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ConvCtorExposed_Construct(_1);
+            ffi.check();
+            ffi.HEAPU32()[(__sret + 0) / 4] = __ret;
+            return __sret;
+        }
+        catch (__e)
+        {
+            ffi.free(__sret);
+            throw __e;
+        }
     }
 
     static __ctor(args)
@@ -1641,7 +1649,9 @@ export class MR_CSharp_ConvCtorNonTrivialRestricted extends ffi.CppObject
 
     static __ctor_0(_other)
     {
-        const __ret = ffi.C.MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a1 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(__a0, __a1);
         ffi.check();
         return Number(__ret);
     }
@@ -1675,7 +1685,10 @@ export class MR_CSharp_ConvCtorNonTrivialRestricted extends ffi.CppObject
 
     assignFromAnother(_other)
     {
-        const __ret = ffi.C.MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(BigInt(this.rawPointer()), ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = BigInt(this.rawPointer());
+        const __a1 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a2 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(__a0, __a1, __a2);
         ffi.check();
         const __owner = this;
         return new L.MR_CSharp_ConvCtorNonTrivialRestricted(ffi.RAW, Number(__ret), false, __owner);
@@ -1759,7 +1772,7 @@ export class MR_CSharp_ConvCtorWithDefArg extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+            const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
             const __ret = ffi.C.MR_CSharp_ConvCtorWithDefArg_Construct(BigInt(__ptr__1));
             ffi.check();
             return Number(__ret);
@@ -2392,7 +2405,7 @@ export class MR_CSharp_EqualityD extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+            const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
             const __ret = ffi.C.MR_C_equal_MR_CSharp_EqualityD_const_int_ptr(BigInt(this.rawPointer()), BigInt(__ptr__1));
             ffi.check();
             return (__ret !== 0);
@@ -2475,23 +2488,23 @@ export class MR_CSharp_ExposedLayout extends ffi.CppStruct
     static SIZE = 56;
     static ALIGNMENT = 8;
 
-    get x() {return ffi.M.HEAPU16[(this.rawPointer() + 0) >>> 1];}
-    set x(value) {ffi.M.HEAPU16[(this.rawPointer() + 0) >>> 1] = (value & 65535);}
+    get x() {return ffi.HEAPU16()[(this.rawPointer() + 0) / 2];}
+    set x(value) {ffi.HEAPU16()[(this.rawPointer() + 0) / 2] = value;}
 
-    get y() {return ffi.M.HEAP32[(this.rawPointer() + 4) >>> 2];}
-    set y(value) {ffi.M.HEAPU32[(this.rawPointer() + 4) >>> 2] = value;}
+    get y() {return ffi.HEAP32()[(this.rawPointer() + 4) / 4];}
+    set y(value) {ffi.HEAPU32()[(this.rawPointer() + 4) / 4] = value;}
 
-    get z() {return ffi.M.HEAPF64[(this.rawPointer() + 8) >>> 3];}
-    set z(value) {ffi.M.HEAPF64[(this.rawPointer() + 8) >>> 3] = value;}
+    get z() {return ffi.HEAPF64()[(this.rawPointer() + 8) / 8];}
+    set z(value) {ffi.HEAPF64()[(this.rawPointer() + 8) / 8] = value;}
 
-    getArr(i0) {return ffi.M.HEAP32[(this.rawPointer() + 16 + (i0) * 4) >>> 2];}
-    setArr(i0, value) {ffi.M.HEAPU32[(this.rawPointer() + 16 + (i0) * 4) >>> 2] = value;}
+    getArr(i0) {return ffi.HEAP32()[(this.rawPointer() + 16 + (i0) * 4) / 4];}
+    setArr(i0, value) {ffi.HEAPU32()[(this.rawPointer() + 16 + (i0) * 4) / 4] = value;}
 
-    get b() {return (ffi.M.HEAPU8[this.rawPointer() + 28] !== 0);}
-    set b(value) {ffi.M.HEAPU8[this.rawPointer() + 28] = (value ? 1 : 0) ? 1 : 0;}
+    get b() {return (ffi.HEAPU8()[this.rawPointer() + 28] !== 0);}
+    set b(value) {ffi.HEAPU8()[this.rawPointer() + 28] = value ? 1 : 0;}
 
-    getBa(i0, i1) {return (ffi.M.HEAPU8[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] !== 0);}
-    setBa(i0, i1, value) {ffi.M.HEAPU8[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] = (value ? 1 : 0) ? 1 : 0;}
+    getBa(i0, i1) {return (ffi.HEAPU8()[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] !== 0);}
+    setBa(i0, i1, value) {ffi.HEAPU8()[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] = value ? 1 : 0;}
 
     static __ctor(args)
     {
@@ -2600,25 +2613,41 @@ export class MR_CSharp_ExposedLayoutB extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get x() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set x(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get x() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set x(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     static __ctor_0(_1, _2)
     {
         const __sret = ffi.malloc(4);
-        const __ret = ffi.C.MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
-        ffi.check();
-        ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret;
-        return __sret;
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
+            ffi.check();
+            ffi.HEAPU32()[(__sret + 0) / 4] = __ret;
+            return __sret;
+        }
+        catch (__e)
+        {
+            ffi.free(__sret);
+            throw __e;
+        }
     }
 
     static __ctor_1(_1)
     {
         const __sret = ffi.malloc(4);
-        const __ret = ffi.C.MR_CSharp_ExposedLayoutB_Construct_1(BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret;
-        return __sret;
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ExposedLayoutB_Construct_1(BigInt(ffi.ptrNonNull(_1, "_1")));
+            ffi.check();
+            ffi.HEAPU32()[(__sret + 0) / 4] = __ret;
+            return __sret;
+        }
+        catch (__e)
+        {
+            ffi.free(__sret);
+            throw __e;
+        }
     }
 
     static __ctor(args)
@@ -2655,8 +2684,8 @@ export class MR_CSharp_ExposedLayoutC extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get x() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set x(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get x() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set x(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     static __ctor(args)
     {
@@ -2688,23 +2717,23 @@ export class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
     static SIZE = 56;
     static ALIGNMENT = 8;
 
-    get x() {return ffi.M.HEAPU16[(this.rawPointer() + 0) >>> 1];}
-    set x(value) {ffi.M.HEAPU16[(this.rawPointer() + 0) >>> 1] = (value & 65535);}
+    get x() {return ffi.HEAPU16()[(this.rawPointer() + 0) / 2];}
+    set x(value) {ffi.HEAPU16()[(this.rawPointer() + 0) / 2] = value;}
 
-    get y() {return ffi.M.HEAP32[(this.rawPointer() + 4) >>> 2];}
-    set y(value) {ffi.M.HEAPU32[(this.rawPointer() + 4) >>> 2] = value;}
+    get y() {return ffi.HEAP32()[(this.rawPointer() + 4) / 4];}
+    set y(value) {ffi.HEAPU32()[(this.rawPointer() + 4) / 4] = value;}
 
-    get z() {return ffi.M.HEAPF64[(this.rawPointer() + 8) >>> 3];}
-    set z(value) {ffi.M.HEAPF64[(this.rawPointer() + 8) >>> 3] = value;}
+    get z() {return ffi.HEAPF64()[(this.rawPointer() + 8) / 8];}
+    set z(value) {ffi.HEAPF64()[(this.rawPointer() + 8) / 8] = value;}
 
-    getArr(i0) {return ffi.M.HEAP32[(this.rawPointer() + 16 + (i0) * 4) >>> 2];}
-    setArr(i0, value) {ffi.M.HEAPU32[(this.rawPointer() + 16 + (i0) * 4) >>> 2] = value;}
+    getArr(i0) {return ffi.HEAP32()[(this.rawPointer() + 16 + (i0) * 4) / 4];}
+    setArr(i0, value) {ffi.HEAPU32()[(this.rawPointer() + 16 + (i0) * 4) / 4] = value;}
 
-    get b() {return (ffi.M.HEAPU8[this.rawPointer() + 28] !== 0);}
-    set b(value) {ffi.M.HEAPU8[this.rawPointer() + 28] = (value ? 1 : 0) ? 1 : 0;}
+    get b() {return (ffi.HEAPU8()[this.rawPointer() + 28] !== 0);}
+    set b(value) {ffi.HEAPU8()[this.rawPointer() + 28] = value ? 1 : 0;}
 
-    getBa(i0, i1) {return (ffi.M.HEAPU8[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] !== 0);}
-    setBa(i0, i1, value) {ffi.M.HEAPU8[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] = (value ? 1 : 0) ? 1 : 0;}
+    getBa(i0, i1) {return (ffi.HEAPU8()[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] !== 0);}
+    setBa(i0, i1, value) {ffi.HEAPU8()[this.rawPointer() + 29 + ((i0) * 5 + i1) * 1] = value ? 1 : 0;}
 
     static __ctor(args)
     {
@@ -3502,7 +3531,9 @@ export class MR_CSharp_IncrDecrE extends ffi.CppObject
 
     static __ctor_1(_other)
     {
-        const __ret = ffi.C.MR_CSharp_IncrDecrE_ConstructFromAnother(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a1 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_IncrDecrE_ConstructFromAnother(__a0, __a1);
         ffi.check();
         return Number(__ret);
     }
@@ -3577,7 +3608,9 @@ export class MR_CSharp_IncrDecrF extends ffi.CppObject
 
     static __ctor_1(_other)
     {
-        const __ret = ffi.C.MR_CSharp_IncrDecrF_ConstructFromAnother(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a1 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_IncrDecrF_ConstructFromAnother(__a0, __a1);
         ffi.check();
         return Number(__ret);
     }
@@ -3850,7 +3883,7 @@ export class MR_CSharp_IndexerA extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IndexerA_Get_x(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set x(value)
@@ -4097,7 +4130,7 @@ export class MR_CSharp_IterableA extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableA_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4153,14 +4186,14 @@ export class MR_CSharp_IterableA extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableA_begin(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     end()
     {
         const __ret = ffi.C.MR_CSharp_IterableA_end(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 }
 
@@ -4178,7 +4211,7 @@ export class MR_CSharp_IterableB extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableB_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4259,7 +4292,7 @@ export class MR_CSharp_IterableC extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableC_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4329,14 +4362,14 @@ export class MR_CSharp_IterableC extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableC_begin(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     end_2()
     {
         const __ret = ffi.C.MR_CSharp_IterableC_end(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 }
 
@@ -4354,7 +4387,7 @@ export class MR_CSharp_IterableD extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableD_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4421,7 +4454,7 @@ export class MR_CSharp_IterableE extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableE_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4488,7 +4521,7 @@ export class MR_CSharp_IterableF extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableF_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -4891,7 +4924,7 @@ export class MR_CSharp_IterableK extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableK_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -5140,7 +5173,7 @@ export class MR_CSharp_IterableL_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableL_int_Get_arr(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static __ctor_0()
@@ -5196,14 +5229,14 @@ export class MR_CSharp_IterableL_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_IterableL_int_begin(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     end()
     {
         const __ret = ffi.C.MR_CSharp_IterableL_int_end(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 }
 
@@ -5221,7 +5254,7 @@ export class MR_CSharp_LifetimesA extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_LifetimesA_Get_x(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set x(value)
@@ -5698,7 +5731,7 @@ export class MR_CSharp_NameConflicts extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_NameConflicts_Get_name_conflicts(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set name_conflicts(value)
@@ -5841,11 +5874,11 @@ export class MR_CSharp_NameConflictsExposed extends ffi.CppStruct
     static SIZE = 8;
     static ALIGNMENT = 4;
 
-    get name_conflicts_exposed() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set name_conflicts_exposed(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get name_conflicts_exposed() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set name_conflicts_exposed(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     get a() {return new L.MR_CSharp_NameConflictsExposed_A(ffi.RAW, this.rawPointer() + 4, false, this);}
-    set a(value) {ffi.M.HEAPU8.copyWithin(this.rawPointer() + 4, ffi.ptrNonNull(value, "value"), ffi.ptrNonNull(value, "value") + 4);}
+    set a(value) {ffi.HEAPU8().copyWithin(this.rawPointer() + 4, ffi.ptrNonNull(value, "value"), ffi.ptrNonNull(value, "value") + 4);}
 
     static __ctor(args)
     {
@@ -5882,8 +5915,8 @@ export class MR_CSharp_NameConflictsExposed_A extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get x() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set x(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get x() {return ffi.HEAP32()[(this.rawPointer() + 0) / 4];}
+    set x(value) {ffi.HEAPU32()[(this.rawPointer() + 0) / 4] = value;}
 
     static __ctor(args)
     {
@@ -7384,7 +7417,9 @@ export class MR_CSharp_StaticOpsLhsC extends ffi.CppObject
 
     static __ctor_1(_other)
     {
-        const __ret = ffi.C.MR_CSharp_StaticOpsLhsC_ConstructFromAnother(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a1 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_StaticOpsLhsC_ConstructFromAnother(__a0, __a1);
         ffi.check();
         return Number(__ret);
     }
@@ -7897,7 +7932,9 @@ export class MR_CSharp_StaticOpsRhsC extends ffi.CppObject
 
     static __ctor_1(_other)
     {
-        const __ret = ffi.C.MR_CSharp_StaticOpsRhsC_ConstructFromAnother(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_other, "_other").release()));
+        const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+        const __a1 = BigInt(ffi.nonNull(_other, "_other").release());
+        const __ret = ffi.C.MR_CSharp_StaticOpsRhsC_ConstructFromAnother(__a0, __a1);
         ffi.check();
         return Number(__ret);
     }
@@ -8437,7 +8474,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_static_i();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set static_i(value)
@@ -8450,7 +8487,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_static_const_i();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static get static_i_ref()
@@ -8464,7 +8501,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_static_const_i_ref();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static get static_s()
@@ -8519,7 +8556,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_i(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set i(value)
@@ -8532,7 +8569,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_const_i(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get i_ref()
@@ -8546,7 +8583,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CSharp_TestFields_Get_const_i_ref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get s()
@@ -8609,7 +8646,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_const_i_ref = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = const_i_ref;});
+            const __ptr_const_i_ref = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = const_i_ref;});
             const __str_s = ffi.utf8(ffi.nonNullString(s, "s"));
             const __end_s = ffi.utf8End();
             const __str_const_s = ffi.utf8(ffi.nonNullString(const_s, "const_s"));
@@ -9951,7 +9988,7 @@ export function MR_CSharp_test_int(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_int(a, BigInt(__ptr_b));
         ffi.check();
         return __ret;
@@ -9967,7 +10004,7 @@ export function MR_CSharp_test_bool(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_bool((a ? 1 : 0), BigInt(__ptr_b));
         ffi.check();
         return (__ret !== 0);
@@ -10009,11 +10046,11 @@ export function MR_CSharp_test_bool_cref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (_1 ? 1 : 0) ? 1 : 0;});
-        const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (_2 ? 1 : 0) ? 1 : 0;});
+        const __ptr__1 = ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = _1 ? 1 : 0;});
+        const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = _2 ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_bool_cref(BigInt(__ptr__1), BigInt(__ptr__2));
         ffi.check();
-        return (ffi.M.HEAPU8[Number(__ret)] !== 0);
+        return (ffi.HEAPU8()[Number(__ret)] !== 0);
     }
     finally
     {
@@ -10033,11 +10070,11 @@ export function MR_CSharp_test_int_cref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_int_cref(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
     finally
     {
@@ -10057,11 +10094,11 @@ export function MR_CSharp_test_int_crref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_int_crref(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
     finally
     {
@@ -10081,11 +10118,11 @@ export function MR_CSharp_test_int_cptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = a == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = a == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_int_cptr(BigInt(__ptr_a), BigInt(__ptr_b), BigInt(c));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
     finally
     {
@@ -10098,7 +10135,7 @@ export function MR_CSharp_test_ushort(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (b & 65535);});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = b;});
         const __ret = ffi.C.MR_CSharp_test_ushort((a & 65535), BigInt(__ptr_b));
         ffi.check();
         return (__ret & 65535);
@@ -10121,11 +10158,11 @@ export function MR_CSharp_test_ushort_cref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (a & 65535);});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (b & 65535);});
+        const __ptr_a = ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = b;});
         const __ret = ffi.C.MR_CSharp_test_ushort_cref(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAPU16[(Number(__ret)) >>> 1];
+        return ffi.HEAPU16()[(Number(__ret)) / 2];
     }
     finally
     {
@@ -10145,11 +10182,11 @@ export function MR_CSharp_test_ushort_crref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (a & 65535);});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (b & 65535);});
+        const __ptr_a = ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = b;});
         const __ret = ffi.C.MR_CSharp_test_ushort_crref(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAPU16[(Number(__ret)) >>> 1];
+        return ffi.HEAPU16()[(Number(__ret)) / 2];
     }
     finally
     {
@@ -10169,11 +10206,11 @@ export function MR_CSharp_test_ushort_cptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = a == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (a & 65535);});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = (b & 65535);});
+        const __ptr_a = a == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = b;});
         const __ret = ffi.C.MR_CSharp_test_ushort_cptr(BigInt(__ptr_a), BigInt(__ptr_b), BigInt(c));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAPU16[(Number(__ret)) >>> 1]);
+        return (Number(__ret) === 0 ? null : ffi.HEAPU16()[(Number(__ret)) / 2]);
     }
     finally
     {
@@ -10186,7 +10223,7 @@ export function MR_CSharp_test_constness_int(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _2;});
+        const __ptr__2 = _2 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _2;});
         const __ret = ffi.C.MR_CSharp_test_constness_int(_1, BigInt(__ptr__2));
         ffi.check();
         return __ret;
@@ -10205,7 +10242,7 @@ export function MR_CSharp_test_constness_str(_1, _2)
         const __str__1 = ffi.utf8(ffi.nonNullString(_1, "_1"));
         const __end__1 = ffi.utf8End();
         const __str__2 = _2 == null ? 0 : ffi.utf8(_2);
-        const __end__2 = ffi.utf8End();
+        const __end__2 = _2 == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_constness_str(BigInt(__str__1), BigInt(__end__1), BigInt(__str__2), BigInt(__end__2));
         ffi.check();
         return ffi.takeString(Number(__ret));
@@ -10227,7 +10264,7 @@ export function MR_CSharp_test_enum_MR_CSharp_E1(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_enum_MR_CSharp_E1(a, BigInt(__ptr_b));
         ffi.check();
         return __ret;
@@ -10250,11 +10287,11 @@ export function MR_CSharp_test_enum_cref_MR_CSharp_E1(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_enum_cref_MR_CSharp_E1(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
     finally
     {
@@ -10274,11 +10311,11 @@ export function MR_CSharp_test_enum_crref_MR_CSharp_E1(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_enum_crref_MR_CSharp_E1(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
     finally
     {
@@ -10298,11 +10335,11 @@ export function MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = a == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = b;});
+        const __ptr_a = a == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = b;});
         const __ret = ffi.C.MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(BigInt(__ptr_a), BigInt(__ptr_b), BigInt(c));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
     finally
     {
@@ -10315,7 +10352,7 @@ export function MR_CSharp_test_enum_MR_CSharp_E2(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_enum_MR_CSharp_E2((a ? 1 : 0), BigInt(__ptr_b));
         ffi.check();
         return (__ret !== 0);
@@ -10338,11 +10375,11 @@ export function MR_CSharp_test_enum_cref_MR_CSharp_E2(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (a ? 1 : 0) ? 1 : 0;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
+        const __ptr_a = ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = a ? 1 : 0;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_enum_cref_MR_CSharp_E2(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return (ffi.M.HEAPU8[Number(__ret)] !== 0);
+        return (ffi.HEAPU8()[Number(__ret)] !== 0);
     }
     finally
     {
@@ -10362,11 +10399,11 @@ export function MR_CSharp_test_enum_crref_MR_CSharp_E2(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (a ? 1 : 0) ? 1 : 0;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
+        const __ptr_a = ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = a ? 1 : 0;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_enum_crref_MR_CSharp_E2(BigInt(__ptr_a), BigInt(__ptr_b));
         ffi.check();
-        return (ffi.M.HEAPU8[Number(__ret)] !== 0);
+        return (ffi.HEAPU8()[Number(__ret)] !== 0);
     }
     finally
     {
@@ -10386,11 +10423,11 @@ export function MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = a == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (a ? 1 : 0) ? 1 : 0;});
-        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.M.HEAPU8[p] = (b ? 1 : 0) ? 1 : 0;});
+        const __ptr_a = a == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = a ? 1 : 0;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
         const __ret = ffi.C.MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr(BigInt(__ptr_a), BigInt(__ptr_b), BigInt(c));
         ffi.check();
-        return (Number(__ret) === 0 ? null : (ffi.M.HEAPU8[Number(__ret)] !== 0));
+        return (Number(__ret) === 0 ? null : (ffi.HEAPU8()[Number(__ret)] !== 0));
     }
     finally
     {
@@ -10654,7 +10691,7 @@ export function MR_CSharp_test_string(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_string(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         return ffi.takeString(Number(__ret));
@@ -10681,7 +10718,7 @@ export function MR_CSharp_test_string_cref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_string_cref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10701,7 +10738,7 @@ export function MR_CSharp_test_string_rref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_string_rref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10721,7 +10758,7 @@ export function MR_CSharp_test_string_crref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_string_crref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10757,7 +10794,7 @@ export function MR_CSharp_test_stringview(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_stringview(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         return new L.MR_C_std_string_view(ffi.RAW, Number(__ret), true, null);
@@ -10784,7 +10821,7 @@ export function MR_CSharp_test_stringview_cref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_stringview_cref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10804,7 +10841,7 @@ export function MR_CSharp_test_stringview_rref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_stringview_rref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10824,7 +10861,7 @@ export function MR_CSharp_test_stringview_crref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_stringview_crref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10860,7 +10897,7 @@ export function MR_CSharp_test_fspath(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_fspath(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         return new L.MR_C_std_filesystem_path(ffi.RAW, Number(__ret), true, null);
@@ -10887,7 +10924,7 @@ export function MR_CSharp_test_fspath_cref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_fspath_cref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10907,7 +10944,7 @@ export function MR_CSharp_test_fspath_rref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_fspath_rref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10927,7 +10964,7 @@ export function MR_CSharp_test_fspath_crref(a, b)
         const __str_a = ffi.utf8(ffi.nonNullString(a, "a"));
         const __end_a = ffi.utf8End();
         const __str_b = b == null ? 0 : ffi.utf8(b);
-        const __end_b = ffi.utf8End();
+        const __end_b = b == null ? 0 : ffi.utf8End();
         const __ret = ffi.C.MR_CSharp_test_fspath_crref(BigInt(__str_a), BigInt(__end_a), BigInt(__str_b), BigInt(__end_b));
         ffi.check();
         const __owner = null;
@@ -10998,7 +11035,10 @@ export function MR_C_add_MR_CSharp_StaticOpsLhsB_int(_1, _2)
 
 export function MR_C_add_MR_CSharp_StaticOpsLhsC_int(_1, _2)
 {
-    const __ret = ffi.C.MR_C_add_MR_CSharp_StaticOpsLhsC_int(ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_1, "_1").release()), _2);
+    const __a2 = _2;
+    const __a0 = ffi.PASS_BY_MOVE_AND_DESTROY;
+    const __a1 = BigInt(ffi.nonNull(_1, "_1").release());
+    const __ret = ffi.C.MR_C_add_MR_CSharp_StaticOpsLhsC_int(__a0, __a1, __a2);
     ffi.check();
     return __ret;
 }
@@ -11053,7 +11093,10 @@ export function MR_C_add_int_MR_CSharp_StaticOpsRhsB(_1, _2)
 
 export function MR_C_add_int_MR_CSharp_StaticOpsRhsC(_1, _2)
 {
-    const __ret = ffi.C.MR_C_add_int_MR_CSharp_StaticOpsRhsC(_1, ffi.PASS_BY_MOVE_AND_DESTROY, BigInt(ffi.nonNull(_2, "_2").release()));
+    const __a0 = _1;
+    const __a1 = ffi.PASS_BY_MOVE_AND_DESTROY;
+    const __a2 = BigInt(ffi.nonNull(_2, "_2").release());
+    const __ret = ffi.C.MR_C_add_int_MR_CSharp_StaticOpsRhsC(__a0, __a1, __a2);
     ffi.check();
     return __ret;
 }
@@ -11260,14 +11303,19 @@ export function MR_C_decr_MR_CSharp_ExposedLayout(_1)
 
 export function MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(a, b)
 {
+    const __sret = ffi.malloc(56);
     const __sp = ffi.stackSave();
     try
     {
         const __copy_a = ffi.stackCopy(ffi.ptrNonNull(a, "a"), 56);
-        const __sret = ffi.malloc(56);
         ffi.C.MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(BigInt(__sret), BigInt(__copy_a), BigInt(ffi.ptr(b)));
         ffi.check();
         return new L.MR_CSharp_ExposedLayout(ffi.RAW, __sret, true, null);
+    }
+    catch (__e)
+    {
+        ffi.free(__sret);
+        throw __e;
     }
     finally
     {
@@ -11392,14 +11440,19 @@ export function MR_CSharp_make_exposed_sh()
 
 export function MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(a, b)
 {
+    const __sret = ffi.malloc(56);
     const __sp = ffi.stackSave();
     try
     {
         const __copy_a = ffi.stackCopy(ffi.ptrNonNull(a, "a"), 56);
-        const __sret = ffi.malloc(56);
         ffi.C.MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(BigInt(__sret), BigInt(__copy_a), BigInt(ffi.ptr(b)));
         ffi.check();
         return new L.MR_CSharp_ExposedLayoutSh(ffi.RAW, __sret, true, null);
+    }
+    catch (__e)
+    {
+        ffi.free(__sret);
+        throw __e;
     }
     finally
     {
@@ -11451,7 +11504,7 @@ export function MR_CSharp_test_optint(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
         const __ret = ffi.C.MR_CSharp_test_optint(BigInt(__ptr_a), BigInt(ffi.ptr(b)), BigInt(ffi.ptr(c)));
         ffi.check();
         return new L.MR_C_std_optional_int(ffi.RAW, Number(__ret), true, null);
@@ -11475,7 +11528,7 @@ export function MR_CSharp_test_optint_cref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = a;});
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = a;});
         const __ret = ffi.C.MR_CSharp_test_optint_cref(BigInt(__ptr_a), BigInt(ffi.ptr(b)));
         ffi.check();
         const __owner = b;
@@ -11811,7 +11864,9 @@ export function MR_CSharp_test_uniqueptr(a, b)
 
 export function MR_CSharp_test_uniqueptr_ref(a, b)
 {
-    const __ret = ffi.C.MR_CSharp_test_uniqueptr_ref(BigInt(ffi.nonNull(a, "a").release()), BigInt(ffi.nonNull(b, "b").release()));
+    const __a0 = BigInt(ffi.nonNull(a, "a").release());
+    const __a1 = BigInt(ffi.nonNull(b, "b").release());
+    const __ret = ffi.C.MR_CSharp_test_uniqueptr_ref(__a0, __a1);
     ffi.check();
     return new L.MR_C_std_unique_ptr_int(ffi.RAW, Number(__ret), true, null);
 }
@@ -11826,7 +11881,10 @@ export function MR_CSharp_test_uniqueptr_cref(a, b)
 
 export function MR_CSharp_test_uniqueptr_ptr(a, b, c)
 {
-    const __ret = ffi.C.MR_CSharp_test_uniqueptr_ptr(BigInt(ffi.nonNull(a, "a").release()), BigInt(ffi.nonNull(b, "b").release()), BigInt(c));
+    const __a2 = BigInt(c);
+    const __a0 = BigInt(ffi.nonNull(a, "a").release());
+    const __a1 = BigInt(ffi.nonNull(b, "b").release());
+    const __ret = ffi.C.MR_CSharp_test_uniqueptr_ptr(__a0, __a1, __a2);
     ffi.check();
     return new L.MR_C_std_unique_ptr_int(ffi.RAW, Number(__ret), true, null);
 }
@@ -12337,14 +12395,14 @@ export function MR_CSharp_begin_const_MR_CSharp_IterableD_ref(self)
 {
     const __ret = ffi.C.MR_CSharp_begin_const_MR_CSharp_IterableD_ref(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_end_const_MR_CSharp_IterableD_ref(self)
 {
     const __ret = ffi.C.MR_CSharp_end_const_MR_CSharp_IterableD_ref(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_begin_MR_CSharp_IterableE_ref(self)
@@ -12365,14 +12423,14 @@ export function MR_CSharp_begin_const_MR_CSharp_IterableF_ref(self)
 {
     const __ret = ffi.C.MR_CSharp_begin_const_MR_CSharp_IterableF_ref(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_end_const_MR_CSharp_IterableF_ref(self)
 {
     const __ret = ffi.C.MR_CSharp_end_const_MR_CSharp_IterableF_ref(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_begin_MR_CSharp_IterableF_ref(self)
@@ -12393,14 +12451,14 @@ export function MR_CSharp_begin_int(self)
 {
     const __ret = ffi.C.MR_CSharp_begin_int(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_end_int(self)
 {
     const __ret = ffi.C.MR_CSharp_end_int(BigInt(ffi.ptrNonNull(self, "self")));
     ffi.check();
-    return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+    return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
 }
 
 export function MR_CSharp_test_vec_of_mut_ptr_to_class()

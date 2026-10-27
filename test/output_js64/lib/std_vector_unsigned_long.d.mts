@@ -28,7 +28,7 @@ export declare class MR_C_std_vector_unsigned_long extends ffi.CppObject
      * Calls `MR_C_std_vector_unsigned_long_ConstructFromRange()`.
      */
     constructor(ptr: number | null | undefined, size: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -202,13 +202,13 @@ export declare class MR_C_std_vector_unsigned_long extends ffi.CppObject
      * Calls `MR_C_std_vector_unsigned_long_end_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     end_mut(): number;
-    /** The elements as a new `BigUint64Array`, one scalar per element. */
-    toArray(): BigUint64Array;
+    /** The elements as a new array of numbers, one scalar per element. */
+    toArray(): number[];
     /** A `BigUint64Array` over the wasm memory of the elements, one scalar per element, without a copy. It becomes invalid when the wasm memory grows (any allocation can do that) or the container changes, so use it right away. */
     view(): BigUint64Array;
     /** Resizes to `array.length / 1` elements and copies the scalars in. */
-    setFromArray(array: ArrayLike<bigint>): void;
+    setFromArray(array: ArrayLike<number | bigint>): void;
     /** A new container with `array.length / 1` elements, the scalars copied from `array`. */
-    static fromArray(array: ArrayLike<bigint>): L.MR_C_std_vector_unsigned_long;
+    static fromArray(array: ArrayLike<number | bigint>): L.MR_C_std_vector_unsigned_long;
 }
 

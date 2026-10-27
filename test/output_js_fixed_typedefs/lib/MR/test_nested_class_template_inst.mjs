@@ -13,6 +13,7 @@ export class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -71,6 +82,10 @@ export class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -87,6 +102,7 @@ export class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_AA_float_DefaultConstruct();
@@ -97,10 +113,15 @@ export class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -110,6 +131,10 @@ export class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -135,6 +160,7 @@ export class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_NestedTemplateInst_A_int32_t_AA_float_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -145,6 +171,10 @@ export class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

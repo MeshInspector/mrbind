@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_StdTupleLike_SetPair(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdTupleLike_SetPair(ffi.ptrNonNull(_1, "_1"));
@@ -13,10 +14,15 @@ export function MR_StdTupleLike_SetPair(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair();
@@ -27,10 +33,15 @@ export function MR_StdTupleLike_GetPair()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair2()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair2();
@@ -41,10 +52,15 @@ export function MR_StdTupleLike_GetPair2()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair3()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair3();
@@ -55,10 +71,15 @@ export function MR_StdTupleLike_GetPair3()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair4()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair4();
@@ -69,10 +90,15 @@ export function MR_StdTupleLike_GetPair4()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair5()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair5();
@@ -83,10 +109,15 @@ export function MR_StdTupleLike_GetPair5()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetPair6()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetPair6();
@@ -97,10 +128,15 @@ export function MR_StdTupleLike_GetPair6()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_SetTuple(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdTupleLike_SetTuple(ffi.ptrNonNull(_1, "_1"));
@@ -110,10 +146,15 @@ export function MR_StdTupleLike_SetTuple(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetTuple()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetTuple();
@@ -124,10 +165,15 @@ export function MR_StdTupleLike_GetTuple()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetTuple2()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetTuple2();
@@ -138,10 +184,15 @@ export function MR_StdTupleLike_GetTuple2()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetTuple7()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetTuple7();
@@ -152,10 +203,15 @@ export function MR_StdTupleLike_GetTuple7()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdTupleLike_GetTuple8()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdTupleLike_GetTuple8();
@@ -165,6 +221,10 @@ export function MR_StdTupleLike_GetTuple8()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

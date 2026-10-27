@@ -20,7 +20,7 @@ export class MR_StdOptional_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_StdOptional_A_Get_x(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set x(value)
@@ -188,7 +188,7 @@ export function MR_StdOptional_SetInt(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetInt(BigInt(__ptr__1));
         ffi.check();
     }
@@ -203,7 +203,7 @@ export function MR_StdOptional_SetIntConstRef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetIntConstRef(BigInt(__ptr__1));
         ffi.check();
     }
@@ -218,7 +218,7 @@ export function MR_StdOptional_SetIntDefTrivial(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetIntDefTrivial(BigInt(__ptr__1));
         ffi.check();
     }
@@ -246,7 +246,7 @@ export function MR_StdOptional_SetEnum(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetEnum(BigInt(__ptr__1));
         ffi.check();
     }
@@ -261,7 +261,7 @@ export function MR_StdOptional_SetEnumConstRef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetEnumConstRef(BigInt(__ptr__1));
         ffi.check();
     }
@@ -276,7 +276,7 @@ export function MR_StdOptional_SetEnumDefTrivial(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_StdOptional_SetEnumDefTrivial(BigInt(__ptr__1));
         ffi.check();
     }

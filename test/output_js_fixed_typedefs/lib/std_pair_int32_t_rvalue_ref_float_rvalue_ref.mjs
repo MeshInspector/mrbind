@@ -13,6 +13,7 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
 
     static __ctor_0(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -23,10 +24,15 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(first, second)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct(first, second);
@@ -36,6 +42,10 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
 
     first()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_first(this.rawPointer());
@@ -71,10 +82,15 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_second(this.rawPointer());
@@ -84,6 +100,10 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

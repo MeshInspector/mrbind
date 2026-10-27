@@ -67,7 +67,7 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), BigInt(ffi.ptrNonNull(value, "value")));
+        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), BigInt(ffi.ptrNonNull(value, "value")));
         ffi.check();
     }
 
@@ -86,7 +86,7 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
 
     reserve(new_capacity)
     {
-        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve(BigInt(this.rawPointer()), BigInt(new_capacity));
+        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve(BigInt(this.rawPointer()), ffi.toI64(new_capacity));
         ffi.check();
     }
 
@@ -98,7 +98,7 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_C_std_pair_MR_SeparateA_MR_SeparateB(ffi.RAW, Number(__ret), false, __owner);
@@ -106,7 +106,7 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
 
     at_mut(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_C_std_pair_MR_SeparateA_MR_SeparateB(ffi.RAW, Number(__ret), false, __owner);
@@ -158,13 +158,13 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
 
     insert(position, new_elem)
     {
-        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(BigInt(this.rawPointer()), BigInt(position), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(new_elem, "new_elem")));
+        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(BigInt(this.rawPointer()), ffi.toI64(position), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(new_elem, "new_elem")));
         ffi.check();
     }
 
     erase(position)
     {
-        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(BigInt(this.rawPointer()), BigInt(position));
+        ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(BigInt(this.rawPointer()), ffi.toI64(position));
         ffi.check();
     }
 

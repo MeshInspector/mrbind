@@ -13,6 +13,7 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_DefaultConstruct();
@@ -22,6 +23,10 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -45,6 +50,7 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
 
     at(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_at(this.rawPointer(), i);
@@ -56,10 +62,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     at_mut(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_at_mut(this.rawPointer(), i);
@@ -71,10 +82,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     data()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_data(this.rawPointer());
@@ -85,10 +101,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     data_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_data_mut(this.rawPointer());
@@ -99,10 +120,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_begin(this.rawPointer());
@@ -113,10 +139,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_begin_mut(this.rawPointer());
@@ -127,10 +158,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_end(this.rawPointer());
@@ -141,10 +177,15 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_array_MR_StdContainers_NonAssignable_42_end_mut(this.rawPointer());
@@ -154,6 +195,10 @@ export class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ffi.CppObj
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

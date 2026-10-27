@@ -13,6 +13,17 @@ declare global
 export let M: any;
 /** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C: any;
+/** The current view over the wasm memory. Don't keep it: it becomes stale when the memory grows. */
+export function HEAP8(): Int8Array;
+export function HEAPU8(): Uint8Array;
+export function HEAP16(): Int16Array;
+export function HEAPU16(): Uint16Array;
+export function HEAP32(): Int32Array;
+export function HEAPU32(): Uint32Array;
+export function HEAP64(): BigInt64Array;
+export function HEAPU64(): BigUint64Array;
+export function HEAPF32(): Float32Array;
+export function HEAPF64(): Float64Array;
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
 export const RAW: unique symbol;
 export const PASS_BY_DEFAULT_CONSTRUCT: 0;

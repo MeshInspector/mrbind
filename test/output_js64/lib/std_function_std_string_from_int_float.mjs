@@ -96,7 +96,7 @@ export class MR_C_std_function_std_string_from_int_float extends ffi.CppObject
         try
         {
             const __ret = func(_1, _2);
-            ffi.M.HEAP32[Number(_return_pass_by) >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;
+            ffi.HEAPU32()[(Number(_return_pass_by)) / 4] = ffi.PASS_BY_MOVE_AND_DESTROY;
             return BigInt(ffi.nonNull(__ret, "the callback result").release());
         }
         catch (__e)

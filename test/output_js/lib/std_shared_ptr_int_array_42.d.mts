@@ -36,7 +36,7 @@ export declare class MR_C_std_shared_ptr_int_array_42 extends ffi.CppObject
      * Calls `MR_C_std_shared_ptr_int_array_42_ConstructAliasing()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     constructor(ownership: L.MR_C_std_shared_ptr_const_void, ptr: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Create a new instance, storing a non-owning pointer.
      * The reference to the parameter `ptr` might be preserved in the constructed object.

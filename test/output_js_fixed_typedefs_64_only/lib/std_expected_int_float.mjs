@@ -13,6 +13,7 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_expected_int_float_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -70,10 +81,15 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     success()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_success(this.rawPointer());
@@ -84,38 +100,53 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_value(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     error()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_error(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_value_mut(this.rawPointer());
@@ -126,10 +157,15 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     error_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_expected_int_float_error_mut(this.rawPointer());
@@ -140,6 +176,10 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     valueOrThrow()
@@ -149,11 +189,11 @@ export class MR_C_std_expected_int_float extends ffi.CppObject
         {
             const __ret = ffi.cppCall(() => ffi.C.MR_C_std_expected_int_float_error(this.rawPointer()));
             ffi.check();
-            throw new ffi.UnexpectedResultException(String(ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]));
+            throw new ffi.UnexpectedResultException(String(ffi.HEAPF32()[((__ret >>> 0)) >>> 2]));
         }
         const __ret = ffi.cppCall(() => ffi.C.MR_C_std_expected_int_float_value(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 }
 

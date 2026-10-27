@@ -15,20 +15,26 @@ export class MR_AdjustingNames_A extends ffi.CppObject
 
     static get var()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_AdjustingNames_A_Get_var_uint64_t();
             ffi.check();
-            return ffi.M.HEAPU64[((__ret >>> 0)) >>> 3];
+            return ffi.HEAPU64()[((__ret >>> 0)) >>> 3];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set var(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AdjustingNames_A_Set_var_uint64_t(ffi.toI64(value));
@@ -38,10 +44,15 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_AdjustingNames_A_DefaultConstruct();
@@ -52,10 +63,15 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_AdjustingNames_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -65,6 +81,10 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -90,6 +110,7 @@ export class MR_AdjustingNames_A extends ffi.CppObject
 
     convertTo_uint64_t()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_AdjustingNames_A_ConvertTo_uint64_t(this.rawPointer());
@@ -100,10 +121,15 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_AdjustingNames_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -115,10 +141,15 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AdjustingNames_A_foo(this.rawPointer());
@@ -128,10 +159,15 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     bar()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AdjustingNames_A_bar(this.rawPointer());
@@ -141,11 +177,16 @@ export class MR_AdjustingNames_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_AdjustingNames_foo()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_AdjustingNames_foo();
@@ -155,10 +196,15 @@ export function MR_AdjustingNames_foo()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_AdjustingNames_bar()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_AdjustingNames_bar();
@@ -167,6 +213,10 @@ export function MR_AdjustingNames_bar()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

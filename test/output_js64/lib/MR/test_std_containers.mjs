@@ -296,9 +296,17 @@ export function MR_StdContainers_GetStdArray()
 export function MR_StdContainers_GetStdArraySimple()
 {
     const __sret = ffi.malloc(172);
-    ffi.C.MR_StdContainers_GetStdArraySimple(BigInt(__sret));
-    ffi.check();
-    return new L.MR_C_std_array_int_43(ffi.RAW, __sret, true, null);
+    try
+    {
+        ffi.C.MR_StdContainers_GetStdArraySimple(BigInt(__sret));
+        ffi.check();
+        return new L.MR_C_std_array_int_43(ffi.RAW, __sret, true, null);
+    }
+    catch (__e)
+    {
+        ffi.free(__sret);
+        throw __e;
+    }
 }
 
 export function MR_StdContainers_StdArraySimpleParam(_1)
@@ -439,8 +447,16 @@ export function MR_StdContainers_GetStdArrayNA()
 export function MR_StdContainers_GetStdArrayOfPlainArray()
 {
     const __sret = ffi.malloc(240);
-    ffi.C.MR_StdContainers_GetStdArrayOfPlainArray(BigInt(__sret));
-    ffi.check();
-    return new L.MR_C_std_array_int_array_4_array_3_5(ffi.RAW, __sret, true, null);
+    try
+    {
+        ffi.C.MR_StdContainers_GetStdArrayOfPlainArray(BigInt(__sret));
+        ffi.check();
+        return new L.MR_C_std_array_int_array_4_array_3_5(ffi.RAW, __sret, true, null);
+    }
+    catch (__e)
+    {
+        ffi.free(__sret);
+        throw __e;
+    }
 }
 

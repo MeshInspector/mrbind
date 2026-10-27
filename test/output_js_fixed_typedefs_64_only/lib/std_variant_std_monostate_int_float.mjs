@@ -13,6 +13,7 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_3(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_ConstructAs_int(value);
@@ -50,6 +61,10 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -67,6 +82,7 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
 
     static constructAs_std_monostate()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_ConstructAs_std_monostate();
@@ -77,10 +93,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static constructAs_float(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_ConstructAs_float(value);
@@ -90,6 +111,10 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -105,6 +130,7 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_std_monostate_int_float_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -114,10 +140,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     index()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_index(this.rawPointer());
@@ -128,10 +159,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAs_std_monostate()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_std_monostate_int_float_AssignAs_std_monostate(this.rawPointer());
@@ -141,10 +177,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAs_int(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_std_monostate_int_float_AssignAs_int(this.rawPointer(), value);
@@ -154,10 +195,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAs_float(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_std_monostate_int_float_AssignAs_float(this.rawPointer(), value);
@@ -167,10 +213,15 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_monostate()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_get_std_monostate(this.rawPointer());
@@ -181,24 +232,34 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_get_int(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_get_int_mut(this.rawPointer());
@@ -209,24 +270,34 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_get_float(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_std_monostate_int_float_get_float_mut(this.rawPointer());
@@ -236,6 +307,10 @@ export class MR_C_std_variant_std_monostate_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

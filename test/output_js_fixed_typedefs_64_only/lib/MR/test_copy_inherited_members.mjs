@@ -30,20 +30,26 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_A_Set_StaticField(value);
@@ -53,24 +59,34 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_A_Set_Field(this.rawPointer(), value);
@@ -80,10 +96,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_DefaultConstruct();
@@ -94,10 +115,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(Field)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_ConstructFrom(Field);
@@ -108,10 +134,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -121,6 +152,10 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -148,6 +183,7 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_A_StaticFunc();
@@ -157,10 +193,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_ConvertTo_int(this.rawPointer());
@@ -171,10 +212,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -186,10 +232,15 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_A_Method(this.rawPointer());
@@ -198,6 +249,10 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -220,20 +275,26 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_B_Set_StaticField(value);
@@ -243,24 +304,34 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_B_Set_Field(this.rawPointer(), value);
@@ -270,10 +341,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_DefaultConstruct();
@@ -284,10 +360,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(Field)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_ConstructFrom(Field);
@@ -298,10 +379,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -311,6 +397,10 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -338,6 +428,7 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_B_StaticFunc();
@@ -347,10 +438,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_ConvertTo_int(this.rawPointer());
@@ -361,10 +457,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_B_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -376,10 +477,15 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_B_Method(this.rawPointer());
@@ -388,6 +494,10 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -407,6 +517,7 @@ export class MR_CopyInheritedMembers_C extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_C_DefaultConstruct();
@@ -417,10 +528,15 @@ export class MR_CopyInheritedMembers_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_C_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -430,6 +546,10 @@ export class MR_CopyInheritedMembers_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -455,6 +575,7 @@ export class MR_CopyInheritedMembers_C extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_C_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -465,6 +586,10 @@ export class MR_CopyInheritedMembers_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -511,20 +636,26 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_D_Set_StaticField(value);
@@ -534,24 +665,34 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_D_Set_Field(this.rawPointer(), value);
@@ -561,10 +702,15 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_DefaultConstruct();
@@ -575,10 +721,15 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -588,6 +739,10 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -613,6 +768,7 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_D_StaticFunc();
@@ -622,10 +778,15 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_ConvertTo_int(this.rawPointer());
@@ -636,10 +797,15 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_D_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -651,10 +817,15 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_D_Method(this.rawPointer());
@@ -663,6 +834,10 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -696,6 +871,7 @@ export class MR_CopyInheritedMembers_E extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_E_DefaultConstruct();
@@ -706,10 +882,15 @@ export class MR_CopyInheritedMembers_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_E_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -719,6 +900,10 @@ export class MR_CopyInheritedMembers_E extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -744,6 +929,7 @@ export class MR_CopyInheritedMembers_E extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_E_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -754,6 +940,10 @@ export class MR_CopyInheritedMembers_E extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -811,6 +1001,7 @@ export class MR_CopyInheritedMembers_F extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_F_DefaultConstruct();
@@ -821,10 +1012,15 @@ export class MR_CopyInheritedMembers_F extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_F_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -834,6 +1030,10 @@ export class MR_CopyInheritedMembers_F extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -859,6 +1059,7 @@ export class MR_CopyInheritedMembers_F extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_F_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -869,6 +1070,10 @@ export class MR_CopyInheritedMembers_F extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -929,20 +1134,26 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_G_Set_StaticField(value);
@@ -952,24 +1163,34 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_G_Set_Field(this.rawPointer(), value);
@@ -979,10 +1200,15 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_DefaultConstruct();
@@ -993,10 +1219,15 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1006,6 +1237,10 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1031,6 +1266,7 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_G_StaticFunc();
@@ -1040,10 +1276,15 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_ConvertTo_int(this.rawPointer());
@@ -1054,10 +1295,15 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_G_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1069,10 +1315,15 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_G_Method(this.rawPointer());
@@ -1081,6 +1332,10 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1107,20 +1362,26 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_H_Set_StaticField(value);
@@ -1130,24 +1391,34 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_H_Set_Field(this.rawPointer(), value);
@@ -1157,10 +1428,15 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_DefaultConstruct();
@@ -1171,10 +1447,15 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1184,6 +1465,10 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1209,6 +1494,7 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_H_StaticFunc();
@@ -1218,10 +1504,15 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_ConvertTo_int(this.rawPointer());
@@ -1232,10 +1523,15 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_H_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1247,10 +1543,15 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_H_Method(this.rawPointer());
@@ -1259,6 +1560,10 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1297,20 +1602,26 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_I_Set_StaticField(value);
@@ -1320,24 +1631,34 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_I_Set_Field(this.rawPointer(), value);
@@ -1347,10 +1668,15 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_DefaultConstruct();
@@ -1361,10 +1687,15 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1374,6 +1705,10 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1399,6 +1734,7 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_I_StaticFunc();
@@ -1408,10 +1744,15 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_ConvertTo_int(this.rawPointer());
@@ -1422,10 +1763,15 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_I_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1437,10 +1783,15 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_I_Method(this.rawPointer());
@@ -1449,6 +1800,10 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1493,20 +1848,26 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_J_Set_StaticField(value);
@@ -1516,24 +1877,34 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_J_Set_Field(this.rawPointer(), value);
@@ -1543,10 +1914,15 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_DefaultConstruct();
@@ -1557,10 +1933,15 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -1570,6 +1951,10 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1595,6 +1980,7 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_J_StaticFunc();
@@ -1604,10 +1990,15 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_ConvertTo_int(this.rawPointer());
@@ -1618,10 +2009,15 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_J_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -1633,10 +2029,15 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_J_Method(this.rawPointer());
@@ -1645,6 +2046,10 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1678,6 +2083,7 @@ export class MR_CopyInheritedMembers_K extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_K_DefaultConstruct();
@@ -1688,10 +2094,15 @@ export class MR_CopyInheritedMembers_K extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_K_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1701,6 +2112,10 @@ export class MR_CopyInheritedMembers_K extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1726,6 +2141,7 @@ export class MR_CopyInheritedMembers_K extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_K_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1736,6 +2152,10 @@ export class MR_CopyInheritedMembers_K extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -1757,6 +2177,7 @@ export class MR_CopyInheritedMembers_L extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_L_DefaultConstruct();
@@ -1767,10 +2188,15 @@ export class MR_CopyInheritedMembers_L extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_L_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1780,6 +2206,10 @@ export class MR_CopyInheritedMembers_L extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1805,6 +2235,7 @@ export class MR_CopyInheritedMembers_L extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_L_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1815,6 +2246,10 @@ export class MR_CopyInheritedMembers_L extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -1841,20 +2276,26 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_M_Set_StaticField(value);
@@ -1864,24 +2305,34 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_M_Set_Field(this.rawPointer(), value);
@@ -1891,10 +2342,15 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_DefaultConstruct();
@@ -1905,10 +2361,15 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1918,6 +2379,10 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1943,6 +2408,7 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_M_StaticFunc();
@@ -1952,10 +2418,15 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_ConvertTo_int(this.rawPointer());
@@ -1966,10 +2437,15 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_M_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -1981,10 +2457,15 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_M_Method(this.rawPointer());
@@ -1993,6 +2474,10 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -2030,20 +2515,26 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_N_Set_StaticField(value);
@@ -2053,24 +2544,34 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_N_Set_Field(this.rawPointer(), value);
@@ -2080,10 +2581,15 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_DefaultConstruct();
@@ -2094,10 +2600,15 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -2107,6 +2618,10 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -2132,6 +2647,7 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_N_StaticFunc();
@@ -2141,10 +2657,15 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_ConvertTo_int(this.rawPointer());
@@ -2155,10 +2676,15 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_N_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -2170,10 +2696,15 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_N_Method(this.rawPointer());
@@ -2182,6 +2713,10 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -2230,20 +2765,26 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
 
     static get StaticField()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_Get_StaticField();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticField(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_O_Set_StaticField(value);
@@ -2253,24 +2794,34 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_O_Set_Field(this.rawPointer(), value);
@@ -2280,10 +2831,15 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_DefaultConstruct();
@@ -2294,10 +2850,15 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -2307,6 +2868,10 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -2332,6 +2897,7 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_O_StaticFunc();
@@ -2341,10 +2907,15 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_ConvertTo_int(this.rawPointer());
@@ -2355,10 +2926,15 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CopyInheritedMembers_O_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -2370,10 +2946,15 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_CopyInheritedMembers_O_Method(this.rawPointer());
@@ -2382,6 +2963,10 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 

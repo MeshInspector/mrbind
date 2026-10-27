@@ -28,7 +28,8 @@ export class MR_C_std_unique_ptr_MR_StdUniquePtr_A_array extends ffi.CppObject
 
     static __ctor_2(other)
     {
-        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFrom(BigInt(ffi.nonNull(other, "other").release()));
+        const __a0 = BigInt(ffi.nonNull(other, "other").release());
+        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFrom(__a0);
         ffi.check();
         return Number(__ret);
     }
@@ -63,7 +64,9 @@ export class MR_C_std_unique_ptr_MR_StdUniquePtr_A_array extends ffi.CppObject
 
     assignFrom(other)
     {
-        ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(BigInt(this.rawPointer()), BigInt(ffi.nonNull(other, "other").release()));
+        const __a0 = BigInt(this.rawPointer());
+        const __a1 = BigInt(ffi.nonNull(other, "other").release());
+        ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(__a0, __a1);
         ffi.check();
     }
 
@@ -77,7 +80,7 @@ export class MR_C_std_unique_ptr_MR_StdUniquePtr_A_array extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_StdUniquePtr_A(ffi.RAW, Number(__ret), false, __owner);

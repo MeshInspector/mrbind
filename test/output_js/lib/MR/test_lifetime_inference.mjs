@@ -15,7 +15,7 @@ export class MR_LifetimeInference_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_LifetimeInference_A_Get_x(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set x(value)
@@ -103,7 +103,7 @@ export class MR_LifetimeInference_B extends ffi.CppObject
     {
         const __ret = ffi.C.MR_LifetimeInference_B_Get_x(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set x(value)

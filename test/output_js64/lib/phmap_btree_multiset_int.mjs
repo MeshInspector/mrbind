@@ -30,8 +30,8 @@ export class MR_C_phmap_btree_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
-            const __ret = ffi.C.MR_C_phmap_btree_multiset_int_ConstructFromRange(BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
+            const __ret = ffi.C.MR_C_phmap_btree_multiset_int_ConstructFromRange(BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
             return Number(__ret);
         }
@@ -74,8 +74,8 @@ export class MR_C_phmap_btree_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
-            ffi.C.MR_C_phmap_btree_multiset_int_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
+            ffi.C.MR_C_phmap_btree_multiset_int_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
         }
         finally
@@ -109,7 +109,7 @@ export class MR_C_phmap_btree_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_phmap_btree_multiset_int_count(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return Number(__ret);
@@ -125,7 +125,7 @@ export class MR_C_phmap_btree_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_phmap_btree_multiset_int_find(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return new L.MR_C_phmap_btree_multiset_int_const_iterator(ffi.RAW, Number(__ret), true, null);
@@ -224,7 +224,7 @@ export class MR_C_phmap_btree_multiset_int_const_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_phmap_btree_multiset_int_const_iterator_deref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     incr()

@@ -17,6 +17,7 @@ export class MR_CommonBaseAB extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CommonBaseAB_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -26,6 +27,10 @@ export class MR_CommonBaseAB extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -49,6 +54,7 @@ export class MR_CommonBaseAB extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CommonBaseAB_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -60,11 +66,16 @@ export class MR_CommonBaseAB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_mark_shared_common_base_ab()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_mark_shared_common_base_ab();
@@ -74,6 +85,10 @@ export function MR_mark_shared_common_base_ab()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

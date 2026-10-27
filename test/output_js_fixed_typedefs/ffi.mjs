@@ -5,6 +5,37 @@ export let M = null;
 /** The raw wasm exports of the module: the C functions of the bindings. In wasm64 modules the pointers are `bigint`s here. */
 export let C = null;
 
+// The heap views. In a `-pthread` module another thread can grow the memory at any time, which makes the views of this thread stale
+// (reads past the old length give `undefined`, writes are dropped), so every access goes through these functions, which compare
+// the buffer first, like Emscripten's own `GROWABLE_HEAP_*`.
+let heapBuffer = null;
+let heap8, heapU8, heap16, heapU16, heap32, heapU32, heap64, heapU64, heapF32, heapF64;
+function updateHeapViews()
+{
+    heapBuffer = M.wasmMemory.buffer;
+    heap8 = new Int8Array(heapBuffer);
+    heapU8 = new Uint8Array(heapBuffer);
+    heap16 = new Int16Array(heapBuffer);
+    heapU16 = new Uint16Array(heapBuffer);
+    heap32 = new Int32Array(heapBuffer);
+    heapU32 = new Uint32Array(heapBuffer);
+    heap64 = new BigInt64Array(heapBuffer);
+    heapU64 = new BigUint64Array(heapBuffer);
+    heapF32 = new Float32Array(heapBuffer);
+    heapF64 = new Float64Array(heapBuffer);
+}
+/** The current view over the wasm memory. Don't keep it: it becomes stale when the memory grows. */
+export function HEAP8() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap8;}
+export function HEAPU8() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU8;}
+export function HEAP16() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap16;}
+export function HEAPU16() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU16;}
+export function HEAP32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap32;}
+export function HEAPU32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU32;}
+export function HEAP64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heap64;}
+export function HEAPU64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapU64;}
+export function HEAPF32() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapF32;}
+export function HEAPF64() {if (M.wasmMemory.buffer !== heapBuffer) updateHeapViews(); return heapF64;}
+
 /** The marker first argument of the constructors that wrap an existing pointer: `new X(RAW, pointer, owned, owner)`. */
 export const RAW = Symbol("mrbind.raw");
 
@@ -73,33 +104,42 @@ export function cppError(thrown)
         if (typeof p !== "string")
             return p.thrown;
     }
-    if (typeof thrown === "bigint")
-        thrown = Number(thrown); // The exception pointer in a wasm64 module.
-    if (typeof thrown === "number" || (typeof WebAssembly.Exception === "function" && thrown instanceof WebAssembly.Exception))
+    // A C++ exception is the exception pointer (JS EH), a `WebAssembly.Exception` (wasm EH), or Emscripten's own `CppException`
+    // holding the pointer in `excPtr` (JS EH with `-sEXCEPTION_STACK_TRACES`, which `-sASSERTIONS` implies).
+    let exc = thrown;
+    if (exc !== null && typeof exc === "object" && "excPtr" in exc)
+        exc = exc.excPtr;
+    if (typeof exc === "bigint")
+        exc = Number(exc); // In a wasm64 module.
+    if (typeof exc === "number" || (typeof WebAssembly.Exception === "function" && exc instanceof WebAssembly.Exception))
     {
         let message = "C++ exception";
         if (typeof M.getExceptionMessage === "function")
         {
             try
             {
-                const [type, text] = M.getExceptionMessage(thrown);
+                const [type, text] = M.getExceptionMessage(exc);
                 message = text ? type + ": " + text : type;
             }
             catch (e)
             {
-                // Not a C++ exception after all.
+                return thrown; // Not a C++ exception after all.
             }
         }
-        if (typeof thrown === "number" && typeof M.decrementExceptionRefcount === "function")
-            M.decrementExceptionRefcount(thrown);
+        if (typeof M.decrementExceptionRefcount === "function")
+            M.decrementExceptionRefcount(exc); // Takes the same forms as `getExceptionMessage()`.
         return new CppException(message);
     }
     return thrown;
 }
 
-/** Calls `func` (which calls into C), converting what it throws with `cppError()` and checking for a pending exception. */
+/**
+ * Calls `func` (which calls into C), converting what it throws with `cppError()` and checking for a pending exception.
+ * An escaping C++ exception leaves the wasm stack pointer where the throwing frame had it, so it's restored here.
+ */
 export function cppCall(func)
 {
+    const sp = M.stackSave();
     let ret;
     try
     {
@@ -107,6 +147,7 @@ export function cppCall(func)
     }
     catch (e)
     {
+        M.stackRestore(sp);
         throw cppError(e);
     }
     check();
@@ -119,7 +160,7 @@ function exceptionHandler(messages, typeNames, userdata)
     let text = "";
     for (let i = 0;; i++)
     {
-        const message = M.HEAPU32[(base + i * 4) >>> 2];
+        const message = HEAPU32()[(base + i * 4) >>> 2];
         if (message === 0)
             break;
         if (i > 0)
@@ -171,33 +212,61 @@ export function free(p)
     M._free(p);
 }
 
-export function stackSave() {return M.stackSave();}
-export function stackRestore(p) {M.stackRestore(p);}
-export function stackAlloc(size) {return M.stackAlloc(size) >>> 0;}
+// The wasm stack is small (64 KB by default) and `stackAlloc()` doesn't check for overflow, so the temporaries above this size go to the heap.
+// They're freed by the `stackRestore()` of the wrapper that allocated them: `stackSave()` opens a frame, the wrappers always pair the two.
+const STACK_TEMP_LIMIT = 4096;
+const heapTemps = [];
+const heapTempFrames = [];
 
-/** Copies `size` bytes from `src` to the wasm stack. */
-export function stackCopy(src, size)
+/** Saves the wasm stack pointer and opens a frame for the temporaries. Restore with `stackRestore()` in a `finally`. */
+export function stackSave()
 {
-    const p = M.stackAlloc(size) >>> 0;
-    M.HEAPU8.copyWithin(p, src, src + size);
+    heapTempFrames.push(heapTemps.length);
+    return M.stackSave();
+}
+
+/** Restores the wasm stack pointer and frees the heap temporaries of the frame. */
+export function stackRestore(p)
+{
+    M.stackRestore(p);
+    const n = heapTempFrames.pop();
+    while (heapTemps.length > n)
+        free(heapTemps.pop());
+}
+
+/** Allocates `size` bytes of temporary memory: on the wasm stack, or on the heap for the large ones. */
+export function stackAlloc(size)
+{
+    if (size <= STACK_TEMP_LIMIT)
+        return M.stackAlloc(size) >>> 0;
+    const p = malloc(size);
+    heapTemps.push(p);
     return p;
 }
 
-/** Allocates `size` bytes on the wasm stack and calls `write` with the address. */
+/** Copies `size` bytes from `src` to temporary memory, see `stackAlloc()`. */
+export function stackCopy(src, size)
+{
+    const p = stackAlloc(size);
+    HEAPU8().copyWithin(p, src, src + size);
+    return p;
+}
+
+/** Allocates `size` bytes of temporary memory and calls `write` with the address, see `stackAlloc()`. */
 export function stackScalar(size, write)
 {
-    const p = M.stackAlloc(size) >>> 0;
+    const p = stackAlloc(size);
     write(p);
     return p;
 }
 
 let utf8End_ = 0;
 
-/** Copies the UTF-8 encoding of a string to the wasm stack, with a null terminator. `utf8End()` then returns the end pointer. */
+/** Copies the UTF-8 encoding of a string to temporary memory (see `stackAlloc()`), with a null terminator. `utf8End()` then returns the end pointer. */
 export function utf8(str)
 {
     const len = M.lengthBytesUTF8(str);
-    const p = M.stackAlloc(len + 1) >>> 0;
+    const p = stackAlloc(len + 1);
     M.stringToUTF8(str, p, len + 1);
     utf8End_ = p + len;
     return p;
@@ -294,20 +363,20 @@ function callbackStateChanged(thisUserdata, otherUserdata)
 {
     const slot = (thisUserdata >>> 0);
     const other = (otherUserdata >>> 0);
-    const current = M.HEAPU32[(slot) >>> 2];
+    const current = HEAPU32()[(slot) >>> 2];
     if (current !== 0)
     {
         const entry = CALLBACKS.get(current);
         if (entry !== undefined && --entry.refs === 0)
             CALLBACKS.delete(current);
-        M.HEAPU32[(slot) >>> 2] = 0;
+        HEAPU32()[(slot) >>> 2] = 0;
     }
     if (other !== 0)
     {
         const entry = CALLBACKS.get(other);
         if (entry !== undefined)
             entry.refs++;
-        M.HEAPU32[(slot) >>> 2] = other;
+        HEAPU32()[(slot) >>> 2] = other;
     }
 }
 
@@ -321,7 +390,7 @@ export function callbackStateStub()
 export function structCopy(cls, src, size)
 {
     const p = malloc(size);
-    M.HEAPU8.copyWithin(p, src, src + size);
+    HEAPU8().copyWithin(p, src, src + size);
     return new cls(RAW, p, true, null);
 }
 
@@ -329,7 +398,7 @@ export function structCopy(cls, src, size)
 export function structFromScalar(cls, size, write)
 {
     const p = malloc(size);
-    M.HEAPU8.fill(0, p, p + size);
+    HEAPU8().fill(0, p, p + size);
     write(p);
     return new cls(RAW, p, true, null);
 }
@@ -337,20 +406,20 @@ export function structFromScalar(cls, size, write)
 /** A copy of `count` scalars of the typed array class `cls` at `ptr`. */
 export function typedArrayCopy(cls, ptr, count)
 {
-    return new cls(M.HEAPU8.buffer, ptr, count).slice();
+    return new cls(HEAPU8().buffer, ptr, count).slice();
 }
 
 /** A typed array of class `cls` over `count` scalars at `ptr` in the wasm memory, without a copy. Invalid once the memory grows. */
 export function typedArrayAt(cls, ptr, count)
 {
-    return new cls(M.HEAPU8.buffer, ptr, count);
+    return new cls(HEAPU8().buffer, ptr, count);
 }
 
 /** Zeroed memory for a struct. */
 export function zeroStruct(size)
 {
     const p = malloc(size);
-    M.HEAPU8.fill(0, p, p + size);
+    HEAPU8().fill(0, p, p + size);
     return p;
 }
 
@@ -450,7 +519,7 @@ export class CppStruct extends CppObject
     {
         const cls = this.constructor;
         const p = malloc(cls.SIZE);
-        M.HEAPU8.copyWithin(p, this.rawPointer(), this.rawPointer() + cls.SIZE);
+        HEAPU8().copyWithin(p, this.rawPointer(), this.rawPointer() + cls.SIZE);
         return new cls(RAW, p, true, null);
     }
 
@@ -458,6 +527,6 @@ export class CppStruct extends CppObject
     set(other)
     {
         const src = ptrNonNull(other, "other");
-        M.HEAPU8.copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
+        HEAPU8().copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
     }
 }

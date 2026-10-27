@@ -28,7 +28,8 @@ export class MR_C_std_unique_ptr_MR_StdUniquePtr_A_array extends ffi.CppObject
 
     static __ctor_2(other)
     {
-        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFrom(ffi.nonNull(other, "other").release());
+        const __a0 = ffi.nonNull(other, "other").release();
+        const __ret = ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFrom(__a0);
         ffi.check();
         return (__ret >>> 0);
     }
@@ -63,7 +64,9 @@ export class MR_C_std_unique_ptr_MR_StdUniquePtr_A_array extends ffi.CppObject
 
     assignFrom(other)
     {
-        ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(this.rawPointer(), ffi.nonNull(other, "other").release());
+        const __a0 = this.rawPointer();
+        const __a1 = ffi.nonNull(other, "other").release();
+        ffi.C.MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(__a0, __a1);
         ffi.check();
     }
 

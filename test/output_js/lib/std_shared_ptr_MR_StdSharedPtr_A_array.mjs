@@ -35,7 +35,8 @@ export class MR_C_std_shared_ptr_MR_StdSharedPtr_A_array extends ffi.CppObject
 
     static __ctor_3(ptr)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(ffi.nonNull(ptr, "ptr").release());
+        const __a0 = ffi.nonNull(ptr, "ptr").release();
+        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(__a0);
         ffi.check();
         return (__ret >>> 0);
     }
@@ -130,7 +131,9 @@ export class MR_C_std_shared_ptr_MR_StdSharedPtr_A_array extends ffi.CppObject
 
     assign(ptr)
     {
-        ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(this.rawPointer(), ffi.nonNull(ptr, "ptr").release());
+        const __a0 = this.rawPointer();
+        const __a1 = ffi.nonNull(ptr, "ptr").release();
+        ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(__a0, __a1);
         ffi.check();
     }
 

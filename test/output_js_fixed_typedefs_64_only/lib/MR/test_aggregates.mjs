@@ -15,20 +15,26 @@ export class MR_Aggregates_A extends ffi.CppObject
 
     get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_A_Get_x(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_A_Set_x(this.rawPointer(), value);
@@ -38,10 +44,15 @@ export class MR_Aggregates_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get y()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_A_Get_y(this.rawPointer());
@@ -52,6 +63,10 @@ export class MR_Aggregates_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -77,6 +92,7 @@ export class MR_Aggregates_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_A_DefaultConstruct();
@@ -86,6 +102,10 @@ export class MR_Aggregates_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -112,6 +132,7 @@ export class MR_Aggregates_A extends ffi.CppObject
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_A_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -121,6 +142,10 @@ export class MR_Aggregates_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -148,6 +173,7 @@ export class MR_Aggregates_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_A_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -158,6 +184,10 @@ export class MR_Aggregates_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -174,6 +204,7 @@ export class MR_Aggregates_B extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_B_DefaultConstruct();
@@ -184,10 +215,15 @@ export class MR_Aggregates_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_B_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -197,6 +233,10 @@ export class MR_Aggregates_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -222,6 +262,7 @@ export class MR_Aggregates_B extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_B_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -232,6 +273,10 @@ export class MR_Aggregates_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -248,20 +293,26 @@ export class MR_Aggregates_C extends ffi.CppObject
 
     get a()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_a(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set a(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_a(this.rawPointer(), value);
@@ -271,24 +322,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get b()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_b(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set b(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_b(this.rawPointer(), value);
@@ -298,24 +359,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get c()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_c(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set c(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_c(this.rawPointer(), value);
@@ -325,24 +396,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get d()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_d(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set d(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_d(this.rawPointer(), value);
@@ -352,24 +433,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get e()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_e(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set e(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_e(this.rawPointer(), value);
@@ -379,24 +470,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get f()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_f(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set f(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_f(this.rawPointer(), value);
@@ -406,24 +507,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get g()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_g(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set g(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_g(this.rawPointer(), value);
@@ -433,24 +544,34 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get h()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_Get_h(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set h(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_C_Set_h(this.rawPointer(), value);
@@ -460,10 +581,15 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_DefaultConstruct();
@@ -474,10 +600,15 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(a, b, c, d, e, f, g, h)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h);
@@ -488,10 +619,15 @@ export class MR_Aggregates_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -501,6 +637,10 @@ export class MR_Aggregates_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -528,6 +668,7 @@ export class MR_Aggregates_C extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_C_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -538,6 +679,10 @@ export class MR_Aggregates_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -553,20 +698,26 @@ export class MR_Aggregates_D extends ffi.CppObject
 
     get a()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_a(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set a(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_a(this.rawPointer(), value);
@@ -576,24 +727,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get b()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_b(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set b(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_b(this.rawPointer(), value);
@@ -603,24 +764,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get c()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_c(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set c(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_c(this.rawPointer(), value);
@@ -630,24 +801,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get d()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_d(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set d(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_d(this.rawPointer(), value);
@@ -657,24 +838,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get e()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_e(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set e(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_e(this.rawPointer(), value);
@@ -684,24 +875,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get f()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_f(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set f(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_f(this.rawPointer(), value);
@@ -711,24 +912,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get g()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_g(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set g(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_g(this.rawPointer(), value);
@@ -738,24 +949,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get h()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_h(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set h(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_h(this.rawPointer(), value);
@@ -765,24 +986,34 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get i()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_Get_i(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set i(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_D_Set_i(this.rawPointer(), value);
@@ -792,10 +1023,15 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_DefaultConstruct();
@@ -806,10 +1042,15 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(a, b, c, d, e, f, g, h, i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i);
@@ -820,10 +1061,15 @@ export class MR_Aggregates_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -833,6 +1079,10 @@ export class MR_Aggregates_D extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -860,6 +1110,7 @@ export class MR_Aggregates_D extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_D_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -870,6 +1121,10 @@ export class MR_Aggregates_D extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -885,20 +1140,26 @@ export class MR_Aggregates_E extends ffi.CppObject
 
     get a()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_a(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set a(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_a(this.rawPointer(), value);
@@ -908,24 +1169,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get b()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_b(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set b(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_b(this.rawPointer(), value);
@@ -935,24 +1206,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get c()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_c(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set c(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_c(this.rawPointer(), value);
@@ -962,24 +1243,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get d()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_d(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set d(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_d(this.rawPointer(), value);
@@ -989,24 +1280,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get e()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_e(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set e(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_e(this.rawPointer(), value);
@@ -1016,24 +1317,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get f()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_f(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set f(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_f(this.rawPointer(), value);
@@ -1043,24 +1354,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get g()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_g(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set g(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_g(this.rawPointer(), value);
@@ -1070,24 +1391,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get h()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_h(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set h(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_h(this.rawPointer(), value);
@@ -1097,24 +1428,34 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get i()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_i(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set i(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_i(this.rawPointer(), value);
@@ -1124,10 +1465,15 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get j()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_Get_j(this.rawPointer());
@@ -1139,10 +1485,15 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set j(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_Aggregates_E_Set_j(this.rawPointer(), ffi.ptrNonNull(value, "value"));
@@ -1152,10 +1503,15 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -1166,10 +1522,15 @@ export class MR_Aggregates_E extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(a, b, c, d, e, f, g, h, i, j)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_ConstructFrom(a, b, c, d, e, f, g, h, i, ffi.ptrNonNull(j, "j"));
@@ -1179,6 +1540,10 @@ export class MR_Aggregates_E extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1204,6 +1569,7 @@ export class MR_Aggregates_E extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_E_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -1214,6 +1580,10 @@ export class MR_Aggregates_E extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -1229,6 +1599,7 @@ export class MR_Aggregates_NonDefaultConstructible extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -1238,6 +1609,10 @@ export class MR_Aggregates_NonDefaultConstructible extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -1261,6 +1636,7 @@ export class MR_Aggregates_NonDefaultConstructible extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_Aggregates_NonDefaultConstructible_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -1271,6 +1647,10 @@ export class MR_Aggregates_NonDefaultConstructible extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

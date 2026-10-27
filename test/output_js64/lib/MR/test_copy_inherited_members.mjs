@@ -32,7 +32,7 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_A_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -45,7 +45,7 @@ export class MR_CopyInheritedMembers_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_A_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -145,7 +145,7 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_B_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -158,7 +158,7 @@ export class MR_CopyInheritedMembers_B extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_B_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -338,7 +338,7 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_D_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -351,7 +351,7 @@ export class MR_CopyInheritedMembers_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_D_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -644,7 +644,7 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_G_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -657,7 +657,7 @@ export class MR_CopyInheritedMembers_G extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_G_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -752,7 +752,7 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_H_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -765,7 +765,7 @@ export class MR_CopyInheritedMembers_H extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_H_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -872,7 +872,7 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_I_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -885,7 +885,7 @@ export class MR_CopyInheritedMembers_I extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_I_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -998,7 +998,7 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_J_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -1011,7 +1011,7 @@ export class MR_CopyInheritedMembers_J extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_J_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -1234,7 +1234,7 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_M_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -1247,7 +1247,7 @@ export class MR_CopyInheritedMembers_M extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_M_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -1353,7 +1353,7 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_N_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -1366,7 +1366,7 @@ export class MR_CopyInheritedMembers_N extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_N_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)
@@ -1483,7 +1483,7 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_O_Get_StaticField();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set StaticField(value)
@@ -1496,7 +1496,7 @@ export class MR_CopyInheritedMembers_O extends ffi.CppObject
     {
         const __ret = ffi.C.MR_CopyInheritedMembers_O_Get_Field(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     set Field(value)

@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_Phmap_foo_phmap_flat_hash_set_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_flat_hash_set_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -13,10 +14,15 @@ export function MR_Phmap_foo_phmap_flat_hash_set_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_flat_hash_map_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_flat_hash_map_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -26,10 +32,15 @@ export function MR_Phmap_foo_phmap_flat_hash_map_int32_t_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_node_hash_set_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_node_hash_set_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -39,10 +50,15 @@ export function MR_Phmap_foo_phmap_node_hash_set_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_node_hash_map_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_node_hash_map_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -52,10 +68,15 @@ export function MR_Phmap_foo_phmap_node_hash_map_int32_t_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_parallel_flat_hash_set_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_parallel_flat_hash_set_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -65,10 +86,15 @@ export function MR_Phmap_foo_phmap_parallel_flat_hash_set_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_parallel_flat_hash_map_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_parallel_flat_hash_map_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -78,10 +104,15 @@ export function MR_Phmap_foo_phmap_parallel_flat_hash_map_int32_t_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_parallel_node_hash_set_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_parallel_node_hash_set_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -91,10 +122,15 @@ export function MR_Phmap_foo_phmap_parallel_node_hash_set_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_parallel_node_hash_map_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_parallel_node_hash_map_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -104,10 +140,15 @@ export function MR_Phmap_foo_phmap_parallel_node_hash_map_int32_t_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_btree_set_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_btree_set_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -117,10 +158,15 @@ export function MR_Phmap_foo_phmap_btree_set_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_btree_map_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_btree_map_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -130,10 +176,15 @@ export function MR_Phmap_foo_phmap_btree_map_int32_t_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_btree_multiset_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_btree_multiset_int32_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -143,10 +194,15 @@ export function MR_Phmap_foo_phmap_btree_multiset_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Phmap_foo_phmap_btree_multimap_int32_t_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Phmap_foo_phmap_btree_multimap_int32_t_float(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -155,6 +211,10 @@ export function MR_Phmap_foo_phmap_btree_multimap_int32_t_float(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

@@ -30,4 +30,4 @@ export declare function a(_1: number): void;
  * Calls `MR_Overloads_a_2()`.
  */
 export declare function a(_1: number, _2: number): void;
-/** The overloads of `a` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `a` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

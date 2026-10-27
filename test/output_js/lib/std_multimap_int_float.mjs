@@ -96,7 +96,7 @@ export class MR_C_std_multimap_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_multimap_int_float_count(this.rawPointer(), __ptr_key);
             ffi.check();
             return (__ret >>> 0);
@@ -112,7 +112,7 @@ export class MR_C_std_multimap_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_multimap_int_float_find(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_std_multimap_int_float_const_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -128,7 +128,7 @@ export class MR_C_std_multimap_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_multimap_int_float_find_mut(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_std_multimap_int_float_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -266,14 +266,14 @@ export class MR_C_std_multimap_int_float_const_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_multimap_int_float_const_iterator_deref_key(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     deref_value()
     {
         const __ret = ffi.C.MR_C_std_multimap_int_float_const_iterator_deref_value(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
     }
 
     incr()
@@ -350,7 +350,7 @@ export class MR_C_std_multimap_int_float_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_multimap_int_float_iterator_deref_key(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     deref_value()

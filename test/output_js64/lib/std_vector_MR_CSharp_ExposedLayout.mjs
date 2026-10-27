@@ -27,7 +27,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     static __ctor_2(ptr, size)
     {
-        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(BigInt(ffi.ptr(ptr)), BigInt(size));
+        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(BigInt(ffi.ptr(ptr)), ffi.toI64(size));
         ffi.check();
         return Number(__ret);
     }
@@ -62,7 +62,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     assignFromRange(ptr, size)
     {
-        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(BigInt(this.rawPointer()), BigInt(ffi.ptr(ptr)), BigInt(size));
+        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(BigInt(this.rawPointer()), BigInt(ffi.ptr(ptr)), ffi.toI64(size));
         ffi.check();
     }
 
@@ -82,13 +82,13 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), BigInt(ffi.ptrNonNull(value, "value")));
+        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), BigInt(ffi.ptrNonNull(value, "value")));
         ffi.check();
     }
 
@@ -107,7 +107,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     reserve(new_capacity)
     {
-        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(BigInt(this.rawPointer()), BigInt(new_capacity));
+        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(BigInt(this.rawPointer()), ffi.toI64(new_capacity));
         ffi.check();
     }
 
@@ -119,7 +119,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_CSharp_ExposedLayout(ffi.RAW, Number(__ret), false, __owner);
@@ -127,7 +127,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     at_mut(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_at_mut(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_CSharp_ExposedLayout(ffi.RAW, Number(__ret), false, __owner);
@@ -206,7 +206,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         try
         {
             const __copy_new_elem = ffi.stackCopy(ffi.ptrNonNull(new_elem, "new_elem"), 56);
-            ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_insert(BigInt(this.rawPointer()), BigInt(position), BigInt(__copy_new_elem));
+            ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_insert(BigInt(this.rawPointer()), ffi.toI64(position), BigInt(__copy_new_elem));
             ffi.check();
         }
         finally
@@ -217,7 +217,7 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
 
     erase(position)
     {
-        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_erase(BigInt(this.rawPointer()), BigInt(position));
+        ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_erase(BigInt(this.rawPointer()), ffi.toI64(position));
         ffi.check();
     }
 

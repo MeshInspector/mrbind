@@ -22,7 +22,7 @@ export class MR_UsingDecls_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_UsingDecls_A_Get_StaticVar();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     static set StaticVar(value)
@@ -35,7 +35,7 @@ export class MR_UsingDecls_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_UsingDecls_A_Get_Field(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set Field(value)
@@ -128,7 +128,7 @@ export class MR_UsingDecls_B extends ffi.CppObject
     {
         const __ret = ffi.C.MR_UsingDecls_B_Get_Field(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set Field(value)
@@ -141,7 +141,7 @@ export class MR_UsingDecls_B extends ffi.CppObject
     {
         const __ret = ffi.C.MR_UsingDecls_B_Get_StaticVar();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     static set StaticVar(value)

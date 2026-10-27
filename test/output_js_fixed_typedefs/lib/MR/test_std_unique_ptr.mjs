@@ -14,6 +14,7 @@ export class MR_StdUniquePtr_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdUniquePtr_A_DefaultConstruct();
@@ -24,10 +25,15 @@ export class MR_StdUniquePtr_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdUniquePtr_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -37,6 +43,10 @@ export class MR_StdUniquePtr_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -62,6 +72,7 @@ export class MR_StdUniquePtr_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdUniquePtr_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -73,11 +84,16 @@ export class MR_StdUniquePtr_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_StdUniquePtr_GetInt()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetInt();
@@ -88,10 +104,15 @@ export function MR_StdUniquePtr_GetInt()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetInt(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetInt(_1);
@@ -101,10 +122,15 @@ export function MR_StdUniquePtr_SetInt(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -114,10 +140,15 @@ export function MR_StdUniquePtr_SetIntConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntDefTrivial(_1);
@@ -127,10 +158,15 @@ export function MR_StdUniquePtr_SetIntDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntDef(_1);
@@ -140,23 +176,34 @@ export function MR_StdUniquePtr_SetIntDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntLvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetIntLvalueRef(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetIntLvalueRef(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntLvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntLvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -166,10 +213,15 @@ export function MR_StdUniquePtr_SetIntLvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntRvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntRvalueRef(_1);
@@ -179,10 +231,15 @@ export function MR_StdUniquePtr_SetIntRvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntRvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntRvalueConstRef(_1);
@@ -192,10 +249,15 @@ export function MR_StdUniquePtr_SetIntRvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetIntArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetIntArr();
@@ -206,10 +268,15 @@ export function MR_StdUniquePtr_GetIntArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntArr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntArr(_1);
@@ -219,10 +286,15 @@ export function MR_StdUniquePtr_SetIntArr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntArrDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntArrDefTrivial(_1);
@@ -232,10 +304,15 @@ export function MR_StdUniquePtr_SetIntArrDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntArrDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetIntArrDef(_1);
@@ -245,10 +322,15 @@ export function MR_StdUniquePtr_SetIntArrDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetClass()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetClass();
@@ -259,23 +341,34 @@ export function MR_StdUniquePtr_GetClass()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClass(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClass(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClass(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetClassConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -285,23 +378,34 @@ export function MR_StdUniquePtr_SetClassConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassDefTrivial(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassDefTrivial(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetClassDef(_1);
@@ -311,23 +415,34 @@ export function MR_StdUniquePtr_SetClassDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassLvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassLvalueRef(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassLvalueRef(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassLvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetClassLvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -337,36 +452,53 @@ export function MR_StdUniquePtr_SetClassLvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassRvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassRvalueRef(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassRvalueRef(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
 export function MR_StdUniquePtr_SetClassRvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassRvalueConstRef(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassRvalueConstRef(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetClassArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetClassArr();
@@ -377,36 +509,53 @@ export function MR_StdUniquePtr_GetClassArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassArr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassArr(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassArr(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
 export function MR_StdUniquePtr_SetClassArrDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetClassArrDefTrivial(ffi.nonNull(_1, "_1").release());
+        const __a0 = ffi.nonNull(_1, "_1").release();
+        ffi.C.MR_StdUniquePtr_SetClassArrDefTrivial(__a0);
         ffi.check();
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetClassArrDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetClassArrDef(_1);
@@ -416,38 +565,53 @@ export function MR_StdUniquePtr_SetClassArrDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetConstInt()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetConstInt();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
 export function MR_StdUniquePtr_GetConstIntArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetConstIntArr();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
     catch (__e)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetConstClass()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetConstClass();
@@ -458,10 +622,15 @@ export function MR_StdUniquePtr_GetConstClass()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetConstClassArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetConstClassArr();
@@ -472,10 +641,15 @@ export function MR_StdUniquePtr_GetConstClassArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetFloat()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdUniquePtr_GetFloat();
@@ -486,10 +660,15 @@ export function MR_StdUniquePtr_GetFloat()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetFloat(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetFloat(_1);
@@ -499,10 +678,15 @@ export function MR_StdUniquePtr_SetFloat(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetFloatDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdUniquePtr_SetFloatDefTrivial(_1);
@@ -511,6 +695,10 @@ export function MR_StdUniquePtr_SetFloatDefTrivial(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

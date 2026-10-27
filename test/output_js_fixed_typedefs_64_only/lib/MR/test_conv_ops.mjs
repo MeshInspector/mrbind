@@ -13,6 +13,7 @@ export class MR_ConvOps_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_ConvOps_A_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_ConvOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_ConvOps_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_ConvOps_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_ConvOps_A extends ffi.CppObject
 
     convertTo_bool()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_ConvOps_A_ConvertTo_bool(this.rawPointer());
@@ -71,10 +82,15 @@ export class MR_ConvOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_ConvOps_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -85,6 +101,10 @@ export class MR_ConvOps_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

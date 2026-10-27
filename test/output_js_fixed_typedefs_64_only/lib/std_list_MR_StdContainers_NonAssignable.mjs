@@ -13,6 +13,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -81,6 +91,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -90,10 +101,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_size(this.rawPointer());
@@ -104,10 +120,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_empty(this.rawPointer());
@@ -118,10 +139,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize(new_size)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize(this.rawPointer(), new_size);
@@ -131,10 +157,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize_with_default_value(new_size, value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(this.rawPointer(), new_size, ffi.ptrNonNull(value, "value"));
@@ -144,10 +175,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_clear(this.rawPointer());
@@ -157,10 +193,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_front(this.rawPointer());
@@ -172,10 +213,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_front_mut(this.rawPointer());
@@ -187,10 +233,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_back(this.rawPointer());
@@ -202,10 +253,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_back_mut(this.rawPointer());
@@ -217,10 +273,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     push_back(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_push_back(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -230,10 +291,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     pop_back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_pop_back(this.rawPointer());
@@ -243,10 +309,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     push_front(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_push_front(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -256,10 +327,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     pop_front()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_pop_front(this.rawPointer());
@@ -269,10 +345,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert_at_mutable_iter(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"), ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -282,10 +363,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase_at_mutable_iter(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"));
@@ -295,10 +381,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert_at_iter(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"), ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -308,10 +399,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase_at_iter(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"));
@@ -321,10 +417,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_begin(this.rawPointer());
@@ -335,10 +436,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -349,10 +455,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_begin_mut(this.rawPointer());
@@ -363,10 +474,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -377,10 +493,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_end(this.rawPointer());
@@ -391,10 +512,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_is_end(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -405,10 +531,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_end_mut(this.rawPointer());
@@ -419,10 +550,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_is_end_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -432,6 +568,10 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -447,6 +587,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct();
@@ -457,10 +598,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -471,10 +617,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_from_mutable(ffi.ptrNonNull(iter, "iter"));
@@ -484,6 +635,10 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -511,6 +666,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -520,10 +676,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_deref(this.rawPointer());
@@ -535,10 +696,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_incr(this.rawPointer());
@@ -548,10 +714,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_decr(this.rawPointer());
@@ -560,6 +731,10 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator extends
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -575,6 +750,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_DefaultConstruct();
@@ -585,10 +761,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -598,6 +779,10 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -623,6 +808,7 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -632,10 +818,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_deref(this.rawPointer());
@@ -647,10 +838,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_incr(this.rawPointer());
@@ -660,10 +856,15 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_iterator_decr(this.rawPointer());
@@ -673,11 +874,16 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable_iterator extends ffi.C
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -688,10 +894,15 @@ export function MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_it
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -701,6 +912,10 @@ export function MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

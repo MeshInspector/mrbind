@@ -13,6 +13,7 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_ConstructFrom(ffi.ptrNonNull(other, "other"));
@@ -50,6 +61,10 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -77,6 +92,7 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_optional_MR_StdOptional_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -86,10 +102,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFrom(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_optional_MR_StdOptional_A_AssignFrom(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -99,10 +120,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_has_value(this.rawPointer());
@@ -113,10 +139,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_value(this.rawPointer());
@@ -128,10 +159,15 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_A_value_mut(this.rawPointer());
@@ -142,6 +178,10 @@ export class MR_C_std_optional_MR_StdOptional_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

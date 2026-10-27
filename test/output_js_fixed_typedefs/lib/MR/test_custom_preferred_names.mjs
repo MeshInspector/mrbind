@@ -13,6 +13,7 @@ export class MR_CustomPrefNames_Af extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Af_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_CustomPrefNames_Af extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Af_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_CustomPrefNames_Af extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_CustomPrefNames_Af extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Af_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -71,6 +82,10 @@ export class MR_CustomPrefNames_Af extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -86,6 +101,7 @@ export class MR_CustomPrefNames_Ai extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Ai_DefaultConstruct();
@@ -96,10 +112,15 @@ export class MR_CustomPrefNames_Ai extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Ai_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -109,6 +130,10 @@ export class MR_CustomPrefNames_Ai extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -134,6 +159,7 @@ export class MR_CustomPrefNames_Ai extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_CustomPrefNames_Ai_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -145,11 +171,16 @@ export class MR_CustomPrefNames_Ai extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_CustomPrefNames_blah()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_CustomPrefNames_blah();
@@ -158,6 +189,10 @@ export function MR_CustomPrefNames_blah()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

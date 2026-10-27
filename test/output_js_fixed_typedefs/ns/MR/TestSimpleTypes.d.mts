@@ -74,4 +74,4 @@ export declare function FuncTemplate(_1: number | bigint): bigint;
  * Calls `MR_TestSimpleTypes_FuncTemplate_int32_t()`.
  */
 export declare function FuncTemplate(_1: number): number;
-/** The overloads of `FuncTemplate` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `FuncTemplate` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

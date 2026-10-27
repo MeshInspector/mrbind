@@ -16,8 +16,8 @@ export class MR_DeclOrder_A extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get blah() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set blah(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get blah() {return ffi.HEAP32()[(this.rawPointer() + 0) >>> 2];}
+    set blah(value) {ffi.HEAPU32()[(this.rawPointer() + 0) >>> 2] = value;}
 
     static __ctor(args)
     {
@@ -39,21 +39,28 @@ export class MR_DeclOrder_A extends ffi.CppStruct
 
     c()
     {
+        const __sret = ffi.malloc(4);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(4);
             const __ret = ffi.C.MR_DeclOrder_A_c(this.rawPointer());
             ffi.check();
-            return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_A_B(ffi.RAW, __sret, true, null));
+            return (ffi.HEAPU32()[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_A_B(ffi.RAW, __sret, true, null));
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     d()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_DeclOrder_A_d(this.rawPointer());
@@ -63,6 +70,10 @@ export class MR_DeclOrder_A extends ffi.CppStruct
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -77,8 +88,8 @@ export class MR_DeclOrder_A_B extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get bleh() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set bleh(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get bleh() {return ffi.HEAP32()[(this.rawPointer() + 0) >>> 2];}
+    set bleh(value) {ffi.HEAPU32()[(this.rawPointer() + 0) >>> 2] = value;}
 
     static __ctor(args)
     {
@@ -100,21 +111,28 @@ export class MR_DeclOrder_A_B extends ffi.CppStruct
 
     a()
     {
+        const __sret = ffi.malloc(4);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(4);
             const __ret = ffi.C.MR_DeclOrder_A_B_a(this.rawPointer());
             ffi.check();
-            return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_A(ffi.RAW, __sret, true, null));
+            return (ffi.HEAPU32()[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_A(ffi.RAW, __sret, true, null));
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     b()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_DeclOrder_A_B_b(this.rawPointer());
@@ -124,6 +142,10 @@ export class MR_DeclOrder_A_B extends ffi.CppStruct
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -138,8 +160,8 @@ export class MR_DeclOrder_C_false extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get bleh() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set bleh(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get bleh() {return ffi.HEAP32()[(this.rawPointer() + 0) >>> 2];}
+    set bleh(value) {ffi.HEAPU32()[(this.rawPointer() + 0) >>> 2] = value;}
 
     static __ctor(args)
     {
@@ -161,16 +183,22 @@ export class MR_DeclOrder_C_false extends ffi.CppStruct
 
     blah()
     {
+        const __sret = ffi.malloc(4);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(4);
             const __ret = ffi.C.MR_DeclOrder_C_false_blah(this.rawPointer());
             ffi.check();
-            return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_C_true(ffi.RAW, __sret, true, null));
+            return (ffi.HEAPU32()[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_C_true(ffi.RAW, __sret, true, null));
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -185,8 +213,8 @@ export class MR_DeclOrder_C_true extends ffi.CppStruct
     static SIZE = 4;
     static ALIGNMENT = 4;
 
-    get bleh() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set bleh(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get bleh() {return ffi.HEAP32()[(this.rawPointer() + 0) >>> 2];}
+    set bleh(value) {ffi.HEAPU32()[(this.rawPointer() + 0) >>> 2] = value;}
 
     static __ctor(args)
     {
@@ -208,16 +236,22 @@ export class MR_DeclOrder_C_true extends ffi.CppStruct
 
     blah()
     {
+        const __sret = ffi.malloc(4);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(4);
             const __ret = ffi.C.MR_DeclOrder_C_true_blah(this.rawPointer());
             ffi.check();
-            return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_C_false(ffi.RAW, __sret, true, null));
+            return (ffi.HEAPU32()[(__sret + 0) >>> 2] = __ret, new L.MR_DeclOrder_C_false(ffi.RAW, __sret, true, null));
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

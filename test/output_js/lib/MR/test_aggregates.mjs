@@ -17,7 +17,7 @@ export class MR_Aggregates_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_A_Get_x(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set x(value)
@@ -179,7 +179,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_a(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set a(value)
@@ -192,7 +192,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_b(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set b(value)
@@ -205,7 +205,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_c(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set c(value)
@@ -218,7 +218,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_d(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set d(value)
@@ -231,7 +231,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_e(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set e(value)
@@ -244,7 +244,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_f(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set f(value)
@@ -257,7 +257,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_g(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set g(value)
@@ -270,7 +270,7 @@ export class MR_Aggregates_C extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_C_Get_h(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set h(value)
@@ -344,7 +344,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_a(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set a(value)
@@ -357,7 +357,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_b(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set b(value)
@@ -370,7 +370,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_c(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set c(value)
@@ -383,7 +383,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_d(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set d(value)
@@ -396,7 +396,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_e(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set e(value)
@@ -409,7 +409,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_f(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set f(value)
@@ -422,7 +422,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_g(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set g(value)
@@ -435,7 +435,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_h(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set h(value)
@@ -448,7 +448,7 @@ export class MR_Aggregates_D extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_D_Get_i(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set i(value)
@@ -522,7 +522,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_a(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set a(value)
@@ -535,7 +535,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_b(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set b(value)
@@ -548,7 +548,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_c(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set c(value)
@@ -561,7 +561,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_d(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set d(value)
@@ -574,7 +574,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_e(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set e(value)
@@ -587,7 +587,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_f(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set f(value)
@@ -600,7 +600,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_g(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set g(value)
@@ -613,7 +613,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_h(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set h(value)
@@ -626,7 +626,7 @@ export class MR_Aggregates_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_Aggregates_E_Get_i(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set i(value)

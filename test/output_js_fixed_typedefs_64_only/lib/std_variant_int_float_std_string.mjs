@@ -13,6 +13,7 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_ConstructAs_int(value);
@@ -50,6 +61,10 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -90,6 +105,7 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
 
     static constructAs_float(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
@@ -99,6 +115,10 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -114,6 +134,7 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_int_float_std_string_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -123,10 +144,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     index()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_index(this.rawPointer());
@@ -137,10 +163,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAs_int(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_int_float_std_string_AssignAs_int(this.rawPointer(), value);
@@ -150,10 +181,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAs_float(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_variant_int_float_std_string_AssignAs_float(this.rawPointer(), value);
@@ -162,6 +198,10 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -187,20 +227,26 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
 
     get_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_int(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_int_mut(this.rawPointer());
@@ -211,24 +257,34 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_float(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_float_mut(this.rawPointer());
@@ -239,10 +295,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_std_string(this.rawPointer());
@@ -254,10 +315,15 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_variant_int_float_std_string_get_std_string_mut(this.rawPointer());
@@ -268,6 +334,10 @@ export class MR_C_std_variant_int_float_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

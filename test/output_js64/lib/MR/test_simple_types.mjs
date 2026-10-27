@@ -38,12 +38,12 @@ export class MR_TestSimpleTypes_ClassTemplate_unsigned_long extends ffi.CppObjec
     {
         const __ret = ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long();
         ffi.check();
-        return Number(ffi.M.HEAPU64[(Number(__ret)) >>> 3]);
+        return Number(ffi.HEAPU64()[(Number(__ret)) / 8]);
     }
 
     static set var(value)
     {
-        ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(BigInt(value));
+        ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(ffi.toI64(value));
         ffi.check();
     }
 
@@ -56,7 +56,7 @@ export class MR_TestSimpleTypes_ClassTemplate_unsigned_long extends ffi.CppObjec
 
     static __ctor_1(_1)
     {
-        const __ret = ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(BigInt(_1));
+        const __ret = ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(ffi.toI64(_1));
         ffi.check();
         return Number(__ret);
     }
@@ -127,7 +127,7 @@ export function MR_TestSimpleTypes_SetIntDef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_TestSimpleTypes_SetIntDef(BigInt(__ptr__1));
         ffi.check();
     }
@@ -274,7 +274,7 @@ export function MR_TestSimpleTypes_SetEnumDef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_TestSimpleTypes_SetEnumDef(BigInt(__ptr__1));
         ffi.check();
     }
@@ -346,7 +346,7 @@ export function MR_TestSimpleTypes_SetEnum2Def(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = ((_1 << 16) >> 16);});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) / 2] = _1;});
         ffi.C.MR_TestSimpleTypes_SetEnum2Def(BigInt(__ptr__1));
         ffi.check();
     }
@@ -427,21 +427,21 @@ export function MR_TestSimpleTypes_LongLong(x)
 
 export function MR_TestSimpleTypes_blah_unsigned_long(x)
 {
-    const __ret = ffi.C.MR_TestSimpleTypes_blah_unsigned_long(BigInt(x));
+    const __ret = ffi.C.MR_TestSimpleTypes_blah_unsigned_long(ffi.toI64(x));
     ffi.check();
     return Number(__ret);
 }
 
 export function MR_TestSimpleTypes_blah_long(x)
 {
-    const __ret = ffi.C.MR_TestSimpleTypes_blah_long(BigInt(x));
+    const __ret = ffi.C.MR_TestSimpleTypes_blah_long(ffi.toI64(x));
     ffi.check();
     return Number(__ret);
 }
 
 export function MR_TestSimpleTypes_FuncTemplate_unsigned_long(_1)
 {
-    const __ret = ffi.C.MR_TestSimpleTypes_FuncTemplate_unsigned_long(BigInt(_1));
+    const __ret = ffi.C.MR_TestSimpleTypes_FuncTemplate_unsigned_long(ffi.toI64(_1));
     ffi.check();
     return Number(__ret);
 }

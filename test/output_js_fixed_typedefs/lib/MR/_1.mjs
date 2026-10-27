@@ -13,6 +13,7 @@ export class MR_A extends ffi.CppObject
 
     get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_A_Get_x(this.rawPointer());
@@ -23,6 +24,10 @@ export class MR_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -48,6 +53,7 @@ export class MR_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_A_DefaultConstruct();
@@ -58,10 +64,15 @@ export class MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_A_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -71,6 +82,10 @@ export class MR_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -96,6 +111,7 @@ export class MR_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_A_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -107,11 +123,16 @@ export class MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_foo()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_foo();
@@ -122,10 +143,15 @@ export function MR_foo()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_bar(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_bar(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -134,6 +160,10 @@ export function MR_bar(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

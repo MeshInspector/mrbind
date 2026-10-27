@@ -69,7 +69,8 @@ export declare class MR_TestSimpleTypes_ClassTemplate_uint64_t extends ffi.CppOb
      *
      * Calls `MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t()`.
      */
-    static var: bigint;
+    static get var(): bigint;
+    static set var(value: number | bigint);
     /**
      * Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -91,7 +92,7 @@ export declare class MR_TestSimpleTypes_ClassTemplate_uint64_t extends ffi.CppOb
      * Calls `MR_TestSimpleTypes_ClassTemplate_uint64_t_Construct_int32_t()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

@@ -24,7 +24,8 @@ export declare class MR_Aggregates_A extends ffi.CppObject
      *
      * Calls `MR_Aggregates_A_Get_y()`.
      */
-    y: L.MR_C_std_string;
+    get y(): L.MR_C_std_string;
+    set y(value: string);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -32,20 +33,20 @@ export declare class MR_Aggregates_A extends ffi.CppObject
      */
     constructor();
     /**
-     * Constructs `MR::Aggregates::A` elementwise.
-     * The reference to the parameter `y` might be preserved in the constructed object.
-     *
-     * Calls `MR_Aggregates_A_ConstructFrom()`.
-     */
-    constructor(x: number, y: string);
-    /**
      * Generated from constructor `MR::Aggregates::A::A`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
      *
      * Calls `MR_Aggregates_A_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_Aggregates_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Constructs `MR::Aggregates::A` elementwise.
+     * The reference to the parameter `y` might be preserved in the constructed object.
+     *
+     * Calls `MR_Aggregates_A_ConstructFrom()`.
+     */
+    constructor(x: number, y: string);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -78,7 +79,7 @@ export declare class MR_Aggregates_B extends ffi.CppObject
      * Calls `MR_Aggregates_B_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_Aggregates_B);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -161,19 +162,19 @@ export declare class MR_Aggregates_C extends ffi.CppObject
      */
     constructor();
     /**
-     * Constructs `MR::Aggregates::C` elementwise.
-     *
-     * Calls `MR_Aggregates_C_ConstructFrom()`.
-     */
-    constructor(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number);
-    /**
      * Generated from constructor `MR::Aggregates::C::C`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
      *
      * Calls `MR_Aggregates_C_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_Aggregates_C);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Constructs `MR::Aggregates::C` elementwise.
+     *
+     * Calls `MR_Aggregates_C_ConstructFrom()`.
+     */
+    constructor(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -262,19 +263,19 @@ export declare class MR_Aggregates_D extends ffi.CppObject
      */
     constructor();
     /**
-     * Constructs `MR::Aggregates::D` elementwise.
-     *
-     * Calls `MR_Aggregates_D_ConstructFrom()`.
-     */
-    constructor(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number);
-    /**
      * Generated from constructor `MR::Aggregates::D::D`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
      *
      * Calls `MR_Aggregates_D_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_Aggregates_D);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Constructs `MR::Aggregates::D` elementwise.
+     *
+     * Calls `MR_Aggregates_D_ConstructFrom()`.
+     */
+    constructor(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -387,7 +388,7 @@ export declare class MR_Aggregates_E extends ffi.CppObject
      * Calls `MR_Aggregates_E_ConstructFrom()`.
      */
     constructor(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: L.MR_Aggregates_NonDefaultConstructible);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

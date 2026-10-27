@@ -13,6 +13,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -81,6 +91,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -90,10 +101,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_size(this.rawPointer());
@@ -104,10 +120,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_empty(this.rawPointer());
@@ -118,10 +139,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_clear(this.rawPointer());
@@ -131,10 +157,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     count(key)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_count(this.rawPointer(), ffi.ptrNonNull(key, "key"));
@@ -145,10 +176,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     find(key)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find(this.rawPointer(), ffi.ptrNonNull(key, "key"));
@@ -159,10 +195,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     find_mut(key)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_mut(this.rawPointer(), ffi.ptrNonNull(key, "key"));
@@ -173,10 +214,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_begin(this.rawPointer());
@@ -187,10 +233,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -201,10 +252,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_begin_mut(this.rawPointer());
@@ -215,10 +271,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -229,10 +290,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_end(this.rawPointer());
@@ -243,10 +309,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_end(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -257,10 +328,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_end_mut(this.rawPointer());
@@ -271,10 +347,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_end_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -284,6 +365,10 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -299,6 +384,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
@@ -309,10 +395,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -323,10 +414,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable(ffi.ptrNonNull(iter, "iter"));
@@ -336,6 +432,10 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -363,6 +463,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -372,10 +473,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref(this.rawPointer());
@@ -387,10 +493,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_key()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_key(this.rawPointer());
@@ -402,24 +513,34 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(this.rawPointer());
@@ -428,6 +549,10 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -443,6 +568,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
@@ -453,10 +579,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -466,6 +597,10 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -491,6 +626,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -500,10 +636,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_deref(this.rawPointer());
@@ -515,10 +656,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_key()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_key(this.rawPointer());
@@ -530,10 +676,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_deref_value(this.rawPointer());
@@ -544,10 +695,15 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(this.rawPointer());
@@ -557,11 +713,16 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_it
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -572,10 +733,15 @@ export function MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssig
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -585,6 +751,10 @@ export function MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssig
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

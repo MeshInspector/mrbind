@@ -13,6 +13,7 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -70,10 +81,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_size(this.rawPointer());
@@ -84,10 +100,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_empty(this.rawPointer());
@@ -98,10 +119,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize(new_size)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_resize(this.rawPointer(), new_size);
@@ -111,10 +137,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize_with_default_value(new_size, value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_resize_with_default_value(this.rawPointer(), new_size, ffi.ptrNonNull(value, "value"));
@@ -124,10 +155,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_clear(this.rawPointer());
@@ -137,10 +173,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     capacity()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_capacity(this.rawPointer());
@@ -151,10 +192,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reserve(new_capacity)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_reserve(this.rawPointer(), new_capacity);
@@ -164,10 +210,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     shrink_to_fit()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_shrink_to_fit(this.rawPointer());
@@ -177,10 +228,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     at(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_at(this.rawPointer(), i);
@@ -192,10 +248,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     at_mut(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_at_mut(this.rawPointer(), i);
@@ -207,10 +268,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_front(this.rawPointer());
@@ -222,10 +288,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_front_mut(this.rawPointer());
@@ -237,10 +308,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_back(this.rawPointer());
@@ -252,10 +328,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_back_mut(this.rawPointer());
@@ -267,10 +348,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     push_back(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_push_back(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -280,10 +366,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     pop_back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_pop_back(this.rawPointer());
@@ -293,10 +384,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_insert(this.rawPointer(), position, ffi.PASS_BY_COPY, ffi.ptrNonNull(new_elem, "new_elem"));
@@ -306,10 +402,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_A_erase(this.rawPointer(), position);
@@ -319,10 +420,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_begin(this.rawPointer());
@@ -333,10 +439,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_begin_mut(this.rawPointer());
@@ -347,10 +458,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_end(this.rawPointer());
@@ -361,10 +477,15 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_MR_A_end_mut(this.rawPointer());
@@ -374,6 +495,10 @@ export class MR_C_std_vector_MR_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

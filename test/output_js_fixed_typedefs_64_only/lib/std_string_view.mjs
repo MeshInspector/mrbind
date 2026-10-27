@@ -13,6 +13,7 @@ export class MR_C_std_string_view extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_string_view_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_string_view extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_string_view_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_string_view extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -84,6 +94,7 @@ export class MR_C_std_string_view extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_string_view_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -92,6 +103,10 @@ export class MR_C_std_string_view extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -117,6 +132,7 @@ export class MR_C_std_string_view extends ffi.CppObject
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_string_view_size(this.rawPointer());
@@ -127,10 +143,15 @@ export class MR_C_std_string_view extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     data()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_string_view_data(this.rawPointer());
@@ -141,10 +162,15 @@ export class MR_C_std_string_view extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     data_end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_string_view_data_end(this.rawPointer());
@@ -154,6 +180,10 @@ export class MR_C_std_string_view extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 

@@ -23,7 +23,7 @@ export declare class MR_StdContainers_A extends ffi.CppObject
      * Calls `MR_StdContainers_A_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_StdContainers_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -56,7 +56,7 @@ export declare class MR_StdContainers_NonAssignable extends ffi.CppObject
      * Calls `MR_StdContainers_NonAssignable_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_StdContainers_NonAssignable);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -94,7 +94,7 @@ export declare class MR_StdContainers_NonDefaultConstructible extends ffi.CppObj
      * Calls `MR_StdContainers_NonDefaultConstructible_Construct()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

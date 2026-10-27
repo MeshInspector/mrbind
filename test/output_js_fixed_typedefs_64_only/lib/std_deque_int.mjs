@@ -13,6 +13,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -37,6 +43,10 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(ptr, size)
@@ -44,7 +54,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_deque_int_ConstructFromRange(__ptr_ptr, size);
             ffi.check();
             return (__ret >>> 0);
@@ -113,6 +123,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -122,6 +133,10 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromRange(ptr, size)
@@ -129,7 +144,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_deque_int_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
@@ -145,6 +160,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_size(this.rawPointer());
@@ -155,10 +171,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_empty(this.rawPointer());
@@ -169,10 +190,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize(new_size)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_resize(this.rawPointer(), new_size);
@@ -182,10 +208,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     resize_with_default_value(new_size, value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_resize_with_default_value(this.rawPointer(), new_size, value);
@@ -195,10 +226,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_clear(this.rawPointer());
@@ -208,24 +244,34 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     at(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_at(this.rawPointer(), i);
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     at_mut(i)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_at_mut(this.rawPointer(), i);
@@ -236,24 +282,34 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_front(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     front_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_front_mut(this.rawPointer());
@@ -264,24 +320,34 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_back(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     back_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_back_mut(this.rawPointer());
@@ -292,10 +358,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     push_back(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_push_back(this.rawPointer(), new_elem);
@@ -305,10 +376,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     pop_back()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_pop_back(this.rawPointer());
@@ -318,10 +394,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     push_front(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_push_front(this.rawPointer(), new_elem);
@@ -331,10 +412,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     pop_front()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_pop_front(this.rawPointer());
@@ -344,10 +430,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_insert(this.rawPointer(), position, new_elem);
@@ -357,10 +448,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_erase(this.rawPointer(), position);
@@ -370,10 +466,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert_at_mutable_iter(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_insert_at_mutable_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"), new_elem);
@@ -383,10 +484,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase_at_mutable_iter(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_erase_at_mutable_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"));
@@ -396,10 +502,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     insert_at_iter(position, new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_insert_at_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"), new_elem);
@@ -409,10 +520,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     erase_at_iter(position)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_erase_at_iter(this.rawPointer(), ffi.ptrNonNull(position, "position"));
@@ -422,10 +538,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_begin(this.rawPointer());
@@ -436,10 +557,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -450,10 +576,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_begin_mut(this.rawPointer());
@@ -464,10 +595,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_is_begin_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -478,10 +614,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_end(this.rawPointer());
@@ -492,10 +633,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_is_end(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -506,10 +652,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_end_mut(this.rawPointer());
@@ -520,10 +671,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_is_end_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -534,10 +690,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     to_index_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_to_index(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -548,10 +709,15 @@ export class MR_C_std_deque_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     to_index_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_to_index_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -561,6 +727,10 @@ export class MR_C_std_deque_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -576,6 +746,7 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_const_iterator_DefaultConstruct();
@@ -586,10 +757,15 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_const_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -600,10 +776,15 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_const_iterator_from_mutable(ffi.ptrNonNull(iter, "iter"));
@@ -613,6 +794,10 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -640,6 +825,7 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_const_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -649,24 +835,34 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_const_iterator_deref(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_const_iterator_incr(this.rawPointer());
@@ -676,10 +872,15 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_const_iterator_decr(this.rawPointer());
@@ -689,10 +890,15 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     add_assign(delta)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_const_iterator_add_assign(this.rawPointer(), delta);
@@ -701,6 +907,10 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -716,6 +926,7 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_iterator_DefaultConstruct();
@@ -726,10 +937,15 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -739,6 +955,10 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -764,6 +984,7 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -773,10 +994,15 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_deque_int_iterator_deref(this.rawPointer());
@@ -787,10 +1013,15 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_iterator_incr(this.rawPointer());
@@ -800,10 +1031,15 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_iterator_decr(this.rawPointer());
@@ -813,10 +1049,15 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     add_assign(delta)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_deque_int_iterator_add_assign(this.rawPointer(), delta);
@@ -826,11 +1067,16 @@ export class MR_C_std_deque_int_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_sub_MR_C_std_deque_int_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_sub_MR_C_std_deque_int_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -841,10 +1087,15 @@ export function MR_C_sub_MR_C_std_deque_int_const_iterator(a, b)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_C_std_deque_int_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_deque_int_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -855,10 +1106,15 @@ export function MR_C_equal_MR_C_std_deque_int_const_iterator(a, b)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_sub_MR_C_std_deque_int_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_sub_MR_C_std_deque_int_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -869,10 +1125,15 @@ export function MR_C_sub_MR_C_std_deque_int_iterator(a, b)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_C_std_deque_int_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_deque_int_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -882,6 +1143,10 @@ export function MR_C_equal_MR_C_std_deque_int_iterator(a, b)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

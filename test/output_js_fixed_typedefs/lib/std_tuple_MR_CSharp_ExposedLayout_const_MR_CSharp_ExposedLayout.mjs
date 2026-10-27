@@ -13,6 +13,7 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -84,6 +94,7 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
 
     get_MR_CSharp_ExposedLayout()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout(this.rawPointer());
@@ -95,10 +106,15 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_MR_CSharp_ExposedLayout_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_MR_CSharp_ExposedLayout_mut(this.rawPointer());
@@ -110,10 +126,15 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_const_MR_CSharp_ExposedLayout()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_get_const_MR_CSharp_ExposedLayout(this.rawPointer());
@@ -124,6 +145,10 @@ export class MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayou
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

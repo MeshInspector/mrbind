@@ -14,6 +14,7 @@ export class MR_StdContainers_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_A_DefaultConstruct();
@@ -24,10 +25,15 @@ export class MR_StdContainers_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -37,6 +43,10 @@ export class MR_StdContainers_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -62,6 +72,7 @@ export class MR_StdContainers_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -72,6 +83,10 @@ export class MR_StdContainers_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -88,6 +103,7 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_NonAssignable_DefaultConstruct();
@@ -98,10 +114,15 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_NonAssignable_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -111,6 +132,10 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -136,6 +161,7 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
 
     opLess(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_less_MR_StdContainers_NonAssignable(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -146,10 +172,15 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opEqual(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_StdContainers_NonAssignable(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -159,6 +190,10 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -175,6 +210,7 @@ export class MR_StdContainers_NonDefaultConstructible extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -185,10 +221,15 @@ export class MR_StdContainers_NonDefaultConstructible extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_NonDefaultConstructible_Construct(_1);
@@ -198,6 +239,10 @@ export class MR_StdContainers_NonDefaultConstructible extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -223,6 +268,7 @@ export class MR_StdContainers_NonDefaultConstructible extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdContainers_NonDefaultConstructible_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -234,11 +280,16 @@ export class MR_StdContainers_NonDefaultConstructible extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_StdContainers_Set(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_Set(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -248,10 +299,15 @@ export function MR_StdContainers_Set(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_SetWithDefault(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_SetWithDefault((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -261,10 +317,15 @@ export function MR_StdContainers_SetWithDefault(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_Get()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_Get();
@@ -275,10 +336,15 @@ export function MR_StdContainers_Get()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_WriteToRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_WriteToRef(ffi.ptrNonNull(_1, "_1"));
@@ -288,10 +354,15 @@ export function MR_StdContainers_WriteToRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_WriteToPtr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_WriteToPtr(ffi.ptr(_1));
@@ -301,10 +372,15 @@ export function MR_StdContainers_WriteToPtr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_ConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_ConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -314,10 +390,15 @@ export function MR_StdContainers_ConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_RvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_RvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -327,10 +408,15 @@ export function MR_StdContainers_RvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_ConstRvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdContainers_ConstRvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -340,10 +426,15 @@ export function MR_StdContainers_ConstRvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetDeque()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetDeque();
@@ -354,10 +445,15 @@ export function MR_StdContainers_GetDeque()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetList()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetList();
@@ -368,10 +464,15 @@ export function MR_StdContainers_GetList()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetSet()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetSet();
@@ -382,10 +483,15 @@ export function MR_StdContainers_GetSet()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMultiSet()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMultiSet();
@@ -396,10 +502,15 @@ export function MR_StdContainers_GetMultiSet()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedSet()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedSet();
@@ -410,10 +521,15 @@ export function MR_StdContainers_GetUnorderedSet()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMultiSet()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMultiSet();
@@ -424,10 +540,15 @@ export function MR_StdContainers_GetUnorderedMultiSet()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMap()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMap();
@@ -438,10 +559,15 @@ export function MR_StdContainers_GetMap()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMultiMap()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMultiMap();
@@ -452,10 +578,15 @@ export function MR_StdContainers_GetMultiMap()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMap()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMap();
@@ -466,10 +597,15 @@ export function MR_StdContainers_GetUnorderedMap()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMultiMap()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMultiMap();
@@ -480,10 +616,15 @@ export function MR_StdContainers_GetUnorderedMultiMap()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetStdArray()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetStdArray();
@@ -494,20 +635,30 @@ export function MR_StdContainers_GetStdArray()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetStdArraySimple()
 {
+    const __sret = ffi.malloc(172);
+    const __sp = ffi.stackSave();
     try
     {
-        const __sret = ffi.malloc(172);
         ffi.C.MR_StdContainers_GetStdArraySimple(__sret);
         ffi.check();
         return new L.MR_C_std_array_int32_t_43(ffi.RAW, __sret, true, null);
     }
     catch (__e)
     {
+        ffi.free(__sret);
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
@@ -532,6 +683,7 @@ export function MR_StdContainers_StdArraySimpleParam(_1)
 
 export function MR_StdContainers_StdArraySimplePtr(param)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_StdArraySimplePtr(ffi.ptr(param));
@@ -543,10 +695,15 @@ export function MR_StdContainers_StdArraySimplePtr(param)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMultiSetWithMergedIters()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMultiSetWithMergedIters();
@@ -557,10 +714,15 @@ export function MR_StdContainers_GetMultiSetWithMergedIters()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMergedIter()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMergedIter();
@@ -571,10 +733,15 @@ export function MR_StdContainers_GetMergedIter()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMergedIterConst()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMergedIterConst();
@@ -585,10 +752,15 @@ export function MR_StdContainers_GetMergedIterConst()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_NonDefCon()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_NonDefCon();
@@ -599,10 +771,15 @@ export function MR_StdContainers_NonDefCon()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetVectorNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetVectorNA();
@@ -613,10 +790,15 @@ export function MR_StdContainers_GetVectorNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetDequeNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetDequeNA();
@@ -627,10 +809,15 @@ export function MR_StdContainers_GetDequeNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetListNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetListNA();
@@ -641,10 +828,15 @@ export function MR_StdContainers_GetListNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetSetNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetSetNA();
@@ -655,10 +847,15 @@ export function MR_StdContainers_GetSetNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMultiSetNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMultiSetNA();
@@ -669,10 +866,15 @@ export function MR_StdContainers_GetMultiSetNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedSetNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedSetNA();
@@ -683,10 +885,15 @@ export function MR_StdContainers_GetUnorderedSetNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMultiSetNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMultiSetNA();
@@ -697,10 +904,15 @@ export function MR_StdContainers_GetUnorderedMultiSetNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMapNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMapNA();
@@ -711,10 +923,15 @@ export function MR_StdContainers_GetMapNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetMultiMapNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetMultiMapNA();
@@ -725,10 +942,15 @@ export function MR_StdContainers_GetMultiMapNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMapNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMapNA();
@@ -739,10 +961,15 @@ export function MR_StdContainers_GetUnorderedMapNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetUnorderedMultiMapNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetUnorderedMultiMapNA();
@@ -753,10 +980,15 @@ export function MR_StdContainers_GetUnorderedMultiMapNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetStdArrayNA()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdContainers_GetStdArrayNA();
@@ -767,20 +999,30 @@ export function MR_StdContainers_GetStdArrayNA()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdContainers_GetStdArrayOfPlainArray()
 {
+    const __sret = ffi.malloc(240);
+    const __sp = ffi.stackSave();
     try
     {
-        const __sret = ffi.malloc(240);
         ffi.C.MR_StdContainers_GetStdArrayOfPlainArray(__sret);
         ffi.check();
         return new L.MR_C_std_array_int32_t_array_4_array_3_5(ffi.RAW, __sret, true, null);
     }
     catch (__e)
     {
+        ffi.free(__sret);
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

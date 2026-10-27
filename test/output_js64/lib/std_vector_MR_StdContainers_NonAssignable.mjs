@@ -67,7 +67,7 @@ export class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.CppObjec
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
@@ -86,7 +86,7 @@ export class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.CppObjec
 
     reserve(new_capacity)
     {
-        ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_reserve(BigInt(this.rawPointer()), BigInt(new_capacity));
+        ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_reserve(BigInt(this.rawPointer()), ffi.toI64(new_capacity));
         ffi.check();
     }
 
@@ -98,7 +98,7 @@ export class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.CppObjec
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_StdContainers_NonAssignable(ffi.RAW, Number(__ret), false, __owner);
@@ -106,7 +106,7 @@ export class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.CppObjec
 
     at_mut(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_at_mut(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_at_mut(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_StdContainers_NonAssignable(ffi.RAW, Number(__ret), false, __owner);

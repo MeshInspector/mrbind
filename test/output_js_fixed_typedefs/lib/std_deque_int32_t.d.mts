@@ -28,7 +28,7 @@ export declare class MR_C_std_deque_int32_t extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_ConstructFromRange()`.
      */
     constructor(ptr: number | null | undefined, size: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -43,7 +43,7 @@ export declare class MR_C_std_deque_int32_t extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_is_begin_mut()`.
      */
     is_begin(iter: L.MR_C_std_deque_int32_t_iterator): boolean;
-    /** The overloads of `is_begin` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `is_begin` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Tests whether a const iterator is the end iterator.
      *
@@ -56,7 +56,7 @@ export declare class MR_C_std_deque_int32_t extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_is_end_mut()`.
      */
     is_end(iter: L.MR_C_std_deque_int32_t_iterator): boolean;
-    /** The overloads of `is_end` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `is_end` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Convert a const iterator to an index.
      *
@@ -69,7 +69,7 @@ export declare class MR_C_std_deque_int32_t extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_to_index_mut()`.
      */
     to_index(iter: L.MR_C_std_deque_int32_t_iterator): number;
-    /** The overloads of `to_index` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `to_index` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Assigns the contents from another instance. Both objects remain alive after the call.
      * The reference to the parameter `other` might be preserved in this object.
@@ -312,7 +312,7 @@ export declare class MR_C_std_deque_int32_t_const_iterator extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_const_iterator_from_mutable()`.
      */
     constructor(iter: L.MR_C_std_deque_int32_t_iterator);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -369,7 +369,7 @@ export declare class MR_C_std_deque_int32_t_iterator extends ffi.CppObject
      * Calls `MR_C_std_deque_int32_t_iterator_ConstructFromAnother()`.
      */
     constructor(other: L.MR_C_std_deque_int32_t_iterator);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

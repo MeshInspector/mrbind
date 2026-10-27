@@ -23,8 +23,8 @@ export class MR_C_std_pair_const_int_ref_const_float_ref extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_first = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = first;});
-            const __ptr_second = ffi.stackScalar(4, (p) => {ffi.M.HEAPF32[(p) >>> 2] = second;});
+            const __ptr_first = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = first;});
+            const __ptr_second = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) / 4] = second;});
             const __ret = ffi.C.MR_C_std_pair_const_int_ref_const_float_ref_Construct(BigInt(__ptr_first), BigInt(__ptr_second));
             ffi.check();
             return Number(__ret);
@@ -59,14 +59,14 @@ export class MR_C_std_pair_const_int_ref_const_float_ref extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_pair_const_int_ref_const_float_ref_first(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     second()
     {
         const __ret = ffi.C.MR_C_std_pair_const_int_ref_const_float_ref_second(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 }
 

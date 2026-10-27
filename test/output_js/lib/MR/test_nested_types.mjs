@@ -32,7 +32,7 @@ export class MR_NestedTypes_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_NestedTypes_A_Get_e(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set e(value)

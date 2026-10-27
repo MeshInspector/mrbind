@@ -22,7 +22,7 @@ export declare class MR_C_expected_MR_CSharp_NonTrivial_float extends ffi.CppObj
      * Calls `MR_C_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother()`.
      */
     constructor(other: L.MR_C_expected_MR_CSharp_NonTrivial_float);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

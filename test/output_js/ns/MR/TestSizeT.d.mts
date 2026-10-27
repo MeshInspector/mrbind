@@ -29,4 +29,4 @@ export declare function foo(_1: L.MR_C_std_vector_unsigned_long): L.MR_C_std_vec
  * Calls `MR_TestSizeT_foo_std_vector_long()`.
  */
 export declare function foo(_1: L.MR_C_std_vector_long): L.MR_C_std_vector_long;
-/** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

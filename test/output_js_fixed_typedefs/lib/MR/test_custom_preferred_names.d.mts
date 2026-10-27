@@ -22,7 +22,7 @@ export declare class MR_CustomPrefNames_Af extends ffi.CppObject
      * Calls `MR_CustomPrefNames_Af_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CustomPrefNames_Af);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -54,7 +54,7 @@ export declare class MR_CustomPrefNames_Ai extends ffi.CppObject
      * Calls `MR_CustomPrefNames_Ai_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CustomPrefNames_Ai);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

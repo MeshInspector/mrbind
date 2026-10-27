@@ -13,20 +13,26 @@ export class MR_LifetimeInference_A extends ffi.CppObject
 
     get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_Get_x(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_LifetimeInference_A_Set_x(this.rawPointer(), value);
@@ -36,10 +42,15 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_DefaultConstruct();
@@ -50,10 +61,15 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(x)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_ConstructFrom(x);
@@ -64,10 +80,15 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -77,6 +98,10 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -104,6 +129,7 @@ export class MR_LifetimeInference_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -115,10 +141,15 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_begin(this.rawPointer());
@@ -129,10 +160,15 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_A_end(this.rawPointer());
@@ -142,6 +178,10 @@ export class MR_LifetimeInference_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -157,20 +197,26 @@ export class MR_LifetimeInference_B extends ffi.CppObject
 
     get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_B_Get_x(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_LifetimeInference_B_Set_x(this.rawPointer(), value);
@@ -180,10 +226,15 @@ export class MR_LifetimeInference_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_B_DefaultConstruct();
@@ -194,10 +245,15 @@ export class MR_LifetimeInference_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(x)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_B_ConstructFrom(x);
@@ -208,10 +264,15 @@ export class MR_LifetimeInference_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_B_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -221,6 +282,10 @@ export class MR_LifetimeInference_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -248,6 +313,7 @@ export class MR_LifetimeInference_B extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_B_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -258,6 +324,10 @@ export class MR_LifetimeInference_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -273,6 +343,7 @@ export class MR_LifetimeInference_C extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_C_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -283,10 +354,15 @@ export class MR_LifetimeInference_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_1, _2, _3)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_C_Construct(ffi.ptrNonNull(_1, "_1"), _2, _3);
@@ -296,6 +372,10 @@ export class MR_LifetimeInference_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -321,6 +401,7 @@ export class MR_LifetimeInference_C extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_LifetimeInference_C_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -332,11 +413,16 @@ export class MR_LifetimeInference_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_LifetimeInference_begin_MR_LifetimeInference_A(a)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_LifetimeInference_begin_MR_LifetimeInference_A(ffi.ptrNonNull(a, "a"));
@@ -347,10 +433,15 @@ export function MR_LifetimeInference_begin_MR_LifetimeInference_A(a)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_LifetimeInference_end_MR_LifetimeInference_A(a)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_LifetimeInference_end_MR_LifetimeInference_A(ffi.ptrNonNull(a, "a"));
@@ -361,10 +452,15 @@ export function MR_LifetimeInference_end_MR_LifetimeInference_A(a)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_LifetimeInference_begin_MR_LifetimeInference_B(b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_LifetimeInference_begin_MR_LifetimeInference_B(ffi.ptrNonNull(b, "b"));
@@ -375,10 +471,15 @@ export function MR_LifetimeInference_begin_MR_LifetimeInference_B(b)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_LifetimeInference_end_MR_LifetimeInference_B(b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_LifetimeInference_end_MR_LifetimeInference_B(ffi.ptrNonNull(b, "b"));
@@ -388,6 +489,10 @@ export function MR_LifetimeInference_end_MR_LifetimeInference_B(b)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

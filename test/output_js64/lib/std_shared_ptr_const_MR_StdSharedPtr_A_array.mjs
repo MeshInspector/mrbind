@@ -28,7 +28,7 @@ export class MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array extends ffi.CppOb
 
     static __ctor_2(size)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(BigInt(size));
+        const __ret = ffi.C.MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(ffi.toI64(size));
         ffi.check();
         return Number(__ret);
     }
@@ -118,7 +118,7 @@ export class MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array extends ffi.CppOb
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_StdSharedPtr_A(ffi.RAW, Number(__ret), false, __owner);

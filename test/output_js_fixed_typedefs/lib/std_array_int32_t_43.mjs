@@ -12,8 +12,8 @@ export class MR_C_std_array_int32_t_43 extends ffi.CppStruct
     static SIZE = 172;
     static ALIGNMENT = 4;
 
-    getElems(i0) {return ffi.M.HEAP32[(this.rawPointer() + 0 + (i0) * 4) >>> 2];}
-    setElems(i0, value) {ffi.M.HEAPU32[(this.rawPointer() + 0 + (i0) * 4) >>> 2] = value;}
+    getElems(i0) {return ffi.HEAP32()[(this.rawPointer() + 0 + (i0) * 4) >>> 2];}
+    setElems(i0, value) {ffi.HEAPU32()[(this.rawPointer() + 0 + (i0) * 4) >>> 2] = value;}
 
     static __ctor(args)
     {

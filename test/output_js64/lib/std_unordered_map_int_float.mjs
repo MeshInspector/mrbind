@@ -96,7 +96,7 @@ export class MR_C_std_unordered_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_std_unordered_map_int_float_find_or_construct_elem(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return Number(__ret);
@@ -112,7 +112,7 @@ export class MR_C_std_unordered_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_std_unordered_map_int_float_contains(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return (__ret !== 0);
@@ -128,7 +128,7 @@ export class MR_C_std_unordered_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_std_unordered_map_int_float_find(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return new L.MR_C_std_unordered_map_int_float_const_iterator(ffi.RAW, Number(__ret), true, null);
@@ -144,7 +144,7 @@ export class MR_C_std_unordered_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
             const __ret = ffi.C.MR_C_std_unordered_map_int_float_find_mut(BigInt(this.rawPointer()), BigInt(__ptr_key));
             ffi.check();
             return new L.MR_C_std_unordered_map_int_float_iterator(ffi.RAW, Number(__ret), true, null);
@@ -282,14 +282,14 @@ export class MR_C_std_unordered_map_int_float_const_iterator extends ffi.CppObje
     {
         const __ret = ffi.C.MR_C_std_unordered_map_int_float_const_iterator_deref_key(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     deref_value()
     {
         const __ret = ffi.C.MR_C_std_unordered_map_int_float_const_iterator_deref_value(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     incr()
@@ -360,7 +360,7 @@ export class MR_C_std_unordered_map_int_float_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_unordered_map_int_float_iterator_deref_key(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     deref_value()

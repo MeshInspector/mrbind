@@ -29,7 +29,7 @@ export declare class MR_C_std_variant_std_monostate_int32_t_float extends ffi.Cp
      * Calls `MR_C_std_variant_std_monostate_int32_t_float_ConstructAs_int32_t()`.
      */
     constructor(value: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Constructs the variant storing the element 0, of type `std::monostate`.
      * The reference to the parameter `value` might be preserved in the constructed object.

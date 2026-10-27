@@ -7,6 +7,7 @@ export const MR_IncompleteArrayElemType_E = Object.freeze({
 
 export function MR_IncompleteArrayElemType_bar(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_IncompleteArrayElemType_bar(_1);
@@ -15,6 +16,10 @@ export function MR_IncompleteArrayElemType_bar(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

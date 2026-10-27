@@ -13,6 +13,7 @@ export class MR_C_std_tuple extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_tuple extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_tuple extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_tuple extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_tuple_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -69,6 +80,10 @@ export class MR_C_std_tuple extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

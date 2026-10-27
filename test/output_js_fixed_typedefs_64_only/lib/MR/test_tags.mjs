@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_Tags_foo_1_std_less_int()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Tags_foo_1_std_less_int();
@@ -13,10 +14,15 @@ export function MR_Tags_foo_1_std_less_int()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Tags_foo_1_std_less_void()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Tags_foo_1_std_less_void();
@@ -26,10 +32,15 @@ export function MR_Tags_foo_1_std_less_void()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Tags_foo_1_std_greater_int()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Tags_foo_1_std_greater_int();
@@ -39,10 +50,15 @@ export function MR_Tags_foo_1_std_greater_int()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Tags_foo_1_std_greater_void()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Tags_foo_1_std_greater_void();
@@ -52,10 +68,15 @@ export function MR_Tags_foo_1_std_greater_void()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Tags_foo_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Tags_foo_0();
@@ -64,6 +85,10 @@ export function MR_Tags_foo_0()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

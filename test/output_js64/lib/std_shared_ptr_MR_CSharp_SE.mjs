@@ -68,7 +68,8 @@ export class MR_C_std_shared_ptr_MR_CSharp_SE extends ffi.CppObject
 
     static construct(ptr)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SE_Construct(BigInt(ffi.nonNull(ptr, "ptr").release()));
+        const __a0 = BigInt(ffi.nonNull(ptr, "ptr").release());
+        const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SE_Construct(__a0);
         ffi.check();
         return new L.MR_C_std_shared_ptr_MR_CSharp_SE(ffi.RAW, Number(__ret), true, null);
     }
@@ -119,7 +120,9 @@ export class MR_C_std_shared_ptr_MR_CSharp_SE extends ffi.CppObject
 
     assign(ptr)
     {
-        ffi.C.MR_C_std_shared_ptr_MR_CSharp_SE_Assign(BigInt(this.rawPointer()), BigInt(ffi.nonNull(ptr, "ptr").release()));
+        const __a0 = BigInt(this.rawPointer());
+        const __a1 = BigInt(ffi.nonNull(ptr, "ptr").release());
+        ffi.C.MR_C_std_shared_ptr_MR_CSharp_SE_Assign(__a0, __a1);
         ffi.check();
     }
 

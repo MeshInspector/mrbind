@@ -13,6 +13,7 @@ export class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
 
     static __ctor_0(first, second)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int_ref_float_ref_Construct(first, second);
@@ -22,6 +23,10 @@ export class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -45,6 +50,7 @@ export class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
 
     first()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int_ref_float_ref_first(this.rawPointer());
@@ -55,10 +61,15 @@ export class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_int_ref_float_ref_second(this.rawPointer());
@@ -68,6 +79,10 @@ export class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

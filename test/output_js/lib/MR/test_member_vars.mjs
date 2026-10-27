@@ -15,7 +15,7 @@ export class MR_MemberVars_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_MemberVars_A_Get_z();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     static set z(value)
@@ -28,14 +28,14 @@ export class MR_MemberVars_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_MemberVars_A_Get_w();
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     get x()
     {
         const __ret = ffi.C.MR_MemberVars_A_Get_x(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     set x(value)
@@ -48,7 +48,7 @@ export class MR_MemberVars_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_MemberVars_A_Get_y(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     get ref()
@@ -62,7 +62,7 @@ export class MR_MemberVars_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_MemberVars_A_Get_arr(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     static __ctor_0(_other)

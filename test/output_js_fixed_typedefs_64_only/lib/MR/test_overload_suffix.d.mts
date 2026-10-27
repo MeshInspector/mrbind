@@ -28,7 +28,7 @@ export declare class MR_OverloadSuffix_A extends ffi.CppObject
      * Calls `MR_OverloadSuffix_A_Construct_2()`.
      */
     constructor(_1: number, _2: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from constructor `MR::OverloadSuffix::A::A`.
      *
@@ -49,7 +49,7 @@ export declare class MR_OverloadSuffix_A extends ffi.CppObject
      * Calls `MR_OverloadSuffix_A_foo_2()`.
      */
     foo(_1: number, _2: number): void;
-    /** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::OverloadSuffix::A::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -127,7 +127,7 @@ export declare class MR_OverloadSuffix_B extends ffi.CppObject
      * Calls `MR_OverloadSuffix_B_Construct_2()`.
      */
     constructor(_1: number, _2: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from constructor `MR::OverloadSuffix::B::B`.
      *
@@ -148,7 +148,7 @@ export declare class MR_OverloadSuffix_B extends ffi.CppObject
      * Calls `MR_OverloadSuffix_B_foo_2()`.
      */
     foo(_1: number, _2: number): void;
-    /** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::OverloadSuffix::B::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -228,7 +228,7 @@ export declare class MR_OverloadSuffix_C extends ffi.CppObject
      * Calls `MR_OverloadSuffix_C_Construct_2()`.
      */
     constructor(_1: number, _2: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from constructor `MR::OverloadSuffix::C::C`.
      *
@@ -249,7 +249,7 @@ export declare class MR_OverloadSuffix_C extends ffi.CppObject
      * Calls `MR_OverloadSuffix_C_foo_2()`.
      */
     foo(_1: number, _2: number): void;
-    /** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::OverloadSuffix::C::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.

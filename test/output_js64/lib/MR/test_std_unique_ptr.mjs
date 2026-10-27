@@ -88,7 +88,8 @@ export function MR_StdUniquePtr_SetIntDef(_1)
 
 export function MR_StdUniquePtr_SetIntLvalueRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetIntLvalueRef(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetIntLvalueRef(__a0);
     ffi.check();
 }
 
@@ -144,7 +145,8 @@ export function MR_StdUniquePtr_GetClass()
 
 export function MR_StdUniquePtr_SetClass(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClass(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClass(__a0);
     ffi.check();
 }
 
@@ -156,7 +158,8 @@ export function MR_StdUniquePtr_SetClassConstRef(_1)
 
 export function MR_StdUniquePtr_SetClassDefTrivial(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassDefTrivial(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassDefTrivial(__a0);
     ffi.check();
 }
 
@@ -168,7 +171,8 @@ export function MR_StdUniquePtr_SetClassDef(_1)
 
 export function MR_StdUniquePtr_SetClassLvalueRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassLvalueRef(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassLvalueRef(__a0);
     ffi.check();
 }
 
@@ -180,13 +184,15 @@ export function MR_StdUniquePtr_SetClassLvalueConstRef(_1)
 
 export function MR_StdUniquePtr_SetClassRvalueRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassRvalueRef(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassRvalueRef(__a0);
     ffi.check();
 }
 
 export function MR_StdUniquePtr_SetClassRvalueConstRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassRvalueConstRef(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassRvalueConstRef(__a0);
     ffi.check();
 }
 
@@ -199,13 +205,15 @@ export function MR_StdUniquePtr_GetClassArr()
 
 export function MR_StdUniquePtr_SetClassArr(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassArr(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassArr(__a0);
     ffi.check();
 }
 
 export function MR_StdUniquePtr_SetClassArrDefTrivial(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetClassArrDefTrivial(BigInt(ffi.nonNull(_1, "_1").release()));
+    const __a0 = BigInt(ffi.nonNull(_1, "_1").release());
+    ffi.C.MR_StdUniquePtr_SetClassArrDefTrivial(__a0);
     ffi.check();
 }
 
@@ -219,14 +227,14 @@ export function MR_StdUniquePtr_GetConstInt()
 {
     const __ret = ffi.C.MR_StdUniquePtr_GetConstInt();
     ffi.check();
-    return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+    return ffi.HEAP32()[(Number(__ret)) / 4];
 }
 
 export function MR_StdUniquePtr_GetConstIntArr()
 {
     const __ret = ffi.C.MR_StdUniquePtr_GetConstIntArr();
     ffi.check();
-    return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+    return ffi.HEAP32()[(Number(__ret)) / 4];
 }
 
 export function MR_StdUniquePtr_GetConstClass()

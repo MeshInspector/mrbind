@@ -16,6 +16,7 @@ export class MR_SeparateB extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SeparateB_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -25,6 +26,10 @@ export class MR_SeparateB extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -48,6 +53,7 @@ export class MR_SeparateB extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SeparateB_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -58,6 +64,10 @@ export class MR_SeparateB extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -82,6 +92,7 @@ export class MR_SeparateB extends ffi.CppObject
 
 export function MR_GetSeparateVecB()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_GetSeparateVecB();
@@ -91,6 +102,10 @@ export function MR_GetSeparateVecB()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

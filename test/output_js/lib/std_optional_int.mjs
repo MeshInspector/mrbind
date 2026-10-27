@@ -30,7 +30,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = other;});
             const __ret = ffi.C.MR_C_std_optional_int_ConstructFrom(__ptr_other);
             ffi.check();
             return (__ret >>> 0);
@@ -74,7 +74,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = other;});
             ffi.C.MR_C_std_optional_int_AssignFrom(this.rawPointer(), __ptr_other);
             ffi.check();
         }
@@ -95,7 +95,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_optional_int_value(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     value_mut()

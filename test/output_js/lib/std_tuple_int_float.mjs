@@ -64,7 +64,7 @@ export class MR_C_std_tuple_int_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_tuple_int_float_get_int(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     get_int_mut()
@@ -78,7 +78,7 @@ export class MR_C_std_tuple_int_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_tuple_int_float_get_float(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
     }
 
     get_float_mut()

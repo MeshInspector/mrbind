@@ -35,4 +35,4 @@ export declare function foo(_1: L.MR_C_std_vector_uint64_t): L.MR_C_std_vector_u
  * Calls `MR_TestSizeT_foo_std_vector_int64_t()`.
  */
 export declare function foo(_1: L.MR_C_std_vector_int64_t): L.MR_C_std_vector_int64_t;
-/** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

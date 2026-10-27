@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_StdVariant_foo()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdVariant_foo();
@@ -14,10 +15,15 @@ export function MR_StdVariant_foo()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdVariant_bar(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdVariant_bar(ffi.ptrNonNull(_1, "_1"));
@@ -27,10 +33,15 @@ export function MR_StdVariant_bar(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdVariant_baz(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdVariant_baz(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -40,10 +51,15 @@ export function MR_StdVariant_baz(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdVariant_blah()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdVariant_blah();
@@ -53,6 +69,10 @@ export function MR_StdVariant_blah()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

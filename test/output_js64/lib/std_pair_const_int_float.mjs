@@ -58,14 +58,14 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_pair_const_int_float_first(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     second()
     {
         const __ret = ffi.C.MR_C_std_pair_const_int_float_second(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     second_mut()

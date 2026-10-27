@@ -30,8 +30,8 @@ export class MR_C_std_list_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
-            const __ret = ffi.C.MR_C_std_list_int_ConstructFromRange(BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
+            const __ret = ffi.C.MR_C_std_list_int_ConstructFromRange(BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
             return Number(__ret);
         }
@@ -94,8 +94,8 @@ export class MR_C_std_list_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
-            ffi.C.MR_C_std_list_int_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
+            ffi.C.MR_C_std_list_int_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
         }
         finally
@@ -120,13 +120,13 @@ export class MR_C_std_list_int extends ffi.CppObject
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_list_int_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_list_int_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_list_int_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), value);
+        ffi.C.MR_C_std_list_int_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), value);
         ffi.check();
     }
 
@@ -140,7 +140,7 @@ export class MR_C_std_list_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_list_int_front(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     front_mut()
@@ -154,7 +154,7 @@ export class MR_C_std_list_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_list_int_back(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     back_mut()
@@ -331,7 +331,7 @@ export class MR_C_std_list_int_const_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_list_int_const_iterator_deref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     incr()

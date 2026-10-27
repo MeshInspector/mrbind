@@ -28,7 +28,7 @@ export declare class MR_C_std_list_int extends ffi.CppObject
      * Calls `MR_C_std_list_int_ConstructFromRange()`.
      */
     constructor(ptr: number | null | undefined, size: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -43,7 +43,7 @@ export declare class MR_C_std_list_int extends ffi.CppObject
      * Calls `MR_C_std_list_int_is_begin_mut()`.
      */
     is_begin(iter: L.MR_C_std_list_int_iterator): boolean;
-    /** The overloads of `is_begin` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `is_begin` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Tests whether a const iterator is the end iterator.
      *
@@ -56,7 +56,7 @@ export declare class MR_C_std_list_int extends ffi.CppObject
      * Calls `MR_C_std_list_int_is_end_mut()`.
      */
     is_end(iter: L.MR_C_std_list_int_iterator): boolean;
-    /** The overloads of `is_end` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `is_end` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Assigns the contents from another instance. Both objects remain alive after the call.
      * The reference to the parameter `other` might be preserved in this object.
@@ -256,7 +256,7 @@ export declare class MR_C_std_list_int_const_iterator extends ffi.CppObject
      * Calls `MR_C_std_list_int_const_iterator_from_mutable()`.
      */
     constructor(iter: L.MR_C_std_list_int_iterator);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -307,7 +307,7 @@ export declare class MR_C_std_list_int_iterator extends ffi.CppObject
      * Calls `MR_C_std_list_int_iterator_ConstructFromAnother()`.
      */
     constructor(other: L.MR_C_std_list_int_iterator);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

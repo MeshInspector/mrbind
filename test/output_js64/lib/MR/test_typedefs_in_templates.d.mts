@@ -24,7 +24,7 @@ export declare class MR_TypedefsInTemplates_A_int extends ffi.CppObject
      * Calls `MR_TypedefsInTemplates_A_int_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_TypedefsInTemplates_A_int);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -62,7 +62,7 @@ export declare class MR_TypedefsInTemplates_B_int extends ffi.CppObject
      * Calls `MR_TypedefsInTemplates_B_int_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_TypedefsInTemplates_B_int);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -94,7 +94,7 @@ export declare class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
      * Calls `MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_TypedefsInTemplates_B_int_BB_float);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

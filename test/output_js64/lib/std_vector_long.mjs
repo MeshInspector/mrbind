@@ -30,8 +30,8 @@ export class MR_C_std_vector_long extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.M.HEAPU64[(p) >>> 3] = BigInt(BigInt(ptr));});
-            const __ret = ffi.C.MR_C_std_vector_long_ConstructFromRange(BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.HEAPU64()[(p) / 8] = ffi.toI64(ptr);});
+            const __ret = ffi.C.MR_C_std_vector_long_ConstructFromRange(BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
             return Number(__ret);
         }
@@ -74,8 +74,8 @@ export class MR_C_std_vector_long extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.M.HEAPU64[(p) >>> 3] = BigInt(BigInt(ptr));});
-            ffi.C.MR_C_std_vector_long_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), BigInt(size));
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.HEAPU64()[(p) / 8] = ffi.toI64(ptr);});
+            ffi.C.MR_C_std_vector_long_AssignFromRange(BigInt(this.rawPointer()), BigInt(__ptr_ptr), ffi.toI64(size));
             ffi.check();
         }
         finally
@@ -100,13 +100,13 @@ export class MR_C_std_vector_long extends ffi.CppObject
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_vector_long_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_vector_long_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_vector_long_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), BigInt(value));
+        ffi.C.MR_C_std_vector_long_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), ffi.toI64(value));
         ffi.check();
     }
 
@@ -125,7 +125,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
 
     reserve(new_capacity)
     {
-        ffi.C.MR_C_std_vector_long_reserve(BigInt(this.rawPointer()), BigInt(new_capacity));
+        ffi.C.MR_C_std_vector_long_reserve(BigInt(this.rawPointer()), ffi.toI64(new_capacity));
         ffi.check();
     }
 
@@ -137,14 +137,14 @@ export class MR_C_std_vector_long extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_long_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_long_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
-        return Number(ffi.M.HEAP64[(Number(__ret)) >>> 3]);
+        return Number(ffi.HEAP64()[(Number(__ret)) / 8]);
     }
 
     at_mut(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_long_at_mut(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_long_at_mut(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         return Number(__ret);
     }
@@ -153,7 +153,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_vector_long_front(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : Number(ffi.M.HEAP64[(Number(__ret)) >>> 3]));
+        return (Number(__ret) === 0 ? null : Number(ffi.HEAP64()[(Number(__ret)) / 8]));
     }
 
     front_mut()
@@ -167,7 +167,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_vector_long_back(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : Number(ffi.M.HEAP64[(Number(__ret)) >>> 3]));
+        return (Number(__ret) === 0 ? null : Number(ffi.HEAP64()[(Number(__ret)) / 8]));
     }
 
     back_mut()
@@ -193,7 +193,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
 
     push_back(new_elem)
     {
-        ffi.C.MR_C_std_vector_long_push_back(BigInt(this.rawPointer()), BigInt(new_elem));
+        ffi.C.MR_C_std_vector_long_push_back(BigInt(this.rawPointer()), ffi.toI64(new_elem));
         ffi.check();
     }
 
@@ -205,13 +205,13 @@ export class MR_C_std_vector_long extends ffi.CppObject
 
     insert(position, new_elem)
     {
-        ffi.C.MR_C_std_vector_long_insert(BigInt(this.rawPointer()), BigInt(position), BigInt(new_elem));
+        ffi.C.MR_C_std_vector_long_insert(BigInt(this.rawPointer()), ffi.toI64(position), ffi.toI64(new_elem));
         ffi.check();
     }
 
     erase(position)
     {
-        ffi.C.MR_C_std_vector_long_erase(BigInt(this.rawPointer()), BigInt(position));
+        ffi.C.MR_C_std_vector_long_erase(BigInt(this.rawPointer()), ffi.toI64(position));
         ffi.check();
     }
 
@@ -247,7 +247,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __n = Number(ffi.cppCall(() => ffi.C.MR_C_std_vector_long_size(BigInt(this.rawPointer()))));
         const __p = Number(ffi.cppCall(() => ffi.C.MR_C_std_vector_long_data(BigInt(this.rawPointer()))));
-        return ffi.typedArrayCopy(BigInt64Array, __p, __n * 1);
+        return Array.from(ffi.typedArrayAt(BigInt64Array, __p, __n * 1), Number);
     }
 
     view()
@@ -260,9 +260,10 @@ export class MR_C_std_vector_long extends ffi.CppObject
     setFromArray(array)
     {
         const __n = Math.floor(array.length / 1);
-        ffi.cppCall(() => ffi.C.MR_C_std_vector_long_resize(BigInt(this.rawPointer()), BigInt(__n)));
+        ffi.cppCall(() => ffi.C.MR_C_std_vector_long_resize(BigInt(this.rawPointer()), ffi.toI64(__n)));
         const __p = Number(ffi.cppCall(() => ffi.C.MR_C_std_vector_long_data_mut(BigInt(this.rawPointer()))));
-        ffi.typedArrayAt(BigInt64Array, __p, __n * 1).set(array.length === __n * 1 ? array : Array.prototype.slice.call(array, 0, __n * 1));
+        const __src = Array.from(array, ffi.toI64);
+        ffi.typedArrayAt(BigInt64Array, __p, __n * 1).set(__src.length === __n * 1 ? __src : __src.slice(0, __n * 1));
     }
 
     static fromArray(array)

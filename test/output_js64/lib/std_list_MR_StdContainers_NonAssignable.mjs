@@ -87,13 +87,13 @@ export class MR_C_std_list_MR_StdContainers_NonAssignable extends ffi.CppObject
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), BigInt(ffi.ptrNonNull(value, "value")));
+        ffi.C.MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), BigInt(ffi.ptrNonNull(value, "value")));
         ffi.check();
     }
 

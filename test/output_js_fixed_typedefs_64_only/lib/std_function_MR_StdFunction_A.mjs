@@ -13,6 +13,7 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_A_DefaultConstruct();
@@ -23,11 +24,16 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_StdFunction_A.of(other) : other;
@@ -41,6 +47,7 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
@@ -68,6 +75,7 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
     assignFromAnother(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_StdFunction_A.of(other) : other;
@@ -80,12 +88,14 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_A_has_value(this.rawPointer());
@@ -96,10 +106,15 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reset()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_function_MR_StdFunction_A_reset(this.rawPointer());
@@ -109,10 +124,15 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     call()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_A_call(this.rawPointer());
@@ -123,6 +143,10 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __stub = 0;
@@ -132,7 +156,7 @@ export class MR_C_std_function_MR_StdFunction_A extends ffi.CppObject
         try
         {
             const __ret = func();
-            ffi.M.HEAP32[(_return_pass_by >>> 0) >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;
+            ffi.HEAPU32()[((_return_pass_by >>> 0)) >>> 2] = ffi.PASS_BY_MOVE_AND_DESTROY;
             return ffi.nonNull(__ret, "the callback result").release();
         }
         catch (__e)

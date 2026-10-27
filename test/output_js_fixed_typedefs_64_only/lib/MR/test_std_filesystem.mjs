@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_StdFilesystem_GetPath()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdFilesystem_GetPath();
@@ -13,6 +14,10 @@ export function MR_StdFilesystem_GetPath()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
@@ -62,7 +67,7 @@ export function MR_StdFilesystem_SetPathDefTrivial(_1)
     try
     {
         const __str__1 = _1 == null ? 0 : ffi.utf8(_1);
-        const __end__1 = ffi.utf8End();
+        const __end__1 = _1 == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdFilesystem_SetPathDefTrivial(__str__1, __end__1);
         ffi.check();
     }
@@ -82,7 +87,7 @@ export function MR_StdFilesystem_SetPathDef(_1)
     try
     {
         const __str__1 = _1 == null ? 0 : ffi.utf8(_1);
-        const __end__1 = ffi.utf8End();
+        const __end__1 = _1 == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdFilesystem_SetPathDef(__str__1, __end__1);
         ffi.check();
     }

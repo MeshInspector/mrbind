@@ -30,7 +30,7 @@ export class MR_C_phmap_parallel_node_hash_set_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_phmap_parallel_node_hash_set_int_ConstructFromRange(__ptr_ptr, size);
             ffi.check();
             return (__ret >>> 0);
@@ -74,7 +74,7 @@ export class MR_C_phmap_parallel_node_hash_set_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_phmap_parallel_node_hash_set_int_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
@@ -109,7 +109,7 @@ export class MR_C_phmap_parallel_node_hash_set_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_phmap_parallel_node_hash_set_int_contains(this.rawPointer(), __ptr_key);
             ffi.check();
             return (__ret !== 0);
@@ -125,7 +125,7 @@ export class MR_C_phmap_parallel_node_hash_set_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_phmap_parallel_node_hash_set_int_find(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_phmap_parallel_node_hash_set_int_const_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -224,7 +224,7 @@ export class MR_C_phmap_parallel_node_hash_set_int_const_iterator extends ffi.Cp
     {
         const __ret = ffi.C.MR_C_phmap_parallel_node_hash_set_int_const_iterator_deref(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     incr()

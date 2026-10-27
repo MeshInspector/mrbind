@@ -20,20 +20,26 @@ export class MR_UsingDecls_A extends ffi.CppObject
 
     static get StaticVar()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_Get_StaticVar();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set StaticVar(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_UsingDecls_A_Set_StaticVar(value);
@@ -43,24 +49,34 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get Field()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_Get_Field(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set Field(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_UsingDecls_A_Set_Field(this.rawPointer(), value);
@@ -70,10 +86,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -84,10 +105,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_Construct(_1);
@@ -97,6 +123,10 @@ export class MR_UsingDecls_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -122,6 +152,7 @@ export class MR_UsingDecls_A extends ffi.CppObject
 
     static StaticFunc()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_UsingDecls_A_StaticFunc();
@@ -131,10 +162,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_int32_t()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_ConvertTo_int32_t(this.rawPointer());
@@ -145,10 +181,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -160,10 +201,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_UsingDecls_A_assign(this.rawPointer(), _1);
@@ -173,10 +219,15 @@ export class MR_UsingDecls_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     Method()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_UsingDecls_A_Method(this.rawPointer());
@@ -185,6 +236,10 @@ export class MR_UsingDecls_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -203,6 +258,7 @@ export class MR_UsingDecls_B extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_B_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -212,6 +268,10 @@ export class MR_UsingDecls_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -235,6 +295,7 @@ export class MR_UsingDecls_B extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_UsingDecls_B_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -245,6 +306,10 @@ export class MR_UsingDecls_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 

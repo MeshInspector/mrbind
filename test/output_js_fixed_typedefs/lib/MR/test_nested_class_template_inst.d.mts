@@ -22,7 +22,7 @@ export declare class MR_NestedTemplateInst_A_int32_t extends ffi.CppObject
      * Calls `MR_NestedTemplateInst_A_int32_t_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_NestedTemplateInst_A_int32_t);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -55,7 +55,7 @@ export declare class MR_NestedTemplateInst_A_int32_t_AA_float extends ffi.CppObj
      * Calls `MR_NestedTemplateInst_A_int32_t_AA_float_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_NestedTemplateInst_A_int32_t_AA_float);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

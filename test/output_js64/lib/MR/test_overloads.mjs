@@ -55,7 +55,7 @@ export function MR_Overloads_e_const_int_ref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_Overloads_e_const_int_ref(BigInt(__ptr__1), BigInt(_2));
         ffi.check();
     }
@@ -94,7 +94,7 @@ export function MR_Overloads_f_const_int_ref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
         ffi.C.MR_Overloads_f_const_int_ref(BigInt(__ptr__1), _2);
         ffi.check();
     }

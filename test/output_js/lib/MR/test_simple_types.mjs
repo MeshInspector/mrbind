@@ -38,7 +38,7 @@ export class MR_TestSimpleTypes_ClassTemplate_unsigned_long extends ffi.CppObjec
     {
         const __ret = ffi.C.MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long();
         ffi.check();
-        return ffi.M.HEAPU32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAPU32()[((__ret >>> 0)) >>> 2];
     }
 
     static set var(value)
@@ -127,7 +127,7 @@ export function MR_TestSimpleTypes_SetIntDef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
         ffi.C.MR_TestSimpleTypes_SetIntDef(__ptr__1);
         ffi.check();
     }
@@ -274,7 +274,7 @@ export function MR_TestSimpleTypes_SetEnumDef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
         ffi.C.MR_TestSimpleTypes_SetEnumDef(__ptr__1);
         ffi.check();
     }
@@ -346,7 +346,7 @@ export function MR_TestSimpleTypes_SetEnum2Def(_1)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(2, (p) => {ffi.M.HEAPU16[(p) >>> 1] = ((_1 << 16) >> 16);});
+        const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) >>> 1] = _1;});
         ffi.C.MR_TestSimpleTypes_SetEnum2Def(__ptr__1);
         ffi.check();
     }

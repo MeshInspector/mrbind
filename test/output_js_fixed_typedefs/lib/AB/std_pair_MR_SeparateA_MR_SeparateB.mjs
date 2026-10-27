@@ -13,6 +13,7 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
 
     static __ctor_0(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -23,10 +24,15 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(first, second)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(ffi.PASS_BY_COPY, ffi.ptrNonNull(first, "first"), ffi.PASS_BY_COPY, ffi.ptrNonNull(second, "second"));
@@ -36,6 +42,10 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -70,10 +81,15 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     first()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(this.rawPointer());
@@ -85,10 +101,15 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     first_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(this.rawPointer());
@@ -100,10 +121,15 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(this.rawPointer());
@@ -115,10 +141,15 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(this.rawPointer());
@@ -129,6 +160,10 @@ export class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

@@ -34,7 +34,7 @@ export declare class MR_OverloadedOps_A extends ffi.CppObject
      * Calls `MR_C_add_MR_OverloadedOps_A()`.
      */
     opAdd(_1: L.MR_OverloadedOps_A): number;
-    /** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Unary minus.
      * Generated from method `MR::OverloadedOps::A::operator-`.
@@ -49,7 +49,7 @@ export declare class MR_OverloadedOps_A extends ffi.CppObject
      * Calls `MR_C_sub_MR_OverloadedOps_A()`.
      */
     opSub(_1: L.MR_OverloadedOps_A): number;
-    /** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Dereference (unary star).
      * Generated from method `MR::OverloadedOps::A::operator*`.
@@ -64,7 +64,7 @@ export declare class MR_OverloadedOps_A extends ffi.CppObject
      * Calls `MR_C_mul_MR_OverloadedOps_A()`.
      */
     opMul(_1: L.MR_OverloadedOps_A): number;
-    /** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Assign.
      * Generated from method `MR::OverloadedOps::A::operator=`.
@@ -397,7 +397,7 @@ export declare class MR_OverloadedOps_B extends ffi.CppObject
      * Calls `MR_OverloadedOps_B_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_OverloadedOps_B);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -430,7 +430,7 @@ export declare class MR_OverloadedOps_C extends ffi.CppObject
      * Calls `MR_OverloadedOps_C_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_OverloadedOps_C);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -462,7 +462,7 @@ export declare class MR_OverloadedOps_D extends ffi.CppObject
      * Calls `MR_OverloadedOps_D_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_OverloadedOps_D);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

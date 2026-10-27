@@ -13,20 +13,26 @@ export class MR_StaticFuncs_A extends ffi.CppObject
 
     static get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StaticFuncs_A_Get_x();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_StaticFuncs_A_Set_x(value);
@@ -36,10 +42,15 @@ export class MR_StaticFuncs_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StaticFuncs_A_DefaultConstruct();
@@ -50,10 +61,15 @@ export class MR_StaticFuncs_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StaticFuncs_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -63,6 +79,10 @@ export class MR_StaticFuncs_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -88,6 +108,7 @@ export class MR_StaticFuncs_A extends ffi.CppObject
 
     static blah()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_StaticFuncs_A_blah();
@@ -97,10 +118,15 @@ export class MR_StaticFuncs_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StaticFuncs_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -111,6 +137,10 @@ export class MR_StaticFuncs_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

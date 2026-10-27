@@ -28,7 +28,7 @@ export function MR_StdStringView_SetWithDefault(s)
     try
     {
         const __str_s = s == null ? 0 : ffi.utf8(s);
-        const __end_s = ffi.utf8End();
+        const __end_s = s == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdStringView_SetWithDefault(__str_s, __end_s);
         ffi.check();
     }
@@ -44,6 +44,7 @@ export function MR_StdStringView_SetWithDefault(s)
 
 export function MR_StdStringView_Get()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdStringView_Get();
@@ -54,10 +55,15 @@ export function MR_StdStringView_Get()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdStringView_WriteToRef(ref)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdStringView_WriteToRef(ffi.ptrNonNull(ref, "ref"));
@@ -67,10 +73,15 @@ export function MR_StdStringView_WriteToRef(ref)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdStringView_WriteToPtr(ptr)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdStringView_WriteToPtr(ffi.ptr(ptr));
@@ -79,6 +90,10 @@ export function MR_StdStringView_WriteToPtr(ptr)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

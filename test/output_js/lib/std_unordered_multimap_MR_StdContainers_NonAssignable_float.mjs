@@ -247,7 +247,7 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_co
     {
         const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
     }
 
     incr()

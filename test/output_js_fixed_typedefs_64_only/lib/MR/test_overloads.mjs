@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_Overloads_a_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_a_1(_1);
@@ -13,10 +14,15 @@ export function MR_Overloads_a_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_a_2(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_a_2(_1, _2);
@@ -26,10 +32,15 @@ export function MR_Overloads_a_2(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_b_int()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_b_int();
@@ -39,10 +50,15 @@ export function MR_Overloads_b_int()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_b_float()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_b_float();
@@ -52,10 +68,15 @@ export function MR_Overloads_b_float()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_c_int(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_c_int(_1);
@@ -65,10 +86,15 @@ export function MR_Overloads_c_int(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_c_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_c_float(_1);
@@ -78,10 +104,15 @@ export function MR_Overloads_c_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_d_int(_1, _2, _3)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_d_int(((_1 << 24) >> 24), _2, ((_3 << 24) >> 24));
@@ -91,10 +122,15 @@ export function MR_Overloads_d_int(_1, _2, _3)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_d_float(_1, _2, _3)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_d_float(((_1 << 24) >> 24), _2, ((_3 << 24) >> 24));
@@ -104,6 +140,10 @@ export function MR_Overloads_d_float(_1, _2, _3)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_e_const_int_ref(_1, _2)
@@ -111,7 +151,7 @@ export function MR_Overloads_e_const_int_ref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
         ffi.C.MR_Overloads_e_const_int_ref(__ptr__1, _2);
         ffi.check();
     }
@@ -127,6 +167,7 @@ export function MR_Overloads_e_const_int_ref(_1, _2)
 
 export function MR_Overloads_e_int_rvalue_ref_int(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_e_int_rvalue_ref_int(_1, _2);
@@ -136,10 +177,15 @@ export function MR_Overloads_e_int_rvalue_ref_int(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_e_int_rvalue_ref_float(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_e_int_rvalue_ref_float(_1, _2);
@@ -149,10 +195,15 @@ export function MR_Overloads_e_int_rvalue_ref_float(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_f_float(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_f_float(_1, _2);
@@ -162,10 +213,15 @@ export function MR_Overloads_f_float(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_f_int_rvalue_ref(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Overloads_f_int_rvalue_ref(_1, _2);
@@ -175,6 +231,10 @@ export function MR_Overloads_f_int_rvalue_ref(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Overloads_f_const_int_ref(_1, _2)
@@ -182,7 +242,7 @@ export function MR_Overloads_f_const_int_ref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _1;});
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
         ffi.C.MR_Overloads_f_const_int_ref(__ptr__1, _2);
         ffi.check();
     }

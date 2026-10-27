@@ -13,6 +13,7 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(first, second)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(ffi.PASS_BY_COPY, ffi.ptrNonNull(first, "first"), second);
@@ -36,6 +42,10 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
 
     first()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(this.rawPointer());
@@ -72,24 +83,34 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(this.rawPointer());
@@ -99,6 +120,10 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

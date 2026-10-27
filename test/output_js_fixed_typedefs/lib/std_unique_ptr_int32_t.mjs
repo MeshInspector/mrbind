@@ -13,6 +13,7 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unique_ptr_int32_t_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unique_ptr_int32_t_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unique_ptr_int32_t_ConstructFrom(other);
@@ -50,6 +61,10 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -77,6 +92,7 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unique_ptr_int32_t_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -86,10 +102,15 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFrom(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_unique_ptr_int32_t_AssignFrom(this.rawPointer(), other);
@@ -99,10 +120,15 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unique_ptr_int32_t_get(this.rawPointer());
@@ -113,10 +139,15 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     release_2()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_unique_ptr_int32_t_release(this.rawPointer());
@@ -126,6 +157,10 @@ export class MR_C_std_unique_ptr_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

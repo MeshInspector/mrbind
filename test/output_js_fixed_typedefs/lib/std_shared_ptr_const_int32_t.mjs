@@ -13,6 +13,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConstructFromValue(value);
@@ -51,6 +62,10 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_4(ptr)
@@ -58,7 +73,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConstructNonOwning(__ptr_ptr);
             ffi.check();
             return (__ret >>> 0);
@@ -75,6 +90,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
 
     static __ctor_5(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConstructFromMutable(ffi.PASS_BY_COPY, ffi.ptrNonNull(ptr, "ptr"));
@@ -85,6 +101,10 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_6(ownership, ptr)
@@ -92,7 +112,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConstructAliasing(ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), __ptr_ptr);
             ffi.check();
             return (__ret >>> 0);
@@ -134,7 +154,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_Construct(__ptr_ptr);
             ffi.check();
             return new L.MR_C_std_shared_ptr_const_int32_t(ffi.RAW, (__ret >>> 0), true, null);
@@ -161,6 +181,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_const_int32_t_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -170,24 +191,34 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_get(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_has_value(this.rawPointer());
@@ -198,10 +229,15 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     use_count()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_use_count(this.rawPointer());
@@ -212,10 +248,15 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reset()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_const_int32_t_reset(this.rawPointer());
@@ -225,6 +266,10 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assign(ptr)
@@ -232,7 +277,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int32_t_Assign(this.rawPointer(), __ptr_ptr);
             ffi.check();
         }
@@ -251,7 +296,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int32_t_AssignNonOwning(this.rawPointer(), __ptr_ptr);
             ffi.check();
         }
@@ -267,6 +312,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
 
     assignFromMutable(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_const_int32_t_AssignFromMutable(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ptr, "ptr"));
@@ -276,6 +322,10 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAliasing(ownership, ptr)
@@ -283,7 +333,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int32_t_AssignAliasing(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), __ptr_ptr);
             ffi.check();
         }
@@ -299,6 +349,7 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
 
     convertTo_MR_C_std_shared_ptr_const_void()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int32_t_ConvertTo_MR_C_std_shared_ptr_const_void(this.rawPointer());
@@ -309,10 +360,15 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignTo_MR_C_std_shared_ptr_const_void(_target)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_const_int32_t_AssignTo_MR_C_std_shared_ptr_const_void(this.rawPointer(), ffi.ptrNonNull(_target, "_target"));
@@ -321,6 +377,10 @@ export class MR_C_std_shared_ptr_const_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

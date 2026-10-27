@@ -13,6 +13,7 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -84,20 +94,26 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
 
     get_const_int()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_get_const_int(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_get_std_string(this.rawPointer());
@@ -109,10 +125,15 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_get_std_string_mut(this.rawPointer());
@@ -123,6 +144,10 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

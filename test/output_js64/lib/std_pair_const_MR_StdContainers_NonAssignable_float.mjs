@@ -57,7 +57,7 @@ export class MR_C_std_pair_const_MR_StdContainers_NonAssignable_float extends ff
     {
         const __ret = ffi.C.MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     second_mut()

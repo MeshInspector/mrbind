@@ -30,7 +30,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_deque_int_ConstructFromRange(__ptr_ptr, size);
             ffi.check();
             return (__ret >>> 0);
@@ -104,7 +104,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_deque_int_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
@@ -150,7 +150,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_deque_int_at(this.rawPointer(), i);
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     at_mut(i)
@@ -164,7 +164,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_deque_int_front(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     front_mut()
@@ -178,7 +178,7 @@ export class MR_C_std_deque_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_deque_int_back(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     back_mut()
@@ -381,7 +381,7 @@ export class MR_C_std_deque_int_const_iterator extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_deque_int_const_iterator_deref(this.rawPointer());
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     incr()

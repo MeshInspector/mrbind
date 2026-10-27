@@ -13,6 +13,7 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(_0, _1, _2, _3)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_Construct(_0, _1, _2, _3);
@@ -50,6 +61,10 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -77,6 +92,7 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_tuple_float_double_int_int_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -86,24 +102,34 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_float(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_float_mut(this.rawPointer());
@@ -114,24 +140,34 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_double()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_double(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF64[((__ret >>> 0)) >>> 3];
+            return ffi.HEAPF64()[((__ret >>> 0)) >>> 3];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_double_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_double_mut(this.rawPointer());
@@ -142,24 +178,34 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_2()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_int_2(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_2_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_int_2_mut(this.rawPointer());
@@ -170,24 +216,34 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_3()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_int_3(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_int_3_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_float_double_int_int_get_int_3_mut(this.rawPointer());
@@ -197,6 +253,10 @@ export class MR_C_std_tuple_float_double_int_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

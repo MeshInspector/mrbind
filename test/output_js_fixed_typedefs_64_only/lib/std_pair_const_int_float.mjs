@@ -13,6 +13,7 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(first, second)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_Construct(first, second);
@@ -50,6 +61,10 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -77,34 +92,45 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
 
     first()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_first(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     second()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_second(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     second_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_pair_const_int_float_second_mut(this.rawPointer());
@@ -114,6 +140,10 @@ export class MR_C_std_pair_const_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

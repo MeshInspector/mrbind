@@ -12,40 +12,46 @@ export class MR_MatchingLayout_A extends ffi.CppStruct
     static SIZE = 120;
     static ALIGNMENT = 8;
 
-    get a() {return ffi.M.HEAP32[(this.rawPointer() + 0) >>> 2];}
-    set a(value) {ffi.M.HEAPU32[(this.rawPointer() + 0) >>> 2] = value;}
+    get a() {return ffi.HEAP32()[(this.rawPointer() + 0) >>> 2];}
+    set a(value) {ffi.HEAPU32()[(this.rawPointer() + 0) >>> 2] = value;}
 
-    get b() {return ffi.M.HEAP16[(this.rawPointer() + 4) >>> 1];}
-    set b(value) {ffi.M.HEAPU16[(this.rawPointer() + 4) >>> 1] = ((value << 16) >> 16);}
+    get b() {return ffi.HEAP16()[(this.rawPointer() + 4) >>> 1];}
+    set b(value) {ffi.HEAPU16()[(this.rawPointer() + 4) >>> 1] = value;}
 
-    get c() {return ffi.M.HEAPF32[(this.rawPointer() + 8) >>> 2];}
-    set c(value) {ffi.M.HEAPF32[(this.rawPointer() + 8) >>> 2] = value;}
+    get c() {return ffi.HEAPF32()[(this.rawPointer() + 8) >>> 2];}
+    set c(value) {ffi.HEAPF32()[(this.rawPointer() + 8) >>> 2] = value;}
 
-    get ll() {return ffi.M.HEAP64[(this.rawPointer() + 16) >>> 3];}
-    set ll(value) {ffi.M.HEAP64[(this.rawPointer() + 16) >>> 3] = ffi.toI64(ffi.toI64(value));}
+    get ll() {return ffi.HEAP64()[(this.rawPointer() + 16) >>> 3];}
+    set ll(value) {ffi.HEAP64()[(this.rawPointer() + 16) >>> 3] = ffi.toI64(value);}
 
-    getArr(i0) {return ffi.M.HEAP32[(this.rawPointer() + 24 + (i0) * 4) >>> 2];}
-    setArr(i0, value) {ffi.M.HEAPU32[(this.rawPointer() + 24 + (i0) * 4) >>> 2] = value;}
+    getArr(i0) {return ffi.HEAP32()[(this.rawPointer() + 24 + (i0) * 4) >>> 2];}
+    setArr(i0, value) {ffi.HEAPU32()[(this.rawPointer() + 24 + (i0) * 4) >>> 2] = value;}
 
-    getArr2d(i0, i1) {return ffi.M.HEAP32[(this.rawPointer() + 36 + ((i0) * 5 + i1) * 4) >>> 2];}
-    setArr2d(i0, i1, value) {ffi.M.HEAPU32[(this.rawPointer() + 36 + ((i0) * 5 + i1) * 4) >>> 2] = value;}
+    getArr2d(i0, i1) {return ffi.HEAP32()[(this.rawPointer() + 36 + ((i0) * 5 + i1) * 4) >>> 2];}
+    setArr2d(i0, i1, value) {ffi.HEAPU32()[(this.rawPointer() + 36 + ((i0) * 5 + i1) * 4) >>> 2] = value;}
 
     static get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MatchingLayout_A_Get_x();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_MatchingLayout_A_Set_x(value);
@@ -54,6 +60,10 @@ export class MR_MatchingLayout_A extends ffi.CppStruct
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -86,27 +96,33 @@ export class MR_MatchingLayout_B extends ffi.CppStruct
     static SIZE = 136;
     static ALIGNMENT = 8;
 
-    get x() {return ffi.M.HEAP16[(this.rawPointer() + 0) >>> 1];}
-    set x(value) {ffi.M.HEAPU16[(this.rawPointer() + 0) >>> 1] = ((value << 16) >> 16);}
+    get x() {return ffi.HEAP16()[(this.rawPointer() + 0) >>> 1];}
+    set x(value) {ffi.HEAPU16()[(this.rawPointer() + 0) >>> 1] = value;}
 
     get a() {return new L.MR_MatchingLayout_A(ffi.RAW, this.rawPointer() + 8, false, this);}
-    set a(value) {ffi.M.HEAPU8.copyWithin(this.rawPointer() + 8, ffi.ptrNonNull(value, "value"), ffi.ptrNonNull(value, "value") + 120);}
+    set a(value) {ffi.HEAPU8().copyWithin(this.rawPointer() + 8, ffi.ptrNonNull(value, "value"), ffi.ptrNonNull(value, "value") + 120);}
 
-    get y() {return ffi.M.HEAP8[this.rawPointer() + 128];}
-    set y(value) {ffi.M.HEAPU8[this.rawPointer() + 128] = ((value << 24) >> 24);}
+    get y() {return ffi.HEAP8()[this.rawPointer() + 128];}
+    set y(value) {ffi.HEAPU8()[this.rawPointer() + 128] = value;}
 
     static __ctor_0()
     {
+        const __sret = ffi.malloc(136);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(136);
             ffi.C.MR_MatchingLayout_B_DefaultConstruct(__sret);
             ffi.check();
             return __sret;
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -131,16 +147,22 @@ export class MR_MatchingLayout_B extends ffi.CppStruct
 
 export function MR_MatchingLayout_foo()
 {
+    const __sret = ffi.malloc(136);
+    const __sp = ffi.stackSave();
     try
     {
-        const __sret = ffi.malloc(136);
         ffi.C.MR_MatchingLayout_foo(__sret);
         ffi.check();
         return new L.MR_MatchingLayout_B(ffi.RAW, __sret, true, null);
     }
     catch (__e)
     {
+        ffi.free(__sret);
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
@@ -165,6 +187,7 @@ export function MR_MatchingLayout_bar(_1)
 
 export function MR_MatchingLayout_baz(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_MatchingLayout_baz(ffi.ptr(_1));
@@ -174,10 +197,15 @@ export function MR_MatchingLayout_baz(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_MatchingLayout_bleh(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_MatchingLayout_bleh(ffi.ptr(_1));
@@ -188,6 +216,10 @@ export function MR_MatchingLayout_bleh(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

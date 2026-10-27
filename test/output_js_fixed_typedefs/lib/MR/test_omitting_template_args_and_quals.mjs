@@ -15,6 +15,7 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_float_DefaultConstruct();
@@ -25,10 +26,15 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -38,6 +44,10 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -63,6 +73,7 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_float_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -74,10 +85,15 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opAdd()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_pos_MR_OmittingTargsAndQuals_A_float(this.rawPointer());
@@ -86,6 +102,10 @@ export class MR_OmittingTargsAndQuals_A_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -103,6 +123,7 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_int32_t_DefaultConstruct();
@@ -113,10 +134,15 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_int32_t_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -126,6 +152,10 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -151,6 +181,7 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OmittingTargsAndQuals_A_int32_t_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -162,10 +193,15 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opAdd()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_pos_MR_OmittingTargsAndQuals_A_int32_t(this.rawPointer());
@@ -175,10 +211,15 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opSub(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_sub_MR_OmittingTargsAndQuals_A_int32_t_MR_OmittingTargsAndQuals_A_float(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -188,11 +229,16 @@ export class MR_OmittingTargsAndQuals_A_int32_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int32_t(ffi.ptrNonNull(_1, "_1"));
@@ -202,10 +248,15 @@ export function MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int32_t(_1
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_OmittingTargsAndQuals_b(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_b(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -215,10 +266,15 @@ export function MR_OmittingTargsAndQuals_b(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(ffi.ptrNonNull(_1, "_1"));
@@ -228,10 +284,15 @@ export function MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_deref_MR_OmittingTargsAndQuals_A_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_deref_MR_OmittingTargsAndQuals_A_int32_t(ffi.ptrNonNull(_1, "_1"));
@@ -241,10 +302,15 @@ export function MR_C_deref_MR_OmittingTargsAndQuals_A_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_compl_MR_OmittingTargsAndQuals_A_int32_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_compl_MR_OmittingTargsAndQuals_A_int32_t(ffi.ptrNonNull(_1, "_1"));
@@ -254,10 +320,15 @@ export function MR_C_compl_MR_OmittingTargsAndQuals_A_int32_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_OmittingTargsAndQuals_c(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_c(ffi.ptrNonNull(_1, "_1"));
@@ -267,10 +338,15 @@ export function MR_OmittingTargsAndQuals_c(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_OmittingTargsAndQuals_d(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_d(ffi.ptrNonNull(_1, "_1"));
@@ -280,10 +356,15 @@ export function MR_OmittingTargsAndQuals_d(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_OmittingTargsAndQuals_inst()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_OmittingTargsAndQuals_inst();
@@ -292,6 +373,10 @@ export function MR_OmittingTargsAndQuals_inst()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

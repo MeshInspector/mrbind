@@ -88,4 +88,4 @@ export declare function foo(_1: L.MR_C_phmap_btree_multiset_int): void;
  * Calls `MR_Phmap_foo_phmap_btree_multimap_int_float()`.
  */
 export declare function foo(_1: L.MR_C_phmap_btree_multimap_int_float): void;
-/** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

@@ -14,6 +14,7 @@ export class MR_OverloadedOps_A extends ffi.CppObject
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -23,6 +24,10 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -76,6 +81,7 @@ export class MR_OverloadedOps_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -86,10 +92,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opPos()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_pos_MR_OverloadedOps_A(this.rawPointer());
@@ -100,10 +111,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opAdd_2(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_add_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -114,10 +130,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opNeg()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_neg_MR_OverloadedOps_A(this.rawPointer());
@@ -128,10 +149,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opSub_2(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_sub_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -142,10 +168,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opDeref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_deref_MR_OverloadedOps_A(this.rawPointer());
@@ -156,10 +187,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opMul_2(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_mul_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -170,10 +206,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opDiv(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_div_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -184,10 +225,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opMod(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_mod_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -198,10 +244,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opXor(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_xor_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -212,10 +263,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opBitand(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_bitand_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -226,10 +282,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opBitor(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_bitor_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -240,10 +301,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opCompl()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_compl_MR_OverloadedOps_A(this.rawPointer());
@@ -254,10 +320,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opNot()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_not_MR_OverloadedOps_A(this.rawPointer());
@@ -268,10 +339,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opLess(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_less_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -282,10 +358,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opGreater(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_greater_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -296,10 +377,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     add_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_add_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -310,10 +396,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     sub_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_sub_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -324,10 +415,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     mul_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_mul_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -338,10 +434,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     div_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_div_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -352,10 +453,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     mod_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_mod_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -366,10 +472,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     xor_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_xor_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -380,10 +491,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     bitand_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_bitand_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -394,10 +510,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     bitor_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_bitor_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -408,10 +529,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opLshift(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_lshift_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -422,10 +548,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opRshift(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_rshift_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -436,10 +567,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     lshift_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_lshift_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -450,10 +586,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     rshift_assign(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_rshift_assign(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -464,10 +605,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opEqual(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -478,10 +624,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opNotEqual(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -492,10 +643,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opLessEqual(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_less_equal_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -506,10 +662,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opGreaterEqual(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_greater_equal_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -520,10 +681,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opCompareThreeWay(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -534,10 +700,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opAnd(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_and_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -548,10 +719,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opOr(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_or_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -562,10 +738,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opIncr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_incr_MR_OverloadedOps_A(this.rawPointer());
@@ -576,10 +757,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opPostIncr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_post_incr_MR_OverloadedOps_A(this.rawPointer());
@@ -590,10 +776,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opDecr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_decr_MR_OverloadedOps_A(this.rawPointer());
@@ -604,10 +795,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opPostDecr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_post_decr_MR_OverloadedOps_A(this.rawPointer());
@@ -618,10 +814,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opComma(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_comma_MR_OverloadedOps_A(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -632,10 +833,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     arrow_star(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_arrow_star(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -646,10 +852,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     arrow()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_arrow(this.rawPointer());
@@ -660,10 +871,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     call(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_call(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -674,10 +890,15 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     index(_1)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_A_index(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
@@ -687,6 +908,10 @@ export class MR_OverloadedOps_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -703,6 +928,7 @@ export class MR_OverloadedOps_B extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_B_DefaultConstruct();
@@ -713,10 +939,15 @@ export class MR_OverloadedOps_B extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_B_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -726,6 +957,10 @@ export class MR_OverloadedOps_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -751,6 +986,7 @@ export class MR_OverloadedOps_B extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_B_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -761,6 +997,10 @@ export class MR_OverloadedOps_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -777,6 +1017,7 @@ export class MR_OverloadedOps_C extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_C_DefaultConstruct();
@@ -787,10 +1028,15 @@ export class MR_OverloadedOps_C extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_C_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -800,6 +1046,10 @@ export class MR_OverloadedOps_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -825,6 +1075,7 @@ export class MR_OverloadedOps_C extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_C_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -835,6 +1086,10 @@ export class MR_OverloadedOps_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -850,6 +1105,7 @@ export class MR_OverloadedOps_D extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_D_DefaultConstruct();
@@ -860,10 +1116,15 @@ export class MR_OverloadedOps_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_D_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -873,6 +1134,10 @@ export class MR_OverloadedOps_D extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -898,6 +1163,7 @@ export class MR_OverloadedOps_D extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_OverloadedOps_D_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -909,10 +1175,15 @@ export class MR_OverloadedOps_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opMul()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_deref_MR_OverloadedOps_D_ref(this.rawPointer());
@@ -923,10 +1194,15 @@ export class MR_OverloadedOps_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     opDeref_const_ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_deref_const_MR_OverloadedOps_D_ref(this.rawPointer());
@@ -937,11 +1213,16 @@ export class MR_OverloadedOps_D extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_pos_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_pos_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -952,10 +1233,15 @@ export function MR_C_pos_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_add_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_add_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -966,10 +1252,15 @@ export function MR_C_add_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_neg_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_neg_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -980,10 +1271,15 @@ export function MR_C_neg_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_sub_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_sub_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -994,10 +1290,15 @@ export function MR_C_sub_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_deref_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_deref_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1008,10 +1309,15 @@ export function MR_C_deref_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_mul_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_mul_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1022,10 +1328,15 @@ export function MR_C_mul_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_div_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_div_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1036,10 +1347,15 @@ export function MR_C_div_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_mod_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_mod_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1050,10 +1366,15 @@ export function MR_C_mod_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_xor_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_xor_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1064,10 +1385,15 @@ export function MR_C_xor_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_bitand_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_bitand_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1078,10 +1404,15 @@ export function MR_C_bitand_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_bitor_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_bitor_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1092,10 +1423,15 @@ export function MR_C_bitor_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_compl_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_compl_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1106,10 +1442,15 @@ export function MR_C_compl_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_not_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_not_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1120,10 +1461,15 @@ export function MR_C_not_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_less_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_less_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1134,10 +1480,15 @@ export function MR_C_less_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_greater_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_greater_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1148,10 +1499,15 @@ export function MR_C_greater_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_add_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_add_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1162,10 +1518,15 @@ export function MR_C_add_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_sub_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_sub_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1176,10 +1537,15 @@ export function MR_C_sub_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_mul_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_mul_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1190,10 +1556,15 @@ export function MR_C_mul_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_div_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_div_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1204,10 +1575,15 @@ export function MR_C_div_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_mod_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_mod_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1218,10 +1594,15 @@ export function MR_C_mod_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_xor_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_xor_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1232,10 +1613,15 @@ export function MR_C_xor_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_bitand_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_bitand_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1246,10 +1632,15 @@ export function MR_C_bitand_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_bitor_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_bitor_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1260,10 +1651,15 @@ export function MR_C_bitor_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_lshift_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_lshift_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1274,10 +1670,15 @@ export function MR_C_lshift_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_rshift_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_rshift_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1288,10 +1689,15 @@ export function MR_C_rshift_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_lshift_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_lshift_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1302,10 +1708,15 @@ export function MR_C_lshift_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_rshift_assign_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_rshift_assign_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1316,10 +1727,15 @@ export function MR_C_rshift_assign_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1330,10 +1746,15 @@ export function MR_C_equal_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_not_equal_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1344,10 +1765,15 @@ export function MR_C_not_equal_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_less_equal_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_less_equal_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1358,10 +1784,15 @@ export function MR_C_less_equal_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_greater_equal_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_greater_equal_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1372,10 +1803,15 @@ export function MR_C_greater_equal_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_compare_three_way_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1386,10 +1822,15 @@ export function MR_C_compare_three_way_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_and_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_and_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1400,10 +1841,15 @@ export function MR_C_and_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_or_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_or_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1414,10 +1860,15 @@ export function MR_C_or_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_incr_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_incr_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1428,10 +1879,15 @@ export function MR_C_incr_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_post_incr_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_post_incr_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1442,10 +1898,15 @@ export function MR_C_post_incr_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_decr_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_decr_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1456,10 +1917,15 @@ export function MR_C_decr_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_post_decr_MR_OverloadedOps_B(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_post_decr_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"));
@@ -1470,10 +1936,15 @@ export function MR_C_post_decr_MR_OverloadedOps_B(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_comma_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_comma_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1484,10 +1955,15 @@ export function MR_C_comma_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_arrow_star_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_arrow_star_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1498,10 +1974,15 @@ export function MR_C_arrow_star_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_add_MR_OverloadedOps_C(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_add_MR_OverloadedOps_C(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1511,10 +1992,15 @@ export function MR_C_add_MR_OverloadedOps_C(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_1, _2)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
@@ -1524,10 +2010,15 @@ export function MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_1, _2)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_pos_MR_OverloadedOps_D_ref(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_pos_MR_OverloadedOps_D_ref(ffi.ptrNonNull(_1, "_1"));
@@ -1538,10 +2029,15 @@ export function MR_C_pos_MR_OverloadedOps_D_ref(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_pos_const_MR_OverloadedOps_D_ref(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_pos_const_MR_OverloadedOps_D_ref(ffi.ptrNonNull(_1, "_1"));
@@ -1551,6 +2047,10 @@ export function MR_C_pos_const_MR_OverloadedOps_D_ref(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

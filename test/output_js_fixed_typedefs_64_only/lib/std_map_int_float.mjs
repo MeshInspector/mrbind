@@ -13,6 +13,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -36,6 +42,10 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -81,6 +91,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -90,10 +101,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_size(this.rawPointer());
@@ -104,10 +120,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_empty(this.rawPointer());
@@ -118,10 +139,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_clear(this.rawPointer());
@@ -131,6 +157,10 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     find_or_construct_elem(key)
@@ -138,7 +168,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_map_int_float_find_or_construct_elem(this.rawPointer(), __ptr_key);
             ffi.check();
             return (__ret >>> 0);
@@ -158,7 +188,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_map_int_float_contains(this.rawPointer(), __ptr_key);
             ffi.check();
             return (__ret !== 0);
@@ -178,7 +208,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_map_int_float_find(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_std_map_int_float_const_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -198,7 +228,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_map_int_float_find_mut(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_std_map_int_float_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -215,6 +245,7 @@ export class MR_C_std_map_int_float extends ffi.CppObject
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_begin(this.rawPointer());
@@ -225,10 +256,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -239,10 +275,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_begin_mut(this.rawPointer());
@@ -253,10 +294,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_is_begin_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -267,10 +313,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_end(this.rawPointer());
@@ -281,10 +332,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_is_end(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -295,10 +351,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_end_mut(this.rawPointer());
@@ -309,10 +370,15 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end_mut(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_is_end_mut(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -322,6 +388,10 @@ export class MR_C_std_map_int_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -337,6 +407,7 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_DefaultConstruct();
@@ -347,10 +418,15 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -361,10 +437,15 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_from_mutable(ffi.ptrNonNull(iter, "iter"));
@@ -374,6 +455,10 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -401,6 +486,7 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_const_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -410,10 +496,15 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_deref(this.rawPointer());
@@ -425,38 +516,53 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_key()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_deref_key(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     deref_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_const_iterator_deref_value(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAPF32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAPF32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_const_iterator_incr(this.rawPointer());
@@ -466,10 +572,15 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_const_iterator_decr(this.rawPointer());
@@ -478,6 +589,10 @@ export class MR_C_std_map_int_float_const_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -493,6 +608,7 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_iterator_DefaultConstruct();
@@ -503,10 +619,15 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -516,6 +637,10 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -541,6 +666,7 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -550,10 +676,15 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_iterator_deref(this.rawPointer());
@@ -565,24 +696,34 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_key()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_iterator_deref_key(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_map_int_float_iterator_deref_value(this.rawPointer());
@@ -593,10 +734,15 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_iterator_incr(this.rawPointer());
@@ -606,10 +752,15 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_map_int_float_iterator_decr(this.rawPointer());
@@ -619,11 +770,16 @@ export class MR_C_std_map_int_float_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_equal_MR_C_std_map_int_float_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_map_int_float_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -634,10 +790,15 @@ export function MR_C_equal_MR_C_std_map_int_float_const_iterator(a, b)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_equal_MR_C_std_map_int_float_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_map_int_float_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -647,6 +808,10 @@ export function MR_C_equal_MR_C_std_map_int_float_iterator(a, b)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

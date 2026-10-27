@@ -30,7 +30,7 @@ export class MR_C_std_optional_MR_StdOptional_E extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = other;});
             const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_E_ConstructFrom(BigInt(__ptr_other));
             ffi.check();
             return Number(__ret);
@@ -74,7 +74,7 @@ export class MR_C_std_optional_MR_StdOptional_E extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = other;});
             ffi.C.MR_C_std_optional_MR_StdOptional_E_AssignFrom(BigInt(this.rawPointer()), BigInt(__ptr_other));
             ffi.check();
         }
@@ -95,7 +95,7 @@ export class MR_C_std_optional_MR_StdOptional_E extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_optional_MR_StdOptional_E_value(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     value_mut()

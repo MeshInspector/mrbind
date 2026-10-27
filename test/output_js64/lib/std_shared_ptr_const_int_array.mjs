@@ -28,7 +28,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
 
     static __ctor_2(size)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_ConstructFromSize(BigInt(size));
+        const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_ConstructFromSize(ffi.toI64(size));
         ffi.check();
         return Number(__ret);
     }
@@ -38,7 +38,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_ConstructNonOwning(BigInt(__ptr_ptr));
             ffi.check();
             return Number(__ret);
@@ -61,7 +61,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_ConstructAliasing(ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt(__ptr_ptr));
             ffi.check();
             return Number(__ret);
@@ -99,7 +99,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_Construct(BigInt(__ptr_ptr));
             ffi.check();
             return new L.MR_C_std_shared_ptr_const_int_array(ffi.RAW, Number(__ret), true, null);
@@ -130,7 +130,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_get(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAP32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAP32()[(Number(__ret)) / 4]);
     }
 
     has_value()
@@ -142,9 +142,9 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_shared_ptr_const_int_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     use_count()
@@ -165,7 +165,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_array_Assign(BigInt(this.rawPointer()), BigInt(__ptr_ptr));
             ffi.check();
         }
@@ -180,7 +180,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_array_AssignNonOwning(BigInt(this.rawPointer()), BigInt(__ptr_ptr));
             ffi.check();
         }
@@ -201,7 +201,7 @@ export class MR_C_std_shared_ptr_const_int_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_array_AssignAliasing(BigInt(this.rawPointer()), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt(__ptr_ptr));
             ffi.check();
         }

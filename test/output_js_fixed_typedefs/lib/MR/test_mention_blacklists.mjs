@@ -13,6 +13,7 @@ export class MR_SignatureFilters_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_A_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_SignatureFilters_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_SignatureFilters_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_SignatureFilters_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -71,6 +82,10 @@ export class MR_SignatureFilters_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -86,6 +101,7 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
 
     get a()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_Blah_Get_a(this.rawPointer());
@@ -97,10 +113,15 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set a(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_SignatureFilters_Blah_Set_a(this.rawPointer(), ffi.ptrNonNull(value, "value"));
@@ -110,10 +131,15 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_Blah_DefaultConstruct();
@@ -124,10 +150,15 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_Blah_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -137,6 +168,10 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -162,6 +197,7 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_SignatureFilters_Blah_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -173,11 +209,16 @@ export class MR_SignatureFilters_Blah extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_SignatureFilters_foo_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_SignatureFilters_foo_1(ffi.ptrNonNull(_1, "_1"));
@@ -187,10 +228,15 @@ export function MR_SignatureFilters_foo_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_SignatureFilters_foo_0();
@@ -201,10 +247,15 @@ export function MR_SignatureFilters_foo_0()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo2_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_SignatureFilters_foo2_1(ffi.ptrNonNull(_1, "_1"));
@@ -214,10 +265,15 @@ export function MR_SignatureFilters_foo2_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo2_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_SignatureFilters_foo2_0();
@@ -229,10 +285,15 @@ export function MR_SignatureFilters_foo2_0()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo3_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_SignatureFilters_foo3_1(ffi.ptrNonNull(_1, "_1"));
@@ -242,10 +303,15 @@ export function MR_SignatureFilters_foo3_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo3_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_SignatureFilters_foo3_0();
@@ -257,10 +323,15 @@ export function MR_SignatureFilters_foo3_0()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo4_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_SignatureFilters_foo4_1(ffi.ptrNonNull(_1, "_1"));
@@ -270,10 +341,15 @@ export function MR_SignatureFilters_foo4_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo4_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_SignatureFilters_foo4_0();
@@ -285,10 +361,15 @@ export function MR_SignatureFilters_foo4_0()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo5_1(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_SignatureFilters_foo5_1(ffi.ptrNonNull(_1, "_1"));
@@ -298,10 +379,15 @@ export function MR_SignatureFilters_foo5_1(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_SignatureFilters_foo5_0()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_SignatureFilters_foo5_0();
@@ -312,6 +398,10 @@ export function MR_SignatureFilters_foo5_0()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

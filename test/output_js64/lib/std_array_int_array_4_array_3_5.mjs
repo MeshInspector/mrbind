@@ -12,8 +12,8 @@ export class MR_C_std_array_int_array_4_array_3_5 extends ffi.CppStruct
     static SIZE = 240;
     static ALIGNMENT = 4;
 
-    getElems(i0, i1, i2) {return ffi.M.HEAP32[(this.rawPointer() + 0 + (((i0) * 3 + i1) * 4 + i2) * 4) >>> 2];}
-    setElems(i0, i1, i2, value) {ffi.M.HEAPU32[(this.rawPointer() + 0 + (((i0) * 3 + i1) * 4 + i2) * 4) >>> 2] = value;}
+    getElems(i0, i1, i2) {return ffi.HEAP32()[(this.rawPointer() + 0 + (((i0) * 3 + i1) * 4 + i2) * 4) / 4];}
+    setElems(i0, i1, i2, value) {ffi.HEAPU32()[(this.rawPointer() + 0 + (((i0) * 3 + i1) * 4 + i2) * 4) / 4] = value;}
 
     static __ctor(args)
     {

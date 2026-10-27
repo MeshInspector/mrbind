@@ -26,6 +26,7 @@ export class MR_AbstractClasses_A extends ffi.CppObject
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AbstractClasses_A_foo(this.rawPointer());
@@ -34,6 +35,10 @@ export class MR_AbstractClasses_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -67,6 +72,7 @@ export class MR_AbstractClasses_B extends ffi.CppObject
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AbstractClasses_B_foo(this.rawPointer());
@@ -75,6 +81,10 @@ export class MR_AbstractClasses_B extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -108,6 +118,7 @@ export class MR_AbstractClasses_C extends ffi.CppObject
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_AbstractClasses_C_foo(this.rawPointer());
@@ -116,6 +127,10 @@ export class MR_AbstractClasses_C extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 

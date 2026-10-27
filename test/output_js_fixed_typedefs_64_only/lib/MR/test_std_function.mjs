@@ -16,6 +16,7 @@ export class MR_StdFunction_A extends ffi.CppObject
 
     get a()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdFunction_A_Get_a(this.rawPointer());
@@ -26,6 +27,10 @@ export class MR_StdFunction_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -51,6 +56,7 @@ export class MR_StdFunction_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdFunction_A_DefaultConstruct();
@@ -60,6 +66,10 @@ export class MR_StdFunction_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -86,6 +96,7 @@ export class MR_StdFunction_A extends ffi.CppObject
 
     static __ctor_2(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdFunction_A_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -95,6 +106,10 @@ export class MR_StdFunction_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -122,6 +137,7 @@ export class MR_StdFunction_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdFunction_A_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_other, "_other"));
@@ -133,12 +149,17 @@ export class MR_StdFunction_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_StdFunction_foo_std_function_int_func(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_int.of(_1) : _1;
@@ -151,6 +172,7 @@ export function MR_StdFunction_foo_std_function_int_func(_1)
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -158,6 +180,7 @@ export function MR_StdFunction_foo_std_function_int_func(_1)
 export function MR_StdFunction_foo_std_function_void_func_from_int_int(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_void_from_int_int.of(_1) : _1;
@@ -170,6 +193,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_int_int(_1)
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -177,6 +201,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_int_int(_1)
 export function MR_StdFunction_foo_std_function_int_func_from_int_int(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_int_from_int_int.of(_1) : _1;
@@ -189,6 +214,7 @@ export function MR_StdFunction_foo_std_function_int_func_from_int_int(_1)
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -196,6 +222,7 @@ export function MR_StdFunction_foo_std_function_int_func_from_int_int(_1)
 export function MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E.of(_1) : _1;
@@ -208,6 +235,7 @@ export function MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_M
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -215,6 +243,7 @@ export function MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_M
 export function MR_StdFunction_foo_std_function_std_string_func_from_int_float(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_std_string_from_int_float.of(_1) : _1;
@@ -227,6 +256,7 @@ export function MR_StdFunction_foo_std_function_std_string_func_from_int_float(_
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -234,6 +264,7 @@ export function MR_StdFunction_foo_std_function_std_string_func_from_int_float(_
 export function MR_StdFunction_foo_std_function_void_func_from_std_string(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_void_from_std_string.of(_1) : _1;
@@ -246,6 +277,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_std_string(_1)
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -253,6 +285,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_std_string(_1)
 export function MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_void_from_MR_StdFunction_A.of(_1) : _1;
@@ -265,6 +298,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }
@@ -272,6 +306,7 @@ export function MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(
 export function MR_StdFunction_foo_std_function_MR_StdFunction_A_func(_1)
 {
     let __fn__1 = null;
+    const __sp = ffi.stackSave();
     try
     {
         __fn__1 = typeof _1 === "function" ? L.MR_C_std_function_MR_StdFunction_A.of(_1) : _1;
@@ -284,6 +319,7 @@ export function MR_StdFunction_foo_std_function_MR_StdFunction_A_func(_1)
     }
     finally
     {
+        ffi.stackRestore(__sp);
         if (__fn__1 !== null && __fn__1 !== _1) __fn__1.delete();
     }
 }

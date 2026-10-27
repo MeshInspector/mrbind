@@ -85,7 +85,7 @@ export declare class MR_TestSimpleTypes_ClassTemplate_unsigned_long extends ffi.
      * Calls `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Constructors.
      * Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.

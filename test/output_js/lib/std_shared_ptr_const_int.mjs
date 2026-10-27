@@ -37,7 +37,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_ConstructNonOwning(__ptr_ptr);
             ffi.check();
             return (__ret >>> 0);
@@ -60,7 +60,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_ConstructAliasing(ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), __ptr_ptr);
             ffi.check();
             return (__ret >>> 0);
@@ -98,7 +98,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_shared_ptr_const_int_Construct(__ptr_ptr);
             ffi.check();
             return new L.MR_C_std_shared_ptr_const_int(ffi.RAW, (__ret >>> 0), true, null);
@@ -129,7 +129,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_shared_ptr_const_int_get(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     has_value()
@@ -157,7 +157,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_Assign(this.rawPointer(), __ptr_ptr);
             ffi.check();
         }
@@ -172,7 +172,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_AssignNonOwning(this.rawPointer(), __ptr_ptr);
             ffi.check();
         }
@@ -193,7 +193,7 @@ export class MR_C_std_shared_ptr_const_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_shared_ptr_const_int_AssignAliasing(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), __ptr_ptr);
             ffi.check();
         }

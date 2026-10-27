@@ -74,7 +74,7 @@ export class MR_C_std_pair_int_std_string extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_pair_int_std_string_first(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     first_mut()

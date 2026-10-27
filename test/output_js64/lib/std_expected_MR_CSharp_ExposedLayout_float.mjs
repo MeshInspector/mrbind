@@ -70,7 +70,7 @@ export class MR_C_std_expected_MR_CSharp_ExposedLayout_float extends ffi.CppObje
     {
         const __ret = ffi.C.MR_C_std_expected_MR_CSharp_ExposedLayout_float_error(BigInt(this.rawPointer()));
         ffi.check();
-        return (Number(__ret) === 0 ? null : ffi.M.HEAPF32[(Number(__ret)) >>> 2]);
+        return (Number(__ret) === 0 ? null : ffi.HEAPF32()[(Number(__ret)) / 4]);
     }
 
     value_mut()
@@ -95,7 +95,7 @@ export class MR_C_std_expected_MR_CSharp_ExposedLayout_float extends ffi.CppObje
         {
             const __ret = ffi.cppCall(() => ffi.C.MR_C_std_expected_MR_CSharp_ExposedLayout_float_error(BigInt(this.rawPointer())));
             ffi.check();
-            throw new ffi.UnexpectedResultException(String(ffi.M.HEAPF32[(Number(__ret)) >>> 2]));
+            throw new ffi.UnexpectedResultException(String(ffi.HEAPF32()[(Number(__ret)) / 4]));
         }
         const __ret = ffi.cppCall(() => ffi.C.MR_C_std_expected_MR_CSharp_ExposedLayout_float_value(BigInt(this.rawPointer())));
         ffi.check();

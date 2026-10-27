@@ -17,12 +17,12 @@ export class MR_AdjustingNames_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_AdjustingNames_A_Get_var_unsigned_long();
         ffi.check();
-        return Number(ffi.M.HEAPU64[(Number(__ret)) >>> 3]);
+        return Number(ffi.HEAPU64()[(Number(__ret)) / 8]);
     }
 
     static set var(value)
     {
-        ffi.C.MR_AdjustingNames_A_Set_var_unsigned_long(BigInt(value));
+        ffi.C.MR_AdjustingNames_A_Set_var_unsigned_long(ffi.toI64(value));
         ffi.check();
     }
 

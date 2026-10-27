@@ -76,7 +76,7 @@ export class MR_C_std_unique_ptr_int_array extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_unique_ptr_int_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_unique_ptr_int_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         return Number(__ret);
     }

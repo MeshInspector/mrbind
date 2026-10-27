@@ -543,7 +543,7 @@ export declare function opEqual(a: L.MR_C_std_unordered_multimap_MR_StdContainer
  * Calls `MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator()`.
  */
 export declare function opEqual(a: L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator, b: L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator): boolean;
-/** The overloads of `opEqual` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Computes the signed difference between two const iterators. Completes in constant time.
  *
@@ -568,4 +568,4 @@ export declare function opSub(a: L.MR_C_std_deque_MR_StdContainers_NonAssignable
  * Calls `MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator()`.
  */
 export declare function opSub(a: L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator, b: L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator): number;
-/** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

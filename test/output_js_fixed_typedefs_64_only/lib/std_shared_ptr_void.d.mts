@@ -37,7 +37,7 @@ export declare class MR_C_std_shared_ptr_void extends ffi.CppObject
      * Calls `MR_C_std_shared_ptr_void_ConstructAliasing()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     constructor(ownership: L.MR_C_std_shared_ptr_const_void, ptr: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

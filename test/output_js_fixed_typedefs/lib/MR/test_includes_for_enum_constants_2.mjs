@@ -13,6 +13,7 @@ export class MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 exte
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 exte
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 exte
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 exte
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -71,6 +82,10 @@ export class MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 exte
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

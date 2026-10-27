@@ -24,7 +24,7 @@ export declare class MR_C_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppObje
      * Calls `MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct()`.
      */
     constructor(first: L.MR_SeparateA, second: L.MR_SeparateB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

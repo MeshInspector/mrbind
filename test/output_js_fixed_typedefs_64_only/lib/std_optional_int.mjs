@@ -13,6 +13,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_int_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_optional_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_int_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -37,6 +43,10 @@ export class MR_C_std_optional_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(other)
@@ -44,7 +54,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = other;});
             const __ret = ffi.C.MR_C_std_optional_int_ConstructFrom(__ptr_other);
             ffi.check();
             return (__ret >>> 0);
@@ -83,6 +93,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_optional_int_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -92,6 +103,10 @@ export class MR_C_std_optional_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFrom(other)
@@ -99,7 +114,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = other;});
+            const __ptr_other = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = other;});
             ffi.C.MR_C_std_optional_int_AssignFrom(this.rawPointer(), __ptr_other);
             ffi.check();
         }
@@ -115,6 +130,7 @@ export class MR_C_std_optional_int extends ffi.CppObject
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_int_has_value(this.rawPointer());
@@ -125,24 +141,34 @@ export class MR_C_std_optional_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_int_value(this.rawPointer());
             ffi.check();
-            return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     value_mut()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_optional_int_value_mut(this.rawPointer());
@@ -152,6 +178,10 @@ export class MR_C_std_optional_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

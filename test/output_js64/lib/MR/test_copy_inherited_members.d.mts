@@ -58,7 +58,7 @@ export declare class MR_CopyInheritedMembers_A extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_A_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -134,7 +134,7 @@ export declare class MR_CopyInheritedMembers_B extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_B_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_B);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -188,7 +188,7 @@ export declare class MR_CopyInheritedMembers_C extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_C_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_C);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -256,7 +256,7 @@ export declare class MR_CopyInheritedMembers_D extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_D_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_D);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -320,7 +320,7 @@ export declare class MR_CopyInheritedMembers_E extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_E_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_E);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -382,7 +382,7 @@ export declare class MR_CopyInheritedMembers_F extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_F_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_F);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -460,7 +460,7 @@ export declare class MR_CopyInheritedMembers_G extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_G_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_G);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -532,7 +532,7 @@ export declare class MR_CopyInheritedMembers_H extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_H_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_H);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -612,7 +612,7 @@ export declare class MR_CopyInheritedMembers_I extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_I_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_I);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -698,7 +698,7 @@ export declare class MR_CopyInheritedMembers_J extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_J_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_J);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -762,7 +762,7 @@ export declare class MR_CopyInheritedMembers_K extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_K_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_K);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -800,7 +800,7 @@ export declare class MR_CopyInheritedMembers_L extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_L_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_L);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -856,7 +856,7 @@ export declare class MR_CopyInheritedMembers_M extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_M_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_M);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -937,7 +937,7 @@ export declare class MR_CopyInheritedMembers_N extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_N_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_N);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1025,7 +1025,7 @@ export declare class MR_CopyInheritedMembers_O extends ffi.CppObject
      * Calls `MR_CopyInheritedMembers_O_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CopyInheritedMembers_O);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

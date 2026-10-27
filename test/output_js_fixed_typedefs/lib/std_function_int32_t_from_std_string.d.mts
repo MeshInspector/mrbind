@@ -22,7 +22,7 @@ export declare class MR_C_std_function_int32_t_from_std_string extends ffi.CppOb
      * Calls `MR_C_std_function_int32_t_from_std_string_ConstructFromAnother()`.
      */
     constructor(other: L.MR_C_std_function_int32_t_from_std_string | L.MR_C_std_function_int32_t_from_std_string.Fn);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

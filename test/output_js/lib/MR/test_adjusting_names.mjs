@@ -17,7 +17,7 @@ export class MR_AdjustingNames_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_AdjustingNames_A_Get_var_unsigned_long();
         ffi.check();
-        return ffi.M.HEAPU32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAPU32()[((__ret >>> 0)) >>> 2];
     }
 
     static set var(value)

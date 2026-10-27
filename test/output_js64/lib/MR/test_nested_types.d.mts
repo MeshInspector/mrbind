@@ -37,6 +37,13 @@ export declare class MR_NestedTypes_A extends ffi.CppObject
      */
     constructor();
     /**
+     * Generated from constructor `MR::NestedTypes::A::A`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_NestedTypes_A_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_NestedTypes_A);
+    /**
      * Constructs `MR::NestedTypes::A` elementwise.
      * The reference to the parameter `b` might be preserved in the constructed object.
      * The reference to the parameter `e` might be preserved in the constructed object.
@@ -44,14 +51,7 @@ export declare class MR_NestedTypes_A extends ffi.CppObject
      * Calls `MR_NestedTypes_A_ConstructFrom()`.
      */
     constructor(b: L.MR_NestedTypes_A_B, e: L.MR_NestedTypes_A_E);
-    /**
-     * Generated from constructor `MR::NestedTypes::A::A`.
-     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
-     *
-     * Calls `MR_NestedTypes_A_ConstructFromAnother()`.
-     */
-    constructor(_other: L.MR_NestedTypes_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -83,7 +83,7 @@ export declare class MR_NestedTypes_A_B extends ffi.CppObject
      * Calls `MR_NestedTypes_A_B_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_NestedTypes_A_B);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

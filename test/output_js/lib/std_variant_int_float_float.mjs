@@ -103,7 +103,7 @@ export class MR_C_std_variant_int_float_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_variant_int_float_float_get_int(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     get_int_mut()
@@ -117,7 +117,7 @@ export class MR_C_std_variant_int_float_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_variant_int_float_float_get_float_1(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
     }
 
     get_float_1_mut()
@@ -131,7 +131,7 @@ export class MR_C_std_variant_int_float_float extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_variant_int_float_float_get_float_2(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAPF32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
     }
 
     get_float_2_mut()

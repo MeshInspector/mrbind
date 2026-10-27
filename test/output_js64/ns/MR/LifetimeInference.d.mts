@@ -25,7 +25,7 @@ export declare function begin(a: L.MR_LifetimeInference_A): number;
  * Calls `MR_LifetimeInference_begin_MR_LifetimeInference_B()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
  */
 export declare function begin(b: L.MR_LifetimeInference_B): number;
-/** The overloads of `begin` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `begin` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Generated from function `MR::LifetimeInference::end`.
  * The reference to the parameter `a` might be preserved in the return value.
@@ -40,4 +40,4 @@ export declare function end(a: L.MR_LifetimeInference_A): number;
  * Calls `MR_LifetimeInference_end_MR_LifetimeInference_B()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
  */
 export declare function end(b: L.MR_LifetimeInference_B): number;
-/** The overloads of `end` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `end` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

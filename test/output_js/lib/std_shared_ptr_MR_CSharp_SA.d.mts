@@ -44,7 +44,7 @@ export declare class MR_C_std_shared_ptr_MR_CSharp_SA extends ffi.CppObject
      * Calls `MR_C_std_shared_ptr_MR_CSharp_SA_ConstructAliasing()`.
      */
     constructor(ownership: L.MR_C_std_shared_ptr_const_void, ptr?: L.MR_CSharp_SA | null);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Create a new instance, taking ownership of an existing pointer.
      *

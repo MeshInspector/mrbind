@@ -13,6 +13,7 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_DefaultConstruct();
@@ -23,11 +24,16 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E.of(other) : other;
@@ -41,6 +47,7 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
@@ -68,6 +75,7 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
     assignFromAnother(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E.of(other) : other;
@@ -80,12 +88,14 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_has_value(this.rawPointer());
@@ -96,10 +106,15 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reset()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_reset(this.rawPointer());
@@ -109,10 +124,15 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     call(_1, _2)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_call(this.rawPointer(), _1, _2);
@@ -122,6 +142,10 @@ export class MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E ex
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 

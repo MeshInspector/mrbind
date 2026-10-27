@@ -62,7 +62,7 @@ export class MR_C_std_expected_int_std_string extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_expected_int_std_string_value(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     error()
@@ -99,7 +99,7 @@ export class MR_C_std_expected_int_std_string extends ffi.CppObject
         }
         const __ret = ffi.cppCall(() => ffi.C.MR_C_std_expected_int_std_string_value(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 }
 

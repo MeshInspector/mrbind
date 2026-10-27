@@ -13,20 +13,26 @@ export class MR_MemberVars_A extends ffi.CppObject
 
     static get z()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_z();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static set z(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_MemberVars_A_Set_z(value);
@@ -36,38 +42,53 @@ export class MR_MemberVars_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static get w()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_w();
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
     get x()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_x(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     set x(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_MemberVars_A_Set_x(this.rawPointer(), value);
@@ -77,24 +98,34 @@ export class MR_MemberVars_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get y()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_y(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_ref(this.rawPointer());
@@ -105,24 +136,34 @@ export class MR_MemberVars_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get arr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_Get_arr(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_0(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -132,6 +173,10 @@ export class MR_MemberVars_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -155,6 +200,7 @@ export class MR_MemberVars_A extends ffi.CppObject
 
     static arrSize()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_MemberVars_A_GetSize_arr();
@@ -164,6 +210,10 @@ export class MR_MemberVars_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

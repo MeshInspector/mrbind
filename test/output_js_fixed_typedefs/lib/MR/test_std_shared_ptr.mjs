@@ -14,6 +14,7 @@ export class MR_StdSharedPtr_A extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdSharedPtr_A_DefaultConstruct();
@@ -24,10 +25,15 @@ export class MR_StdSharedPtr_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdSharedPtr_A_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -37,6 +43,10 @@ export class MR_StdSharedPtr_A extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -62,6 +72,7 @@ export class MR_StdSharedPtr_A extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_StdSharedPtr_A_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -73,11 +84,16 @@ export class MR_StdSharedPtr_A extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_StdSharedPtr_GetInt()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetInt();
@@ -88,10 +104,15 @@ export function MR_StdSharedPtr_GetInt()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetInt(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetInt(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -101,10 +122,15 @@ export function MR_StdSharedPtr_SetInt(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -114,10 +140,15 @@ export function MR_StdSharedPtr_SetIntConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntDefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -127,10 +158,15 @@ export function MR_StdSharedPtr_SetIntDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntDef((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -140,10 +176,15 @@ export function MR_StdSharedPtr_SetIntDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntLvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntLvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -153,10 +194,15 @@ export function MR_StdSharedPtr_SetIntLvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntLvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntLvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -166,10 +212,15 @@ export function MR_StdSharedPtr_SetIntLvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntRvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntRvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -179,10 +230,15 @@ export function MR_StdSharedPtr_SetIntRvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntRvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntRvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -192,10 +248,15 @@ export function MR_StdSharedPtr_SetIntRvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetIntArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetIntArr();
@@ -206,10 +267,15 @@ export function MR_StdSharedPtr_GetIntArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArr(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -219,10 +285,15 @@ export function MR_StdSharedPtr_SetIntArr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArrDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArrDefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -232,10 +303,15 @@ export function MR_StdSharedPtr_SetIntArrDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArrDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArrDef((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -245,10 +321,15 @@ export function MR_StdSharedPtr_SetIntArrDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetIntArr42()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetIntArr42();
@@ -259,10 +340,15 @@ export function MR_StdSharedPtr_GetIntArr42()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArr42(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArr42(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -272,10 +358,15 @@ export function MR_StdSharedPtr_SetIntArr42(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArr42DefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArr42DefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -285,10 +376,15 @@ export function MR_StdSharedPtr_SetIntArr42DefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetIntArr42Def(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetIntArr42Def((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -298,10 +394,15 @@ export function MR_StdSharedPtr_SetIntArr42Def(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetClass()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetClass();
@@ -312,10 +413,15 @@ export function MR_StdSharedPtr_GetClass()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClass(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClass(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -325,10 +431,15 @@ export function MR_StdSharedPtr_SetClass(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -338,10 +449,15 @@ export function MR_StdSharedPtr_SetClassConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassDefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -351,10 +467,15 @@ export function MR_StdSharedPtr_SetClassDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassDef((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -364,10 +485,15 @@ export function MR_StdSharedPtr_SetClassDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassLvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassLvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -377,10 +503,15 @@ export function MR_StdSharedPtr_SetClassLvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassLvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassLvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -390,10 +521,15 @@ export function MR_StdSharedPtr_SetClassLvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassRvalueRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassRvalueRef(ffi.ptrNonNull(_1, "_1"));
@@ -403,10 +539,15 @@ export function MR_StdSharedPtr_SetClassRvalueRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassRvalueConstRef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassRvalueConstRef(ffi.ptrNonNull(_1, "_1"));
@@ -416,10 +557,15 @@ export function MR_StdSharedPtr_SetClassRvalueConstRef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetClassArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetClassArr();
@@ -430,10 +576,15 @@ export function MR_StdSharedPtr_GetClassArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArr(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -443,10 +594,15 @@ export function MR_StdSharedPtr_SetClassArr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArrDefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArrDefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -456,10 +612,15 @@ export function MR_StdSharedPtr_SetClassArrDefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArrDef(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArrDef((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -469,10 +630,15 @@ export function MR_StdSharedPtr_SetClassArrDef(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetClassArr42()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetClassArr42();
@@ -483,10 +649,15 @@ export function MR_StdSharedPtr_GetClassArr42()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArr42(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArr42(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -496,10 +667,15 @@ export function MR_StdSharedPtr_SetClassArr42(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArr42DefTrivial(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArr42DefTrivial((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -509,10 +685,15 @@ export function MR_StdSharedPtr_SetClassArr42DefTrivial(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_SetClassArr42Def(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_StdSharedPtr_SetClassArr42Def((_1 == null ? ffi.PASS_BY_DEFAULT_ARGUMENT : ffi.PASS_BY_COPY), ffi.ptr(_1));
@@ -522,10 +703,15 @@ export function MR_StdSharedPtr_SetClassArr42Def(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstInt()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstInt();
@@ -536,10 +722,15 @@ export function MR_StdSharedPtr_GetConstInt()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstIntArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstIntArr();
@@ -550,10 +741,15 @@ export function MR_StdSharedPtr_GetConstIntArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstIntArr42()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstIntArr42();
@@ -564,10 +760,15 @@ export function MR_StdSharedPtr_GetConstIntArr42()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstClass()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstClass();
@@ -578,10 +779,15 @@ export function MR_StdSharedPtr_GetConstClass()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstClassArr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstClassArr();
@@ -592,10 +798,15 @@ export function MR_StdSharedPtr_GetConstClassArr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdSharedPtr_GetConstClassArr42()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_StdSharedPtr_GetConstClassArr42();
@@ -605,6 +816,10 @@ export function MR_StdSharedPtr_GetConstClassArr42()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

@@ -30,7 +30,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_vector_long_ConstructFromRange(__ptr_ptr, size);
             ffi.check();
             return (__ret >>> 0);
@@ -74,7 +74,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_vector_long_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
@@ -139,7 +139,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_vector_long_at(this.rawPointer(), i);
         ffi.check();
-        return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+        return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
     }
 
     at_mut(i)
@@ -153,7 +153,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_vector_long_front(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     front_mut()
@@ -167,7 +167,7 @@ export class MR_C_std_vector_long extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_vector_long_back(this.rawPointer());
         ffi.check();
-        return ((__ret >>> 0) === 0 ? null : ffi.M.HEAP32[((__ret >>> 0)) >>> 2]);
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAP32()[((__ret >>> 0)) >>> 2]);
     }
 
     back_mut()

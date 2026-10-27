@@ -60,6 +60,12 @@ export { MR_C_pos_const_MR_OverloadedOps_D_ref as opPos_const_MR_OverloadedOps_D
  */
 export declare function opAdd(_1: L.MR_OverloadedOps_B): number;
 /**
+ * Generated from function `MR::OverloadedOps::operator+`.
+ *
+ * Calls `MR_C_pos_MR_OverloadedOps_D_ref()`.
+ */
+export declare function opAdd(_1: L.MR_OverloadedOps_D): number;
+/**
  * Binary plus.
  * Generated from function `MR::OverloadedOps::operator+`.
  *
@@ -80,13 +86,7 @@ export declare function opAdd(_1: L.MR_OverloadedOps_C, _2: L.MR_OverloadedOps_C
  * Calls `MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B()`.
  */
 export declare function opAdd(_1: L.MR_OverloadedOps_C, _2: L.MR_OverloadedOps_B): void;
-/**
- * Generated from function `MR::OverloadedOps::operator+`.
- *
- * Calls `MR_C_pos_MR_OverloadedOps_D_ref()`.
- */
-export declare function opAdd(_1: L.MR_OverloadedOps_D): number;
-/** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Unary minus.
  * Generated from function `MR::OverloadedOps::operator-`.
@@ -101,7 +101,7 @@ export declare function opSub(_1: L.MR_OverloadedOps_B): number;
  * Calls `MR_C_sub_MR_OverloadedOps_B()`.
  */
 export declare function opSub(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
-/** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Dereference (unary star).
  * Generated from function `MR::OverloadedOps::operator*`.
@@ -116,4 +116,4 @@ export declare function opMul(_1: L.MR_OverloadedOps_B): number;
  * Calls `MR_C_mul_MR_OverloadedOps_B()`.
  */
 export declare function opMul(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
-/** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

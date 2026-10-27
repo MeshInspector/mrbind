@@ -67,13 +67,13 @@ export class MR_C_std_vector_std_expected_int_std_string extends ffi.CppObject
 
     resize(new_size)
     {
-        ffi.C.MR_C_std_vector_std_expected_int_std_string_resize(BigInt(this.rawPointer()), BigInt(new_size));
+        ffi.C.MR_C_std_vector_std_expected_int_std_string_resize(BigInt(this.rawPointer()), ffi.toI64(new_size));
         ffi.check();
     }
 
     resize_with_default_value(new_size, value)
     {
-        ffi.C.MR_C_std_vector_std_expected_int_std_string_resize_with_default_value(BigInt(this.rawPointer()), BigInt(new_size), BigInt(ffi.ptrNonNull(value, "value")));
+        ffi.C.MR_C_std_vector_std_expected_int_std_string_resize_with_default_value(BigInt(this.rawPointer()), ffi.toI64(new_size), BigInt(ffi.ptrNonNull(value, "value")));
         ffi.check();
     }
 
@@ -92,7 +92,7 @@ export class MR_C_std_vector_std_expected_int_std_string extends ffi.CppObject
 
     reserve(new_capacity)
     {
-        ffi.C.MR_C_std_vector_std_expected_int_std_string_reserve(BigInt(this.rawPointer()), BigInt(new_capacity));
+        ffi.C.MR_C_std_vector_std_expected_int_std_string_reserve(BigInt(this.rawPointer()), ffi.toI64(new_capacity));
         ffi.check();
     }
 
@@ -104,7 +104,7 @@ export class MR_C_std_vector_std_expected_int_std_string extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_std_expected_int_std_string_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_std_expected_int_std_string_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_C_std_expected_int_std_string(ffi.RAW, Number(__ret), false, __owner);
@@ -112,7 +112,7 @@ export class MR_C_std_vector_std_expected_int_std_string extends ffi.CppObject
 
     at_mut(i)
     {
-        const __ret = ffi.C.MR_C_std_vector_std_expected_int_std_string_at_mut(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_vector_std_expected_int_std_string_at_mut(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_C_std_expected_int_std_string(ffi.RAW, Number(__ret), false, __owner);
@@ -164,13 +164,13 @@ export class MR_C_std_vector_std_expected_int_std_string extends ffi.CppObject
 
     insert(position, new_elem)
     {
-        ffi.C.MR_C_std_vector_std_expected_int_std_string_insert(BigInt(this.rawPointer()), BigInt(position), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(new_elem, "new_elem")));
+        ffi.C.MR_C_std_vector_std_expected_int_std_string_insert(BigInt(this.rawPointer()), ffi.toI64(position), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(new_elem, "new_elem")));
         ffi.check();
     }
 
     erase(position)
     {
-        ffi.C.MR_C_std_vector_std_expected_int_std_string_erase(BigInt(this.rawPointer()), BigInt(position));
+        ffi.C.MR_C_std_vector_std_expected_int_std_string_erase(BigInt(this.rawPointer()), ffi.toI64(position));
         ffi.check();
     }
 

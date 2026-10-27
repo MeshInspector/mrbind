@@ -71,7 +71,7 @@ export declare class MR_CSharp_A extends ffi.CppObject
      * Calls `MR_CSharp_A_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -146,7 +146,7 @@ export declare class MR_CSharp_AmbiguousTemplates extends ffi.CppObject
      * Calls `MR_CSharp_AmbiguousTemplates_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_AmbiguousTemplates);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -256,7 +256,8 @@ export declare class MR_CSharp_ArrayMembers extends ffi.CppObject
      *
      * Calls `MR_CSharp_ArrayMembers_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `sa`. This is a pointer to the first element of an array.
      * The reference to this object might be preserved as the return value.
@@ -292,7 +293,7 @@ export declare class MR_CSharp_ArrayMembers extends ffi.CppObject
      * Calls `MR_CSharp_ArrayMembers_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_ArrayMembers);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -362,7 +363,7 @@ export declare class MR_CSharp_B extends ffi.CppObject
      * Calls `MR_CSharp_B_Construct()`.
      */
     constructor(a: number, b: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -451,7 +452,7 @@ export declare class MR_CSharp_C extends ffi.CppObject
      * Calls `MR_CSharp_C_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_C);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -535,7 +536,7 @@ export declare class MR_CSharp_CallOp extends ffi.CppObject
      * Calls `MR_CSharp_CallOp_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_CallOp);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -577,7 +578,8 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersBool_Get_sb()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sb: number;
+    static get sb(): number;
+    static set sb(value: boolean | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sc`.
      *
@@ -603,7 +605,8 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersBool_Get_b()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    b: number;
+    get b(): number;
+    set b(value: boolean | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `c`.
      * The reference to this object might be preserved as the return value.
@@ -635,7 +638,7 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      * Calls `MR_CSharp_ClassMemberPointersBool_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     constructor(a: number, b: boolean | null | undefined, c: number, d: boolean);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -653,13 +656,15 @@ export declare class MR_CSharp_ClassMemberPointersClass extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersClass_Get_sa()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sa: number;
+    static get sa(): number;
+    static set sa(value: L.MR_CSharp_A | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
      *
      * Calls `MR_CSharp_ClassMemberPointersClass_Get_sb()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sb: number;
+    static get sb(): number;
+    static set sb(value: L.MR_CSharp_A | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sc`.
      *
@@ -678,14 +683,16 @@ export declare class MR_CSharp_ClassMemberPointersClass extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersClass_Get_a()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    a: number;
+    get a(): number;
+    set a(value: L.MR_CSharp_A | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_ClassMemberPointersClass_Get_b()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    b: number;
+    get b(): number;
+    set b(value: L.MR_CSharp_A | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `c`.
      * The reference to this object might be preserved as the return value.
@@ -717,7 +724,7 @@ export declare class MR_CSharp_ClassMemberPointersClass extends ffi.CppObject
      * Calls `MR_CSharp_ClassMemberPointersClass_ConstructFrom()`.
      */
     constructor(a: L.MR_CSharp_A | null | undefined, b: L.MR_CSharp_A | null | undefined, c: L.MR_CSharp_A, d: L.MR_CSharp_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -734,13 +741,15 @@ export declare class MR_CSharp_ClassMemberPointersExposed extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersExposed_Get_sa()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sa: number;
+    static get sa(): number;
+    static set sa(value: L.MR_CSharp_ExposedLayout | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
      *
      * Calls `MR_CSharp_ClassMemberPointersExposed_Get_sb()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sb: number;
+    static get sb(): number;
+    static set sb(value: L.MR_CSharp_ExposedLayout | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sc`.
      *
@@ -759,14 +768,16 @@ export declare class MR_CSharp_ClassMemberPointersExposed extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersExposed_Get_a()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    a: number;
+    get a(): number;
+    set a(value: L.MR_CSharp_ExposedLayout | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_ClassMemberPointersExposed_Get_b()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    b: number;
+    get b(): number;
+    set b(value: L.MR_CSharp_ExposedLayout | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `c`.
      * The reference to this object might be preserved as the return value.
@@ -798,7 +809,7 @@ export declare class MR_CSharp_ClassMemberPointersExposed extends ffi.CppObject
      * Calls `MR_CSharp_ClassMemberPointersExposed_ConstructFrom()`.
      */
     constructor(a: L.MR_CSharp_ExposedLayout | null | undefined, b: L.MR_CSharp_ExposedLayout | null | undefined, c: L.MR_CSharp_ExposedLayout, d: L.MR_CSharp_ExposedLayout);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -821,7 +832,8 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersUshort_Get_sb()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sb: number;
+    static get sb(): number;
+    static set sb(value: number | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sc`.
      *
@@ -847,7 +859,8 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersUshort_Get_b()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    b: number;
+    get b(): number;
+    set b(value: number | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `c`.
      * The reference to this object might be preserved as the return value.
@@ -879,7 +892,7 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      * Calls `MR_CSharp_ClassMemberPointersUshort_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     constructor(a: number, b: number | null | undefined, c: number, d: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -1003,7 +1016,7 @@ export declare class MR_CSharp_ConvCtor extends ffi.CppObject
      * Calls `MR_CSharp_ConvCtor_Construct_2_short()`. `_2` defaults to `42`.
      */
     constructor(_1: number, _2?: number | null);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
      *
@@ -1049,7 +1062,7 @@ export declare class MR_CSharp_ConvCtorCopyButNoMove extends ffi.CppObject
      * Calls `MR_CSharp_ConvCtorCopyButNoMove_Construct()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1113,7 +1126,7 @@ export declare class MR_CSharp_ConvCtorNonTrivial extends ffi.CppObject
      * Calls `MR_CSharp_ConvCtorNonTrivial_Construct()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1147,7 +1160,7 @@ export declare class MR_CSharp_ConvCtorNonTrivialRestricted extends ffi.CppObjec
      * Calls `MR_CSharp_ConvCtorNonTrivialRestricted_Construct()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1187,7 +1200,7 @@ export declare class MR_CSharp_ConvCtorTrivial extends ffi.CppObject
      * Calls `MR_CSharp_ConvCtorTrivial_Construct()`.
      */
     constructor(_1: number);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1220,7 +1233,7 @@ export declare class MR_CSharp_ConvCtorWithDefArg extends ffi.CppObject
      * Calls `MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_ConvCtorWithDefArg);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1253,7 +1266,7 @@ export declare class MR_CSharp_ConvOp extends ffi.CppObject
      * Calls `MR_CSharp_ConvOp_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_ConvOp);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1298,7 +1311,7 @@ export declare class MR_CSharp_ConvOpToRef extends ffi.CppObject
      * Calls `MR_CSharp_ConvOpToRef_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_ConvOpToRef);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1355,7 +1368,7 @@ export declare class MR_CSharp_D extends ffi.CppObject
      * Calls `MR_CSharp_D_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_D);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1404,7 +1417,7 @@ export declare class MR_CSharp_E extends ffi.CppObject
      * Calls `MR_CSharp_E_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_E);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1449,7 +1462,7 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
      * Calls `MR_CSharp_EqualityA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_EqualityA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1464,7 +1477,7 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityA()`.
      */
     opEqual(_1: L.MR_CSharp_EqualityA): boolean;
-    /** The overloads of `opEqual` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::EqualityA::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -1513,7 +1526,7 @@ export declare class MR_CSharp_EqualityB extends ffi.CppObject
      * Calls `MR_CSharp_EqualityB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_EqualityB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1528,7 +1541,7 @@ export declare class MR_CSharp_EqualityB extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityB()`.
      */
     opEqual(_1: L.MR_CSharp_EqualityB): number;
-    /** The overloads of `opEqual` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::EqualityB::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -1577,7 +1590,7 @@ export declare class MR_CSharp_EqualityC extends ffi.CppObject
      * Calls `MR_CSharp_EqualityC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_EqualityC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1592,7 +1605,7 @@ export declare class MR_CSharp_EqualityC extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityC()`.
      */
     opEqual(_1: L.MR_CSharp_EqualityC): void;
-    /** The overloads of `opEqual` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::EqualityC::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -1641,7 +1654,7 @@ export declare class MR_CSharp_EqualityD extends ffi.CppObject
      * Calls `MR_CSharp_EqualityD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_EqualityD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1680,7 +1693,7 @@ export declare class MR_CSharp_EqualityE extends ffi.CppObject
      * Calls `MR_CSharp_EqualityE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_EqualityE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -1744,7 +1757,7 @@ export declare class MR_CSharp_ExposedLayout extends ffi.CppStruct
      * Calls `MR_C_less_MR_CSharp_ExposedLayout_char()`.
      */
     opLess(_1: number): boolean;
-    /** The overloads of `opLess` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opLess` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::ExposedLayout::foo`.
      *
@@ -1816,20 +1829,20 @@ export declare class MR_CSharp_ExposedLayoutB extends ffi.CppStruct
     static readonly ALIGNMENT: number;
     x: number;
     /**
-     * Some random ctor.
-     * Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-     *
-     * Calls `MR_CSharp_ExposedLayoutB_Construct_2()`.
-     */
-    constructor(_1: number, _2: number);
-    /**
      * This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
      * Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
      *
      * Calls `MR_CSharp_ExposedLayoutB_Construct_1()`.
      */
     constructor(_1: L.MR_CSharp_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Some random ctor.
+     * Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+     *
+     * Calls `MR_CSharp_ExposedLayoutB_Construct_2()`.
+     */
+    constructor(_1: number, _2: number);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Zero-initialized. */
     constructor();
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
@@ -1900,7 +1913,7 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      * Calls `MR_C_less_MR_CSharp_ExposedLayoutSh_char()`.
      */
     opLess(_1: number): boolean;
-    /** The overloads of `opLess` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opLess` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
      *
@@ -1921,7 +1934,7 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      * Calls `MR_C_equal_MR_CSharp_ExposedLayoutSh()`.
      */
     opEqual(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
-    /** The overloads of `opEqual` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
      *
@@ -2012,7 +2025,7 @@ export declare class MR_CSharp_F extends ffi.CppObject
      * Calls `MR_CSharp_F_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_F);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2145,7 +2158,7 @@ export declare class MR_CSharp_G extends ffi.CppObject
      * Calls `MR_CSharp_G_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_G);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2269,7 +2282,7 @@ export declare class MR_CSharp_IncrDecrA extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2326,7 +2339,7 @@ export declare class MR_CSharp_IncrDecrB extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2384,7 +2397,7 @@ export declare class MR_CSharp_IncrDecrC extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2442,7 +2455,7 @@ export declare class MR_CSharp_IncrDecrD extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2499,7 +2512,7 @@ export declare class MR_CSharp_IncrDecrE extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2549,7 +2562,7 @@ export declare class MR_CSharp_IncrDecrF extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2599,7 +2612,7 @@ export declare class MR_CSharp_IncrDecrG extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrG_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrG);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2649,7 +2662,7 @@ export declare class MR_CSharp_IncrDecrH extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrH_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrH);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2699,7 +2712,7 @@ export declare class MR_CSharp_IncrDecrI extends ffi.CppObject
      * Calls `MR_CSharp_IncrDecrI_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IncrDecrI);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2745,7 +2758,7 @@ export declare class MR_CSharp_IndexerA extends ffi.CppObject
      * Calls `MR_CSharp_IndexerA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IndexerA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2797,7 +2810,7 @@ export declare class MR_CSharp_IndexerB extends ffi.CppObject
      * Calls `MR_CSharp_IndexerB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IndexerB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2847,7 +2860,7 @@ export declare class MR_CSharp_IndexerC extends ffi.CppObject
      * Calls `MR_CSharp_IndexerC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IndexerC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2899,7 +2912,7 @@ export declare class MR_CSharp_IterableA extends ffi.CppObject
      * Calls `MR_CSharp_IterableA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -2957,7 +2970,7 @@ export declare class MR_CSharp_IterableB extends ffi.CppObject
      * Calls `MR_CSharp_IterableB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3015,7 +3028,7 @@ export declare class MR_CSharp_IterableC extends ffi.CppObject
      * Calls `MR_CSharp_IterableC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3085,7 +3098,7 @@ export declare class MR_CSharp_IterableD extends ffi.CppObject
      * Calls `MR_CSharp_IterableD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3131,7 +3144,7 @@ export declare class MR_CSharp_IterableE extends ffi.CppObject
      * Calls `MR_CSharp_IterableE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3177,7 +3190,7 @@ export declare class MR_CSharp_IterableF extends ffi.CppObject
      * Calls `MR_CSharp_IterableF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3223,7 +3236,7 @@ export declare class MR_CSharp_IterableG extends ffi.CppObject
      * Calls `MR_CSharp_IterableG_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableG);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3281,7 +3294,7 @@ export declare class MR_CSharp_IterableH extends ffi.CppObject
      * Calls `MR_CSharp_IterableH_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableH);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3340,7 +3353,7 @@ export declare class MR_CSharp_IterableI extends ffi.CppObject
      * Calls `MR_CSharp_IterableI_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableI);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3398,7 +3411,7 @@ export declare class MR_CSharp_IterableJ extends ffi.CppObject
      * Calls `MR_CSharp_IterableJ_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableJ);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3457,7 +3470,7 @@ export declare class MR_CSharp_IterableK extends ffi.CppObject
      * Calls `MR_CSharp_IterableK_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableK);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3522,7 +3535,7 @@ export declare class MR_CSharp_IterableK_Iter extends ffi.CppObject
      * Calls `MR_CSharp_IterableK_Iter_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableK_Iter);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3586,7 +3599,7 @@ export declare class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
      * Calls `MR_CSharp_IterableK_Sentinel_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableK_Sentinel);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3626,7 +3639,7 @@ export declare class MR_CSharp_IterableL_int extends ffi.CppObject
      * Calls `MR_CSharp_IterableL_int_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_IterableL_int);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3690,7 +3703,7 @@ export declare class MR_CSharp_LifetimesA extends ffi.CppObject
      * Calls `MR_CSharp_LifetimesA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_LifetimesA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3751,7 +3764,7 @@ export declare class MR_CSharp_LifetimesB extends ffi.CppObject
      * Calls `MR_CSharp_LifetimesB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_LifetimesB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3816,7 +3829,7 @@ export declare class MR_CSharp_LifetimesC extends ffi.CppObject
      * Calls `MR_CSharp_LifetimesC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_LifetimesC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3850,15 +3863,6 @@ export declare class MR_CSharp_LifetimesD extends ffi.CppObject
      */
     constructor(_other: L.MR_CSharp_LifetimesD);
     /**
-     * Store param references in this. The two annotation styles are equivalent for constructors.
-     * Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
-     * The reference to the parameter `ref` might be preserved in the constructed object.
-     * The reference to the parameter `other_ref` might be preserved in the constructed object.
-     *
-     * Calls `MR_CSharp_LifetimesD_Construct_2()`.
-     */
-    constructor(ref: L.MR_CSharp_LifetimesA, other_ref: L.MR_CSharp_LifetimesB);
-    /**
      * `--infer-lifetime-constructors` should act on this.
      * Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
      *
@@ -3874,7 +3878,16 @@ export declare class MR_CSharp_LifetimesD extends ffi.CppObject
      * Calls `MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB()`.
      */
     constructor(ref: L.MR_CSharp_LifetimesB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Store param references in this. The two annotation styles are equivalent for constructors.
+     * Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
+     * The reference to the parameter `ref` might be preserved in the constructed object.
+     * The reference to the parameter `other_ref` might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_LifetimesD_Construct_2()`.
+     */
+    constructor(ref: L.MR_CSharp_LifetimesA, other_ref: L.MR_CSharp_LifetimesB);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -3957,7 +3970,7 @@ export declare class MR_CSharp_LifetimesE extends ffi.CppObject
      * Calls `MR_CSharp_LifetimesE_Construct()`.
      */
     constructor(ref: L.MR_CSharp_LifetimesB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4019,20 +4032,20 @@ export declare class MR_CSharp_NameConflicts extends ffi.CppObject
      */
     constructor();
     /**
-     * Constructs `MR::CSharp::NameConflicts` elementwise.
-     * The reference to the parameter `a` might be preserved in the constructed object.
-     *
-     * Calls `MR_CSharp_NameConflicts_ConstructFrom()`.
-     */
-    constructor(name_conflicts: number, a: L.MR_CSharp_NameConflicts_A);
-    /**
      * Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
      *
      * Calls `MR_CSharp_NameConflicts_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NameConflicts);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /**
+     * Constructs `MR::CSharp::NameConflicts` elementwise.
+     * The reference to the parameter `a` might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_NameConflicts_ConstructFrom()`.
+     */
+    constructor(name_conflicts: number, a: L.MR_CSharp_NameConflicts_A);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4070,7 +4083,7 @@ export declare class MR_CSharp_NameConflicts_A extends ffi.CppObject
      * Calls `MR_CSharp_NameConflicts_A_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NameConflicts_A);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4144,7 +4157,7 @@ export declare class MR_CSharp_NonCopyableClassByValueOps extends ffi.CppObject
      * Calls `MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NonCopyableClassByValueOps);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4177,7 +4190,7 @@ export declare class MR_CSharp_NonTrivial extends ffi.CppObject
      * Calls `MR_CSharp_NonTrivial_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NonTrivial);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4210,7 +4223,7 @@ export declare class MR_CSharp_NonTrivialClassOps extends ffi.CppObject
      * Calls `MR_CSharp_NonTrivialClassOps_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NonTrivialClassOps);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4248,7 +4261,7 @@ export declare class MR_CSharp_NonTrivialDerived extends ffi.CppObject
      * Calls `MR_CSharp_NonTrivialDerived_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_NonTrivialDerived);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4281,7 +4294,7 @@ export declare class MR_CSharp_Outer extends ffi.CppObject
      * Calls `MR_CSharp_Outer_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_Outer);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4319,7 +4332,7 @@ export declare class MR_CSharp_Outer_Inner extends ffi.CppObject
      * Calls `MR_CSharp_Outer_Inner_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_Outer_Inner);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4358,7 +4371,7 @@ export declare class MR_CSharp_RelationalA extends ffi.CppObject
      * Calls `MR_CSharp_RelationalA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4415,7 +4428,7 @@ export declare class MR_CSharp_RelationalB extends ffi.CppObject
      * Calls `MR_CSharp_RelationalB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4472,7 +4485,7 @@ export declare class MR_CSharp_RelationalC extends ffi.CppObject
      * Calls `MR_CSharp_RelationalC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4524,7 +4537,7 @@ export declare class MR_CSharp_RelationalD extends ffi.CppObject
      * Calls `MR_CSharp_RelationalD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4581,7 +4594,7 @@ export declare class MR_CSharp_RelationalE extends ffi.CppObject
      * Calls `MR_CSharp_RelationalE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4638,7 +4651,7 @@ export declare class MR_CSharp_RelationalF extends ffi.CppObject
      * Calls `MR_CSharp_RelationalF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_RelationalF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4697,7 +4710,7 @@ export declare class MR_CSharp_SA extends ffi.CppObject
      * Calls `MR_CSharp_SA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4726,7 +4739,8 @@ export declare class MR_CSharp_SB extends ffi.CppObject
      *
      * Calls `MR_CSharp_SB_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -4747,7 +4761,7 @@ export declare class MR_CSharp_SB extends ffi.CppObject
      * Calls `MR_CSharp_SB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4777,7 +4791,8 @@ export declare class MR_CSharp_SC extends ffi.CppObject
      *
      * Calls `MR_CSharp_SC_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -4791,7 +4806,7 @@ export declare class MR_CSharp_SC extends ffi.CppObject
      * Calls `MR_CSharp_SC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4842,7 +4857,7 @@ export declare class MR_CSharp_SD extends ffi.CppObject
      * Calls `MR_CSharp_SD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4872,7 +4887,8 @@ export declare class MR_CSharp_SE extends ffi.CppObject
      *
      * Calls `MR_CSharp_SE_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -4893,7 +4909,7 @@ export declare class MR_CSharp_SE extends ffi.CppObject
      * Calls `MR_CSharp_SE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -4923,7 +4939,8 @@ export declare class MR_CSharp_SF extends ffi.CppObject
      *
      * Calls `MR_CSharp_SF_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -4937,7 +4954,7 @@ export declare class MR_CSharp_SF extends ffi.CppObject
      * Calls `MR_CSharp_SF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_SF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5002,7 +5019,7 @@ export declare class MR_CSharp_StaticOpsLhsA extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5035,7 +5052,7 @@ export declare class MR_CSharp_StaticOpsLhsB extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5068,7 +5085,7 @@ export declare class MR_CSharp_StaticOpsLhsC extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -5094,7 +5111,7 @@ export declare class MR_CSharp_StaticOpsLhsD extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -5120,7 +5137,7 @@ export declare class MR_CSharp_StaticOpsLhsE extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5154,7 +5171,7 @@ export declare class MR_CSharp_StaticOpsLhsF extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5188,7 +5205,7 @@ export declare class MR_CSharp_StaticOpsLhsG extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsG_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsG);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5222,7 +5239,7 @@ export declare class MR_CSharp_StaticOpsLhsH extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsLhsH_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsLhsH);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5254,7 +5271,7 @@ export declare class MR_CSharp_StaticOpsMixedLhs extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsMixedLhs);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5286,7 +5303,7 @@ export declare class MR_CSharp_StaticOpsMixedRhs extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsMixedRhs);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5319,7 +5336,7 @@ export declare class MR_CSharp_StaticOpsRhsA extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsA_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsA);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5352,7 +5369,7 @@ export declare class MR_CSharp_StaticOpsRhsB extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsB_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsB);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5385,7 +5402,7 @@ export declare class MR_CSharp_StaticOpsRhsC extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsC_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsC);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -5411,7 +5428,7 @@ export declare class MR_CSharp_StaticOpsRhsD extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsD_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsD);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -5437,7 +5454,7 @@ export declare class MR_CSharp_StaticOpsRhsE extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsE_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsE);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5471,7 +5488,7 @@ export declare class MR_CSharp_StaticOpsRhsF extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsF_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsF);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5505,7 +5522,7 @@ export declare class MR_CSharp_StaticOpsRhsG extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsG_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsG);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5539,7 +5556,7 @@ export declare class MR_CSharp_StaticOpsRhsH extends ffi.CppObject
      * Calls `MR_CSharp_StaticOpsRhsH_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StaticOpsRhsH);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5571,7 +5588,7 @@ export declare class MR_CSharp_StringConvFsPath extends ffi.CppObject
      * Calls `MR_CSharp_StringConvFsPath_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StringConvFsPath);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5611,7 +5628,7 @@ export declare class MR_CSharp_StringConvString extends ffi.CppObject
      * Calls `MR_CSharp_StringConvString_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StringConvString);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5649,7 +5666,7 @@ export declare class MR_CSharp_StringConvStringView extends ffi.CppObject
      * Calls `MR_CSharp_StringConvStringView_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_StringConvStringView);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5688,7 +5705,7 @@ export declare class MR_CSharp_TestConstness extends ffi.CppObject
      * Calls `MR_CSharp_TestConstness_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_TestConstness);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -5748,7 +5765,8 @@ export declare class MR_CSharp_TestFields extends ffi.CppObject
      *
      * Calls `MR_CSharp_TestFields_Get_static_s()`.
      */
-    static static_s: L.MR_C_std_string;
+    static get static_s(): L.MR_C_std_string;
+    static set static_s(value: string);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `static_const_s`.
      *
@@ -5802,7 +5820,8 @@ export declare class MR_CSharp_TestFields extends ffi.CppObject
      *
      * Calls `MR_CSharp_TestFields_Get_s()`.
      */
-    s: L.MR_C_std_string;
+    get s(): L.MR_C_std_string;
+    set s(value: string);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `const_s`.
      * The reference to this object might be preserved as the return value.
@@ -5843,7 +5862,7 @@ export declare class MR_CSharp_TestFields extends ffi.CppObject
      * Calls `MR_CSharp_TestFields_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     constructor(i: number, const_i: number, i_ref: number, const_i_ref: number, s: string, const_s: string, s_ref: L.MR_C_std_string, const_s_ref: string);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
 }
@@ -5876,7 +5895,7 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      * Calls `MR_C_add_MR_CSharp_TestOpsA()`.
      */
     opAdd(_1: L.MR_CSharp_TestOpsA): number;
-    /** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsA::operator-`.
      *
@@ -5889,7 +5908,7 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      * Calls `MR_C_sub_MR_CSharp_TestOpsA()`.
      */
     opSub(_1: L.MR_CSharp_TestOpsA): number;
-    /** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsA::operator*`.
      *
@@ -5902,7 +5921,7 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      * Calls `MR_C_mul_MR_CSharp_TestOpsA()`.
      */
     opMul(_1: L.MR_CSharp_TestOpsA): number;
-    /** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsA::operator&`.
      *
@@ -5915,7 +5934,7 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      * Calls `MR_C_bitand_MR_CSharp_TestOpsA()`.
      */
     opBitand(_1: L.MR_CSharp_TestOpsA): number;
-    /** The overloads of `opBitand` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opBitand` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsA::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -6157,7 +6176,7 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_add_MR_CSharp_TestOpsB()`.
      */
     opAdd(_1: L.MR_CSharp_TestOpsB): number;
-    /** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator-`.
      *
@@ -6170,7 +6189,7 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_sub_MR_CSharp_TestOpsB()`.
      */
     opSub(_1: L.MR_CSharp_TestOpsB): number;
-    /** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator*`.
      *
@@ -6183,7 +6202,7 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_mul_MR_CSharp_TestOpsB()`.
      */
     opMul(_1: L.MR_CSharp_TestOpsB): number;
-    /** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator&`.
      *
@@ -6196,7 +6215,7 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_bitand_MR_CSharp_TestOpsB()`.
      */
     opBitand(_1: L.MR_CSharp_TestOpsB): number;
-    /** The overloads of `opBitand` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opBitand` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -6438,7 +6457,7 @@ export declare class MR_CSharp_TestOpsC extends ffi.CppObject
      * Calls `MR_C_add_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA()`.
      */
     opAdd(_1: L.MR_CSharp_TestOpsA): void;
-    /** The overloads of `opAdd` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opAdd` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsC::operator-`.
      *
@@ -6451,7 +6470,7 @@ export declare class MR_CSharp_TestOpsC extends ffi.CppObject
      * Calls `MR_C_sub_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA()`.
      */
     opSub(_1: L.MR_CSharp_TestOpsA): void;
-    /** The overloads of `opSub` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opSub` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsC::operator*`.
      *
@@ -6464,7 +6483,7 @@ export declare class MR_CSharp_TestOpsC extends ffi.CppObject
      * Calls `MR_C_mul_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA()`.
      */
     opMul(_1: L.MR_CSharp_TestOpsA): void;
-    /** The overloads of `opMul` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsC::operator&`.
      *
@@ -6477,7 +6496,7 @@ export declare class MR_CSharp_TestOpsC extends ffi.CppObject
      * Calls `MR_C_bitand_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA()`.
      */
     opBitand(_1: L.MR_CSharp_TestOpsA): void;
-    /** The overloads of `opBitand` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `opBitand` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Generated from method `MR::CSharp::TestOpsC::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
@@ -6711,55 +6730,69 @@ export declare class MR_CSharp_TestStdFunction extends ffi.CppObject
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f1()`.
      */
-    f1: L.MR_C_std_function_int_from_std_string;
+    get f1(): L.MR_C_std_function_int_from_std_string;
+    set f1(value: L.MR_C_std_function_int_from_std_string | L.MR_C_std_function_int_from_std_string.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f2`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f2()`.
      */
-    f2: L.MR_C_std_function_std_string_from_int_int;
+    get f2(): L.MR_C_std_function_std_string_from_int_int;
+    set f2(value: L.MR_C_std_function_std_string_from_int_int | L.MR_C_std_function_std_string_from_int_int.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f3`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f3()`.
      */
-    f3: L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1;
+    get f3(): L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1;
+    set f3(value: L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 | L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f4`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f4()`.
      */
-    f4: L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC;
+    get f4(): L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC;
+    set f4(value: L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC | L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f5`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f5()`.
      */
-    f5: L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref;
+    get f5(): L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref;
+    set f5(value: L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref | L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f6`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f6()`.
      */
-    f6: L.MR_C_std_function_int_rvalue_ref;
+    get f6(): L.MR_C_std_function_int_rvalue_ref;
+    set f6(value: L.MR_C_std_function_int_rvalue_ref | L.MR_C_std_function_int_rvalue_ref.Fn);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::TestStdFunction` named `f7`.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_CSharp_TestStdFunction_Get_f7()`.
      */
-    f7: L.MR_C_std_function_void;
+    get f7(): L.MR_C_std_function_void;
+    set f7(value: L.MR_C_std_function_void | L.MR_C_std_function_void.Fn);
     /**
      * Constructs an empty (default-constructed) instance.
      *
      * Calls `MR_CSharp_TestStdFunction_DefaultConstruct()`.
      */
     constructor();
+    /**
+     * Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_TestStdFunction_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_TestStdFunction);
     /**
      * Constructs `MR::CSharp::TestStdFunction` elementwise.
      * The reference to the parameter `f1` might be preserved in the constructed object.
@@ -6773,14 +6806,7 @@ export declare class MR_CSharp_TestStdFunction extends ffi.CppObject
      * Calls `MR_CSharp_TestStdFunction_ConstructFrom()`.
      */
     constructor(f1: L.MR_C_std_function_int_from_std_string | L.MR_C_std_function_int_from_std_string.Fn, f2: L.MR_C_std_function_std_string_from_int_int | L.MR_C_std_function_std_string_from_int_int.Fn, f3: L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 | L.MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1.Fn, f4: L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC | L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC.Fn, f5: L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref | L.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref.Fn, f6: L.MR_C_std_function_int_rvalue_ref | L.MR_C_std_function_int_rvalue_ref.Fn, f7: L.MR_C_std_function_void | L.MR_C_std_function_void.Fn);
-    /**
-     * Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
-     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
-     *
-     * Calls `MR_CSharp_TestStdFunction_ConstructFromAnother()`.
-     */
-    constructor(_other: L.MR_CSharp_TestStdFunction);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -6818,7 +6844,7 @@ export declare class MR_CSharp_Trivial extends ffi.CppObject
      * Calls `MR_CSharp_Trivial_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_Trivial);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -6850,7 +6876,7 @@ export declare class MR_CSharp_TrivialDerived extends ffi.CppObject
      * Calls `MR_CSharp_TrivialDerived_ConstructFromAnother()`.
      */
     constructor(_other: L.MR_CSharp_TrivialDerived);
-    /** The overloads of `constructor` are resolved at runtime by the argument types; the first declared match wins. */
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

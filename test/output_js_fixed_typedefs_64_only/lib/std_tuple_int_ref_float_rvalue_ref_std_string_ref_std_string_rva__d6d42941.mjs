@@ -52,6 +52,7 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
 
     get_int_ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_int_ref(this.rawPointer());
@@ -62,10 +63,15 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_float_rvalue_ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_float_rvalue_ref(this.rawPointer());
@@ -76,10 +82,15 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string_ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_ref(this.rawPointer());
@@ -91,10 +102,15 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get_std_string_rvalue_ref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_rvalue_ref(this.rawPointer());
@@ -105,6 +121,10 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

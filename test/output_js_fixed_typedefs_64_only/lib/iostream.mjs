@@ -50,6 +50,7 @@ export class MR_C_std_ostream extends ffi.CppObject
 
 export function MR_C_GetStdCout()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_GetStdCout();
@@ -61,10 +62,15 @@ export function MR_C_GetStdCout()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_GetStdCerr()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_GetStdCerr();
@@ -76,10 +82,15 @@ export function MR_C_GetStdCerr()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_GetStdClog()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_GetStdClog();
@@ -91,10 +102,15 @@ export function MR_C_GetStdClog()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_C_GetStdCin()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_GetStdCin();
@@ -105,6 +121,10 @@ export function MR_C_GetStdCin()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

@@ -13,6 +13,7 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -37,10 +43,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(value)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromValue(ffi.PASS_BY_COPY, ffi.ptrNonNull(value, "value"));
@@ -51,10 +62,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_4(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ffi.ptr(ptr));
@@ -65,10 +81,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_5(ownership, ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAliasing(ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), ffi.ptr(ptr));
@@ -78,6 +99,10 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -103,15 +128,21 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
 
     static construct(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ffi.nonNull(ptr, "ptr").release());
+            const __a0 = ffi.nonNull(ptr, "ptr").release();
+            const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_Construct(__a0);
             ffi.check();
             return new L.MR_C_std_shared_ptr_MR_CSharp_SD(ffi.RAW, (__ret >>> 0), true, null);
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -127,6 +158,7 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -136,10 +168,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     get()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_get(this.rawPointer());
@@ -151,10 +188,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_has_value(this.rawPointer());
@@ -165,10 +207,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     use_count()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_use_count(this.rawPointer());
@@ -179,10 +226,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reset()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_reset(this.rawPointer());
@@ -192,23 +244,35 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assign(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_Assign(this.rawPointer(), ffi.nonNull(ptr, "ptr").release());
+            const __a0 = this.rawPointer();
+            const __a1 = ffi.nonNull(ptr, "ptr").release();
+            ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_Assign(__a0, __a1);
             ffi.check();
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignNonOwning(ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_AssignNonOwning(this.rawPointer(), ffi.ptr(ptr));
@@ -218,10 +282,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignAliasing(ownership, ptr)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_AssignAliasing(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), ffi.ptr(ptr));
@@ -231,10 +300,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     convertTo_MR_C_std_shared_ptr_void()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_ConvertTo_MR_C_std_shared_ptr_void(this.rawPointer());
@@ -245,10 +319,15 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     AssignTo_MR_C_std_shared_ptr_void(_target)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_shared_ptr_MR_CSharp_SD_AssignTo_MR_C_std_shared_ptr_void(this.rawPointer(), ffi.ptrNonNull(_target, "_target"));
@@ -257,6 +336,10 @@ export class MR_C_std_shared_ptr_MR_CSharp_SD extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }

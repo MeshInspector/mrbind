@@ -24,7 +24,7 @@ export function MR_StdStringView_SetWithDefault(s)
     try
     {
         const __str_s = s == null ? 0 : ffi.utf8(s);
-        const __end_s = ffi.utf8End();
+        const __end_s = s == null ? 0 : ffi.utf8End();
         ffi.C.MR_StdStringView_SetWithDefault(__str_s, __end_s);
         ffi.check();
     }

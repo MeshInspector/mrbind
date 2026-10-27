@@ -15,6 +15,7 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_A_int_DefaultConstruct();
@@ -25,10 +26,15 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_A_int_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -38,6 +44,10 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -63,6 +73,7 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_A_int_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -74,10 +85,15 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_A_int_foo(this.rawPointer());
@@ -87,6 +103,10 @@ export class MR_TypedefsInTemplates_A_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -102,6 +122,7 @@ export class MR_TypedefsInTemplates_B_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_DefaultConstruct();
@@ -112,10 +133,15 @@ export class MR_TypedefsInTemplates_B_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -125,6 +151,10 @@ export class MR_TypedefsInTemplates_B_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -150,6 +180,7 @@ export class MR_TypedefsInTemplates_B_int extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -160,6 +191,10 @@ export class MR_TypedefsInTemplates_B_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -175,6 +210,7 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
@@ -185,10 +221,15 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -198,6 +239,10 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -223,6 +268,7 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -234,10 +280,15 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_BB_float_foo(this.rawPointer());
@@ -248,10 +299,15 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     foo2()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TypedefsInTemplates_B_int_BB_float_foo2(this.rawPointer());
@@ -262,11 +318,16 @@ export class MR_TypedefsInTemplates_B_int_BB_float extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_TypedefsInTemplates_bar(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_TypedefsInTemplates_bar(_1);
@@ -275,6 +336,10 @@ export function MR_TypedefsInTemplates_bar(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

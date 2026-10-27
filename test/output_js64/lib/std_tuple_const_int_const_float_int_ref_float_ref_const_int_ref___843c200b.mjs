@@ -16,10 +16,10 @@ export class MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_re
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr__4 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _4;});
-            const __ptr__5 = ffi.stackScalar(4, (p) => {ffi.M.HEAPF32[(p) >>> 2] = _5;});
-            const __ptr__8 = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = _8;});
-            const __ptr__9 = ffi.stackScalar(4, (p) => {ffi.M.HEAPF32[(p) >>> 2] = _9;});
+            const __ptr__4 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _4;});
+            const __ptr__5 = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) / 4] = _5;});
+            const __ptr__8 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _8;});
+            const __ptr__9 = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) / 4] = _9;});
             const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(_0, _1, BigInt(_2), BigInt(_3), BigInt(__ptr__4), BigInt(__ptr__5), BigInt(_6), BigInt(_7), BigInt(__ptr__8), BigInt(__ptr__9));
             ffi.check();
             return Number(__ret);
@@ -52,14 +52,14 @@ export class MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_re
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get_const_float()
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     get_int_ref()
@@ -80,14 +80,14 @@ export class MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_re
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int_ref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get_const_float_ref()
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_ref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     get_int_rvalue_ref()
@@ -108,14 +108,14 @@ export class MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_re
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int_rvalue_ref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get_const_float_rvalue_ref()
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 }
 

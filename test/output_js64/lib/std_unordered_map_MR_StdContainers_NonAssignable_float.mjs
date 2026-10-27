@@ -254,7 +254,7 @@ export class MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_i
     {
         const __ret = ffi.C.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator_deref_value(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAPF32[(Number(__ret)) >>> 2];
+        return ffi.HEAPF32()[(Number(__ret)) / 4];
     }
 
     incr()

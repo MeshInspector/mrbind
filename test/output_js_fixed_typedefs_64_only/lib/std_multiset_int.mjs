@@ -13,6 +13,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_ConstructFromAnother(ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -37,6 +43,10 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_2(ptr, size)
@@ -44,7 +54,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             const __ret = ffi.C.MR_C_std_multiset_int_ConstructFromRange(__ptr_ptr, size);
             ffi.check();
             return (__ret >>> 0);
@@ -83,6 +93,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
@@ -92,6 +103,10 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     assignFromRange(ptr, size)
@@ -99,7 +114,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = ptr;});
+            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = ptr;});
             ffi.C.MR_C_std_multiset_int_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
@@ -115,6 +130,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
 
     size()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_size(this.rawPointer());
@@ -125,10 +141,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     empty()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_empty(this.rawPointer());
@@ -139,10 +160,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     clear()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_clear(this.rawPointer());
@@ -152,6 +178,10 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     count(key)
@@ -159,7 +189,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_multiset_int_count(this.rawPointer(), __ptr_key);
             ffi.check();
             return (__ret >>> 0);
@@ -179,7 +209,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.M.HEAPU32[(p) >>> 2] = key;});
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
             const __ret = ffi.C.MR_C_std_multiset_int_find(this.rawPointer(), __ptr_key);
             ffi.check();
             return new L.MR_C_std_multiset_int_const_iterator(ffi.RAW, (__ret >>> 0), true, null);
@@ -196,6 +226,7 @@ export class MR_C_std_multiset_int extends ffi.CppObject
 
     insert(new_elem)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_insert(this.rawPointer(), new_elem);
@@ -205,10 +236,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     begin()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_begin(this.rawPointer());
@@ -219,10 +255,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_begin(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -233,10 +274,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     end()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_end(this.rawPointer());
@@ -247,10 +293,15 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     is_end(iter)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_is_end(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
@@ -260,6 +311,10 @@ export class MR_C_std_multiset_int extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 }
@@ -275,6 +330,7 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_const_iterator_DefaultConstruct();
@@ -285,10 +341,15 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_const_iterator_ConstructFromAnother(ffi.ptrNonNull(other, "other"));
@@ -298,6 +359,10 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -323,6 +388,7 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
 
     assignFromAnother(other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_const_iterator_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(other, "other"));
@@ -332,24 +398,34 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     deref()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_multiset_int_const_iterator_deref(this.rawPointer());
             ffi.check();
-            return ffi.M.HEAP32[((__ret >>> 0)) >>> 2];
+            return ffi.HEAP32()[((__ret >>> 0)) >>> 2];
         }
         catch (__e)
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     incr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_const_iterator_incr(this.rawPointer());
@@ -359,10 +435,15 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     decr()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_multiset_int_const_iterator_decr(this.rawPointer());
@@ -372,11 +453,16 @@ export class MR_C_std_multiset_int_const_iterator extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_C_equal_MR_C_std_multiset_int_const_iterator(a, b)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_C_std_multiset_int_const_iterator(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
@@ -386,6 +472,10 @@ export function MR_C_equal_MR_C_std_multiset_int_const_iterator(a, b)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

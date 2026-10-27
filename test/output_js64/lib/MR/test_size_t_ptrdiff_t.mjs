@@ -63,7 +63,7 @@ export class MR_TestSizeT_A_unsigned_long extends ffi.CppObject
 
 export function MR_TestSizeT_foo_unsigned_long(_1)
 {
-    const __ret = ffi.C.MR_TestSizeT_foo_unsigned_long(BigInt(_1));
+    const __ret = ffi.C.MR_TestSizeT_foo_unsigned_long(ffi.toI64(_1));
     ffi.check();
     return Number(__ret);
 }
@@ -84,7 +84,7 @@ export function MR_TestSizeT_foo_std_vector_unsigned_long(_1)
 
 export function MR_TestSizeT_foo_long(_1)
 {
-    const __ret = ffi.C.MR_TestSizeT_foo_long(BigInt(_1));
+    const __ret = ffi.C.MR_TestSizeT_foo_long(ffi.toI64(_1));
     ffi.check();
     return Number(__ret);
 }

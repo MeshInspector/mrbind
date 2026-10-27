@@ -26,4 +26,4 @@ export declare function a(_1: L.MR_OmittingTargsAndQuals_A_int32_t): void;
  * Calls `MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float()`.
  */
 export declare function a(_1: L.MR_OmittingTargsAndQuals_A_float): void;
-/** The overloads of `a` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `a` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

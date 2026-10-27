@@ -13,6 +13,7 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TestSizeT_A_uint64_t_DefaultConstruct();
@@ -23,10 +24,15 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TestSizeT_A_uint64_t_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
@@ -36,6 +42,10 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
         catch (__e)
         {
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -61,6 +71,7 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
 
     assignFromAnother(_other)
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TestSizeT_A_uint64_t_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
@@ -72,10 +83,15 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     foo()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_TestSizeT_A_uint64_t_foo(this.rawPointer());
@@ -86,11 +102,16 @@ export class MR_TestSizeT_A_uint64_t extends ffi.CppObject
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 }
 
 export function MR_TestSizeT_foo_uint64_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_uint64_t(ffi.toI64(_1));
@@ -101,10 +122,15 @@ export function MR_TestSizeT_foo_uint64_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_TestSizeT_foo_uint64_t_ptr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_uint64_t_ptr(_1);
@@ -115,10 +141,15 @@ export function MR_TestSizeT_foo_uint64_t_ptr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_TestSizeT_foo_std_vector_uint64_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_std_vector_uint64_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -129,10 +160,15 @@ export function MR_TestSizeT_foo_std_vector_uint64_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_TestSizeT_foo_int64_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_int64_t(ffi.toI64(_1));
@@ -143,10 +179,15 @@ export function MR_TestSizeT_foo_int64_t(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_TestSizeT_foo_int64_t_ptr(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_int64_t_ptr(_1);
@@ -157,10 +198,15 @@ export function MR_TestSizeT_foo_int64_t_ptr(_1)
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_TestSizeT_foo_std_vector_int64_t(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_TestSizeT_foo_std_vector_int64_t(ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
@@ -170,6 +216,10 @@ export function MR_TestSizeT_foo_std_vector_int64_t(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

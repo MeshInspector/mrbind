@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_IncludesForEnumConstants_foo()
 {
+    const __sp = ffi.stackSave();
     try
     {
         const __ret = ffi.C.MR_IncludesForEnumConstants_foo();
@@ -13,6 +14,10 @@ export function MR_IncludesForEnumConstants_foo()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

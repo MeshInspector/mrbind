@@ -62,4 +62,4 @@ export declare function foo(_1: L.MR_C_std_function_void_from_MR_StdFunction_A |
  * Calls `MR_StdFunction_foo_std_function_MR_StdFunction_A_func()`.
  */
 export declare function foo(_1: L.MR_C_std_function_MR_StdFunction_A | L.MR_C_std_function_MR_StdFunction_A.Fn): void;
-/** The overloads of `foo` are resolved at runtime by the argument types; the first declared match wins. */
+/** The overloads of `foo` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

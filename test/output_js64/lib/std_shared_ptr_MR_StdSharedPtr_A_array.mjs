@@ -28,14 +28,15 @@ export class MR_C_std_shared_ptr_MR_StdSharedPtr_A_array extends ffi.CppObject
 
     static __ctor_2(size)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(BigInt(size));
+        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromSize(ffi.toI64(size));
         ffi.check();
         return Number(__ret);
     }
 
     static __ctor_3(ptr)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(BigInt(ffi.nonNull(ptr, "ptr").release()));
+        const __a0 = BigInt(ffi.nonNull(ptr, "ptr").release());
+        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Construct(__a0);
         ffi.check();
         return Number(__ret);
     }
@@ -109,7 +110,7 @@ export class MR_C_std_shared_ptr_MR_StdSharedPtr_A_array extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         const __owner = this;
         return new L.MR_StdSharedPtr_A(ffi.RAW, Number(__ret), false, __owner);
@@ -130,7 +131,9 @@ export class MR_C_std_shared_ptr_MR_StdSharedPtr_A_array extends ffi.CppObject
 
     assign(ptr)
     {
-        ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(BigInt(this.rawPointer()), BigInt(ffi.nonNull(ptr, "ptr").release()));
+        const __a0 = BigInt(this.rawPointer());
+        const __a1 = BigInt(ffi.nonNull(ptr, "ptr").release());
+        ffi.C.MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Assign(__a0, __a1);
         ffi.check();
     }
 

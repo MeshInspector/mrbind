@@ -28,7 +28,7 @@ export class MR_C_std_shared_ptr_int_array extends ffi.CppObject
 
     static __ctor_2(size)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_int_array_ConstructFromSize(BigInt(size));
+        const __ret = ffi.C.MR_C_std_shared_ptr_int_array_ConstructFromSize(ffi.toI64(size));
         ffi.check();
         return Number(__ret);
     }
@@ -100,7 +100,7 @@ export class MR_C_std_shared_ptr_int_array extends ffi.CppObject
 
     at(i)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_int_array_at(BigInt(this.rawPointer()), BigInt(i));
+        const __ret = ffi.C.MR_C_std_shared_ptr_int_array_at(BigInt(this.rawPointer()), ffi.toI64(i));
         ffi.check();
         return Number(__ret);
     }

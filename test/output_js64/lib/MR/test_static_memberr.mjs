@@ -15,7 +15,7 @@ export class MR_StaticFuncs_A extends ffi.CppObject
     {
         const __ret = ffi.C.MR_StaticFuncs_A_Get_x();
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     static set x(value)

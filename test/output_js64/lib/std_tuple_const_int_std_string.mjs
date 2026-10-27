@@ -68,7 +68,7 @@ export class MR_C_std_tuple_const_int_std_string extends ffi.CppObject
     {
         const __ret = ffi.C.MR_C_std_tuple_const_int_std_string_get_const_int(BigInt(this.rawPointer()));
         ffi.check();
-        return ffi.M.HEAP32[(Number(__ret)) >>> 2];
+        return ffi.HEAP32()[(Number(__ret)) / 4];
     }
 
     get_std_string()

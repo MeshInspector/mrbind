@@ -13,6 +13,7 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
 
     static __ctor_0()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_DefaultConstruct();
@@ -23,11 +24,16 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor_1(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC.of(other) : other;
@@ -41,6 +47,7 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
@@ -68,6 +75,7 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
     assignFromAnother(other)
     {
         let __fn_other = null;
+        const __sp = ffi.stackSave();
         try
         {
             __fn_other = typeof other === "function" ? L.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC.of(other) : other;
@@ -80,12 +88,14 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         }
         finally
         {
+            ffi.stackRestore(__sp);
             if (__fn_other !== null && __fn_other !== other) __fn_other.delete();
         }
     }
 
     has_value()
     {
+        const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_has_value(this.rawPointer());
@@ -96,10 +106,15 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     reset()
     {
+        const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_reset(this.rawPointer());
@@ -109,20 +124,30 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         {
             throw ffi.cppError(__e);
         }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     call(_1)
     {
+        const __sret = ffi.malloc(4);
+        const __sp = ffi.stackSave();
         try
         {
-            const __sret = ffi.malloc(4);
-            const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(this.rawPointer(), ffi.M.HEAP32[(ffi.ptrNonNull(_1, "_1") + 0) >>> 2]);
+            const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(this.rawPointer(), ffi.HEAP32()[(ffi.ptrNonNull(_1, "_1") + 0) >>> 2]);
             ffi.check();
-            return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_CSharp_ExposedLayoutC(ffi.RAW, __sret, true, null));
+            return (ffi.HEAPU32()[(__sret + 0) >>> 2] = __ret, new L.MR_CSharp_ExposedLayoutC(ffi.RAW, __sret, true, null));
         }
         catch (__e)
         {
+            ffi.free(__sret);
             throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
         }
     }
 
@@ -133,7 +158,7 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         try
         {
             const __ret = func((_1 >>> 0) === 0 ? null : new L.MR_CSharp_ExposedLayoutC(ffi.RAW, (_1 >>> 0), false, null));
-            return ffi.M.HEAP32[(ffi.ptrNonNull(__ret, "the callback result") + 0) >>> 2];
+            return ffi.HEAP32()[(ffi.ptrNonNull(__ret, "the callback result") + 0) >>> 2];
         }
         catch (__e)
         {

@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_IncompleteArrayElemType_foo(_1)
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_IncompleteArrayElemType_foo(_1);
@@ -12,6 +13,10 @@ export function MR_IncompleteArrayElemType_foo(_1)
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 

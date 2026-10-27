@@ -85,9 +85,17 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
     call(_1)
     {
         const __sret = ffi.malloc(4);
-        const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(BigInt(this.rawPointer()), ffi.M.HEAP32[(ffi.ptrNonNull(_1, "_1") + 0) >>> 2]);
-        ffi.check();
-        return (ffi.M.HEAPU32[(__sret + 0) >>> 2] = __ret, new L.MR_CSharp_ExposedLayoutC(ffi.RAW, __sret, true, null));
+        try
+        {
+            const __ret = ffi.C.MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(BigInt(this.rawPointer()), ffi.HEAP32()[(ffi.ptrNonNull(_1, "_1") + 0) / 4]);
+            ffi.check();
+            return (ffi.HEAPU32()[(__sret + 0) / 4] = __ret, new L.MR_CSharp_ExposedLayoutC(ffi.RAW, __sret, true, null));
+        }
+        catch (__e)
+        {
+            ffi.free(__sret);
+            throw __e;
+        }
     }
 
     static __stub = 0;
@@ -97,7 +105,7 @@ export class MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLa
         try
         {
             const __ret = func(Number(_1) === 0 ? null : new L.MR_CSharp_ExposedLayoutC(ffi.RAW, Number(_1), false, null));
-            return ffi.M.HEAP32[(ffi.ptrNonNull(__ret, "the callback result") + 0) >>> 2];
+            return ffi.HEAP32()[(ffi.ptrNonNull(__ret, "the callback result") + 0) / 4];
         }
         catch (__e)
         {

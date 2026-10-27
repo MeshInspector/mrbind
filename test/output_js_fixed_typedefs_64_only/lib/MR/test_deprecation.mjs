@@ -4,6 +4,7 @@ import * as L from "../../lib/_all.mjs";
 
 export function MR_Deprecation_foo()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Deprecation_foo();
@@ -13,10 +14,15 @@ export function MR_Deprecation_foo()
     {
         throw ffi.cppError(__e);
     }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_Deprecation_bar()
 {
+    const __sp = ffi.stackSave();
     try
     {
         ffi.C.MR_Deprecation_bar();
@@ -25,6 +31,10 @@ export function MR_Deprecation_bar()
     catch (__e)
     {
         throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
     }
 }
 
