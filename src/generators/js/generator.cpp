@@ -2225,6 +2225,19 @@ export function init(module)
         throw new Error("Not an Emscripten module with exported `wasmExports`, see `emcc_link_flags.rsp`.");
     M = module;
     C = module.wasmExports;
+    // An optimized link minifies the names of the wasm exports (`-sMINIFY_WASM_EXPORT_NAMES`, which `emcc_link_flags.rsp` turns off), then the
+    // real names are only on the `_name` wrappers of the module, which take and return the same raw values as the exports.
+    if (typeof C[PROBE_FUNCTION] !== "function")
+    {
+        C = {};
+        for (const key in module)
+        {
+            if (key.length > 1 && key[0] === "_" && typeof module[key] === "function")
+                C[key.slice(1)] = module[key];
+        }
+        if (typeof C[PROBE_FUNCTION] !== "function")
+            throw new Error("The module doesn't export the C bindings, see `emcc_link_flags.rsp` and `exported_functions.txt`.");
+    }
 )";
         if (c_desc.exception_handling_enabled)
         {
@@ -2541,6 +2554,7 @@ export class CppStruct extends CppObject
 }
 )";
         // The pointer-size dependent spots of the runtime.
+        js = Strings::Replace(js, "PROBE_FUNCTION", "\"" + EscapeJsString(exported_c_functions.empty() ? "malloc" : *exported_c_functions.begin()) + "\"");
         js = Strings::Replace(js, "PTR_FROM_WASM(messages)", PtrFromWasm("messages"));
         js = Strings::Replace(js, "MESSAGE_AT(base, i)", Strings::Replace(HeapRead(Scalar::ptr, "base + i * " + std::to_string(PointerSize())), "ffi.M.", "M."));
         // `_malloc()` and `_free()` are the wrappers Emscripten emits for its own exports, which take and return numbers in wasm64 too, unlike the raw exports.
@@ -3288,6 +3302,7 @@ export class CppStruct extends CppObject
             "-sEXPORTED_RUNTIME_METHODS=wasmExports,HEAP8,HEAPU8,HEAP16,HEAPU16,HEAP32,HEAPU32,HEAP64,HEAPU64,HEAPF32,HEAPF64,stackAlloc,stackSave,stackRestore,addFunction,removeFunction,UTF8ToString,stringToUTF8,lengthBytesUTF8,FS\n"
             "-sALLOW_TABLE_GROWTH=1\n"
             "-sWASM_BIGINT=1\n"
+            "-sMINIFY_WASM_EXPORT_NAMES=0\n"
             + std::string(c_desc.exception_handling_enabled ? "" : "-sEXPORT_EXCEPTION_HANDLING_HELPERS=1\n");
     }
 

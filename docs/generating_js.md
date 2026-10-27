@@ -55,7 +55,7 @@ em++ c_bindings/source/*.cpp ... -o mylib/js/MyLib.mjs \
     @mylib/js/emcc_link_flags.rsp \
     -sEXPORTED_FUNCTIONS=@mylib/js/exported_functions.txt
 ```
-`exported_functions.txt` lists every C function the JS calls (`@file` is resolved relative to the current directory, which is why it's not inside the response file). The response file holds `-sEXPORTED_RUNTIME_METHODS=...` (the heap views, the stack functions, `addFunction`, the string helpers, `FS`), `-sALLOW_TABLE_GROWTH=1` (for the callbacks), `-sWASM_BIGINT=1`, and `-sEXPORT_EXCEPTION_HANDLING_HELPERS=1` when the C bindings don't catch exceptions themselves (`--no-handle-exceptions`), so that the escaping C++ exceptions get their messages.
+`exported_functions.txt` lists every C function the JS calls (`@file` is resolved relative to the current directory, which is why it's not inside the response file). The response file holds `-sEXPORTED_RUNTIME_METHODS=...` (the heap views, the stack functions, `addFunction`, the string helpers, `FS`), `-sALLOW_TABLE_GROWTH=1` (for the callbacks), `-sWASM_BIGINT=1`, `-sMINIFY_WASM_EXPORT_NAMES=0` (an optimized link would otherwise rename the wasm exports; without it the wrappers fall back to the `_name` functions of the module), and `-sEXPORT_EXCEPTION_HANDLING_HELPERS=1` when the C bindings don't catch exceptions themselves (`--no-handle-exceptions`), so that the escaping C++ exceptions get their messages.
 
 C++ exceptions must be enabled (`-fexceptions` or `-fwasm-exceptions`), unless the C generator ran with `--no-handle-exceptions`.
 
