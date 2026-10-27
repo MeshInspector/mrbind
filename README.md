@@ -8,7 +8,7 @@ MRBind parses C++ headers and can generates bindings for them for the following 
 
 * **Python** - Uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
 
-* **Rust**, **Java** - Custom vibecoded code generators. Seem to work ok despite being vibecoded. Live in [a separate aptly named branch](https://github.com/MeshInspector/mrbind/tree/vibecoded). Also see [note on AI usage below.](#ai-usage-and-policy)
+* **Rust**, **Java** - Custom generators, call our C bindings like the C# backend. Vibecoded, so live in [a separate aptly named branch](https://github.com/MeshInspector/mrbind/tree/vibecoded), but seem to work fine despite being vibecoded. Also see [note on AI usage below.](#ai-usage-and-policy)
 
 The parser is shared between all the output languages, so the APIs produced for different languages should match closely.
 
@@ -30,13 +30,13 @@ MRBind is meant to cover a large API surface area with minimal effort, but in tu
 
 ### AI usage and policy
 
-TL;DR: The parser and C/C#/Python backends are handwritten. Rust/Java backends are vibecoded, kept [in a separate branch](https://github.com/MeshInspector/mrbind/tree/vibecoded).
+All documentation in `master` are handwritten, including this one.
 
-While it would be nice to live in a universe where vibecoding isn't a thing, we aren't in one. I can't refuse vibecoded internal contributions if they are useful, on the grounds of being vibecoded alone. So I'm doing the next best thing:
+The parser and C/C#/Python backends are handwritten, but I've since received some simple AI contributions that were merged after manual review and cleanup (or manually reimplemented sometimes).
 
-The `master` branch is kept mostly untained by generated code, except for simple bugfixes and binary size reductions (which get cleaned up manually, which includes replaced any non-trivial generated comments).
+Rust and Java backends are a vibecoded contribution, and are kept [in the `vibecoded` branch](https://github.com/MeshInspector/mrbind/tree/vibecoded) to not taint the `master`. They pass some internal tests and seem to work well enough. Their documentation is generated.
 
-Large vibecoded contributions go into the [a separate `vibecoded` branch](https://github.com/MeshInspector/mrbind/tree/vibecoded) with minimal review (but vibecoded language backends do pass some internal tests, so they should work alright).
+While it would be nice to live in a timeline where vibecoding isn't a thing, we aren't in one. I can't refuse vibecoded internal contributions if they are useful, on the grounds of being vibecoded alone. This process is the next best thing I can do.
 
 ## Usage
 
