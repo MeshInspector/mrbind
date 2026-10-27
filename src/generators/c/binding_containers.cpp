@@ -52,6 +52,9 @@ namespace mrbind::C
             supports_range_assignment = generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type);
         }
 
+        if (IteratorsArePointers())
+            return;
+
         // Create the iterator binders.
         // Notably different standard containers can have overlapping iterator types, so we have to be really careful here.
         // What we do is we force specific underlying type name for the iterators, IF their normal name is known to be an alternative spelling of something else.
@@ -105,9 +108,12 @@ namespace mrbind::C
             generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
             class_binder.EmitForwardDeclaration(generator, file, "/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n");
-            iterator_binder_const.EmitForwardDeclaration(generator, file, "/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
-            if (params.has_mutable_iterators)
-                iterator_binder_mutable.EmitForwardDeclaration(generator, file, "/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
+            if (!IteratorsArePointers())
+            {
+                iterator_binder_const.EmitForwardDeclaration(generator, file, "/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
+                if (params.has_mutable_iterators)
+                    iterator_binder_mutable.EmitForwardDeclaration(generator, file, "/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
+            }
 
             // The special member functions:
             class_binder.EmitSpecialMemberFunctions(generator, file);
@@ -537,7 +543,8 @@ namespace mrbind::C
                 // We could omit those when dealing with random-access containers, but let's keep them for consistency with other containers.
                 // We also disable them for maps, because for maps we hide the underlying pairs.
                 // And we also disable them for sets, because there the iterator acts merely as an insertion hint, and we don't expose those hints to C.
-                if (!params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
+                // And for contiguous containers, where the iterators are pointers, and the index-based versions above do the same thing.
+                if (!IteratorsArePointers() && !params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     for (bool is_const_iter : {false, true})
                     {
@@ -582,8 +589,35 @@ namespace mrbind::C
                     }
                 }
 
-                // Obtaining begin/end iterators:
-                for (bool is_end : {false, true})
+                // Obtaining begin/end pointers, for contiguous containers.
+                // This is needed for C# to implement IEnumerable.
+                if (IteratorsArePointers())
+                {
+                    for (bool is_end : {false, true})
+                    {
+                        std::string begin_or_end_str = is_end ? "end" : "begin";
+                        std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
+
+                        for (bool is_const_iter : {true, false})
+                        {
+                            const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
+
+                            Generator::EmitFuncParams emit;
+                            emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ". Iterators of this container are plain pointers.";
+                            emit.name = class_binder.MakeMemberFuncName(generator, begin_or_end_method_name, is_const_iter);
+                            emit.lifetimes.ReturnsReferenceToSubobject();
+                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Pointer{});
+                            emit.mark_as_returning_pointer_to_array = true;
+                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), is_const_iter);
+                            // Not `&*begin()`, since dereferencing those is illegal for empty containers.
+                            emit.cpp_called_func = is_end ? "@this@.data() + @this@.size()" : "@this@.data()";
+                            generator.EmitFunction(file, emit);
+                        }
+                    }
+                }
+
+                // Otherwise, obtaining begin/end iterators:
+                else for (bool is_end : {false, true})
                 {
                     std::string begin_or_end_str = is_end ? "end" : "begin";
                     std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
@@ -626,7 +660,7 @@ namespace mrbind::C
                 }
 
                 // iterator to index
-                if (params.iter_category >= IteratorCategory::random_access)
+                if (!IteratorsArePointers() && params.iter_category >= IteratorCategory::random_access)
                 {
                     for (bool is_const_iter : {true, false})
                     {
@@ -651,6 +685,7 @@ namespace mrbind::C
                 }
             }
 
+            if (!IteratorsArePointers())
             { // Iterators
                 iterator_binder_const.EmitSpecialMemberFunctions(generator, file);
 
@@ -834,6 +869,9 @@ namespace mrbind::C
 
             if (!is_container && !is_const_iter && !is_mut_iter)
                 return {}; // This is some member type of our container, but not an iterator, so we don't know what to do with it.
+
+            if (!is_container && params.iter_category >= ContainerBinder::IteratorCategory::contiguous)
+                return {}; // The iterators of contiguous containers aren't bound, `begin()` and `end()` return pointers instead.
 
             // Figure out the container type.
             const cppdecl::QualifiedName *container_name = nullptr;
