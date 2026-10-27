@@ -141,6 +141,19 @@ export function init(module)
         throw new Error("Not an Emscripten module with exported `wasmExports`, see `emcc_link_flags.rsp`.");
     M = module;
     C = module.wasmExports;
+    // An optimized link minifies the names of the wasm exports (an internal Emscripten setting), then the real names are only on
+    // the `_name` wrappers of the module, which take and return the same raw values as the exports.
+    if (typeof C["MR_A_AssignFromAnother"] !== "function")
+    {
+        C = {};
+        for (const key in module)
+        {
+            if (key.length > 1 && key[0] === "_" && typeof module[key] === "function")
+                C[key.slice(1)] = module[key];
+        }
+        if (typeof C["MR_A_AssignFromAnother"] !== "function")
+            throw new Error("The module doesn't export the C bindings, see `emcc_link_flags.rsp` and `exported_functions.txt`.");
+    }
     // C++ exceptions are reported by the C bindings through this callback, which stores the message until the wrapper checks it.
     if (typeof C.MR_C_SetExceptionHandler === "function")
         C.MR_C_SetExceptionHandler(BigInt(addFunction(exceptionHandler, "vppp")), BigInt(0));
