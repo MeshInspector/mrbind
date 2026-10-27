@@ -204,6 +204,8 @@ namespace mrbind::Js
 
         // The JS expressions reading and writing a scalar at a byte address.
         [[nodiscard]] std::string HeapRead(Scalar s, const std::string &addr) const;
+        // Same, but the raw wasm value (a BigInt for the pointer-sized scalars of wasm64, a number for a bool), for passing to the exports.
+        [[nodiscard]] std::string HeapReadRaw(Scalar s, const std::string &addr) const;
         [[nodiscard]] std::string HeapWrite(Scalar s, const std::string &addr, const std::string &value) const;
         // Converts a scalar returned by a wasm function (in `expr`) to the JS value.
         [[nodiscard]] std::string FromWasm(Scalar s, const std::string &expr) const;

@@ -220,6 +220,15 @@ namespace mrbind::Js
         }
     }
 
+    std::string Generator::HeapReadRaw(Scalar s, const std::string &addr) const
+    {
+        if (IsPointerSized(s) && wasm64)
+            return "ffi.M." + std::string(s == Scalar::isize ? "HEAP64" : "HEAPU64") + "[(" + addr + ") >>> 3]";
+        if (s == Scalar::bool_)
+            return "ffi.M.HEAPU8[" + addr + "]";
+        return HeapRead(s, addr);
+    }
+
     std::string Generator::HeapWrite(Scalar s, const std::string &addr, const std::string &value) const
     {
         if (IsPointerSized(s) && wasm64)
@@ -1091,7 +1100,7 @@ namespace mrbind::Js
                     ClassParam(*type_info, false, false);
                     const auto &l = type_info->layout;
                     if (l.singleton)
-                        ret.args.push_back(HeapRead(*l.singleton, PtrOf(name, false) + " + " + std::to_string(l.singleton_offset)));
+                        ret.args.push_back(HeapReadRaw(*l.singleton, PtrOf(name, false) + " + " + std::to_string(l.singleton_offset)));
                     else
                     {
                         ret.needs_stack = true;
@@ -1718,7 +1727,7 @@ namespace mrbind::Js
         auto DefaultOf = [&](Scalar s) -> std::string
         {
             if (s == Scalar::void_) return "";
-            if (IsBigInt(s)) return "0n";
+            if (IsBigInt(s) || (wasm64 && IsPointerSized(s))) return "0n";
             return "0";
         };
 
@@ -1731,7 +1740,7 @@ namespace mrbind::Js
             {
                 ret_fn_type = ret_type->type_info->js_ref;
                 sig += ScalarSigChar(*l.singleton);
-                ret_convert = "return " + HeapRead(*l.singleton, "ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.singleton_offset)) + ";\n";
+                ret_convert = "return " + HeapReadRaw(*l.singleton, "ffi.ptrNonNull(__ret, \"the callback result\") + " + std::to_string(l.singleton_offset)) + ";\n";
                 default_ret = DefaultOf(*l.singleton);
             }
             else
