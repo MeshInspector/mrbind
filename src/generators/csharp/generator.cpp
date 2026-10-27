@@ -759,14 +759,14 @@ namespace mrbind::CSharp
             cpp_elem_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
             // Fixed-size type. This should only happen for unbounded arrays, since bounded ones are handled above.
-            if (std::size_t elem_byte_size = 0; auto csharp_elem_type = CppToCSharpKnownSizeType(cpp_elem_type, &elem_byte_size))
+            if (auto csharp_elem_type = CppToCSharpKnownSizeType(cpp_elem_type))
             {
                 assert(cpp_array_type.As<cppdecl::Array>()->IsUnbounded());
 
                 ret.csharp_elem_type = (is_const ? "ref readonly " : "ref ") + *csharp_elem_type;
                 ret.kind = RequestedMaybeOpaqueArray::ElemKind::ref;
 
-                ret.size_for_ptr_offsets = elem_byte_size;
+                // Leaving `size_for_ptr_offsets` at 1: the pointer points to `csharp_elem_type` itself, so C# pointer arithmetic already counts in elements.
 
                 ret.strings.csharp_underlying_ptr_target_type = *csharp_elem_type;
                 ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
