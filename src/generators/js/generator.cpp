@@ -2225,8 +2225,8 @@ export function init(module)
         throw new Error("Not an Emscripten module with exported `wasmExports`, see `emcc_link_flags.rsp`.");
     M = module;
     C = module.wasmExports;
-    // An optimized link minifies the names of the wasm exports (`-sMINIFY_WASM_EXPORT_NAMES`, which `emcc_link_flags.rsp` turns off), then the
-    // real names are only on the `_name` wrappers of the module, which take and return the same raw values as the exports.
+    // An optimized link minifies the names of the wasm exports (an internal Emscripten setting), then the real names are only on
+    // the `_name` wrappers of the module, which take and return the same raw values as the exports.
     if (typeof C[PROBE_FUNCTION] !== "function")
     {
         C = {};
@@ -3302,7 +3302,6 @@ export class CppStruct extends CppObject
             "-sEXPORTED_RUNTIME_METHODS=wasmExports,HEAP8,HEAPU8,HEAP16,HEAPU16,HEAP32,HEAPU32,HEAP64,HEAPU64,HEAPF32,HEAPF64,stackAlloc,stackSave,stackRestore,addFunction,removeFunction,UTF8ToString,stringToUTF8,lengthBytesUTF8,FS\n"
             "-sALLOW_TABLE_GROWTH=1\n"
             "-sWASM_BIGINT=1\n"
-            "-sMINIFY_WASM_EXPORT_NAMES=0\n"
             + std::string(c_desc.exception_handling_enabled ? "" : "-sEXPORT_EXCEPTION_HANDLING_HELPERS=1\n");
     }
 
