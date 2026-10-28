@@ -186,3 +186,4 @@ export * from "./std_vector_long.mjs";
 export * from "./std_vector_std_expected_int_std_string.mjs";
 export * from "./std_vector_std_pair_MR_SeparateA_MR_SeparateB.mjs";
 export * from "./std_vector_unsigned_long.mjs";
+export * from "./_scalar_outputs.mjs";

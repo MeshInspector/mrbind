@@ -16,9 +16,10 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
         const __sp = ffi.stackSave();
         try
         {
+            const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) / 4] = _1;});
             const __str__3 = ffi.utf8(ffi.nonNullString(_3, "_3"));
             const __end__3 = ffi.utf8End();
-            const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(BigInt(_0), BigInt(_1), BigInt(ffi.ptrNonNull(_2, "_2")), BigInt(__str__3), BigInt(__end__3));
+            const __ret = ffi.C.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(BigInt(ffi.ScalarOutput.ref(_0, "_0")), BigInt(__ptr__1), BigInt(ffi.ptrNonNull(_2, "_2")), BigInt(__str__3), BigInt(__end__3));
             ffi.check();
             return Number(__ret);
         }
@@ -31,7 +32,7 @@ export class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_r
     static __ctor(args)
     {
         const __n = args.length;
-        if (__n === 4 && typeof args[0] === "number" && typeof args[1] === "number" && (args[2] instanceof L.MR_C_std_string) && typeof args[3] === "string")
+        if (__n === 4 && args[0] instanceof L.int_output && typeof args[1] === "number" && (args[2] instanceof L.MR_C_std_string) && typeof args[3] === "string")
             return L.MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.__ctor_0(args[0], args[1], args[2], args[3]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }

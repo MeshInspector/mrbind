@@ -101,14 +101,32 @@ export function MR_StdUniquePtr_SetIntLvalueConstRef(_1)
 
 export function MR_StdUniquePtr_SetIntRvalueRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetIntRvalueRef(BigInt(_1));
-    ffi.check();
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
+        ffi.C.MR_StdUniquePtr_SetIntRvalueRef(BigInt(__ptr__1));
+        ffi.check();
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_SetIntRvalueConstRef(_1)
 {
-    ffi.C.MR_StdUniquePtr_SetIntRvalueConstRef(BigInt(_1));
-    ffi.check();
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _1;});
+        ffi.C.MR_StdUniquePtr_SetIntRvalueConstRef(BigInt(__ptr__1));
+        ffi.check();
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
 }
 
 export function MR_StdUniquePtr_GetIntArr()

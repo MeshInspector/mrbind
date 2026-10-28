@@ -53,13 +53,26 @@ export { MR_TestSimpleTypes_GetEnum2Ref as GetEnum2Ref } from "../../lib/_all.mj
 export { MR_TestSimpleTypes_SetEnum2Ref as SetEnum2Ref } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_SetEnum2RefDef as SetEnum2RefDef } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckCharMaybeUnsigned as CheckCharMaybeUnsigned } from "../../lib/_all.mjs";
-export { MR_TestSimpleTypes_CheckChar_uint8_t_ptr as CheckChar } from "../../lib/_all.mjs";
+export { MR_TestSimpleTypes_CheckChar_uint8_t_ptr as checkChar_uint8_t_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckChar_int8_t_ptr as checkChar_int8_t_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_blah_uint64_t as blah } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_blah_int64_t as blah_int64_t } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_uint64_t as funcTemplate_uint64_t } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_int32_t as funcTemplate_int32_t } from "../../lib/_all.mjs";
 
+/**
+ * Generated from function `MR::TestSimpleTypes::CheckChar`.
+ *
+ * Calls `MR_TestSimpleTypes_CheckChar_uint8_t_ptr()`.
+ */
+export declare function CheckChar(_1?: L.uint8_t_output | null): void;
+/**
+ * Generated from function `MR::TestSimpleTypes::CheckChar`.
+ *
+ * Calls `MR_TestSimpleTypes_CheckChar_int8_t_ptr()`.
+ */
+export declare function CheckChar(_1?: L.int8_t_output | null): void;
+/** The overloads of `CheckChar` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
  * Function templates.
  * Generated from function `MR::TestSimpleTypes::FuncTemplate<MR_C_uint64_t>`.

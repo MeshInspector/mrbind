@@ -149,9 +149,9 @@ export declare function MR_TestSimpleTypes_GetIntPtr(): number;
 /**
  * Generated from function `MR::TestSimpleTypes::SetIntPtr`.
  *
- * Calls `MR_TestSimpleTypes_SetIntPtr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_TestSimpleTypes_SetIntPtr()`.
  */
-export declare function MR_TestSimpleTypes_SetIntPtr(_1: number): void;
+export declare function MR_TestSimpleTypes_SetIntPtr(_1?: L.int_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::SetIntPtrDef`.
@@ -163,9 +163,9 @@ export declare function MR_TestSimpleTypes_SetIntPtrDef(_1: number): void;
 /**
  * Generated from function `MR::TestSimpleTypes::SetIntPtrDefNull`.
  *
- * Calls `MR_TestSimpleTypes_SetIntPtrDefNull()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `_1` defaults to `nullptr`.
+ * Calls `MR_TestSimpleTypes_SetIntPtrDefNull()`. `_1` defaults to `nullptr`.
  */
-export declare function MR_TestSimpleTypes_SetIntPtrDefNull(_1: number): void;
+export declare function MR_TestSimpleTypes_SetIntPtrDefNull(_1?: L.int_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::GetIntRef`.
@@ -177,16 +177,16 @@ export declare function MR_TestSimpleTypes_GetIntRef(): number;
 /**
  * Generated from function `MR::TestSimpleTypes::SetIntRef`.
  *
- * Calls `MR_TestSimpleTypes_SetIntRef()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_TestSimpleTypes_SetIntRef()`.
  */
-export declare function MR_TestSimpleTypes_SetIntRef(_1: number): void;
+export declare function MR_TestSimpleTypes_SetIntRef(_1: L.int_output): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
  *
- * Calls `MR_TestSimpleTypes_SetIntRefDef()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `_1` defaults to `global_int`.
+ * Calls `MR_TestSimpleTypes_SetIntRefDef()`. `_1` defaults to `global_int`.
  */
-export declare function MR_TestSimpleTypes_SetIntRefDef(_1: number): void;
+export declare function MR_TestSimpleTypes_SetIntRefDef(_1?: L.int_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::GetVoidPtr`.
@@ -416,23 +416,23 @@ export declare function MR_TestSimpleTypes_SetEnum2RefDef(_1: number): void;
  * Test all kinds of `char`.
  * Generated from function `MR::TestSimpleTypes::CheckCharMaybeUnsigned`.
  *
- * Calls `MR_TestSimpleTypes_CheckCharMaybeUnsigned()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_TestSimpleTypes_CheckCharMaybeUnsigned()`.
  */
-export declare function MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1: number): void;
+export declare function MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1?: L.char_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::CheckChar`.
  *
- * Calls `MR_TestSimpleTypes_CheckChar_unsigned_char_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_TestSimpleTypes_CheckChar_unsigned_char_ptr()`.
  */
-export declare function MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1: number): void;
+export declare function MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1?: L.unsigned_char_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::CheckChar`.
  *
- * Calls `MR_TestSimpleTypes_CheckChar_signed_char_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_TestSimpleTypes_CheckChar_signed_char_ptr()`.
  */
-export declare function MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1: number): void;
+export declare function MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1?: L.signed_char_output | null): void;
 
 /**
  * Generated from function `MR::TestSimpleTypes::LongLong`.

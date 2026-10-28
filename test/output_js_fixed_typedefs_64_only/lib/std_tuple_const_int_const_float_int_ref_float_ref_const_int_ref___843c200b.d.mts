@@ -20,9 +20,9 @@ export declare class MR_C_std_tuple_const_int_const_float_int_ref_float_ref_cons
      * The reference to the parameter `_8` might be preserved in the constructed object.
      * The reference to the parameter `_9` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct()`.
      */
-    constructor(_0: number, _1: number, _2: number, _3: number, _4: number, _5: number, _6: number, _7: number, _8: number, _9: number);
+    constructor(_0: number, _1: number, _2: L.int_output, _3: L.float_output, _4: number, _5: number, _6: number, _7: number, _8: number, _9: number);
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

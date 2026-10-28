@@ -123,7 +123,7 @@ export declare class MR_CSharp_A extends ffi.CppObject
      *
      * Calls `MR_CSharp_A_refs()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    refs(x: number, _2: number): number;
+    refs(x: L.int_output, _2: L.int_output): number;
 }
 
 /**
@@ -414,7 +414,7 @@ export declare class MR_CSharp_B extends ffi.CppObject
      *
      * Calls `MR_CSharp_B_refs()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    refs(x: number, _2: number): number;
+    refs(x: L.int_output, _2: L.int_output): number;
     /** Upcasts to the base class `MR::CSharp::A`. The result refers to this object.
      *
      * Calls `MR_CSharp_B_MutableUpcastTo_MR_CSharp_A()`. */
@@ -503,7 +503,7 @@ export declare class MR_CSharp_C extends ffi.CppObject
      *
      * Calls `MR_CSharp_C_refs()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    refs(x: number, _2: number): number;
+    refs(x: L.int_output, _2: L.int_output): number;
     /** Upcasts to the base class `MR::CSharp::A`. The result refers to this object.
      *
      * Calls `MR_CSharp_C_MutableUpcastTo_MR_CSharp_A()`. */
@@ -572,7 +572,8 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersBool_Get_sa()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sa: number;
+    static get sa(): number;
+    static set sa(value: L.bool_output | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
      *
@@ -598,7 +599,8 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersBool_Get_a()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    a: number;
+    get a(): number;
+    set a(value: L.bool_output | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
      * The reference to this object might be preserved as the return value.
@@ -635,9 +637,9 @@ export declare class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
      * The reference to the parameter `c` might be preserved in the constructed object.
      * The reference to the parameter `d` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_ClassMemberPointersBool_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_ClassMemberPointersBool_ConstructFrom()`.
      */
-    constructor(a: number, b: boolean | null | undefined, c: number, d: boolean);
+    constructor(a: L.bool_output | null | undefined, b: boolean | null | undefined, c: L.bool_output, d: boolean);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
@@ -826,7 +828,8 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersUshort_Get_sa()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    static sa: number;
+    static get sa(): number;
+    static set sa(value: L.unsigned_short_output | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
      *
@@ -852,7 +855,8 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      *
      * Calls `MR_CSharp_ClassMemberPointersUshort_Get_a()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    a: number;
+    get a(): number;
+    set a(value: L.unsigned_short_output | null | undefined);
     /**
      * Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
      * The reference to this object might be preserved as the return value.
@@ -889,9 +893,9 @@ export declare class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
      * The reference to the parameter `c` might be preserved in the constructed object.
      * The reference to the parameter `d` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_ClassMemberPointersUshort_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_ClassMemberPointersUshort_ConstructFrom()`.
      */
-    constructor(a: number, b: number | null | undefined, c: number, d: number);
+    constructor(a: L.unsigned_short_output | null | undefined, b: number | null | undefined, c: L.unsigned_short_output, d: number);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
@@ -2076,7 +2080,7 @@ export declare class MR_CSharp_F extends ffi.CppObject
      *
      * Calls `MR_CSharp_F_refs()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    refs(x: number, _2: number): number;
+    refs(x: L.int_output, _2: L.int_output): number;
     /**
      * Generated from method `MR::CSharp::F::d1`.
      *
@@ -2209,7 +2213,7 @@ export declare class MR_CSharp_G extends ffi.CppObject
      *
      * Calls `MR_CSharp_G_refs()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    refs(x: number, _2: number): number;
+    refs(x: L.int_output, _2: L.int_output): number;
     /**
      * Generated from method `MR::CSharp::G::d1`.
      *
@@ -3514,7 +3518,8 @@ export declare class MR_CSharp_IterableK_Iter extends ffi.CppObject
      *
      * Calls `MR_CSharp_IterableK_Iter_Get_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    ptr: number;
+    get ptr(): number;
+    set ptr(value: L.int_output | null | undefined);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -3525,9 +3530,9 @@ export declare class MR_CSharp_IterableK_Iter extends ffi.CppObject
      * Constructs `MR::CSharp::IterableK::Iter` elementwise.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_IterableK_Iter_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_IterableK_Iter_ConstructFrom()`.
      */
-    constructor(ptr: number);
+    constructor(ptr?: L.int_output | null);
     /**
      * Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -3578,7 +3583,8 @@ export declare class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
      *
      * Calls `MR_CSharp_IterableK_Sentinel_Get_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    ptr: number;
+    get ptr(): number;
+    set ptr(value: L.int_output | null | undefined);
     /**
      * Constructs an empty (default-constructed) instance.
      *
@@ -3589,9 +3595,9 @@ export declare class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
      * Constructs `MR::CSharp::IterableK::Sentinel` elementwise.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_IterableK_Sentinel_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_IterableK_Sentinel_ConstructFrom()`.
      */
-    constructor(ptr: number);
+    constructor(ptr?: L.int_output | null);
     /**
      * Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -3725,9 +3731,9 @@ export declare class MR_CSharp_LifetimesA extends ffi.CppObject
      * Generated from method `MR::CSharp::LifetimesA::bar`.
      * The reference to the parameter `ref` might be preserved in this object.
      *
-     * Calls `MR_CSharp_LifetimesA_bar()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_LifetimesA_bar()`.
      */
-    bar(ref: number): void;
+    bar(ref: L.int_output): void;
 }
 
 /**
@@ -5859,9 +5865,9 @@ export declare class MR_CSharp_TestFields extends ffi.CppObject
      * The reference to the parameter `s_ref` might be preserved in the constructed object.
      * The reference to the parameter `const_s_ref` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_TestFields_ConstructFrom()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_CSharp_TestFields_ConstructFrom()`.
      */
-    constructor(i: number, const_i: number, i_ref: number, const_i_ref: number, s: string, const_s: string, s_ref: L.MR_C_std_string, const_s_ref: string);
+    constructor(i: number, const_i: number, i_ref: L.int_output, const_i_ref: number, s: string, const_s: string, s_ref: L.MR_C_std_string, const_s_ref: string);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
@@ -6913,16 +6919,16 @@ export declare function MR_CSharp_test_bool(a: boolean, b?: boolean | null): boo
 /**
  * Generated from function `MR::CSharp::test_bool_ref`.
  *
- * Calls `MR_CSharp_test_bool_ref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `MR::CSharp::default_bool`.
+ * Calls `MR_CSharp_test_bool_ref()`. `b` defaults to `MR::CSharp::default_bool`.
  */
-export declare function MR_CSharp_test_bool_ref(a: number, b: number): void;
+export declare function MR_CSharp_test_bool_ref(a: L.bool_output, b?: L.bool_output | null): void;
 
 /**
  * Generated from function `MR::CSharp::test_bool_ref2`.
  *
- * Calls `MR_CSharp_test_bool_ref2()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `MR::CSharp::default_bool`.
+ * Calls `MR_CSharp_test_bool_ref2()`. `b` defaults to `MR::CSharp::default_bool`.
  */
-export declare function MR_CSharp_test_bool_ref2(a: number, b: number): number;
+export declare function MR_CSharp_test_bool_ref2(a: L.bool_output, b?: L.bool_output | null): number;
 
 /**
  * Generated from function `MR::CSharp::get_bool_ref`.
@@ -6950,7 +6956,7 @@ export declare function MR_CSharp_test_bool_cref(_1: boolean, _2?: boolean | nul
  *
  * Calls `MR_CSharp_test_int_ref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `MR::CSharp::default_int`.
  */
-export declare function MR_CSharp_test_int_ref(a: number, b: number): number;
+export declare function MR_CSharp_test_int_ref(a: L.int_output, b?: L.int_output | null): number;
 
 /**
  * Generated from function `MR::CSharp::test_int_cref`.
@@ -6964,7 +6970,7 @@ export declare function MR_CSharp_test_int_cref(a: number, b?: number | null): n
  *
  * Calls `MR_CSharp_test_int_rref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `42`.
  */
-export declare function MR_CSharp_test_int_rref(a: number, b: number): number;
+export declare function MR_CSharp_test_int_rref(a: number, b?: number | null): number;
 
 /**
  * Generated from function `MR::CSharp::test_int_crref`.
@@ -6978,7 +6984,7 @@ export declare function MR_CSharp_test_int_crref(a: number, b?: number | null): 
  *
  * Calls `MR_CSharp_test_int_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `nullptr`. `c` defaults to `&MR::CSharp::default_int`.
  */
-export declare function MR_CSharp_test_int_ptr(a: number, b: number, c: number): number;
+export declare function MR_CSharp_test_int_ptr(a: L.int_output | null | undefined, b: L.int_output | null | undefined, c: number): number;
 
 /**
  * Generated from function `MR::CSharp::test_int_cptr`.
@@ -6999,7 +7005,7 @@ export declare function MR_CSharp_test_ushort(a: number, b?: number | null): num
  *
  * Calls `MR_CSharp_test_ushort_ref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `MR::CSharp::default_ushort`.
  */
-export declare function MR_CSharp_test_ushort_ref(a: number, b: number): number;
+export declare function MR_CSharp_test_ushort_ref(a: L.unsigned_short_output, b?: L.unsigned_short_output | null): number;
 
 /**
  * Generated from function `MR::CSharp::test_ushort_cref`.
@@ -7013,7 +7019,7 @@ export declare function MR_CSharp_test_ushort_cref(a: number, b?: number | null)
  *
  * Calls `MR_CSharp_test_ushort_rref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `(unsigned short&&)MR::CSharp::default_ushort`.
  */
-export declare function MR_CSharp_test_ushort_rref(a: number, b: number): number;
+export declare function MR_CSharp_test_ushort_rref(a: number, b?: number | null): number;
 
 /**
  * Generated from function `MR::CSharp::test_ushort_crref`.
@@ -7027,7 +7033,7 @@ export declare function MR_CSharp_test_ushort_crref(a: number, b?: number | null
  *
  * Calls `MR_CSharp_test_ushort_ptr()`. Some types are raw C types (pointers as numbers), see the C bindings for the details. `b` defaults to `nullptr`. `c` defaults to `&MR::CSharp::default_ushort`.
  */
-export declare function MR_CSharp_test_ushort_ptr(a: number, b: number, c: number): number;
+export declare function MR_CSharp_test_ushort_ptr(a: L.unsigned_short_output | null | undefined, b: L.unsigned_short_output | null | undefined, c: number): number;
 
 /**
  * Generated from function `MR::CSharp::test_ushort_cptr`.

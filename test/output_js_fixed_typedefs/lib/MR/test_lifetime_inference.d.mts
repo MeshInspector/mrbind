@@ -125,9 +125,9 @@ export declare class MR_LifetimeInference_C extends ffi.CppObject
     /**
      * Generated from constructor `MR::LifetimeInference::C::C`.
      *
-     * Calls `MR_LifetimeInference_C_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_LifetimeInference_C_Construct()`.
      */
-    constructor(_1: L.MR_LifetimeInference_A, _2: number, _3: number);
+    constructor(_1: L.MR_LifetimeInference_A, _2: L.int32_t_output, _3: number);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);

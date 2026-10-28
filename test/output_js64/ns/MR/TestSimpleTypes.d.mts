@@ -53,7 +53,7 @@ export { MR_TestSimpleTypes_GetEnum2Ref as GetEnum2Ref } from "../../lib/_all.mj
 export { MR_TestSimpleTypes_SetEnum2Ref as SetEnum2Ref } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_SetEnum2RefDef as SetEnum2RefDef } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckCharMaybeUnsigned as CheckCharMaybeUnsigned } from "../../lib/_all.mjs";
-export { MR_TestSimpleTypes_CheckChar_unsigned_char_ptr as CheckChar } from "../../lib/_all.mjs";
+export { MR_TestSimpleTypes_CheckChar_unsigned_char_ptr as checkChar_unsigned_char_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckChar_signed_char_ptr as checkChar_signed_char_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_LongLong as LongLong } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_blah_unsigned_long as blah } from "../../lib/_all.mjs";
@@ -61,3 +61,16 @@ export { MR_TestSimpleTypes_blah_long as blah_long } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_unsigned_long as FuncTemplate } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_int as funcTemplate_int } from "../../lib/_all.mjs";
 
+/**
+ * Generated from function `MR::TestSimpleTypes::CheckChar`.
+ *
+ * Calls `MR_TestSimpleTypes_CheckChar_unsigned_char_ptr()`.
+ */
+export declare function CheckChar(_1?: L.unsigned_char_output | null): void;
+/**
+ * Generated from function `MR::TestSimpleTypes::CheckChar`.
+ *
+ * Calls `MR_TestSimpleTypes_CheckChar_signed_char_ptr()`.
+ */
+export declare function CheckChar(_1?: L.signed_char_output | null): void;
+/** The overloads of `CheckChar` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

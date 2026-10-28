@@ -14,9 +14,9 @@ export declare class MR_C_std_pair_int_ref_float_ref extends ffi.CppObject
      * The reference to the parameter `first` might be preserved in the constructed object.
      * The reference to the parameter `second` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_pair_int_ref_float_ref_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_pair_int_ref_float_ref_Construct()`.
      */
-    constructor(first: number, second: number);
+    constructor(first: L.int_output, second: L.float_output);
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

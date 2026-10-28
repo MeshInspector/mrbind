@@ -287,7 +287,7 @@ export function MR_TestSimpleTypes_SetIntPtr(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_SetIntPtr(_1);
+        ffi.C.MR_TestSimpleTypes_SetIntPtr((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1")));
         ffi.check();
     }
     catch (__e)
@@ -323,7 +323,7 @@ export function MR_TestSimpleTypes_SetIntPtrDefNull(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_SetIntPtrDefNull(_1);
+        ffi.C.MR_TestSimpleTypes_SetIntPtrDefNull((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1")));
         ffi.check();
     }
     catch (__e)
@@ -360,7 +360,7 @@ export function MR_TestSimpleTypes_SetIntRef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_SetIntRef(_1);
+        ffi.C.MR_TestSimpleTypes_SetIntRef(ffi.ScalarOutput.ref(_1, "_1"));
         ffi.check();
     }
     catch (__e)
@@ -378,7 +378,7 @@ export function MR_TestSimpleTypes_SetIntRefDef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_SetIntRefDef(_1);
+        ffi.C.MR_TestSimpleTypes_SetIntRefDef((_1 == null ? 0 : ffi.ScalarOutput.ref(_1, "_1")));
         ffi.check();
     }
     catch (__e)
@@ -983,7 +983,7 @@ export function MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1);
+        ffi.C.MR_TestSimpleTypes_CheckCharMaybeUnsigned((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1")));
         ffi.check();
     }
     catch (__e)
@@ -1001,7 +1001,7 @@ export function MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1);
+        ffi.C.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1")));
         ffi.check();
     }
     catch (__e)
@@ -1019,7 +1019,7 @@ export function MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1);
+        ffi.C.MR_TestSimpleTypes_CheckChar_signed_char_ptr((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1")));
         ffi.check();
     }
     catch (__e)

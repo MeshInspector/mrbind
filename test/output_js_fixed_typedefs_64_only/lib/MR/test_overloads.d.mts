@@ -61,21 +61,21 @@ export declare function MR_Overloads_d_float(_1: number, _2: number, _3: number)
 /**
  * Generated from function `MR::Overloads::e`.
  *
- * Calls `MR_Overloads_e_const_int_ref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_Overloads_e_const_int_ref()`.
  */
 export declare function MR_Overloads_e_const_int_ref(_1: number, _2: number): void;
 
 /**
  * Generated from function `MR::Overloads::e`.
  *
- * Calls `MR_Overloads_e_int_rvalue_ref_int()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_Overloads_e_int_rvalue_ref_int()`.
  */
 export declare function MR_Overloads_e_int_rvalue_ref_int(_1: number, _2: number): void;
 
 /**
  * Generated from function `MR::Overloads::e`.
  *
- * Calls `MR_Overloads_e_int_rvalue_ref_float()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_Overloads_e_int_rvalue_ref_float()`.
  */
 export declare function MR_Overloads_e_int_rvalue_ref_float(_1: number, _2: number): void;
 
@@ -92,7 +92,7 @@ export declare function MR_Overloads_f_float(_1: number, _2: number): void;
 /**
  * Generated from function `MR::Overloads::f`.
  *
- * Calls `MR_Overloads_f_int_rvalue_ref()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_Overloads_f_int_rvalue_ref()`.
  */
 export declare function MR_Overloads_f_int_rvalue_ref(_1: number, _2: number): void;
 

@@ -99,3 +99,24 @@ export class CppStruct extends CppObject
     /** Overwrites the contents with those of another struct. */
     set(other: this): void;
 }
+/**
+ * The base class of `int_output`, `float_output`, ... (named after the C type, like in the Python bindings), which the wrappers take for
+ * the mutable scalar parameters: `int &` needs exactly one element, `int *` accepts null, one element, or an array.
+ * An instance owns `length` scalars in wasm memory (freed by `delete()` or by the garbage collector), which the C++ functions read and write.
+ */
+export class ScalarOutput<T> extends CppObject
+{
+    /** `size` elements equal to `value`, zero by default. */
+    constructor(size?: number, value?: T);
+    readonly length: number;
+    /** The element `i`. */
+    at(i: number): T;
+    /** Sets the element `i`. */
+    set(i: number, value: T): void;
+    /** The only element. Throws unless there is exactly one. */
+    value: T;
+    /** A copy of the elements. */
+    readonly values: T[];
+    /** The pointer for a reference parameter: checks that there is exactly one element. */
+    static ref(object: ScalarOutput<unknown> | null | undefined, name: string): number;
+}

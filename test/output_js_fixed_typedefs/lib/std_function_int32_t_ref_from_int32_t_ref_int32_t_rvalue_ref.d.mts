@@ -49,7 +49,7 @@ export declare class MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rval
      *
      * Calls `MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
-    call(_1: number, _2: number): number;
+    call(_1: L.int32_t_output, _2: number): number;
     /** Constructs an instance holding a JS function. The copies of the instance share it. An exception thrown by the function is rethrown by the wrapper that called into C.
      *
      * Calls `MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_ConstructEx()`. */

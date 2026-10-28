@@ -16,9 +16,9 @@ export declare class MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_
      * The reference to the parameter `_2` might be preserved in the constructed object.
      * The reference to the parameter `_3` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct()`.
      */
-    constructor(_0: number, _1: number, _2: L.MR_C_std_string, _3: string);
+    constructor(_0: L.int_output, _1: number, _2: L.MR_C_std_string, _3: string);
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**

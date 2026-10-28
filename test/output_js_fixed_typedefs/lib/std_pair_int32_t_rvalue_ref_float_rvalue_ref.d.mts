@@ -21,7 +21,7 @@ export declare class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends f
      * The reference to the parameter `first` might be preserved in the constructed object.
      * The reference to the parameter `second` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct()`.
      */
     constructor(first: number, second: number);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

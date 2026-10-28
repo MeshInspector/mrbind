@@ -152,7 +152,8 @@ export function MR_Overloads_e_const_int32_t_ref(_1, _2)
     try
     {
         const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
-        ffi.C.MR_Overloads_e_const_int32_t_ref(__ptr__1, _2);
+        const __ptr__2 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _2;});
+        ffi.C.MR_Overloads_e_const_int32_t_ref(__ptr__1, __ptr__2);
         ffi.check();
     }
     catch (__e)
@@ -170,7 +171,9 @@ export function MR_Overloads_e_int32_t_rvalue_ref_int32_t(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_int32_t(_1, _2);
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        const __ptr__2 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _2;});
+        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_int32_t(__ptr__1, __ptr__2);
         ffi.check();
     }
     catch (__e)
@@ -188,7 +191,9 @@ export function MR_Overloads_e_int32_t_rvalue_ref_float(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_float(_1, _2);
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        const __ptr__2 = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) >>> 2] = _2;});
+        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_float(__ptr__1, __ptr__2);
         ffi.check();
     }
     catch (__e)
@@ -224,7 +229,8 @@ export function MR_Overloads_f_int32_t_rvalue_ref(_1, _2)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_Overloads_f_int32_t_rvalue_ref(_1, _2);
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        ffi.C.MR_Overloads_f_int32_t_rvalue_ref(__ptr__1, _2);
         ffi.check();
     }
     catch (__e)
