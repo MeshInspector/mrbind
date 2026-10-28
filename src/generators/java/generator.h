@@ -127,6 +127,7 @@ namespace mrbind::Java
         std::set<std::string> platform_dependent_structs; // By C++ name.
         std::unordered_map<std::string, std::string> handle_paths; // C function name -> the fully qualified downcall handle.
         std::vector<std::string> base_package_segments;
+        std::map<std::string, std::pair<std::string, std::string>> scalar_outputs; // The `<type>_output` classes of the mutable scalar parameters: the layout and the Java type, by class name.
 
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);
@@ -137,6 +138,7 @@ namespace mrbind::Java
 
         void CollectTypes();
         void EmitRuntime();
+        void EmitScalarOutputs();
         void EmitHandles();
         void EmitEnums();
         void EmitClasses();

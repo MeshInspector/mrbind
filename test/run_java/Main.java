@@ -136,6 +136,35 @@ public class Main
         check(back.rawPointer().address() == b.rawPointer().address(), "downcast gives the same object");
         check(!aBase.isOwned() && b.isOwned(), "the cast result is a reference");
 
+        // Mutable scalar parameters take `<type>_output` objects, which own their scalars, like in Python.
+        {
+            mrbind_test.bool_output x = new mrbind_test.bool_output();
+            mrbind_test.bool_output y = new mrbind_test.bool_output();
+            check(x.length() == 1 && !x.value(), "bool_output default");
+            mrbind_test.mr.csharp.Functions.test_bool_ref(x, y);
+            check(x.value() && y.value(), "written through bool &");
+            mrbind_test.bool_output z = new mrbind_test.bool_output();
+            check(mrbind_test.mr.csharp.Functions.test_bool_ref2(z, null) == 42 && z.value(), "the default argument of bool &");
+            boolean threw = false;
+            try
+            {
+                mrbind_test.mr.csharp.Functions.test_bool_ref(new mrbind_test.bool_output(2), null);
+            }
+            catch (IllegalStateException e)
+            {
+                threw = true;
+            }
+            check(threw, "a reference needs exactly one element");
+
+            mrbind_test.int_output i = new mrbind_test.int_output(3, 7);
+            check(java.util.Arrays.equals(i.values(), new int[]{7, 7, 7}), "int_output values");
+            i.set(1, 5);
+            check(i.get(1) == 5 && i.toString().equals("int_output[7, 5, 7]"), "int_output set");
+            mrbind_test.mr.csharp.Functions.test_int_ptr(i, null, java.lang.foreign.MemorySegment.NULL); // A pointer accepts an array or null.
+
+            mrbind_test.mr.csharp.Functions.test_int_rref(5, null); // Rvalue references are inputs.
+        }
+
         System.out.println("All Java binding tests passed.");
 
         // `expected<T, E>` returned by value is unwrapped: the value, or `UnexpectedResultException`.

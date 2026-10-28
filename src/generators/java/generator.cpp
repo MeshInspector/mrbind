@@ -1818,6 +1818,83 @@ public abstract class CppStruct implements Native
         output_files[root.dir + "/Ffi.java"] = ffi;
     }
 
+    void Generator::EmitScalarOutputs()
+    {
+        if (scalar_outputs.empty())
+            return;
+        const std::string pkg_line = "package " + base_package + ";\n\n";
+
+        output_files[root.dir + "/ScalarOutput.java"] = pkg_line + R"(/**
+ * The base class of `int_output`, `float_output`, ... (named after the C type, like in the Python bindings), which the wrappers take for
+ * the mutable scalar parameters: `int &` needs exactly one element, `int *` accepts null, one element, or an array.
+ * An instance owns `length()` scalars in native memory (freed by the garbage collector), which the C++ functions read and write.
+ */
+public abstract class ScalarOutput implements Native
+{
+    protected final java.lang.foreign.MemorySegment segment;
+    private final long length;
+
+    protected ScalarOutput(long size, java.lang.foreign.MemoryLayout layout)
+    {
+        if (size < 0)
+            throw new java.lang.IllegalArgumentException("The size must be non-negative.");
+        this.length = size;
+        this.segment = java.lang.foreign.Arena.ofAuto().allocate(layout, java.lang.Math.max(size, 1));
+    }
+
+    @java.lang.Override public final java.lang.foreign.MemorySegment rawPointer() {return segment;}
+
+    /** The number of elements. */
+    public final long length() {return length;}
+
+    protected final long index(long i)
+    {
+        if (i < 0 || i >= length)
+            throw new java.lang.IndexOutOfBoundsException("Index " + i + " is out of range, the size is " + length + ".");
+        return i;
+    }
+
+    protected final void checkSingle()
+    {
+        if (length != 1)
+            throw new java.lang.IllegalStateException("Expected exactly one value, the size is " + length + ".");
+    }
+
+    /** The pointer for a reference parameter: checks that there is exactly one element. */
+    public static java.lang.foreign.MemorySegment ref(ScalarOutput object, java.lang.String name)
+    {
+        if (object == null)
+            throw new java.lang.NullPointerException("The parameter `" + name + "` must not be null.");
+        object.checkSingle();
+        return object.segment;
+    }
+}
+)";
+
+        for (const auto &[cls, type] : scalar_outputs)
+        {
+            const auto &[layout, java] = type;
+            const std::string path = root.dir + "/" + cls + ".java";
+            if (output_files.contains(path))
+                throw std::runtime_error("The name `" + cls + "` of the class for the mutable `" + cls.substr(0, cls.size() - 7) + "` parameters is already used.");
+            const std::string c_type = cls.substr(0, cls.size() - 7);
+            std::string out = pkg_line;
+            out += "/** An array of `" + c_type + "`, for the mutable parameters of this type. See `ScalarOutput`. */\n";
+            out += "public final class " + cls + " extends ScalarOutput\n{\n";
+            out += "    /** One element, zero. */\n    public " + cls + "() {this(1);}\n\n";
+            out += "    /** `size` elements, zero. */\n    public " + cls + "(long size) {super(size, " + layout + ");}\n\n";
+            out += "    /** `size` elements equal to `value`. */\n    public " + cls + "(long size, " + java + " value)\n    {\n        this(size);\n        for (long i = 0; i < size; i++)\n            set(i, value);\n    }\n\n";
+            out += "    /** The element `i`. */\n    public " + java + " get(long i) {return segment.getAtIndex(" + layout + ", index(i));}\n\n";
+            out += "    /** Sets the element `i`. */\n    public void set(long i, " + java + " value) {segment.setAtIndex(" + layout + ", index(i), value);}\n\n";
+            out += "    /** The only element. Throws unless there is exactly one. */\n    public " + java + " value()\n    {\n        checkSingle();\n        return get(0);\n    }\n\n";
+            out += "    /** Sets the only element. Throws unless there is exactly one. */\n    public void setValue(" + java + " value)\n    {\n        checkSingle();\n        set(0, value);\n    }\n\n";
+            out += "    /** A copy of the elements. */\n    public " + java + "[] values()\n    {\n        " + java + "[] ret = new " + java + "[java.lang.Math.toIntExact(length())];\n        for (int i = 0; i < ret.length; i++)\n            ret[i] = get(i);\n        return ret;\n    }\n\n";
+            out += "    @java.lang.Override public java.lang.String toString() {return \"" + cls + "\" + java.util.Arrays.toString(values());}\n";
+            out += "}\n";
+            output_files[path] = std::move(out);
+        }
+    }
+
     void Generator::EmitEnums()
     {
         for (const auto &[cpp_name, info] : types_by_cpp_name)
@@ -2080,7 +2157,33 @@ public abstract class CppStruct implements Native
                     return ret;
                 }
 
-                // Enums and builtins by const pointer: allocate a temporary. Mutable ones stay raw, Java can't write through them.
+                const bool builtin_pointee = ptr->pointee_builtin && !ptr->pointee_builtin->is_pointer && !ptr->pointee_builtin->is_c_long && !ptr->pointee_builtin->type_info && ptr->pointee_builtin->array_dims.empty();
+
+                // Mutable builtins (`int &`, `int *`): a `<type>_output` object, which owns the scalars, like in the Python bindings.
+                if (builtin_pointee && !ptr->is_const && (cpp_shape == CppShape::lref || cpp_shape == CppShape::ptr))
+                {
+                    cppdecl::Type pointee = ct;
+                    pointee.RemoveModifier();
+                    std::string cls = cppdecl::ToCode(pointee, {}) + "_output";
+                    for (char &ch : cls)
+                    {
+                        if (ch == ' ' || ch == ':')
+                            ch = '_';
+                    }
+                    scalar_outputs.try_emplace(cls, ptr->pointee_builtin->layout, ptr->pointee_builtin->java);
+                    ret.java_params.emplace_back(name, RuntimeClass(cls));
+                    // A reference needs exactly one element, a pointer can point to an array.
+                    if (cpp_shape == CppShape::ptr)
+                        ret.args.push_back(F + ".ptr(" + name + ")");
+                    else if (optional)
+                        ret.args.push_back("(" + std::string(kMemorySegment) + ")(" + name + " == null ? " + std::string(kMemorySegment) + ".NULL : " + RuntimeClass("ScalarOutput") + ".ref(" + name + ", \"" + name + "\"))");
+                    else
+                        ret.args.push_back(RuntimeClass("ScalarOutput") + ".ref(" + name + ", \"" + name + "\")");
+                    ret.fences.push_back(name);
+                    return ret;
+                }
+
+                // Enums and builtins by const pointer: allocate a temporary. Rvalue references to builtins too, their changes aren't visible to the caller.
                 if (ptr->is_const && ptr->pointee_type && ptr->pointee_type->IsEnum() && !ptr->pointee_type->enum_is_c_long)
                 {
                     const TypeInfo &en = *ptr->pointee_type;
@@ -2090,7 +2193,7 @@ public abstract class CppStruct implements Native
                     ret.args.push_back(optional ? "(" + std::string(kMemorySegment) + ")(" + name + " == null ? " + std::string(kMemorySegment) + ".NULL : " + alloc + ")" : F + ".alloc(__arena, " + en.enum_layout + ", java.util.Objects.requireNonNull(" + name + ", \"" + name + "\").value)");
                     return ret;
                 }
-                if (ptr->is_const && ptr->pointee_builtin && !ptr->pointee_builtin->is_pointer && !ptr->pointee_builtin->is_c_long && !ptr->pointee_builtin->type_info && ptr->pointee_builtin->array_dims.empty())
+                if (builtin_pointee && (ptr->is_const || cpp_shape == CppShape::rref))
                 {
                     const JavaType &b = *ptr->pointee_builtin;
                     ret.needs_arena = true;
@@ -2973,6 +3076,7 @@ public abstract class CppStruct implements Native
         EmitFiles(); // Before the classes, since this can rename the `ffi` classes.
         EmitClasses();
         EmitFreeFunctions();
+        EmitScalarOutputs();
         // The `Functions` classes of the namespace packages.
         auto WriteFunctions = [&](auto &self, const Module &module) -> void
         {
