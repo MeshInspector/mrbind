@@ -234,11 +234,11 @@ public final class C extends mrbind_test.CppObject
      *
      * Calls `MR_CSharp_C_refs()`. Some types are raw C types, see the C bindings for the details.
      */
-    public java.lang.foreign.MemorySegment refs(java.lang.foreign.MemorySegment x, java.lang.foreign.MemorySegment _2)
+    public java.lang.foreign.MemorySegment refs(mrbind_test.int_output x, mrbind_test.int_output _2)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_refs.invokeExact(rawPointer(), x, _2);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_refs.invokeExact(rawPointer(), mrbind_test.ScalarOutput.ref(x, "x"), mrbind_test.ScalarOutput.ref(_2, "_2"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -249,6 +249,8 @@ public final class C extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(x);
+            java.lang.ref.Reference.reachabilityFence(_2);
         }
     }
 

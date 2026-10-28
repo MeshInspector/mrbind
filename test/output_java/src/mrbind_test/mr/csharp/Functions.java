@@ -66,37 +66,47 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_bool_ref`.
      *
-     * Calls `MR_CSharp_test_bool_ref()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_test_bool_ref()`.
      */
-    public static void test_bool_ref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static void test_bool_ref(mrbind_test.bool_output a, mrbind_test.bool_output b)
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_bool_ref.invokeExact(a, b);
+            mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_bool_ref.invokeExact(mrbind_test.ScalarOutput.ref(a, "a"), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.ScalarOutput.ref(b, "b")));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 
     /**
      * Generated from function `MR::CSharp::test_bool_ref2`.
      *
-     * Calls `MR_CSharp_test_bool_ref2()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_test_bool_ref2()`.
      */
-    public static int test_bool_ref2(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static int test_bool_ref2(mrbind_test.bool_output a, mrbind_test.bool_output b)
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_bool_ref2.invokeExact(a, b);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_bool_ref2.invokeExact(mrbind_test.ScalarOutput.ref(a, "a"), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.ScalarOutput.ref(b, "b")));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 
@@ -161,17 +171,22 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_int_ref()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_int_ref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static java.lang.foreign.MemorySegment test_int_ref(mrbind_test.int_output a, mrbind_test.int_output b)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_ref.invokeExact(a, b);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_ref.invokeExact(mrbind_test.ScalarOutput.ref(a, "a"), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.ScalarOutput.ref(b, "b")));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 
@@ -199,11 +214,11 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_int_rref()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_int_rref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static java.lang.foreign.MemorySegment test_int_rref(int a, java.lang.Integer b)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_rref.invokeExact(a, b);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_rref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, a), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, b)));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -237,17 +252,22 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_int_ptr()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_int_ptr(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b, java.lang.foreign.MemorySegment c)
+    public static java.lang.foreign.MemorySegment test_int_ptr(mrbind_test.int_output a, mrbind_test.int_output b, java.lang.foreign.MemorySegment c)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_ptr.invokeExact(a, b, c);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_int_ptr.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), c);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 
@@ -294,17 +314,22 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_ushort_ref()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_ushort_ref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static java.lang.foreign.MemorySegment test_ushort_ref(mrbind_test.unsigned_short_output a, mrbind_test.unsigned_short_output b)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_ref.invokeExact(a, b);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_ref.invokeExact(mrbind_test.ScalarOutput.ref(a, "a"), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.ScalarOutput.ref(b, "b")));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 
@@ -332,11 +357,11 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_ushort_rref()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_ushort_rref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b)
+    public static java.lang.foreign.MemorySegment test_ushort_rref(short a, java.lang.Short b)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_rref.invokeExact(a, b);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_rref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_SHORT, a), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_SHORT, b)));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -370,17 +395,22 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_ushort_ptr()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static java.lang.foreign.MemorySegment test_ushort_ptr(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment b, java.lang.foreign.MemorySegment c)
+    public static java.lang.foreign.MemorySegment test_ushort_ptr(mrbind_test.unsigned_short_output a, mrbind_test.unsigned_short_output b, java.lang.foreign.MemorySegment c)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_ptr.invokeExact(a, b, c);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_ushort_ptr.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), c);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
         }
     }
 

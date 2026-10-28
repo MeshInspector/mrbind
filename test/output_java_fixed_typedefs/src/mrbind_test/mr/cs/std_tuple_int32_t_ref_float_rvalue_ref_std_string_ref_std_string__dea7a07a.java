@@ -30,19 +30,19 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
      * The reference to the parameter `_2` might be preserved in the constructed object.
      * The reference to the parameter `_3` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct()`.
      */
-    public std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a(java.lang.foreign.MemorySegment _0, java.lang.foreign.MemorySegment _1, mrbind_test.mr.cs.std_string _2, java.lang.String _3)
+    public std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a(mrbind_test.int32_t_output _0, float _1, mrbind_test.mr.cs.std_string _2, java.lang.String _3)
     {
         this(__ctor_construct(_0, _1, _2, _3), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_construct(java.lang.foreign.MemorySegment _0, java.lang.foreign.MemorySegment _1, mrbind_test.mr.cs.std_string _2, java.lang.String _3)
+    private static java.lang.foreign.MemorySegment __ctor_construct(mrbind_test.int32_t_output _0, float _1, mrbind_test.mr.cs.std_string _2, java.lang.String _3)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __str__3 = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(_3, "_3"));
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct.invokeExact(_0, _1, mrbind_test.Ffi.ptrNonNull(_2, "_2"), __str__3, mrbind_test.Ffi.end(__str__3));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string__dea7a07a.H0.MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct.invokeExact(mrbind_test.ScalarOutput.ref(_0, "_0"), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _1), mrbind_test.Ffi.ptrNonNull(_2, "_2"), __str__3, mrbind_test.Ffi.end(__str__3));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -52,6 +52,7 @@ public final class std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_str
         }
         finally
         {
+            java.lang.ref.Reference.reachabilityFence(_0);
             java.lang.ref.Reference.reachabilityFence(_2);
         }
     }

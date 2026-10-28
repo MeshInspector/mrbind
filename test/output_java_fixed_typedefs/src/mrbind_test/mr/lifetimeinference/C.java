@@ -55,18 +55,18 @@ public final class C extends mrbind_test.CppObject
     /**
      * Generated from constructor `MR::LifetimeInference::C::C`.
      *
-     * Calls `MR_LifetimeInference_C_Construct()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_LifetimeInference_C_Construct()`.
      */
-    public C(mrbind_test.mr.lifetimeinference.A _1, java.lang.foreign.MemorySegment _2, int _3)
+    public C(mrbind_test.mr.lifetimeinference.A _1, mrbind_test.int32_t_output _2, int _3)
     {
         this(__ctor_construct(_1, _2, _3), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_construct(mrbind_test.mr.lifetimeinference.A _1, java.lang.foreign.MemorySegment _2, int _3)
+    private static java.lang.foreign.MemorySegment __ctor_construct(mrbind_test.mr.lifetimeinference.A _1, mrbind_test.int32_t_output _2, int _3)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_lifetime_inference.H0.MR_LifetimeInference_C_Construct.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), _2, _3);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_lifetime_inference.H0.MR_LifetimeInference_C_Construct.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.ScalarOutput.ref(_2, "_2"), _3);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -77,6 +77,7 @@ public final class C extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
         }
     }
 

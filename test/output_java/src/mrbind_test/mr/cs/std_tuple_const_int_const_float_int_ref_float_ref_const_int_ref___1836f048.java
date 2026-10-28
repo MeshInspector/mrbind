@@ -34,24 +34,29 @@ public final class std_tuple_const_int_const_float_int_ref_float_ref_const_int_r
      * The reference to the parameter `_8` might be preserved in the constructed object.
      * The reference to the parameter `_9` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct()`.
      */
-    public std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref___1836f048(int _0, float _1, java.lang.foreign.MemorySegment _2, java.lang.foreign.MemorySegment _3, int _4, float _5, java.lang.foreign.MemorySegment _6, java.lang.foreign.MemorySegment _7, int _8, float _9)
+    public std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref___1836f048(int _0, float _1, mrbind_test.int_output _2, mrbind_test.float_output _3, int _4, float _5, int _6, float _7, int _8, float _9)
     {
         this(__ctor_construct(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_construct(int _0, float _1, java.lang.foreign.MemorySegment _2, java.lang.foreign.MemorySegment _3, int _4, float _5, java.lang.foreign.MemorySegment _6, java.lang.foreign.MemorySegment _7, int _8, float _9)
+    private static java.lang.foreign.MemorySegment __ctor_construct(int _0, float _1, mrbind_test.int_output _2, mrbind_test.float_output _3, int _4, float _5, int _6, float _7, int _8, float _9)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref___843c200b.H0.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct.invokeExact(_0, _1, _2, _3, mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _4), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _5), _6, _7, mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _8), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _9));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref___843c200b.H0.MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct.invokeExact(_0, _1, mrbind_test.ScalarOutput.ref(_2, "_2"), mrbind_test.ScalarOutput.ref(_3, "_3"), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _4), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _5), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _6), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _7), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _8), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _9));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_2);
+            java.lang.ref.Reference.reachabilityFence(_3);
         }
     }
 

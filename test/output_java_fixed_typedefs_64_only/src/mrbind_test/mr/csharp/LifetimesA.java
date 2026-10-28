@@ -156,13 +156,13 @@ public final class LifetimesA extends mrbind_test.CppObject
      * Generated from method `MR::CSharp::LifetimesA::bar`.
      * The reference to the parameter `ref` might be preserved in this object.
      *
-     * Calls `MR_CSharp_LifetimesA_bar()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_LifetimesA_bar()`.
      */
-    public void bar(java.lang.foreign.MemorySegment ref)
+    public void bar(mrbind_test.int_output ref)
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_LifetimesA_bar.invokeExact(rawPointer(), ref);
+            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_LifetimesA_bar.invokeExact(rawPointer(), mrbind_test.ScalarOutput.ref(ref, "ref"));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -172,6 +172,7 @@ public final class LifetimesA extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(ref);
         }
     }
 

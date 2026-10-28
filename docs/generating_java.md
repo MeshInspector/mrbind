@@ -70,7 +70,7 @@ A C++ namespace becomes a Java package named after it in lower case (`MR::Foo` â
 
 The `ffi` subpackage mirrors the file hierarchy of the C bindings: for every C source `foo/bar.h` there's a `ffi/foo/bar.java` holding the downcall `MethodHandle` of every function of that file (in nested classes of 200 handles each, to keep the static initializers small). You don't normally name those, the wrappers do.
 
-The runtime support classes live in the base package: `Ffi` (library loading, the struct layout helper, the exception handler), `CppObject`, `CppStruct`, `Native`, `CppException` and `UnexpectedResultException`.
+The runtime support classes live in the base package: `Ffi` (library loading, the struct layout helper, the exception handler), `CppObject`, `CppStruct`, `Native`, `CppException` and `UnexpectedResultException`, and `ScalarOutput` with its subclasses when there are mutable scalar parameters.
 
 A function returning `expected<T, E>` (`std::` or `tl::`) by value returns `T` instead, nothing for `expected<void, E>`, and throws `UnexpectedResultException` with the error converted to a string when the result holds an error, like the Python and C# bindings do. The `expected` classes themselves are still generated, since they appear as parameters and fields, and get a `valueOrThrow()` doing the same. `--no-deref-expected` turns the unwrapping off, the functions then return the `expected` objects as is.
 
@@ -82,7 +82,9 @@ The wrappers:
 
 * `std::string`, `std::string_view` and `std::filesystem::path` parameters take a `String`. Returned strings are `std_string` wrappers, whose `toString()` decodes them as UTF-8.
 
-* Scalars by const pointer or reference take the Java primitive (boxed when nullable), and are returned as the primitive. Scalars by non-const pointer stay raw, Java can't write through them.
+* Scalars by const pointer or reference (or by rvalue reference) take the Java primitive (boxed when nullable), and are returned as the primitive.
+
+* Scalars by non-const reference or pointer (`int &`, `float *`) take an object of the class named after the C type, like in the Python bindings: `int_output`, `float_output`, `unsigned_long_long_output`, ..., generated into the base package for the types that occur. It owns an array of scalars in native memory (freed by the garbage collector), which the function writes to: `var n = new int_output(); foo(n); n.value()`. `new int_output(size, value)` makes an array (`get(i)`, `set(i, value)`, `values()`, `length()`) for the pointers to several elements, a reference needs exactly one element. Pointers accept `null`. `ScalarOutput` is their base class. C `long`, whose size depends on the platform, stays raw, and so do the scalars returned by non-const pointer or reference.
 
 * Enums are classes with the constants as static fields, and the underlying value in the `value` field, so they can also hold values that aren't named constants. `E.of(value)` finds the constant.
 
@@ -104,5 +106,4 @@ This backend is as young as the Rust one, and shares its limitations:
 
 * Inherited members are only available if the C generator copied them (`--copy-inherited-members`). Otherwise upcast to the base explicitly to call its methods, there are no implicit conversions.
 * Containers only expose the methods that the C bindings have (`size()`, `at()`, ...), there's no `Iterable` or `List` integration yet.
-* Output parameters of scalar types (`int &`) are raw.
 * Objects don't keep alive what they reference (the `[[clang::lifetime_capture_by]]` annotations), the doc comments only mention it. A reference parameter that gets stored must outlive the object.

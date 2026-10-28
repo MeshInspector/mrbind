@@ -57,18 +57,18 @@ public final class std_pair_int32_t_rvalue_ref_float_rvalue_ref extends mrbind_t
      * The reference to the parameter `first` might be preserved in the constructed object.
      * The reference to the parameter `second` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct()`.
      */
-    public std_pair_int32_t_rvalue_ref_float_rvalue_ref(java.lang.foreign.MemorySegment first, java.lang.foreign.MemorySegment second)
+    public std_pair_int32_t_rvalue_ref_float_rvalue_ref(int first, float second)
     {
         this(__ctor_construct(first, second), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_construct(java.lang.foreign.MemorySegment first, java.lang.foreign.MemorySegment second)
+    private static java.lang.foreign.MemorySegment __ctor_construct(int first, float second)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct.invokeExact(first, second);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_rvalue_ref_float_rvalue_ref.H0.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, first), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, second));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

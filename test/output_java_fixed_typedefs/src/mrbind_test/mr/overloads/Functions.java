@@ -153,13 +153,13 @@ public final class Functions
     /**
      * Generated from function `MR::Overloads::e`.
      *
-     * Calls `MR_Overloads_e_const_int32_t_ref()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_Overloads_e_const_int32_t_ref()`.
      */
-    public static void e(int _1, java.lang.foreign.MemorySegment _2)
+    public static void e_const_int32_t_ref(int _1, int _2)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_const_int32_t_ref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1), _2);
+            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_const_int32_t_ref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _2));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -171,13 +171,13 @@ public final class Functions
     /**
      * Generated from function `MR::Overloads::e`.
      *
-     * Calls `MR_Overloads_e_int32_t_rvalue_ref_int32_t()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_Overloads_e_int32_t_rvalue_ref_int32_t()`.
      */
-    public static void e_int32_t_rvalue_ref_int32_t(java.lang.foreign.MemorySegment _1, java.lang.foreign.MemorySegment _2)
+    public static void e_int32_t_rvalue_ref_int32_t(int _1, int _2)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_int32_t_rvalue_ref_int32_t.invokeExact(_1, _2);
+            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_int32_t_rvalue_ref_int32_t.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _2));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -189,13 +189,13 @@ public final class Functions
     /**
      * Generated from function `MR::Overloads::e`.
      *
-     * Calls `MR_Overloads_e_int32_t_rvalue_ref_float()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_Overloads_e_int32_t_rvalue_ref_float()`.
      */
-    public static void e_int32_t_rvalue_ref_float(java.lang.foreign.MemorySegment _1, java.lang.foreign.MemorySegment _2)
+    public static void e(int _1, float _2)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_int32_t_rvalue_ref_float.invokeExact(_1, _2);
+            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_e_int32_t_rvalue_ref_float.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, _2));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -228,13 +228,13 @@ public final class Functions
     /**
      * Generated from function `MR::Overloads::f`.
      *
-     * Calls `MR_Overloads_f_int32_t_rvalue_ref()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_Overloads_f_int32_t_rvalue_ref()`.
      */
-    public static void f(java.lang.foreign.MemorySegment _1, float _2)
+    public static void f_int32_t_rvalue_ref(int _1, float _2)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_f_int32_t_rvalue_ref.invokeExact(_1, _2);
+            mrbind_test.ffi.MR.test_overloads.H0.MR_Overloads_f_int32_t_rvalue_ref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1), _2);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -248,7 +248,7 @@ public final class Functions
      *
      * Calls `MR_Overloads_f_const_int32_t_ref()`.
      */
-    public static void f(int _1, float _2)
+    public static void f_const_int32_t_ref(int _1, float _2)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {

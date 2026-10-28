@@ -150,11 +150,11 @@ public final class std_function_int_ref_from_int_ref_int_rvalue_ref extends mrbi
      *
      * Calls `MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call()`. Some types are raw C types, see the C bindings for the details.
      */
-    public java.lang.foreign.MemorySegment call(java.lang.foreign.MemorySegment _1, java.lang.foreign.MemorySegment _2)
+    public java.lang.foreign.MemorySegment call(mrbind_test.int_output _1, int _2)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_int_ref_from_int_ref_int_rvalue_ref.H0.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call.invokeExact(rawPointer(), _1, _2);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_function_int_ref_from_int_ref_int_rvalue_ref.H0.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call.invokeExact(rawPointer(), mrbind_test.ScalarOutput.ref(_1, "_1"), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _2));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -165,6 +165,7 @@ public final class std_function_int_ref_from_int_ref_int_rvalue_ref extends mrbi
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
