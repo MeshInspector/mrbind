@@ -150,7 +150,7 @@ public class Main
             {
                 mrbind_test.mr.csharp.Functions.test_bool_ref(new mrbind_test.bool_output(2), null);
             }
-            catch (IllegalStateException e)
+            catch (IllegalStateException ex)
             {
                 threw = true;
             }
