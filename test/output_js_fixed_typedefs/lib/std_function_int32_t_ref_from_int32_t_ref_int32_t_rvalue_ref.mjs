@@ -135,7 +135,8 @@ export class MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref e
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call(this.rawPointer(), _1, _2);
+            const __ptr__2 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _2;});
+            const __ret = ffi.C.MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call(this.rawPointer(), ffi.ScalarOutput.ref(_1, "_1"), __ptr__2);
             ffi.check();
             return (__ret >>> 0);
         }

@@ -20,9 +20,19 @@ export class MR_C_std_pair_int_rvalue_ref_float_rvalue_ref extends ffi.CppObject
 
     static __ctor_1(first, second)
     {
-        const __ret = ffi.C.MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(BigInt(first), BigInt(second));
-        ffi.check();
-        return Number(__ret);
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr_first = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = first;});
+            const __ptr_second = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) / 4] = second;});
+            const __ret = ffi.C.MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(BigInt(__ptr_first), BigInt(__ptr_second));
+            ffi.check();
+            return Number(__ret);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __ctor(args)

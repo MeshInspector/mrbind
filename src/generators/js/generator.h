@@ -167,6 +167,7 @@ namespace mrbind::Js
         std::unordered_map<std::string, TypeInfo *> types_by_c_name;
         std::set<std::string> used_js_names; // The `lib` export names, which must be globally unique since `_all.mjs` re-exports them all.
         std::set<std::string> exported_c_functions; // Everything the JS calls, for `exported_functions.txt`.
+        std::map<std::string, Scalar> scalar_outputs; // The `<type>_output` classes of the mutable scalar parameters that the wrappers use, by name.
 
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);

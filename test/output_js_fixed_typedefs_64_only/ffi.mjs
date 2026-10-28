@@ -530,3 +530,83 @@ export class CppStruct extends CppObject
         HEAPU8().copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
     }
 }
+
+/**
+ * The base class of `int_output`, `float_output`, ... (named after the C type, like in the Python bindings), which the wrappers take for
+ * the mutable scalar parameters: `int &` needs exactly one element, `int *` accepts null, one element, or an array.
+ * An instance owns `length` scalars in wasm memory (freed by `delete()` or by the garbage collector), which the C++ functions read and write.
+ */
+export class ScalarOutput extends CppObject
+{
+    /** `size` elements equal to `value`, zero by default. */
+    constructor(size = 1, value = undefined)
+    {
+        if (!Number.isSafeInteger(size) || size < 0)
+            throw new RangeError("The size must be a non-negative integer.");
+        super(malloc(Math.max(size, 1) * new.target.SIZE), free, null);
+        this.length = size;
+        for (let i = 0; i < size; i++)
+            this.set(i, value === undefined ? new.target.ZERO : value);
+    }
+
+    /** The element `i`. */
+    at(i)
+    {
+        return this.constructor.read(this.rawPointer() + scalarOutputIndex(this, i) * this.constructor.SIZE);
+    }
+
+    /** Sets the element `i`. */
+    set(i, value)
+    {
+        if (!this.constructor.check(value))
+            throw new TypeError("Expected " + this.constructor.TYPE + ", got " + typeof value + ".");
+        this.constructor.write(this.rawPointer() + scalarOutputIndex(this, i) * this.constructor.SIZE, value);
+    }
+
+    /** The only element. Throws unless there is exactly one. */
+    get value()
+    {
+        scalarOutputSingle(this);
+        return this.at(0);
+    }
+    set value(value)
+    {
+        scalarOutputSingle(this);
+        this.set(0, value);
+    }
+
+    /** A copy of the elements. */
+    get values()
+    {
+        const ret = [];
+        for (let i = 0; i < this.length; i++)
+            ret.push(this.at(i));
+        return ret;
+    }
+
+    toString()
+    {
+        return this.constructor.name + "[" + this.values.join(", ") + "]";
+    }
+
+    /** The pointer for a reference parameter: checks that there is exactly one element. */
+    static ref(object, name)
+    {
+        const p = ptrNonNull(object, name);
+        scalarOutputSingle(object);
+        return p;
+    }
+}
+
+function scalarOutputIndex(object, i)
+{
+    if (!Number.isSafeInteger(i) || i < 0 || i >= object.length)
+        throw new RangeError("Index " + i + " is out of range, the size is " + object.length + ".");
+    return i;
+}
+
+function scalarOutputSingle(object)
+{
+    if (object.length !== 1)
+        throw new RangeError("Expected exactly one value, the size is " + object.length + ".");
+}

@@ -365,7 +365,7 @@ export class MR_LifetimeInference_C extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_LifetimeInference_C_Construct(ffi.ptrNonNull(_1, "_1"), _2, _3);
+            const __ret = ffi.C.MR_LifetimeInference_C_Construct(ffi.ptrNonNull(_1, "_1"), ffi.ScalarOutput.ref(_2, "_2"), _3);
             ffi.check();
             return (__ret >>> 0);
         }
@@ -384,7 +384,7 @@ export class MR_LifetimeInference_C extends ffi.CppObject
         const __n = args.length;
         if (__n === 1 && (args[0] instanceof L.MR_LifetimeInference_C))
             return L.MR_LifetimeInference_C.__ctor_0(args[0]);
-        if (__n === 3 && (args[0] instanceof L.MR_LifetimeInference_A) && typeof args[1] === "number" && typeof args[2] === "number")
+        if (__n === 3 && (args[0] instanceof L.MR_LifetimeInference_A) && args[1] instanceof L.int_output && typeof args[2] === "number")
             return L.MR_LifetimeInference_C.__ctor_1(args[0], args[1], args[2]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }

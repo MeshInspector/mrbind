@@ -162,6 +162,36 @@ check(new MR.CS.std_expected_int_std_string().valueOrThrow() === 0, "valueOrThro
     check(va.size() === 2 && va.at(0) === 7, "setFromArray");
 }
 
+// Mutable scalar parameters take `<type>_output` objects, which own their scalars in wasm memory, like in Python.
+{
+    const a = new lib.bool_output();
+    const b = new lib.bool_output();
+    check(a.length === 1 && a.value === false, "bool_output default");
+    MR.CSharp.test_bool_ref(a, b);
+    check(a.value === true && b.value === true, "written through bool &");
+    const c = new lib.bool_output();
+    check(MR.CSharp.test_bool_ref2(c) === 42 && c.value === true, "the default argument of bool &");
+    let threw = false;
+    try
+    {
+        MR.CSharp.test_bool_ref(new lib.bool_output(2));
+    }
+    catch (e)
+    {
+        threw = e instanceof RangeError;
+    }
+    check(threw, "a reference needs exactly one element");
+
+    const i = new lib.int_output(3, 7);
+    check(i.values.join() === "7,7,7", "int_output values");
+    i.set(1, 5);
+    check(i.at(1) === 5 && String(i) === "int_output[7, 5, 7]", "int_output set");
+    MR.CSharp.test_int_ptr(i, null, 0); // A pointer accepts an array or null.
+    i.delete();
+
+    MR.CSharp.test_int_rref(5); // Rvalue references are inputs.
+}
+
 // `using` disposes.
 if (typeof Symbol.dispose === "symbol")
 {

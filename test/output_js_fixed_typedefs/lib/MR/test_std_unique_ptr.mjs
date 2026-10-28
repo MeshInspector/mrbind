@@ -224,7 +224,8 @@ export function MR_StdUniquePtr_SetIntRvalueRef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetIntRvalueRef(_1);
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        ffi.C.MR_StdUniquePtr_SetIntRvalueRef(__ptr__1);
         ffi.check();
     }
     catch (__e)
@@ -242,7 +243,8 @@ export function MR_StdUniquePtr_SetIntRvalueConstRef(_1)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_StdUniquePtr_SetIntRvalueConstRef(_1);
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        ffi.C.MR_StdUniquePtr_SetIntRvalueConstRef(__ptr__1);
         ffi.check();
     }
     catch (__e)

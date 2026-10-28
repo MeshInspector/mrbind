@@ -5,7 +5,7 @@ import * as ffi from "./ffi.mjs";
 import * as L from "./lib/_all.mjs";
 
 export * as ffi from "./ffi.mjs";
-export { CppObject, CppStruct, CppException, UnexpectedResultException } from "./ffi.mjs";
+export { CppObject, CppStruct, ScalarOutput, CppException, UnexpectedResultException } from "./ffi.mjs";
 
 /** Instantiates the wasm module with `createModule(options)` (the Emscripten factory) and binds the wrappers to it. Returns the module. Does nothing if already initialized. */
 export async function init(options)
@@ -26,4 +26,11 @@ export function initWithModule(module)
 
 export * as MR from "./ns/MR.mjs";
 export * as phmap from "./ns/phmap.mjs";
+export { bool_output } from "./lib/_all.mjs";
+export { char_output } from "./lib/_all.mjs";
+export { float_output } from "./lib/_all.mjs";
+export { int_output } from "./lib/_all.mjs";
+export { signed_char_output } from "./lib/_all.mjs";
+export { unsigned_char_output } from "./lib/_all.mjs";
+export { unsigned_short_output } from "./lib/_all.mjs";
 

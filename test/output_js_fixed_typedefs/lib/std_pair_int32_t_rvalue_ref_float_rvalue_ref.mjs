@@ -35,7 +35,9 @@ export class MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref extends ffi.CppOb
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct(first, second);
+            const __ptr_first = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = first;});
+            const __ptr_second = ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) >>> 2] = second;});
+            const __ret = ffi.C.MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Construct(__ptr_first, __ptr_second);
             ffi.check();
             return (__ret >>> 0);
         }

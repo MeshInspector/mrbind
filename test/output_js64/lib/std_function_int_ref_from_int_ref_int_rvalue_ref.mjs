@@ -84,9 +84,18 @@ export class MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref extends ffi.C
 
     call(_1, _2)
     {
-        const __ret = ffi.C.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(BigInt(this.rawPointer()), BigInt(_1), BigInt(_2));
-        ffi.check();
-        return Number(__ret);
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr__2 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = _2;});
+            const __ret = ffi.C.MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(BigInt(this.rawPointer()), BigInt(ffi.ScalarOutput.ref(_1, "_1")), BigInt(__ptr__2));
+            ffi.check();
+            return Number(__ret);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
     }
 
     static __stub = 0;

@@ -69,12 +69,31 @@ export class MR_C_std_shared_ptr_int32_t_array extends ffi.CppObject
         }
     }
 
+    static __ctor_4(ptr)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_shared_ptr_int32_t_array_ConstructNonOwning((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     static __ctor_5(ownership, ptr)
     {
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_C_std_shared_ptr_int32_t_array_ConstructAliasing(ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), ptr);
+            const __ret = ffi.C.MR_C_std_shared_ptr_int32_t_array_ConstructAliasing(ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), (ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
             ffi.check();
             return (__ret >>> 0);
         }
@@ -97,7 +116,13 @@ export class MR_C_std_shared_ptr_int32_t_array extends ffi.CppObject
             return L.MR_C_std_shared_ptr_int32_t_array.__ctor_1(args[0]);
         if (__n === 1 && typeof args[0] === "number")
             return L.MR_C_std_shared_ptr_int32_t_array.__ctor_2(args[0]);
-        if (__n === 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && typeof args[1] === "number")
+        if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
+            return L.MR_C_std_shared_ptr_int32_t_array.__ctor_4(args[0]);
+        if (__n === 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && (__n <= 1 || (args[1] == null || args[1] instanceof L.int32_t_output)))
+            return L.MR_C_std_shared_ptr_int32_t_array.__ctor_5(args[0], args[1]);
+        if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
+            return L.MR_C_std_shared_ptr_int32_t_array.__ctor_4(args[0]);
+        if (__n >= 1 && __n < 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && (__n <= 1 || (args[1] == null || args[1] instanceof L.int32_t_output)))
             return L.MR_C_std_shared_ptr_int32_t_array.__ctor_5(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
@@ -108,25 +133,6 @@ export class MR_C_std_shared_ptr_int32_t_array extends ffi.CppObject
         try
         {
             const __ret = ffi.C.MR_C_std_shared_ptr_int32_t_array_Construct(ptr);
-            ffi.check();
-            return new L.MR_C_std_shared_ptr_int32_t_array(ffi.RAW, (__ret >>> 0), true, null);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    static constructNonOwning(ptr)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_shared_ptr_int32_t_array_ConstructNonOwning(ptr);
             ffi.check();
             return new L.MR_C_std_shared_ptr_int32_t_array(ffi.RAW, (__ret >>> 0), true, null);
         }
@@ -285,7 +291,7 @@ export class MR_C_std_shared_ptr_int32_t_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_C_std_shared_ptr_int32_t_array_AssignNonOwning(this.rawPointer(), ptr);
+            ffi.C.MR_C_std_shared_ptr_int32_t_array_AssignNonOwning(this.rawPointer(), (ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
             ffi.check();
         }
         catch (__e)
@@ -303,7 +309,7 @@ export class MR_C_std_shared_ptr_int32_t_array extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_C_std_shared_ptr_int32_t_array_AssignAliasing(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), ptr);
+            ffi.C.MR_C_std_shared_ptr_int32_t_array_AssignAliasing(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(ownership, "ownership"), (ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
             ffi.check();
         }
         catch (__e)

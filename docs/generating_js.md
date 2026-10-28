@@ -83,7 +83,7 @@ The output directory holds:
 * `index.mjs` — the root module: `init()`, `initWithModule()`, the runtime classes, and the entities of the root C++ namespace exported by their C++ names, with the nested namespaces as namespace objects (`export * as Foo from "./ns/Foo.mjs"`), so `MyLib::Foo::bar()` is `lib.Foo.bar()` after `--replace-namespace MyLib ::`.
 * `ns/<namespace path>.mjs` — the nested namespace modules.
 * `lib/<C file>.mjs` — the wrappers, one module per C bindings file, exported by their C names (`MR_Mesh`, `MR_std_vector_int`). The namespace modules re-export them; you don't normally import these directly. `lib/_all.mjs` re-exports all of them, which is how the wrappers refer to each other.
-* `ffi.mjs` — the runtime support: the module and its exports (`ffi.M`, `ffi.C`), the memory helpers, the callback registry, the exception handler, and the base classes `CppObject` and `CppStruct`, the exceptions `CppException` and `UnexpectedResultException`.
+* `ffi.mjs` — the runtime support: the module and its exports (`ffi.M`, `ffi.C`), the memory helpers, the callback registry, the exception handler, and the base classes `CppObject`, `CppStruct` and `ScalarOutput`, the exceptions `CppException` and `UnexpectedResultException`.
 * `emcc_link_flags.rsp`, `exported_functions.txt` — for compiling the C bindings, see above.
 
 Every `.mjs` has a `.d.mts` next to it with the same exports, with the doc comments of the C++ entities.
@@ -102,7 +102,9 @@ The wrappers:
 
 * `std::string`, `std::string_view` and `std::filesystem::path` parameters take a string.
 
-* Scalars by const pointer or reference take the number (`bigint` or number for the 64-bit ones), and are returned as numbers (`bigint` for the 64-bit ones). Scalars by non-const pointer stay raw.
+* Scalars by const pointer or reference (or by rvalue reference) take the number (`bigint` or number for the 64-bit ones), and are returned as numbers (`bigint` for the 64-bit ones).
+
+* Scalars by non-const reference or pointer (`int &`, `float *`) take an object of the class named after the C type, like in the Python bindings: `int_output`, `float_output`, `unsigned_long_long_output`, ..., exported from the root module for the types that occur. It owns an array of scalars in wasm memory, which the function writes to: `const n = new lib.int_output(); lib.foo(n); n.value`. `new lib.int_output(size, value)` makes an array (`at(i)`, `set(i, value)`, `values`, `length`) for the pointers to several elements, a reference needs exactly one element. Pointers accept `null`. The objects are freed by `delete()`, `using`, or the garbage collector, like the other wrappers; `ScalarOutput` is their base class. Scalars returned by non-const pointer or reference stay raw.
 
 * Enums are frozen objects with the constants as numbers, with the reverse mapping like TypeScript's numeric enums (`E.a === 10`, `E[10] === "a"`), and are declared as `enum`s in the `.d.mts`. The values are passed and returned as plain numbers.
 
@@ -130,6 +132,5 @@ This backend is as young as the Rust and Java ones, and shares their limitations
 
 * Inherited members are only available if the C generator copied them (`--copy-inherited-members`). Otherwise upcast to the base explicitly to call its methods, there are no implicit conversions.
 * Containers only expose the methods that the C bindings have (`size()`, `at()`, ...), there's no iterator integration yet.
-* Output parameters of scalar types (`int &`) are raw.
 * Objects don't keep alive what they reference (the `[[clang::lifetime_capture_by]]` annotations), the doc comments only mention it. A reference parameter that gets stored must outlive the object.
 * The wrappers must be called from the thread that initialized them, there's no worker-side API.

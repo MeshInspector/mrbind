@@ -30,13 +30,20 @@ export declare class MR_C_std_shared_ptr_int32_t extends ffi.CppObject
      */
     constructor(value: number);
     /**
+     * Create a new instance, storing a non-owning pointer.
+     * The reference to the parameter `ptr` might be preserved in the constructed object.
+     *
+     * Calls `MR_C_std_shared_ptr_int32_t_ConstructNonOwning()`.
+     */
+    constructor(ptr?: L.int32_t_output | null);
+    /**
      * The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
      * The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_shared_ptr_int32_t_ConstructAliasing()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int32_t_ConstructAliasing()`.
      */
-    constructor(ownership: L.MR_C_std_shared_ptr_const_void, ptr: number);
+    constructor(ownership: L.MR_C_std_shared_ptr_const_void, ptr?: L.int32_t_output | null);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
      * Create a new instance, taking ownership of an existing pointer.
@@ -44,13 +51,6 @@ export declare class MR_C_std_shared_ptr_int32_t extends ffi.CppObject
      * Calls `MR_C_std_shared_ptr_int32_t_Construct()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     static construct(ptr: number): L.MR_C_std_shared_ptr_int32_t;
-    /**
-     * Create a new instance, storing a non-owning pointer.
-     * The reference to the parameter `ptr` might be preserved in the constructed object.
-     *
-     * Calls `MR_C_std_shared_ptr_int32_t_ConstructNonOwning()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
-     */
-    static constructNonOwning(ptr: number): L.MR_C_std_shared_ptr_int32_t;
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
     /**
@@ -97,17 +97,17 @@ export declare class MR_C_std_shared_ptr_int32_t extends ffi.CppObject
      * Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
      * The reference to the parameter `ptr` might be preserved in this object.
      *
-     * Calls `MR_C_std_shared_ptr_int32_t_AssignNonOwning()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int32_t_AssignNonOwning()`.
      */
-    assignNonOwning(ptr: number): void;
+    assignNonOwning(ptr?: L.int32_t_output | null): void;
     /**
      * The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
      * The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
      * The reference to the parameter `ptr` might be preserved in this object.
      *
-     * Calls `MR_C_std_shared_ptr_int32_t_AssignAliasing()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int32_t_AssignAliasing()`.
      */
-    AssignAliasing(ownership: L.MR_C_std_shared_ptr_const_void, ptr: number): void;
+    AssignAliasing(ownership: L.MR_C_std_shared_ptr_const_void, ptr?: L.int32_t_output | null): void;
     /**
      * Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
      *

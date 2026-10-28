@@ -228,7 +228,7 @@ export class MR_CSharp_A extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_CSharp_A_refs(this.rawPointer(), x, _2);
+            const __ret = ffi.C.MR_CSharp_A_refs(this.rawPointer(), ffi.ScalarOutput.ref(x, "x"), ffi.ScalarOutput.ref(_2, "_2"));
             ffi.check();
             return (__ret >>> 0);
         }
@@ -1267,7 +1267,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_ClassMemberPointersBool_Set_sa(value);
+            ffi.C.MR_CSharp_ClassMemberPointersBool_Set_sa((value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -1380,7 +1380,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_ClassMemberPointersBool_Set_a(this.rawPointer(), value);
+            ffi.C.MR_CSharp_ClassMemberPointersBool_Set_a(this.rawPointer(), (value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -1495,7 +1495,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         {
             const __ptr_b = b == null ? 0 : ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = b ? 1 : 0;});
             const __ptr_d = ffi.stackScalar(1, (p) => {ffi.HEAPU8()[p] = d ? 1 : 0;});
-            const __ret = ffi.C.MR_CSharp_ClassMemberPointersBool_ConstructFrom(a, __ptr_b, c, __ptr_d);
+            const __ret = ffi.C.MR_CSharp_ClassMemberPointersBool_ConstructFrom((a == null ? 0 : ffi.ptrNonNull(a, "a")), __ptr_b, ffi.ScalarOutput.ref(c, "c"), __ptr_d);
             ffi.check();
             return (__ret >>> 0);
         }
@@ -1514,7 +1514,7 @@ export class MR_CSharp_ClassMemberPointersBool extends ffi.CppObject
         const __n = args.length;
         if (__n === 1 && (args[0] instanceof L.MR_CSharp_ClassMemberPointersBool))
             return L.MR_CSharp_ClassMemberPointersBool.__ctor_0(args[0]);
-        if (__n === 4 && typeof args[0] === "number" && (__n <= 1 || (args[1] == null || typeof args[1] === "boolean")) && typeof args[2] === "number" && typeof args[3] === "boolean")
+        if (__n === 4 && (__n <= 0 || (args[0] == null || args[0] instanceof L.bool_output)) && (__n <= 1 || (args[1] == null || typeof args[1] === "boolean")) && args[2] instanceof L.bool_output && typeof args[3] === "boolean")
             return L.MR_CSharp_ClassMemberPointersBool.__ctor_1(args[0], args[1], args[2], args[3]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
@@ -2156,7 +2156,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_sa(value);
+            ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_sa((value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -2269,7 +2269,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_a(this.rawPointer(), value);
+            ffi.C.MR_CSharp_ClassMemberPointersUshort_Set_a(this.rawPointer(), (value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -2384,7 +2384,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         {
             const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) >>> 1] = b;});
             const __ptr_d = ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) >>> 1] = d;});
-            const __ret = ffi.C.MR_CSharp_ClassMemberPointersUshort_ConstructFrom(a, __ptr_b, c, __ptr_d);
+            const __ret = ffi.C.MR_CSharp_ClassMemberPointersUshort_ConstructFrom((a == null ? 0 : ffi.ptrNonNull(a, "a")), __ptr_b, ffi.ScalarOutput.ref(c, "c"), __ptr_d);
             ffi.check();
             return (__ret >>> 0);
         }
@@ -2403,7 +2403,7 @@ export class MR_CSharp_ClassMemberPointersUshort extends ffi.CppObject
         const __n = args.length;
         if (__n === 1 && (args[0] instanceof L.MR_CSharp_ClassMemberPointersUshort))
             return L.MR_CSharp_ClassMemberPointersUshort.__ctor_0(args[0]);
-        if (__n === 4 && typeof args[0] === "number" && (__n <= 1 || (args[1] == null || typeof args[1] === "number")) && typeof args[2] === "number" && typeof args[3] === "number")
+        if (__n === 4 && (__n <= 0 || (args[0] == null || args[0] instanceof L.uint16_t_output)) && (__n <= 1 || (args[1] == null || typeof args[1] === "number")) && args[2] instanceof L.uint16_t_output && typeof args[3] === "number")
             return L.MR_CSharp_ClassMemberPointersUshort.__ctor_1(args[0], args[1], args[2], args[3]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
@@ -9131,7 +9131,7 @@ export class MR_CSharp_IterableK_Iter extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_IterableK_Iter_Set_ptr(this.rawPointer(), value);
+            ffi.C.MR_CSharp_IterableK_Iter_Set_ptr(this.rawPointer(), (value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -9168,7 +9168,7 @@ export class MR_CSharp_IterableK_Iter extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_CSharp_IterableK_Iter_ConstructFrom(ptr);
+            const __ret = ffi.C.MR_CSharp_IterableK_Iter_ConstructFrom((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
             ffi.check();
             return (__ret >>> 0);
         }
@@ -9206,10 +9206,12 @@ export class MR_CSharp_IterableK_Iter extends ffi.CppObject
         const __n = args.length;
         if (__n === 0)
             return L.MR_CSharp_IterableK_Iter.__ctor_0();
-        if (__n === 1 && typeof args[0] === "number")
+        if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
             return L.MR_CSharp_IterableK_Iter.__ctor_1(args[0]);
         if (__n === 1 && (args[0] instanceof L.MR_CSharp_IterableK_Iter))
             return L.MR_CSharp_IterableK_Iter.__ctor_2(args[0]);
+        if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
+            return L.MR_CSharp_IterableK_Iter.__ctor_1(args[0]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
 
@@ -9333,7 +9335,7 @@ export class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_IterableK_Sentinel_Set_ptr(this.rawPointer(), value);
+            ffi.C.MR_CSharp_IterableK_Sentinel_Set_ptr(this.rawPointer(), (value == null ? 0 : ffi.ptrNonNull(value, "value")));
             ffi.check();
         }
         catch (__e)
@@ -9370,7 +9372,7 @@ export class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_CSharp_IterableK_Sentinel_ConstructFrom(ptr);
+            const __ret = ffi.C.MR_CSharp_IterableK_Sentinel_ConstructFrom((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr")));
             ffi.check();
             return (__ret >>> 0);
         }
@@ -9408,10 +9410,12 @@ export class MR_CSharp_IterableK_Sentinel extends ffi.CppObject
         const __n = args.length;
         if (__n === 0)
             return L.MR_CSharp_IterableK_Sentinel.__ctor_0();
-        if (__n === 1 && typeof args[0] === "number")
+        if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
             return L.MR_CSharp_IterableK_Sentinel.__ctor_1(args[0]);
         if (__n === 1 && (args[0] instanceof L.MR_CSharp_IterableK_Sentinel))
             return L.MR_CSharp_IterableK_Sentinel.__ctor_2(args[0]);
+        if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int32_t_output)))
+            return L.MR_CSharp_IterableK_Sentinel.__ctor_1(args[0]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
 
@@ -9781,7 +9785,7 @@ export class MR_CSharp_LifetimesA extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            ffi.C.MR_CSharp_LifetimesA_bar(this.rawPointer(), ref);
+            ffi.C.MR_CSharp_LifetimesA_bar(this.rawPointer(), ffi.ScalarOutput.ref(ref, "ref"));
             ffi.check();
         }
         catch (__e)
@@ -15700,7 +15704,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
             const __end_const_s = ffi.utf8End();
             const __str_const_s_ref = ffi.utf8(ffi.nonNullString(const_s_ref, "const_s_ref"));
             const __end_const_s_ref = ffi.utf8End();
-            const __ret = ffi.C.MR_CSharp_TestFields_ConstructFrom(i, const_i, i_ref, __ptr_const_i_ref, __str_s, __end_s, __str_const_s, __end_const_s, ffi.ptrNonNull(s_ref, "s_ref"), __str_const_s_ref, __end_const_s_ref);
+            const __ret = ffi.C.MR_CSharp_TestFields_ConstructFrom(i, const_i, ffi.ScalarOutput.ref(i_ref, "i_ref"), __ptr_const_i_ref, __str_s, __end_s, __str_const_s, __end_const_s, ffi.ptrNonNull(s_ref, "s_ref"), __str_const_s_ref, __end_const_s_ref);
             ffi.check();
             return (__ret >>> 0);
         }
@@ -15719,7 +15723,7 @@ export class MR_CSharp_TestFields extends ffi.CppObject
         const __n = args.length;
         if (__n === 1 && (args[0] instanceof L.MR_CSharp_TestFields))
             return L.MR_CSharp_TestFields.__ctor_0(args[0]);
-        if (__n === 8 && typeof args[0] === "number" && typeof args[1] === "number" && typeof args[2] === "number" && typeof args[3] === "number" && typeof args[4] === "string" && typeof args[5] === "string" && (args[6] instanceof L.MR_C_std_string) && typeof args[7] === "string")
+        if (__n === 8 && typeof args[0] === "number" && typeof args[1] === "number" && args[2] instanceof L.int32_t_output && typeof args[3] === "number" && typeof args[4] === "string" && typeof args[5] === "string" && (args[6] instanceof L.MR_C_std_string) && typeof args[7] === "string")
             return L.MR_CSharp_TestFields.__ctor_1(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
@@ -18651,7 +18655,7 @@ export function MR_CSharp_test_bool_ref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        ffi.C.MR_CSharp_test_bool_ref(a, b);
+        ffi.C.MR_CSharp_test_bool_ref(ffi.ScalarOutput.ref(a, "a"), (b == null ? 0 : ffi.ScalarOutput.ref(b, "b")));
         ffi.check();
     }
     catch (__e)
@@ -18669,7 +18673,7 @@ export function MR_CSharp_test_bool_ref2(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_bool_ref2(a, b);
+        const __ret = ffi.C.MR_CSharp_test_bool_ref2(ffi.ScalarOutput.ref(a, "a"), (b == null ? 0 : ffi.ScalarOutput.ref(b, "b")));
         ffi.check();
         return __ret;
     }
@@ -18746,7 +18750,7 @@ export function MR_CSharp_test_int_ref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_int_ref(a, b);
+        const __ret = ffi.C.MR_CSharp_test_int_ref(ffi.ScalarOutput.ref(a, "a"), (b == null ? 0 : ffi.ScalarOutput.ref(b, "b")));
         ffi.check();
         return (__ret >>> 0);
     }
@@ -18786,7 +18790,9 @@ export function MR_CSharp_test_int_rref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_int_rref(a, b);
+        const __ptr_a = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = b;});
+        const __ret = ffi.C.MR_CSharp_test_int_rref(__ptr_a, __ptr_b);
         ffi.check();
         return (__ret >>> 0);
     }
@@ -18826,7 +18832,7 @@ export function MR_CSharp_test_int_ptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_int_ptr(a, b, c);
+        const __ret = ffi.C.MR_CSharp_test_int_ptr((a == null ? 0 : ffi.ptrNonNull(a, "a")), (b == null ? 0 : ffi.ptrNonNull(b, "b")), c);
         ffi.check();
         return (__ret >>> 0);
     }
@@ -18886,7 +18892,7 @@ export function MR_CSharp_test_ushort_ref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_ushort_ref(a, b);
+        const __ret = ffi.C.MR_CSharp_test_ushort_ref(ffi.ScalarOutput.ref(a, "a"), (b == null ? 0 : ffi.ScalarOutput.ref(b, "b")));
         ffi.check();
         return (__ret >>> 0);
     }
@@ -18926,7 +18932,9 @@ export function MR_CSharp_test_ushort_rref(a, b)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_ushort_rref(a, b);
+        const __ptr_a = ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) >>> 1] = a;});
+        const __ptr_b = b == null ? 0 : ffi.stackScalar(2, (p) => {ffi.HEAPU16()[(p) >>> 1] = b;});
+        const __ret = ffi.C.MR_CSharp_test_ushort_rref(__ptr_a, __ptr_b);
         ffi.check();
         return (__ret >>> 0);
     }
@@ -18966,7 +18974,7 @@ export function MR_CSharp_test_ushort_ptr(a, b, c)
     const __sp = ffi.stackSave();
     try
     {
-        const __ret = ffi.C.MR_CSharp_test_ushort_ptr(a, b, c);
+        const __ret = ffi.C.MR_CSharp_test_ushort_ptr((a == null ? 0 : ffi.ptrNonNull(a, "a")), (b == null ? 0 : ffi.ptrNonNull(b, "b")), c);
         ffi.check();
         return (__ret >>> 0);
     }

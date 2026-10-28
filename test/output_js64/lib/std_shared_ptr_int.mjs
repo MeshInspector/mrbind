@@ -32,9 +32,16 @@ export class MR_C_std_shared_ptr_int extends ffi.CppObject
         return Number(__ret);
     }
 
+    static __ctor_4(ptr)
+    {
+        const __ret = ffi.C.MR_C_std_shared_ptr_int_ConstructNonOwning(BigInt((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr"))));
+        ffi.check();
+        return Number(__ret);
+    }
+
     static __ctor_5(ownership, ptr)
     {
-        const __ret = ffi.C.MR_C_std_shared_ptr_int_ConstructAliasing(ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt(ptr));
+        const __ret = ffi.C.MR_C_std_shared_ptr_int_ConstructAliasing(ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr"))));
         ffi.check();
         return Number(__ret);
     }
@@ -48,7 +55,13 @@ export class MR_C_std_shared_ptr_int extends ffi.CppObject
             return L.MR_C_std_shared_ptr_int.__ctor_1(args[0]);
         if (__n === 1 && typeof args[0] === "number")
             return L.MR_C_std_shared_ptr_int.__ctor_2(args[0]);
-        if (__n === 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && typeof args[1] === "number")
+        if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int_output)))
+            return L.MR_C_std_shared_ptr_int.__ctor_4(args[0]);
+        if (__n === 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && (__n <= 1 || (args[1] == null || args[1] instanceof L.int_output)))
+            return L.MR_C_std_shared_ptr_int.__ctor_5(args[0], args[1]);
+        if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.int_output)))
+            return L.MR_C_std_shared_ptr_int.__ctor_4(args[0]);
+        if (__n >= 1 && __n < 2 && (args[0] instanceof L.MR_C_std_shared_ptr_const_void) && (__n <= 1 || (args[1] == null || args[1] instanceof L.int_output)))
             return L.MR_C_std_shared_ptr_int.__ctor_5(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
@@ -56,13 +69,6 @@ export class MR_C_std_shared_ptr_int extends ffi.CppObject
     static construct(ptr)
     {
         const __ret = ffi.C.MR_C_std_shared_ptr_int_Construct(BigInt(ptr));
-        ffi.check();
-        return new L.MR_C_std_shared_ptr_int(ffi.RAW, Number(__ret), true, null);
-    }
-
-    static constructNonOwning(ptr)
-    {
-        const __ret = ffi.C.MR_C_std_shared_ptr_int_ConstructNonOwning(BigInt(ptr));
         ffi.check();
         return new L.MR_C_std_shared_ptr_int(ffi.RAW, Number(__ret), true, null);
     }
@@ -118,13 +124,13 @@ export class MR_C_std_shared_ptr_int extends ffi.CppObject
 
     assignNonOwning(ptr)
     {
-        ffi.C.MR_C_std_shared_ptr_int_AssignNonOwning(BigInt(this.rawPointer()), BigInt(ptr));
+        ffi.C.MR_C_std_shared_ptr_int_AssignNonOwning(BigInt(this.rawPointer()), BigInt((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr"))));
         ffi.check();
     }
 
     AssignAliasing(ownership, ptr)
     {
-        ffi.C.MR_C_std_shared_ptr_int_AssignAliasing(BigInt(this.rawPointer()), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt(ptr));
+        ffi.C.MR_C_std_shared_ptr_int_AssignAliasing(BigInt(this.rawPointer()), ffi.PASS_BY_COPY, BigInt(ffi.ptrNonNull(ownership, "ownership")), BigInt((ptr == null ? 0 : ffi.ptrNonNull(ptr, "ptr"))));
         ffi.check();
     }
 

@@ -16,7 +16,7 @@ export class MR_C_std_pair_int32_t_ref_float_ref extends ffi.CppObject
         const __sp = ffi.stackSave();
         try
         {
-            const __ret = ffi.C.MR_C_std_pair_int32_t_ref_float_ref_Construct(first, second);
+            const __ret = ffi.C.MR_C_std_pair_int32_t_ref_float_ref_Construct(ffi.ScalarOutput.ref(first, "first"), ffi.ScalarOutput.ref(second, "second"));
             ffi.check();
             return (__ret >>> 0);
         }
@@ -33,7 +33,7 @@ export class MR_C_std_pair_int32_t_ref_float_ref extends ffi.CppObject
     static __ctor(args)
     {
         const __n = args.length;
-        if (__n === 2 && typeof args[0] === "number" && typeof args[1] === "number")
+        if (__n === 2 && args[0] instanceof L.int32_t_output && args[1] instanceof L.float_output)
             return L.MR_C_std_pair_int32_t_ref_float_ref.__ctor_0(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }

@@ -146,7 +146,7 @@ export function MR_TestSimpleTypes_GetIntPtr()
 
 export function MR_TestSimpleTypes_SetIntPtr(_1)
 {
-    ffi.C.MR_TestSimpleTypes_SetIntPtr(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_SetIntPtr(BigInt((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1"))));
     ffi.check();
 }
 
@@ -158,7 +158,7 @@ export function MR_TestSimpleTypes_SetIntPtrDef(_1)
 
 export function MR_TestSimpleTypes_SetIntPtrDefNull(_1)
 {
-    ffi.C.MR_TestSimpleTypes_SetIntPtrDefNull(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_SetIntPtrDefNull(BigInt((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1"))));
     ffi.check();
 }
 
@@ -171,13 +171,13 @@ export function MR_TestSimpleTypes_GetIntRef()
 
 export function MR_TestSimpleTypes_SetIntRef(_1)
 {
-    ffi.C.MR_TestSimpleTypes_SetIntRef(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_SetIntRef(BigInt(ffi.ScalarOutput.ref(_1, "_1")));
     ffi.check();
 }
 
 export function MR_TestSimpleTypes_SetIntRefDef(_1)
 {
-    ffi.C.MR_TestSimpleTypes_SetIntRefDef(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_SetIntRefDef(BigInt((_1 == null ? 0 : ffi.ScalarOutput.ref(_1, "_1"))));
     ffi.check();
 }
 
@@ -402,19 +402,19 @@ export function MR_TestSimpleTypes_SetEnum2RefDef(_1)
 
 export function MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1)
 {
-    ffi.C.MR_TestSimpleTypes_CheckCharMaybeUnsigned(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_CheckCharMaybeUnsigned(BigInt((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1"))));
     ffi.check();
 }
 
 export function MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1)
 {
-    ffi.C.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(BigInt((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1"))));
     ffi.check();
 }
 
 export function MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1)
 {
-    ffi.C.MR_TestSimpleTypes_CheckChar_signed_char_ptr(BigInt(_1));
+    ffi.C.MR_TestSimpleTypes_CheckChar_signed_char_ptr(BigInt((_1 == null ? 0 : ffi.ptrNonNull(_1, "_1"))));
     ffi.check();
 }
 

@@ -53,12 +53,26 @@ export { MR_TestSimpleTypes_GetEnum2Ref as GetEnum2Ref } from "../../lib/_all.mj
 export { MR_TestSimpleTypes_SetEnum2Ref as SetEnum2Ref } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_SetEnum2RefDef as SetEnum2RefDef } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckCharMaybeUnsigned as CheckCharMaybeUnsigned } from "../../lib/_all.mjs";
-export { MR_TestSimpleTypes_CheckChar_unsigned_char_ptr as CheckChar } from "../../lib/_all.mjs";
+export { MR_TestSimpleTypes_CheckChar_unsigned_char_ptr as checkChar_unsigned_char_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_CheckChar_signed_char_ptr as checkChar_signed_char_ptr } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_blah_uint64_t as blah } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_blah_int64_t as blah_int64_t } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_uint64_t as funcTemplate_uint64_t } from "../../lib/_all.mjs";
 export { MR_TestSimpleTypes_FuncTemplate_int as funcTemplate_int } from "../../lib/_all.mjs";
+
+export function CheckChar(...args)
+{
+    const __n = args.length;
+    if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.unsigned_char_output)))
+        return L.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(args[0]);
+    if (__n === 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.signed_char_output)))
+        return L.MR_TestSimpleTypes_CheckChar_signed_char_ptr(args[0]);
+    if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.unsigned_char_output)))
+        return L.MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(args[0]);
+    if (__n >= 0 && __n < 1 && (__n <= 0 || (args[0] == null || args[0] instanceof L.signed_char_output)))
+        return L.MR_TestSimpleTypes_CheckChar_signed_char_ptr(args[0]);
+    throw new TypeError("No overload of `CheckChar` accepts these arguments.");
+}
 
 export function FuncTemplate(...args)
 {

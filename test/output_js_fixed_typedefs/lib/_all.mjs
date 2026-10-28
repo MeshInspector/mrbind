@@ -186,3 +186,4 @@ export * from "./std_vector_expected_int32_t_std_string.mjs";
 export * from "./std_vector_int32_t.mjs";
 export * from "./std_vector_int64_t.mjs";
 export * from "./std_vector_uint64_t.mjs";
+export * from "./_scalar_outputs.mjs";

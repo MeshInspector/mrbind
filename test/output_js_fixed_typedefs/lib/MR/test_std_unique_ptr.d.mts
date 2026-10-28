@@ -87,14 +87,14 @@ export declare function MR_StdUniquePtr_SetIntLvalueConstRef(_1: L.MR_C_std_uniq
 /**
  * Generated from function `MR::StdUniquePtr::SetIntRvalueRef`.
  *
- * Calls `MR_StdUniquePtr_SetIntRvalueRef()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_StdUniquePtr_SetIntRvalueRef()`.
  */
 export declare function MR_StdUniquePtr_SetIntRvalueRef(_1: number): void;
 
 /**
  * Generated from function `MR::StdUniquePtr::SetIntRvalueConstRef`.
  *
- * Calls `MR_StdUniquePtr_SetIntRvalueConstRef()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+ * Calls `MR_StdUniquePtr_SetIntRvalueConstRef()`.
  */
 export declare function MR_StdUniquePtr_SetIntRvalueConstRef(_1: number): void;
 
