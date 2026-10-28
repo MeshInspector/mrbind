@@ -1,0 +1,258 @@
+// The wrappers of the C bindings file `MR/test_overloads`.
+import * as ffi from "../../ffi.mjs";
+import * as L from "../../lib/_all.mjs";
+
+export function MR_Overloads_a_1(_1)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_a_1(_1);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_a_2(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_a_2(_1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_b_int32_t()
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_b_int32_t();
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_b_float()
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_b_float();
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_c_int32_t(_1)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_c_int32_t(_1);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_c_float(_1)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_c_float(_1);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_d_int32_t(_1, _2, _3)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_d_int32_t(((_1 << 24) >> 24), _2, ((_3 << 24) >> 24));
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_d_float(_1, _2, _3)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_d_float(((_1 << 24) >> 24), _2, ((_3 << 24) >> 24));
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_e_const_int32_t_ref(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        ffi.C.MR_Overloads_e_const_int32_t_ref(__ptr__1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_e_int32_t_rvalue_ref_int32_t(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_int32_t(_1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_e_int32_t_rvalue_ref_float(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_e_int32_t_rvalue_ref_float(_1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_f_float(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_f_float(_1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_f_int32_t_rvalue_ref(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        ffi.C.MR_Overloads_f_int32_t_rvalue_ref(_1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_Overloads_f_const_int32_t_ref(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ptr__1 = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+        ffi.C.MR_Overloads_f_const_int32_t_ref(__ptr__1, _2);
+        ffi.check();
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+

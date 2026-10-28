@@ -1,0 +1,58 @@
+// The C++ namespace `MR`.
+
+import * as ffi from "../ffi.mjs";
+import * as L from "../lib/_all.mjs";
+
+export * as AbstractClasses from "./MR/AbstractClasses.mjs";
+export * as AdjustingNames from "./MR/AdjustingNames.mjs";
+export * as Aggregates from "./MR/Aggregates.mjs";
+export * as Bases from "./MR/Bases.mjs";
+export * as CS from "./MR/CS.mjs";
+export * as CSharp from "./MR/CSharp.mjs";
+export * as ConvOps from "./MR/ConvOps.mjs";
+export * as CopyInheritedMembers from "./MR/CopyInheritedMembers.mjs";
+export * as CustomPrefNames from "./MR/CustomPrefNames.mjs";
+export * as DeclOrder from "./MR/DeclOrder.mjs";
+export * as Deprecation from "./MR/Deprecation.mjs";
+export * as IOStream from "./MR/IOStream.mjs";
+export * as IncludesForEnumConstants from "./MR/IncludesForEnumConstants.mjs";
+export * as IncompleteArrayElemType from "./MR/IncompleteArrayElemType.mjs";
+export * as LifetimeInference from "./MR/LifetimeInference.mjs";
+export * as MatchingLayout from "./MR/MatchingLayout.mjs";
+export * as MemberVars from "./MR/MemberVars.mjs";
+export * as NestedTemplateInst from "./MR/NestedTemplateInst.mjs";
+export * as NestedTypes from "./MR/NestedTypes.mjs";
+export * as OmittingTargsAndQuals from "./MR/OmittingTargsAndQuals.mjs";
+export * as OverloadSuffix from "./MR/OverloadSuffix.mjs";
+export * as OverloadedOps from "./MR/OverloadedOps.mjs";
+export * as Overloads from "./MR/Overloads.mjs";
+export * as Phmap from "./MR/Phmap.mjs";
+export * as SignatureFilters from "./MR/SignatureFilters.mjs";
+export * as StaticFuncs from "./MR/StaticFuncs.mjs";
+export * as StdContainers from "./MR/StdContainers.mjs";
+export * as StdExpected from "./MR/StdExpected.mjs";
+export * as StdFilesystem from "./MR/StdFilesystem.mjs";
+export * as StdFunction from "./MR/StdFunction.mjs";
+export * as StdOptional from "./MR/StdOptional.mjs";
+export * as StdSharedPtr from "./MR/StdSharedPtr.mjs";
+export * as StdString from "./MR/StdString.mjs";
+export * as StdStringView from "./MR/StdStringView.mjs";
+export * as StdTupleLike from "./MR/StdTupleLike.mjs";
+export * as StdUniquePtr from "./MR/StdUniquePtr.mjs";
+export * as StdVariant from "./MR/StdVariant.mjs";
+export * as Tags from "./MR/Tags.mjs";
+export * as TestSimpleTypes from "./MR/TestSimpleTypes.mjs";
+export * as TestSizeT from "./MR/TestSizeT.mjs";
+export * as TypedefsInTemplates from "./MR/TypedefsInTemplates.mjs";
+export * as UsingDecls from "./MR/UsingDecls.mjs";
+export { MR_A as A } from "../lib/_all.mjs";
+export { MR_CommonBaseAB as CommonBaseAB } from "../lib/_all.mjs";
+export { MR_SeparateA as SeparateA } from "../lib/_all.mjs";
+export { MR_SeparateB as SeparateB } from "../lib/_all.mjs";
+export { MR_foo as foo } from "../lib/_all.mjs";
+export { MR_bar as bar } from "../lib/_all.mjs";
+export { MR_mark_shared_common_base_ab as mark_shared_common_base_ab } from "../lib/_all.mjs";
+export { MR_GetSeparateVecA as GetSeparateVecA } from "../lib/_all.mjs";
+export { MR_GetSeparateVecB as GetSeparateVecB } from "../lib/_all.mjs";
+export { MR_GetCombinedVecAB as GetCombinedVecAB } from "../lib/_all.mjs";
+

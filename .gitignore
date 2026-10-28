@@ -37,3 +37,7 @@ parallel-hashmap/
 /examples/java/example_consumer/classes
 /examples/python/pybind11
 /examples/python/output
+# The wasm-targeted C outputs and the JS outputs compiled against them, see `test/make_js.sh`.
+/test/output_c_wasm/
+/test/output_js_wasm/
+/test/output_js_wasm64/
