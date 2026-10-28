@@ -1148,12 +1148,37 @@ namespace mrbind::Js
                     return ret;
                 }
 
-                // Enums and builtins by const pointer: allocate a temporary. Mutable ones stay raw, JS can't write through them without knowing the size.
+                const bool builtin_pointee = ptr->pointee_builtin && !ptr->pointee_builtin->is_pointer && !ptr->pointee_builtin->type_info && ptr->pointee_builtin->array_dims.empty() && ptr->pointee_builtin->scalar != Scalar::struct_;
+
+                // Mutable builtins (`int &`, `int *`): a `<type>_output` object, which owns the scalars in wasm memory, like in the Python bindings.
+                if (builtin_pointee && !ptr->is_const && (cpp_shape == CppShape::lref || cpp_shape == CppShape::ptr))
+                {
+                    cppdecl::Type pointee = *c_types[0];
+                    pointee.RemoveModifier();
+                    std::string cls = cppdecl::ToCode(pointee, {}) + "_output";
+                    for (char &ch : cls)
+                    {
+                        if (ch == ' ' || ch == ':')
+                            ch = '_';
+                    }
+                    scalar_outputs.try_emplace(cls, ptr->pointee_builtin->scalar);
+                    const std::string ref = "L." + cls;
+                    ret.ts_type = ref;
+                    ret.optional = optional;
+                    ret.sig_key = cls + (optional ? "?" : "");
+                    ret.check = optional ? "(__v == null || __v instanceof " + ref + ")" : "__v instanceof " + ref;
+                    // A reference needs exactly one element, a pointer can point to an array.
+                    std::string p = cpp_shape == CppShape::lref ? "ffi.ScalarOutput.ref(" + name + ", \"" + EscapeJsString(name) + "\")" : PtrOf(name, false);
+                    ret.args.push_back(PtrToWasm(optional ? "(" + name + " == null ? 0 : " + p + ")" : p));
+                    return ret;
+                }
+
+                // Enums and builtins by const pointer: allocate a temporary. Rvalue references to builtins too, their changes aren't visible to the caller.
                 const JsType *scalar = nullptr;
                 const TypeInfo *en = nullptr;
                 if (ptr->is_const && ptr->pointee_type && ptr->pointee_type->IsEnum())
                     en = ptr->pointee_type;
-                else if (ptr->is_const && ptr->pointee_builtin && !ptr->pointee_builtin->is_pointer && !ptr->pointee_builtin->type_info && ptr->pointee_builtin->array_dims.empty() && ptr->pointee_builtin->scalar != Scalar::struct_)
+                else if (builtin_pointee && (ptr->is_const || cpp_shape == CppShape::rref))
                     scalar = &*ptr->pointee_builtin;
                 if (en || scalar)
                 {
@@ -2691,6 +2716,86 @@ export class CppStruct extends CppObject
         HEAPU8().copyWithin(this.rawPointer(), src, src + this.constructor.SIZE);
     }
 }
+
+/**
+ * The base class of `int_output`, `float_output`, ... (named after the C type, like in the Python bindings), which the wrappers take for
+ * the mutable scalar parameters: `int &` needs exactly one element, `int *` accepts null, one element, or an array.
+ * An instance owns `length` scalars in wasm memory (freed by `delete()` or by the garbage collector), which the C++ functions read and write.
+ */
+export class ScalarOutput extends CppObject
+{
+    /** `size` elements equal to `value`, zero by default. */
+    constructor(size = 1, value = undefined)
+    {
+        if (!Number.isSafeInteger(size) || size < 0)
+            throw new RangeError("The size must be a non-negative integer.");
+        super(malloc(Math.max(size, 1) * new.target.SIZE), free, null);
+        this.length = size;
+        for (let i = 0; i < size; i++)
+            this.set(i, value === undefined ? new.target.ZERO : value);
+    }
+
+    /** The element `i`. */
+    at(i)
+    {
+        return this.constructor.read(this.rawPointer() + scalarOutputIndex(this, i) * this.constructor.SIZE);
+    }
+
+    /** Sets the element `i`. */
+    set(i, value)
+    {
+        if (!this.constructor.check(value))
+            throw new TypeError("Expected " + this.constructor.TYPE + ", got " + typeof value + ".");
+        this.constructor.write(this.rawPointer() + scalarOutputIndex(this, i) * this.constructor.SIZE, value);
+    }
+
+    /** The only element. Throws unless there is exactly one. */
+    get value()
+    {
+        scalarOutputSingle(this);
+        return this.at(0);
+    }
+    set value(value)
+    {
+        scalarOutputSingle(this);
+        this.set(0, value);
+    }
+
+    /** A copy of the elements. */
+    get values()
+    {
+        const ret = [];
+        for (let i = 0; i < this.length; i++)
+            ret.push(this.at(i));
+        return ret;
+    }
+
+    toString()
+    {
+        return this.constructor.name + "[" + this.values.join(", ") + "]";
+    }
+
+    /** The pointer for a reference parameter: checks that there is exactly one element. */
+    static ref(object, name)
+    {
+        const p = ptrNonNull(object, name);
+        scalarOutputSingle(object);
+        return p;
+    }
+}
+
+function scalarOutputIndex(object, i)
+{
+    if (!Number.isSafeInteger(i) || i < 0 || i >= object.length)
+        throw new RangeError("Index " + i + " is out of range, the size is " + object.length + ".");
+    return i;
+}
+
+function scalarOutputSingle(object)
+{
+    if (object.length !== 1)
+        throw new RangeError("Expected exactly one value, the size is " + object.length + ".");
+}
 )";
         // The pointer-size dependent spots of the runtime.
         js = Strings::Replace(js, "PROBE_FUNCTION", "\"" + EscapeJsString(exported_c_functions.empty() ? "malloc" : *exported_c_functions.begin()) + "\"");
@@ -2810,6 +2915,27 @@ export class CppStruct extends CppObject
     copy(): this;
     /** Overwrites the contents with those of another struct. */
     set(other: this): void;
+}
+/**
+ * The base class of `int_output`, `float_output`, ... (named after the C type, like in the Python bindings), which the wrappers take for
+ * the mutable scalar parameters: `int &` needs exactly one element, `int *` accepts null, one element, or an array.
+ * An instance owns `length` scalars in wasm memory (freed by `delete()` or by the garbage collector), which the C++ functions read and write.
+ */
+export class ScalarOutput<T> extends CppObject
+{
+    /** `size` elements equal to `value`, zero by default. */
+    constructor(size?: number, value?: T);
+    readonly length: number;
+    /** The element `i`. */
+    at(i: number): T;
+    /** Sets the element `i`. */
+    set(i: number, value: T): void;
+    /** The only element. Throws unless there is exactly one. */
+    value: T;
+    /** A copy of the elements. */
+    readonly values: T[];
+    /** The pointer for a reference parameter: checks that there is exactly one element. */
+    static ref(object: ScalarOutput<unknown> | null | undefined, name: string): number;
 }
 )";
         output_files["ffi.d.mts"] = dts;
@@ -3392,6 +3518,37 @@ export class CppStruct extends CppObject
             hub += line;
             hub_dts += line;
         }
+
+        // The `<type>_output` classes, exported from the root namespace.
+        if (!scalar_outputs.empty())
+        {
+            std::string js = "// The classes of the mutable scalar parameters, see `ffi.ScalarOutput`.\nimport * as ffi from \"../ffi.mjs\";\n\n";
+            std::string dts = js;
+            for (const auto &[cls, s] : scalar_outputs)
+            {
+                if (used_js_names.contains(cls) || root.used_names.contains(cls))
+                    throw std::runtime_error("The name `" + cls + "` of the class for the mutable `" + cls.substr(0, cls.size() - 7) + "` parameters is already used.");
+                const std::string zero = s == Scalar::bool_ ? "false" : IsBigInt(s) ? "0n" : "0";
+                const std::string doc = "/** An array of `" + cls.substr(0, cls.size() - 7) + "`, for the mutable parameters of this type. See `ffi.ScalarOutput`. */\n";
+                js += doc + "export class " + cls + " extends ffi.ScalarOutput\n{\n";
+                js += "    static SIZE = " + std::to_string(ScalarSize(s)) + ";\n";
+                js += "    static ZERO = " + zero + ";\n";
+                js += "    static TYPE = \"" + TsScalar(s, true) + "\";\n";
+                js += "    static check(v) {return " + ScalarCheck(s, "v") + ";}\n";
+                js += "    static read(p) {return " + HeapRead(s, "p") + ";}\n";
+                js += "    static write(p, v) {" + HeapWrite(s, "p", "v") + ";}\n";
+                js += "}\n\n";
+                dts += doc + "export declare class " + cls + " extends ffi.ScalarOutput<" + TsScalar(s, false) + "> {}\n\n";
+                root.exports += "export { " + cls + " } from \"./lib/_all.mjs\";\n";
+                root.exports_dts += "export { " + cls + " } from \"./lib/_all.mjs\";\n";
+                root.used_names.insert(cls);
+            }
+            output_files["lib/_scalar_outputs.mjs"] = js;
+            output_files["lib/_scalar_outputs.d.mts"] = dts;
+            hub += "export * from \"./_scalar_outputs.mjs\";\n";
+            hub_dts += "export * from \"./_scalar_outputs.mjs\";\n";
+        }
+
         output_files["lib/_all.mjs"] = "// Re-exports every `lib` module, so the wrappers can refer to each other without import cycles between the files.\n" + hub;
         output_files["lib/_all.d.mts"] = output_files["lib/_all.mjs"];
 
@@ -3405,7 +3562,7 @@ export class CppStruct extends CppObject
                 if (!wasm_module_import.empty() && wasm_module_import_node.empty())
                     js += "import createModule from \"" + EscapeJsString(wasm_module_import) + "\";\n";
                 js += "import * as ffi from \"./ffi.mjs\";\nimport * as L from \"./lib/_all.mjs\";\n\n";
-                js += "export * as ffi from \"./ffi.mjs\";\nexport { CppObject, CppStruct, CppException, UnexpectedResultException } from \"./ffi.mjs\";\n\n";
+                js += "export * as ffi from \"./ffi.mjs\";\nexport { CppObject, CppStruct, ScalarOutput, CppException, UnexpectedResultException } from \"./ffi.mjs\";\n\n";
                 if (!wasm_module_import.empty())
                 {
                     js += "/** Instantiates the wasm module with `createModule(options)` (the Emscripten factory) and binds the wrappers to it. Returns the module. Does nothing if already initialized. */\n";
@@ -3423,7 +3580,7 @@ export class CppStruct extends CppObject
                 js += "/** Binds the wrappers to an already instantiated Emscripten module. */\nexport function initWithModule(module)\n{\n    ffi.init(module);\n}\n\n";
 
                 dts += "// The root module of the bindings.\n\nimport * as ffi from \"./ffi.mjs\";\nimport * as L from \"./lib/_all.mjs\";\n\n";
-                dts += "export * as ffi from \"./ffi.mjs\";\nexport { CppObject, CppStruct, CppException, UnexpectedResultException } from \"./ffi.mjs\";\n\n";
+                dts += "export * as ffi from \"./ffi.mjs\";\nexport { CppObject, CppStruct, ScalarOutput, CppException, UnexpectedResultException } from \"./ffi.mjs\";\n\n";
                 if (!wasm_module_import.empty())
                     dts += "/** Instantiates the wasm module with `createModule(options)` (the Emscripten factory) and binds the wrappers to it. Returns the module. Does nothing if already initialized. */\nexport declare function init(options?: object): Promise<any>;\n";
                 dts += "/** Binds the wrappers to an already instantiated Emscripten module. */\nexport declare function initWithModule(module: any): void;\n\n";
