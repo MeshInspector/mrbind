@@ -51,24 +51,28 @@ public final class IterableK_Iter extends mrbind_test.CppObject
      * Constructs `MR::CSharp::IterableK::Iter` elementwise.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_IterableK_Iter_ConstructFrom()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_IterableK_Iter_ConstructFrom()`.
      */
-    public IterableK_Iter(java.lang.foreign.MemorySegment ptr)
+    public IterableK_Iter(mrbind_test.int32_t_output ptr)
     {
         this(__ctor_constructFrom(ptr), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(java.lang.foreign.MemorySegment ptr)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(mrbind_test.int32_t_output ptr)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Iter_ConstructFrom.invokeExact(ptr);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Iter_ConstructFrom.invokeExact(mrbind_test.Ffi.ptr(ptr));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(ptr);
         }
     }
 
@@ -225,13 +229,13 @@ public final class IterableK_Iter extends mrbind_test.CppObject
      * Modifies a member variable of class `MR::CSharp::IterableK::Iter` named `ptr`.
      * The reference to the parameter `value` might be preserved in this object in element `ptr`.
      *
-     * Calls `MR_CSharp_IterableK_Iter_Set_ptr()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_IterableK_Iter_Set_ptr()`.
      */
-    public void setPtr(java.lang.foreign.MemorySegment value)
+    public void setPtr(mrbind_test.int32_t_output value)
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Iter_Set_ptr.invokeExact(rawPointer(), value);
+            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_Iter_Set_ptr.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(value));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -241,6 +245,7 @@ public final class IterableK_Iter extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(value);
         }
     }
 }

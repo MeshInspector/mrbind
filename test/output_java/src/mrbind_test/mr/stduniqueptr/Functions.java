@@ -144,13 +144,13 @@ public final class Functions
     /**
      * Generated from function `MR::StdUniquePtr::SetIntRvalueRef`.
      *
-     * Calls `MR_StdUniquePtr_SetIntRvalueRef()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_StdUniquePtr_SetIntRvalueRef()`.
      */
-    public static void SetIntRvalueRef(java.lang.foreign.MemorySegment _1)
+    public static void SetIntRvalueRef(int _1)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_unique_ptr.H0.MR_StdUniquePtr_SetIntRvalueRef.invokeExact(_1);
+            mrbind_test.ffi.MR.test_std_unique_ptr.H0.MR_StdUniquePtr_SetIntRvalueRef.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -162,13 +162,13 @@ public final class Functions
     /**
      * Generated from function `MR::StdUniquePtr::SetIntRvalueConstRef`.
      *
-     * Calls `MR_StdUniquePtr_SetIntRvalueConstRef()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_StdUniquePtr_SetIntRvalueConstRef()`.
      */
-    public static void SetIntRvalueConstRef(java.lang.foreign.MemorySegment _1)
+    public static void SetIntRvalueConstRef(int _1)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_unique_ptr.H0.MR_StdUniquePtr_SetIntRvalueConstRef.invokeExact(_1);
+            mrbind_test.ffi.MR.test_std_unique_ptr.H0.MR_StdUniquePtr_SetIntRvalueConstRef.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

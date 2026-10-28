@@ -223,13 +223,18 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
      *
      * Calls `MR_C_std_shared_ptr_int_Construct()`. Some types are raw C types, see the C bindings for the details.
      */
-    public static mrbind_test.mr.cs.std_shared_ptr_int construct(java.lang.foreign.MemorySegment ptr)
+    public std_shared_ptr_int(java.lang.foreign.MemorySegment ptr)
+    {
+        this(__ctor_construct(ptr), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_construct(java.lang.foreign.MemorySegment ptr)
     {
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_Construct.invokeExact(ptr);
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_shared_ptr_int(__ret, true, null);
+            return __ret;
         }
         catch (java.lang.Throwable __e)
         {
@@ -263,19 +268,28 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
      * Create a new instance, storing a non-owning pointer.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_shared_ptr_int_ConstructNonOwning()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int_ConstructNonOwning()`.
      */
-    public static mrbind_test.mr.cs.std_shared_ptr_int constructNonOwning(java.lang.foreign.MemorySegment ptr)
+    public std_shared_ptr_int(mrbind_test.int_output ptr)
+    {
+        this(__ctor_constructNonOwning(ptr), true, null);
+    }
+
+    private static java.lang.foreign.MemorySegment __ctor_constructNonOwning(mrbind_test.int_output ptr)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_ConstructNonOwning.invokeExact(ptr);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_ConstructNonOwning.invokeExact(mrbind_test.Ffi.ptr(ptr));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_shared_ptr_int(__ret, true, null);
+            return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(ptr);
         }
     }
 
@@ -283,13 +297,13 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
      * Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
      * The reference to the parameter `ptr` might be preserved in this object.
      *
-     * Calls `MR_C_std_shared_ptr_int_AssignNonOwning()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int_AssignNonOwning()`.
      */
-    public void assignNonOwning(java.lang.foreign.MemorySegment ptr)
+    public void assignNonOwning(mrbind_test.int_output ptr)
     {
         try
         {
-            mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_AssignNonOwning.invokeExact(rawPointer(), ptr);
+            mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_AssignNonOwning.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(ptr));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -299,6 +313,7 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(ptr);
         }
     }
 
@@ -307,18 +322,18 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
      * The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
      * The reference to the parameter `ptr` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_shared_ptr_int_ConstructAliasing()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int_ConstructAliasing()`.
      */
-    public std_shared_ptr_int(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, java.lang.foreign.MemorySegment ptr)
+    public std_shared_ptr_int(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, mrbind_test.int_output ptr)
     {
         this(__ctor_constructAliasing(ownership, ptr), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructAliasing(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, java.lang.foreign.MemorySegment ptr)
+    private static java.lang.foreign.MemorySegment __ctor_constructAliasing(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, mrbind_test.int_output ptr)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_ConstructAliasing.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), ptr);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_ConstructAliasing.invokeExact(mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -329,6 +344,7 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(ownership);
+            java.lang.ref.Reference.reachabilityFence(ptr);
         }
     }
 
@@ -337,13 +353,13 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
      * The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
      * The reference to the parameter `ptr` might be preserved in this object.
      *
-     * Calls `MR_C_std_shared_ptr_int_AssignAliasing()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_shared_ptr_int_AssignAliasing()`.
      */
-    public void AssignAliasing(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, java.lang.foreign.MemorySegment ptr)
+    public void AssignAliasing(mrbind_test.mr.cs.std_shared_ptr_const_void ownership, mrbind_test.int_output ptr)
     {
         try
         {
-            mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_AssignAliasing.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), ptr);
+            mrbind_test.ffi.std_shared_ptr_int.H0.MR_C_std_shared_ptr_int_AssignAliasing.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(ownership, "ownership"), mrbind_test.Ffi.ptr(ptr));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -354,6 +370,7 @@ public final class std_shared_ptr_int extends mrbind_test.CppObject
         {
             java.lang.ref.Reference.reachabilityFence(this);
             java.lang.ref.Reference.reachabilityFence(ownership);
+            java.lang.ref.Reference.reachabilityFence(ptr);
         }
     }
 

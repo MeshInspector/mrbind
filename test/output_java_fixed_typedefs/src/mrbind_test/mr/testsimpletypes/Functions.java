@@ -83,18 +83,22 @@ public final class Functions
     /**
      * Generated from function `MR::TestSimpleTypes::SetIntPtr`.
      *
-     * Calls `MR_TestSimpleTypes_SetIntPtr()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_SetIntPtr()`.
      */
-    public static void SetIntPtr(java.lang.foreign.MemorySegment _1)
+    public static void SetIntPtr(mrbind_test.int32_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntPtr.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntPtr.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
@@ -119,18 +123,22 @@ public final class Functions
     /**
      * Generated from function `MR::TestSimpleTypes::SetIntPtrDefNull`.
      *
-     * Calls `MR_TestSimpleTypes_SetIntPtrDefNull()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_SetIntPtrDefNull()`.
      */
-    public static void SetIntPtrDefNull(java.lang.foreign.MemorySegment _1)
+    public static void SetIntPtrDefNull(mrbind_test.int32_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntPtrDefNull.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntPtrDefNull.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
@@ -156,36 +164,44 @@ public final class Functions
     /**
      * Generated from function `MR::TestSimpleTypes::SetIntRef`.
      *
-     * Calls `MR_TestSimpleTypes_SetIntRef()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_SetIntRef()`.
      */
-    public static void SetIntRef(java.lang.foreign.MemorySegment _1)
+    public static void SetIntRef(mrbind_test.int32_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntRef.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntRef.invokeExact(mrbind_test.ScalarOutput.ref(_1, "_1"));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
     /**
      * Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
      *
-     * Calls `MR_TestSimpleTypes_SetIntRefDef()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_SetIntRefDef()`.
      */
-    public static void SetIntRefDef(java.lang.foreign.MemorySegment _1)
+    public static void SetIntRefDef(mrbind_test.int32_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntRefDef.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_SetIntRefDef.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.ScalarOutput.ref(_1, "_1")));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
@@ -778,54 +794,66 @@ public final class Functions
      * Test all kinds of `char`.
      * Generated from function `MR::TestSimpleTypes::CheckCharMaybeUnsigned`.
      *
-     * Calls `MR_TestSimpleTypes_CheckCharMaybeUnsigned()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_CheckCharMaybeUnsigned()`.
      */
-    public static void CheckCharMaybeUnsigned(java.lang.foreign.MemorySegment _1)
+    public static void CheckCharMaybeUnsigned(mrbind_test.char_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckCharMaybeUnsigned.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckCharMaybeUnsigned.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
     /**
      * Generated from function `MR::TestSimpleTypes::CheckChar`.
      *
-     * Calls `MR_TestSimpleTypes_CheckChar_uint8_t_ptr()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_CheckChar_uint8_t_ptr()`.
      */
-    public static void checkChar_uint8_t_ptr(java.lang.foreign.MemorySegment _1)
+    public static void CheckChar(mrbind_test.uint8_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckChar_uint8_t_ptr.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckChar_uint8_t_ptr.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 
     /**
      * Generated from function `MR::TestSimpleTypes::CheckChar`.
      *
-     * Calls `MR_TestSimpleTypes_CheckChar_int8_t_ptr()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_TestSimpleTypes_CheckChar_int8_t_ptr()`.
      */
-    public static void checkChar_int8_t_ptr(java.lang.foreign.MemorySegment _1)
+    public static void CheckChar(mrbind_test.int8_t_output _1)
     {
         try
         {
-            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckChar_int8_t_ptr.invokeExact(_1);
+            mrbind_test.ffi.MR.test_simple_types.H0.MR_TestSimpleTypes_CheckChar_int8_t_ptr.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
 

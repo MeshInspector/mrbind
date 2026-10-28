@@ -59,24 +59,29 @@ public final class ClassMemberPointersBool extends mrbind_test.CppObject
      * The reference to the parameter `c` might be preserved in the constructed object.
      * The reference to the parameter `d` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_ClassMemberPointersBool_ConstructFrom()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_ClassMemberPointersBool_ConstructFrom()`.
      */
-    public ClassMemberPointersBool(java.lang.foreign.MemorySegment a, java.lang.Boolean b, java.lang.foreign.MemorySegment c, boolean d)
+    public ClassMemberPointersBool(mrbind_test.bool_output a, java.lang.Boolean b, mrbind_test.bool_output c, boolean d)
     {
         this(__ctor_constructFrom(a, b, c, d), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(java.lang.foreign.MemorySegment a, java.lang.Boolean b, java.lang.foreign.MemorySegment c, boolean d)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(mrbind_test.bool_output a, java.lang.Boolean b, mrbind_test.bool_output c, boolean d)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_ConstructFrom.invokeExact(a, (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_BOOLEAN, b)), c, mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_BOOLEAN, d));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_ConstructFrom.invokeExact(mrbind_test.Ffi.ptr(a), (java.lang.foreign.MemorySegment)(b == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_BOOLEAN, b)), mrbind_test.ScalarOutput.ref(c, "c"), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_BOOLEAN, d));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(c);
         }
     }
 
@@ -103,18 +108,22 @@ public final class ClassMemberPointersBool extends mrbind_test.CppObject
      * Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
      * The reference to the parameter `value` might be preserved in this object in element `sa`.
      *
-     * Calls `MR_CSharp_ClassMemberPointersBool_Set_sa()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_ClassMemberPointersBool_Set_sa()`.
      */
-    public static void setSa(java.lang.foreign.MemorySegment value)
+    public static void setSa(mrbind_test.bool_output value)
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_Set_sa.invokeExact(value);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_Set_sa.invokeExact(mrbind_test.Ffi.ptr(value));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(value);
         }
     }
 
@@ -222,13 +231,13 @@ public final class ClassMemberPointersBool extends mrbind_test.CppObject
      * Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
      * The reference to the parameter `value` might be preserved in this object in element `a`.
      *
-     * Calls `MR_CSharp_ClassMemberPointersBool_Set_a()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_ClassMemberPointersBool_Set_a()`.
      */
-    public void setA(java.lang.foreign.MemorySegment value)
+    public void setA(mrbind_test.bool_output value)
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_Set_a.invokeExact(rawPointer(), value);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ClassMemberPointersBool_Set_a.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(value));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -238,6 +247,7 @@ public final class ClassMemberPointersBool extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(value);
         }
     }
 

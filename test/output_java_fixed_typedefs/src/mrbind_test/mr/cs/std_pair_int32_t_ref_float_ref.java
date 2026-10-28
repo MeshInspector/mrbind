@@ -28,24 +28,29 @@ public final class std_pair_int32_t_ref_float_ref extends mrbind_test.CppObject
      * The reference to the parameter `first` might be preserved in the constructed object.
      * The reference to the parameter `second` might be preserved in the constructed object.
      *
-     * Calls `MR_C_std_pair_int32_t_ref_float_ref_Construct()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_pair_int32_t_ref_float_ref_Construct()`.
      */
-    public std_pair_int32_t_ref_float_ref(java.lang.foreign.MemorySegment first, java.lang.foreign.MemorySegment second)
+    public std_pair_int32_t_ref_float_ref(mrbind_test.int32_t_output first, mrbind_test.float_output second)
     {
         this(__ctor_construct(first, second), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_construct(java.lang.foreign.MemorySegment first, java.lang.foreign.MemorySegment second)
+    private static java.lang.foreign.MemorySegment __ctor_construct(mrbind_test.int32_t_output first, mrbind_test.float_output second)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_ref_float_ref.H0.MR_C_std_pair_int32_t_ref_float_ref_Construct.invokeExact(first, second);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_pair_int32_t_ref_float_ref.H0.MR_C_std_pair_int32_t_ref_float_ref_Construct.invokeExact(mrbind_test.ScalarOutput.ref(first, "first"), mrbind_test.ScalarOutput.ref(second, "second"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(first);
+            java.lang.ref.Reference.reachabilityFence(second);
         }
     }
 

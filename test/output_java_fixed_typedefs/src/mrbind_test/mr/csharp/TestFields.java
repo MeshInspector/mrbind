@@ -63,21 +63,21 @@ public final class TestFields extends mrbind_test.CppObject
      * The reference to the parameter `s_ref` might be preserved in the constructed object.
      * The reference to the parameter `const_s_ref` might be preserved in the constructed object.
      *
-     * Calls `MR_CSharp_TestFields_ConstructFrom()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_TestFields_ConstructFrom()`.
      */
-    public TestFields(int i, int const_i, java.lang.foreign.MemorySegment i_ref, int const_i_ref, java.lang.String s, java.lang.String const_s, mrbind_test.mr.cs.std_string s_ref, java.lang.String const_s_ref)
+    public TestFields(int i, int const_i, mrbind_test.int32_t_output i_ref, int const_i_ref, java.lang.String s, java.lang.String const_s, mrbind_test.mr.cs.std_string s_ref, java.lang.String const_s_ref)
     {
         this(__ctor_constructFrom(i, const_i, i_ref, const_i_ref, s, const_s, s_ref, const_s_ref), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(int i, int const_i, java.lang.foreign.MemorySegment i_ref, int const_i_ref, java.lang.String s, java.lang.String const_s, mrbind_test.mr.cs.std_string s_ref, java.lang.String const_s_ref)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(int i, int const_i, mrbind_test.int32_t_output i_ref, int const_i_ref, java.lang.String s, java.lang.String const_s, mrbind_test.mr.cs.std_string s_ref, java.lang.String const_s_ref)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
             java.lang.foreign.MemorySegment __str_s = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(s, "s"));
             java.lang.foreign.MemorySegment __str_const_s = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(const_s, "const_s"));
             java.lang.foreign.MemorySegment __str_const_s_ref = mrbind_test.Ffi.utf8(__arena, java.util.Objects.requireNonNull(const_s_ref, "const_s_ref"));
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_ConstructFrom.invokeExact(i, const_i, i_ref, mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, const_i_ref), __str_s, mrbind_test.Ffi.end(__str_s), __str_const_s, mrbind_test.Ffi.end(__str_const_s), mrbind_test.Ffi.ptrNonNull(s_ref, "s_ref"), __str_const_s_ref, mrbind_test.Ffi.end(__str_const_s_ref));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_TestFields_ConstructFrom.invokeExact(i, const_i, mrbind_test.ScalarOutput.ref(i_ref, "i_ref"), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, const_i_ref), __str_s, mrbind_test.Ffi.end(__str_s), __str_const_s, mrbind_test.Ffi.end(__str_const_s), mrbind_test.Ffi.ptrNonNull(s_ref, "s_ref"), __str_const_s_ref, mrbind_test.Ffi.end(__str_const_s_ref));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -87,6 +87,7 @@ public final class TestFields extends mrbind_test.CppObject
         }
         finally
         {
+            java.lang.ref.Reference.reachabilityFence(i_ref);
             java.lang.ref.Reference.reachabilityFence(s_ref);
         }
     }
