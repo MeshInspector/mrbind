@@ -46,13 +46,15 @@ namespace mrbind::C
 
         basic_output_file_name = generator.CppdeclToIdentifier(cpp_container_type);
 
+        minimal = generator.minimal_containers;
+
         if (!params.is_map)
         {
             // This is fairly conservative, should be good enough for now. We can allow more types later.
             supports_range_assignment = generator.FieldTypeUsableInSameLayoutStruct(cpp_elem_type);
         }
 
-        if (!IteratorsArePointers())
+        if (BindIteratorClasses())
         {
             // Create the iterator binders.
             // Notably different standard containers can have overlapping iterator types, so we have to be really careful here.
@@ -108,10 +110,10 @@ namespace mrbind::C
             generator.TryFindHeadersForCppTypeForSourceFile(cppdecl::Type::FromQualifiedName(cpp_container_type)).InsertToFile(file);
 
             class_binder.EmitForwardDeclaration(generator, file, "/// Generated from C++ container `" + generator.CppdeclToCodeForComments(cpp_container_type) + "`.\n");
-            if (!IteratorsArePointers())
+            if (BindIteratorClasses())
             {
                 iterator_binder_const.EmitForwardDeclaration(generator, file, "/// Read-only iterator for `" + class_binder.c_type_name + "`.\n");
-                if (params.has_mutable_iterators)
+                if (HasMutableIterators())
                     iterator_binder_mutable.EmitForwardDeclaration(generator, file, "/// Mutable iterator for `" + class_binder.c_type_name + "`.\n");
             }
 
@@ -121,7 +123,7 @@ namespace mrbind::C
             // All the custom functions:
 
             { // The container itself.
-                if (supports_range_assignment)
+                if (supports_range_assignment && !minimal)
                 {
                     { // Construct from range
                         Generator::EmitFuncParams emit;
@@ -196,7 +198,7 @@ namespace mrbind::C
 
                 // resize with default value
                 if (
-                    params.has_resize && bool(elem_traits.copy_constructible) &&
+                    !minimal && params.has_resize && bool(elem_traits.copy_constructible) &&
                     // libstdc++ (last tested on 15) is bugged and requires the element type to be assignable for this function, for vectors: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=121348
                     (params.insert_requires_assignment <= bool(elem_traits.move_assignable))
                 )
@@ -236,6 +238,7 @@ namespace mrbind::C
                 // Capacity-related functions.
                 if (params.has_capacity)
                 {
+                    if (!minimal)
                     { // capacity
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The memory capacity, measued in the number of elements.";
@@ -259,6 +262,7 @@ namespace mrbind::C
                         generator.EmitFunction(file, emit);
                     }
 
+                    if (!minimal)
                     { // shrink_to_fit
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Shrinks the capacity to match the size.";
@@ -356,7 +360,7 @@ namespace mrbind::C
                     }
 
                     // find, mutable
-                    if (params.has_mutable_iterators)
+                    if (HasMutableIterators())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.";
@@ -374,7 +378,7 @@ namespace mrbind::C
                 }
 
                 // Front and back accessors.
-                if (params.has_front_back)
+                if (params.has_front_back && !minimal)
                 {
                     { // front const
                         Generator::EmitFuncParams emit;
@@ -505,7 +509,7 @@ namespace mrbind::C
                 }
 
                 // insert and erase at index
-                if (params.iter_category >= IteratorCategory::random_access && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
+                if (!minimal && params.iter_category >= IteratorCategory::random_access && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     { // insert
                         Generator::EmitFuncParams emit;
@@ -544,7 +548,7 @@ namespace mrbind::C
                 // We also disable them for maps, because for maps we hide the underlying pairs.
                 // And we also disable them for sets, because there the iterator acts merely as an insertion hint, and we don't expose those hints to C.
                 // And for contiguous containers, this isn't terribly useful, since we have index-based versions above.
-                if (!IteratorsArePointers() && !params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
+                if (!minimal && !IteratorsArePointers() && !params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     for (bool is_const_iter : {false, true})
                     {
@@ -593,12 +597,15 @@ namespace mrbind::C
                 // For contiguous containers those are pointers. This is needed for C# to implement IEnumerable.
                 for (bool is_end : {false, true})
                 {
+                    if (minimal && !BindIteratorClasses())
+                        break;
+
                     std::string begin_or_end_str = is_end ? "end" : "begin";
                     std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
 
                     for (bool is_const_iter : {true, false})
                     {
-                        if (!is_const_iter && !params.has_mutable_iterators)
+                        if (!is_const_iter && !HasMutableIterators())
                             continue;
 
                         const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
@@ -627,7 +634,7 @@ namespace mrbind::C
                         }
 
                         // compare
-                        if (!IteratorsArePointers())
+                        if (BindIteratorClasses() && (is_end || !minimal))
                         {
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Tests whether a " + mut_or_const_str + " iterator is the " + begin_or_end_str + " iterator.";
@@ -646,11 +653,11 @@ namespace mrbind::C
                 }
 
                 // iterator to index
-                if (!IteratorsArePointers() && params.iter_category >= IteratorCategory::random_access)
+                if (BindIteratorClasses() && params.iter_category >= IteratorCategory::random_access)
                 {
                     for (bool is_const_iter : {true, false})
                     {
-                        if (!is_const_iter && !params.has_mutable_iterators)
+                        if (!is_const_iter && !HasMutableIterators())
                             continue;
 
                         const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
@@ -672,11 +679,11 @@ namespace mrbind::C
             }
 
             // Iterators
-            if (!IteratorsArePointers())
+            if (BindIteratorClasses())
             {
                 iterator_binder_const.EmitSpecialMemberFunctions(generator, file);
 
-                if (params.has_mutable_iterators)
+                if (HasMutableIterators())
                 {
                     { // Construct the const iterator from a mutable one.
                         Generator::EmitFuncParams emit;
@@ -696,7 +703,7 @@ namespace mrbind::C
 
                 for (bool is_const_iter : {true, false})
                 {
-                    if (!is_const_iter && !params.has_mutable_iterators)
+                    if (!is_const_iter && !HasMutableIterators())
                         continue;
 
                     const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
@@ -760,7 +767,7 @@ namespace mrbind::C
                     }
 
                     // decrement
-                    if (params.iter_category >= IteratorCategory::bidirectional)
+                    if (!minimal && params.iter_category >= IteratorCategory::bidirectional)
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Decrements a " + mut_or_const_str + " iterator.";
@@ -852,13 +859,16 @@ namespace mrbind::C
 
             const bool is_container  =                                                                    type_to_bind.simple_type.name.parts.size() == target_name->parts.size();
             const bool is_const_iter = !is_container &&                                                   type_to_bind.simple_type.name.parts.size() == target_name->parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "const_iterator";
-            const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && type_to_bind.simple_type.name.parts.size() == target_name->parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
+            const bool is_mut_iter   = !is_container && !is_const_iter && params.has_mutable_iterators && !generator.minimal_containers && type_to_bind.simple_type.name.parts.size() == target_name->parts.size() + 1 && type_to_bind.simple_type.name.parts.back().AsSingleWord() == "iterator";
 
             if (!is_container && !is_const_iter && !is_mut_iter)
                 return {}; // This is some member type of our container, but not an iterator, so we don't know what to do with it.
 
             if (!is_container && params.iter_category >= ContainerBinder::IteratorCategory::contiguous)
                 return {}; // The iterators of contiguous containers aren't bound, `begin()` and `end()` return pointers instead.
+
+            if (!is_container && generator.minimal_containers && params.iter_category >= ContainerBinder::IteratorCategory::random_access)
+                return {}; // `--minimal-containers` binds random-access containers without iterators.
 
             // Figure out the container type.
             const cppdecl::QualifiedName *container_name = nullptr;

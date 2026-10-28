@@ -85,6 +85,7 @@ COMPILER_FLAGS=(
 mkdir -p test/output_c
 mkdir -p test/output_c_fixed_typedefs
 mkdir -p test/output_c_fixed_typedefs_64_only
+mkdir -p test/output_c_minimal_containers
 
 
 build/mrbind \
@@ -101,6 +102,16 @@ build/mrbind_gen_c \
     --output-desc-json test/output_c/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
     --force-emit-common-helpers \
+
+# Same input, with only the essential functions of the standard containers.
+build/mrbind_gen_c \
+    --input test/output_c/parsed.json \
+    --output-header-dir test/output_c_minimal_containers/include \
+    --output-source-dir test/output_c_minimal_containers/source \
+    --output-desc-json test/output_c_minimal_containers/desc.json \
+    "${MRBIND_GEN_C_FLAGS[@]}" \
+    --force-emit-common-helpers \
+    --minimal-containers \
 
 build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
@@ -186,4 +197,15 @@ build/mrbind_gen_c \
     -o test/output_c_fixed_typedefs_64_only/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs_64_only/include \
     -Itest/output_c_fixed_typedefs_64_only/source \
+    "${COMPILER_FLAGS[@]}"
+
+"$CXX" \
+    test/output_c_minimal_containers/source/*.cpp \
+    test/output_c_minimal_containers/source/MR/*.cpp \
+    test/output_c_minimal_containers/source/A/*.cpp \
+    test/output_c_minimal_containers/source/B/*.cpp \
+    test/output_c_minimal_containers/source/AB/*.cpp \
+    -o test/output_c_minimal_containers/libbleh$EXT_SHARED \
+    -Itest/output_c_minimal_containers/include \
+    -Itest/output_c_minimal_containers/source \
     "${COMPILER_FLAGS[@]}"

@@ -116,6 +116,9 @@ namespace mrbind::C::Modules
                             // This is needed for C# to implement IEnumerable for arrays.
                             for (bool is_end : {false, true})
                             {
+                                if (generator.minimal_containers)
+                                    break;
+
                                 std::string begin_or_end_str = is_end ? "end" : "begin";
                                 std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
 
