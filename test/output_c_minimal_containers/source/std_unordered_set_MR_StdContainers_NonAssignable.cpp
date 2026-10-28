@@ -1,0 +1,215 @@
+#define MR_C_BUILD_LIBRARY
+#include "std_unordered_set_MR_StdContainers_NonAssignable.h"
+
+#include <__mrbind_c_details.h>
+#include <input/MR/test_std_containers.h>
+
+#include <cstddef>
+#include <memory>
+#include <stdexcept>
+#include <unordered_set>
+
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_DefaultConstruct(void)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)new std::unordered_set<MR::StdContainers::NonAssignable>(std::unordered_set<MR::StdContainers::NonAssignable>());
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_DefaultConstructArray(size_t num_elems)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)(new std::unordered_set<MR::StdContainers::NonAssignable>[num_elems]{});
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_set_MR_StdContainers_NonAssignable *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_set<MR::StdContainers::NonAssignable>);
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)new std::unordered_set<MR::StdContainers::NonAssignable>(std::unordered_set<MR::StdContainers::NonAssignable>(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::unordered_set<MR::StdContainers::NonAssignable>), std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_set<MR::StdContainers::NonAssignable>), std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::unordered_set<MR::StdContainers::NonAssignable>))
+    ));
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_set_MR_StdContainers_NonAssignable *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_set<MR::StdContainers::NonAssignable>);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::unordered_set<MR::StdContainers::NonAssignable>), std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_set<MR::StdContainers::NonAssignable>), std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_set<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::unordered_set<MR::StdContainers::NonAssignable>))
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Destroy(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    delete ((const std::unordered_set<MR::StdContainers::NonAssignable> *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_DestroyArray(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    delete[] ((const std::unordered_set<MR::StdContainers::NonAssignable> *)_this);
+    ) // MRBINDC_TRY
+}
+
+const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_OffsetPtr(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)(((const std::unordered_set<MR::StdContainers::NonAssignable> *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)(((std::unordered_set<MR::StdContainers::NonAssignable> *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+size_t MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).size();
+    ) // MRBINDC_TRY
+}
+
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_empty(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).empty();
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_clear(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).clear();
+    ) // MRBINDC_TRY
+}
+
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_contains(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).contains(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(key))
+    );
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_find(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(key))
+    ));
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cend());
+    ) // MRBINDC_TRY
+}
+
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_DefaultConstruct(void)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator());
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)(new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator[num_elems]{});
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *other)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(*(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)other))
+    ));
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *other)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(*(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)other))
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Destroy(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+{
+    MRBINDC_TRY(
+    delete ((const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_DestroyArray(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+{
+    MRBINDC_TRY(
+    delete[] ((const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)_this);
+    ) // MRBINDC_TRY
+}
+
+const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_OffsetPtr(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)(((const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_OffsetMutablePtr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)(((std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+{
+    MRBINDC_TRY(
+    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+{
+    MRBINDC_TRY(
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
+    ) // MRBINDC_TRY
+}
+
+bool MR_C_equal_MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *b)
+{
+    MRBINDC_TRY(
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(*(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(*(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)b));
+    ) // MRBINDC_TRY
+}
+

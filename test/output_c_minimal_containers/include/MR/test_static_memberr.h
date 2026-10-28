@@ -1,0 +1,70 @@
+#pragma once
+
+#include <exports.h>
+
+#include <stddef.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/// Generated from class `MR::StaticFuncs::A`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_StaticFuncs_A MR_StaticFuncs_A;
+
+/// Returns a pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_StaticFuncs_A_Get_x(void);
+
+/// Modifies a member variable of class `MR::StaticFuncs::A` named `x`.
+/// When this function is called, this object will drop object references it held previously in `x`.
+MR_C_API void MR_StaticFuncs_A_Set_x(int value);
+
+/// Returns a mutable pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_StaticFuncs_A_GetMutable_x(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StaticFuncs_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_StaticFuncs_A_DestroyArray()`.
+/// Use `MR_StaticFuncs_A_OffsetMutablePtr()` and `MR_StaticFuncs_A_OffsetPtr()` to access the array elements.
+MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetPtr(const MR_StaticFuncs_A *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetMutablePtr(MR_StaticFuncs_A *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::StaticFuncs::A::A`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_StaticFuncs_A_Destroy()` to free it when you're done using it.
+MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_ConstructFromAnother(const MR_StaticFuncs_A *_other);
+
+/// Destroys a heap-allocated instance of `MR_StaticFuncs_A`. Does nothing if the pointer is null.
+MR_C_API void MR_StaticFuncs_A_Destroy(const MR_StaticFuncs_A *_this);
+
+/// Destroys a heap-allocated array of `MR_StaticFuncs_A`. Does nothing if the pointer is null.
+MR_C_API void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this);
+
+/// Generated from method `MR::StaticFuncs::A::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other);
+
+/// Generated from method `MR::StaticFuncs::A::blah`.
+MR_C_API void MR_StaticFuncs_A_blah(void);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif

@@ -1,0 +1,153 @@
+#define MR_C_BUILD_LIBRARY
+#include "std_deque_int.h"
+
+#include <__mrbind_c_details.h>
+
+#include <cstddef>
+#include <deque>
+#include <memory>
+#include <stdexcept>
+
+
+MR_C_std_deque_int *MR_C_std_deque_int_DefaultConstruct(void)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_deque_int *)new std::deque<int>(std::deque<int>());
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_deque_int *MR_C_std_deque_int_DefaultConstructArray(size_t num_elems)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_deque_int *)(new std::deque<int>[num_elems]{});
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_deque_int *MR_C_std_deque_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::deque<int>);
+    return (MR_C_std_deque_int *)new std::deque<int>(std::deque<int>(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>) MRBINDC_CLASSARG_COPY(other, (std::deque<int>), std::deque<int>) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>), std::deque<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<int>) MRBINDC_CLASSARG_END(other, std::deque<int>))
+    ));
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_AssignFromAnother(MR_C_std_deque_int *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::deque<int>);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int>) MRBINDC_CLASSARG_COPY(other, (std::deque<int>), std::deque<int>) MRBINDC_CLASSARG_MOVE(other, (std::deque<int>), std::deque<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<int>) MRBINDC_CLASSARG_END(other, std::deque<int>))
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_Destroy(const MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    delete ((const std::deque<int> *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_DestroyArray(const MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    delete[] ((const std::deque<int> *)_this);
+    ) // MRBINDC_TRY
+}
+
+const MR_C_std_deque_int *MR_C_std_deque_int_OffsetPtr(const MR_C_std_deque_int *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (const MR_C_std_deque_int *)(((const std::deque<int> *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_deque_int *MR_C_std_deque_int_OffsetMutablePtr(MR_C_std_deque_int *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_deque_int *)(((std::deque<int> *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+size_t MR_C_std_deque_int_size(const MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::deque<int> *)(_this)).size();
+    ) // MRBINDC_TRY
+}
+
+bool MR_C_std_deque_int_empty(const MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::deque<int> *)(_this)).empty();
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_resize(MR_C_std_deque_int *_this, size_t new_size)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).resize(
+        new_size
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_clear(MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).clear();
+    ) // MRBINDC_TRY
+}
+
+const int *MR_C_std_deque_int_at(const MR_C_std_deque_int *_this, size_t i)
+{
+    MRBINDC_TRY(
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::deque<int> *)(_this)).at(
+        i
+    ));
+    ) // MRBINDC_TRY
+}
+
+int *MR_C_std_deque_int_at_mut(MR_C_std_deque_int *_this, size_t i)
+{
+    MRBINDC_TRY(
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).at(
+        i
+    ));
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_push_back(MR_C_std_deque_int *_this, int new_elem)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).push_back(
+        new_elem
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_pop_back(MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).pop_back();
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_push_front(MR_C_std_deque_int *_this, int new_elem)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).push_front(
+        new_elem
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_deque_int_pop_front(MR_C_std_deque_int *_this)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::deque<int> *)(_this)).pop_front();
+    ) // MRBINDC_TRY
+}
+

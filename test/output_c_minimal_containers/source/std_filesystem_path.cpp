@@ -1,0 +1,103 @@
+#define MR_C_BUILD_LIBRARY
+#include "std_filesystem_path.h"
+
+#include <__mrbind_c_details.h>
+
+#include <cstddef>
+#include <filesystem>
+#include <stdexcept>
+#include <string>
+
+
+MR_C_std_filesystem_path *MR_C_std_filesystem_path_DefaultConstruct(void)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_filesystem_path *)new std::filesystem::path(std::filesystem::path());
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_filesystem_path *MR_C_std_filesystem_path_DefaultConstructArray(size_t num_elems)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_filesystem_path *)(new std::filesystem::path[num_elems]{});
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_filesystem_path *MR_C_std_filesystem_path_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_filesystem_path *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::filesystem::path);
+    return (MR_C_std_filesystem_path *)new std::filesystem::path(std::filesystem::path(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::filesystem::path) MRBINDC_CLASSARG_COPY(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_MOVE(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::filesystem::path) MRBINDC_CLASSARG_END(other, std::filesystem::path))
+    ));
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_filesystem_path *MR_C_std_filesystem_path_ConstructFrom(const char *other, const char *other_end)
+{
+    MRBINDC_TRY(
+    MRBINDC_IGNORE_DEPRECATION(
+    return (MR_C_std_filesystem_path *)new std::filesystem::path(std::filesystem::path(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)))
+    ));
+    ) // MRBINDC_IGNORE_DEPRECATION
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_filesystem_path_AssignFromAnother(MR_C_std_filesystem_path *_this, MR_C_PassBy other_pass_by, MR_C_std_filesystem_path *other)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(other, std::filesystem::path);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::filesystem::path *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::filesystem::path) MRBINDC_CLASSARG_COPY(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_MOVE(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::filesystem::path) MRBINDC_CLASSARG_END(other, std::filesystem::path))
+    );
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_filesystem_path_AssignFrom(MR_C_std_filesystem_path *_this, const char *other, const char *other_end)
+{
+    MRBINDC_TRY(
+    MRBINDC_IGNORE_DEPRECATION(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::filesystem::path *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::filesystem::u8path(other, other_end) : std::filesystem::u8path(other)))
+    );
+    ) // MRBINDC_IGNORE_DEPRECATION
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_filesystem_path_Destroy(const MR_C_std_filesystem_path *_this)
+{
+    MRBINDC_TRY(
+    delete ((const std::filesystem::path *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_C_std_filesystem_path_DestroyArray(const MR_C_std_filesystem_path *_this)
+{
+    MRBINDC_TRY(
+    delete[] ((const std::filesystem::path *)_this);
+    ) // MRBINDC_TRY
+}
+
+const MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetPtr(const MR_C_std_filesystem_path *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (const MR_C_std_filesystem_path *)(((const std::filesystem::path *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetMutablePtr(MR_C_std_filesystem_path *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_filesystem_path *)(((std::filesystem::path *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_C_std_string *MR_C_std_filesystem_path_string(const MR_C_std_filesystem_path *_this)
+{
+    MRBINDC_TRY(
+    auto ret = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::filesystem::path *)(_this)).u8string();
+    return (MR_C_std_string *)new std::string(std::string(reinterpret_cast<const char *>(ret.c_str()), ret.size()));
+    ) // MRBINDC_TRY
+}
+
