@@ -112,6 +112,20 @@ export class MR_C_std_multimap_MR_StdContainers_NonAssignable_float extends ffi.
         return new L.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator(ffi.RAW, Number(__ret), true, null);
     }
 
+    find_value(key)
+    {
+        const __ret = ffi.C.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(key, "key")));
+        ffi.check();
+        return (Number(__ret) === 0 ? null : ffi.HEAPF32()[(Number(__ret)) / 4]);
+    }
+
+    find_value_mut(key)
+    {
+        const __ret = ffi.C.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value_mut(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(key, "key")));
+        ffi.check();
+        return Number(__ret);
+    }
+
     begin()
     {
         const __ret = ffi.C.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin(BigInt(this.rawPointer()));

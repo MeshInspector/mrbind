@@ -155,6 +155,38 @@ export class MR_C_phmap_btree_map_int_float extends ffi.CppObject
         }
     }
 
+    find_value(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
+            const __ret = ffi.C.MR_C_phmap_btree_map_int_float_find_value(BigInt(this.rawPointer()), BigInt(__ptr_key));
+            ffi.check();
+            return (Number(__ret) === 0 ? null : ffi.HEAPF32()[(Number(__ret)) / 4]);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    find_value_mut(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) / 4] = key;});
+            const __ret = ffi.C.MR_C_phmap_btree_map_int_float_find_value_mut(BigInt(this.rawPointer()), BigInt(__ptr_key));
+            ffi.check();
+            return Number(__ret);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     begin()
     {
         const __ret = ffi.C.MR_C_phmap_btree_map_int_float_begin(BigInt(this.rawPointer()));

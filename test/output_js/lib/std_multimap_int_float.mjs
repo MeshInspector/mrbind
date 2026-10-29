@@ -139,6 +139,38 @@ export class MR_C_std_multimap_int_float extends ffi.CppObject
         }
     }
 
+    find_value(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
+            const __ret = ffi.C.MR_C_std_multimap_int_float_find_value(this.rawPointer(), __ptr_key);
+            ffi.check();
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    find_value_mut(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr_key = ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = key;});
+            const __ret = ffi.C.MR_C_std_multimap_int_float_find_value_mut(this.rawPointer(), __ptr_key);
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     begin()
     {
         const __ret = ffi.C.MR_C_std_multimap_int_float_begin(this.rawPointer());

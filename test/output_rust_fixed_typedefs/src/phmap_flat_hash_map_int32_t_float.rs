@@ -106,6 +106,26 @@ impl phmap_flat_hash_map_int32_t_float
         unsafe {crate::Owned::from_raw(__ret as *mut crate::phmap::phmap_flat_hash_map_int32_t_float_iterator)}
     }
 
+    /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+    ///
+    /// Calls `MR_C_phmap_flat_hash_map_int32_t_float_find_value()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find_value<'a>(&'a self, key: &i32) -> Option<&'a f32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_flat_hash_map_int32_t_float_find_value(self as *const Self as *const crate::ffi::MR_C_phmap_flat_hash_map_int32_t_float, key as *const i32 as *const i32)};
+        unsafe {(__ret as *const f32).as_ref()}
+    }
+
+    /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+    ///
+    /// Calls `MR_C_phmap_flat_hash_map_int32_t_float_find_value_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find_value_mut<'a>(&'a mut self, key: &i32) -> Option<&'a mut f32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_phmap_flat_hash_map_int32_t_float_find_value_mut(self as *mut Self as *mut crate::ffi::MR_C_phmap_flat_hash_map_int32_t_float, key as *const i32 as *const i32)};
+        unsafe {(__ret as *mut f32).as_mut()}
+    }
+
     /// The begin iterator, const.
     ///
     /// Calls `MR_C_phmap_flat_hash_map_int32_t_float_begin()`.

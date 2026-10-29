@@ -29,7 +29,6 @@ unsafe extern "C"
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_find(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable, key: *const crate::ffi::MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator;
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_insert(_this: *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_StdContainers_NonAssignable);
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_begin(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator;
-    pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable, iter: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator) -> bool;
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_end(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator;
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_is_end(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable, iter: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator) -> bool;
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_Destroy(_this: *const MR_C_std_multiset_MR_StdContainers_NonAssignable);
@@ -38,6 +37,5 @@ unsafe extern "C"
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator, other: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator);
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_deref(_this: *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator) -> *const crate::ffi::MR_StdContainers_NonAssignable;
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator);
-    pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator);
     pub fn MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_Destroy(_this: *const MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator);
 }

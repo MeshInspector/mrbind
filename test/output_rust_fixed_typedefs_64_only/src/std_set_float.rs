@@ -40,24 +40,6 @@ impl std_set_float
         __ret
     }
 
-    /// Construct from a range of elements.
-    ///
-    /// Calls `MR_C_std_set_float_ConstructFromRange()`.
-    pub fn construct_from_range(ptr: Option<&f32>, size: usize) -> crate::Owned<crate::mr::cs::std_set_float>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_set_float_ConstructFromRange(ptr.map_or(core::ptr::null(), |r| r as *const f32 as *const f32), size)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_float)}
-    }
-
-    /// Assign from a range of elements, overwriting previous contents.
-    ///
-    /// Calls `MR_C_std_set_float_AssignFromRange()`.
-    pub fn assign_from_range(&mut self, ptr: Option<&f32>, size: usize)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_set_float_AssignFromRange(self as *mut Self as *mut crate::ffi::MR_C_std_set_float, ptr.map_or(core::ptr::null(), |r| r as *const f32 as *const f32), size)};
-        __ret
-    }
-
     /// The number of elements.
     ///
     /// Calls `MR_C_std_set_float_size()`.
@@ -121,15 +103,6 @@ impl std_set_float
     {
         let __ret = unsafe {crate::ffi::MR_C_std_set_float_begin(self as *const Self as *const crate::ffi::MR_C_std_set_float)};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_set_float_const_iterator)}
-    }
-
-    /// Tests whether a const iterator is the begin iterator.
-    ///
-    /// Calls `MR_C_std_set_float_is_begin()`.
-    pub fn is_begin(&self, iter: &crate::mr::cs::std_set_float_const_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_set_float_is_begin(self as *const Self as *const crate::ffi::MR_C_std_set_float, iter as *const crate::mr::cs::std_set_float_const_iterator as *const crate::ffi::MR_C_std_set_float_const_iterator)};
-        __ret
     }
 
     /// The end iterator, const.
@@ -216,15 +189,6 @@ impl std_set_float_const_iterator
     pub fn incr(&mut self)
     {
         let __ret = unsafe {crate::ffi::MR_C_std_set_float_const_iterator_incr(self as *mut Self as *mut crate::ffi::MR_C_std_set_float_const_iterator)};
-        __ret
-    }
-
-    /// Decrements a const iterator.
-    ///
-    /// Calls `MR_C_std_set_float_const_iterator_decr()`.
-    pub fn decr(&mut self)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_set_float_const_iterator_decr(self as *mut Self as *mut crate::ffi::MR_C_std_set_float_const_iterator)};
         __ret
     }
 

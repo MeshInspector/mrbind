@@ -51,35 +51,17 @@ export declare class MR_C_std_vector_const_MR_CSharp_A_ptr extends ffi.CppObject
      */
     resize(new_size: number): void;
     /**
-     * Resizes the container. The new elements if any are set to the specified value.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value()`.
-     */
-    resize_with_default_value(new_size: number, value?: L.MR_CSharp_A | null): void;
-    /**
      * Removes all elements from the container.
      *
      * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_clear()`.
      */
     clear(): void;
     /**
-     * The memory capacity, measued in the number of elements.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_capacity()`.
-     */
-    capacity(): number;
-    /**
      * Reserves memory for a certain number of elements. Never shrinks the memory.
      *
      * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_reserve()`.
      */
     reserve(new_capacity: number): void;
-    /**
-     * Shrinks the capacity to match the size.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_shrink_to_fit()`.
-     */
-    shrink_to_fit(): void;
     /**
      * The element at a specific index, read-only.
      * The reference to this object might be preserved as the return value.
@@ -148,33 +130,5 @@ export declare class MR_C_std_vector_const_MR_CSharp_A_ptr extends ffi.CppObject
      * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_erase()`.
      */
     erase(position: number): void;
-    /**
-     * The begin iterator, const. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_begin()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
-     */
-    begin(): number;
-    /**
-     * The begin iterator, mutable. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_begin_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
-     */
-    begin_mut(): number;
-    /**
-     * The end iterator, const. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
-     */
-    end(): number;
-    /**
-     * The end iterator, mutable. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_end_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
-     */
-    end_mut(): number;
 }
 

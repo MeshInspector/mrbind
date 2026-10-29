@@ -124,17 +124,6 @@ public static partial class MR
                 public Const_UnorderedMultiset_Int(UnorderedMultiset_Int other) : this((Const_UnorderedMultiset_Int)other) {}
 
                 /// <summary>
-                /// Construct from a range of elements.
-                /// </summary>
-                public unsafe Const_UnorderedMultiset_Int(int? ptr, nuint size) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_C_std_unordered_multiset_int_ConstructFromRange(int *ptr, nuint size);
-                    int __deref_ptr = ptr.GetValueOrDefault();
-                    _UnderlyingPtr = __MR_C_std_unordered_multiset_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
-                }
-
-                /// <summary>
                 /// The number of elements.
                 /// </summary>
                 public unsafe nuint size()
@@ -188,16 +177,6 @@ public static partial class MR
                     __ret = new(__MR_C_std_unordered_multiset_int_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a const iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.UnorderedMultiset_Int.Const_ConstIterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_int_is_begin", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_std_unordered_multiset_int_is_begin(_Underlying *_this, MR.CS.Std.UnorderedMultiset_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_unordered_multiset_int_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -470,28 +449,6 @@ public static partial class MR
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_unordered_multiset_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
-                }
-
-                /// <summary>
-                /// Construct from a range of elements.
-                /// </summary>
-                public unsafe UnorderedMultiset_Int(int? ptr, nuint size) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_C_std_unordered_multiset_int_ConstructFromRange(int *ptr, nuint size);
-                    int __deref_ptr = ptr.GetValueOrDefault();
-                    _UnderlyingPtr = __MR_C_std_unordered_multiset_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
-                }
-
-                /// <summary>
-                /// Assign from a range of elements, overwriting previous contents.
-                /// </summary>
-                public unsafe void assign(int? ptr, nuint size)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_int_AssignFromRange", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_unordered_multiset_int_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
-                    int __deref_ptr = ptr.GetValueOrDefault();
-                    __MR_C_std_unordered_multiset_int_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
                 /// <summary>

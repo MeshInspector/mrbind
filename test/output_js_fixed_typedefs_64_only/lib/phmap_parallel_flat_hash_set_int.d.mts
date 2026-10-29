@@ -22,12 +22,6 @@ export declare class MR_C_phmap_parallel_flat_hash_set_int extends ffi.CppObject
      * Calls `MR_C_phmap_parallel_flat_hash_set_int_ConstructFromAnother()`.
      */
     constructor(other: L.MR_C_phmap_parallel_flat_hash_set_int);
-    /**
-     * Construct from a range of elements.
-     *
-     * Calls `MR_C_phmap_parallel_flat_hash_set_int_ConstructFromRange()`.
-     */
-    constructor(ptr: number | null | undefined, size: number);
     /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
     constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
@@ -38,12 +32,6 @@ export declare class MR_C_phmap_parallel_flat_hash_set_int extends ffi.CppObject
      * Calls `MR_C_phmap_parallel_flat_hash_set_int_AssignFromAnother()`.
      */
     assignFromAnother(other: L.MR_C_phmap_parallel_flat_hash_set_int): void;
-    /**
-     * Assign from a range of elements, overwriting previous contents.
-     *
-     * Calls `MR_C_phmap_parallel_flat_hash_set_int_AssignFromRange()`.
-     */
-    assignFromRange(ptr: number | null | undefined, size: number): void;
     /**
      * The number of elements.
      *
@@ -88,12 +76,6 @@ export declare class MR_C_phmap_parallel_flat_hash_set_int extends ffi.CppObject
      * Calls `MR_C_phmap_parallel_flat_hash_set_int_begin()`.
      */
     begin(): L.MR_C_phmap_parallel_flat_hash_set_int_const_iterator;
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_phmap_parallel_flat_hash_set_int_is_begin()`.
-     */
-    is_begin(iter: L.MR_C_phmap_parallel_flat_hash_set_int_const_iterator): boolean;
     /**
      * The end iterator, const.
      * The reference to this object might be preserved as the return value.

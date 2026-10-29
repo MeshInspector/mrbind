@@ -101,52 +101,6 @@ public final class std_list_int extends mrbind_test.CppObject
     }
 
     /**
-     * Construct from a range of elements.
-     *
-     * Calls `MR_C_std_list_int_ConstructFromRange()`.
-     */
-    public std_list_int(java.lang.Integer ptr, long size)
-    {
-        this(__ctor_constructFromRange(ptr, size), true, null);
-    }
-
-    private static java.lang.foreign.MemorySegment __ctor_constructFromRange(java.lang.Integer ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_ConstructFromRange.invokeExact((java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-    }
-
-    /**
-     * Assign from a range of elements, overwriting previous contents.
-     *
-     * Calls `MR_C_std_list_int_AssignFromRange()`.
-     */
-    public void assignFromRange(java.lang.Integer ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_AssignFromRange.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
      * The number of elements.
      *
      * Calls `MR_C_std_list_int_size()`.
@@ -202,28 +156,6 @@ public final class std_list_int extends mrbind_test.CppObject
         try
         {
             mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_resize.invokeExact(rawPointer(), new_size);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Resizes the container. The new elements if any are set to the specified value.
-     *
-     * Calls `MR_C_std_list_int_resize_with_default_value()`.
-     */
-    public void resize_with_default_value(long new_size, int value)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_resize_with_default_value.invokeExact(rawPointer(), new_size, value);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -443,98 +375,6 @@ public final class std_list_int extends mrbind_test.CppObject
     }
 
     /**
-     * Inserts a new element right before the specified position.
-     *
-     * Calls `MR_C_std_list_int_insert_at_mutable_iter()`.
-     */
-    public void insert_at_mutable_iter(mrbind_test.mr.cs.std_list_int_iterator position, int new_elem)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), new_elem);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
-     * Erases the element at the specified position.
-     *
-     * Calls `MR_C_std_list_int_erase_at_mutable_iter()`.
-     */
-    public void erase_at_mutable_iter(mrbind_test.mr.cs.std_list_int_iterator position)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
-     * Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
-     *
-     * Calls `MR_C_std_list_int_insert_at_iter()`.
-     */
-    public void insert_at_iter(mrbind_test.mr.cs.std_list_int_const_iterator position, int new_elem)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), new_elem);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
-     * Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
-     *
-     * Calls `MR_C_std_list_int_erase_at_iter()`.
-     */
-    public void erase_at_iter(mrbind_test.mr.cs.std_list_int_const_iterator position)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
      * The begin iterator, const.
      * The reference to this object might be preserved as the return value.
      *
@@ -555,78 +395,6 @@ public final class std_list_int extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_list_int_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_list_int_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The begin iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_list_int_begin_mut()`.
-     */
-    public mrbind_test.mr.cs.std_list_int_iterator begin_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_begin_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_list_int_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_list_int_is_begin_mut()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_list_int_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
         }
     }
 
@@ -664,54 +432,6 @@ public final class std_list_int extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The end iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_list_int_end_mut()`.
-     */
-    public mrbind_test.mr.cs.std_list_int_iterator end_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_end_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_list_int_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the end iterator.
-     *
-     * Calls `MR_C_std_list_int_is_end_mut()`.
-     */
-    public boolean is_end(mrbind_test.mr.cs.std_list_int_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_int.H0.MR_C_std_list_int_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

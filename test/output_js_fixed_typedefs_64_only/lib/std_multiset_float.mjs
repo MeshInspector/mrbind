@@ -49,26 +49,6 @@ export class MR_C_std_multiset_float extends ffi.CppObject
         }
     }
 
-    static __ctor_2(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) >>> 2] = ptr;});
-            const __ret = ffi.C.MR_C_std_multiset_float_ConstructFromRange(__ptr_ptr, size);
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     static __ctor(args)
     {
         const __n = args.length;
@@ -76,8 +56,6 @@ export class MR_C_std_multiset_float extends ffi.CppObject
             return L.MR_C_std_multiset_float.__ctor_0();
         if (__n === 1 && (args[0] instanceof L.MR_C_std_multiset_float))
             return L.MR_C_std_multiset_float.__ctor_1(args[0]);
-        if (__n === 2 && (__n <= 0 || (args[0] == null || typeof args[0] === "number")) && typeof args[1] === "number")
-            return L.MR_C_std_multiset_float.__ctor_2(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
 
@@ -97,25 +75,6 @@ export class MR_C_std_multiset_float extends ffi.CppObject
         try
         {
             ffi.C.MR_C_std_multiset_float_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    assignFromRange(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPF32()[(p) >>> 2] = ptr;});
-            ffi.C.MR_C_std_multiset_float_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
         catch (__e)
@@ -250,25 +209,6 @@ export class MR_C_std_multiset_float extends ffi.CppObject
             const __ret = ffi.C.MR_C_std_multiset_float_begin(this.rawPointer());
             ffi.check();
             return new L.MR_C_std_multiset_float_const_iterator(ffi.RAW, (__ret >>> 0), true, null);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    is_begin(iter)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_multiset_float_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
-            ffi.check();
-            return (__ret !== 0);
         }
         catch (__e)
         {
@@ -429,24 +369,6 @@ export class MR_C_std_multiset_float_const_iterator extends ffi.CppObject
         try
         {
             ffi.C.MR_C_std_multiset_float_const_iterator_incr(this.rawPointer());
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    decr()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_multiset_float_const_iterator_decr(this.rawPointer());
             ffi.check();
         }
         catch (__e)

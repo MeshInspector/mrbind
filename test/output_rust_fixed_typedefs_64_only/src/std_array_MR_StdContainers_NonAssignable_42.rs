@@ -60,45 +60,5 @@ impl std_array_MR_StdContainers_NonAssignable_42
         __ret
     }
 
-    /// The begin iterator, const.
-    ///
-    /// Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_begin()`. Some types are raw C types, see the C bindings for the details.
-    /// The reference to this object might be preserved as the return value.
-    pub fn begin(&self) -> *const crate::ffi::MR_StdContainers_NonAssignable
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42_begin(self as *const Self as *const crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42)};
-        __ret
-    }
-
-    /// The begin iterator, mutable.
-    ///
-    /// Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_begin_mut()`. Some types are raw C types, see the C bindings for the details.
-    /// The reference to this object might be preserved as the return value.
-    pub fn begin_mut(&mut self) -> *mut crate::ffi::MR_StdContainers_NonAssignable
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42_begin_mut(self as *mut Self as *mut crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42)};
-        __ret
-    }
-
-    /// The end iterator, const.
-    ///
-    /// Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_end()`. Some types are raw C types, see the C bindings for the details.
-    /// The reference to this object might be preserved as the return value.
-    pub fn end(&self) -> *const crate::ffi::MR_StdContainers_NonAssignable
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42_end(self as *const Self as *const crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42)};
-        __ret
-    }
-
-    /// The end iterator, mutable.
-    ///
-    /// Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_end_mut()`. Some types are raw C types, see the C bindings for the details.
-    /// The reference to this object might be preserved as the return value.
-    pub fn end_mut(&mut self) -> *mut crate::ffi::MR_StdContainers_NonAssignable
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42_end_mut(self as *mut Self as *mut crate::ffi::MR_C_std_array_MR_StdContainers_NonAssignable_42)};
-        __ret
-    }
-
 }
 

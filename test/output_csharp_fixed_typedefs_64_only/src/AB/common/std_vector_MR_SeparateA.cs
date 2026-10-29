@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;MR::SeparateA&gt;`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Vector_MRSeparateA : MR.CS.Misc.Object<Const_Vector_MRSeparateA>, System.IDisposable, IEnumerable<MR.CS.Const_SeparateA>
+            public class Const_Vector_MRSeparateA : MR.CS.Misc.Object<Const_Vector_MRSeparateA>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,70 +25,6 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRSeparateA() {Dispose(false);}
-
-                public class _Enumerator : IEnumerator<MR.CS.Const_SeparateA>
-                {
-                    Const_Vector_MRSeparateA _container;
-                    MR.CS.ConstPtrSeparateA _cur;
-                    bool _first = true;
-                    bool _done;
-
-                    public _Enumerator(Const_Vector_MRSeparateA container)
-                    {
-                        _container = container;
-                        _cur = _container.begin();
-                        _done = _cur == _container.end();
-                    }
-
-                    public MR.CS.Const_SeparateA Current
-                    {
-                        get
-                        {
-                            if (_first || _done)
-                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
-                            return _cur.deref();
-                        }
-                    }
-
-                    object System.Collections.IEnumerator.Current => Current;
-
-                    public bool MoveNext()
-                    {
-                        if (_done)
-                            return false;
-                        if (_first)
-                        {
-                            _first = false;
-                            return true;
-                        }
-                        _cur++;
-                        if (_cur == _container.end())
-                        {
-                            _done = true;
-                            return false;
-                        }
-                        return true;
-                    }
-
-                    public void Reset()
-                    {
-                        _cur = _container.begin();
-                        _first = true;
-                        _done = false;
-                    }
-
-                    void IDisposable.Dispose() {}
-                }
-
-                public IEnumerator<MR.CS.Const_SeparateA> GetEnumerator()
-                {
-                    return new _Enumerator(this);
-                }
-
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-                {
-                    return GetEnumerator();
-                }
 
                 internal unsafe Const_Vector_MRSeparateA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -144,16 +80,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The memory capacity, measued in the number of elements.
-                /// </summary>
-                public unsafe nuint capacity()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_capacity", ExactSpelling = true)]
-                    extern static unsafe nuint __MR_C_std_vector_MR_SeparateA_capacity(_Underlying *_this);
-                    return __MR_C_std_vector_MR_SeparateA_capacity(_UnderlyingPtr);
-                }
-
-                /// <summary>
                 /// The element at a specific index, read-only.
                 /// </summary>
                 public unsafe MR.CS.Const_SeparateA this[nuint i]
@@ -196,100 +122,14 @@ public static partial class MR
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
-
-                /// <summary>
-                /// The begin iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe MR.CS.ConstPtrSeparateA begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_begin", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_C_std_vector_MR_SeparateA_begin(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_SeparateA_begin(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
-
-                /// <summary>
-                /// The end iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe MR.CS.ConstPtrSeparateA end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_end", ExactSpelling = true)]
-                    extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_C_std_vector_MR_SeparateA_end(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_SeparateA_end(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
             }
 
             /// <summary>
             /// Generated from C++ container `std::vector&lt;MR::SeparateA&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_MRSeparateA : Const_Vector_MRSeparateA, IEnumerable<MR.CS.SeparateA>
+            public class Vector_MRSeparateA : Const_Vector_MRSeparateA
             {
-                public new class _Enumerator : IEnumerator<MR.CS.SeparateA>
-                {
-                    Vector_MRSeparateA _container;
-                    MR.CS.PtrSeparateA _cur;
-                    bool _first = true;
-                    bool _done;
-
-                    public _Enumerator(Vector_MRSeparateA container)
-                    {
-                        _container = container;
-                        _cur = _container.begin();
-                        _done = _cur == _container.end();
-                    }
-
-                    public MR.CS.SeparateA Current
-                    {
-                        get
-                        {
-                            if (_first || _done)
-                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
-                            return _cur.deref();
-                        }
-                    }
-
-                    object System.Collections.IEnumerator.Current => Current;
-
-                    public bool MoveNext()
-                    {
-                        if (_done)
-                            return false;
-                        if (_first)
-                        {
-                            _first = false;
-                            return true;
-                        }
-                        _cur++;
-                        if (_cur == _container.end())
-                        {
-                            _done = true;
-                            return false;
-                        }
-                        return true;
-                    }
-
-                    public void Reset()
-                    {
-                        _cur = _container.begin();
-                        _first = true;
-                        _done = false;
-                    }
-
-                    void IDisposable.Dispose() {}
-                }
-
-                public new IEnumerator<MR.CS.SeparateA> GetEnumerator()
-                {
-                    return new _Enumerator(this);
-                }
-
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-                {
-                    return GetEnumerator();
-                }
-
                 internal unsafe Vector_MRSeparateA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -336,16 +176,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Resizes the container. The new elements if any are set to the specified value.
-                /// </summary>
-                public unsafe void resizeWithDefaultValue(nuint new_size, MR.CS.Const_SeparateA value)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_resize_with_default_value", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_SeparateA_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.Const_SeparateA._Underlying *value);
-                    __MR_C_std_vector_MR_SeparateA_resize_with_default_value(_UnderlyingPtr, new_size, value._UnderlyingPtr);
-                }
-
-                /// <summary>
                 /// Removes all elements from the container.
                 /// </summary>
                 public unsafe void clear()
@@ -364,16 +194,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_reserve", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_SeparateA_reserve(_Underlying *_this, nuint new_capacity);
                     __MR_C_std_vector_MR_SeparateA_reserve(_UnderlyingPtr, new_capacity);
-                }
-
-                /// <summary>
-                /// Shrinks the capacity to match the size.
-                /// </summary>
-                public unsafe void shrinkToFit()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_shrink_to_fit", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_SeparateA_shrink_to_fit(_Underlying *_this);
-                    __MR_C_std_vector_MR_SeparateA_shrink_to_fit(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -460,28 +280,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_erase", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_SeparateA_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_MR_SeparateA_erase(_UnderlyingPtr, position);
-                }
-
-                /// <summary>
-                /// The begin iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new MR.CS.PtrSeparateA begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_begin_mut", ExactSpelling = true)]
-                    extern static unsafe MR.CS.SeparateA._Underlying *__MR_C_std_vector_MR_SeparateA_begin_mut(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_SeparateA_begin_mut(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
-
-                /// <summary>
-                /// The end iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new MR.CS.PtrSeparateA end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateA_end_mut", ExactSpelling = true)]
-                    extern static unsafe MR.CS.SeparateA._Underlying *__MR_C_std_vector_MR_SeparateA_end_mut(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_SeparateA_end_mut(_UnderlyingPtr);
-                    return new(__c_ret);
                 }
             }
 

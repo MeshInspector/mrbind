@@ -30,13 +30,6 @@ typedef struct MR_C_phmap_node_hash_map_int_float MR_C_phmap_node_hash_map_int_f
 typedef struct MR_C_phmap_node_hash_map_int_float_const_iterator MR_C_phmap_node_hash_map_int_float_const_iterator;
 #endif
 
-#ifndef MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_map_int_float_iterator
-#define MR_C_DETAIL_TYPEDEF_MR_C_phmap_node_hash_map_int_float_iterator
-/// Mutable iterator for `MR_C_phmap_node_hash_map_int_float`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
-typedef struct MR_C_phmap_node_hash_map_int_float_iterator MR_C_phmap_node_hash_map_int_float_iterator;
-#endif
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_phmap_node_hash_map_int_float *MR_C_phmap_node_hash_map_int_float_DefaultConstruct(void);
@@ -104,34 +97,23 @@ MR_C_API bool MR_C_phmap_node_hash_map_int_float_contains(const MR_C_phmap_node_
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_find(const MR_C_phmap_node_hash_map_int_float *_this, const int *key);
 
-/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
+/// Finds the element by key and returns its mapped value, read-only, or null if no such key.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `key` can not be null. It is a single object.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_iterator_Destroy()` to free it when you're done using it.
 /// The reference to this object might be preserved as the return value.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_find_mut(MR_C_phmap_node_hash_map_int_float *_this, const int *key);
+MR_C_API const float *MR_C_phmap_node_hash_map_int_float_find_value(const MR_C_phmap_node_hash_map_int_float *_this, const int *key);
+
+/// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `key` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API float *MR_C_phmap_node_hash_map_int_float_find_value_mut(MR_C_phmap_node_hash_map_int_float *_this, const int *key);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_const_iterator_Destroy()` to free it when you're done using it.
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_begin(const MR_C_phmap_node_hash_map_int_float *_this);
-
-/// Tests whether a const iterator is the begin iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_phmap_node_hash_map_int_float_is_begin(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_const_iterator *iter);
-
-/// The begin iterator, mutable.
-/// Parameter `_this` can not be null. It is a single object.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_iterator_Destroy()` to free it when you're done using it.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_begin_mut(MR_C_phmap_node_hash_map_int_float *_this);
-
-/// Tests whether a mutable iterator is the begin iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_phmap_node_hash_map_int_float_is_begin_mut(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_iterator *iter);
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
@@ -143,17 +125,6 @@ MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
 MR_C_API bool MR_C_phmap_node_hash_map_int_float_is_end(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_const_iterator *iter);
-
-/// The end iterator, mutable.
-/// Parameter `_this` can not be null. It is a single object.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_iterator_Destroy()` to free it when you're done using it.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_end_mut(MR_C_phmap_node_hash_map_int_float *_this);
-
-/// Tests whether a mutable iterator is the end iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_phmap_node_hash_map_int_float_is_end_mut(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_const_iterator_Destroy()` to free it when you're done using it.
@@ -192,48 +163,6 @@ MR_C_API const MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_nod
 /// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_const_iterator_OffsetMutablePtr(MR_C_phmap_node_hash_map_int_float_const_iterator *ptr, ptrdiff_t i);
 
-/// Makes a const iterator from a mutable one.
-/// Parameter `iter` can not be null. It is a single object.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_const_iterator_from_mutable(const MR_C_phmap_node_hash_map_int_float_iterator *iter);
-
-/// Constructs an empty (default-constructed) instance.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_DefaultConstruct(void);
-
-/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
-/// The array must be destroyed using `MR_C_phmap_node_hash_map_int_float_iterator_DestroyArray()`.
-/// Use `MR_C_phmap_node_hash_map_int_float_iterator_OffsetMutablePtr()` and `MR_C_phmap_node_hash_map_int_float_iterator_OffsetPtr()` to access the array elements.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_DefaultConstructArray(size_t num_elems);
-
-/// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the constructed object.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_node_hash_map_int_float_iterator_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it held previously.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_ConstructFromAnother(const MR_C_phmap_node_hash_map_int_float_iterator *other);
-
-/// Assigns the contents from another instance. Both objects remain alive after the call.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it held previously.
-MR_C_API void MR_C_phmap_node_hash_map_int_float_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int_float_iterator *_this, const MR_C_phmap_node_hash_map_int_float_iterator *other);
-
-/// Destroys a heap-allocated instance of `MR_C_phmap_node_hash_map_int_float_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_node_hash_map_int_float_iterator_Destroy(const MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Destroys a heap-allocated array of `MR_C_phmap_node_hash_map_int_float_iterator`. Does nothing if the pointer is null.
-MR_C_API void MR_C_phmap_node_hash_map_int_float_iterator_DestroyArray(const MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-/// The reference to the parameter `ptr` might be preserved in the return value.
-MR_C_API const MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_OffsetPtr(const MR_C_phmap_node_hash_map_int_float_iterator *ptr, ptrdiff_t i);
-
-/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
-/// The reference to the parameter `ptr` might be preserved in the return value.
-MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_OffsetMutablePtr(MR_C_phmap_node_hash_map_int_float_iterator *ptr, ptrdiff_t i);
-
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -260,33 +189,6 @@ MR_C_API void MR_C_phmap_node_hash_map_int_float_const_iterator_incr(MR_C_phmap_
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_C_phmap_node_hash_map_int_float_const_iterator(const MR_C_phmap_node_hash_map_int_float_const_iterator *a, const MR_C_phmap_node_hash_map_int_float_const_iterator *b);
-
-/// Dereferences a mutable iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// The reference to things referred to by this object (if any) might be preserved as the return value.
-MR_C_API MR_C_std_pair_const_int_float *MR_C_phmap_node_hash_map_int_float_iterator_deref(const MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Dereferences a mutable iterator, returning the key.
-/// Parameter `_this` can not be null. It is a single object.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// The reference to things referred to by this object (if any) might be preserved as the return value.
-MR_C_API const int *MR_C_phmap_node_hash_map_int_float_iterator_deref_key(const MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Dereferences a mutable iterator, returning the mapped value.
-/// Parameter `_this` can not be null. It is a single object.
-/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// The reference to things referred to by this object (if any) might be preserved as the return value.
-MR_C_API float *MR_C_phmap_node_hash_map_int_float_iterator_deref_value(const MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Increments a mutable iterator.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_phmap_node_hash_map_int_float_iterator_incr(MR_C_phmap_node_hash_map_int_float_iterator *_this);
-
-/// Compares two mutable iterators for equality.
-/// Parameter `a` can not be null. It is a single object.
-/// Parameter `b` can not be null. It is a single object.
-MR_C_API bool MR_C_equal_MR_C_phmap_node_hash_map_int_float_iterator(const MR_C_phmap_node_hash_map_int_float_iterator *a, const MR_C_phmap_node_hash_map_int_float_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

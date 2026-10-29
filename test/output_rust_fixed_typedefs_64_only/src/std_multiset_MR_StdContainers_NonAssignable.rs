@@ -106,15 +106,6 @@ impl std_multiset_MR_StdContainers_NonAssignable
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multiset_MR_StdContainers_NonAssignable_const_iterator)}
     }
 
-    /// Tests whether a const iterator is the begin iterator.
-    ///
-    /// Calls `MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin()`.
-    pub fn is_begin(&self, iter: &crate::mr::cs::std_multiset_MR_StdContainers_NonAssignable_const_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin(self as *const Self as *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable, iter as *const crate::mr::cs::std_multiset_MR_StdContainers_NonAssignable_const_iterator as *const crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator)};
-        __ret
-    }
-
     /// The end iterator, const.
     ///
     /// Calls `MR_C_std_multiset_MR_StdContainers_NonAssignable_end()`.
@@ -199,15 +190,6 @@ impl std_multiset_MR_StdContainers_NonAssignable_const_iterator
     pub fn incr(&mut self)
     {
         let __ret = unsafe {crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_incr(self as *mut Self as *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator)};
-        __ret
-    }
-
-    /// Decrements a const iterator.
-    ///
-    /// Calls `MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_decr()`.
-    pub fn decr(&mut self)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_decr(self as *mut Self as *mut crate::ffi::MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator)};
         __ret
     }
 

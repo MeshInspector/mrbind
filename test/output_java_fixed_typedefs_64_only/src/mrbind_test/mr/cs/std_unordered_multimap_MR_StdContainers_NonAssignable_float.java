@@ -218,18 +218,43 @@ public final class std_unordered_multimap_MR_StdContainers_NonAssignable_float e
     }
 
     /**
-     * Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
+     * Finds the element by key and returns its mapped value, read-only, or null if no such key.
      * The reference to this object might be preserved as the return value.
      *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_mut()`.
+     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value()`.
      */
-    public mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 find_mut(mrbind_test.mr.stdcontainers.NonAssignable key)
+    public java.lang.Float find_value(mrbind_test.mr.stdcontainers.NonAssignable key)
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8(__ret, true, null);
+            return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(key);
+        }
+    }
+
+    /**
+     * Finds the element by key and returns its mapped value, mutable, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment find_value_mut(mrbind_test.mr.stdcontainers.NonAssignable key)
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(key, "key"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
         }
         catch (java.lang.Throwable __e)
         {
@@ -267,78 +292,6 @@ public final class std_unordered_multimap_MR_StdContainers_NonAssignable_float e
     }
 
     /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_cons__8276285 iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The begin iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_begin_mut()`.
-     */
-    public mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 begin_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_begin_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
      * The end iterator, const.
      * The reference to this object might be preserved as the return value.
      *
@@ -372,54 +325,6 @@ public final class std_unordered_multimap_MR_StdContainers_NonAssignable_float e
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The end iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_end_mut()`.
-     */
-    public mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 end_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_end_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the end iterator.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_end_mut()`.
-     */
-    public boolean is_end(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

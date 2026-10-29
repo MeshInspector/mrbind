@@ -70,27 +70,14 @@ MR_C_API bool MR_C_std_vector_std_expected_int_std_string_empty(const MR_C_std_v
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_std_expected_int_std_string_resize(MR_C_std_vector_std_expected_int_std_string *_this, size_t new_size);
 
-/// Resizes the container. The new elements if any are set to the specified value.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `value` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_std_expected_int_std_string_resize_with_default_value(MR_C_std_vector_std_expected_int_std_string *_this, size_t new_size, const MR_C_std_expected_int_std_string *value);
-
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_std_expected_int_std_string_clear(MR_C_std_vector_std_expected_int_std_string *_this);
 
-/// The memory capacity, measued in the number of elements.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_std_expected_int_std_string_capacity(const MR_C_std_vector_std_expected_int_std_string *_this);
-
 /// Reserves memory for a certain number of elements. Never shrinks the memory.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_std_expected_int_std_string_reserve(MR_C_std_vector_std_expected_int_std_string *_this, size_t new_capacity);
-
-/// Shrinks the capacity to match the size.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_std_expected_int_std_string_shrink_to_fit(MR_C_std_vector_std_expected_int_std_string *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
@@ -141,26 +128,6 @@ MR_C_API void MR_C_std_vector_std_expected_int_std_string_insert(MR_C_std_vector
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_std_expected_int_std_string_erase(MR_C_std_vector_std_expected_int_std_string *_this, size_t position);
-
-/// The begin iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_begin(const MR_C_std_vector_std_expected_int_std_string *_this);
-
-/// The begin iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_begin_mut(MR_C_std_vector_std_expected_int_std_string *_this);
-
-/// The end iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_end(const MR_C_std_vector_std_expected_int_std_string *_this);
-
-/// The end iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_end_mut(MR_C_std_vector_std_expected_int_std_string *_this);
 
 #ifdef __cplusplus
 } // extern "C"

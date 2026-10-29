@@ -119,6 +119,20 @@ export class MR_C_std_map_MR_StdContainers_NonAssignable_float extends ffi.CppOb
         return new L.MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator(ffi.RAW, (__ret >>> 0), true, null);
     }
 
+    find_value(key)
+    {
+        const __ret = ffi.C.MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value(this.rawPointer(), ffi.ptrNonNull(key, "key"));
+        ffi.check();
+        return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
+    }
+
+    find_value_mut(key)
+    {
+        const __ret = ffi.C.MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value_mut(this.rawPointer(), ffi.ptrNonNull(key, "key"));
+        ffi.check();
+        return (__ret >>> 0);
+    }
+
     begin()
     {
         const __ret = ffi.C.MR_C_std_map_MR_StdContainers_NonAssignable_float_begin(this.rawPointer());

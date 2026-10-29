@@ -40,24 +40,6 @@ impl std_unordered_set_int
         __ret
     }
 
-    /// Construct from a range of elements.
-    ///
-    /// Calls `MR_C_std_unordered_set_int_ConstructFromRange()`.
-    pub fn construct_from_range(ptr: Option<&core::ffi::c_int>, size: usize) -> crate::Owned<crate::mr::cs::std_unordered_set_int>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_set_int_ConstructFromRange(ptr.map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int), size)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_set_int)}
-    }
-
-    /// Assign from a range of elements, overwriting previous contents.
-    ///
-    /// Calls `MR_C_std_unordered_set_int_AssignFromRange()`.
-    pub fn assign_from_range(&mut self, ptr: Option<&core::ffi::c_int>, size: usize)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_set_int_AssignFromRange(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_set_int, ptr.map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int), size)};
-        __ret
-    }
-
     /// The number of elements.
     ///
     /// Calls `MR_C_std_unordered_set_int_size()`.
@@ -121,15 +103,6 @@ impl std_unordered_set_int
     {
         let __ret = unsafe {crate::ffi::MR_C_std_unordered_set_int_begin(self as *const Self as *const crate::ffi::MR_C_std_unordered_set_int)};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_set_int_const_iterator)}
-    }
-
-    /// Tests whether a const iterator is the begin iterator.
-    ///
-    /// Calls `MR_C_std_unordered_set_int_is_begin()`.
-    pub fn is_begin(&self, iter: &crate::mr::cs::std_unordered_set_int_const_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_set_int_is_begin(self as *const Self as *const crate::ffi::MR_C_std_unordered_set_int, iter as *const crate::mr::cs::std_unordered_set_int_const_iterator as *const crate::ffi::MR_C_std_unordered_set_int_const_iterator)};
-        __ret
     }
 
     /// The end iterator, const.

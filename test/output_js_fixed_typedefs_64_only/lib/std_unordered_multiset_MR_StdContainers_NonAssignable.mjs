@@ -200,25 +200,6 @@ export class MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable extends 
         }
     }
 
-    is_begin(iter)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
-            ffi.check();
-            return (__ret !== 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     end()
     {
         const __sp = ffi.stackSave();

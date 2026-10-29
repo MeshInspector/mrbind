@@ -55,16 +55,6 @@ MR_C_std_list_int *MR_C_std_list_int_OffsetMutablePtr(MR_C_std_list_int *ptr, pt
     return (MR_C_std_list_int *)(((std::list<int> *)ptr) + i);
 }
 
-MR_C_std_list_int *MR_C_std_list_int_ConstructFromRange(const int *ptr, size_t size)
-{
-    return (MR_C_std_list_int *)new std::list<int>(std::list<int>(ptr, ptr + size));
-}
-
-void MR_C_std_list_int_AssignFromRange(MR_C_std_list_int *_this, const int *ptr, size_t size)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)) = std::list<int>(ptr, ptr + size);
-}
-
 size_t MR_C_std_list_int_size(const MR_C_std_list_int *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).size();
@@ -79,14 +69,6 @@ void MR_C_std_list_int_resize(MR_C_std_list_int *_this, size_t new_size)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).resize(
         new_size
-    );
-}
-
-void MR_C_std_list_int_resize_with_default_value(MR_C_std_list_int *_this, size_t new_size, int value)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).resize(
-        new_size,
-        value
     );
 }
 
@@ -139,54 +121,9 @@ void MR_C_std_list_int_pop_front(MR_C_std_list_int *_this)
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).pop_front();
 }
 
-void MR_C_std_list_int_insert_at_mutable_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position, int new_elem)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).insert(
-        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)position)),
-        new_elem
-    );
-}
-
-void MR_C_std_list_int_erase_at_mutable_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).erase(
-        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)position))
-    );
-}
-
-void MR_C_std_list_int_insert_at_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position, int new_elem)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).insert(
-        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)position)),
-        new_elem
-    );
-}
-
-void MR_C_std_list_int_erase_at_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).erase(
-        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)position))
-    );
-}
-
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_begin(const MR_C_std_list_int *_this)
 {
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).cbegin());
-}
-
-bool MR_C_std_list_int_is_begin(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<int>::const_iterator *)(iter));
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_begin_mut(MR_C_std_list_int *_this)
-{
-    return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).begin());
-}
-
-bool MR_C_std_list_int_is_begin_mut(const MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<int>::iterator *)(iter));
 }
 
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_end(const MR_C_std_list_int *_this)
@@ -197,16 +134,6 @@ MR_C_std_list_int_const_iterator *MR_C_std_list_int_end(const MR_C_std_list_int 
 bool MR_C_std_list_int_is_end(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<int>::const_iterator *)(iter));
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_end_mut(MR_C_std_list_int *_this)
-{
-    return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int> *)(_this)).end());
-}
-
-bool MR_C_std_list_int_is_end_mut(const MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<int>::iterator *)(iter));
 }
 
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_DefaultConstruct(void)
@@ -253,57 +180,6 @@ MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetMutable
     return (MR_C_std_list_int_const_iterator *)(((std::list<int>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_from_mutable(const MR_C_std_list_int_iterator *iter)
-{
-    return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(std::list<int>::iterator(
-        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)iter))
-    ));
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstruct(void)
-{
-    return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(std::list<int>::iterator());
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstructArray(size_t num_elems)
-{
-    return (MR_C_std_list_int_iterator *)(new std::list<int>::iterator[num_elems]{});
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_ConstructFromAnother(const MR_C_std_list_int_iterator *other)
-{
-    return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(std::list<int>::iterator(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)other))
-    ));
-}
-
-void MR_C_std_list_int_iterator_AssignFromAnother(MR_C_std_list_int_iterator *_this, const MR_C_std_list_int_iterator *other)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int>::iterator *)(_this)).operator=(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)other))
-    );
-}
-
-void MR_C_std_list_int_iterator_Destroy(const MR_C_std_list_int_iterator *_this)
-{
-    delete ((const std::list<int>::iterator *)_this);
-}
-
-void MR_C_std_list_int_iterator_DestroyArray(const MR_C_std_list_int_iterator *_this)
-{
-    delete[] ((const std::list<int>::iterator *)_this);
-}
-
-const MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetPtr(const MR_C_std_list_int_iterator *ptr, ptrdiff_t i)
-{
-    return (const MR_C_std_list_int_iterator *)(((const std::list<int>::iterator *)ptr) + i);
-}
-
-MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetMutablePtr(MR_C_std_list_int_iterator *ptr, ptrdiff_t i)
-{
-    return (MR_C_std_list_int_iterator *)(((std::list<int>::iterator *)ptr) + i);
-}
-
 const int *MR_C_std_list_int_const_iterator_deref(const MR_C_std_list_int_const_iterator *_this)
 {
     return std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int>::const_iterator *)(_this)));
@@ -314,33 +190,8 @@ void MR_C_std_list_int_const_iterator_incr(MR_C_std_list_int_const_iterator *_th
     ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int>::const_iterator *)(_this));
 }
 
-void MR_C_std_list_int_const_iterator_decr(MR_C_std_list_int_const_iterator *_this)
-{
-    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int>::const_iterator *)(_this));
-}
-
 bool MR_C_equal_MR_C_std_list_int_const_iterator(const MR_C_std_list_int_const_iterator *a, const MR_C_std_list_int_const_iterator *b)
 {
     return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)b));
-}
-
-int *MR_C_std_list_int_iterator_deref(const MR_C_std_list_int_iterator *_this)
-{
-    return std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<int>::iterator *)(_this)));
-}
-
-void MR_C_std_list_int_iterator_incr(MR_C_std_list_int_iterator *_this)
-{
-    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int>::iterator *)(_this));
-}
-
-void MR_C_std_list_int_iterator_decr(MR_C_std_list_int_iterator *_this)
-{
-    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<int>::iterator *)(_this));
-}
-
-bool MR_C_equal_MR_C_std_list_int_iterator(const MR_C_std_list_int_iterator *a, const MR_C_std_list_int_iterator *b)
-{
-    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::list<int>::iterator(*(std::list<int>::iterator *)b));
 }
 

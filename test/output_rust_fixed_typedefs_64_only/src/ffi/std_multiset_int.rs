@@ -22,8 +22,6 @@ unsafe extern "C"
     pub fn MR_C_std_multiset_int_DefaultConstruct() -> *mut crate::ffi::MR_C_std_multiset_int;
     pub fn MR_C_std_multiset_int_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_multiset_int) -> *mut crate::ffi::MR_C_std_multiset_int;
     pub fn MR_C_std_multiset_int_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_multiset_int, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_multiset_int);
-    pub fn MR_C_std_multiset_int_ConstructFromRange(ptr: *const core::ffi::c_int, size: usize) -> *mut crate::ffi::MR_C_std_multiset_int;
-    pub fn MR_C_std_multiset_int_AssignFromRange(_this: *mut crate::ffi::MR_C_std_multiset_int, ptr: *const core::ffi::c_int, size: usize);
     pub fn MR_C_std_multiset_int_size(_this: *const crate::ffi::MR_C_std_multiset_int) -> usize;
     pub fn MR_C_std_multiset_int_empty(_this: *const crate::ffi::MR_C_std_multiset_int) -> bool;
     pub fn MR_C_std_multiset_int_clear(_this: *mut crate::ffi::MR_C_std_multiset_int);
@@ -31,7 +29,6 @@ unsafe extern "C"
     pub fn MR_C_std_multiset_int_find(_this: *const crate::ffi::MR_C_std_multiset_int, key: *const core::ffi::c_int) -> *mut crate::ffi::MR_C_std_multiset_int_const_iterator;
     pub fn MR_C_std_multiset_int_insert(_this: *mut crate::ffi::MR_C_std_multiset_int, new_elem: core::ffi::c_int);
     pub fn MR_C_std_multiset_int_begin(_this: *const crate::ffi::MR_C_std_multiset_int) -> *mut crate::ffi::MR_C_std_multiset_int_const_iterator;
-    pub fn MR_C_std_multiset_int_is_begin(_this: *const crate::ffi::MR_C_std_multiset_int, iter: *const crate::ffi::MR_C_std_multiset_int_const_iterator) -> bool;
     pub fn MR_C_std_multiset_int_end(_this: *const crate::ffi::MR_C_std_multiset_int) -> *mut crate::ffi::MR_C_std_multiset_int_const_iterator;
     pub fn MR_C_std_multiset_int_is_end(_this: *const crate::ffi::MR_C_std_multiset_int, iter: *const crate::ffi::MR_C_std_multiset_int_const_iterator) -> bool;
     pub fn MR_C_std_multiset_int_Destroy(_this: *const MR_C_std_multiset_int);
@@ -40,6 +37,5 @@ unsafe extern "C"
     pub fn MR_C_std_multiset_int_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_multiset_int_const_iterator, other: *const crate::ffi::MR_C_std_multiset_int_const_iterator);
     pub fn MR_C_std_multiset_int_const_iterator_deref(_this: *const crate::ffi::MR_C_std_multiset_int_const_iterator) -> *const core::ffi::c_int;
     pub fn MR_C_std_multiset_int_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_multiset_int_const_iterator);
-    pub fn MR_C_std_multiset_int_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_multiset_int_const_iterator);
     pub fn MR_C_std_multiset_int_const_iterator_Destroy(_this: *const MR_C_std_multiset_int_const_iterator);
 }

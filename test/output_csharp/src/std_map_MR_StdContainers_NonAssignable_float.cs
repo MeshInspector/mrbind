@@ -150,6 +150,15 @@ public static partial class MR
                     return __ret;
                 }
 
+                /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+                public unsafe float? FindValue(MR.CS.StdContainers.Const_NonAssignable key)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value(_UnderlyingPtr, key._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret is not null ? *__c_ret : null;
+                }
+
                 /// The begin iterator, const.
                 public unsafe MR.CS.Std.Map_MRStdContainersNonAssignable_Float.ConstIterator Begin()
                 {
@@ -777,6 +786,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_map_MR_StdContainers_NonAssignable_float_find", ExactSpelling = true)]
                 extern static unsafe MR.CS.Std.Map_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_map_MR_StdContainers_NonAssignable_float_find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
 
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_map_MR_StdContainers_NonAssignable_float_is_begin", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_std_map_MR_StdContainers_NonAssignable_float_is_begin(_Underlying *_this, MR.CS.Std.Map_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
 
@@ -926,6 +938,15 @@ public static partial class MR
                     return __ret;
                 }
 
+                /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+                public unsafe new MR.CS.Misc.Ref<float>? FindValue(MR.CS.StdContainers.Const_NonAssignable key)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value_mut(_UnderlyingPtr, key._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
+                }
+
                 /// The begin iterator, mutable.
                 public unsafe new MR.CS.Std.Map_MRStdContainersNonAssignable_Float.Iterator Begin()
                 {
@@ -975,6 +996,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_map_MR_StdContainers_NonAssignable_float_find_or_construct_elem", ExactSpelling = true)]
                 extern static unsafe float *__MR_C_std_map_MR_StdContainers_NonAssignable_float_find_or_construct_elem(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value_mut(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
             }
 
             /// This is used as a function parameter when the underlying function receives `Map_MRStdContainersNonAssignable_Float` by value.

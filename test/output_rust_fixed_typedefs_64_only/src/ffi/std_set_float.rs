@@ -22,8 +22,6 @@ unsafe extern "C"
     pub fn MR_C_std_set_float_DefaultConstruct() -> *mut crate::ffi::MR_C_std_set_float;
     pub fn MR_C_std_set_float_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_set_float) -> *mut crate::ffi::MR_C_std_set_float;
     pub fn MR_C_std_set_float_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_set_float, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_set_float);
-    pub fn MR_C_std_set_float_ConstructFromRange(ptr: *const f32, size: usize) -> *mut crate::ffi::MR_C_std_set_float;
-    pub fn MR_C_std_set_float_AssignFromRange(_this: *mut crate::ffi::MR_C_std_set_float, ptr: *const f32, size: usize);
     pub fn MR_C_std_set_float_size(_this: *const crate::ffi::MR_C_std_set_float) -> usize;
     pub fn MR_C_std_set_float_empty(_this: *const crate::ffi::MR_C_std_set_float) -> bool;
     pub fn MR_C_std_set_float_clear(_this: *mut crate::ffi::MR_C_std_set_float);
@@ -31,7 +29,6 @@ unsafe extern "C"
     pub fn MR_C_std_set_float_find(_this: *const crate::ffi::MR_C_std_set_float, key: *const f32) -> *mut crate::ffi::MR_C_std_set_float_const_iterator;
     pub fn MR_C_std_set_float_insert(_this: *mut crate::ffi::MR_C_std_set_float, new_elem: f32);
     pub fn MR_C_std_set_float_begin(_this: *const crate::ffi::MR_C_std_set_float) -> *mut crate::ffi::MR_C_std_set_float_const_iterator;
-    pub fn MR_C_std_set_float_is_begin(_this: *const crate::ffi::MR_C_std_set_float, iter: *const crate::ffi::MR_C_std_set_float_const_iterator) -> bool;
     pub fn MR_C_std_set_float_end(_this: *const crate::ffi::MR_C_std_set_float) -> *mut crate::ffi::MR_C_std_set_float_const_iterator;
     pub fn MR_C_std_set_float_is_end(_this: *const crate::ffi::MR_C_std_set_float, iter: *const crate::ffi::MR_C_std_set_float_const_iterator) -> bool;
     pub fn MR_C_std_set_float_Destroy(_this: *const MR_C_std_set_float);
@@ -40,6 +37,5 @@ unsafe extern "C"
     pub fn MR_C_std_set_float_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_set_float_const_iterator, other: *const crate::ffi::MR_C_std_set_float_const_iterator);
     pub fn MR_C_std_set_float_const_iterator_deref(_this: *const crate::ffi::MR_C_std_set_float_const_iterator) -> *const f32;
     pub fn MR_C_std_set_float_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_set_float_const_iterator);
-    pub fn MR_C_std_set_float_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_set_float_const_iterator);
     pub fn MR_C_std_set_float_const_iterator_Destroy(_this: *const MR_C_std_set_float_const_iterator);
 }

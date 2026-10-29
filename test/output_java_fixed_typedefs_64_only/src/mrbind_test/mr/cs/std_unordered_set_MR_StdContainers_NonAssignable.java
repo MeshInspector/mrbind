@@ -242,30 +242,6 @@ public final class std_unordered_set_MR_StdContainers_NonAssignable extends mrbi
     }
 
     /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_unordered_set_MR_StdContainers_NonAssignable_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_unordered_set_MR_StdContainers_NonAssignable.H0.MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
      * The end iterator, const.
      * The reference to this object might be preserved as the return value.
      *

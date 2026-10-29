@@ -6,43 +6,18 @@ pub struct MR_C_std_vector_uint64_t
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-/// Generated from class `std::vector<MR_C_uint64_t>::const_iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_uint64_t_const_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
-/// Generated from class `std::vector<MR_C_uint64_t>::iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_uint64_t_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
 #[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
 #[cfg_attr(not(windows), link(name = "bleh"))]
 unsafe extern "C"
 {
-    pub fn MR_C_sub_MR_C_std_vector_uint64_t_const_iterator(a: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator, b: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_uint64_t_const_iterator(a: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator, b: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> bool;
-    pub fn MR_C_sub_MR_C_std_vector_uint64_t_iterator(a: *const crate::ffi::MR_C_std_vector_uint64_t_iterator, b: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_uint64_t_iterator(a: *const crate::ffi::MR_C_std_vector_uint64_t_iterator, b: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> bool;
     pub fn MR_C_std_vector_uint64_t_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_uint64_t;
     pub fn MR_C_std_vector_uint64_t_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_uint64_t) -> *mut crate::ffi::MR_C_std_vector_uint64_t;
     pub fn MR_C_std_vector_uint64_t_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_uint64_t);
-    pub fn MR_C_std_vector_uint64_t_ConstructFromRange(ptr: *const u64, size: usize) -> *mut crate::ffi::MR_C_std_vector_uint64_t;
-    pub fn MR_C_std_vector_uint64_t_AssignFromRange(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, ptr: *const u64, size: usize);
     pub fn MR_C_std_vector_uint64_t_size(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> usize;
     pub fn MR_C_std_vector_uint64_t_empty(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> bool;
     pub fn MR_C_std_vector_uint64_t_resize(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, new_size: usize);
-    pub fn MR_C_std_vector_uint64_t_resize_with_default_value(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, new_size: usize, value: u64);
     pub fn MR_C_std_vector_uint64_t_clear(_this: *mut crate::ffi::MR_C_std_vector_uint64_t);
-    pub fn MR_C_std_vector_uint64_t_capacity(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> usize;
     pub fn MR_C_std_vector_uint64_t_reserve(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, new_capacity: usize);
-    pub fn MR_C_std_vector_uint64_t_shrink_to_fit(_this: *mut crate::ffi::MR_C_std_vector_uint64_t);
     pub fn MR_C_std_vector_uint64_t_at(_this: *const crate::ffi::MR_C_std_vector_uint64_t, i: usize) -> *const u64;
     pub fn MR_C_std_vector_uint64_t_at_mut(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, i: usize) -> *mut u64;
     pub fn MR_C_std_vector_uint64_t_front(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> *const u64;
@@ -55,36 +30,5 @@ unsafe extern "C"
     pub fn MR_C_std_vector_uint64_t_pop_back(_this: *mut crate::ffi::MR_C_std_vector_uint64_t);
     pub fn MR_C_std_vector_uint64_t_insert(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: usize, new_elem: u64);
     pub fn MR_C_std_vector_uint64_t_erase(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: usize);
-    pub fn MR_C_std_vector_uint64_t_insert_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: *const crate::ffi::MR_C_std_vector_uint64_t_iterator, new_elem: u64);
-    pub fn MR_C_std_vector_uint64_t_erase_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: *const crate::ffi::MR_C_std_vector_uint64_t_iterator);
-    pub fn MR_C_std_vector_uint64_t_insert_at_iter(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator, new_elem: u64);
-    pub fn MR_C_std_vector_uint64_t_erase_at_iter(_this: *mut crate::ffi::MR_C_std_vector_uint64_t, position: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator);
-    pub fn MR_C_std_vector_uint64_t_begin(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator;
-    pub fn MR_C_std_vector_uint64_t_is_begin(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> bool;
-    pub fn MR_C_std_vector_uint64_t_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_uint64_t) -> *mut crate::ffi::MR_C_std_vector_uint64_t_iterator;
-    pub fn MR_C_std_vector_uint64_t_is_begin_mut(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> bool;
-    pub fn MR_C_std_vector_uint64_t_end(_this: *const crate::ffi::MR_C_std_vector_uint64_t) -> *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator;
-    pub fn MR_C_std_vector_uint64_t_is_end(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> bool;
-    pub fn MR_C_std_vector_uint64_t_end_mut(_this: *mut crate::ffi::MR_C_std_vector_uint64_t) -> *mut crate::ffi::MR_C_std_vector_uint64_t_iterator;
-    pub fn MR_C_std_vector_uint64_t_is_end_mut(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> bool;
-    pub fn MR_C_std_vector_uint64_t_to_index(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> isize;
-    pub fn MR_C_std_vector_uint64_t_to_index_mut(_this: *const crate::ffi::MR_C_std_vector_uint64_t, iter: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> isize;
     pub fn MR_C_std_vector_uint64_t_Destroy(_this: *const MR_C_std_vector_uint64_t);
-    pub fn MR_C_std_vector_uint64_t_const_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator;
-    pub fn MR_C_std_vector_uint64_t_const_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator;
-    pub fn MR_C_std_vector_uint64_t_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator, other: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator);
-    pub fn MR_C_std_vector_uint64_t_const_iterator_from_mutable(iter: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator;
-    pub fn MR_C_std_vector_uint64_t_const_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_uint64_t_const_iterator) -> *const u64;
-    pub fn MR_C_std_vector_uint64_t_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator);
-    pub fn MR_C_std_vector_uint64_t_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator);
-    pub fn MR_C_std_vector_uint64_t_const_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_const_iterator, delta: isize);
-    pub fn MR_C_std_vector_uint64_t_const_iterator_Destroy(_this: *const MR_C_std_vector_uint64_t_const_iterator);
-    pub fn MR_C_std_vector_uint64_t_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_uint64_t_iterator;
-    pub fn MR_C_std_vector_uint64_t_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> *mut crate::ffi::MR_C_std_vector_uint64_t_iterator;
-    pub fn MR_C_std_vector_uint64_t_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_iterator, other: *const crate::ffi::MR_C_std_vector_uint64_t_iterator);
-    pub fn MR_C_std_vector_uint64_t_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_uint64_t_iterator) -> *mut u64;
-    pub fn MR_C_std_vector_uint64_t_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_iterator);
-    pub fn MR_C_std_vector_uint64_t_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_iterator);
-    pub fn MR_C_std_vector_uint64_t_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_uint64_t_iterator, delta: isize);
-    pub fn MR_C_std_vector_uint64_t_iterator_Destroy(_this: *const MR_C_std_vector_uint64_t_iterator);
 }

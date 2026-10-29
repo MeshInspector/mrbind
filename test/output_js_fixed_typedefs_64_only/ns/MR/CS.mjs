@@ -8,11 +8,7 @@ export { MR_C_std_array_MR_StdContainers_NonAssignable_42 as std_array_MR_StdCon
 export { MR_C_std_array_int_43 as std_array_int_43 } from "../../lib/_all.mjs";
 export { MR_C_std_array_int_array_4_array_3_5 as std_array_int_array_4_array_3_5 } from "../../lib/_all.mjs";
 export { MR_C_std_deque_MR_StdContainers_NonAssignable as std_deque_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";
-export { MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator as std_deque_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_deque_MR_StdContainers_NonAssignable_iterator as std_deque_MR_StdContainers_NonAssignable_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_deque_int as std_deque_int } from "../../lib/_all.mjs";
-export { MR_C_std_deque_int_const_iterator as std_deque_int_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_deque_int_iterator as std_deque_int_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_expected_MR_CSharp_E1_float as std_expected_MR_CSharp_E1_float } from "../../lib/_all.mjs";
 export { MR_C_std_expected_MR_CSharp_ExposedLayout_float as std_expected_MR_CSharp_ExposedLayout_float } from "../../lib/_all.mjs";
 export { MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float as std_expected_MR_CSharp_ExposedLayoutSh_float } from "../../lib/_all.mjs";
@@ -41,22 +37,16 @@ export { MR_C_std_function_void as std_function_void } from "../../lib/_all.mjs"
 export { MR_C_std_istream as std_istream } from "../../lib/_all.mjs";
 export { MR_C_std_list_MR_StdContainers_NonAssignable as std_list_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";
 export { MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator as std_list_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_list_MR_StdContainers_NonAssignable_iterator as std_list_MR_StdContainers_NonAssignable_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_list_int as std_list_int } from "../../lib/_all.mjs";
 export { MR_C_std_list_int_const_iterator as std_list_int_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_list_int_iterator as std_list_int_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_map_MR_StdContainers_NonAssignable_float as std_map_MR_StdContainers_NonAssignable_float } from "../../lib/_all.mjs";
 export { MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator as std_map_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator as std_map_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_map_int_float as std_map_int_float } from "../../lib/_all.mjs";
 export { MR_C_std_map_int_float_const_iterator as std_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_map_int_float_iterator as std_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_multimap_MR_StdContainers_NonAssignable_float as std_multimap_MR_StdContainers_NonAssignable_float } from "../../lib/_all.mjs";
 export { MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator as std_multimap_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator as std_multimap_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_multimap_int_float as std_multimap_int_float } from "../../lib/_all.mjs";
 export { MR_C_std_multimap_int_float_const_iterator as std_multimap_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_multimap_int_float_iterator as std_multimap_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_multiset_MR_StdContainers_NonAssignable as std_multiset_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";
 export { MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator as std_multiset_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_multiset_float as std_multiset_float } from "../../lib/_all.mjs";
@@ -134,16 +124,12 @@ export { MR_C_std_unique_ptr_int as std_unique_ptr_int } from "../../lib/_all.mj
 export { MR_C_std_unique_ptr_int_array as std_unique_ptr_int_array } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float as std_unordered_map_MR_StdContainers_NonAssignable_float } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator as std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator as std_unordered_map_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_map_int_float as std_unordered_map_int_float } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_map_int_float_const_iterator as std_unordered_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_unordered_map_int_float_iterator as std_unordered_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float as std_unordered_multimap_MR_StdContainers_NonAssignable_float } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator as std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator as std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multimap_int_float as std_unordered_multimap_int_float } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multimap_int_float_const_iterator as std_unordered_multimap_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_std_unordered_multimap_int_float_iterator as std_unordered_multimap_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable as std_unordered_multiset_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator as std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_std_unordered_multiset_int as std_unordered_multiset_int } from "../../lib/_all.mjs";
@@ -176,60 +162,36 @@ export { MR_C_GetStdClog as GetStdClog } from "../../lib/_all.mjs";
 export { MR_C_GetStdCin as GetStdCin } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_flat_hash_set_int_const_iterator as opEqual_MR_C_phmap_flat_hash_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_flat_hash_map_int_float_const_iterator as opEqual_MR_C_phmap_flat_hash_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_flat_hash_map_int_float_iterator as opEqual_MR_C_phmap_flat_hash_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_node_hash_set_int_const_iterator as opEqual_MR_C_phmap_node_hash_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_node_hash_map_int_float_const_iterator as opEqual_MR_C_phmap_node_hash_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_node_hash_map_int_float_iterator as opEqual_MR_C_phmap_node_hash_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_parallel_flat_hash_set_int_const_iterator as opEqual_MR_C_phmap_parallel_flat_hash_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_parallel_flat_hash_map_int_float_const_iterator as opEqual_MR_C_phmap_parallel_flat_hash_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_parallel_flat_hash_map_int_float_iterator as opEqual_MR_C_phmap_parallel_flat_hash_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_parallel_node_hash_set_int_const_iterator as opEqual_MR_C_phmap_parallel_node_hash_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_parallel_node_hash_map_int_float_const_iterator as opEqual_MR_C_phmap_parallel_node_hash_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_parallel_node_hash_map_int_float_iterator as opEqual_MR_C_phmap_parallel_node_hash_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_btree_set_int_const_iterator as opEqual_MR_C_phmap_btree_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_btree_map_int_float_const_iterator as opEqual_MR_C_phmap_btree_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_btree_map_int_float_iterator as opEqual_MR_C_phmap_btree_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_btree_multiset_int_const_iterator as opEqual_MR_C_phmap_btree_multiset_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_phmap_btree_multimap_int_float_const_iterator as opEqual_MR_C_phmap_btree_multimap_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_phmap_btree_multimap_int_float_iterator as opEqual_MR_C_phmap_btree_multimap_int_float_iterator } from "../../lib/_all.mjs";
-export { MR_C_sub_MR_C_std_deque_int_const_iterator as opSub_MR_C_std_deque_int_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_deque_int_const_iterator as opEqual_MR_C_std_deque_int_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_sub_MR_C_std_deque_int_iterator as opSub_MR_C_std_deque_int_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_deque_int_iterator as opEqual_MR_C_std_deque_int_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_list_int_const_iterator as opEqual_MR_C_std_list_int_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_list_int_iterator as opEqual_MR_C_std_list_int_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_set_int_const_iterator as opEqual_MR_C_std_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_multiset_int_const_iterator as opEqual_MR_C_std_multiset_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_set_int_const_iterator as opEqual_MR_C_std_unordered_set_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_multiset_int_const_iterator as opEqual_MR_C_std_unordered_multiset_int_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_map_int_float_const_iterator as opEqual_MR_C_std_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_map_int_float_iterator as opEqual_MR_C_std_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_multimap_int_float_const_iterator as opEqual_MR_C_std_multimap_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_multimap_int_float_iterator as opEqual_MR_C_std_multimap_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_map_int_float_const_iterator as opEqual_MR_C_std_unordered_map_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_unordered_map_int_float_iterator as opEqual_MR_C_std_unordered_map_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_multimap_int_float_const_iterator as opEqual_MR_C_std_unordered_multimap_int_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_unordered_multimap_int_float_iterator as opEqual_MR_C_std_unordered_multimap_int_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_multiset_float_const_iterator as opEqual_MR_C_std_multiset_float_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_set_float_const_iterator as opEqual_MR_C_std_set_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator as opSub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator as opSub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator as opEqual_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator as opEqual_MR_C_std_list_MR_StdContainers_NonAssignable_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator as opEqual_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator as opEqual_MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator as opEqual_MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator as opEqual_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator as opEqual_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator as opEqual_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator as opEqual_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator as opEqual_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator as opEqual_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator } from "../../lib/_all.mjs";
 
 export function opEqual(...args)
 {
@@ -238,46 +200,28 @@ export function opEqual(...args)
         return L.MR_C_equal_MR_C_phmap_flat_hash_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_flat_hash_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_flat_hash_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_flat_hash_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_flat_hash_map_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_flat_hash_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_flat_hash_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_node_hash_set_int_const_iterator) && (args[1] instanceof L.MR_C_phmap_node_hash_set_int_const_iterator))
         return L.MR_C_equal_MR_C_phmap_node_hash_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_node_hash_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_node_hash_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_node_hash_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_node_hash_map_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_node_hash_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_node_hash_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_flat_hash_set_int_const_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_flat_hash_set_int_const_iterator))
         return L.MR_C_equal_MR_C_phmap_parallel_flat_hash_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_flat_hash_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_flat_hash_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_parallel_flat_hash_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_flat_hash_map_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_flat_hash_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_parallel_flat_hash_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_node_hash_set_int_const_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_node_hash_set_int_const_iterator))
         return L.MR_C_equal_MR_C_phmap_parallel_node_hash_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_node_hash_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_node_hash_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_parallel_node_hash_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_parallel_node_hash_map_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_parallel_node_hash_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_parallel_node_hash_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_set_int_const_iterator) && (args[1] instanceof L.MR_C_phmap_btree_set_int_const_iterator))
         return L.MR_C_equal_MR_C_phmap_btree_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_btree_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_btree_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_map_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_btree_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_btree_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_multiset_int_const_iterator) && (args[1] instanceof L.MR_C_phmap_btree_multiset_int_const_iterator))
         return L.MR_C_equal_MR_C_phmap_btree_multiset_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_multimap_int_float_const_iterator) && (args[1] instanceof L.MR_C_phmap_btree_multimap_int_float_const_iterator))
         return L.MR_C_equal_MR_C_phmap_btree_multimap_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_phmap_btree_multimap_int_float_iterator) && (args[1] instanceof L.MR_C_phmap_btree_multimap_int_float_iterator))
-        return L.MR_C_equal_MR_C_phmap_btree_multimap_int_float_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_int_const_iterator) && (args[1] instanceof L.MR_C_std_deque_int_const_iterator))
-        return L.MR_C_equal_MR_C_std_deque_int_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_int_iterator) && (args[1] instanceof L.MR_C_std_deque_int_iterator))
-        return L.MR_C_equal_MR_C_std_deque_int_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_list_int_const_iterator) && (args[1] instanceof L.MR_C_std_list_int_const_iterator))
         return L.MR_C_equal_MR_C_std_list_int_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_list_int_iterator) && (args[1] instanceof L.MR_C_std_list_int_iterator))
-        return L.MR_C_equal_MR_C_std_list_int_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_set_int_const_iterator) && (args[1] instanceof L.MR_C_std_set_int_const_iterator))
         return L.MR_C_equal_MR_C_std_set_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_multiset_int_const_iterator) && (args[1] instanceof L.MR_C_std_multiset_int_const_iterator))
@@ -288,32 +232,18 @@ export function opEqual(...args)
         return L.MR_C_equal_MR_C_std_unordered_multiset_int_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_std_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_std_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_map_int_float_iterator) && (args[1] instanceof L.MR_C_std_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_std_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_multimap_int_float_const_iterator) && (args[1] instanceof L.MR_C_std_multimap_int_float_const_iterator))
         return L.MR_C_equal_MR_C_std_multimap_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_multimap_int_float_iterator) && (args[1] instanceof L.MR_C_std_multimap_int_float_iterator))
-        return L.MR_C_equal_MR_C_std_multimap_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_map_int_float_const_iterator) && (args[1] instanceof L.MR_C_std_unordered_map_int_float_const_iterator))
         return L.MR_C_equal_MR_C_std_unordered_map_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_map_int_float_iterator) && (args[1] instanceof L.MR_C_std_unordered_map_int_float_iterator))
-        return L.MR_C_equal_MR_C_std_unordered_map_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_multimap_int_float_const_iterator) && (args[1] instanceof L.MR_C_std_unordered_multimap_int_float_const_iterator))
         return L.MR_C_equal_MR_C_std_unordered_multimap_int_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_multimap_int_float_iterator) && (args[1] instanceof L.MR_C_std_unordered_multimap_int_float_iterator))
-        return L.MR_C_equal_MR_C_std_unordered_multimap_int_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_multiset_float_const_iterator) && (args[1] instanceof L.MR_C_std_multiset_float_const_iterator))
         return L.MR_C_equal_MR_C_std_multiset_float_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_set_float_const_iterator) && (args[1] instanceof L.MR_C_std_set_float_const_iterator))
         return L.MR_C_equal_MR_C_std_set_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator) && (args[1] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator))
-        return L.MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator) && (args[1] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator))
-        return L.MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator) && (args[1] instanceof L.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator))
         return L.MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_list_MR_StdContainers_NonAssignable_iterator) && (args[1] instanceof L.MR_C_std_list_MR_StdContainers_NonAssignable_iterator))
-        return L.MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator) && (args[1] instanceof L.MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator))
         return L.MR_C_equal_MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator) && (args[1] instanceof L.MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator))
@@ -324,34 +254,12 @@ export function opEqual(...args)
         return L.MR_C_equal_MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator) && (args[1] instanceof L.MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator))
         return L.MR_C_equal_MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator) && (args[1] instanceof L.MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator))
-        return L.MR_C_equal_MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator) && (args[1] instanceof L.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator))
         return L.MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator) && (args[1] instanceof L.MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator))
-        return L.MR_C_equal_MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator) && (args[1] instanceof L.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator))
         return L.MR_C_equal_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator) && (args[1] instanceof L.MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator))
-        return L.MR_C_equal_MR_C_std_unordered_map_MR_StdContainers_NonAssignable_float_iterator(args[0], args[1]);
     if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator) && (args[1] instanceof L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator))
         return L.MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator) && (args[1] instanceof L.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator))
-        return L.MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator(args[0], args[1]);
     throw new TypeError("No overload of `opEqual` accepts these arguments.");
-}
-
-export function opSub(...args)
-{
-    const __n = args.length;
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_int_const_iterator) && (args[1] instanceof L.MR_C_std_deque_int_const_iterator))
-        return L.MR_C_sub_MR_C_std_deque_int_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_int_iterator) && (args[1] instanceof L.MR_C_std_deque_int_iterator))
-        return L.MR_C_sub_MR_C_std_deque_int_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator) && (args[1] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator))
-        return L.MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator) && (args[1] instanceof L.MR_C_std_deque_MR_StdContainers_NonAssignable_iterator))
-        return L.MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(args[0], args[1]);
-    throw new TypeError("No overload of `opSub` accepts these arguments.");
 }
 

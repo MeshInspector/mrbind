@@ -101,52 +101,6 @@ public final class std_multiset_float extends mrbind_test.CppObject
     }
 
     /**
-     * Construct from a range of elements.
-     *
-     * Calls `MR_C_std_multiset_float_ConstructFromRange()`.
-     */
-    public std_multiset_float(java.lang.Float ptr, long size)
-    {
-        this(__ctor_constructFromRange(ptr, size), true, null);
-    }
-
-    private static java.lang.foreign.MemorySegment __ctor_constructFromRange(java.lang.Float ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_multiset_float.H0.MR_C_std_multiset_float_ConstructFromRange.invokeExact((java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-    }
-
-    /**
-     * Assign from a range of elements, overwriting previous contents.
-     *
-     * Calls `MR_C_std_multiset_float_AssignFromRange()`.
-     */
-    public void assignFromRange(java.lang.Float ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            mrbind_test.ffi.std_multiset_float.H0.MR_C_std_multiset_float_AssignFromRange.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_FLOAT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
      * The number of elements.
      *
      * Calls `MR_C_std_multiset_float_size()`.
@@ -304,30 +258,6 @@ public final class std_multiset_float extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_multiset_float_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_multiset_float_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_multiset_float.H0.MR_C_std_multiset_float_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
         }
     }
 

@@ -146,26 +146,4 @@ public final class std_set_MR_StdContainers_NonAssignable_const_iterator extends
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
-
-    /**
-     * Decrements a const iterator.
-     *
-     * Calls `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr()`.
-     */
-    public void decr()
-    {
-        try
-        {
-            mrbind_test.ffi.std_set_MR_StdContainers_NonAssignable.H0.MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
 }

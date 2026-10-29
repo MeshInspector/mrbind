@@ -96,14 +96,24 @@ impl std_unordered_map_int_float
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_const_iterator)}
     }
 
-    /// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
+    /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
     ///
-    /// Calls `MR_C_std_unordered_map_int_float_find_mut()`.
+    /// Calls `MR_C_std_unordered_map_int_float_find_value()`.
     /// The reference to this object might be preserved as the return value.
-    pub fn find_mut(&mut self, key: &core::ffi::c_int) -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_iterator>
+    pub fn find_value<'a>(&'a self, key: &core::ffi::c_int) -> Option<&'a f32>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_find_mut(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float, key as *const core::ffi::c_int as *const core::ffi::c_int)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_iterator)}
+        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_find_value(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float, key as *const core::ffi::c_int as *const core::ffi::c_int)};
+        unsafe {(__ret as *const f32).as_ref()}
+    }
+
+    /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+    ///
+    /// Calls `MR_C_std_unordered_map_int_float_find_value_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find_value_mut<'a>(&'a mut self, key: &core::ffi::c_int) -> Option<&'a mut f32>
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_find_value_mut(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float, key as *const core::ffi::c_int as *const core::ffi::c_int)};
+        unsafe {(__ret as *mut f32).as_mut()}
     }
 
     /// The begin iterator, const.
@@ -114,34 +124,6 @@ impl std_unordered_map_int_float
     {
         let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_begin(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float)};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_const_iterator)}
-    }
-
-    /// Tests whether a const iterator is the begin iterator.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_is_begin()`.
-    pub fn is_begin(&self, iter: &crate::mr::cs::std_unordered_map_int_float_const_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_is_begin(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float, iter as *const crate::mr::cs::std_unordered_map_int_float_const_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_const_iterator)};
-        __ret
-    }
-
-    /// The begin iterator, mutable.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_begin_mut()`.
-    /// The reference to this object might be preserved as the return value.
-    pub fn begin_mut(&mut self) -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_iterator>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_begin_mut(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_iterator)}
-    }
-
-    /// Tests whether a mutable iterator is the begin iterator.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_is_begin_mut()`.
-    pub fn is_begin_mut(&self, iter: &crate::mr::cs::std_unordered_map_int_float_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_is_begin_mut(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float, iter as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        __ret
     }
 
     /// The end iterator, const.
@@ -160,25 +142,6 @@ impl std_unordered_map_int_float
     pub fn is_end(&self, iter: &crate::mr::cs::std_unordered_map_int_float_const_iterator) -> bool
     {
         let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_is_end(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float, iter as *const crate::mr::cs::std_unordered_map_int_float_const_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_const_iterator)};
-        __ret
-    }
-
-    /// The end iterator, mutable.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_end_mut()`.
-    /// The reference to this object might be preserved as the return value.
-    pub fn end_mut(&mut self) -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_iterator>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_end_mut(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_iterator)}
-    }
-
-    /// Tests whether a mutable iterator is the end iterator.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_is_end_mut()`.
-    pub fn is_end_mut(&self, iter: &crate::mr::cs::std_unordered_map_int_float_iterator) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_is_end_mut(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float, iter as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
         __ret
     }
 
@@ -231,15 +194,6 @@ impl std_unordered_map_int_float_const_iterator
         __ret
     }
 
-    /// Makes a const iterator from a mutable one.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_const_iterator_from_mutable()`.
-    pub fn from_mutable(iter: &crate::mr::cs::std_unordered_map_int_float_iterator) -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_const_iterator>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_const_iterator_from_mutable(iter as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_const_iterator)}
-    }
-
     /// Dereferences a const iterator.
     ///
     /// Calls `MR_C_std_unordered_map_int_float_const_iterator_deref()`.
@@ -286,109 +240,12 @@ unsafe impl crate::CppCopy for std_unordered_map_int_float_const_iterator
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
 }
 
-/// Mutable iterator for `MR_C_std_unordered_map_int_float`.
-///
-/// Generated from class `std::unordered_map<int, float>::iterator`. Heap-allocated instances are held in `Owned<std_unordered_map_int_float_iterator>`.
-#[repr(transparent)]
-pub struct std_unordered_map_int_float_iterator(crate::ffi::MR_C_std_unordered_map_int_float_iterator);
-
-unsafe impl crate::CppClass for std_unordered_map_int_float_iterator
-{
-    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_C_std_unordered_map_int_float_iterator_Destroy(ptr as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)}
-}
-
-impl std_unordered_map_int_float_iterator
-{
-    /// Constructs an empty (default-constructed) instance.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_DefaultConstruct()`.
-    pub fn new() -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_iterator>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_DefaultConstruct()};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_iterator)}
-    }
-
-    /// Constructs a copy of another instance. The source remains alive.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_ConstructFromAnother()`.
-    /// The reference to the parameter `other` might be preserved in the constructed object.
-    pub fn construct_from_another(other: &crate::mr::cs::std_unordered_map_int_float_iterator) -> crate::Owned<crate::mr::cs::std_unordered_map_int_float_iterator>
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_ConstructFromAnother(other as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_unordered_map_int_float_iterator)}
-    }
-
-    /// Assigns the contents from another instance. Both objects remain alive after the call.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_AssignFromAnother()`.
-    /// The reference to the parameter `other` might be preserved in this object.
-    pub fn assign_from_another(&mut self, other: &crate::mr::cs::std_unordered_map_int_float_iterator)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float_iterator, other as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        __ret
-    }
-
-    /// Dereferences a mutable iterator.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_deref()`.
-    /// The reference to things referred to by this object (if any) might be preserved as the return value.
-    pub fn deref<'a>(&'a self) -> &'a mut crate::mr::cs::std_pair_const_int_float
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_deref(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        unsafe {&mut *(__ret as *mut crate::mr::cs::std_pair_const_int_float)}
-    }
-
-    /// Dereferences a mutable iterator, returning the key.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_deref_key()`.
-    /// The reference to things referred to by this object (if any) might be preserved as the return value.
-    pub fn deref_key<'a>(&'a self) -> &'a core::ffi::c_int
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_deref_key(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        unsafe {&*(__ret as *const core::ffi::c_int)}
-    }
-
-    /// Dereferences a mutable iterator, returning the mapped value.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_deref_value()`.
-    /// The reference to things referred to by this object (if any) might be preserved as the return value.
-    pub fn deref_value<'a>(&'a self) -> &'a mut f32
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_deref_value(self as *const Self as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        unsafe {&mut *(__ret as *mut f32)}
-    }
-
-    /// Increments a mutable iterator.
-    ///
-    /// Calls `MR_C_std_unordered_map_int_float_iterator_incr()`.
-    pub fn incr(&mut self)
-    {
-        let __ret = unsafe {crate::ffi::MR_C_std_unordered_map_int_float_iterator_incr(self as *mut Self as *mut crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
-        __ret
-    }
-
-}
-
-unsafe impl crate::CppCopy for std_unordered_map_int_float_iterator
-{
-    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
-}
-
 /// Compares two const iterators for equality.
 ///
 /// Calls `MR_C_equal_MR_C_std_unordered_map_int_float_const_iterator()`.
 pub fn op_equal_mr_c_std_unordered_map_int_float_const_iterator(a: &crate::mr::cs::std_unordered_map_int_float_const_iterator, b: &crate::mr::cs::std_unordered_map_int_float_const_iterator) -> bool
 {
     let __ret = unsafe {crate::ffi::MR_C_equal_MR_C_std_unordered_map_int_float_const_iterator(a as *const crate::mr::cs::std_unordered_map_int_float_const_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_const_iterator, b as *const crate::mr::cs::std_unordered_map_int_float_const_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_const_iterator)};
-    __ret
-}
-
-/// Compares two mutable iterators for equality.
-///
-/// Calls `MR_C_equal_MR_C_std_unordered_map_int_float_iterator()`.
-pub fn op_equal_mr_c_std_unordered_map_int_float_iterator(a: &crate::mr::cs::std_unordered_map_int_float_iterator, b: &crate::mr::cs::std_unordered_map_int_float_iterator) -> bool
-{
-    let __ret = unsafe {crate::ffi::MR_C_equal_MR_C_std_unordered_map_int_float_iterator(a as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator, b as *const crate::mr::cs::std_unordered_map_int_float_iterator as *const crate::ffi::MR_C_std_unordered_map_int_float_iterator)};
     __ret
 }
 

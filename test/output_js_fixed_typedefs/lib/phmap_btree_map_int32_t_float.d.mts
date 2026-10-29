@@ -104,6 +104,20 @@ export declare class MR_C_phmap_btree_map_int32_t_float extends ffi.CppObject
      */
     find_mut(key: number): L.MR_C_phmap_btree_map_int32_t_float_iterator;
     /**
+     * Finds the element by key and returns its mapped value, read-only, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_phmap_btree_map_int32_t_float_find_value()`.
+     */
+    find_value(key: number): number | null;
+    /**
+     * Finds the element by key and returns its mapped value, mutable, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_phmap_btree_map_int32_t_float_find_value_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    find_value_mut(key: number): number;
+    /**
      * The begin iterator, const.
      * The reference to this object might be preserved as the return value.
      *

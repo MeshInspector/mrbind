@@ -145,26 +145,4 @@ public final class phmap_btree_set_int_const_iterator extends mrbind_test.CppObj
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
-
-    /**
-     * Decrements a const iterator.
-     *
-     * Calls `MR_C_phmap_btree_set_int_const_iterator_decr()`.
-     */
-    public void decr()
-    {
-        try
-        {
-            mrbind_test.ffi.phmap_btree_set_int.H0.MR_C_phmap_btree_set_int_const_iterator_decr.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
 }

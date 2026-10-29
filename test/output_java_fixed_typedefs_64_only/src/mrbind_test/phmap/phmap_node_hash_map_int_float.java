@@ -240,18 +240,42 @@ public final class phmap_node_hash_map_int_float extends mrbind_test.CppObject
     }
 
     /**
-     * Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
+     * Finds the element by key and returns its mapped value, read-only, or null if no such key.
      * The reference to this object might be preserved as the return value.
      *
-     * Calls `MR_C_phmap_node_hash_map_int_float_find_mut()`.
+     * Calls `MR_C_phmap_node_hash_map_int_float_find_value()`.
      */
-    public mrbind_test.phmap.phmap_node_hash_map_int_float_iterator find_mut(int key)
+    public java.lang.Float find_value(int key)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_find_mut.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_find_value.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
             mrbind_test.Ffi.checkException();
-            return new mrbind_test.phmap.phmap_node_hash_map_int_float_iterator(__ret, true, null);
+            return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Finds the element by key and returns its mapped value, mutable, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_phmap_node_hash_map_int_float_find_value_mut()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment find_value_mut(int key)
+    {
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_find_value_mut.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            mrbind_test.Ffi.checkException();
+            return __ret;
         }
         catch (java.lang.Throwable __e)
         {
@@ -284,78 +308,6 @@ public final class phmap_node_hash_map_int_float extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_phmap_node_hash_map_int_float_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.phmap.phmap_node_hash_map_int_float_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The begin iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_phmap_node_hash_map_int_float_begin_mut()`.
-     */
-    public mrbind_test.phmap.phmap_node_hash_map_int_float_iterator begin_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_begin_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.phmap.phmap_node_hash_map_int_float_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the begin iterator.
-     *
-     * Calls `MR_C_phmap_node_hash_map_int_float_is_begin_mut()`.
-     */
-    public boolean is_begin(mrbind_test.phmap.phmap_node_hash_map_int_float_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
         }
     }
 
@@ -393,54 +345,6 @@ public final class phmap_node_hash_map_int_float extends mrbind_test.CppObject
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The end iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_phmap_node_hash_map_int_float_end_mut()`.
-     */
-    public mrbind_test.phmap.phmap_node_hash_map_int_float_iterator end_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_end_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.phmap.phmap_node_hash_map_int_float_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the end iterator.
-     *
-     * Calls `MR_C_phmap_node_hash_map_int_float_is_end_mut()`.
-     */
-    public boolean is_end(mrbind_test.phmap.phmap_node_hash_map_int_float_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.phmap_node_hash_map_int_float.H0.MR_C_phmap_node_hash_map_int_float_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

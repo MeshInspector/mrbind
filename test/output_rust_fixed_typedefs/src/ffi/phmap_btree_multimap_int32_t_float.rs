@@ -37,6 +37,8 @@ unsafe extern "C"
     pub fn MR_C_phmap_btree_multimap_int32_t_float_count(_this: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, key: *const i32) -> usize;
     pub fn MR_C_phmap_btree_multimap_int32_t_float_find(_this: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, key: *const i32) -> *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float_const_iterator;
     pub fn MR_C_phmap_btree_multimap_int32_t_float_find_mut(_this: *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, key: *const i32) -> *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float_iterator;
+    pub fn MR_C_phmap_btree_multimap_int32_t_float_find_value(_this: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, key: *const i32) -> *const f32;
+    pub fn MR_C_phmap_btree_multimap_int32_t_float_find_value_mut(_this: *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, key: *const i32) -> *mut f32;
     pub fn MR_C_phmap_btree_multimap_int32_t_float_begin(_this: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float) -> *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float_const_iterator;
     pub fn MR_C_phmap_btree_multimap_int32_t_float_is_begin(_this: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float, iter: *const crate::ffi::MR_C_phmap_btree_multimap_int32_t_float_const_iterator) -> bool;
     pub fn MR_C_phmap_btree_multimap_int32_t_float_begin_mut(_this: *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float) -> *mut crate::ffi::MR_C_phmap_btree_multimap_int32_t_float_iterator;

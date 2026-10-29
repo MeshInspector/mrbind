@@ -218,25 +218,6 @@ export class MR_C_std_multiset_MR_StdContainers_NonAssignable extends ffi.CppObj
         }
     }
 
-    is_begin(iter)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin(this.rawPointer(), ffi.ptrNonNull(iter, "iter"));
-            ffi.check();
-            return (__ret !== 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     end()
     {
         const __sp = ffi.stackSave();
@@ -387,24 +368,6 @@ export class MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator ext
         try
         {
             ffi.C.MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_incr(this.rawPointer());
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    decr()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_decr(this.rawPointer());
             ffi.check();
         }
         catch (__e)

@@ -49,25 +49,6 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         }
     }
 
-    static __ctor_2(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ffi.ptr(ptr), size);
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     static __ctor(args)
     {
         const __n = args.length;
@@ -75,8 +56,6 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
             return L.MR_C_std_vector_MR_CSharp_ExposedLayout.__ctor_0();
         if (__n === 1 && (args[0] instanceof L.MR_C_std_vector_MR_CSharp_ExposedLayout))
             return L.MR_C_std_vector_MR_CSharp_ExposedLayout.__ctor_1(args[0]);
-        if (__n === 2 && (__n <= 0 || (args[0] == null || args[0] instanceof L.MR_CSharp_ExposedLayout)) && typeof args[1] === "number")
-            return L.MR_C_std_vector_MR_CSharp_ExposedLayout.__ctor_2(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
 
@@ -96,24 +75,6 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         try
         {
             ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    assignFromRange(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(this.rawPointer(), ffi.ptr(ptr), size);
             ffi.check();
         }
         catch (__e)
@@ -182,24 +143,6 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         }
     }
 
-    resize_with_default_value(new_size, value)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_resize_with_default_value(this.rawPointer(), new_size, ffi.ptrNonNull(value, "value"));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     clear()
     {
         const __sp = ffi.stackSave();
@@ -218,49 +161,12 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         }
     }
 
-    capacity()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_capacity(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     reserve(new_capacity)
     {
         const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_reserve(this.rawPointer(), new_capacity);
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    shrink_to_fit()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_shrink_to_fit(this.rawPointer());
             ffi.check();
         }
         catch (__e)
@@ -494,82 +400,6 @@ export class MR_C_std_vector_MR_CSharp_ExposedLayout extends ffi.CppObject
         {
             ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_erase(this.rawPointer(), position);
             ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_begin(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_end(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
         }
         catch (__e)
         {

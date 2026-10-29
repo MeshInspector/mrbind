@@ -180,16 +180,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Tests whether a const iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.Set_MRStdContainersNonAssignable.Const_ConstIterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_MR_StdContainers_NonAssignable_is_begin", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_std_set_MR_StdContainers_NonAssignable_is_begin(_Underlying *_this, MR.CS.Std.Set_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_set_MR_StdContainers_NonAssignable_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
                 /// The end iterator, const.
                 /// </summary>
                 public unsafe MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator end()
@@ -288,18 +278,6 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Decrements a const iterator.
-                    /// </summary>
-                    public static unsafe ConstIterator operator--(MR.CS.Std.Set_MRStdContainersNonAssignable.Const_ConstIterator _this)
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr", ExactSpelling = true)]
-                        extern static unsafe void __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr(MR.CS.Std.Set_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *_this);
-                        ConstIterator __this_copy = new(_this);
-                        __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr(__this_copy._UnderlyingPtr);
-                        return __this_copy;
-                    }
-
-                    /// <summary>
                     /// Compares two const iterators for equality.
                     /// </summary>
                     public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
@@ -387,16 +365,6 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_incr", ExactSpelling = true)]
                         extern static unsafe void __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_incr(_Underlying *_this);
                         __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_incr(_UnderlyingPtr);
-                    }
-
-                    /// <summary>
-                    /// Decrements a const iterator.
-                    /// </summary>
-                    public unsafe void operator--()
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr", ExactSpelling = true)]
-                        extern static unsafe void __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr(_Underlying *_this);
-                        __MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr(_UnderlyingPtr);
                     }
                 }
 

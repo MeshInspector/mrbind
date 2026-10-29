@@ -49,26 +49,6 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
         }
     }
 
-    static __ctor_2(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.HEAPU64()[(p) >>> 3] = ffi.toI64(ptr);});
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_ConstructFromRange(__ptr_ptr, size);
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     static __ctor(args)
     {
         const __n = args.length;
@@ -76,8 +56,6 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
             return L.MR_C_std_vector_uint64_t.__ctor_0();
         if (__n === 1 && (args[0] instanceof L.MR_C_std_vector_uint64_t))
             return L.MR_C_std_vector_uint64_t.__ctor_1(args[0]);
-        if (__n === 2 && (__n <= 0 || (args[0] == null || (typeof args[0] === "number" || typeof args[0] === "bigint"))) && typeof args[1] === "number")
-            return L.MR_C_std_vector_uint64_t.__ctor_2(args[0], args[1]);
         throw new TypeError("No overload of `constructor` accepts these arguments.");
     }
 
@@ -97,25 +75,6 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
         try
         {
             ffi.C.MR_C_std_vector_uint64_t_AssignFromAnother(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(other, "other"));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    assignFromRange(ptr, size)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ptr_ptr = ptr == null ? 0 : ffi.stackScalar(8, (p) => {ffi.HEAPU64()[(p) >>> 3] = ffi.toI64(ptr);});
-            ffi.C.MR_C_std_vector_uint64_t_AssignFromRange(this.rawPointer(), __ptr_ptr, size);
             ffi.check();
         }
         catch (__e)
@@ -184,24 +143,6 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
         }
     }
 
-    resize_with_default_value(new_size, value)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_uint64_t_resize_with_default_value(this.rawPointer(), new_size, ffi.toI64(value));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     clear()
     {
         const __sp = ffi.stackSave();
@@ -220,49 +161,12 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
         }
     }
 
-    capacity()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_capacity(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     reserve(new_capacity)
     {
         const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_uint64_t_reserve(this.rawPointer(), new_capacity);
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    shrink_to_fit()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_uint64_t_shrink_to_fit(this.rawPointer());
             ffi.check();
         }
         catch (__e)
@@ -488,82 +392,6 @@ export class MR_C_std_vector_uint64_t extends ffi.CppObject
         {
             ffi.C.MR_C_std_vector_uint64_t_erase(this.rawPointer(), position);
             ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_begin(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_begin_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_end(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_uint64_t_end_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
         }
         catch (__e)
         {

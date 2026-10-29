@@ -264,6 +264,54 @@ public final class std_map_int_float extends mrbind_test.CppObject
     }
 
     /**
+     * Finds the element by key and returns its mapped value, read-only, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_map_int_float_find_value()`.
+     */
+    public java.lang.Float find_value(int key)
+    {
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_int_float.H0.MR_C_std_map_int_float_find_value.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            mrbind_test.Ffi.checkException();
+            return __ret.address() == 0 ? null : (java.lang.Float)__ret.reinterpret(4).get(java.lang.foreign.ValueLayout.JAVA_FLOAT, 0);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Finds the element by key and returns its mapped value, mutable, or null if no such key.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_map_int_float_find_value_mut()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment find_value_mut(int key)
+    {
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_map_int_float.H0.MR_C_std_map_int_float_find_value_mut.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, key));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
      * The begin iterator, const.
      * The reference to this object might be preserved as the return value.
      *

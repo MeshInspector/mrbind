@@ -24,6 +24,7 @@ pub mod test_mention_blacklists;
 pub mod test_nested_class_template_inst;
 pub mod test_nested_types;
 pub mod test_omitting_template_args_and_quals;
+pub mod test_overload_suffix;
 pub mod test_overloaded_operators;
 pub mod test_overloads;
 pub mod test_phmap;

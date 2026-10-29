@@ -101,34 +101,6 @@ public final class std_list_MR_StdContainers_NonAssignable_const_iterator extend
     }
 
     /**
-     * Makes a const iterator from a mutable one.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_from_mutable()`.
-     */
-    public std_list_MR_StdContainers_NonAssignable_const_iterator(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator iter)
-    {
-        this(__ctor_from_mutable(iter), true, null);
-    }
-
-    private static java.lang.foreign.MemorySegment __ctor_from_mutable(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator iter)
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_from_mutable.invokeExact(mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
      * Dereferences a const iterator.
      * The reference to things referred to by this object (if any) might be preserved as the return value.
      *
@@ -163,28 +135,6 @@ public final class std_list_MR_StdContainers_NonAssignable_const_iterator extend
         try
         {
             mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_incr.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Decrements a const iterator.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_decr()`.
-     */
-    public void decr()
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_decr.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

@@ -101,52 +101,6 @@ public final class std_set_int extends mrbind_test.CppObject
     }
 
     /**
-     * Construct from a range of elements.
-     *
-     * Calls `MR_C_std_set_int_ConstructFromRange()`.
-     */
-    public std_set_int(java.lang.Integer ptr, long size)
-    {
-        this(__ctor_constructFromRange(ptr, size), true, null);
-    }
-
-    private static java.lang.foreign.MemorySegment __ctor_constructFromRange(java.lang.Integer ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_set_int.H0.MR_C_std_set_int_ConstructFromRange.invokeExact((java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-    }
-
-    /**
-     * Assign from a range of elements, overwriting previous contents.
-     *
-     * Calls `MR_C_std_set_int_AssignFromRange()`.
-     */
-    public void assignFromRange(java.lang.Integer ptr, long size)
-    {
-        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
-        {
-            mrbind_test.ffi.std_set_int.H0.MR_C_std_set_int_AssignFromRange.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(ptr == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, ptr)), size);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
      * The number of elements.
      *
      * Calls `MR_C_std_set_int_size()`.
@@ -304,30 +258,6 @@ public final class std_set_int extends mrbind_test.CppObject
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_set_int_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_set_int_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_set_int.H0.MR_C_std_set_int_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
         }
     }
 

@@ -114,6 +114,30 @@ impl std_multimap_MR_StdContainers_NonAssignable_float
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_multimap_MR_StdContainers_NonAssignable_float_iterator)}
     }
 
+    /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+    ///
+    /// Calls `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find_value<'a>(&'a self, key: &crate::mr::std_containers::NonAssignable) -> Option<&'a f32>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value(self as *const Self as *const crate::ffi::MR_C_std_multimap_MR_StdContainers_NonAssignable_float, key as *const crate::mr::std_containers::NonAssignable as *const crate::ffi::MR_StdContainers_NonAssignable)};
+        crate::__check_exception();
+        unsafe {(__ret as *const f32).as_ref()}
+    }
+
+    /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+    ///
+    /// Calls `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value_mut()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn find_value_mut<'a>(&'a mut self, key: &crate::mr::std_containers::NonAssignable) -> Option<&'a mut f32>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_std_multimap_MR_StdContainers_NonAssignable_float_find_value_mut(self as *mut Self as *mut crate::ffi::MR_C_std_multimap_MR_StdContainers_NonAssignable_float, key as *const crate::mr::std_containers::NonAssignable as *const crate::ffi::MR_StdContainers_NonAssignable)};
+        crate::__check_exception();
+        unsafe {(__ret as *mut f32).as_mut()}
+    }
+
     /// The begin iterator, const.
     ///
     /// Calls `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_begin()`.

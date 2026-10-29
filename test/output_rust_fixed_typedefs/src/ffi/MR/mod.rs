@@ -49,6 +49,8 @@ pub mod test_nested_types;
 pub use self::test_nested_types::*;
 pub mod test_omitting_template_args_and_quals;
 pub use self::test_omitting_template_args_and_quals::*;
+pub mod test_overload_suffix;
+pub use self::test_overload_suffix::*;
 pub mod test_overloaded_operators;
 pub use self::test_overloaded_operators::*;
 pub mod test_overloads;

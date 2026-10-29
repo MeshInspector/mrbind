@@ -125,24 +125,6 @@ export class MR_C_std_vector_MR_StdContainers_NonDefaultConstructible extends ff
         }
     }
 
-    resize_with_default_value(new_size, value)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value(this.rawPointer(), new_size, ffi.ptrNonNull(value, "value"));
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     clear()
     {
         const __sp = ffi.stackSave();
@@ -161,49 +143,12 @@ export class MR_C_std_vector_MR_StdContainers_NonDefaultConstructible extends ff
         }
     }
 
-    capacity()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
     reserve(new_capacity)
     {
         const __sp = ffi.stackSave();
         try
         {
             ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve(this.rawPointer(), new_capacity);
-            ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    shrink_to_fit()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit(this.rawPointer());
             ffi.check();
         }
         catch (__e)
@@ -397,82 +342,6 @@ export class MR_C_std_vector_MR_StdContainers_NonDefaultConstructible extends ff
         {
             ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(this.rawPointer(), position);
             ffi.check();
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    begin_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
-
-    end_mut()
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut(this.rawPointer());
-            ffi.check();
-            return (__ret >>> 0);
         }
         catch (__e)
         {

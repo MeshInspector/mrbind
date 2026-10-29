@@ -6,30 +6,10 @@ pub struct MR_C_std_vector_MR_A
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-/// Generated from class `std::vector<MR::A>::const_iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_MR_A_const_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
-/// Generated from class `std::vector<MR::A>::iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_MR_A_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
 #[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
 #[cfg_attr(not(windows), link(name = "bleh"))]
 unsafe extern "C"
 {
-    pub fn MR_C_sub_MR_C_std_vector_MR_A_const_iterator(a: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator, b: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_MR_A_const_iterator(a: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator, b: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> bool;
-    pub fn MR_C_sub_MR_C_std_vector_MR_A_iterator(a: *const crate::ffi::MR_C_std_vector_MR_A_iterator, b: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_MR_A_iterator(a: *const crate::ffi::MR_C_std_vector_MR_A_iterator, b: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> bool;
     pub fn MR_C_std_vector_MR_A_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_MR_A;
     pub fn MR_C_std_vector_MR_A_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_C_std_vector_MR_A;
     pub fn MR_C_std_vector_MR_A_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_MR_A, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_MR_A);
@@ -51,36 +31,9 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_A_pop_back(_this: *mut crate::ffi::MR_C_std_vector_MR_A);
     pub fn MR_C_std_vector_MR_A_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: usize, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_A);
     pub fn MR_C_std_vector_MR_A_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: usize);
-    pub fn MR_C_std_vector_MR_A_insert_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: *const crate::ffi::MR_C_std_vector_MR_A_iterator, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_A);
-    pub fn MR_C_std_vector_MR_A_erase_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: *const crate::ffi::MR_C_std_vector_MR_A_iterator);
-    pub fn MR_C_std_vector_MR_A_insert_at_iter(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_A);
-    pub fn MR_C_std_vector_MR_A_erase_at_iter(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator);
-    pub fn MR_C_std_vector_MR_A_begin(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator;
-    pub fn MR_C_std_vector_MR_A_is_begin(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> bool;
-    pub fn MR_C_std_vector_MR_A_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_C_std_vector_MR_A_iterator;
-    pub fn MR_C_std_vector_MR_A_is_begin_mut(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> bool;
-    pub fn MR_C_std_vector_MR_A_end(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator;
-    pub fn MR_C_std_vector_MR_A_is_end(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> bool;
-    pub fn MR_C_std_vector_MR_A_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_C_std_vector_MR_A_iterator;
-    pub fn MR_C_std_vector_MR_A_is_end_mut(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> bool;
-    pub fn MR_C_std_vector_MR_A_to_index(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> isize;
-    pub fn MR_C_std_vector_MR_A_to_index_mut(_this: *const crate::ffi::MR_C_std_vector_MR_A, iter: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> isize;
+    pub fn MR_C_std_vector_MR_A_begin(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *const crate::ffi::MR_A;
+    pub fn MR_C_std_vector_MR_A_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_A;
+    pub fn MR_C_std_vector_MR_A_end(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *const crate::ffi::MR_A;
+    pub fn MR_C_std_vector_MR_A_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_A) -> *mut crate::ffi::MR_A;
     pub fn MR_C_std_vector_MR_A_Destroy(_this: *const MR_C_std_vector_MR_A);
-    pub fn MR_C_std_vector_MR_A_const_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator;
-    pub fn MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator;
-    pub fn MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator, other: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator);
-    pub fn MR_C_std_vector_MR_A_const_iterator_from_mutable(iter: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator;
-    pub fn MR_C_std_vector_MR_A_const_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_MR_A_const_iterator) -> *const crate::ffi::MR_A;
-    pub fn MR_C_std_vector_MR_A_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator);
-    pub fn MR_C_std_vector_MR_A_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator);
-    pub fn MR_C_std_vector_MR_A_const_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_MR_A_const_iterator, delta: isize);
-    pub fn MR_C_std_vector_MR_A_const_iterator_Destroy(_this: *const MR_C_std_vector_MR_A_const_iterator);
-    pub fn MR_C_std_vector_MR_A_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_MR_A_iterator;
-    pub fn MR_C_std_vector_MR_A_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> *mut crate::ffi::MR_C_std_vector_MR_A_iterator;
-    pub fn MR_C_std_vector_MR_A_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_MR_A_iterator, other: *const crate::ffi::MR_C_std_vector_MR_A_iterator);
-    pub fn MR_C_std_vector_MR_A_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_MR_A_iterator) -> *mut crate::ffi::MR_A;
-    pub fn MR_C_std_vector_MR_A_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_MR_A_iterator);
-    pub fn MR_C_std_vector_MR_A_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_MR_A_iterator);
-    pub fn MR_C_std_vector_MR_A_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_MR_A_iterator, delta: isize);
-    pub fn MR_C_std_vector_MR_A_iterator_Destroy(_this: *const MR_C_std_vector_MR_A_iterator);
 }

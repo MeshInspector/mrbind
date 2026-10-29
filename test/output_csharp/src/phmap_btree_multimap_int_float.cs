@@ -150,6 +150,15 @@ public static partial class MR
                     return __ret;
                 }
 
+                /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+                public unsafe float? FindValue(int key)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_phmap_btree_multimap_int_float_find_value(_UnderlyingPtr, &key);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret is not null ? *__c_ret : null;
+                }
+
                 /// The begin iterator, const.
                 public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator Begin()
                 {
@@ -771,6 +780,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_find", ExactSpelling = true)]
                 extern static unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator._Underlying *__MR_C_phmap_btree_multimap_int_float_find(_Underlying *_this, int *key);
 
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_find_value", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_phmap_btree_multimap_int_float_find_value(_Underlying *_this, int *key);
+
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_is_begin", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_phmap_btree_multimap_int_float_is_begin(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator._Underlying *iter);
 
@@ -911,6 +923,15 @@ public static partial class MR
                     return __ret;
                 }
 
+                /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+                public unsafe new MR.CS.Misc.Ref<float>? FindValue(int key)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_phmap_btree_multimap_int_float_find_value_mut(_UnderlyingPtr, &key);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
+                }
+
                 /// The begin iterator, mutable.
                 public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator Begin()
                 {
@@ -957,6 +978,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_find_mut", ExactSpelling = true)]
                 extern static unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_multimap_int_float_find_mut(_Underlying *_this, int *key);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_find_value_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_phmap_btree_multimap_int_float_find_value_mut(_Underlying *_this, int *key);
             }
 
             /// This is used as a function parameter when the underlying function receives `BtreeMultimap_Int_Float` by value.

@@ -169,29 +169,6 @@ public final class std_vector_std_expected_int_std_string extends mrbind_test.Cp
     }
 
     /**
-     * Resizes the container. The new elements if any are set to the specified value.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_resize_with_default_value()`.
-     */
-    public void resize_with_default_value(long new_size, mrbind_test.mr.cs.std_expected_int_std_string value)
-    {
-        try
-        {
-            mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(value);
-        }
-    }
-
-    /**
      * Removes all elements from the container.
      *
      * Calls `MR_C_std_vector_std_expected_int_std_string_clear()`.
@@ -214,29 +191,6 @@ public final class std_vector_std_expected_int_std_string extends mrbind_test.Cp
     }
 
     /**
-     * The memory capacity, measued in the number of elements.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_capacity()`.
-     */
-    public long capacity()
-    {
-        try
-        {
-            long __ret = (long)mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_capacity.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
      * Reserves memory for a certain number of elements. Never shrinks the memory.
      *
      * Calls `MR_C_std_vector_std_expected_int_std_string_reserve()`.
@@ -246,28 +200,6 @@ public final class std_vector_std_expected_int_std_string extends mrbind_test.Cp
         try
         {
             mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_reserve.invokeExact(rawPointer(), new_capacity);
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Shrinks the capacity to match the size.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_shrink_to_fit()`.
-     */
-    public void shrink_to_fit()
-    {
-        try
-        {
-            mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_shrink_to_fit.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -511,102 +443,6 @@ public final class std_vector_std_expected_int_std_string extends mrbind_test.Cp
         {
             mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_erase.invokeExact(rawPointer(), position);
             mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * The begin iterator, const. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_begin()`. Some types are raw C types, see the C bindings for the details.
-     */
-    public java.lang.foreign.MemorySegment begin()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_begin.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * The begin iterator, mutable. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_begin_mut()`. Some types are raw C types, see the C bindings for the details.
-     */
-    public java.lang.foreign.MemorySegment begin_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_begin_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * The end iterator, const. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_end()`. Some types are raw C types, see the C bindings for the details.
-     */
-    public java.lang.foreign.MemorySegment end()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_end.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * The end iterator, mutable. Iterators of this container are plain pointers.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_vector_std_expected_int_std_string_end_mut()`. Some types are raw C types, see the C bindings for the details.
-     */
-    public java.lang.foreign.MemorySegment end_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_std_expected_int_std_string.H0.MR_C_std_vector_std_expected_int_std_string_end_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return __ret;
         }
         catch (java.lang.Throwable __e)
         {

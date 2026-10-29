@@ -37,6 +37,8 @@ unsafe extern "C"
     pub fn MR_C_std_unordered_multimap_int_float_count(_this: *const crate::ffi::MR_C_std_unordered_multimap_int_float, key: *const core::ffi::c_int) -> usize;
     pub fn MR_C_std_unordered_multimap_int_float_find(_this: *const crate::ffi::MR_C_std_unordered_multimap_int_float, key: *const core::ffi::c_int) -> *mut crate::ffi::MR_C_std_unordered_multimap_int_float_const_iterator;
     pub fn MR_C_std_unordered_multimap_int_float_find_mut(_this: *mut crate::ffi::MR_C_std_unordered_multimap_int_float, key: *const core::ffi::c_int) -> *mut crate::ffi::MR_C_std_unordered_multimap_int_float_iterator;
+    pub fn MR_C_std_unordered_multimap_int_float_find_value(_this: *const crate::ffi::MR_C_std_unordered_multimap_int_float, key: *const core::ffi::c_int) -> *const f32;
+    pub fn MR_C_std_unordered_multimap_int_float_find_value_mut(_this: *mut crate::ffi::MR_C_std_unordered_multimap_int_float, key: *const core::ffi::c_int) -> *mut f32;
     pub fn MR_C_std_unordered_multimap_int_float_begin(_this: *const crate::ffi::MR_C_std_unordered_multimap_int_float) -> *mut crate::ffi::MR_C_std_unordered_multimap_int_float_const_iterator;
     pub fn MR_C_std_unordered_multimap_int_float_is_begin(_this: *const crate::ffi::MR_C_std_unordered_multimap_int_float, iter: *const crate::ffi::MR_C_std_unordered_multimap_int_float_const_iterator) -> bool;
     pub fn MR_C_std_unordered_multimap_int_float_begin_mut(_this: *mut crate::ffi::MR_C_std_unordered_multimap_int_float) -> *mut crate::ffi::MR_C_std_unordered_multimap_int_float_iterator;

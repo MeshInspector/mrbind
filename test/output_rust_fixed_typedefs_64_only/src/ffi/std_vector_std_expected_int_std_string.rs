@@ -6,41 +6,18 @@ pub struct MR_C_std_vector_std_expected_int_std_string
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-/// Generated from class `std::vector<std::expected<int, std::string>>::const_iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_std_expected_int_std_string_const_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
-/// Generated from class `std::vector<std::expected<int, std::string>>::iterator`. Opaque, only used behind pointers.
-#[repr(C)]
-pub struct MR_C_std_vector_std_expected_int_std_string_iterator
-{
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
 #[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
 #[cfg_attr(not(windows), link(name = "bleh"))]
 unsafe extern "C"
 {
-    pub fn MR_C_sub_MR_C_std_vector_std_expected_int_std_string_const_iterator(a: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator, b: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_std_expected_int_std_string_const_iterator(a: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator, b: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> bool;
-    pub fn MR_C_sub_MR_C_std_vector_std_expected_int_std_string_iterator(a: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator, b: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> isize;
-    pub fn MR_C_equal_MR_C_std_vector_std_expected_int_std_string_iterator(a: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator, b: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> bool;
     pub fn MR_C_std_vector_std_expected_int_std_string_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string;
     pub fn MR_C_std_vector_std_expected_int_std_string_ConstructFromAnother(other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string;
     pub fn MR_C_std_vector_std_expected_int_std_string_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, other_pass_by: crate::ffi::MR_C_PassBy, other: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_size(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> usize;
     pub fn MR_C_std_vector_std_expected_int_std_string_empty(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> bool;
     pub fn MR_C_std_vector_std_expected_int_std_string_resize(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, new_size: usize);
-    pub fn MR_C_std_vector_std_expected_int_std_string_resize_with_default_value(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, new_size: usize, value: *const crate::ffi::MR_C_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_clear(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string);
-    pub fn MR_C_std_vector_std_expected_int_std_string_capacity(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> usize;
     pub fn MR_C_std_vector_std_expected_int_std_string_reserve(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, new_capacity: usize);
-    pub fn MR_C_std_vector_std_expected_int_std_string_shrink_to_fit(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_at(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, i: usize) -> *const crate::ffi::MR_C_std_expected_int_std_string;
     pub fn MR_C_std_vector_std_expected_int_std_string_at_mut(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, i: usize) -> *mut crate::ffi::MR_C_std_expected_int_std_string;
     pub fn MR_C_std_vector_std_expected_int_std_string_front(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *const crate::ffi::MR_C_std_expected_int_std_string;
@@ -51,36 +28,5 @@ unsafe extern "C"
     pub fn MR_C_std_vector_std_expected_int_std_string_pop_back(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_insert(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: usize, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_C_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_erase(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: usize);
-    pub fn MR_C_std_vector_std_expected_int_std_string_insert_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_C_std_expected_int_std_string);
-    pub fn MR_C_std_vector_std_expected_int_std_string_erase_at_mutable_iter(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_insert_at_iter(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_C_std_expected_int_std_string);
-    pub fn MR_C_std_vector_std_expected_int_std_string_erase_at_iter(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_begin(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_is_begin(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> bool;
-    pub fn MR_C_std_vector_std_expected_int_std_string_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_is_begin_mut(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> bool;
-    pub fn MR_C_std_vector_std_expected_int_std_string_end(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_is_end(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> bool;
-    pub fn MR_C_std_vector_std_expected_int_std_string_end_mut(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_is_end_mut(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> bool;
-    pub fn MR_C_std_vector_std_expected_int_std_string_to_index(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> isize;
-    pub fn MR_C_std_vector_std_expected_int_std_string_to_index_mut(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string, iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> isize;
     pub fn MR_C_std_vector_std_expected_int_std_string_Destroy(_this: *const MR_C_std_vector_std_expected_int_std_string);
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator, other: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_from_mutable(iter: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator) -> *const crate::ffi::MR_C_std_expected_int_std_string;
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_const_iterator, delta: isize);
-    pub fn MR_C_std_vector_std_expected_int_std_string_const_iterator_Destroy(_this: *const MR_C_std_vector_std_expected_int_std_string_const_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_DefaultConstruct() -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_ConstructFromAnother(other: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator;
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_AssignFromAnother(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator, other: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_deref(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator) -> *mut crate::ffi::MR_C_std_expected_int_std_string;
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_incr(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_decr(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator);
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_add_assign(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string_iterator, delta: isize);
-    pub fn MR_C_std_vector_std_expected_int_std_string_iterator_Destroy(_this: *const MR_C_std_vector_std_expected_int_std_string_iterator);
 }

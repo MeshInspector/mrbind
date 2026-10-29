@@ -220,6 +220,44 @@ export class MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float ex
         }
     }
 
+    find_value(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value(this.rawPointer(), ffi.ptrNonNull(key, "key"));
+            ffi.check();
+            return ((__ret >>> 0) === 0 ? null : ffi.HEAPF32()[((__ret >>> 0)) >>> 2]);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    find_value_mut(key)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut(this.rawPointer(), ffi.ptrNonNull(key, "key"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     begin()
     {
         const __sp = ffi.stackSave();

@@ -169,29 +169,6 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
     }
 
     /**
-     * Resizes the container. The new elements if any are set to the specified value.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value()`.
-     */
-    public void resize_with_default_value(long new_size, mrbind_test.mr.stdcontainers.NonAssignable value)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value.invokeExact(rawPointer(), new_size, mrbind_test.Ffi.ptrNonNull(value, "value"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(value);
-        }
-    }
-
-    /**
      * Removes all elements from the container.
      *
      * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_clear()`.
@@ -406,102 +383,6 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
     }
 
     /**
-     * Inserts a new element right before the specified position.
-     * The reference to the parameter `new_elem` might be preserved in this object.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter()`.
-     */
-    public void insert_at_mutable_iter(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator position, mrbind_test.mr.stdcontainers.NonAssignable new_elem)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-            java.lang.ref.Reference.reachabilityFence(new_elem);
-        }
-    }
-
-    /**
-     * Erases the element at the specified position.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter()`.
-     */
-    public void erase_at_mutable_iter(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator position)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
-     * Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
-     * The reference to the parameter `new_elem` might be preserved in this object.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter()`.
-     */
-    public void insert_at_iter(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_const_iterator position, mrbind_test.mr.stdcontainers.NonAssignable new_elem)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(new_elem, "new_elem"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-            java.lang.ref.Reference.reachabilityFence(new_elem);
-        }
-    }
-
-    /**
-     * Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter()`.
-     */
-    public void erase_at_iter(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_const_iterator position)
-    {
-        try
-        {
-            mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(position, "position"));
-            mrbind_test.Ffi.checkException();
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(position);
-        }
-    }
-
-    /**
      * The begin iterator, const.
      * The reference to this object might be preserved as the return value.
      *
@@ -522,78 +403,6 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         finally
         {
             java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_is_begin()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_const_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The begin iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_begin_mut()`.
-     */
-    public mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator begin_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_begin_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_is_begin_mut()`.
-     */
-    public boolean is_begin(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_begin_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
         }
     }
 
@@ -631,54 +440,6 @@ public final class std_list_MR_StdContainers_NonAssignable extends mrbind_test.C
         try
         {
             boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_end.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
-     * The end iterator, mutable.
-     * The reference to this object might be preserved as the return value.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_end_mut()`.
-     */
-    public mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator end_mut()
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_end_mut.invokeExact(rawPointer());
-            mrbind_test.Ffi.checkException();
-            return new mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator(__ret, true, null);
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-        }
-    }
-
-    /**
-     * Tests whether a mutable iterator is the end iterator.
-     *
-     * Calls `MR_C_std_list_MR_StdContainers_NonAssignable_is_end_mut()`.
-     */
-    public boolean is_end(mrbind_test.mr.cs.std_list_MR_StdContainers_NonAssignable_iterator iter)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.std_list_MR_StdContainers_NonAssignable.H0.MR_C_std_list_MR_StdContainers_NonAssignable_is_end_mut.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(iter, "iter"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

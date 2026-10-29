@@ -55,16 +55,6 @@ MR_C_std_multiset_int *MR_C_std_multiset_int_OffsetMutablePtr(MR_C_std_multiset_
     return (MR_C_std_multiset_int *)(((std::multiset<int> *)ptr) + i);
 }
 
-MR_C_std_multiset_int *MR_C_std_multiset_int_ConstructFromRange(const int *ptr, size_t size)
-{
-    return (MR_C_std_multiset_int *)new std::multiset<int>(std::multiset<int>(ptr, ptr + size));
-}
-
-void MR_C_std_multiset_int_AssignFromRange(MR_C_std_multiset_int *_this, const int *ptr, size_t size)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multiset<int> *)(_this)) = std::multiset<int>(ptr, ptr + size);
-}
-
 size_t MR_C_std_multiset_int_size(const MR_C_std_multiset_int *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<int> *)(_this)).size();
@@ -104,11 +94,6 @@ void MR_C_std_multiset_int_insert(MR_C_std_multiset_int *_this, int new_elem)
 MR_C_std_multiset_int_const_iterator *MR_C_std_multiset_int_begin(const MR_C_std_multiset_int *_this)
 {
     return (MR_C_std_multiset_int_const_iterator *)new std::multiset<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<int> *)(_this)).cbegin());
-}
-
-bool MR_C_std_multiset_int_is_begin(const MR_C_std_multiset_int *_this, const MR_C_std_multiset_int_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<int> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::multiset<int>::const_iterator *)(iter));
 }
 
 MR_C_std_multiset_int_const_iterator *MR_C_std_multiset_int_end(const MR_C_std_multiset_int *_this)
@@ -173,11 +158,6 @@ const int *MR_C_std_multiset_int_const_iterator_deref(const MR_C_std_multiset_in
 void MR_C_std_multiset_int_const_iterator_incr(MR_C_std_multiset_int_const_iterator *_this)
 {
     ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multiset<int>::const_iterator *)(_this));
-}
-
-void MR_C_std_multiset_int_const_iterator_decr(MR_C_std_multiset_int_const_iterator *_this)
-{
-    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multiset<int>::const_iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_std_multiset_int_const_iterator(const MR_C_std_multiset_int_const_iterator *a, const MR_C_std_multiset_int_const_iterator *b)

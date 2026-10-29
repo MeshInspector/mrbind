@@ -101,34 +101,6 @@ public final class std_unordered_multimap_MR_StdContainers_NonAssignable_float_c
     }
 
     /**
-     * Makes a const iterator from a mutable one.
-     *
-     * Calls `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable()`.
-     */
-    public std_unordered_multimap_MR_StdContainers_NonAssignable_float_cons__8276285(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 iter)
-    {
-        this(__ctor_from_mutable(iter), true, null);
-    }
-
-    private static java.lang.foreign.MemorySegment __ctor_from_mutable(mrbind_test.mr.cs.std_unordered_multimap_MR_StdContainers_NonAssignable_float_iter__8fb8fc8 iter)
-    {
-        try
-        {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_unordered_multimap_MR_StdContainers_NonAssignable_float.H0.MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_from_mutable.invokeExact(mrbind_test.Ffi.ptrNonNull(iter, "iter"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(iter);
-        }
-    }
-
-    /**
      * Dereferences a const iterator.
      * The reference to things referred to by this object (if any) might be preserved as the return value.
      *

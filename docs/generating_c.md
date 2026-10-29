@@ -221,6 +221,10 @@ Passing `--canonicalize-to-fixed-size-typedefs` will use `int32_t` and other sim
 
 This is purely a style choice, and doesn't help portability. For portability, see [this](#making-the-bindings-cross-platform).
 
+### Reduce the output size
+
+You can pass `--minimal-containers` to emit less featureful bindings for the standard containers. This will reduce the output binary size slightly.
+
 ## Making the bindings cross-platform
 
 If you don't go out of your way, by default the generated C bindings code code will only be usable on one platform you generated them on.

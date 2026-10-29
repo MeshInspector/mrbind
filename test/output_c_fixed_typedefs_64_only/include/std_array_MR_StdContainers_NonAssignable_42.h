@@ -66,26 +66,6 @@ MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_N
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_data_mut(MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
 
-/// The begin iterator, const.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_begin(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
-
-/// The begin iterator, mutable.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_begin_mut(MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
-
-/// The end iterator, const.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_end(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
-
-/// The end iterator, mutable.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_end_mut(MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

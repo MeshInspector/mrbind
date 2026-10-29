@@ -78,12 +78,6 @@ export declare class MR_C_std_set_MR_StdContainers_NonAssignable extends ffi.Cpp
      */
     begin(): L.MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator;
     /**
-     * Tests whether a const iterator is the begin iterator.
-     *
-     * Calls `MR_C_std_set_MR_StdContainers_NonAssignable_is_begin()`.
-     */
-    is_begin(iter: L.MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator): boolean;
-    /**
      * The end iterator, const.
      * The reference to this object might be preserved as the return value.
      *
@@ -141,12 +135,6 @@ export declare class MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator 
      * Calls `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_incr()`.
      */
     incr(): void;
-    /**
-     * Decrements a const iterator.
-     *
-     * Calls `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr()`.
-     */
-    decr(): void;
 }
 
 /**
