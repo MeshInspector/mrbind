@@ -3157,6 +3157,21 @@ namespace mrbind::Python
             std::string def = EmitGroup({"data", {ov}}, &info, false, false);
             out_init += "        if (!rt::AddPrim(prims_, \"data\", &" + def + ", module_name)) return nullptr;\n";
         }
+        else if (StripType(get->ret.c_type).is_ptr && get->params.size() == 2 && get->params[0].c_params.size() == 1 && size->params[0].c_params.size() == 1)
+        {
+            // No `data()` with `--minimal-containers`: the address of the first element, null if empty.
+            std::string impl = NewId("impl_");
+            out_impls += "static PyObject *" + impl + "(PyObject *const *a, bool, bool &matched)\n{\n    void *self_ = nullptr;\n    if (!rt::ArgObject(a[0], " + info.var + ", false, self_)) return nullptr;\n";
+            out_impls += "    matched = true;\n    if (" + size->c_name + "((" + size->params[0].c_params[0].c_type + ")self_) == 0) return PyLong_FromVoidPtr(nullptr);\n";
+            out_impls += "    return PyLong_FromVoidPtr((void *)" + get->c_name + "((" + get->params[0].c_params[0].c_type + ")self_, 0));\n}\n\n";
+            PreparedOverload ov;
+            ov.impl = impl;
+            ov.params = {{"", "object", ""}};
+            ov.ret_type = "int";
+            ov.num_required = 1;
+            std::string def = EmitGroup({"data", {ov}}, &info, false, false);
+            out_init += "        if (!rt::AddPrim(prims_, \"data\", &" + def + ", module_name)) return nullptr;\n";
+        }
         if (!ok)
         {
             skipped_funcs.push_back(info.cpp_name + ": unsupported element type for the vector API");
@@ -3544,8 +3559,14 @@ namespace mrbind::Python
         const CInterop::ClassMethod *contains = FindMethod(info, "_contains");
         const CInterop::ClassMethod *ref = FindMethod(info, "_find_or_construct_elem");
         const CInterop::ClassMethod *assign = FindMethod(info, "_AssignFromAnother");
+        // The mutable iterators, or the const ones with `--minimal-containers` (the values are still mutable through the map).
         const CInterop::ClassMethod *begin = FindMethod(info, "_begin_mut");
         const CInterop::ClassMethod *end = FindMethod(info, "_end_mut");
+        if (!begin || !end)
+        {
+            begin = FindMethod(info, "_begin");
+            end = FindMethod(info, "_end");
+        }
         if (!init || !size || !contains || !ref || !begin || !end || ref->params.size() != 2)
         {
             skipped_funcs.push_back(info.cpp_name + ": not enough C functions for the map API");
@@ -3594,7 +3615,7 @@ namespace mrbind::Python
                 std::string body = self + "    PyObject *list_ = PyList_New(0);\n";
                 body += "    " + it + " *i_ = " + begin->c_name + "((" + m + " *)self_);\n    " + it + " *e0_ = " + end->c_name + "((" + m + " *)self_);\n";
                 body += "    while (!" + c_desc.helpers_prefix + "equal_" + it + "(i_, e0_))\n    {\n";
-                body += "        const " + key_c + " *k_ = " + it + "_deref_key(i_);\n        " + value_c + " *v_ = " + it + "_deref_value(i_);\n";
+                body += "        const " + key_c + " *k_ = " + it + "_deref_key(i_);\n        " + value_c + " *v_ = (" + value_c + " *)" + it + "_deref_value(i_);\n";
                 body += item;
                 body += "        " + it + "_incr(i_);\n    }\n    " + it + "_Destroy(i_);\n    " + it + "_Destroy(e0_);\n    return list_;\n";
                 return body;
