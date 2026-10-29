@@ -1538,7 +1538,7 @@ namespace mrbind
         [[nodiscard]] bool IsEqualityComparable(const clang::QualType &type)
         {
             const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
-            if (!rec || !rec->hasDefinition() || type->isDependentType())
+            if (!rec || type->isDependentType())
                 return false;
             clang::Sema &sema = ci->getSema();
             clang::DiagnosticsEngine &diags = sema.getDiagnostics();
@@ -1551,6 +1551,9 @@ namespace mrbind
                 ~RestoreSuppress() {diags.setSuppressAllDiagnostics(value);}
             } restore_suppress{diags, prev_suppress};
             clang::SourceLocation loc = rec->getLocation();
+            // Instantiate the class if it wasn't yet (e.g. if only mentioned as a template argument). This runs after the final visit, so nothing new gets bound.
+            if (!rec->hasDefinition() && !sema.isCompleteType(loc, type))
+                return false;
             clang::Sema::SFINAETrap trap(sema);
             clang::Sema::TentativeAnalysisScope tentative(sema);
             clang::EnterExpressionEvaluationContext unevaluated(sema, clang::Sema::ExpressionEvaluationContext::Unevaluated);

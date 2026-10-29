@@ -1232,7 +1232,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     if comparable:
         _bind(cls, '__eq__', '__eq__(self: ' + q + ', arg0: ' + q + ') -> bool\n', __eq__)
         _bind(cls, '__ne__', '__ne__(self: ' + q + ', arg0: ' + q + ') -> bool\n', lambda self, other: not __eq__(self, other))
-    type.__setattr__(cls, '__hash__', None)
+        type.__setattr__(cls, '__hash__', None)
     def __getitem__(self, i):
         if isinstance(i, slice):
             ret = cls()

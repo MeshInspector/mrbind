@@ -2221,8 +2221,7 @@ namespace mrbind::Python
                 if (!ov)
                     continue;
                 ov->params[0].name = "self";
-                if (name == "__eq__")
-                    has_eq = true;
+                // Unlike a member `__eq__`, this one doesn't reset `__hash__` in pybind11.
                 AddTo(methods, name, std::move(*ov));
             }
             else if (f.params.size() == 2 && StripType(f.params[1].cpp_type).base == info.cpp_name && (!types.contains(StripType(f.params[0].cpp_type).base) || types.at(StripType(f.params[0].cpp_type).base).no_class))
@@ -2926,13 +2925,17 @@ namespace mrbind::Python
             if (targets.size() != 1)
                 continue;
             const TypeInfo *target = *targets.begin();
-            if (target->no_class)
-                continue;
-            // The spellings through the entities hidden from Python don't exist there.
-            if (IsIgnoredForPython(spelling))
+            // The pybind11 target registers no aliases for the `std::function`s, and none spelled with expressions in the template arguments.
+            if (target->no_class || target->is_std_function || spelling.find('?') != std::string::npos || spelling.find("==") != std::string::npos)
                 continue;
             // The scope: the namespaces, then the parsed classes.
             std::vector<std::string> parts = SplitQualified(spelling);
+            // The spellings through the entities hidden from Python don't exist there.
+            bool ignored = false;
+            for (std::size_t i = 1; i <= parts.size() && !ignored; i++)
+                ignored = IsIgnoredForPython(Join(std::vector<std::string>(parts.begin(), parts.begin() + std::ptrdiff_t(i)), "::"));
+            if (ignored)
+                continue;
             std::string scope_var = "module", scope_qual;
             std::size_t i = 0;
             for (; i + 1 < parts.size(); i++)
