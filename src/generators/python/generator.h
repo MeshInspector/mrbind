@@ -29,6 +29,8 @@ namespace mrbind::Python
         std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
         // Regex replacements applied to the C++ type names before making the Python names from them, like `MB_PB11_ADJUST_NAMES`.
         std::vector<std::pair<std::string, std::string>> name_adjustments;
+        // Same, but for the C++ names in the docs ("Generated from:").
+        std::vector<std::pair<std::string, std::string>> doc_name_adjustments;
         // Extra Python names, like `RegisterCustomAlias()` in the pybind11 target: (alias, target), both dotted paths in the module.
         std::vector<std::pair<std::string, std::string>> aliases;
         // Fields hidden from Python by name, e.g. the ones made public only for the C bindings.

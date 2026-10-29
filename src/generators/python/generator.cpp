@@ -3469,7 +3469,10 @@ namespace mrbind::Python
             if (info->IsClass())
             {
                 bool parsed = !(info->is_std_function || StartsWith(info->cpp_name, "std::") || StartsWith(info->cpp_name, "phmap::") || StartsWith(info->cpp_name, "expected<"));
-                std::string doc = parsed ? "Generated from:  " + info->cpp_name + "\n" : "";
+                std::string doc_cpp_name = info->cpp_name;
+                for (const auto &[regex, replacement] : doc_name_adjustments)
+                    doc_cpp_name = std::regex_replace(doc_cpp_name, std::regex(regex), replacement);
+                std::string doc = parsed ? "Generated from:  " + doc_cpp_name + "\n" : "";
                 if (auto al = aliases_by_type.find(info); al != aliases_by_type.end() && !al->second.empty())
                 {
                     doc += "Aliases:  ";
