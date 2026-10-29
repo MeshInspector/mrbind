@@ -113,6 +113,15 @@ int main(int argc, char **argv)
             generator.ignored_for_python.push_back(std::string(args[0]));
         },
     });
+    args_parser.AddFlag("--ignore-c-file", {
+        .allow_repeat = true,
+        .arg_names = {"regex"},
+        .desc = "Skip the entities whose C headers (relative to the include directory, without the extension) match this regex, e.g. `^MRCCuda/` for a sub-library.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.ignored_c_files.push_back(std::string(args[0]));
+        },
+    });
     args_parser.AddFlag("--hide-field", {
         .allow_repeat = true,
         .arg_names = {"name"},
@@ -166,6 +175,7 @@ int main(int argc, char **argv)
     if (generator.module_name.empty())
         throw std::runtime_error("`--module-name` is required.");
     generator.c_desc = mrbind::CInterop::LoadOutputDescFromFile(input_json_path->c_str());
+    std::erase_if(generator.c_desc.functions, [&](const auto &f){return generator.IsIgnoredCFile(f.output_file.relative_name);});
 
     if (!output_dir_path)
         throw std::runtime_error("`--output-dir` is required.");

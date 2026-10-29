@@ -728,6 +728,10 @@ namespace mrbind::Python
     {
         for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
         {
+            if (auto c = std::get_if<CInterop::TypeKinds::Class>(&type.var); c && IsIgnoredCFile(c->output_file.relative_name))
+                continue;
+            if (auto e = std::get_if<CInterop::TypeKinds::Enum>(&type.var); e && IsIgnoredCFile(e->output_file.relative_name))
+                continue;
             TypeInfo info;
             info.cpp_name = cpp_name;
             info.traits = type.traits ? &*type.traits : nullptr;
@@ -3286,6 +3290,11 @@ namespace mrbind::Python
         if (ti && ti->IsClass() && !ti->no_class)
             return "    void *" + var + "o_ = nullptr;\n    if (!rt::ArgObject(" + py + ", " + ti->var + ", false, " + var + "o_)) " + fail + "\n    const " + ti->c_name + " *" + var + " = (const " + ti->c_name + " *)" + var + "o_;\n";
         return {};
+    }
+
+    bool Generator::IsIgnoredCFile(const std::string &relative_name) const
+    {
+        return std::any_of(ignored_c_files.begin(), ignored_c_files.end(), [&](const std::string &r){return std::regex_search(relative_name, std::regex(r));});
     }
 
     bool Generator::IsIgnoredForPython(const std::string &cpp_name)

@@ -39,6 +39,9 @@ namespace mrbind::Python
         std::set<std::string> hidden_fields;
         // `MR_BIND_IGNORE_PY` isn't visible in the C bindings: regexes on the C++ names (also the `typeid` spellings) of the entities to skip.
         std::vector<std::string> ignored_for_python;
+        // Regexes on the C header names (`output_file.relative_name`) of the entities to skip, e.g. a sub-library.
+        std::vector<std::string> ignored_c_files;
+        [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
         // Output: relative paths to file contents.
