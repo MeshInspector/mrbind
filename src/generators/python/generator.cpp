@@ -1047,15 +1047,15 @@ namespace mrbind::Python
             const TypeInfo *ti = type_it != types.end() ? &type_it->second : nullptr;
 
             const bool ptr_to_ptr = cp.size() == 1 && std::count(cp[0].c_type.begin(), cp[0].c_type.end(), '*') == 2;
-            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !types_by_c_name.contains(StripType(cp[0].c_type).base))
+            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !(ti && StripType(cp[0].c_type).base == ti->c_name))
             {
                 // `std::optional<T>` as a pointer to the value, null for `nullopt` (also from `None`).
                 std::string vt = Trim(st.base.substr(14, st.base.size() - 15));
                 std::string vct = StripType(cp[0].c_type).base;
                 ScalarKind vk = GetScalarKind(vt);
                 const TypeInfo *vti = FindType(vt);
-                checks += "    " + vct + " " + v + "{};\n    const " + vct + " *" + v + "ptr = nullptr;\n";
-                if (const TypeInfo *opt = FindType(st.base); opt && FindMethod(*opt, "_has_value") && FindMethod(*opt, "_value"))
+                checks += "    const " + vct + " *" + v + "ptr = nullptr;\n";
+                if (const TypeInfo *opt = FindType(st.base); opt && !opt->no_class && FindMethod(*opt, "_has_value") && FindMethod(*opt, "_value"))
                 {
                     checks += "    void *" + v + "opt = nullptr;\n    bool " + v + "is_opt = " + a + " && rt::ArgObject(" + a + ", " + opt->var + ", false, " + v + "opt);\n";
                     checks += "    if (" + v + "is_opt && " + FindMethod(*opt, "_has_value")->c_name + "((const " + opt->c_name + " *)" + v + "opt)) " + v + "ptr = (const " + vct + " *)" + FindMethod(*opt, "_value")->c_name + "((const " + opt->c_name + " *)" + v + "opt);\n";
@@ -1068,13 +1068,21 @@ namespace mrbind::Python
                 else if (vk == ScalarKind::floating) conv = "rt::ArgFloat(" + a + ", convert, " + v + ")";
                 if (!conv.empty())
                 {
+                    checks += "    " + vct + " " + v + "{};\n";
                     checks += "    if (" + a + " && " + a + " != Py_None) {if (!" + conv + ") return nullptr; " + v + "ptr = &" + v + ";}\n";
                     c_args[&p] = v + "ptr";
                 }
-                else if (types_by_c_name.contains(vct) && types_by_c_name.at(vct)->IsExposedStruct())
+                else if (types_by_c_name.contains(vct) && types_by_c_name.at(vct)->IsClass() && !types_by_c_name.at(vct)->no_class)
                 {
+                    // A class value, also via its implicit conversions.
                     const TypeInfo *e = types_by_c_name.at(vct);
-                    checks += "    void *" + v + "obj = nullptr;\n    if (" + a + " && " + a + " != Py_None) {if (!rt::ArgObject(" + a + ", " + e->var + ", false, " + v + "obj)) return nullptr; " + v + "ptr = (const " + vct + " *)" + v + "obj;}\n";
+                    std::string obj_check = "rt::ArgObject(" + a + ", " + e->var + ", false, " + v + "obj)";
+                    if (e->has_implicit)
+                    {
+                        checks += "    rt::Ref " + v + "tmp;\n";
+                        obj_check = "(" + obj_check + " || (convert && implicit_" + e->var + "(" + a + ", " + v + "tmp.p) && rt::ArgObject(" + v + "tmp.p, " + e->var + ", false, " + v + "obj)))";
+                    }
+                    checks += "    void *" + v + "obj = nullptr;\n    if (" + a + " && " + a + " != Py_None) {if (!" + obj_check + ") return nullptr; " + v + "ptr = (const " + vct + " *)" + v + "obj;}\n";
                     c_args[&p] = v + "ptr";
                 }
                 else
@@ -1162,6 +1170,14 @@ namespace mrbind::Python
                 c_args[&p] = "(" + cp[0].c_type + ")static_cast<std::" + (out ? "ostream" : "istream") + " *>(&" + v + ".ss)";
                 if (out)
                     post += "    if (!" + v + ".Flush(" + a + ")) return nullptr;\n";
+            }
+            else if (cp.size() == 1 && cp[0].c_type == "const char *const *" && st.base == "char" && st.is_ptr)
+            {
+                // A null-terminated string with a default argument: a pointer to it, null for the default. `None` is a null pointer.
+                checks += "    rt::StringArg " + v + ";\n";
+                checks += "    if (" + a + " && " + a + " != Py_None && !rt::ArgString(" + a + ", " + v + ")) return nullptr;\n";
+                checks += "    const char *" + v + "p = " + v + ".data;\n";
+                c_args[&p] = "(" + a + " ? &" + v + "p : nullptr)";
             }
             else if (cp.size() == 1 && cp[0].c_type == "const char *" && st.base == "char" && st.is_ptr)
             {
@@ -1604,6 +1620,14 @@ namespace mrbind::Python
             ScalarKind isk = GetScalarKind(inner);
             if (isk != ScalarKind::none)
                 return decl + "nullptr;\n    if (!" + expr + ") " + out + " = (Py_INCREF(Py_None), Py_None);\n    else {" + out + " = rt::" + Ret(isk) + "(*" + expr + "); " + c_desc.helpers_prefix + "Free((void *)" + expr + ");}\n";
+        }
+        if (st.base == "std::string_view" && num_stars == 1 && types.contains("std::string_view"))
+        {
+            const TypeInfo &sv = types.at("std::string_view");
+            std::string ret = decl + "rt::RetString(" + sv.c_name + "_data(" + expr + "), " + sv.c_name + "_data_end(" + expr + "));\n";
+            if (!st.is_ptr && !st.is_ref)
+                ret += "    " + sv.c_name + "_Destroy(" + expr + ");\n";
+            return ret;
         }
         if (st.base == "std::string" && num_stars == 1)
         {
