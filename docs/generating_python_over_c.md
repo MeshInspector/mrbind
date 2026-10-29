@@ -8,7 +8,7 @@ The extension builds against the CPython limited API (`Py_LIMITED_API`), so one 
 
 Pass `--output-desc-json c_desc.json` to the C generator. Also pass [`--copy-inherited-members`](/docs/generating_c.md#inherit-class-members) if you want, the copies of the inherited members are recognized and skipped (pybind11 binds them in the base classes only).
 
-The description carries everything the Python generator needs from the parser: the field offsets (for `_offsetof_<field>`), the typedefs and the alternative type spellings (for the aliases), and which members were copied from bases.
+The description carries everything the Python generator needs from the parser: the field offsets (for `_offsetof_<field>`), the typedefs and the alternative type spellings (for the aliases), which members were copied from bases, and which classes satisfy `std::equality_comparable` (for the comparison methods of the containers).
 
 ## Running the generator
 
@@ -53,4 +53,3 @@ python3 scripts/python_api_dump.py diff old.json new.json
 * Calling an unbound method with a wrong `self` raises CPython's own `TypeError` text.
 * The iterators are lists built eagerly.
 * Non-literal default arguments are printed as spelled in C++ (pybind11 prints the evaluated values).
-* The equality-based container methods (`__eq__`, `count`, `remove`, ...) are added only when the C bindings have an `operator==` for the element type.

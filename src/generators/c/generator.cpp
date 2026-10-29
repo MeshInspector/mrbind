@@ -5420,7 +5420,7 @@ namespace mrbind::C
                             const CInterop::InheritanceInfo::Kind base_kind = inheritance_info.bases_indirect.Map().at(base_class);
 
                             if (base_kind == CInterop::InheritanceInfo::Kind::ambiguous)
-                                return;
+                                continue;
 
                             // The C type name of the target.
                             const cppdecl::QualifiedName base_cpp_qual_name = self.ParseQualNameOrThrow(base_class);
@@ -5800,6 +5800,8 @@ namespace mrbind::C
             };
             VisitorTypedefs v(*output_desc);
             v.Process(data.entities);
+
+            output_desc->equality_comparable_types.assign(data.equality_comparable_types.begin(), data.equality_comparable_types.end());
 
             for (const auto &outer : data.type_info)
             {

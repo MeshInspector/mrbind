@@ -1022,6 +1022,9 @@ namespace mrbind
             // This stops being true when similar types are combined, then the outer map will only contain simplified type names, and the inner maps will contain all the original variant spellings of it.
             (std::map<std::string, std::map<std::string, TypeInformation, std::less<>>, std::less<>>)(type_info)
 
+            // The classes satisfying `std::equality_comparable`, out of the ones in `type_info` and their template arguments (recursively).
+            (std::set<std::string, std::less<>>)(equality_comparable_types, {})
+
             // Describes the current platform. Independent from everything else.
             (PlatformInfo)(platform_info)
         )

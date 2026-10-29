@@ -749,6 +749,9 @@ namespace mrbind::CInterop
             // The spellings that the pybind11 target registers as aliases: the type itself, and its alternative spellings,
             //   except the ones of types named by a `preferred_name` (but the typedef names are always included).
             (std::vector<TypeAlias>)(type_aliases, {})
+
+            // The classes satisfying `std::equality_comparable` (the pybind11 target adds the comparison methods to the vectors of those).
+            (std::vector<std::string>)(equality_comparable_types, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)

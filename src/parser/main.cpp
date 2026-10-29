@@ -35,6 +35,7 @@
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/Basic/Version.h>
 #include <clang/Frontend/CompilerInstance.h>
+#include <clang/Sema/EnterExpressionEvaluationContext.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaConcept.h>
 #include <clang/Sema/Template.h>
@@ -1504,6 +1505,57 @@ namespace mrbind
             return mrbind::GetCanonicalTypeName(type, *ci, *params, printing_policies.*policy, false);
         }
 
+        // `std::equality_comparable<T>`: are `a == b` and `a != b` valid for `const T &` operands?
+        // Only checked for complete classes, in an unevaluated context with the diagnostics suppressed, so nothing gets instantiated or reported.
+        [[nodiscard]] bool IsEqualityComparable(const clang::QualType &type)
+        {
+            const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
+            if (!rec || !rec->hasDefinition() || type->isDependentType())
+                return false;
+            clang::Sema &sema = ci->getSema();
+            clang::SourceLocation loc = rec->getLocation();
+            clang::Sema::SFINAETrap trap(sema);
+            clang::Sema::TentativeAnalysisScope tentative(sema);
+            clang::EnterExpressionEvaluationContext unevaluated(sema, clang::Sema::ExpressionEvaluationContext::Unevaluated);
+            clang::QualType operand = type.getNonReferenceType().getUnqualifiedType();
+            operand.addConst();
+            clang::OpaqueValueExpr lhs(loc, operand, clang::VK_LValue), rhs(loc, operand, clang::VK_LValue);
+            for (clang::BinaryOperatorKind op : {clang::BO_EQ, clang::BO_NE})
+            {
+                clang::ExprResult result = sema.CreateOverloadedBinOp(loc, op, clang::UnresolvedSet<0>{}, &lhs, &rhs);
+                if (result.isInvalid() || trap.hasErrorOccurred())
+                    return false;
+            }
+            return true;
+        }
+
+        std::set<std::string, std::less<>> equality_checked_types;
+
+        // Fills `equality_comparable_types` for this class (ignoring the cv-qualifiers, references and pointers) and its template arguments.
+        void CollectEqualityComparable(clang::QualType type)
+        {
+            type = type.getNonReferenceType();
+            while (type->isPointerType())
+                type = type->getPointeeType();
+            type = type.getUnqualifiedType();
+            const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
+            if (!rec)
+                return;
+            std::string name = GetCanonicalTypeName(type);
+            if (!equality_checked_types.insert(name).second)
+                return;
+            if (IsEqualityComparable(type))
+                params->parsed_result.equality_comparable_types.insert(name);
+            if (const auto *spec = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(rec))
+            {
+                for (const clang::TemplateArgument &arg : spec->getTemplateArgs().asArray())
+                {
+                    if (arg.getKind() == clang::TemplateArgument::Type)
+                        CollectEqualityComparable(arg.getAsType());
+                }
+            }
+        }
+
         // If `reason` is zero, the function does nothing.
         void RegisterTypeSpelling(const clang::QualType &type, const std::string &pretty, TypeUses reason)
         {
@@ -1519,7 +1571,10 @@ namespace mrbind
             info.uses |= reason & TypeUses::_valid_bits;
 
             if (is_new_type)
+            {
                 info.has_custom_canonical_name = canonical != GetCanonicalTypeName(type, &PrintingPolicies::without_preferred_names);
+                CollectEqualityComparable(type);
+            }
 
             auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
             if (bool(reason & TypeUses::_poisoned))
