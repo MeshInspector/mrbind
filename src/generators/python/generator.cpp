@@ -339,7 +339,9 @@ namespace mrbind::Python
     {
         if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos)
             return "";
-        std::string ret;
+        // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
+        //   and the indentation of the first line removed from all lines.
+        std::vector<std::string_view> lines;
         std::size_t pos = 0;
         while (pos < c_style.size())
         {
@@ -348,30 +350,49 @@ namespace mrbind::Python
                 end = c_style.size();
             std::string_view line(c_style.data() + pos, end - pos);
             pos = end + 1;
-            while (!line.empty() && line.front() == ' ')
+            while (!line.empty() && (line.front() == ' ' || line.front() == '\t'))
                 line.remove_prefix(1);
-            if (StartsWith(line, "///"))
-                line.remove_prefix(3);
-            else if (StartsWith(line, "//"))
-                line.remove_prefix(2);
-            else if (StartsWith(line, "/**"))
-                line.remove_prefix(3);
-            else if (StartsWith(line, "*/"))
+            bool had_marker = false;
+            for (std::string_view marker : {"///<", "//!<", "//<", "///", "//!", "//", "/**<", "/*!<", "/**", "/*!", "/*"})
+            {
+                if (StartsWith(line, marker))
+                {
+                    line.remove_prefix(marker.size());
+                    had_marker = true;
+                    break;
+                }
+            }
+            if (!had_marker && StartsWith(line, "*/"))
                 continue;
-            else if (StartsWith(line, "*"))
+            if (!had_marker && StartsWith(line, "*"))
                 line.remove_prefix(1);
             if (EndsWith(line, "*/"))
                 line.remove_suffix(2);
-            if (!line.empty() && line.front() == ' ')
-                line.remove_prefix(1);
             // Everything from here on is added by the C generator.
-            if (StartsWith(line, "Generated from "))
+            if (StartsWith(Trim(std::string(line)), "Generated from "))
                 break;
-            if (!ret.empty())
-                ret += '\n';
-            ret += line;
+            lines.push_back(line);
         }
-        while (!ret.empty() && ret.back() == '\n')
+        std::size_t indent = std::string_view::npos;
+        for (std::string_view line : lines)
+        {
+            if (std::size_t i = line.find_first_not_of(' '); i != std::string_view::npos)
+            {
+                indent = i;
+                break;
+            }
+        }
+        std::string ret;
+        for (std::string_view line : lines)
+        {
+            std::size_t n = 0;
+            while (n < indent && n < line.size() && line[n] == ' ')
+                n++;
+            line.remove_prefix(n);
+            if (!ret.empty() || !line.empty())
+                ret += std::string(line) + '\n';
+        }
+        while (!ret.empty() && (ret.back() == '\n' || ret.back() == ' '))
             ret.pop_back();
         return ret;
     }
@@ -435,7 +456,7 @@ namespace mrbind::Python
         if (t == "std::ostream" || t == "std::istream")
             return "object";
         if (t == "std::filesystem::path")
-            return is_return ? "os.PathLike" : "Union[os.PathLike, str, bytes]";
+            return is_return ? "pathlib.Path" : "Union[os.PathLike, str, bytes]";
         if (StartsWith(t, "std::shared_ptr<") && EndsWith(t, ">"))
         {
             std::string inner = Trim(t.substr(16, t.size() - 17));
@@ -837,6 +858,15 @@ namespace mrbind::Python
                     if (it != types.end())
                         info.bases.push_back(&it->second);
                 }
+                // Python can't order the bases if one of them is a base of another one (e.g. `struct C : virtual A, B` with `struct B : virtual A`).
+                const std::vector<const TypeInfo *> all_bases = info.bases;
+                std::erase_if(info.bases, [&](const TypeInfo *b)
+                {
+                    return std::any_of(all_bases.begin(), all_bases.end(), [&](const TypeInfo *other)
+                    {
+                        return other != b && other->class_desc->inheritance_info.bases_indirect.Map().contains(b->cpp_name);
+                    });
+                });
             }
         }
 
@@ -1867,7 +1897,6 @@ namespace mrbind::Python
         // Constructors, ordered like pybind11 does.
         GroupEntry init{"__init__", {}};
         std::optional<PreparedOverload> copy_ctor, aggregate_ctor;
-        bool has_user_ctors = false;
         bool std_function = info.is_std_function;
         for (const auto &m : cls.methods)
         {
@@ -1885,8 +1914,6 @@ namespace mrbind::Python
                 aggregate_ctor = std::move(ov);
             else
             {
-                if (!EndsWith(m.c_name, "_DefaultConstruct"))
-                    has_user_ctors = true;
                 init.overloads.push_back(std::move(*ov));
             }
         }
@@ -1911,7 +1938,11 @@ namespace mrbind::Python
             c.comment = "Implicit copy constructor.";
             init.overloads.push_back(c);
         }
-        if (aggregate_ctor || (!has_user_ctors && cls.fields.empty() && !std_function && !init.overloads.empty()))
+        // Like `DETAIL_MB_PB11_ADD_AGGREGATE_CTOR`: aggregates without bases, elementwise (so without arguments if no fields).
+        bool has_fields = std::any_of(cls.fields.begin(), cls.fields.end(), [](const CInterop::ClassField &f){return !f.is_static;});
+        if (!cls.inheritance_info.bases_direct_combined.Vec().empty())
+            aggregate_ctor.reset();
+        if (aggregate_ctor || (cls.is_aggregate && cls.inheritance_info.bases_direct_combined.Vec().empty() && !has_fields && !std_function && !init.overloads.empty()))
         {
             PreparedOverload a = aggregate_ctor ? *aggregate_ctor : init.overloads.front();
             a.comment = "Implicit aggregate constructor.";
@@ -2108,7 +2139,26 @@ namespace mrbind::Python
             if (f.inherited_from || hidden_fields.contains(f.name))
                 continue;
             if (!f.is_static && f.layout)
-                out_init += "    if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + std::to_string(f.layout->byte_offset) + "))) return nullptr;\n";
+            {
+                // The layout in the description is the parser's target platform, compute the offset on this one.
+                std::string offset;
+                if (info.IsExposedStruct())
+                    offset = "offsetof(" + info.c_name + ", " + f.name + ")";
+                else if (!StripType(f.type).is_ref) // The getters of the references return the referenced objects.
+                {
+                    for (const auto *acc : {&f.getter_mutable, &f.getter_const})
+                    {
+                        if (*acc && (*acc)->params.size() == 1 && (*acc)->params[0].c_params.size() == 1 && StripType((*acc)->ret.c_type).is_ptr)
+                        {
+                            offset = "[]{alignas(64) static char buf_[1]; return (Py_ssize_t)((const char *)" + (*acc)->c_name + "((" + (*acc)->params[0].c_params[0].c_type + ")buf_) - buf_);}()";
+                            break;
+                        }
+                    }
+                }
+                if (offset.empty())
+                    offset = std::to_string(f.layout->byte_offset);
+                out_init += "    if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
+            }
             const CInterop::ClassField::Accessor *getter = nullptr;
             StrippedType st = StripType(f.type);
             bool scalar = GetScalarKind(st.base) != ScalarKind::none || (types.contains(st.base) && types.at(st.base).IsEnum()) || st.base == "std::string";
