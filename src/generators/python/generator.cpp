@@ -829,6 +829,10 @@ namespace mrbind::Python
             {
                 for (const auto &base : info.class_desc->inheritance_info.bases_direct_combined.Vec())
                 {
+                    // The C bindings have no upcasts to the ambiguous bases.
+                    const auto &indirect = info.class_desc->inheritance_info.bases_indirect.Map();
+                    if (auto k = indirect.find(base); k != indirect.end() && k->second == CInterop::InheritanceInfo::Kind::ambiguous)
+                        continue;
                     auto it = types.find(base);
                     if (it != types.end())
                         info.bases.push_back(&it->second);
@@ -934,7 +938,8 @@ namespace mrbind::Python
             auto type_it = types.find(st.base);
             const TypeInfo *ti = type_it != types.end() ? &type_it->second : nullptr;
 
-            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !types_by_c_name.contains(StripType(cp[0].c_type).base))
+            const bool ptr_to_ptr = cp.size() == 1 && std::count(cp[0].c_type.begin(), cp[0].c_type.end(), '*') == 2;
+            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !types_by_c_name.contains(StripType(cp[0].c_type).base))
             {
                 // `std::optional<T>` as a pointer to the value, null for `nullopt` (also from `None`).
                 std::string vt = Trim(st.base.substr(14, st.base.size() - 15));
@@ -970,7 +975,7 @@ namespace mrbind::Python
                     break;
                 }
             }
-            else if (st.base == "std::filesystem::path" && ((cp.size() == 2 && EndsWith(cp[0].c_type, "PassBy")) || (cp.size() == 1 && StartsWith(cp[0].c_type, "const "))))
+            else if (st.base == "std::filesystem::path" && ((cp.size() == 2 && EndsWith(cp[0].c_type, "PassBy")) || (cp.size() == 1 && StartsWith(cp[0].c_type, "const ") && !ptr_to_ptr)))
             {
                 const TypeInfo *path = FindType("std::filesystem::path");
                 checks += "    rt::StringArg " + v + "s;\n";
@@ -1122,6 +1127,20 @@ namespace mrbind::Python
                     late += "    if (" + v + "callable) {Py_INCREF(" + a + "); " + v + " = " + cls->c_name + "_ConstructEx(tramp_" + cls->var + ", " + a + ", rt::CallbackPostcall, rt::CallableUserdataCallback);}\n";
                 std::string pb = "(" + v + "callable ? " + pass_by + "_MoveAndDestroy : " + (has_default ? "(" + v + " ? " + pass_by + "_Copy : " + pass_by + "_DefaultArgument)" : pass_by + "_Copy") + ")";
                 c_args[&p] = pb + ", (" + ctype + ")" + v;
+            }
+            else if (cp.size() == 1 && ptr_to_ptr && st.is_ptr && EndsWith(cp[0].c_type, "*const *"))
+            {
+                // A pointer with a default argument: a pointer to it, null for the default.
+                std::string inner = Trim(cp[0].c_type.substr(0, cp[0].c_type.size() - 7));
+                auto cls_it = types_by_c_name.find(StripType(inner).base);
+                if (cls_it == types_by_c_name.end() || !cls_it->second->IsClass() || cls_it->second->no_class || cls_it->second->is_std_function)
+                {
+                    fail = "unsupported parameter type " + p.cpp_type;
+                    break;
+                }
+                checks += ArgObjectWithImplicit(*cls_it->second, a, v, true, true);
+                checks += "    " + inner + " " + v + "pp = (" + inner + ")" + v + ";\n";
+                c_args[&p] = "(" + a + " ? &" + v + "pp : nullptr)";
             }
             else if (cp.size() == 1 && (EndsWith(cp[0].c_type, "*")))
             {
@@ -1466,7 +1485,7 @@ namespace mrbind::Python
             return decl + "!" + expr + " ? (Py_INCREF(Py_None), Py_None) : rt::RetString(" + expr + ", " + expr + " + std::strlen(" + expr + "));\n";
         if (sk != ScalarKind::none && num_stars == 1)
             return decl + "!" + expr + " ? (Py_INCREF(Py_None), Py_None) : rt::" + Ret(sk) + "(*" + expr + ");\n";
-        if (StartsWith(st.base, "std::unique_ptr<") && num_stars == 1)
+        if (StartsWith(st.base, "std::unique_ptr<") && num_stars == 1 && !st.is_ptr && !st.is_ref)
         {
             std::string inner = st.base.substr(16, st.base.size() - 17);
             ScalarKind isk = GetScalarKind(inner);
