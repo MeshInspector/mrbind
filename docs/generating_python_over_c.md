@@ -35,6 +35,12 @@ Where:
 
 * `--hide-field <name>` skips the fields with this name, e.g. the ones that are public only for the C bindings.
 
+* `--ignore-c-file <regex>` skips the entities from the matching C headers (relative to the include directory, without the extension), e.g. `^MyLibCuda/` to leave out a sub-library.
+
+* `--adjust-typeid-name <regex> <replacement>` is applied to the C++ names before spelling them like `typeid()` does, e.g. `--adjust-typeid-name '(^|[^:\w])expected<' '$1tl::expected<'` if the C bindings were generated with `--merge-std-and-tl-expected`.
+
+* `--adjust-doc-name <regex> <replacement>` is applied to the C++ names in the docs (`Generated from:`), e.g. to spell `size_t` as its underlying type if the pybind11 build was parsed without the `size_t` support.
+
 The output is `out/<module>.cpp` and `out/mrbind_py_runtime.h`. Compile the former as C++20 with `-DPy_LIMITED_API=0x03080000` (or newer), the Python headers, the C bindings headers, and link it to the C bindings library and `python3` (`python3.lib` on Windows; nothing on Linux and macOS).
 
 The extension and the C bindings must use the same C++ standard library, because `__repr__` and the stream parameters pass `std::ostream`/`std::istream` objects created on the extension side.
@@ -52,4 +58,7 @@ python3 scripts/python_api_dump.py diff old.json new.json
 
 * Calling an unbound method with a wrong `self` raises CPython's own `TypeError` text.
 * The iterators are lists built eagerly.
-* Non-literal default arguments are printed as spelled in C++ (pybind11 prints the evaluated values).
+* Default arguments that aren't arithmetic constants are printed as spelled in C++ (pybind11 prints their `repr()`). The arithmetic ones are evaluated by the parser for its target platform, e.g. `size_t(-1)` differs if the C bindings were parsed for wasm32.
+* The overloads are in the order of the C bindings, which can differ from the registration order of the pybind11 build.
+* `_offsetof_<field>` of the reference fields is the one on the parser's target platform (the other offsets are computed on this one).
+* The whitespace of the block comments (`/** ... */`) that depends on their indentation in the source.
