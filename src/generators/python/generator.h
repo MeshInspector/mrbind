@@ -176,6 +176,8 @@ namespace mrbind::Python
         void EmitArrayMembers(TypeInfo &info);
         void EmitMapMembers(TypeInfo &info);
         void EmitOptionalMembers(TypeInfo &info);
+        // `std::variant`, like `CustomTypeBinding<std::variant<P...>>` of the pybind11 target.
+        void EmitVariantMembers(TypeInfo &info);
         [[nodiscard]] bool IsIgnoredForPython(const std::string &cpp_name);
         // A primitive for the Python parts of the container APIs: a builtin taking `num_params` positional arguments, `body` uses `a[i]`.
         // Returns the `PyMethodDef` variable.

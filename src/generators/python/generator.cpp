@@ -998,6 +998,9 @@ namespace mrbind::Python
                     this_param = &p;
                 continue;
             }
+            // The tags selecting the alternative of `std::variant`, nothing to pass.
+            if (p.c_params.empty() && StartsWith(StripType(p.cpp_type).base, "std::variant_index<"))
+                continue;
             py_params.push_back(&p);
         }
         if (swap_first_two && py_params.size() >= 2)
@@ -2772,7 +2775,7 @@ namespace mrbind::Python
                     continue;
                 std::vector<const CInterop::FuncParam *> params;
                 for (const auto &p : m.params)
-                    if (!p.is_this_param)
+                    if (!p.is_this_param && !(p.c_params.empty() && StartsWith(StripType(p.cpp_type).base, "std::variant_index<")))
                         params.push_back(&p);
                 std::size_t num_required = 0;
                 for (auto p : params)
@@ -3280,6 +3283,101 @@ namespace mrbind::Python
         out_init += "        if (!rt::CallRt(\"add_optional_api\", Py_BuildValue(\"(OssN)\", " + info.var + ".type, " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(DocTypeName(info.optional_value, false)) + ", prims_))) return nullptr;\n    }\n";
     }
 
+    void Generator::EmitVariantMembers(TypeInfo &info)
+    {
+        const std::string self_doc = module_qualname + "." + info.py_qualname;
+        const CInterop::ClassMethod *index = FindMethod(info, "_index");
+        if (!index || index->params.size() != 1 || index->params[0].c_params.size() != 1)
+            return;
+        const std::string self_c = index->params[0].c_params[0].c_type;
+        const std::string head = "(PyObject *const *a, bool, bool &matched)\n{\n    void *self_ = nullptr;\n    if (!rt::ArgObject(a[0], " + info.var + ", false, self_)) return nullptr;\n    matched = true;\n";
+
+        // The alternatives, from the `ConstructAs_...` functions.
+        struct Alt {std::string cpp, name; const CInterop::ClassMethod *ctor = nullptr, *get = nullptr;};
+        std::vector<Alt> alts;
+        bool all_default_constructible = true;
+        for (const auto &m : info.class_desc->methods)
+        {
+            std::size_t pos = m.c_name.find("_ConstructAs_");
+            if (pos == std::string::npos)
+                continue;
+            for (const auto &p : m.params)
+            {
+                if (p.is_this_param || p.c_params.empty())
+                    continue;
+                Alt alt{.cpp = StripType(p.cpp_type).base, .ctor = &m};
+                alt.name = ToPythonName(AdjustName(TypeidSpelling(alt.cpp)));
+                alt.get = FindMethod(info, "_get_" + m.c_name.substr(pos + 13));
+                if (const TypeInfo *t = FindType(alt.cpp); t && t->traits && t->traits->default_constructible == CInterop::SpecialMemberKind::disabled)
+                    all_default_constructible = false;
+                alts.push_back(std::move(alt));
+                break;
+            }
+        }
+
+        GroupEntry init{"__init__", {}};
+        if (const CInterop::ClassMethod *def = FindMethod(info, "_DefaultConstruct"); def && all_default_constructible)
+        {
+            if (auto ov = PrepareOverload(*def, &info, 2))
+                init.overloads.push_back(std::move(*ov));
+        }
+        std::vector<const CInterop::ClassMethod *> ctors;
+        if (const CInterop::ClassMethod *copy = FindMethod(info, "_ConstructFromAnother"))
+            ctors.push_back(copy);
+        for (const Alt &alt : alts)
+            ctors.push_back(alt.ctor);
+        for (const CInterop::ClassMethod *m : ctors)
+        {
+            if (auto ov = PrepareOverload(*m, &info, 2); ov && ov->params.size() == 2)
+            {
+                ov->params[1].name = "arg0";
+                ov->params[1].default_repr.clear();
+                ov->num_required = 2;
+                ov->comment.clear();
+                init.overloads.push_back(std::move(*ov));
+            }
+        }
+        std::string cls_obj = info.var + ".type";
+        if (!init.overloads.empty())
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup(init, &info, true, true) + ")) return nullptr;\n";
+
+        { // `current_type()`.
+            PreparedOverload ov;
+            ov.impl = NewId("impl_");
+            out_impls += "static PyObject *" + ov.impl + head + "    static const char *const names_[] = {";
+            for (const Alt &alt : alts)
+                out_impls += CppStringLiteral(alt.name) + ", ";
+            out_impls += "nullptr};\n    std::size_t i_ = (std::size_t)" + index->c_name + "((" + self_c + ")self_);\n";
+            out_impls += "    const char *n_ = i_ < " + std::to_string(alts.size()) + " ? names_[i_] : \"\";\n    return rt::RetString(n_, n_ + std::strlen(n_));\n}\n\n";
+            ov.params = {{"self", self_doc, ""}};
+            ov.ret_type = "str";
+            ov.num_required = 1;
+            ov.comment = "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.";
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup({"current_type", {ov}}, &info, true, false) + ")) return nullptr;\n";
+        }
+
+        // `get_<TypeName>()`, a copy of the alternative.
+        for (const Alt &alt : alts)
+        {
+            if (!alt.get || alt.get->params.size() != 1 || alt.get->params[0].c_params.size() != 1)
+                continue;
+            auto conv = CToPy("const " + alt.cpp + " &", alt.get->ret.c_type, "p_", "a[0]", "r_");
+            if (!conv)
+                continue;
+            PreparedOverload ov;
+            ov.impl = NewId("impl_");
+            out_impls += "static PyObject *" + ov.impl + head + "    try\n    {\n        auto p_ = " + alt.get->c_name + "((" + alt.get->params[0].c_params[0].c_type + ")self_);\n";
+            // The C function returns null for an inactive alternative, `std::get()` would throw `std::bad_variant_access`.
+            out_impls += "        if (!p_) {PyErr_SetString(PyExc_RuntimeError, \"bad variant access\"); return nullptr;}\n";
+            out_impls += *conv + "        return r_;\n    }\n    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
+            ov.params = {{"self", self_doc, ""}};
+            ov.ret_type = DocTypeName(alt.cpp, true);
+            ov.num_required = 1;
+            ov.comment = "Return this alternative, or throw if it's not active.";
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup({"get_" + alt.name, {ov}}, &info, true, false) + ")) return nullptr;\n";
+        }
+    }
+
     bool Generator::IsListConstructible(const TypeInfo &info)
     {
         if (!info.IsClass() || info.no_class || info.is_vector || info.IsExposedStruct() || !FindMethod(info, "_DefaultConstruct"))
@@ -3727,6 +3825,8 @@ namespace mrbind::Python
                 EmitMapMembers(*info);
             else if (info->is_std_function)
                 EmitStdFunctionMembers(*info);
+            else if (StartsWith(info->cpp_name, "std::variant<"))
+                EmitVariantMembers(*info);
             else
                 EmitClassMembers(*info);
         }
