@@ -501,6 +501,31 @@ namespace mrbind::Python
                 if (td.full_name.find('<') == std::string::npos && td.pretty != td.full_name)
                     typedef_targets.emplace(td.full_name, td.pretty);
             }
+            for (const auto &a : c_desc.type_aliases)
+            {
+                if (a.spelling != a.target && a.spelling.find('<') != std::string::npos && !StartsWith(a.spelling, "const ") && !types.contains(a.spelling) && !StartsWith(a.spelling, "std::"))
+                    alias_template_targets.emplace_back(a.spelling, a.target);
+            }
+            // Longest first, so that the nested ones don't match first.
+            std::stable_sort(alias_template_targets.begin(), alias_template_targets.end(), [](const auto &a, const auto &b){return a.first.size() > b.first.size();});
+        }
+        for (const auto &[regex, replacement] : typeid_name_adjustments)
+            name = std::regex_replace(name, std::regex(regex), replacement);
+        for (const auto &[spelling, target] : alias_template_targets)
+        {
+            for (std::size_t pos = 0; (pos = name.find(spelling, pos)) != std::string::npos;)
+            {
+                bool word_start = pos == 0 || !(std::isalnum((unsigned char)name[pos - 1]) || name[pos - 1] == '_' || name[pos - 1] == ':');
+                if (word_start)
+                {
+                    name.replace(pos, spelling.size(), target);
+                    pos += target.size();
+                }
+                else
+                {
+                    pos += spelling.size();
+                }
+            }
         }
         // Expand the typedefs, repeatedly.
         static const std::regex word(R"((?:\b[A-Za-z_]\w*::)*[A-Za-z_]\w*)");
