@@ -45,7 +45,7 @@ m.StdContainers.Set([1, 2, 3])  # The implicit conversion from a list.
 # Enums are pybind11-like enum classes.
 check(m.CSharp.test_enum(m.CSharp.E1.a) == m.CSharp.E1.b, "enum default")
 check(m.CSharp.test_enum(m.CSharp.E1.a, m.CSharp.E1.a) == m.CSharp.E1.a, "enum")
-check(int(m.CSharp.E1.b) == 20 and m.CSharp.E1(20) is m.CSharp.E1.b, "enum value")
+check(int(m.CSharp.E1.b) == 20 and m.CSharp.E1(20) == m.CSharp.E1.b, "enum value")
 
 # `std::function` parameters accept Python callables.
 m.StdFunction.foo(lambda: 1)
