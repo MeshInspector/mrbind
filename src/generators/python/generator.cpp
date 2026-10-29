@@ -337,7 +337,10 @@ namespace mrbind::Python
 
     std::string Generator::ProcessComment(const std::string &c_style, bool require_generated_from)
     {
-        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos)
+        // The comments added by the C generator: after the parsed comment, or alone.
+        static constexpr std::string_view default_ctor_comment = "Constructs an empty (default-constructed) instance.";
+        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos &&
+            c_style.find(std::string("\n/// ") + std::string(default_ctor_comment)) == std::string::npos)
             return "";
         // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
         //   and the indentation of the first line removed from all lines.
@@ -378,7 +381,7 @@ namespace mrbind::Python
             if (EndsWith(line, "*/"))
                 line.remove_suffix(2);
             // Everything from here on is added by the C generator.
-            if (StartsWith(Trim(std::string(line)), "Generated from "))
+            if (StartsWith(Trim(std::string(line)), "Generated from ") || Trim(std::string(line)) == default_ctor_comment)
                 break;
             lines.push_back(line);
         }

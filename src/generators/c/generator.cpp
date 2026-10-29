@@ -5603,7 +5603,10 @@ namespace mrbind::C
                                 if (elem.params.empty())
                                 {
                                     HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
-                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self));
+                                    EmitFuncParams params = binder.PrepareFuncDefaultCtor(self);
+                                    if (elem.comment)
+                                        params.c_comment = elem.comment->text_with_slashes + "\n" + params.c_comment;
+                                    self.EmitFunction(file, params);
                                 }
                                 else
                                 {
