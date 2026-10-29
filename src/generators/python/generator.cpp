@@ -829,6 +829,10 @@ namespace mrbind::Python
             {
                 for (const auto &base : info.class_desc->inheritance_info.bases_direct_combined.Vec())
                 {
+                    // The C bindings have no upcasts to the ambiguous bases.
+                    const auto &indirect = info.class_desc->inheritance_info.bases_indirect.Map();
+                    if (auto k = indirect.find(base); k != indirect.end() && k->second == CInterop::InheritanceInfo::Kind::ambiguous)
+                        continue;
                     auto it = types.find(base);
                     if (it != types.end())
                         info.bases.push_back(&it->second);
@@ -934,7 +938,8 @@ namespace mrbind::Python
             auto type_it = types.find(st.base);
             const TypeInfo *ti = type_it != types.end() ? &type_it->second : nullptr;
 
-            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !types_by_c_name.contains(StripType(cp[0].c_type).base))
+            const bool ptr_to_ptr = cp.size() == 1 && std::count(cp[0].c_type.begin(), cp[0].c_type.end(), '*') == 2;
+            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !types_by_c_name.contains(StripType(cp[0].c_type).base))
             {
                 // `std::optional<T>` as a pointer to the value, null for `nullopt` (also from `None`).
                 std::string vt = Trim(st.base.substr(14, st.base.size() - 15));
@@ -970,7 +975,7 @@ namespace mrbind::Python
                     break;
                 }
             }
-            else if (st.base == "std::filesystem::path" && ((cp.size() == 2 && EndsWith(cp[0].c_type, "PassBy")) || (cp.size() == 1 && StartsWith(cp[0].c_type, "const "))))
+            else if (st.base == "std::filesystem::path" && ((cp.size() == 2 && EndsWith(cp[0].c_type, "PassBy")) || (cp.size() == 1 && StartsWith(cp[0].c_type, "const ") && !ptr_to_ptr)))
             {
                 const TypeInfo *path = FindType("std::filesystem::path");
                 checks += "    rt::StringArg " + v + "s;\n";
@@ -1122,6 +1127,20 @@ namespace mrbind::Python
                     late += "    if (" + v + "callable) {Py_INCREF(" + a + "); " + v + " = " + cls->c_name + "_ConstructEx(tramp_" + cls->var + ", " + a + ", rt::CallbackPostcall, rt::CallableUserdataCallback);}\n";
                 std::string pb = "(" + v + "callable ? " + pass_by + "_MoveAndDestroy : " + (has_default ? "(" + v + " ? " + pass_by + "_Copy : " + pass_by + "_DefaultArgument)" : pass_by + "_Copy") + ")";
                 c_args[&p] = pb + ", (" + ctype + ")" + v;
+            }
+            else if (cp.size() == 1 && ptr_to_ptr && st.is_ptr && EndsWith(cp[0].c_type, "*const *"))
+            {
+                // A pointer with a default argument: a pointer to it, null for the default.
+                std::string inner = Trim(cp[0].c_type.substr(0, cp[0].c_type.size() - 7));
+                auto cls_it = types_by_c_name.find(StripType(inner).base);
+                if (cls_it == types_by_c_name.end() || !cls_it->second->IsClass() || cls_it->second->no_class || cls_it->second->is_std_function)
+                {
+                    fail = "unsupported parameter type " + p.cpp_type;
+                    break;
+                }
+                checks += ArgObjectWithImplicit(*cls_it->second, a, v, true, true);
+                checks += "    " + inner + " " + v + "pp = (" + inner + ")" + v + ";\n";
+                c_args[&p] = "(" + a + " ? &" + v + "pp : nullptr)";
             }
             else if (cp.size() == 1 && (EndsWith(cp[0].c_type, "*")))
             {
@@ -1466,7 +1485,7 @@ namespace mrbind::Python
             return decl + "!" + expr + " ? (Py_INCREF(Py_None), Py_None) : rt::RetString(" + expr + ", " + expr + " + std::strlen(" + expr + "));\n";
         if (sk != ScalarKind::none && num_stars == 1)
             return decl + "!" + expr + " ? (Py_INCREF(Py_None), Py_None) : rt::" + Ret(sk) + "(*" + expr + ");\n";
-        if (StartsWith(st.base, "std::unique_ptr<") && num_stars == 1)
+        if (StartsWith(st.base, "std::unique_ptr<") && num_stars == 1 && !st.is_ptr && !st.is_ref)
         {
             std::string inner = st.base.substr(16, st.base.size() - 17);
             ScalarKind isk = GetScalarKind(inner);
@@ -2020,7 +2039,8 @@ namespace mrbind::Python
         for (const auto &m : cls.methods)
         {
             auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
-            if (!op || op->token != "=" || !op->is_copying_assignment)
+            // Not for the abstract classes, which have no constructors in the C bindings.
+            if (!op || op->token != "=" || !op->is_copying_assignment || (!FindMethod(info, "_DefaultConstruct") && !FindMethod(info, "_ConstructFromAnother")))
                 continue;
             auto ov = PrepareOverload(m, &info, 1);
             if (!ov || ov->params.size() != 2)
@@ -2225,7 +2245,7 @@ namespace mrbind::Python
         for (const auto &f : c_desc.functions)
         {
             auto r = std::get_if<CInterop::FuncKinds::Regular>(&f.var);
-            if (!r || f.params.size() != 1 || StripType(f.params[0].cpp_type).base != info.cpp_name)
+            if (!r || f.params.size() != 1 || f.params[0].c_params.size() != 1 || StripType(f.params[0].c_params[0].c_type).base != info.c_name)
                 continue;
             std::string name = SplitQualified(r->name).back();
             if (name == "begin" || name == "end")
@@ -2369,24 +2389,38 @@ namespace mrbind::Python
         }
 
         // `__repr__` from `operator<<`: `Name(...)`.
-        for (const auto &f : c_desc.functions)
+        // The class itself, then its bases (`ss << t` also finds the `operator<<` of a base).
+        std::vector<std::pair<const TypeInfo *, std::string>> printable_as = {{&info, "self_"}};
+        for (const auto &b : info.class_desc->inheritance_info.bases_indirect.Vec())
         {
-            auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
-            if (!op || op->token != "<<" || f.params.size() != 2 || StripType(f.params[0].cpp_type).base != "std::ostream" || StripType(f.params[1].cpp_type).base != info.cpp_name)
-                continue;
-            if (f.params[0].c_params.size() != 1 || f.params[1].c_params.size() != 1)
-                continue;
-            std::string arg = info.IsExposedStruct() && f.params[1].c_params[0].c_type == info.c_name ? "*(" + info.c_name + " *)self_" : "(" + f.params[1].c_params[0].c_type + ")self_";
-            PreparedOverload ov;
-            ov.impl = NewId("impl_");
-            // The stream is created on this side, which relies on the module and the C bindings using the same standard library.
-            out_impls += "static PyObject *" + ov.impl + head + "    try\n    {\n        std::ostringstream ss_;\n        " + f.c_name + "((" + f.params[0].c_params[0].c_type + ")static_cast<std::ostream *>(&ss_), " + arg + ");\n";
-            out_impls += "        std::string s_ = " + CppStringLiteral(info.py_qualname) + " \"(\" + std::move(ss_).str() + \")\";\n        return rt::RetString(s_.data(), s_.data() + s_.size());\n" + tail;
-            ov.params = {{"self", self_doc, ""}};
-            ov.ret_type = "str";
-            ov.num_required = 1;
-            ret.emplace_back("__repr__", std::move(ov));
-            break;
+            if (const TypeInfo *bt = FindType(b); bt && bt->IsClass() && info.class_desc->inheritance_info.bases_indirect.Map().at(b) == CInterop::InheritanceInfo::Kind::non_virt)
+                printable_as.emplace_back(bt, "(void *)" + info.c_name + "_MutableUpcastTo_" + bt->c_name + "((" + info.c_name + " *)self_)");
+        }
+        bool found_print = false;
+        for (const auto &[pt, self_expr] : printable_as)
+        {
+            for (const auto &f : c_desc.functions)
+            {
+                auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
+                if (!op || op->token != "<<" || f.params.size() != 2 || StripType(f.params[0].cpp_type).base != "std::ostream" || StripType(f.params[1].cpp_type).base != pt->cpp_name)
+                    continue;
+                if (f.params[0].c_params.size() != 1 || f.params[1].c_params.size() != 1)
+                    continue;
+                std::string arg = pt->IsExposedStruct() && f.params[1].c_params[0].c_type == pt->c_name ? "*(" + pt->c_name + " *)" + self_expr : "(" + f.params[1].c_params[0].c_type + ")" + self_expr;
+                PreparedOverload ov;
+                ov.impl = NewId("impl_");
+                // The stream is created on this side, which relies on the module and the C bindings using the same standard library.
+                out_impls += "static PyObject *" + ov.impl + head + "    try\n    {\n        std::ostringstream ss_;\n        " + f.c_name + "((" + f.params[0].c_params[0].c_type + ")static_cast<std::ostream *>(&ss_), " + arg + ");\n";
+                out_impls += "        std::string s_ = " + CppStringLiteral(info.py_qualname) + " \"(\" + std::move(ss_).str() + \")\";\n        return rt::RetString(s_.data(), s_.data() + s_.size());\n" + tail;
+                ov.params = {{"self", self_doc, ""}};
+                ov.ret_type = "str";
+                ov.num_required = 1;
+                ret.emplace_back("__repr__", std::move(ov));
+                found_print = true;
+                break;
+            }
+            if (found_print)
+                break;
         }
         // The fixed-size vectors (`Vector3` etc.) have `begin()`/`end()` as C++ function templates that the C bindings don't instantiate,
         //   iterate over `[0, elements)` with `operator[]` instead.
