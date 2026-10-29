@@ -259,6 +259,14 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--minimal-containers", {
+            .desc = "Bind only the essential functions of the standard containers, to make the bindings smaller. For vectors, deques and arrays this removes the iterators, `begin()`/`end()`, `capacity()`, `shrink_to_fit()`, construction from a range and `resize_with_default_value()`, leaving `size()`, `at()`, `front()`/`back()`, `data()`, `resize()`, `reserve()`, `push_back()`, `insert()`/`erase()` at an index, etc. Lists, sets and maps keep only the read-only iterators, enough to enumerate the elements; maps lose the mutable `find()`, use `find_value_mut()` instead.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.minimal_containers = true;
+            },
+        });
+
         args_parser.AddFlag("--preferred-max-num-aggregate-init-fields", {
             .arg_names = {"n"},
             .desc = "Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.",

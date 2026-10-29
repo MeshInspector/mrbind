@@ -129,6 +129,9 @@ namespace mrbind::C
         // Go out of our way to include additional headers in our headers, if we think the user might want them.
         bool add_convenience_includes = false;
 
+        // Bind only the essential functions of the standard containers, see `--minimal-containers`.
+        bool minimal_containers = false;
+
         // If this is positive, will not generate the aggregate init constructor if there are more than this number of fields.
         std::size_t max_num_fields_for_default_constructible_aggregate_init = std::size_t(-1);
 
