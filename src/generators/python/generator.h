@@ -41,6 +41,8 @@ namespace mrbind::Python
         std::vector<std::string> ignored_for_python;
         // Regexes on the C header names (`output_file.relative_name`) of the entities to skip, e.g. a sub-library.
         std::vector<std::string> ignored_c_files;
+        // Regexes on the C++ names of the classes that get `__iter__` over `[0, elements)` with `operator[]` (for `begin()`/`end()` templates the C bindings don't have).
+        std::vector<std::string> iterate_by_index_regexes;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 

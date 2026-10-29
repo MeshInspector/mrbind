@@ -2684,11 +2684,13 @@ namespace mrbind::Python
         }
         // The fixed-size vectors (`Vector3` etc.) have `begin()`/`end()` as C++ function templates that the C bindings don't instantiate,
         //   iterate over `[0, elements)` with `operator[]` instead.
+        // The classes for this are given by `--iterate-by-index`, the C bindings can't tell if those templates exist.
         bool has_iter_now = false;
         for (const auto &r : ret)
             if (r.first == "__iter__")
                 has_iter_now = true;
-        if (!has_iter_now)
+        bool iterate_by_index = std::any_of(iterate_by_index_regexes.begin(), iterate_by_index_regexes.end(), [&](const std::string &r){return std::regex_search(info.cpp_name, std::regex(r));});
+        if (!has_iter_now && iterate_by_index)
         {
             const CInterop::ClassField *elements = nullptr;
             for (const auto &f : info.class_desc->fields)

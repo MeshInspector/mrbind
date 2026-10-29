@@ -122,6 +122,15 @@ int main(int argc, char **argv)
             generator.ignored_c_files.push_back(std::string(args[0]));
         },
     });
+    args_parser.AddFlag("--iterate-by-index", {
+        .allow_repeat = true,
+        .arg_names = {"regex"},
+        .desc = "The classes with matching C++ names get `__iter__` over `[0, elements)` with `operator[]` (needs a static `elements` field), for the free `begin()`/`end()` templates that the C bindings don't instantiate. E.g. `^MR::Vector[234](b|i|i64|f|d|<)` (note the preferred names like `Vector3f`).",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.iterate_by_index_regexes.push_back(std::string(args[0]));
+        },
+    });
     args_parser.AddFlag("--hide-field", {
         .allow_repeat = true,
         .arg_names = {"name"},

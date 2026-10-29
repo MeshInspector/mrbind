@@ -35,6 +35,8 @@ Where:
 
 * `--hide-field <name>` skips the fields with this name, e.g. the ones that are public only for the C bindings.
 
+* `--iterate-by-index <regex>` gives the matching classes `__iter__` over `[0, elements)` with `operator[]`, for the free `begin()`/`end()` templates that the C bindings don't instantiate.
+
 * `--ignore-c-file <regex>` skips the entities from the matching C headers (relative to the include directory, without the extension), e.g. `^MyLibCuda/` to leave out a sub-library.
 
 * `--adjust-typeid-name <regex> <replacement>` is applied to the C++ names before spelling them like `typeid()` does, e.g. `--adjust-typeid-name '(^|[^:\w])expected<' '$1tl::expected<'` if the C bindings were generated with `--merge-std-and-tl-expected`.
