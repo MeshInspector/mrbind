@@ -476,6 +476,9 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             (bool)(is_static, false)
             (bool)(is_virtual, false)
+
+            // If this member was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
         , // Bases:
             (BasicFuncLike)
         )
@@ -526,8 +529,11 @@ namespace mrbind::CInterop
             (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
             // ]
 
-            // Describes the location of this field in an exposed struct.
-            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
+            // If this field was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
+
+            // Describes the location of this field in the class.
+            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and for the non-static fields with accessors.
             (std::optional<Layout>)(layout)
         )
 
@@ -699,6 +705,25 @@ namespace mrbind::CInterop
     };
 
     // The combined description of the C generator output.
+    // A typedef from the parsed code, for the generators that expose the typedef names (the Python one, for pybind11-compatible aliases).
+    struct Typedef
+    {
+        MBREFL_STRUCT(
+            (std::string)(full_name)
+            (std::string)(pretty) // The target type as written.
+            (std::string)(canonical) // The target type with the typedefs expanded.
+        )
+    };
+
+    // A spelling of a type in the parsed code, for the generators that expose those as aliases (the Python one, like the pybind11 target).
+    struct TypeAlias
+    {
+        MBREFL_STRUCT(
+            (std::string)(target) // The canonical C++ type.
+            (std::string)(spelling)
+        )
+    };
+
     struct OutputDesc
     {
         MBREFL_STRUCT(
@@ -717,6 +742,13 @@ namespace mrbind::CInterop
 
             // Do the C bindings have exception handling enabled?
             (bool)(exception_handling_enabled, false)
+
+            // All typedefs in the parsed code, in the parsing order.
+            (std::vector<Typedef>)(typedefs, {})
+
+            // The spellings that the pybind11 target registers as aliases: the type itself, and its alternative spellings,
+            //   except the ones of types named by a `preferred_name` (but the typedef names are always included).
+            (std::vector<TypeAlias>)(type_aliases, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)

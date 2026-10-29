@@ -1299,6 +1299,9 @@ namespace mrbind::C
             // This is primarily for interop, the C generator doesn't care about it.
             bool mark_virtual = false;
 
+            // For the interop description: the base class this member was copied from, if any.
+            std::optional<std::string> inherited_from;
+
             // Omit exception handling code.
             bool is_noexcept = false;
 

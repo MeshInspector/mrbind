@@ -151,8 +151,9 @@ option(MRBIND_BUILD_GENERATOR_CSHARP "Build the C# binding generator." ON)
 option(MRBIND_BUILD_GENERATOR_RUST "Build the Rust binding generator." ON)
 option(MRBIND_BUILD_GENERATOR_JAVA "Build the Java binding generator." ON)
 option(MRBIND_BUILD_GENERATOR_JS "Build the JavaScript binding generator." ON)
+option(MRBIND_BUILD_GENERATOR_PYTHON "Build the Python (CPython extension over the C bindings) binding generator." ON)
 
-if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP OR MRBIND_BUILD_GENERATOR_RUST OR MRBIND_BUILD_GENERATOR_JAVA OR MRBIND_BUILD_GENERATOR_JS)
+if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP OR MRBIND_BUILD_GENERATOR_RUST OR MRBIND_BUILD_GENERATOR_JAVA OR MRBIND_BUILD_GENERATOR_JS OR MRBIND_BUILD_GENERATOR_PYTHON)
     add_library(mrbind_gen_common STATIC
         src/generators/common/data_from_json.cpp
         src/generators/common/load_file.cpp
@@ -273,5 +274,24 @@ if(MRBIND_BUILD_GENERATOR_JS)
     )
     if(MRBIND_STATIC_BUILD)
         apply_static_stdlib(mrbind_gen_js)
+    endif()
+endif()
+
+if(MRBIND_BUILD_GENERATOR_PYTHON)
+    add_executable(mrbind_gen_python
+        src/generators/python/generator.cpp
+        src/generators/python/main.cpp
+        src/generators/python/runtime.cpp
+    )
+    target_include_directories(mrbind_gen_python PRIVATE
+        deps/cppdecl/include
+    )
+    target_link_libraries(mrbind_gen_python PRIVATE
+        mrbind_common
+        mrbind_gen_common
+        mrbind_c_interop
+    )
+    if(MRBIND_STATIC_BUILD)
+        apply_static_stdlib(mrbind_gen_python)
     endif()
 endif()
