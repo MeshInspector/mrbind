@@ -932,7 +932,7 @@ namespace mrbind::Python
         const CInterop::FuncParam *this_param = nullptr;
         for (const auto &p : func.params)
         {
-            if (p.is_this_param)
+            if (p.is_this_param && self_kind != 4)
             {
                 if (!p.c_params.empty() || self_kind == 2)
                     this_param = &p;
@@ -948,7 +948,7 @@ namespace mrbind::Python
         // The Python slot of each C++ parameter, for the lifetimes.
         std::map<const CInterop::FuncParam *, std::size_t> param_slots;
 
-        if (self_kind == 1 || self_kind == 2)
+        if (self_kind == 1 || self_kind == 2 || self_kind == 4)
         {
             ret.params.push_back({"self", this_type ? module_qualname + "." + this_type->py_qualname : "object", ""});
             slot = 1;
@@ -975,6 +975,8 @@ namespace mrbind::Python
                 pp.name = "self";
             else if (swap_first_two && pi == 1)
                 pp.name = py_params[0]->name ? AdjustPythonKeywords(*py_params[0]->name) : ""; // Sic, the pybind11 target does this.
+            if (p.is_this_param)
+                pp.name = "arg0"; // The converted object, `self_kind == 4`.
             pp.type = DocTypeName(p.cpp_type, false);
             pp.default_repr = DefaultArgRepr(p);
             bool has_default = p.default_arg_spelling.has_value();
@@ -1251,8 +1253,8 @@ namespace mrbind::Python
                 {
                     std::string ret;
                     std::visit(Overload{
-                        [&](const LifetimeRelation::ThisObject &) {if (self_kind == 1 || self_kind == 2) ret = "a[0]";},
-                        [&](const LifetimeRelation::ReturnValue &) {if (self_kind != 2) ret = "r_";},
+                        [&](const LifetimeRelation::ThisObject &) {if (self_kind == 1 || self_kind == 2) ret = "a[0]"; else if (self_kind == 4) ret = "a[1]";},
+                        [&](const LifetimeRelation::ReturnValue &) {if (self_kind == 4) ret = "a[0]"; else if (self_kind != 2) ret = "r_";},
                         [&](const LifetimeRelation::Param &p)
                         {
                             if (p.index >= 0 && std::size_t(p.index) < func.params.size())
@@ -1270,7 +1272,7 @@ namespace mrbind::Python
                 if (!h.empty() && !t.empty())
                     keep_alive += "    rt::KeepAlive(" + h + ", " + t + ");\n";
             }
-            if (self_kind == 2)
+            if (self_kind == 2 || self_kind == 4)
             {
                 ret.ret_type = "None";
                 if (this_type->IsExposedStruct() && ctype == this_type->c_name)
@@ -1926,6 +1928,9 @@ namespace mrbind::Python
                 continue;
             if (std_function && ctor->is_copying_ctor)
                 continue;
+            // A move-only class: the by-value constructor of the C bindings only moves, pybind11 has no such constructor.
+            if (ctor->is_copying_ctor && info.traits && info.traits->copy_constructible == CInterop::SpecialMemberKind::disabled)
+                continue;
             auto ov = PrepareOverload(m, &info, 2);
             if (!ov)
                 continue;
@@ -1952,6 +1957,18 @@ namespace mrbind::Python
             ov.num_required = 2;
             init.overloads.push_back(ov);
         }
+        if (!copy_ctor && info.IsExposedStruct() && !std_function)
+        {
+            // The exposed structs are copied by value, the C bindings have no copy constructor for them.
+            PreparedOverload ov;
+            ov.impl = NewId("impl_");
+            out_impls += "static PyObject *" + ov.impl + "(PyObject *const *a, bool, bool &matched)\n{\n    void *o_ = nullptr;\n    if (!rt::ArgObject(a[1], " + info.var + ", false, o_)) return nullptr;\n    matched = true;\n";
+            out_impls += "    return rt::InitInstance(a[0], " + info.var + ", new " + info.c_name + "(*(" + info.c_name + " *)o_));\n}\n\n";
+            ov.params = {{"self", module_qualname + "." + info.py_qualname, ""}, {"other", module_qualname + "." + info.py_qualname, ""}};
+            ov.ret_type = "None";
+            ov.num_required = 2;
+            copy_ctor = ov;
+        }
         if (copy_ctor)
         {
             PreparedOverload c = *copy_ctor;
@@ -1975,6 +1992,15 @@ namespace mrbind::Python
             c.params[1].name = "";
             c.comment.clear();
             init.overloads.push_back(c);
+        }
+        // The conversion operators of other classes.
+        if (auto it = conversion_ctors.find(&info); it != conversion_ctors.end())
+        {
+            for (const auto &[src, m] : it->second)
+            {
+                if (auto ov = PrepareOverload(*m, &info, 4))
+                    init.overloads.push_back(std::move(*ov));
+            }
         }
         if (std_function)
         {
@@ -2031,6 +2057,8 @@ namespace mrbind::Python
             }
             else if (std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(m.var))
             {
+                if (const TypeInfo *t = ConversionCtorTarget(m); t && t != &info)
+                    continue; // A constructor of the target instead.
                 ScalarKind sk = GetScalarKind(StripType(m.ret.cpp_type).base);
                 std::string name = sk == ScalarKind::boolean ? "__bool__" : sk == ScalarKind::integer ? "__int__" : sk == ScalarKind::floating ? "__float__" : "convert_to_" + ToPythonName(m.ret.cpp_type);
                 auto ov = PrepareOverload(m, &info, 1);
@@ -2578,6 +2606,37 @@ namespace mrbind::Python
         return ret;
     }
 
+    const Generator::TypeInfo *Generator::ConversionCtorTarget(const CInterop::ClassMethod &m) const
+    {
+        if (!std::holds_alternative<CInterop::MethodKinds::ConversionOperator>(m.var) || m.inherited_from)
+            return nullptr;
+        StrippedType st = StripType(m.ret.cpp_type);
+        if (st.is_ptr || st.is_ref)
+            return nullptr;
+        // Only the parsed classes, like in the pybind11 target.
+        const TypeInfo *t = FindType(st.base);
+        if (!t || !t->IsClass() || t->no_class || t->is_std_function || t->pointee || StartsWith(t->cpp_name, "std::") || StartsWith(t->cpp_name, "phmap::"))
+            return nullptr;
+        return t;
+    }
+
+    void Generator::CollectConversionCtors()
+    {
+        for (const TypeInfo *info : class_order)
+        {
+            if (!info->IsClass() || info->no_class)
+                continue;
+            for (const auto &m : info->class_desc->methods)
+            {
+                if (const TypeInfo *t = ConversionCtorTarget(m); t && t != info)
+                    conversion_ctors[t].emplace_back(info, &m);
+            }
+        }
+        // In the order of the source classes' names.
+        for (auto &[t, list] : conversion_ctors)
+            std::stable_sort(list.begin(), list.end(), [](const auto &a, const auto &b){return a.first->py_qualname < b.first->py_qualname;});
+    }
+
     void Generator::EmitImplicitConversions()
     {
         // pybind11 registers the non-explicit constructors with one argument (not counting the defaulted ones) as implicit conversions.
@@ -2633,6 +2692,14 @@ namespace mrbind::Python
                 else if (src && src->IsClass() && !src->no_class) c = "PyObject_TypeCheck(src, (PyTypeObject *)" + src->var + ".type)";
                 if (!c.empty())
                     checks.push_back(c);
+            }
+            if (auto it = conversion_ctors.find(info); it != conversion_ctors.end())
+            {
+                for (const auto &[src, m] : it->second)
+                {
+                    if (!std::get<CInterop::MethodKinds::ConversionOperator>(m->var).is_explicit)
+                        checks.push_back("PyObject_TypeCheck(src, (PyTypeObject *)" + src->var + ".type)");
+                }
             }
             if (checks.empty())
                 continue;
@@ -3420,6 +3487,7 @@ namespace mrbind::Python
             c_includes.insert(f.output_file.relative_name);
 
         CollectAliases();
+        CollectConversionCtors();
 
         // Type records.
         for (TypeInfo *info : class_order)

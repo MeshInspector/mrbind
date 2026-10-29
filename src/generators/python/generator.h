@@ -152,7 +152,8 @@ namespace mrbind::Python
         [[nodiscard]] static std::string ProcessComment(const std::string &c_style, bool require_generated_from = true);
 
         // Generates the implementation of one overload. `this_type` is null for free functions.
-        // `self_kind`: 0 = no self, 1 = a method (`this` is slot 0), 2 = a constructor (slot 0 is the instance being initialized).
+        // `self_kind`: 0 = no self, 1 = a method (`this` is slot 0), 2 = a constructor (slot 0 is the instance being initialized),
+        //   4 = a conversion operator as a constructor of `this_type` (slot 0 is the instance being initialized, slot 1 is the converted object).
         // `swap_first_two` is for the reflected operators (`__rmul__`): Python passes the class instance first.
         [[nodiscard]] std::optional<PreparedOverload> PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two = false);
 
@@ -209,6 +210,11 @@ namespace mrbind::Python
         void CollectAliases();
         // The implicit conversions: `static bool implicit_T(PyObject *src, PyObject *&tmp)`.
         void EmitImplicitConversions();
+        // `X::operator Y()` returning a parsed class `Y` by value: the pybind11 target makes it a constructor of `Y` instead of a method of `X`.
+        // By `Y`, then the sources `X` with their operators.
+        std::map<const TypeInfo *, std::vector<std::pair<const TypeInfo *, const CInterop::ClassMethod *>>> conversion_ctors;
+        [[nodiscard]] const TypeInfo *ConversionCtorTarget(const CInterop::ClassMethod &m) const;
+        void CollectConversionCtors();
         std::string out_implicit;
         // The check of an object, then the implicit conversion in the second pass. `a` is the argument, `v` receives the pointer.
         [[nodiscard]] std::string ArgObjectWithImplicit(const TypeInfo &cls, const std::string &a, const std::string &v, bool allow_none, bool optional_arg);
