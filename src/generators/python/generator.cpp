@@ -342,6 +342,8 @@ namespace mrbind::Python
         // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
         //   and the indentation of the first line removed from all lines.
         std::vector<std::string_view> lines;
+        // A block comment with nothing on the line of `/**`: then the lines keep the space after their `*`, and the line of `*/` gives a space.
+        bool block = false;
         std::size_t pos = 0;
         while (pos < c_style.size())
         {
@@ -349,6 +351,7 @@ namespace mrbind::Python
             if (end == std::string::npos)
                 end = c_style.size();
             std::string_view line(c_style.data() + pos, end - pos);
+            const bool first = pos == 0;
             pos = end + 1;
             while (!line.empty() && (line.front() == ' ' || line.front() == '\t'))
                 line.remove_prefix(1);
@@ -359,11 +362,17 @@ namespace mrbind::Python
                 {
                     line.remove_prefix(marker.size());
                     had_marker = true;
+                    if (first && StartsWith(marker, "/*") && line.find_first_not_of(' ') == std::string_view::npos)
+                        block = true;
                     break;
                 }
             }
             if (!had_marker && StartsWith(line, "*/"))
+            {
+                if (block)
+                    lines.push_back(" ");
                 continue;
+            }
             if (!had_marker && StartsWith(line, "*"))
                 line.remove_prefix(1);
             if (EndsWith(line, "*/"))
@@ -372,6 +381,13 @@ namespace mrbind::Python
             if (StartsWith(Trim(std::string(line)), "Generated from "))
                 break;
             lines.push_back(line);
+        }
+        if (block)
+        {
+            std::string ret;
+            for (std::size_t i = 0; i < lines.size(); i++)
+                ret += (i ? "\n" : "") + std::string(lines[i]);
+            return ret;
         }
         std::size_t indent = std::string_view::npos;
         for (std::string_view line : lines)
@@ -392,7 +408,7 @@ namespace mrbind::Python
             if (!ret.empty() || !line.empty())
                 ret += std::string(line) + '\n';
         }
-        while (!ret.empty() && (ret.back() == '\n' || ret.back() == ' '))
+        while (!ret.empty() && ret.back() == '\n')
             ret.pop_back();
         return ret;
     }
@@ -1144,6 +1160,11 @@ namespace mrbind::Python
                 checks += "    void *" + v + " = nullptr;\n";
                 checks += "    bool " + v + "callable = false;\n";
                 std::string check_obj = "rt::ArgObject(" + a + ", " + cls->var + ", false, " + v + ")";
+                if (cls->has_implicit)
+                {
+                    checks += "    rt::Ref " + v + "tmp;\n";
+                    check_obj = "(" + check_obj + " || (convert && implicit_" + cls->var + "(" + a + ", " + v + "tmp.p) && rt::ArgObject(" + v + "tmp.p, " + cls->var + ", false, " + v + ")))";
+                }
                 if (cls->is_std_function && !cls->callable_unsupported)
                 {
                     release_gil = true;
