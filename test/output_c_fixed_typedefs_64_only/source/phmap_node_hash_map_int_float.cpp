@@ -90,31 +90,23 @@ MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_
     ));
 }
 
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_find_mut(MR_C_phmap_node_hash_map_int_float *_this, const int *key)
+const float *MR_C_phmap_node_hash_map_int_float_find_value(const MR_C_phmap_node_hash_map_int_float *_this, const int *key)
 {
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)new phmap::node_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float> *)(_this)).find(
-        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
-    ));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key));
+    return _it == _self.end() ? nullptr : &_it->second;
+}
+
+float *MR_C_phmap_node_hash_map_int_float_find_value_mut(MR_C_phmap_node_hash_map_int_float *_this, const int *key)
+{
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key));
+    return _it == _self.end() ? nullptr : &_it->second;
 }
 
 MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_begin(const MR_C_phmap_node_hash_map_int_float *_this)
 {
     return (MR_C_phmap_node_hash_map_int_float_const_iterator *)new phmap::node_hash_map<int, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this)).cbegin());
-}
-
-bool MR_C_phmap_node_hash_map_int_float_is_begin(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int, float>::const_iterator *)(iter));
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_begin_mut(MR_C_phmap_node_hash_map_int_float *_this)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)new phmap::node_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float> *)(_this)).begin());
-}
-
-bool MR_C_phmap_node_hash_map_int_float_is_begin_mut(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int, float>::iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_end(const MR_C_phmap_node_hash_map_int_float *_this)
@@ -125,16 +117,6 @@ MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_
 bool MR_C_phmap_node_hash_map_int_float_is_end(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_const_iterator *iter)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int, float>::const_iterator *)(iter));
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_end_mut(MR_C_phmap_node_hash_map_int_float *_this)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)new phmap::node_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float> *)(_this)).end());
-}
-
-bool MR_C_phmap_node_hash_map_int_float_is_end_mut(const MR_C_phmap_node_hash_map_int_float *_this, const MR_C_phmap_node_hash_map_int_float_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int, float>::iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_const_iterator_DefaultConstruct(void)
@@ -181,57 +163,6 @@ MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_
     return (MR_C_phmap_node_hash_map_int_float_const_iterator *)(((phmap::node_hash_map<int, float>::const_iterator *)ptr) + i);
 }
 
-MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash_map_int_float_const_iterator_from_mutable(const MR_C_phmap_node_hash_map_int_float_iterator *iter)
-{
-    return (MR_C_phmap_node_hash_map_int_float_const_iterator *)new phmap::node_hash_map<int, float>::const_iterator(phmap::node_hash_map<int, float>::iterator(
-        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), phmap::node_hash_map<int, float>::iterator(*(phmap::node_hash_map<int, float>::iterator *)iter))
-    ));
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_DefaultConstruct(void)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)new phmap::node_hash_map<int, float>::iterator(phmap::node_hash_map<int, float>::iterator());
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_DefaultConstructArray(size_t num_elems)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)(new phmap::node_hash_map<int, float>::iterator[num_elems]{});
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_ConstructFromAnother(const MR_C_phmap_node_hash_map_int_float_iterator *other)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)new phmap::node_hash_map<int, float>::iterator(phmap::node_hash_map<int, float>::iterator(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int, float>::iterator(*(phmap::node_hash_map<int, float>::iterator *)other))
-    ));
-}
-
-void MR_C_phmap_node_hash_map_int_float_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int_float_iterator *_this, const MR_C_phmap_node_hash_map_int_float_iterator *other)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float>::iterator *)(_this)).operator=(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int, float>::iterator(*(phmap::node_hash_map<int, float>::iterator *)other))
-    );
-}
-
-void MR_C_phmap_node_hash_map_int_float_iterator_Destroy(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    delete ((const phmap::node_hash_map<int, float>::iterator *)_this);
-}
-
-void MR_C_phmap_node_hash_map_int_float_iterator_DestroyArray(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    delete[] ((const phmap::node_hash_map<int, float>::iterator *)_this);
-}
-
-const MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_OffsetPtr(const MR_C_phmap_node_hash_map_int_float_iterator *ptr, ptrdiff_t i)
-{
-    return (const MR_C_phmap_node_hash_map_int_float_iterator *)(((const phmap::node_hash_map<int, float>::iterator *)ptr) + i);
-}
-
-MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_int_float_iterator_OffsetMutablePtr(MR_C_phmap_node_hash_map_int_float_iterator *ptr, ptrdiff_t i)
-{
-    return (MR_C_phmap_node_hash_map_int_float_iterator *)(((phmap::node_hash_map<int, float>::iterator *)ptr) + i);
-}
-
 const MR_C_std_pair_const_int_float *MR_C_phmap_node_hash_map_int_float_const_iterator_deref(const MR_C_phmap_node_hash_map_int_float_const_iterator *_this)
 {
     return (const MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float>::const_iterator *)(_this)));
@@ -255,30 +186,5 @@ void MR_C_phmap_node_hash_map_int_float_const_iterator_incr(MR_C_phmap_node_hash
 bool MR_C_equal_MR_C_phmap_node_hash_map_int_float_const_iterator(const MR_C_phmap_node_hash_map_int_float_const_iterator *a, const MR_C_phmap_node_hash_map_int_float_const_iterator *b)
 {
     return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::node_hash_map<int, float>::const_iterator(*(phmap::node_hash_map<int, float>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::node_hash_map<int, float>::const_iterator(*(phmap::node_hash_map<int, float>::const_iterator *)b));
-}
-
-MR_C_std_pair_const_int_float *MR_C_phmap_node_hash_map_int_float_iterator_deref(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float>::iterator *)(_this)));
-}
-
-const int *MR_C_phmap_node_hash_map_int_float_iterator_deref_key(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->first);
-}
-
-float *MR_C_phmap_node_hash_map_int_float_iterator_deref_value(const MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int, float>::iterator *)(_this))->second);
-}
-
-void MR_C_phmap_node_hash_map_int_float_iterator_incr(MR_C_phmap_node_hash_map_int_float_iterator *_this)
-{
-    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int, float>::iterator *)(_this));
-}
-
-bool MR_C_equal_MR_C_phmap_node_hash_map_int_float_iterator(const MR_C_phmap_node_hash_map_int_float_iterator *a, const MR_C_phmap_node_hash_map_int_float_iterator *b)
-{
-    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::node_hash_map<int, float>::iterator(*(phmap::node_hash_map<int, float>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::node_hash_map<int, float>::iterator(*(phmap::node_hash_map<int, float>::iterator *)b));
 }
 

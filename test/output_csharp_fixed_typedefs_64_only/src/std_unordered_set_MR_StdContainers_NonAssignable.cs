@@ -180,16 +180,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Tests whether a const iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable.Const_ConstIterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin", ExactSpelling = true)]
-                    extern static unsafe byte __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin(_Underlying *_this, MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
-                }
-
-                /// <summary>
                 /// The end iterator, const.
                 /// </summary>
                 public unsafe MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable.ConstIterator end()

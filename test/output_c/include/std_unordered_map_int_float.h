@@ -99,6 +99,18 @@ MR_C_API MR_C_std_unordered_map_int_float_const_iterator *MR_C_std_unordered_map
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_unordered_map_int_float_iterator *MR_C_std_unordered_map_int_float_find_mut(MR_C_std_unordered_map_int_float *_this, const int *key);
 
+/// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `key` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const float *MR_C_std_unordered_map_int_float_find_value(const MR_C_std_unordered_map_int_float *_this, const int *key);
+
+/// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `key` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API float *MR_C_std_unordered_map_int_float_find_value_mut(MR_C_std_unordered_map_int_float *_this, const int *key);
+
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_map_int_float_const_iterator_Destroy()` to free it when you're done using it.

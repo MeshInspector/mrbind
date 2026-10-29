@@ -80,16 +80,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The memory capacity, measued in the number of elements.
-                /// </summary>
-                public unsafe nuint capacity()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_capacity", ExactSpelling = true)]
-                    extern static unsafe nuint __MR_C_std_vector_MR_CSharp_A_ptr_capacity(_Underlying *_this);
-                    return __MR_C_std_vector_MR_CSharp_A_ptr_capacity(_UnderlyingPtr);
-                }
-
-                /// <summary>
                 /// The element at a specific index, read-only.
                 /// In C++ this function returns an rvalue reference.
                 /// </summary>
@@ -121,26 +111,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_back", ExactSpelling = true)]
                     extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_back(_Underlying *_this);
                     return __MR_C_std_vector_MR_CSharp_A_ptr_back(_UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// The begin iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe void **begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_begin", ExactSpelling = true)]
-                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_begin(_Underlying *_this);
-                    return __MR_C_std_vector_MR_CSharp_A_ptr_begin(_UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// The end iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe void **end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_end", ExactSpelling = true)]
-                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_end(_Underlying *_this);
-                    return __MR_C_std_vector_MR_CSharp_A_ptr_end(_UnderlyingPtr);
                 }
             }
 
@@ -206,16 +176,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Resizes the container. The new elements if any are set to the specified value.
-                /// </summary>
-                public unsafe void resizeWithDefaultValue(nuint new_size, MR.CS.CSharp.A? value)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.A._Underlying *value);
-                    __MR_C_std_vector_MR_CSharp_A_ptr_resize_with_default_value(_UnderlyingPtr, new_size, value is not null ? value._UnderlyingPtr : null);
-                }
-
-                /// <summary>
                 /// Removes all elements from the container.
                 /// </summary>
                 public unsafe void clear()
@@ -234,16 +194,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_reserve", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_reserve(_Underlying *_this, nuint new_capacity);
                     __MR_C_std_vector_MR_CSharp_A_ptr_reserve(_UnderlyingPtr, new_capacity);
-                }
-
-                /// <summary>
-                /// Shrinks the capacity to match the size.
-                /// </summary>
-                public unsafe void shrinkToFit()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit(_Underlying *_this);
-                    __MR_C_std_vector_MR_CSharp_A_ptr_shrink_to_fit(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -320,26 +270,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_erase", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_CSharp_A_ptr_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_MR_CSharp_A_ptr_erase(_UnderlyingPtr, position);
-                }
-
-                /// <summary>
-                /// The begin iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new void **begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_begin_mut", ExactSpelling = true)]
-                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_Underlying *_this);
-                    return __MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// The end iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new void **end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_A_ptr_end_mut", ExactSpelling = true)]
-                    extern static unsafe void **__MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_Underlying *_this);
-                    return __MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_UnderlyingPtr);
                 }
             }
 

@@ -98,11 +98,6 @@ MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_multis
     return (MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *)new std::multiset<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
 }
 
-bool MR_C_std_multiset_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_multiset_MR_StdContainers_NonAssignable *_this, const MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<MR::StdContainers::NonAssignable> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::multiset<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
-}
-
 MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_multiset_MR_StdContainers_NonAssignable_end(const MR_C_std_multiset_MR_StdContainers_NonAssignable *_this)
 {
     return (MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *)new std::multiset<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multiset<MR::StdContainers::NonAssignable> *)(_this)).cend());
@@ -165,11 +160,6 @@ const MR_StdContainers_NonAssignable *MR_C_std_multiset_MR_StdContainers_NonAssi
 void MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multiset<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
-}
-
-void MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator_decr(MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *_this)
-{
-    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multiset<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator(const MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_multiset_MR_StdContainers_NonAssignable_const_iterator *b)

@@ -66,22 +66,9 @@ bool MR_C_std_vector_MR_SeparateB_empty(const MR_C_std_vector_MR_SeparateB *_thi
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateB> *)(_this)).empty();
 }
 
-void MR_C_std_vector_MR_SeparateB_resize_with_default_value(MR_C_std_vector_MR_SeparateB *_this, size_t new_size, const MR_SeparateB *value)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).resize(
-        new_size,
-        ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), *(const MR::SeparateB *)(value))
-    );
-}
-
 void MR_C_std_vector_MR_SeparateB_clear(MR_C_std_vector_MR_SeparateB *_this)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).clear();
-}
-
-size_t MR_C_std_vector_MR_SeparateB_capacity(const MR_C_std_vector_MR_SeparateB *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateB> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_MR_SeparateB_reserve(MR_C_std_vector_MR_SeparateB *_this, size_t new_capacity)
@@ -89,11 +76,6 @@ void MR_C_std_vector_MR_SeparateB_reserve(MR_C_std_vector_MR_SeparateB *_this, s
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).reserve(
         new_capacity
     );
-}
-
-void MR_C_std_vector_MR_SeparateB_shrink_to_fit(MR_C_std_vector_MR_SeparateB *_this)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).shrink_to_fit();
 }
 
 const MR_SeparateB *MR_C_std_vector_MR_SeparateB_at(const MR_C_std_vector_MR_SeparateB *_this, size_t i)
@@ -152,25 +134,5 @@ void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, si
 void MR_C_std_vector_MR_SeparateB_erase(MR_C_std_vector_MR_SeparateB *_this, size_t position)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position));
-}
-
-const MR_SeparateB *MR_C_std_vector_MR_SeparateB_begin(const MR_C_std_vector_MR_SeparateB *_this)
-{
-    return (const MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateB> *)(_this)).data());
-}
-
-MR_SeparateB *MR_C_std_vector_MR_SeparateB_begin_mut(MR_C_std_vector_MR_SeparateB *_this)
-{
-    return (MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).data());
-}
-
-const MR_SeparateB *MR_C_std_vector_MR_SeparateB_end(const MR_C_std_vector_MR_SeparateB *_this)
-{
-    return (const MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateB> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateB> *)(_this)).size());
-}
-
-MR_SeparateB *MR_C_std_vector_MR_SeparateB_end_mut(MR_C_std_vector_MR_SeparateB *_this)
-{
-    return (MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateB> *)(_this)).size());
 }
 

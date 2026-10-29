@@ -153,6 +153,15 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+                /// </summary>
+                public unsafe float? findValue(MR.CS.StdContainers.Const_NonAssignable key)
+                {
+                    var __c_ret = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value(_UnderlyingPtr, key._UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
+                }
+
+                /// <summary>
                 /// The begin iterator, const.
                 /// </summary>
                 public unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator begin()
@@ -747,6 +756,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find", ExactSpelling = true)]
                 extern static unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
 
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_is_begin(_Underlying *_this, MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator._Underlying *iter);
 
@@ -893,6 +905,15 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+                /// </summary>
+                public unsafe new MR.CS.Misc.Ref<float>? findValue(MR.CS.StdContainers.Const_NonAssignable key)
+                {
+                    var __c_ret = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut(_UnderlyingPtr, key._UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
+                }
+
+                /// <summary>
                 /// The begin iterator, mutable.
                 /// </summary>
                 public unsafe new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator begin()
@@ -936,6 +957,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_mut", ExactSpelling = true)]
                 extern static unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_mut(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_find_value_mut(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
             }
 
             /// <summary>

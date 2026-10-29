@@ -70,27 +70,14 @@ MR_C_API bool MR_C_std_vector_MR_A_empty(const MR_C_std_vector_MR_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_A_resize(MR_C_std_vector_MR_A *_this, size_t new_size);
 
-/// Resizes the container. The new elements if any are set to the specified value.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `value` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_resize_with_default_value(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value);
-
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_MR_A_clear(MR_C_std_vector_MR_A *_this);
 
-/// The memory capacity, measued in the number of elements.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_MR_A_capacity(const MR_C_std_vector_MR_A *_this);
-
 /// Reserves memory for a certain number of elements. Never shrinks the memory.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_A_reserve(MR_C_std_vector_MR_A *_this, size_t new_capacity);
-
-/// Shrinks the capacity to match the size.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_shrink_to_fit(MR_C_std_vector_MR_A *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
@@ -141,26 +128,6 @@ MR_C_API void MR_C_std_vector_MR_A_insert(MR_C_std_vector_MR_A *_this, size_t po
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t position);
-
-/// The begin iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this);
-
-/// The begin iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_A *MR_C_std_vector_MR_A_begin_mut(MR_C_std_vector_MR_A *_this);
-
-/// The end iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this);
-
-/// The end iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_A *MR_C_std_vector_MR_A_end_mut(MR_C_std_vector_MR_A *_this);
 
 #ifdef __cplusplus
 } // extern "C"

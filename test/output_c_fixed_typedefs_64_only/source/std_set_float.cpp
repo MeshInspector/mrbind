@@ -55,16 +55,6 @@ MR_C_std_set_float *MR_C_std_set_float_OffsetMutablePtr(MR_C_std_set_float *ptr,
     return (MR_C_std_set_float *)(((std::set<float> *)ptr) + i);
 }
 
-MR_C_std_set_float *MR_C_std_set_float_ConstructFromRange(const float *ptr, size_t size)
-{
-    return (MR_C_std_set_float *)new std::set<float>(std::set<float>(ptr, ptr + size));
-}
-
-void MR_C_std_set_float_AssignFromRange(MR_C_std_set_float *_this, const float *ptr, size_t size)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float> *)(_this)) = std::set<float>(ptr, ptr + size);
-}
-
 size_t MR_C_std_set_float_size(const MR_C_std_set_float *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).size();
@@ -104,11 +94,6 @@ void MR_C_std_set_float_insert(MR_C_std_set_float *_this, float new_elem)
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_begin(const MR_C_std_set_float *_this)
 {
     return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cbegin());
-}
-
-bool MR_C_std_set_float_is_begin(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::set<float>::const_iterator *)(iter));
 }
 
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_end(const MR_C_std_set_float *_this)
@@ -173,11 +158,6 @@ const float *MR_C_std_set_float_const_iterator_deref(const MR_C_std_set_float_co
 void MR_C_std_set_float_const_iterator_incr(MR_C_std_set_float_const_iterator *_this)
 {
     ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float>::const_iterator *)(_this));
-}
-
-void MR_C_std_set_float_const_iterator_decr(MR_C_std_set_float_const_iterator *_this)
-{
-    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float>::const_iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_std_set_float_const_iterator(const MR_C_std_set_float_const_iterator *a, const MR_C_std_set_float_const_iterator *b)

@@ -128,6 +128,24 @@ MR_C_std_map_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_map_MR_StdC
     ) // MRBINDC_TRY
 }
 
+const float *MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value(const MR_C_std_map_MR_StdContainers_NonAssignable_float *_this, const MR_StdContainers_NonAssignable *key)
+{
+    MRBINDC_TRY(
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::map<MR::StdContainers::NonAssignable, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(key)));
+    return _it == _self.end() ? nullptr : &_it->second;
+    ) // MRBINDC_TRY
+}
+
+float *MR_C_std_map_MR_StdContainers_NonAssignable_float_find_value_mut(MR_C_std_map_MR_StdContainers_NonAssignable_float *_this, const MR_StdContainers_NonAssignable *key)
+{
+    MRBINDC_TRY(
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::map<MR::StdContainers::NonAssignable, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(key)));
+    return _it == _self.end() ? nullptr : &_it->second;
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_map_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_map_MR_StdContainers_NonAssignable_float_begin(const MR_C_std_map_MR_StdContainers_NonAssignable_float *_this)
 {
     MRBINDC_TRY(

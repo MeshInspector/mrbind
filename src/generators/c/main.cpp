@@ -259,6 +259,14 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--minimal-containers", {
+            .desc = "Bind only the essential functions of the standard containers, to make the bindings smaller.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.minimal_containers = true;
+            },
+        });
+
         args_parser.AddFlag("--preferred-max-num-aggregate-init-fields", {
             .arg_names = {"n"},
             .desc = "Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.",

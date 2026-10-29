@@ -114,26 +114,29 @@ namespace mrbind::C::Modules
 
                             // Obtaining begin/end iterators.
                             // This is needed for C# to implement IEnumerable for arrays.
-                            for (bool is_end : {false, true})
+                            if (!generator.minimal_containers)
                             {
-                                std::string begin_or_end_str = is_end ? "end" : "begin";
-                                std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
-
-                                for (bool is_const_iter : {true, false})
+                                for (bool is_end : {false, true})
                                 {
-                                    const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
-                                    const std::string c_or_empty = is_const_iter ? "c" : "";
+                                    std::string begin_or_end_str = is_end ? "end" : "begin";
+                                    std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
 
-                                    { // get
-                                        Generator::EmitFuncParams emit;
-                                        emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
-                                        emit.name = binder.MakeMemberFuncName(generator, begin_or_end_method_name, is_const_iter);
-                                        emit.lifetimes.ReturnsReferenceToSubobject();
-                                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Pointer{});
-                                        emit.mark_as_returning_pointer_to_array = true;
-                                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const_iter);
-                                        emit.cpp_called_func = "&*@this@." + c_or_empty + begin_or_end_str + "()"; // Note `&*` to force convert the iterator ot a pointer, if it's not already a pointer on this stdlib.
-                                        generator.EmitFunction(file, emit);
+                                    for (bool is_const_iter : {true, false})
+                                    {
+                                        const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
+                                        const std::string c_or_empty = is_const_iter ? "c" : "";
+
+                                        { // get
+                                            Generator::EmitFuncParams emit;
+                                            emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
+                                            emit.name = binder.MakeMemberFuncName(generator, begin_or_end_method_name, is_const_iter);
+                                            emit.lifetimes.ReturnsReferenceToSubobject();
+                                            emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Pointer{});
+                                            emit.mark_as_returning_pointer_to_array = true;
+                                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const_iter);
+                                            emit.cpp_called_func = "&*@this@." + c_or_empty + begin_or_end_str + "()"; // Note `&*` to force convert the iterator ot a pointer, if it's not already a pointer on this stdlib.
+                                            generator.EmitFunction(file, emit);
+                                        }
                                     }
                                 }
                             }

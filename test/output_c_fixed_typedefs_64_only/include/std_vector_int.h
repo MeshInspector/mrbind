@@ -53,14 +53,6 @@ MR_C_API const MR_C_std_vector_int *MR_C_std_vector_int_OffsetPtr(const MR_C_std
 /// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_OffsetMutablePtr(MR_C_std_vector_int *ptr, ptrdiff_t i);
 
-/// Construct from a range of elements.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromRange(const int *ptr, size_t size);
-
-/// Assign from a range of elements, overwriting previous contents.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_int_AssignFromRange(MR_C_std_vector_int *_this, const int *ptr, size_t size);
-
 /// The number of elements.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API size_t MR_C_std_vector_int_size(const MR_C_std_vector_int *_this);
@@ -73,26 +65,14 @@ MR_C_API bool MR_C_std_vector_int_empty(const MR_C_std_vector_int *_this);
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_int_resize(MR_C_std_vector_int *_this, size_t new_size);
 
-/// Resizes the container. The new elements if any are set to the specified value.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_int_resize_with_default_value(MR_C_std_vector_int *_this, size_t new_size, int value);
-
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_int_clear(MR_C_std_vector_int *_this);
 
-/// The memory capacity, measued in the number of elements.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_int_capacity(const MR_C_std_vector_int *_this);
-
 /// Reserves memory for a certain number of elements. Never shrinks the memory.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_int_reserve(MR_C_std_vector_int *_this, size_t new_capacity);
-
-/// Shrinks the capacity to match the size.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_int_shrink_to_fit(MR_C_std_vector_int *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
@@ -151,26 +131,6 @@ MR_C_API void MR_C_std_vector_int_insert(MR_C_std_vector_int *_this, size_t posi
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_int_erase(MR_C_std_vector_int *_this, size_t position);
-
-/// The begin iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const int *MR_C_std_vector_int_begin(const MR_C_std_vector_int *_this);
-
-/// The begin iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API int *MR_C_std_vector_int_begin_mut(MR_C_std_vector_int *_this);
-
-/// The end iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const int *MR_C_std_vector_int_end(const MR_C_std_vector_int *_this);
-
-/// The end iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API int *MR_C_std_vector_int_end_mut(MR_C_std_vector_int *_this);
 
 #ifdef __cplusplus
 } // extern "C"

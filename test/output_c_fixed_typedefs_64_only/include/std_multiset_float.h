@@ -60,14 +60,6 @@ MR_C_API const MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetPtr(const 
 /// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_OffsetMutablePtr(MR_C_std_multiset_float *ptr, ptrdiff_t i);
 
-/// Construct from a range of elements.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multiset_float_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromRange(const float *ptr, size_t size);
-
-/// Assign from a range of elements, overwriting previous contents.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_multiset_float_AssignFromRange(MR_C_std_multiset_float *_this, const float *ptr, size_t size);
-
 /// The number of elements.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API size_t MR_C_std_multiset_float_size(const MR_C_std_multiset_float *_this);
@@ -102,11 +94,6 @@ MR_C_API void MR_C_std_multiset_float_insert(MR_C_std_multiset_float *_this, flo
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multiset_float_const_iterator_Destroy()` to free it when you're done using it.
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_begin(const MR_C_std_multiset_float *_this);
-
-/// Tests whether a const iterator is the begin iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_multiset_float_is_begin(const MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *iter);
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
@@ -165,10 +152,6 @@ MR_C_API const float *MR_C_std_multiset_float_const_iterator_deref(const MR_C_st
 /// Increments a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_multiset_float_const_iterator_incr(MR_C_std_multiset_float_const_iterator *_this);
-
-/// Decrements a const iterator.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_multiset_float_const_iterator_decr(MR_C_std_multiset_float_const_iterator *_this);
 
 /// Compares two const iterators for equality.
 /// Parameter `a` can not be null. It is a single object.

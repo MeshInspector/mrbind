@@ -101,11 +101,6 @@ MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_insert(MR_C_std_set_MR
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_set_MR_StdContainers_NonAssignable_begin(const MR_C_std_set_MR_StdContainers_NonAssignable *_this);
 
-/// Tests whether a const iterator is the begin iterator.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_set_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *iter);
-
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
@@ -163,10 +158,6 @@ MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_set_MR_StdContainers_Non
 /// Increments a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *_this);
-
-/// Decrements a const iterator.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_decr(MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Compares two const iterators for equality.
 /// Parameter `a` can not be null. It is a single object.
