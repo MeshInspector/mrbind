@@ -1541,6 +1541,18 @@ namespace mrbind
 
         std::set<std::string, std::less<>> equality_checked_types;
 
+        // The types for `FinishEqualityComparable()`.
+        // Checking them right away would instantiate templates (e.g. `operator==` specializations) that this visitor would then bind.
+        std::vector<clang::QualType> types_to_check_equality;
+
+        // Call after the traversal.
+        void FinishEqualityComparable()
+        {
+            for (const clang::QualType &type : types_to_check_equality)
+                CollectEqualityComparable(type);
+            types_to_check_equality.clear();
+        }
+
         // Fills `equality_comparable_types` for this class (ignoring the cv-qualifiers, references and pointers) and its template arguments.
         void CollectEqualityComparable(clang::QualType type)
         {
@@ -1583,7 +1595,7 @@ namespace mrbind
             if (is_new_type)
             {
                 info.has_custom_canonical_name = canonical != GetCanonicalTypeName(type, &PrintingPolicies::without_preferred_names);
-                CollectEqualityComparable(type);
+                types_to_check_equality.push_back(type);
             }
 
             auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
@@ -3265,6 +3277,7 @@ namespace mrbind
             ClangAstVisitor_Final vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
             VerifyStacks();
+            vis.FinishEqualityComparable();
         }
 
         params->rejected_namespace_stack.pop_back();
