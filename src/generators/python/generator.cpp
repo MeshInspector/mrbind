@@ -761,6 +761,41 @@ namespace mrbind::Python
                 info.no_class = true;
         }
 
+        { // The optionals only returned by value (and unwrapped) have no class, the pybind11 target uses its type caster for those.
+            std::set<std::string> needs_class;
+            auto Note = [&](const std::string &type, bool by_value_return, const std::string &owner)
+            {
+                StrippedType st = StripType(type);
+                if (StartsWith(st.base, "std::optional<") && st.base != owner && !(by_value_return && !st.is_ptr && !st.is_ref))
+                    needs_class.insert(st.base);
+            };
+            for (const auto &[cpp_name, info] : types)
+            {
+                if (!info.IsClass())
+                    continue;
+                for (const auto &f : info.class_desc->fields)
+                    Note(f.type, false, cpp_name);
+                for (const auto &m : info.class_desc->methods)
+                {
+                    for (const auto &p : m.params)
+                        if (!p.is_this_param)
+                            Note(p.cpp_type, false, cpp_name);
+                    Note(m.ret.cpp_type, true, cpp_name);
+                }
+            }
+            for (const auto &f : c_desc.functions)
+            {
+                for (const auto &p : f.params)
+                    Note(p.cpp_type, false, "");
+                Note(f.ret.cpp_type, true, "");
+            }
+            for (auto &[cpp_name, info] : types)
+            {
+                if (!info.optional_value.empty() && !needs_class.contains(cpp_name))
+                    info.no_class = true;
+            }
+        }
+
         // Names and scopes.
         (void)GetNamespaceScope({});
         for (auto &[cpp_name, info] : types)
