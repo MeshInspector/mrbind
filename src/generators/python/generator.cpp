@@ -2091,6 +2091,8 @@ namespace mrbind::Python
 
         if (!init.overloads.empty())
             out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup(init, &info, true, true) + ")) return nullptr;\n";
+        else
+            out_init += "    if (!rt::SetNoConstructorInit(" + cls_obj + ")) return nullptr;\n";
         DisambiguateTemplates(methods);
         DisambiguateTemplates(statics);
         for (const auto &g : methods)

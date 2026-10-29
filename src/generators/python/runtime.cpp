@@ -1471,8 +1471,33 @@ def enum_from_bits(cls, bits):
     inline PyMethodDef enum_bits_def = {"enum_bits", EnumBitsPy, METH_O, nullptr};
     inline PyMethodDef enum_set_bits_def = {"set_bits", EnumSetBitsPy, METH_VARARGS, nullptr};
 
+    // The `__init__` of the classes without constructors, like `pybind11_object_init()`.
+    inline int NoConstructorInit(PyObject *self, PyObject *, PyObject *)
+    {
+        PyObject *type = reinterpret_cast<PyObject *>(Py_TYPE(self));
+        PyObject *mod = PyObject_GetAttrString(type, "__module__");
+        PyObject *name = PyObject_GetAttrString(type, "__qualname__");
+        if (mod && name)
+            PyErr_Format(PyExc_TypeError, "%U.%U: No constructor defined!", mod, name);
+        Py_XDECREF(mod);
+        Py_XDECREF(name);
+        return -1;
+    }
+
+    // Sets the `__init__` slot wrapper of `Object` on a class without constructors.
+    inline bool SetNoConstructorInit(PyObject *cls)
+    {
+        PyObject *init = PyObject_GetAttrString(object_type, "__init__");
+        if (!init)
+            return false;
+        bool ok = TypeSetAttr(cls, "__init__", init);
+        Py_DECREF(init);
+        return ok;
+    }
+
     inline PyType_Slot object_slots[] = {
         {Py_tp_dealloc, reinterpret_cast<void *>(Dealloc)},
+        {Py_tp_init, reinterpret_cast<void *>(NoConstructorInit)},
         {Py_tp_new, reinterpret_cast<void *>(PyType_GenericNew)},
         {0, nullptr},
     };

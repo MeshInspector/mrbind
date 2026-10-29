@@ -1,6 +1,13 @@
 """A smoke test for the Python bindings generated over the C bindings, see `make_python_c.sh`."""
 
-import mrbind_test as m
+import os
+import sys
+
+# The test library declares some functions without defining them.
+if hasattr(os, "RTLD_LAZY"):
+    sys.setdlopenflags(os.RTLD_LAZY)
+
+import mrbind_test as m  # noqa: E402
 
 
 def check(condition, what):
