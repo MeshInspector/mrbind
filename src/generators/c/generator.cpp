@@ -5801,6 +5801,8 @@ namespace mrbind::C
             VisitorTypedefs v(*output_desc);
             v.Process(data.entities);
 
+            output_desc->equality_comparable_types.assign(data.equality_comparable_types.begin(), data.equality_comparable_types.end());
+
             for (const auto &outer : data.type_info)
             {
                 bool custom = !outer.second.empty() && outer.second.begin()->second.has_custom_canonical_name;

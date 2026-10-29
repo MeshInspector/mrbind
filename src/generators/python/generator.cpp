@@ -2208,10 +2208,8 @@ namespace mrbind::Python
         auto it = types_by_c_name.find(st.base);
         if (it != types_by_c_name.end() && it->second->IsClass() && !it->second->IsExposedStruct())
         {
-            const CInterop::ClassMethod *off = FindMethod(*it->second, st.is_const ? "_OffsetPtr" : "_OffsetMutablePtr");
-            if (!off)
-                return {};
-            return off->c_name + "(" + expr + ", 1)";
+            // Every opaque class has those, but the description omits them.
+            return it->second->c_name + (st.is_const ? "_OffsetPtr(" : "_OffsetMutablePtr(") + expr + ", 1)";
         }
         return expr + " + 1";
     }
@@ -2807,6 +2805,8 @@ namespace mrbind::Python
             data = FindMethod(info, "_begin_mut");
         bool comparable = GetScalarKind(StripType(elem).base) != ScalarKind::none || StripType(elem).is_ptr || StripType(elem).base == "std::string";
         if (const TypeInfo *eti = FindType(StripType(elem).base); eti && (eti->IsEnum() || eti->is_vector))
+            comparable = true;
+        if (std::find(c_desc.equality_comparable_types.begin(), c_desc.equality_comparable_types.end(), StripType(elem).base) != c_desc.equality_comparable_types.end())
             comparable = true;
         for (const auto &f : c_desc.functions)
         {
