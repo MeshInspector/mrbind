@@ -34,4 +34,6 @@ build/mrbind_gen_python \
     -Wl,-rpath,"$PWD/test/output_c"
 
 PYTHONPATH=test/output_python_c python3 test/run_python_c/main.py
-python3 scripts/python_api_dump.py dump mrbind_test --path test/output_python_c --strip mrbind_test. -o test/output_python_c/api.json
+# Lazy binding, see `main.py`.
+python3 -c 'import os, runpy, sys; sys.setdlopenflags(os.RTLD_LAZY); sys.argv = sys.argv[1:]; runpy.run_path(sys.argv[0], run_name="__main__")' \
+    scripts/python_api_dump.py dump mrbind_test --path test/output_python_c --strip mrbind_test. -o test/output_python_c/api.json
