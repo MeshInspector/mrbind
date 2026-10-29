@@ -738,7 +738,7 @@ namespace mrbind::Python
                 info.is_std_function = c->callable_info.has_value();
                 info.is_vector = StartsWith(cpp_name, "std::vector<");
                 info.no_class = cpp_name == "std::string" || cpp_name == "std::string_view" || cpp_name == "std::ostream" || cpp_name == "std::istream";
-                info.is_array = StartsWith(cpp_name, "std::array<") && c->kind == CInterop::ClassKind::exposed_struct;
+                info.is_array = StartsWith(cpp_name, "std::array<");
                 info.is_map = !EndsWith(cpp_name, "::iterator") && !EndsWith(cpp_name, "::const_iterator") && (StartsWith(cpp_name, "phmap::flat_hash_map<") || StartsWith(cpp_name, "phmap::node_hash_map<") || StartsWith(cpp_name, "phmap::parallel_flat_hash_map<") ||
                     StartsWith(cpp_name, "std::map<") || StartsWith(cpp_name, "std::unordered_map<"));
             }
@@ -3452,21 +3452,36 @@ namespace mrbind::Python
 
     void Generator::EmitArrayMembers(TypeInfo &info)
     {
+        // The exposed arrays have the `elems` field, the others are accessed with `at()`.
         const CInterop::ClassField *elems = nullptr;
         for (const auto &f : info.class_desc->fields)
             if (f.name == "elems")
                 elems = &f;
-        if (!elems)
+        const CInterop::ClassMethod *at_mut = FindMethod(info, "_at_mut");
+        std::string elem;
+        std::size_t n = 0;
+        if (elems)
+        {
+            std::size_t br = elems->type.rfind('[');
+            elem = Trim(elems->type.substr(0, br));
+            n = std::stoul(elems->type.substr(br + 1));
+        }
+        else if (at_mut && at_mut->params.size() == 2 && at_mut->params[0].c_params.size() == 1 && StripType(at_mut->ret.cpp_type).is_ref)
+        {
+            elem = StripType(at_mut->ret.cpp_type).base;
+            std::size_t comma = info.cpp_name.rfind(',');
+            n = std::stoul(info.cpp_name.substr(comma + 1));
+        }
+        else
+        {
             return;
-        std::size_t br = elems->type.rfind('[');
-        std::string elem = Trim(elems->type.substr(0, br));
-        std::size_t n = std::stoul(elems->type.substr(br + 1));
+        }
         const TypeInfo *eti = FindType(StripType(elem).base);
         std::string elem_c = eti && (eti->IsClass() || eti->IsEnum()) ? eti->c_name : StripType(elem).base;
         std::string s = info.c_name;
         std::string self = "    void *self_ = nullptr;\n    if (!rt::ArgObject(a[0], " + info.var + ", false, self_)) return nullptr;\n";
         std::string index = "    size_t i_ = 0;\n    if (!rt::ArgInt(a[1], true, i_) || i_ >= " + std::to_string(n) + ") {PyErr_SetNone(PyExc_IndexError); return nullptr;}\n";
-        std::string at = "&((" + s + " *)self_)->elems[i_]";
+        std::string at = elems ? "&((" + s + " *)self_)->elems[i_]" : "(" + elem_c + " *)" + at_mut->c_name + "((" + at_mut->params[0].c_params[0].c_type + ")self_, i_)";
         auto get = CToPy(elem + " &", elem_c + " *", "e_", "a[0]", "r_");
         auto set = AssignFromPy(elem, "e_", "a[2]");
         if (!get || !set)
@@ -3479,8 +3494,19 @@ namespace mrbind::Python
         {
             out_init += "        if (!rt::AddPrim(prims_, " + CppStringLiteral(name) + ", &" + CustomPrim(body, np) + ", module_name)) return nullptr;\n";
         };
-        Add("init", "    return rt::InitInstance(a[0], " + info.var + ", new " + s + "{});\n", 1);
-        Add("copy", "    void *o_ = nullptr;\n    if (!rt::ArgObject(a[1], " + info.var + ", false, o_)) {PyErr_SetString(PyExc_TypeError, \"Expected an array.\"); return nullptr;}\n    return rt::InitInstance(a[0], " + info.var + ", new " + s + "(*(" + s + " *)o_));\n", 2);
+        std::string make_default = "new " + s + "{}", make_copy = "new " + s + "(*(" + s + " *)o_)";
+        if (!elems)
+        {
+            const CInterop::ClassMethod *def = FindMethod(info, "_DefaultConstruct");
+            const CInterop::ClassMethod *copy = FindMethod(info, "_ConstructFromAnother");
+            if (!def || !copy || copy->params.size() != 2)
+                return;
+            make_default = def->c_name + "()";
+            const auto &cp = copy->params[1].c_params;
+            make_copy = copy->c_name + "(" + (cp.size() == 2 ? cp[0].c_type + "_Copy, (" + s + " *)o_" : "(" + cp[0].c_type + ")o_") + ")";
+        }
+        Add("init", "    return rt::InitInstance(a[0], " + info.var + ", " + make_default + ");\n", 1);
+        Add("copy", "    void *o_ = nullptr;\n    if (!rt::ArgObject(a[1], " + info.var + ", false, o_)) {PyErr_SetString(PyExc_TypeError, \"Expected an array.\"); return nullptr;}\n    return rt::InitInstance(a[0], " + info.var + ", " + make_copy + ");\n", 2);
         Add("get", self + index + "    " + elem_c + " *e_ = " + at + ";\n" + *get + "    return r_;\n", 2);
         Add("set", self + index + "    " + elem_c + " *e_ = " + at + ";\n" + *set + "    Py_RETURN_NONE;\n", 3);
         if (auto pr = PrintElem(elem, "e_"))
