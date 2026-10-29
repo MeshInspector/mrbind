@@ -31,6 +31,8 @@ namespace mrbind::Python
         std::vector<std::pair<std::string, std::string>> name_adjustments;
         // Same, but for the C++ names in the docs ("Generated from:").
         std::vector<std::pair<std::string, std::string>> doc_name_adjustments;
+        // Same, but for the C++ names before spelling them like `typeid()`.
+        std::vector<std::pair<std::string, std::string>> typeid_name_adjustments;
         // Extra Python names, like `RegisterCustomAlias()` in the pybind11 target: (alias, target), both dotted paths in the module.
         std::vector<std::pair<std::string, std::string>> aliases;
         // Fields hidden from Python by name, e.g. the ones made public only for the C bindings.
@@ -174,6 +176,8 @@ namespace mrbind::Python
         void EmitArrayMembers(TypeInfo &info);
         void EmitMapMembers(TypeInfo &info);
         void EmitOptionalMembers(TypeInfo &info);
+        // `std::variant`, like `CustomTypeBinding<std::variant<P...>>` of the pybind11 target.
+        void EmitVariantMembers(TypeInfo &info);
         [[nodiscard]] bool IsIgnoredForPython(const std::string &cpp_name);
         // A primitive for the Python parts of the container APIs: a builtin taking `num_params` positional arguments, `body` uses `a[i]`.
         // Returns the `PyMethodDef` variable.
@@ -202,6 +206,8 @@ namespace mrbind::Python
         // `typeid(T)` drops the references and the top-level constness, but keeps the pointers.
         [[nodiscard]] std::string TypeidArg(std::string type);
         std::unordered_map<std::string, std::string> typedef_targets; // For `TypeidSpelling()`.
+        // The spellings of alias template specializations (`A<T>` for `template <typename T> using A = ...`) and their targets, for `TypeidSpelling()`.
+        std::vector<std::pair<std::string, std::string>> alias_template_targets;
         // The typedef names as aliases of the classes.
         void EmitAliases();
         // From `type_aliases`: the aliases by target type (in the order of the spellings, as in the docs), computed before the classes.

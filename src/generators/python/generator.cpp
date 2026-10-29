@@ -337,7 +337,10 @@ namespace mrbind::Python
 
     std::string Generator::ProcessComment(const std::string &c_style, bool require_generated_from)
     {
-        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos)
+        // The comments added by the C generator: after the parsed comment, or alone.
+        static constexpr std::string_view default_ctor_comment = "Constructs an empty (default-constructed) instance.";
+        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos &&
+            c_style.find(std::string("\n/// ") + std::string(default_ctor_comment)) == std::string::npos)
             return "";
         // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
         //   and the indentation of the first line removed from all lines.
@@ -378,7 +381,7 @@ namespace mrbind::Python
             if (EndsWith(line, "*/"))
                 line.remove_suffix(2);
             // Everything from here on is added by the C generator.
-            if (StartsWith(Trim(std::string(line)), "Generated from "))
+            if (StartsWith(Trim(std::string(line)), "Generated from ") || Trim(std::string(line)) == default_ctor_comment)
                 break;
             lines.push_back(line);
         }
@@ -500,6 +503,31 @@ namespace mrbind::Python
             {
                 if (td.full_name.find('<') == std::string::npos && td.pretty != td.full_name)
                     typedef_targets.emplace(td.full_name, td.pretty);
+            }
+            for (const auto &a : c_desc.type_aliases)
+            {
+                if (a.spelling != a.target && a.spelling.find('<') != std::string::npos && !StartsWith(a.spelling, "const ") && !types.contains(a.spelling) && !StartsWith(a.spelling, "std::"))
+                    alias_template_targets.emplace_back(a.spelling, a.target);
+            }
+            // Longest first, so that the nested ones don't match first.
+            std::stable_sort(alias_template_targets.begin(), alias_template_targets.end(), [](const auto &a, const auto &b){return a.first.size() > b.first.size();});
+        }
+        for (const auto &[regex, replacement] : typeid_name_adjustments)
+            name = std::regex_replace(name, std::regex(regex), replacement);
+        for (const auto &[spelling, target] : alias_template_targets)
+        {
+            for (std::size_t pos = 0; (pos = name.find(spelling, pos)) != std::string::npos;)
+            {
+                bool word_start = pos == 0 || !(std::isalnum((unsigned char)name[pos - 1]) || name[pos - 1] == '_' || name[pos - 1] == ':');
+                if (word_start)
+                {
+                    name.replace(pos, spelling.size(), target);
+                    pos += target.size();
+                }
+                else
+                {
+                    pos += spelling.size();
+                }
             }
         }
         // Expand the typedefs, repeatedly.
@@ -761,6 +789,41 @@ namespace mrbind::Python
                 info.no_class = true;
         }
 
+        { // The optionals only returned by value (and unwrapped) have no class, the pybind11 target uses its type caster for those.
+            std::set<std::string> needs_class;
+            auto Note = [&](const std::string &type, bool by_value_return, const std::string &owner)
+            {
+                StrippedType st = StripType(type);
+                if (StartsWith(st.base, "std::optional<") && st.base != owner && !(by_value_return && !st.is_ptr && !st.is_ref))
+                    needs_class.insert(st.base);
+            };
+            for (const auto &[cpp_name, info] : types)
+            {
+                if (!info.IsClass())
+                    continue;
+                for (const auto &f : info.class_desc->fields)
+                    Note(f.type, false, cpp_name);
+                for (const auto &m : info.class_desc->methods)
+                {
+                    for (const auto &p : m.params)
+                        if (!p.is_this_param)
+                            Note(p.cpp_type, false, cpp_name);
+                    Note(m.ret.cpp_type, true, cpp_name);
+                }
+            }
+            for (const auto &f : c_desc.functions)
+            {
+                for (const auto &p : f.params)
+                    Note(p.cpp_type, false, "");
+                Note(f.ret.cpp_type, true, "");
+            }
+            for (auto &[cpp_name, info] : types)
+            {
+                if (!info.optional_value.empty() && !needs_class.contains(cpp_name))
+                    info.no_class = true;
+            }
+        }
+
         // Names and scopes.
         (void)GetNamespaceScope({});
         for (auto &[cpp_name, info] : types)
@@ -938,6 +1001,9 @@ namespace mrbind::Python
                     this_param = &p;
                 continue;
             }
+            // The tags selecting the alternative of `std::variant`, nothing to pass.
+            if (p.c_params.empty() && StartsWith(StripType(p.cpp_type).base, "std::variant_index<"))
+                continue;
             py_params.push_back(&p);
         }
         if (swap_first_two && py_params.size() >= 2)
@@ -987,15 +1053,15 @@ namespace mrbind::Python
             const TypeInfo *ti = type_it != types.end() ? &type_it->second : nullptr;
 
             const bool ptr_to_ptr = cp.size() == 1 && std::count(cp[0].c_type.begin(), cp[0].c_type.end(), '*') == 2;
-            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !types_by_c_name.contains(StripType(cp[0].c_type).base))
+            if (StartsWith(st.base, "std::optional<") && cp.size() == 1 && EndsWith(cp[0].c_type, "*") && !ptr_to_ptr && !(ti && StripType(cp[0].c_type).base == ti->c_name))
             {
                 // `std::optional<T>` as a pointer to the value, null for `nullopt` (also from `None`).
                 std::string vt = Trim(st.base.substr(14, st.base.size() - 15));
                 std::string vct = StripType(cp[0].c_type).base;
                 ScalarKind vk = GetScalarKind(vt);
                 const TypeInfo *vti = FindType(vt);
-                checks += "    " + vct + " " + v + "{};\n    const " + vct + " *" + v + "ptr = nullptr;\n";
-                if (const TypeInfo *opt = FindType(st.base); opt && FindMethod(*opt, "_has_value") && FindMethod(*opt, "_value"))
+                checks += "    const " + vct + " *" + v + "ptr = nullptr;\n";
+                if (const TypeInfo *opt = FindType(st.base); opt && !opt->no_class && FindMethod(*opt, "_has_value") && FindMethod(*opt, "_value"))
                 {
                     checks += "    void *" + v + "opt = nullptr;\n    bool " + v + "is_opt = " + a + " && rt::ArgObject(" + a + ", " + opt->var + ", false, " + v + "opt);\n";
                     checks += "    if (" + v + "is_opt && " + FindMethod(*opt, "_has_value")->c_name + "((const " + opt->c_name + " *)" + v + "opt)) " + v + "ptr = (const " + vct + " *)" + FindMethod(*opt, "_value")->c_name + "((const " + opt->c_name + " *)" + v + "opt);\n";
@@ -1008,13 +1074,21 @@ namespace mrbind::Python
                 else if (vk == ScalarKind::floating) conv = "rt::ArgFloat(" + a + ", convert, " + v + ")";
                 if (!conv.empty())
                 {
+                    checks += "    " + vct + " " + v + "{};\n";
                     checks += "    if (" + a + " && " + a + " != Py_None) {if (!" + conv + ") return nullptr; " + v + "ptr = &" + v + ";}\n";
                     c_args[&p] = v + "ptr";
                 }
-                else if (types_by_c_name.contains(vct) && types_by_c_name.at(vct)->IsExposedStruct())
+                else if (types_by_c_name.contains(vct) && types_by_c_name.at(vct)->IsClass() && !types_by_c_name.at(vct)->no_class)
                 {
+                    // A class value, also via its implicit conversions.
                     const TypeInfo *e = types_by_c_name.at(vct);
-                    checks += "    void *" + v + "obj = nullptr;\n    if (" + a + " && " + a + " != Py_None) {if (!rt::ArgObject(" + a + ", " + e->var + ", false, " + v + "obj)) return nullptr; " + v + "ptr = (const " + vct + " *)" + v + "obj;}\n";
+                    std::string obj_check = "rt::ArgObject(" + a + ", " + e->var + ", false, " + v + "obj)";
+                    if (e->has_implicit)
+                    {
+                        checks += "    rt::Ref " + v + "tmp;\n";
+                        obj_check = "(" + obj_check + " || (convert && implicit_" + e->var + "(" + a + ", " + v + "tmp.p) && rt::ArgObject(" + v + "tmp.p, " + e->var + ", false, " + v + "obj)))";
+                    }
+                    checks += "    void *" + v + "obj = nullptr;\n    if (" + a + " && " + a + " != Py_None) {if (!" + obj_check + ") return nullptr; " + v + "ptr = (const " + vct + " *)" + v + "obj;}\n";
                     c_args[&p] = v + "ptr";
                 }
                 else
@@ -1102,6 +1176,14 @@ namespace mrbind::Python
                 c_args[&p] = "(" + cp[0].c_type + ")static_cast<std::" + (out ? "ostream" : "istream") + " *>(&" + v + ".ss)";
                 if (out)
                     post += "    if (!" + v + ".Flush(" + a + ")) return nullptr;\n";
+            }
+            else if (cp.size() == 1 && cp[0].c_type == "const char *const *" && st.base == "char" && st.is_ptr)
+            {
+                // A null-terminated string with a default argument: a pointer to it, null for the default. `None` is a null pointer.
+                checks += "    rt::StringArg " + v + ";\n";
+                checks += "    if (" + a + " && " + a + " != Py_None && !rt::ArgString(" + a + ", " + v + ")) return nullptr;\n";
+                checks += "    const char *" + v + "p = " + v + ".data;\n";
+                c_args[&p] = "(" + a + " ? &" + v + "p : nullptr)";
             }
             else if (cp.size() == 1 && cp[0].c_type == "const char *" && st.base == "char" && st.is_ptr)
             {
@@ -1544,6 +1626,14 @@ namespace mrbind::Python
             ScalarKind isk = GetScalarKind(inner);
             if (isk != ScalarKind::none)
                 return decl + "nullptr;\n    if (!" + expr + ") " + out + " = (Py_INCREF(Py_None), Py_None);\n    else {" + out + " = rt::" + Ret(isk) + "(*" + expr + "); " + c_desc.helpers_prefix + "Free((void *)" + expr + ");}\n";
+        }
+        if (st.base == "std::string_view" && num_stars == 1 && types.contains("std::string_view"))
+        {
+            const TypeInfo &sv = types.at("std::string_view");
+            std::string ret = decl + "rt::RetString(" + sv.c_name + "_data(" + expr + "), " + sv.c_name + "_data_end(" + expr + "));\n";
+            if (!st.is_ptr && !st.is_ref)
+                ret += "    " + sv.c_name + "_Destroy(" + expr + ");\n";
+            return ret;
         }
         if (st.base == "std::string" && num_stars == 1)
         {
@@ -2115,12 +2205,12 @@ namespace mrbind::Python
             AddTo(methods, "operator", ov);
         }
 
-        // The assignment operators show up as `operator` in pybind11, the copy and the move one.
+        // The assignment operators show up as `operator` in pybind11: the copy one,
+        //   and the move one if the argument can be copied into a temporary.
         for (const auto &m : cls.methods)
         {
             auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
-            // Not for the abstract classes, which have no constructors in the C bindings.
-            if (!op || op->token != "=" || !op->is_copying_assignment || (!FindMethod(info, "_DefaultConstruct") && !FindMethod(info, "_ConstructFromAnother")))
+            if (!op || op->token != "=" || !op->is_copying_assignment || !info.traits || info.traits->copy_assignable == CInterop::SpecialMemberKind::disabled || StartsWith(info.cpp_name, "std::array<"))
                 continue;
             auto ov = PrepareOverload(m, &info, 1);
             if (!ov || ov->params.size() != 2)
@@ -2129,7 +2219,28 @@ namespace mrbind::Python
                 ov->params[1].name = "";
             ov->comment.clear();
             AddTo(methods, "operator", *ov);
-            AddTo(methods, "operator", *ov);
+            if (info.traits->move_assignable != CInterop::SpecialMemberKind::disabled && info.traits->copy_constructible != CInterop::SpecialMemberKind::disabled)
+                AddTo(methods, "operator", *ov);
+        }
+        // The other operators without Python names: the other assignments and `++` are `operator` too, `--` is `operator_minus_minus`.
+        for (const auto &m : cls.methods)
+        {
+            auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
+            if (!op || m.inherited_from || !((op->token == "=" && !op->is_copying_assignment) || op->token == "++" || op->token == "--" || op->token == "<" || op->token == ">" || op->token == "<=" || op->token == ">="))
+                continue;
+            auto ov = PrepareOverload(m, &info, 1);
+            if (!ov)
+                continue;
+            for (auto &p : ov->params)
+                if (p.name == "_other")
+                    p.name = "";
+            if (op->is_post_incr_or_decr)
+            {
+                ov->params.push_back({"", "int", ""}); // The dummy argument, ignored.
+                ov->num_required = ov->params.size();
+            }
+            ov->comment.clear();
+            AddTo(methods, op->token == "--" ? "operator_minus_minus" : "operator", std::move(*ov));
         }
 
         // A `[]` returning a mutable reference to a scalar also gets `__setitem__`.
@@ -2667,7 +2778,7 @@ namespace mrbind::Python
                     continue;
                 std::vector<const CInterop::FuncParam *> params;
                 for (const auto &p : m.params)
-                    if (!p.is_this_param)
+                    if (!p.is_this_param && !(p.c_params.empty() && StartsWith(StripType(p.cpp_type).base, "std::variant_index<")))
                         params.push_back(&p);
                 std::size_t num_required = 0;
                 for (auto p : params)
@@ -3175,6 +3286,101 @@ namespace mrbind::Python
         out_init += "        if (!rt::CallRt(\"add_optional_api\", Py_BuildValue(\"(OssN)\", " + info.var + ".type, " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(DocTypeName(info.optional_value, false)) + ", prims_))) return nullptr;\n    }\n";
     }
 
+    void Generator::EmitVariantMembers(TypeInfo &info)
+    {
+        const std::string self_doc = module_qualname + "." + info.py_qualname;
+        const CInterop::ClassMethod *index = FindMethod(info, "_index");
+        if (!index || index->params.size() != 1 || index->params[0].c_params.size() != 1)
+            return;
+        const std::string self_c = index->params[0].c_params[0].c_type;
+        const std::string head = "(PyObject *const *a, bool, bool &matched)\n{\n    void *self_ = nullptr;\n    if (!rt::ArgObject(a[0], " + info.var + ", false, self_)) return nullptr;\n    matched = true;\n";
+
+        // The alternatives, from the `ConstructAs_...` functions.
+        struct Alt {std::string cpp, name; const CInterop::ClassMethod *ctor = nullptr, *get = nullptr;};
+        std::vector<Alt> alts;
+        bool all_default_constructible = true;
+        for (const auto &m : info.class_desc->methods)
+        {
+            std::size_t pos = m.c_name.find("_ConstructAs_");
+            if (pos == std::string::npos)
+                continue;
+            for (const auto &p : m.params)
+            {
+                if (p.is_this_param || p.c_params.empty())
+                    continue;
+                Alt alt{.cpp = StripType(p.cpp_type).base, .ctor = &m};
+                alt.name = ToPythonName(AdjustName(TypeidSpelling(alt.cpp)));
+                alt.get = FindMethod(info, "_get_" + m.c_name.substr(pos + 13));
+                if (const TypeInfo *t = FindType(alt.cpp); t && t->traits && t->traits->default_constructible == CInterop::SpecialMemberKind::disabled)
+                    all_default_constructible = false;
+                alts.push_back(std::move(alt));
+                break;
+            }
+        }
+
+        GroupEntry init{"__init__", {}};
+        if (const CInterop::ClassMethod *def = FindMethod(info, "_DefaultConstruct"); def && all_default_constructible)
+        {
+            if (auto ov = PrepareOverload(*def, &info, 2))
+                init.overloads.push_back(std::move(*ov));
+        }
+        std::vector<const CInterop::ClassMethod *> ctors;
+        if (const CInterop::ClassMethod *copy = FindMethod(info, "_ConstructFromAnother"))
+            ctors.push_back(copy);
+        for (const Alt &alt : alts)
+            ctors.push_back(alt.ctor);
+        for (const CInterop::ClassMethod *m : ctors)
+        {
+            if (auto ov = PrepareOverload(*m, &info, 2); ov && ov->params.size() == 2)
+            {
+                ov->params[1].name = "arg0";
+                ov->params[1].default_repr.clear();
+                ov->num_required = 2;
+                ov->comment.clear();
+                init.overloads.push_back(std::move(*ov));
+            }
+        }
+        std::string cls_obj = info.var + ".type";
+        if (!init.overloads.empty())
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup(init, &info, true, true) + ")) return nullptr;\n";
+
+        { // `current_type()`.
+            PreparedOverload ov;
+            ov.impl = NewId("impl_");
+            out_impls += "static PyObject *" + ov.impl + head + "    static const char *const names_[] = {";
+            for (const Alt &alt : alts)
+                out_impls += CppStringLiteral(alt.name) + ", ";
+            out_impls += "nullptr};\n    std::size_t i_ = (std::size_t)" + index->c_name + "((" + self_c + ")self_);\n";
+            out_impls += "    const char *n_ = i_ < " + std::to_string(alts.size()) + " ? names_[i_] : \"\";\n    return rt::RetString(n_, n_ + std::strlen(n_));\n}\n\n";
+            ov.params = {{"self", self_doc, ""}};
+            ov.ret_type = "str";
+            ov.num_required = 1;
+            ov.comment = "Returns the current type name as a string. Call `get_<TypeName>()` to get the value.";
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup({"current_type", {ov}}, &info, true, false) + ")) return nullptr;\n";
+        }
+
+        // `get_<TypeName>()`, a copy of the alternative.
+        for (const Alt &alt : alts)
+        {
+            if (!alt.get || alt.get->params.size() != 1 || alt.get->params[0].c_params.size() != 1)
+                continue;
+            auto conv = CToPy("const " + alt.cpp + " &", alt.get->ret.c_type, "p_", "a[0]", "r_");
+            if (!conv)
+                continue;
+            PreparedOverload ov;
+            ov.impl = NewId("impl_");
+            out_impls += "static PyObject *" + ov.impl + head + "    try\n    {\n        auto p_ = " + alt.get->c_name + "((" + alt.get->params[0].c_params[0].c_type + ")self_);\n";
+            // The C function returns null for an inactive alternative, `std::get()` would throw `std::bad_variant_access`.
+            out_impls += "        if (!p_) {PyErr_SetString(PyExc_RuntimeError, \"bad variant access\"); return nullptr;}\n";
+            out_impls += *conv + "        return r_;\n    }\n    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
+            ov.params = {{"self", self_doc, ""}};
+            ov.ret_type = DocTypeName(alt.cpp, true);
+            ov.num_required = 1;
+            ov.comment = "Return this alternative, or throw if it's not active.";
+            out_init += "    if (!rt::AddMethod(" + cls_obj + ", &" + EmitGroup({"get_" + alt.name, {ov}}, &info, true, false) + ")) return nullptr;\n";
+        }
+    }
+
     bool Generator::IsListConstructible(const TypeInfo &info)
     {
         if (!info.IsClass() || info.no_class || info.is_vector || info.IsExposedStruct() || !FindMethod(info, "_DefaultConstruct"))
@@ -3622,6 +3828,8 @@ namespace mrbind::Python
                 EmitMapMembers(*info);
             else if (info->is_std_function)
                 EmitStdFunctionMembers(*info);
+            else if (StartsWith(info->cpp_name, "std::variant<"))
+                EmitVariantMembers(*info);
             else
                 EmitClassMembers(*info);
         }

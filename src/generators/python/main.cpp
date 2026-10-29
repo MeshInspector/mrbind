@@ -140,6 +140,15 @@ int main(int argc, char **argv)
             generator.doc_name_adjustments.emplace_back(args[0], args[1]);
         },
     });
+    args_parser.AddFlag("--adjust-typeid-name", {
+        .allow_repeat = true,
+        .arg_names = {"regex", "replacement"},
+        .desc = "A regex replacement applied to the C++ names before spelling them like the demangled `typeid()` does (for the names of the std types and `func_...`). E.g. `--adjust-typeid-name '(^|[^:\\w])expected<' '$1tl::expected<'` if the C bindings were generated with `--merge-std-and-tl-expected`.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.typeid_name_adjustments.emplace_back(args[0], args[1]);
+        },
+    });
     args_parser.AddFlag("--verbose", {
         .desc = "List the functions that got skipped.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
