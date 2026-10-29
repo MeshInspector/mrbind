@@ -55,16 +55,6 @@ MR_C_std_vector_int *MR_C_std_vector_int_OffsetMutablePtr(MR_C_std_vector_int *p
     return (MR_C_std_vector_int *)(((std::vector<int> *)ptr) + i);
 }
 
-MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromRange(const int *ptr, size_t size)
-{
-    return (MR_C_std_vector_int *)new std::vector<int>(std::vector<int>(ptr, ptr + size));
-}
-
-void MR_C_std_vector_int_AssignFromRange(MR_C_std_vector_int *_this, const int *ptr, size_t size)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)) = std::vector<int>(ptr, ptr + size);
-}
-
 size_t MR_C_std_vector_int_size(const MR_C_std_vector_int *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).size();
@@ -82,22 +72,9 @@ void MR_C_std_vector_int_resize(MR_C_std_vector_int *_this, size_t new_size)
     );
 }
 
-void MR_C_std_vector_int_resize_with_default_value(MR_C_std_vector_int *_this, size_t new_size, int value)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).resize(
-        new_size,
-        value
-    );
-}
-
 void MR_C_std_vector_int_clear(MR_C_std_vector_int *_this)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).clear();
-}
-
-size_t MR_C_std_vector_int_capacity(const MR_C_std_vector_int *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_int_reserve(MR_C_std_vector_int *_this, size_t new_capacity)
@@ -105,11 +82,6 @@ void MR_C_std_vector_int_reserve(MR_C_std_vector_int *_this, size_t new_capacity
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).reserve(
         new_capacity
     );
-}
-
-void MR_C_std_vector_int_shrink_to_fit(MR_C_std_vector_int *_this)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).shrink_to_fit();
 }
 
 const int *MR_C_std_vector_int_at(const MR_C_std_vector_int *_this, size_t i)
@@ -176,25 +148,5 @@ void MR_C_std_vector_int_insert(MR_C_std_vector_int *_this, size_t position, int
 void MR_C_std_vector_int_erase(MR_C_std_vector_int *_this, size_t position)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).begin() + ptrdiff_t(position));
-}
-
-const int *MR_C_std_vector_int_begin(const MR_C_std_vector_int *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).data();
-}
-
-int *MR_C_std_vector_int_begin_mut(MR_C_std_vector_int *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).data();
-}
-
-const int *MR_C_std_vector_int_end(const MR_C_std_vector_int *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).size();
-}
-
-int *MR_C_std_vector_int_end_mut(MR_C_std_vector_int *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).size();
 }
 

@@ -55,16 +55,6 @@ MR_C_phmap_flat_hash_set_int *MR_C_phmap_flat_hash_set_int_OffsetMutablePtr(MR_C
     return (MR_C_phmap_flat_hash_set_int *)(((phmap::flat_hash_set<int> *)ptr) + i);
 }
 
-MR_C_phmap_flat_hash_set_int *MR_C_phmap_flat_hash_set_int_ConstructFromRange(const int *ptr, size_t size)
-{
-    return (MR_C_phmap_flat_hash_set_int *)new phmap::flat_hash_set<int>(phmap::flat_hash_set<int>(ptr, ptr + size));
-}
-
-void MR_C_phmap_flat_hash_set_int_AssignFromRange(MR_C_phmap_flat_hash_set_int *_this, const int *ptr, size_t size)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_set<int> *)(_this)) = phmap::flat_hash_set<int>(ptr, ptr + size);
-}
-
 size_t MR_C_phmap_flat_hash_set_int_size(const MR_C_phmap_flat_hash_set_int *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_set<int> *)(_this)).size();
@@ -104,11 +94,6 @@ void MR_C_phmap_flat_hash_set_int_insert(MR_C_phmap_flat_hash_set_int *_this, in
 MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_begin(const MR_C_phmap_flat_hash_set_int *_this)
 {
     return (MR_C_phmap_flat_hash_set_int_const_iterator *)new phmap::flat_hash_set<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_set<int> *)(_this)).cbegin());
-}
-
-bool MR_C_phmap_flat_hash_set_int_is_begin(const MR_C_phmap_flat_hash_set_int *_this, const MR_C_phmap_flat_hash_set_int_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_set<int> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::flat_hash_set<int>::const_iterator *)(iter));
 }
 
 MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_end(const MR_C_phmap_flat_hash_set_int *_this)

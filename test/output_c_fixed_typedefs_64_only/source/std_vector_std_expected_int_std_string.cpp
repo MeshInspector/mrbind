@@ -74,22 +74,9 @@ void MR_C_std_vector_std_expected_int_std_string_resize(MR_C_std_vector_std_expe
     );
 }
 
-void MR_C_std_vector_std_expected_int_std_string_resize_with_default_value(MR_C_std_vector_std_expected_int_std_string *_this, size_t new_size, const MR_C_std_expected_int_std_string *value)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).resize(
-        new_size,
-        ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), *(const std::expected<int, std::string> *)(value))
-    );
-}
-
 void MR_C_std_vector_std_expected_int_std_string_clear(MR_C_std_vector_std_expected_int_std_string *_this)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).clear();
-}
-
-size_t MR_C_std_vector_std_expected_int_std_string_capacity(const MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::expected<int, std::string>> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_std_expected_int_std_string_reserve(MR_C_std_vector_std_expected_int_std_string *_this, size_t new_capacity)
@@ -97,11 +84,6 @@ void MR_C_std_vector_std_expected_int_std_string_reserve(MR_C_std_vector_std_exp
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).reserve(
         new_capacity
     );
-}
-
-void MR_C_std_vector_std_expected_int_std_string_shrink_to_fit(MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).shrink_to_fit();
 }
 
 const MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_at(const MR_C_std_vector_std_expected_int_std_string *_this, size_t i)
@@ -160,25 +142,5 @@ void MR_C_std_vector_std_expected_int_std_string_insert(MR_C_std_vector_std_expe
 void MR_C_std_vector_std_expected_int_std_string_erase(MR_C_std_vector_std_expected_int_std_string *_this, size_t position)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).begin() + ptrdiff_t(position));
-}
-
-const MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_begin(const MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    return (const MR_C_std_expected_int_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::expected<int, std::string>> *)(_this)).data());
-}
-
-MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_begin_mut(MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    return (MR_C_std_expected_int_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).data());
-}
-
-const MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_end(const MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    return (const MR_C_std_expected_int_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::expected<int, std::string>> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::expected<int, std::string>> *)(_this)).size());
-}
-
-MR_C_std_expected_int_std_string *MR_C_std_vector_std_expected_int_std_string_end_mut(MR_C_std_vector_std_expected_int_std_string *_this)
-{
-    return (MR_C_std_expected_int_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::expected<int, std::string>> *)(_this)).size());
 }
 

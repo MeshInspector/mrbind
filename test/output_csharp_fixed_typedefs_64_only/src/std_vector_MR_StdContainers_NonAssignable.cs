@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Vector_MRStdContainersNonAssignable : MR.CS.Misc.Object<Const_Vector_MRStdContainersNonAssignable>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_NonAssignable>
+            public class Const_Vector_MRStdContainersNonAssignable : MR.CS.Misc.Object<Const_Vector_MRStdContainersNonAssignable>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,70 +25,6 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRStdContainersNonAssignable() {Dispose(false);}
-
-                public class _Enumerator : IEnumerator<MR.CS.StdContainers.Const_NonAssignable>
-                {
-                    Const_Vector_MRStdContainersNonAssignable _container;
-                    MR.CS.StdContainers.ConstPtrNonAssignable _cur;
-                    bool _first = true;
-                    bool _done;
-
-                    public _Enumerator(Const_Vector_MRStdContainersNonAssignable container)
-                    {
-                        _container = container;
-                        _cur = _container.begin();
-                        _done = _cur == _container.end();
-                    }
-
-                    public MR.CS.StdContainers.Const_NonAssignable Current
-                    {
-                        get
-                        {
-                            if (_first || _done)
-                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
-                            return _cur.deref();
-                        }
-                    }
-
-                    object System.Collections.IEnumerator.Current => Current;
-
-                    public bool MoveNext()
-                    {
-                        if (_done)
-                            return false;
-                        if (_first)
-                        {
-                            _first = false;
-                            return true;
-                        }
-                        _cur++;
-                        if (_cur == _container.end())
-                        {
-                            _done = true;
-                            return false;
-                        }
-                        return true;
-                    }
-
-                    public void Reset()
-                    {
-                        _cur = _container.begin();
-                        _first = true;
-                        _done = false;
-                    }
-
-                    void IDisposable.Dispose() {}
-                }
-
-                public IEnumerator<MR.CS.StdContainers.Const_NonAssignable> GetEnumerator()
-                {
-                    return new _Enumerator(this);
-                }
-
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-                {
-                    return GetEnumerator();
-                }
 
                 internal unsafe Const_Vector_MRStdContainersNonAssignable(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -144,16 +80,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The memory capacity, measued in the number of elements.
-                /// </summary>
-                public unsafe nuint capacity()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_capacity", ExactSpelling = true)]
-                    extern static unsafe nuint __MR_C_std_vector_MR_StdContainers_NonAssignable_capacity(_Underlying *_this);
-                    return __MR_C_std_vector_MR_StdContainers_NonAssignable_capacity(_UnderlyingPtr);
-                }
-
-                /// <summary>
                 /// The element at a specific index, read-only.
                 /// </summary>
                 public unsafe MR.CS.StdContainers.Const_NonAssignable this[nuint i]
@@ -196,100 +122,14 @@ public static partial class MR
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
-
-                /// <summary>
-                /// The begin iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_begin", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
-
-                /// <summary>
-                /// The end iterator, const. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_end", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_end(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
             }
 
             /// <summary>
             /// Generated from C++ container `std::vector&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_MRStdContainersNonAssignable : Const_Vector_MRStdContainersNonAssignable, IEnumerable<MR.CS.StdContainers.NonAssignable>
+            public class Vector_MRStdContainersNonAssignable : Const_Vector_MRStdContainersNonAssignable
             {
-                public new class _Enumerator : IEnumerator<MR.CS.StdContainers.NonAssignable>
-                {
-                    Vector_MRStdContainersNonAssignable _container;
-                    MR.CS.StdContainers.PtrNonAssignable _cur;
-                    bool _first = true;
-                    bool _done;
-
-                    public _Enumerator(Vector_MRStdContainersNonAssignable container)
-                    {
-                        _container = container;
-                        _cur = _container.begin();
-                        _done = _cur == _container.end();
-                    }
-
-                    public MR.CS.StdContainers.NonAssignable Current
-                    {
-                        get
-                        {
-                            if (_first || _done)
-                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
-                            return _cur.deref();
-                        }
-                    }
-
-                    object System.Collections.IEnumerator.Current => Current;
-
-                    public bool MoveNext()
-                    {
-                        if (_done)
-                            return false;
-                        if (_first)
-                        {
-                            _first = false;
-                            return true;
-                        }
-                        _cur++;
-                        if (_cur == _container.end())
-                        {
-                            _done = true;
-                            return false;
-                        }
-                        return true;
-                    }
-
-                    public void Reset()
-                    {
-                        _cur = _container.begin();
-                        _first = true;
-                        _done = false;
-                    }
-
-                    void IDisposable.Dispose() {}
-                }
-
-                public new IEnumerator<MR.CS.StdContainers.NonAssignable> GetEnumerator()
-                {
-                    return new _Enumerator(this);
-                }
-
-                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-                {
-                    return GetEnumerator();
-                }
-
                 internal unsafe Vector_MRStdContainersNonAssignable(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -367,16 +207,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Shrinks the capacity to match the size.
-                /// </summary>
-                public unsafe void shrinkToFit()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_shrink_to_fit", ExactSpelling = true)]
-                    extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_shrink_to_fit(_Underlying *_this);
-                    __MR_C_std_vector_MR_StdContainers_NonAssignable_shrink_to_fit(_UnderlyingPtr);
-                }
-
-                /// <summary>
                 /// The element at a specific index, mutable.
                 /// </summary>
                 public unsafe new MR.CS.StdContainers.NonAssignable this[nuint i]
@@ -439,28 +269,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back(_Underlying *_this);
                     __MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back(_UnderlyingPtr);
-                }
-
-                /// <summary>
-                /// The begin iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new MR.CS.StdContainers.PtrNonAssignable begin()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_UnderlyingPtr);
-                    return new(__c_ret);
-                }
-
-                /// <summary>
-                /// The end iterator, mutable. Iterators of this container are plain pointers.
-                /// </summary>
-                public unsafe new MR.CS.StdContainers.PtrNonAssignable end()
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut", ExactSpelling = true)]
-                    extern static unsafe MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_UnderlyingPtr);
-                    return new(__c_ret);
                 }
             }
 

@@ -90,11 +90,6 @@ MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_u
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
 }
 
-bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
-}
-
 MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cend());

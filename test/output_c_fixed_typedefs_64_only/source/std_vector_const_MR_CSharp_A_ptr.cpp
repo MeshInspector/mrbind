@@ -73,22 +73,9 @@ void MR_C_std_vector_const_MR_CSharp_A_ptr_resize(MR_C_std_vector_const_MR_CShar
     );
 }
 
-void MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t new_size, const MR_CSharp_A *value)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).resize(
-        new_size,
-        ((const MR::CSharp::A *)value)
-    );
-}
-
 void MR_C_std_vector_const_MR_CSharp_A_ptr_clear(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).clear();
-}
-
-size_t MR_C_std_vector_const_MR_CSharp_A_ptr_capacity(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t new_capacity)
@@ -96,11 +83,6 @@ void MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(MR_C_std_vector_const_MR_CSha
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).reserve(
         new_capacity
     );
-}
-
-void MR_C_std_vector_const_MR_CSharp_A_ptr_shrink_to_fit(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).shrink_to_fit();
 }
 
 const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_at(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t i)
@@ -157,25 +139,5 @@ void MR_C_std_vector_const_MR_CSharp_A_ptr_insert(MR_C_std_vector_const_MR_CShar
 void MR_C_std_vector_const_MR_CSharp_A_ptr_erase(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t position)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).begin() + ptrdiff_t(position));
-}
-
-const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_begin(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    return (const MR_CSharp_A *const *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).data());
-}
-
-const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_begin_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    return (const MR_CSharp_A **)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).data());
-}
-
-const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_end(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    return (const MR_CSharp_A *const *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).size());
-}
-
-const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_end_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
-{
-    return (const MR_CSharp_A **)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).size());
 }
 

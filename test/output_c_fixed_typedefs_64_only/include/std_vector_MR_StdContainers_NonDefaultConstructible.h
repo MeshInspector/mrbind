@@ -66,27 +66,14 @@ MR_C_API size_t MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_size(co
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_empty(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
-/// Resizes the container. The new elements if any are set to the specified value.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `value` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t new_size, const MR_StdContainers_NonDefaultConstructible *value);
-
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_clear(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
-/// The memory capacity, measued in the number of elements.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
-
 /// Reserves memory for a certain number of elements. Never shrinks the memory.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t new_capacity);
-
-/// Shrinks the capacity to match the size.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
@@ -139,26 +126,6 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert(MR
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t position);
-
-/// The begin iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
-
-/// The begin iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
-
-/// The end iterator, const. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
-
-/// The end iterator, mutable. Iterators of this container are plain pointers.
-/// Parameter `_this` can not be null. It is a single object.
-/// The reference to this object might be preserved as the return value.
-MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 #ifdef __cplusplus
 } // extern "C"

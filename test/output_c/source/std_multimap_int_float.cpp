@@ -120,6 +120,24 @@ MR_C_std_multimap_int_float_iterator *MR_C_std_multimap_int_float_find_mut(MR_C_
     ) // MRBINDC_TRY
 }
 
+const float *MR_C_std_multimap_int_float_find_value(const MR_C_std_multimap_int_float *_this, const int *key)
+{
+    MRBINDC_TRY(
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::multimap<int, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key));
+    return _it == _self.end() ? nullptr : &_it->second;
+    ) // MRBINDC_TRY
+}
+
+float *MR_C_std_multimap_int_float_find_value_mut(MR_C_std_multimap_int_float *_this, const int *key)
+{
+    MRBINDC_TRY(
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::multimap<int, float> *)(_this));
+    auto _it = _self.find(((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key));
+    return _it == _self.end() ? nullptr : &_it->second;
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_multimap_int_float_const_iterator *MR_C_std_multimap_int_float_begin(const MR_C_std_multimap_int_float *_this)
 {
     MRBINDC_TRY(

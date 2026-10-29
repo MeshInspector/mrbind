@@ -153,6 +153,15 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Finds the element by key and returns its mapped value, read-only, or null if no such key.
+                /// </summary>
+                public unsafe float? findValue(int key)
+                {
+                    var __c_ret = __MR_C_std_multimap_int32_t_float_find_value(_UnderlyingPtr, &key);
+                    return __c_ret is not null ? *__c_ret : null;
+                }
+
+                /// <summary>
                 /// The begin iterator, const.
                 /// </summary>
                 public unsafe MR.CS.Std.Multimap_Int32T_Float.ConstIterator begin()
@@ -789,6 +798,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_int32_t_float_find", ExactSpelling = true)]
                 extern static unsafe MR.CS.Std.Multimap_Int32T_Float.ConstIterator._Underlying *__MR_C_std_multimap_int32_t_float_find(_Underlying *_this, int *key);
 
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_int32_t_float_find_value", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_multimap_int32_t_float_find_value(_Underlying *_this, int *key);
+
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_int32_t_float_is_begin", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_std_multimap_int32_t_float_is_begin(_Underlying *_this, MR.CS.Std.Multimap_Int32T_Float.Const_ConstIterator._Underlying *iter);
 
@@ -935,6 +947,15 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Finds the element by key and returns its mapped value, mutable, or null if no such key.
+                /// </summary>
+                public unsafe new MR.CS.Misc.Ref<float>? findValue(int key)
+                {
+                    var __c_ret = __MR_C_std_multimap_int32_t_float_find_value_mut(_UnderlyingPtr, &key);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
+                }
+
+                /// <summary>
                 /// The begin iterator, mutable.
                 /// </summary>
                 public unsafe new MR.CS.Std.Multimap_Int32T_Float.Iterator begin()
@@ -978,6 +999,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_int32_t_float_find_mut", ExactSpelling = true)]
                 extern static unsafe MR.CS.Std.Multimap_Int32T_Float.Iterator._Underlying *__MR_C_std_multimap_int32_t_float_find_mut(_Underlying *_this, int *key);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multimap_int32_t_float_find_value_mut", ExactSpelling = true)]
+                extern static unsafe float *__MR_C_std_multimap_int32_t_float_find_value_mut(_Underlying *_this, int *key);
             }
 
             /// <summary>
