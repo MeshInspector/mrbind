@@ -131,7 +131,16 @@ int main(int argc, char **argv)
             generator.name_adjustments.emplace_back(args[0], args[1]);
         },
     });
-        args_parser.AddFlag("--verbose", {
+    args_parser.AddFlag("--adjust-doc-name", {
+        .allow_repeat = true,
+        .arg_names = {"regex", "replacement"},
+        .desc = "A regex replacement applied to the C++ type names in the docs (`Generated from:`). E.g. `--adjust-doc-name '\\bsize_t\\b' 'unsigned long'` to match a pybind11 build parsed without `size_t` support.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.doc_name_adjustments.emplace_back(args[0], args[1]);
+        },
+    });
+    args_parser.AddFlag("--verbose", {
         .desc = "List the functions that got skipped.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
