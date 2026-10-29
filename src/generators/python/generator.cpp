@@ -2115,12 +2115,12 @@ namespace mrbind::Python
             AddTo(methods, "operator", ov);
         }
 
-        // The assignment operators show up as `operator` in pybind11, the copy and the move one.
+        // The assignment operators show up as `operator` in pybind11: the copy one,
+        //   and the move one if the argument can be copied into a temporary.
         for (const auto &m : cls.methods)
         {
             auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
-            // Not for the abstract classes, which have no constructors in the C bindings.
-            if (!op || op->token != "=" || !op->is_copying_assignment || (!FindMethod(info, "_DefaultConstruct") && !FindMethod(info, "_ConstructFromAnother")))
+            if (!op || op->token != "=" || !op->is_copying_assignment || !info.traits || info.traits->copy_assignable == CInterop::SpecialMemberKind::disabled || StartsWith(info.cpp_name, "std::array<"))
                 continue;
             auto ov = PrepareOverload(m, &info, 1);
             if (!ov || ov->params.size() != 2)
@@ -2129,7 +2129,28 @@ namespace mrbind::Python
                 ov->params[1].name = "";
             ov->comment.clear();
             AddTo(methods, "operator", *ov);
-            AddTo(methods, "operator", *ov);
+            if (info.traits->move_assignable != CInterop::SpecialMemberKind::disabled && info.traits->copy_constructible != CInterop::SpecialMemberKind::disabled)
+                AddTo(methods, "operator", *ov);
+        }
+        // The other operators without Python names: the other assignments and `++` are `operator` too, `--` is `operator_minus_minus`.
+        for (const auto &m : cls.methods)
+        {
+            auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
+            if (!op || m.inherited_from || !((op->token == "=" && !op->is_copying_assignment) || op->token == "++" || op->token == "--" || op->token == "<" || op->token == ">" || op->token == "<=" || op->token == ">="))
+                continue;
+            auto ov = PrepareOverload(m, &info, 1);
+            if (!ov)
+                continue;
+            for (auto &p : ov->params)
+                if (p.name == "_other")
+                    p.name = "";
+            if (op->is_post_incr_or_decr)
+            {
+                ov->params.push_back({"", "int", ""}); // The dummy argument, ignored.
+                ov->num_required = ov->params.size();
+            }
+            ov->comment.clear();
+            AddTo(methods, op->token == "--" ? "operator_minus_minus" : "operator", std::move(*ov));
         }
 
         // A `[]` returning a mutable reference to a scalar also gets `__setitem__`.
