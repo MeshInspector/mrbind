@@ -207,20 +207,6 @@ This can get out of hand with huge structs. Use `--preferred-max-num-aggregate-i
 
 This flag is ignored for non-default-constructible structs, as this could make them impossible to construct.
 
-### Smaller bindings for the standard containers
-
-Every instantiation of a standard container gets a few dozen C functions. In a large library that is a noticeable part of the bindings, which matters when their size does (e.g. in a WebAssembly module, where nothing can be stripped).
-
-Pass `--minimal-containers` to keep only the essential ones:
-
-* `std::vector`, `std::deque`: the special member functions, `size()`, `empty()`, `clear()`, `resize()`, `reserve()`, `at()`, `front()`/`back()`, `data()` (if the element type allows it), `push_back()`/`pop_back()` (and `push_front()`/`pop_front()` for deques), `insert()`/`erase()` at an index. Removed: `begin()`/`end()`, the iterator classes of deques, `capacity()`, `shrink_to_fit()`, `ConstructFromRange()`/`AssignFromRange()`, `resize_with_default_value()`.
-
-* `std::array`: no `begin()`/`end()`, use `data()`.
-
-* `std::list`, sets and maps (including `phmap`): only the read-only iterators are kept, enough to enumerate the elements: `begin()`, `end()`, `is_end()`, `find()`, and the iterators' `deref*()`, `incr()` and `==`. The mutable iterators and the related functions are removed, as are `insert()`/`erase()` of lists, `is_begin()` and the iterator `decr()`. To modify a map value by key, use `find_value_mut()`, which returns a pointer to the mapped value or null if the key is missing (it exists without the flag too), or `find_or_construct_elem()`.
-
-Other wrappers (`std::optional`, `std::function`, `std::expected`, etc.) are unaffected. Without `begin()`/`end()`, the C# bindings don't implement `IEnumerable` for vectors, deques and arrays.
-
 ### Add missing headers for certain C++ template arguments
 
 When generating C++ implementation files, MRBind automatically determines what headers it needs to include. Sometimes those heuristics can fail, leading to missing includes can compilation errors caused by that.
@@ -234,6 +220,10 @@ Pass `--custom-cpp-include-for-name My::Allocator foo/bar.h` to `#include <foo/b
 Passing `--canonicalize-to-fixed-size-typedefs` will use `int32_t` and other similar standard typedefs instead of all built-in integer types.
 
 This is purely a style choice, and doesn't help portability. For portability, see [this](#making-the-bindings-cross-platform).
+
+### Reduce the output size
+
+You can pass `--minimal-containers` to emit less featureful bindings for the standard containers. This will reduce the output binary size slightly.
 
 ## Making the bindings cross-platform
 

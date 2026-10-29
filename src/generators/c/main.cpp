@@ -260,7 +260,7 @@ int main(int raw_argc, char **raw_argv)
         });
 
         args_parser.AddFlag("--minimal-containers", {
-            .desc = "Bind only the essential functions of the standard containers, to make the bindings smaller. For vectors, deques and arrays this removes the iterators, `begin()`/`end()`, `capacity()`, `shrink_to_fit()`, construction from a range and `resize_with_default_value()`, leaving `size()`, `at()`, `front()`/`back()`, `data()`, `resize()`, `reserve()`, `push_back()`, `insert()`/`erase()` at an index, etc. Lists, sets and maps keep only the read-only iterators, enough to enumerate the elements; maps lose the mutable `find()`, use `find_value_mut()` instead.",
+            .desc = "Bind only the essential functions of the standard containers, to make the bindings smaller.",
             .func = [&](mrbind::CommandLineParser::ArgSpan)
             {
                 generator.minimal_containers = true;
