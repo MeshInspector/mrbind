@@ -612,6 +612,39 @@ namespace mrbind::Python
         return name;
     }
 
+    // Python's `repr()` of a `double`, from its shortest round-trip scientific form `d.ddde+XX`.
+    static std::string PyFloatRepr(std::string s)
+    {
+        std::string sign;
+        if (!s.empty() && s.front() == '-')
+        {
+            sign = "-";
+            s.erase(0, 1);
+        }
+        std::size_t e = s.find('e');
+        if (e == std::string::npos)
+            return sign + s; // `inf`, `nan`.
+        std::string digits = s.substr(0, e);
+        digits.erase(std::remove(digits.begin(), digits.end(), '.'), digits.end());
+        int exp = std::stoi(s.substr(e + 1));
+        if (exp >= -4 && exp <= 15)
+        {
+            // Fixed notation, always with a fractional part.
+            if (exp >= 0)
+            {
+                while (digits.size() < std::size_t(exp) + 1)
+                    digits += '0';
+                std::string frac = digits.substr(std::size_t(exp) + 1);
+                return sign + digits.substr(0, std::size_t(exp) + 1) + "." + (frac.empty() ? "0" : frac);
+            }
+            return sign + "0." + std::string(std::size_t(-exp - 1), '0') + digits;
+        }
+        std::string exp_str = std::to_string(exp < 0 ? -exp : exp);
+        if (exp_str.size() < 2)
+            exp_str = "0" + exp_str;
+        return sign + digits.substr(0, 1) + (digits.size() > 1 ? "." + digits.substr(1) : "") + "e" + (exp < 0 ? "-" : "+") + exp_str;
+    }
+
     std::string Generator::DefaultArgRepr(const CInterop::FuncParam &param)
     {
         if (!param.default_arg_spelling)
@@ -620,6 +653,15 @@ namespace mrbind::Python
         StrippedType st = StripType(param.cpp_type);
         if (st.is_ptr)
             return spelling == "0" || spelling == "nullptr" ? "None" : "'" + spelling + "'";
+        // An arithmetic constant evaluated by the parser: printed like pybind11 prints the value of the default argument expression.
+        if (const auto &value = param.default_arg_value)
+        {
+            if (*value == "true" || *value == "false")
+                return *value == "true" ? "True" : "False";
+            if (value->find('e') != std::string::npos || value->find("inf") != std::string::npos || value->find("nan") != std::string::npos)
+                return PyFloatRepr(*value);
+            return *value;
+        }
         ScalarKind kind = GetScalarKind(st.base);
         if (kind != ScalarKind::none)
         {
@@ -2054,7 +2096,7 @@ namespace mrbind::Python
             ov.impl = NewId("impl_");
             out_impls += "static PyObject *" + ov.impl + "(PyObject *const *a, bool, bool &matched)\n{\n    void *o_ = nullptr;\n    if (!rt::ArgObject(a[1], " + info.var + ", false, o_)) return nullptr;\n    matched = true;\n";
             out_impls += "    return rt::InitInstance(a[0], " + info.var + ", new " + info.c_name + "(*(" + info.c_name + " *)o_));\n}\n\n";
-            ov.params = {{"self", module_qualname + "." + info.py_qualname, ""}, {"other", module_qualname + "." + info.py_qualname, ""}};
+            ov.params = {{"self", module_qualname + "." + info.py_qualname, ""}, {"_other", module_qualname + "." + info.py_qualname, ""}};
             ov.ret_type = "None";
             ov.num_required = 2;
             copy_ctor = ov;
@@ -2079,7 +2121,9 @@ namespace mrbind::Python
         if (copy_ctor)
         {
             PreparedOverload c = *copy_ctor;
-            c.params[1].name = "";
+            // The parameter is unnamed in the implicit copy constructors (`_other` in the C bindings).
+            if (c.params[1].name == "_other")
+                c.params[1].name = "";
             c.comment.clear();
             init.overloads.push_back(c);
         }

@@ -2410,6 +2410,7 @@ namespace mrbind::C
                 Param::DefaultArg &arg = param.default_arg.emplace();
                 arg.cpp_expr = new_param.default_argument->as_cpp_expression;
                 arg.original_spelling = new_param.default_argument->original_spelling;
+                arg.value = new_param.default_argument->value;
             }
         }
     }
@@ -3889,6 +3890,7 @@ namespace mrbind::C
                     if (input_param.default_arg)
                     {
                         new_param.default_arg_spelling = RoundtripDefaultArgumentForComments(input_param.default_arg->original_spelling);
+                        new_param.default_arg_value = input_param.default_arg->value;
                         new_param.default_arg_affects_parameter_passing = strings.params_info[i].has_useful_default_arg;
                     }
 

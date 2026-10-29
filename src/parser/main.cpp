@@ -4,6 +4,7 @@
 // Similarly, on libc++ (Mac and MSYS2 CLANG64)  I get warnings about `std::aligned_union` in `<type_traits>`
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include <algorithm>
+#include <charconv>
 #include <type_traits>
 #pragma GCC diagnostic pop
 #endif
@@ -883,6 +884,32 @@ namespace mrbind
         if (const clang::Expr *default_arg = param.getDefaultArg())
         {
             out_arg.emplace();
+
+            // The value, if it's an arithmetic constant. Of the expression itself, before the conversion to the parameter type.
+            const clang::Expr *value_expr = default_arg->IgnoreImpCasts();
+            if (!value_expr->isValueDependent() && !value_expr->isTypeDependent() && value_expr->getType()->isArithmeticType() && !value_expr->getType()->isEnumeralType())
+            {
+                clang::Expr::EvalResult result;
+                if (value_expr->EvaluateAsRValue(result, param.getASTContext()) && !result.HasSideEffects)
+                {
+                    if (result.Val.isInt())
+                    {
+                        if (value_expr->getType()->isBooleanType())
+                            out_arg->value = result.Val.getInt().getBoolValue() ? "true" : "false";
+                        else
+                            out_arg->value = llvm::toString(result.Val.getInt(), 10);
+                    }
+                    else if (result.Val.isFloat())
+                    {
+                        llvm::APFloat f = result.Val.getFloat();
+                        bool loses_info = false;
+                        f.convert(llvm::APFloat::IEEEdouble(), llvm::APFloat::rmNearestTiesToEven, &loses_info);
+                        char buf[64];
+                        auto r = std::to_chars(buf, buf + sizeof(buf), f.convertToDouble(), std::chars_format::scientific);
+                        out_arg->value = std::string(buf, r.ptr);
+                    }
+                }
+            }
 
             // Convert the default argument to string.
             if (params.default_args_mode == VisitorParams::DefaultArgsMode::as_is)
