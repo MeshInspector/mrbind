@@ -2725,9 +2725,18 @@ namespace mrbind::Python
                 break;
             }
             std::string name = ToPythonName(AdjustName(Join(std::vector<std::string>(parts.begin() + std::ptrdiff_t(i), parts.end()), "::")));
-            if (name.empty() || occupied.contains({scope_var, name}) || !done.emplace(scope_var, name).second)
+            if (name.empty() || occupied.contains({scope_var, name}))
                 continue;
-            aliases_by_type[target].push_back({scope_var, name, scope_qual.empty() ? name : scope_qual + "." + name});
+            std::string qualname = scope_qual.empty() ? name : scope_qual + "." + name;
+            if (!done.emplace(scope_var, name).second)
+            {
+                // Another spelling of the same type with the same Python name: listed in the docs again, like the pybind11 target does.
+                auto &list = aliases_by_type[target];
+                if (std::any_of(list.begin(), list.end(), [&](const AliasEntry &e){return e.scope_var == scope_var && e.name == name;}))
+                    list.push_back({scope_var, name, qualname, true});
+                continue;
+            }
+            aliases_by_type[target].push_back({scope_var, name, qualname});
         }
     }
 
@@ -2740,6 +2749,8 @@ namespace mrbind::Python
                 std::string value = target->IsClass() ? target->var + ".type" : target->var;
                 for (const auto &a : list)
                 {
+                    if (a.doc_only)
+                        continue;
                     if (a.scope_var == "module")
                         out_init_classes += "    Py_INCREF(" + value + "); if (PyModule_AddObject(module, " + CppStringLiteral(a.name) + ", " + value + ") < 0) return nullptr;\n";
                     else

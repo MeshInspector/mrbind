@@ -202,7 +202,7 @@ namespace mrbind::Python
         // The typedef names as aliases of the classes.
         void EmitAliases();
         // From `type_aliases`: the aliases by target type (in the order of the spellings, as in the docs), computed before the classes.
-        struct AliasEntry {std::string scope_var, name, qualname;};
+        struct AliasEntry {std::string scope_var, name, qualname; bool doc_only = false;};
         std::map<const TypeInfo *, std::vector<AliasEntry>> aliases_by_type;
         void CollectAliases();
         // The implicit conversions: `static bool implicit_T(PyObject *src, PyObject *&tmp)`.
