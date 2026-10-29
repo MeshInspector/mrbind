@@ -1506,13 +1506,24 @@ namespace mrbind
         }
 
         // `std::equality_comparable<T>`: are `a == b` and `a != b` valid for `const T &` operands?
-        // Only checked for complete classes, in an unevaluated context with the diagnostics suppressed, so nothing gets instantiated or reported.
+        // Only checked for complete classes, in an unevaluated context.
+        // The overload resolution can instantiate unrelated templates outside of the SFINAE context, so all diagnostics are suppressed,
+        //   and any error (even a non-SFINAE one) means "no".
         [[nodiscard]] bool IsEqualityComparable(const clang::QualType &type)
         {
             const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
             if (!rec || !rec->hasDefinition() || type->isDependentType())
                 return false;
             clang::Sema &sema = ci->getSema();
+            clang::DiagnosticsEngine &diags = sema.getDiagnostics();
+            const bool prev_suppress = diags.getSuppressAllDiagnostics();
+            diags.setSuppressAllDiagnostics(true);
+            struct RestoreSuppress
+            {
+                clang::DiagnosticsEngine &diags;
+                bool value;
+                ~RestoreSuppress() {diags.setSuppressAllDiagnostics(value);}
+            } restore_suppress{diags, prev_suppress};
             clang::SourceLocation loc = rec->getLocation();
             clang::Sema::SFINAETrap trap(sema);
             clang::Sema::TentativeAnalysisScope tentative(sema);
