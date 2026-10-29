@@ -2928,6 +2928,9 @@ namespace mrbind::Python
             const TypeInfo *target = *targets.begin();
             if (target->no_class)
                 continue;
+            // The spellings through the entities hidden from Python don't exist there.
+            if (IsIgnoredForPython(spelling))
+                continue;
             // The scope: the namespaces, then the parsed classes.
             std::vector<std::string> parts = SplitQualified(spelling);
             std::string scope_var = "module", scope_qual;
