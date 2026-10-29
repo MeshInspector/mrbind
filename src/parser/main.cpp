@@ -1507,8 +1507,7 @@ namespace mrbind
 
         // `std::equality_comparable<T>`: are `a == b` and `a != b` valid for `const T &` operands?
         // Only checked for complete classes, in an unevaluated context.
-        // The overload resolution can instantiate unrelated templates outside of the SFINAE context, so all diagnostics are suppressed,
-        //   and any error (even a non-SFINAE one) means "no".
+        // The overload resolution can instantiate unrelated templates outside of the SFINAE context (and fail there), so all diagnostics are suppressed.
         [[nodiscard]] bool IsEqualityComparable(const clang::QualType &type)
         {
             const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();

@@ -4257,6 +4257,7 @@ namespace mrbind::C
         binder.inheritance_info = parsed_class_inheritance_info.at(cpp_class_name_str);
 
         binder.mark_polymorphic = class_desc.is_polymorphic;
+        binder.mark_aggregate = class_desc.parsed && class_desc.parsed->is_aggregate;
 
         return binder;
     }
