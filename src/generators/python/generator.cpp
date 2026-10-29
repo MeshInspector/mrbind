@@ -2181,7 +2181,10 @@ namespace mrbind::Python
             gov->comment.clear();
             std::string get_def = EmitGroup({"", {*gov}}, &info, false, false);
             std::string set_def = "nullptr";
-            if (f.setter && !(st.is_ptr ? EndsWith(Trim(f.type), "const") : st.is_const))
+            // Like `PropertyTypeIsConst` of the pybind11 target: also read-only if not copy-assignable.
+            const TypeInfo *field_ti = st.is_ptr ? nullptr : FindType(st.base);
+            bool not_assignable = field_ti && field_ti->traits && field_ti->traits->copy_assignable == CInterop::SpecialMemberKind::disabled;
+            if (f.setter && !not_assignable && !(st.is_ptr ? EndsWith(Trim(f.type), "const") : st.is_const))
             {
                 auto sov = PrepareOverload(*f.setter, &info, f.is_static ? 3 : 1);
                 if (sov)
