@@ -596,8 +596,7 @@ namespace mrbind
                                 case TypeUses::nonstatic_data_member: func(std::as_const(bit), "NONSTATIC_DATA_MEMBER"); break;
                                 case TypeUses::static_data_member:    func(std::as_const(bit), "STATIC_DATA_MEMBER"); break;
                                 case TypeUses::typedef_target:        func(std::as_const(bit), "TYPEDEF_TARGET"); break;
-                                // The pybind11 target registers only the types that it sees used. Those used to be typedef targets too.
-                                case TypeUses::force_instantiated:    if (!bool(uses & TypeUses::typedef_target)) func(std::as_const(bit), "TYPEDEF_TARGET"); break;
+                                case TypeUses::force_instantiated:    func(std::as_const(bit), "FORCE_INSTANTIATED"); break;
                                 case TypeUses::typedef_name:          func(std::as_const(bit), "TYPEDEF_NAME"); break;
                                 case TypeUses::_poisoned:             break; // Should be unreachable.
                             }
