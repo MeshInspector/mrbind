@@ -337,10 +337,9 @@ namespace mrbind::Python
 
     std::string Generator::ProcessComment(const std::string &c_style, bool require_generated_from)
     {
-        // The comments added by the C generator: after the parsed comment, or alone.
+        // The comment of the default constructors added by the C generator, when they have no parsed one.
         static constexpr std::string_view default_ctor_comment = "Constructs an empty (default-constructed) instance.";
-        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos &&
-            c_style.find(std::string("\n/// ") + std::string(default_ctor_comment)) == std::string::npos)
+        if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos)
             return "";
         // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
         //   and the indentation of the first line removed from all lines.
@@ -1503,7 +1502,8 @@ namespace mrbind::Python
         o += a2;
         o += "    }\n    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
 
-        ret.comment = ProcessComment(func.comment.c_style);
+        // A default constructor has either its parsed comment alone, or `default_ctor_comment`.
+        ret.comment = ProcessComment(func.comment.c_style, !EndsWith(func.c_name, "_DefaultConstruct"));
         std::string sig;
         for (const auto &p : func.params)
         {

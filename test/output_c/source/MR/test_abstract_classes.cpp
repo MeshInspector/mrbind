@@ -102,56 +102,44 @@ MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetMutablePtr(MR_AbstractClasses_C
 
 const MR_AbstractClasses_B *MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(const MR_AbstractClasses_C *object)
 {
-    MRBINDC_TRY(
     return (const MR_AbstractClasses_B *)(static_cast<const MR::AbstractClasses::B *>(
         ((const MR::AbstractClasses::C *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(MR_AbstractClasses_C *object)
 {
-    MRBINDC_TRY(
     return (MR_AbstractClasses_B *)(static_cast<MR::AbstractClasses::B *>(
         ((MR::AbstractClasses::C *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_AbstractClasses_C *MR_AbstractClasses_C_StaticDowncastFrom_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
-    MRBINDC_TRY(
     return (const MR_AbstractClasses_C *)(static_cast<const MR::AbstractClasses::C *>(
         ((const MR::AbstractClasses::B *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_AbstractClasses_C *MR_AbstractClasses_C_MutableStaticDowncastFrom_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
-    MRBINDC_TRY(
     return (MR_AbstractClasses_C *)(static_cast<MR::AbstractClasses::C *>(
         ((MR::AbstractClasses::B *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
-    MRBINDC_TRY(
     return (const MR_AbstractClasses_C *)(dynamic_cast<const MR::AbstractClasses::C *>(
         ((const MR::AbstractClasses::B *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFrom_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
-    MRBINDC_TRY(
     return (MR_AbstractClasses_C *)(dynamic_cast<MR::AbstractClasses::C *>(
         ((MR::AbstractClasses::B *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFromOrFail_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
