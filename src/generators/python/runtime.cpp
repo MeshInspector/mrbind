@@ -1211,14 +1211,23 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     # The C++-style methods (`MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS`).
     _bind(cls, 'size', 'size(self: ' + q + ') -> int\n', lambda self: size(self))
     _bind(cls, 'empty', 'empty(self: ' + q + ') -> bool\n', lambda self: size(self) == 0)
+    def resize(self, n, *v):
+        if not v:
+            if 'resize' not in p:
+                raise TypeError('resize(): incompatible function arguments.')
+            p['resize'](self, n)
+        elif 'resize_value' in p:
+            p['resize_value'](self, n, v[0])
+        else:
+            # `--minimal-containers` C bindings have no `resize_with_default_value`.
+            while size(self) > n:
+                erase(self, size(self) - 1)
+            while size(self) < n:
+                insert(self, size(self), v[0])
     if 'resize' in p:
-        def resize(self, n, *v):
-            if v:
-                p['resize_value'](self, n, v[0])
-            else:
-                p['resize'](self, n)
-        doc = 'resize(*args, **kwargs)\nOverloaded function.\n\n1. resize(self: ' + q + ', arg0: int) -> None\n\n2. resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n' if 'resize_value' in p else 'resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n'
-        _bind(cls, 'resize', doc, resize)
+        _bind(cls, 'resize', 'resize(*args, **kwargs)\nOverloaded function.\n\n1. resize(self: ' + q + ', arg0: int) -> None\n\n2. resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', resize)
+    else:
+        _bind(cls, 'resize', 'resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', resize)
     _bind(cls, '__bool__', '__bool__(self: ' + q + ') -> bool\n\nCheck whether the list is nonempty\n', lambda self: size(self) != 0)
     comparable = 'comparable' in p
     def __contains__(self, x):
