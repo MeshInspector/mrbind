@@ -4073,6 +4073,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, name_source_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, name_source_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, name_source_, ...)        MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_FORCE_INSTANTIATED(i_, name_source_, ...)    MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
 
 #define MB_ALT_TYPE_SPELLING(i_, name_source_, type_, spelling_) // Base version is empty, we check the specific usecases.
 
@@ -4083,6 +4084,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_ALT_TYPE_SPELLING_NONSTATIC_DATA_MEMBER(i_, name_source_, type_, spelling_) DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_STATIC_DATA_MEMBER(i_, name_source_, type_, spelling_)    DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET(i_, name_source_, type_, spelling_)        DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_FORCE_INSTANTIATED(i_, name_source_, type_, spelling_)    DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_NAME(i_, name_source_, type_, spelling_)          DETAIL_MB_PB11_ALT_SPELLING              (              type_, spelling_)
 
 // This one registers the spelling only if `name_source_` is empty. Because if it's `custom` instead, it means the canonical name comes from
