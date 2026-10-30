@@ -445,7 +445,7 @@ namespace mrbind::C
         generator.EmitFunction(file, PrepareFuncOffsetPtr(generator, false));
     }
 
-    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator) const
+    Generator::EmitFuncParams HeapAllocatedClassBinder::PrepareFuncDefaultCtor(Generator &generator, std::string_view comment) const
     {
         std::string cpp_type_str = generator.CppdeclToCode(cpp_type_name);
 
@@ -459,6 +459,8 @@ namespace mrbind::C
         ret.cpp_called_func = cpp_type_str;
 
         ret.c_comment = "/// Constructs an empty (default-constructed) instance.";
+        if (!comment.empty())
+            ret.c_comment = std::string(comment) + "\n" + ret.c_comment;
 
         return ret;
     }
