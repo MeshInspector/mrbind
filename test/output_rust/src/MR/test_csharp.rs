@@ -8817,7 +8817,7 @@ unsafe impl crate::CppClass for SD
 
 impl SD
 {
-    /// Constructs an empty (default-constructed) instance.
+    /// Add the remaining stuff to silence deprection warnings caused by the destructor:
     ///
     /// Calls `MR_CSharp_SD_DefaultConstruct()`.
     pub fn new() -> crate::Owned<crate::mr::c_sharp::SD>

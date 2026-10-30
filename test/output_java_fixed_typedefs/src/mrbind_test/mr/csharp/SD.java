@@ -27,7 +27,7 @@ public final class SD extends mrbind_test.CppObject
     }
 
     /**
-     * Constructs an empty (default-constructed) instance.
+     * Add the remaining stuff to silence deprection warnings caused by the destructor:
      *
      * Calls `MR_CSharp_SD_DefaultConstruct()`.
      */

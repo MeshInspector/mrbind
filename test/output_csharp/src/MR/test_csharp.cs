@@ -3188,7 +3188,7 @@ public static partial class MR
 
                 internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-                /// Constructs an empty (default-constructed) instance.
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe Const_SD() : this(null, is_owning: true)
                 {
                     MR.CS.Misc._Exceptions.Prepare();
@@ -3232,7 +3232,7 @@ public static partial class MR
             {
                 internal unsafe SD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                /// Constructs an empty (default-constructed) instance.
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe SD() : this(null, is_owning: true)
                 {
                     MR.CS.Misc._Exceptions.Prepare();

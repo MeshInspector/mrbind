@@ -3595,9 +3595,7 @@ public static partial class MR
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                 }
 
-                /// <summary>
-                /// Constructs an empty (default-constructed) instance.
-                /// </summary>
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe Const_SD() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]
@@ -3640,9 +3638,7 @@ public static partial class MR
 
                 internal unsafe SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
-                /// <summary>
-                /// Constructs an empty (default-constructed) instance.
-                /// </summary>
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe SD() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]

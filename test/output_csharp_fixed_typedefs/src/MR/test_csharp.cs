@@ -2989,9 +2989,7 @@ public static partial class MR
 
                 internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-                /// <summary>
-                /// Constructs an empty (default-constructed) instance.
-                /// </summary>
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe Const_SD() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = __MR_CSharp_SD_DefaultConstruct();
@@ -3039,9 +3037,7 @@ public static partial class MR
             {
                 internal unsafe SD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                /// <summary>
-                /// Constructs an empty (default-constructed) instance.
-                /// </summary>
+                // Add the remaining stuff to silence deprection warnings caused by the destructor:
                 public unsafe SD() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = __MR_CSharp_SD_DefaultConstruct();
