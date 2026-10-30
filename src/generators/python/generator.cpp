@@ -512,8 +512,6 @@ namespace mrbind::Python
             // Longest first, so that the nested ones don't match first.
             std::stable_sort(alias_template_targets.begin(), alias_template_targets.end(), [](const auto &a, const auto &b){return a.first.size() > b.first.size();});
         }
-        for (const auto &[regex, replacement] : typeid_name_adjustments)
-            name = std::regex_replace(name, std::regex(regex), replacement);
         for (const auto &[spelling, target] : alias_template_targets)
         {
             for (std::size_t pos = 0; (pos = name.find(spelling, pos)) != std::string::npos;)
@@ -561,6 +559,9 @@ namespace mrbind::Python
             if (!changed)
                 break;
         }
+        // After the expansions, so that they see the expanded names.
+        for (const auto &[regex, replacement] : typeid_name_adjustments)
+            name = std::regex_replace(name, std::regex(regex), replacement);
         // MSVC demangles `const T` as `T const`.
         std::string out;
         std::size_t i = 0;
