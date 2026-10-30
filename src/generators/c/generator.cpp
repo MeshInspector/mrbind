@@ -5589,10 +5589,7 @@ namespace mrbind::C
                                 if (elem.params.empty())
                                 {
                                     HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
-                                    EmitFuncParams params = binder.PrepareFuncDefaultCtor(self);
-                                    if (elem.comment)
-                                        params.c_comment = elem.comment->text_with_slashes + "\n" + params.c_comment;
-                                    self.EmitFunction(file, params);
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self, elem.comment ? elem.comment->text_with_slashes : ""));
                                 }
                                 else
                                 {
