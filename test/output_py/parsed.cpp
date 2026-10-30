@@ -16,9 +16,9 @@
 #endif
 
 #if MB_INCLUDE_ORIGINAL_HEADER
-#include "/home/user/repos/MeshInspectorCode-2/MeshLib/thirdparty/mrbind/test/input_py/all.h"
+#include "/home/runner/work/mrbind/mrbind/test/input_py/all.h"
 #if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.
-// Implementation file doesn't exist: /home/user/repos/MeshInspectorCode-2/MeshLib/thirdparty/mrbind/test/input_py/all.cpp
+// Implementation file doesn't exist: /home/runner/work/mrbind/mrbind/test/input_py/all.cpp
 #endif
 #undef MB_INCLUDE_ORIGINAL_HEADER
 #endif
@@ -27,95 +27,111 @@ MB_FILE
 
 MB_NAMESPACE(MR, /*not inline*/, /*::*/, /*no comment*/)
 #if MB_CHECK_FRAGMENT(0)
-MB_FUNC(/*returns*/(std::vector<int>), GetVector, GetVector, (MR::GetVector), (MR::GetVector), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::vector<int>), GetVector, GetVector, (MR::GetVector), (MR::GetVector), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(1)
-MB_FUNC(/*returns*/(std::set<int>), GetSet, GetSet, (MR::GetSet), (MR::GetSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::set<int>), GetSet, GetSet, (MR::GetSet), (MR::GetSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(2)
-MB_FUNC(/*returns*/(std::multiset<int>), GetMultiSet, GetMultiSet, (MR::GetMultiSet), (MR::GetMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::multiset<int>), GetMultiSet, GetMultiSet, (MR::GetMultiSet), (MR::GetMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(3)
-MB_FUNC(/*returns*/(std::unordered_set<int>), GetUnorderedSet, GetUnorderedSet, (MR::GetUnorderedSet), (MR::GetUnorderedSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_set<int>), GetUnorderedSet, GetUnorderedSet, (MR::GetUnorderedSet), (MR::GetUnorderedSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(4)
-MB_FUNC(/*returns*/(std::unordered_multiset<int>), GetUnorderedMultiSet, GetUnorderedMultiSet, (MR::GetUnorderedMultiSet), (MR::GetUnorderedMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_multiset<int>), GetUnorderedMultiSet, GetUnorderedMultiSet, (MR::GetUnorderedMultiSet), (MR::GetUnorderedMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(5)
-MB_FUNC(/*returns*/(std::map<int, float>), GetMap, GetMap, (MR::GetMap), (MR::GetMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::map<int, float>), GetMap, GetMap, (MR::GetMap), (MR::GetMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(6)
-MB_FUNC(/*returns*/(std::multimap<int, float>), GetMultiMap, GetMultiMap, (MR::GetMultiMap), (MR::GetMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::multimap<int, float>), GetMultiMap, GetMultiMap, (MR::GetMultiMap), (MR::GetMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(7)
-MB_FUNC(/*returns*/(std::unordered_map<int, float>), GetUnorderedMap, GetUnorderedMap, (MR::GetUnorderedMap), (MR::GetUnorderedMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_map<int, float>), GetUnorderedMap, GetUnorderedMap, (MR::GetUnorderedMap), (MR::GetUnorderedMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(8)
-MB_FUNC(/*returns*/(std::unordered_multimap<int, float>), GetUnorderedMultiMap, GetUnorderedMultiMap, (MR::GetUnorderedMultiMap), (MR::GetUnorderedMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_multimap<int, float>), GetUnorderedMultiMap, GetUnorderedMultiMap, (MR::GetUnorderedMultiMap), (MR::GetUnorderedMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(9)
-MB_FUNC(/*returns*/(std::array<int, 42>), GetStdArray, GetStdArray, (MR::GetStdArray), (MR::GetStdArray), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::array<int, 42>), GetStdArray, GetStdArray, (MR::GetStdArray), (MR::GetStdArray), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(10)
-MB_FUNC(/*returns*/(std::unique_ptr<int>), GetUniquePtrInt, GetUniquePtrInt, (MR::GetUniquePtrInt), (MR::GetUniquePtrInt), (MR,ns), /*not deprecated*/, "Pybind doesn't like shared pointers to built-in types.\ninline std::shared_ptr<int> GetSharedPtrInt() {return std::make_shared<int>();}", /*no params*/)
+MB_FUNC(/*returns*/(std::unique_ptr<int>), GetUniquePtrInt, GetUniquePtrInt, (MR::GetUniquePtrInt), (MR::GetUniquePtrInt), (MR,ns), /*not deprecated*/, "Pybind doesn't like shared pointers to built-in types.\ninline std::shared_ptr<int> GetSharedPtrInt() {return std::make_shared<int>();}", /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(11)
 MB_CLASS(struct, A, (MR::A), (MR,ns), /*is aggregate:*/1, "No weak pointers yet.\ninline std::weak_ptr<int> GetWeakPtrInt() {return std::make_shared<int>();}", /*no bases*/,
     /*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::A &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::A &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::A &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::A &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::A &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::A &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(A)
 #endif
 #if MB_CHECK_FRAGMENT(12)
-MB_FUNC(/*returns*/(std::shared_ptr<MR::A>), GetSharedPtrClass, GetSharedPtrClass, (MR::GetSharedPtrClass), (MR::GetSharedPtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::shared_ptr<MR::A>), GetSharedPtrClass, GetSharedPtrClass, (MR::GetSharedPtrClass), (MR::GetSharedPtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(13)
-MB_FUNC(/*returns*/(std::unique_ptr<MR::A>), GetUniquePtrClass, GetUniquePtrClass, (MR::GetUniquePtrClass), (MR::GetUniquePtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unique_ptr<MR::A>), GetUniquePtrClass, GetUniquePtrClass, (MR::GetUniquePtrClass), (MR::GetUniquePtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(14)
 MB_FUNC(/*returns*/(void), PassUniquePtr, PassUniquePtr, (MR::PassUniquePtr), (MR::PassUniquePtr), (MR,ns), /*not deprecated*/, "Weak pointers in parameters disable the entire function.", /*params:*/
     ((std::unique_ptr<MR::A>), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(15)
 MB_FUNC(/*returns*/(void), PassUniquePtrLref, PassUniquePtrLref, (MR::PassUniquePtrLref), (MR::PassUniquePtrLref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
     ((std::unique_ptr<MR::A> &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(16)
 MB_FUNC(/*returns*/(void), PassUniquePtrRref, PassUniquePtrRref, (MR::PassUniquePtrRref), (MR::PassUniquePtrRref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
     ((std::unique_ptr<MR::A> &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(17)
 MB_CLASS(struct, B, (MR::B), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::A), virtual)
     ,/*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::B &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::B &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::B &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::B &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::B &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::B &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(B)
@@ -125,18 +141,26 @@ MB_CLASS(struct, C, (MR::C), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::B), /*not virtual*/)
     ,/*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::C &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::C &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::C &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::C &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::C &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::C &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(C)

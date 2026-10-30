@@ -4851,7 +4851,7 @@ export declare class MR_CSharp_SC extends ffi.CppObject
 export declare class MR_CSharp_SD extends ffi.CppObject
 {
     /**
-     * Constructs an empty (default-constructed) instance.
+     * Add the remaining stuff to silence deprection warnings caused by the destructor:
      *
      * Calls `MR_CSharp_SD_DefaultConstruct()`.
      */
