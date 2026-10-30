@@ -1965,6 +1965,7 @@ MR_C_API void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this);
 // When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
 
+// Add the remaining stuff to silence deprection warnings caused by the destructor:
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_DefaultConstruct(void);

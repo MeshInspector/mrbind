@@ -52,4 +52,7 @@ m.StdFunction.foo(lambda: 1)
 m.StdFunction.foo(m.func_int(lambda: 1))
 check(m.func_int_from_int_int(lambda x, y: x + y)(2, 3) == 5, "callback")
 
+# `--extra-python` functions are a part of the module.
+check(m.make_a("extra").x == "extra" and m.make_a.__module__ == "mrbind_test", "extra python")
+
 print("OK")

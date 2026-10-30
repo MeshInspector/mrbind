@@ -20,6 +20,7 @@ build/mrbind_gen_python \
     --module-name mrbind_test \
     --replace-namespace MR :: \
     --adjust-name '\bMR::' '' \
+    --extra-python test/run_python_c/extra.py \
 
 # The limited API, so one module serves every Python version.
 "$CXX" \

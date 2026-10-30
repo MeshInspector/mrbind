@@ -261,6 +261,8 @@ namespace mrbind::CInterop
             // The C++ spelling of the default argument of this parameter, if any.
             // If this is set, we have a default argument.
             (std::optional<std::string>)(default_arg_spelling, {})
+            // If the default argument is an arithmetic constant, its value: `true`/`false`, an integer, or a `double` in the shortest round-trip scientific form.
+            (std::optional<std::string>)(default_arg_value, {})
             // If this is true, then `default_arg_spelling` will also be set.
             // This being true indicates that the default argument affects the parameter passing style.
             // If this is false, you should pass the parameter with the same ABI as if there was no default argument,

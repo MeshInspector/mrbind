@@ -8,6 +8,10 @@ namespace mrbind::Python
 // Builds against the limited API (`Py_LIMITED_API`), so one binary serves every Python version.
 #pragma once
 
+// The `#` formats below pass `Py_ssize_t` lengths, which Python 3.10+ requires this for.
+#ifndef PY_SSIZE_T_CLEAN
+#define PY_SSIZE_T_CLEAN
+#endif
 #include <Python.h>
 
 #include <charconv>
@@ -1186,6 +1190,7 @@ def _bind(cls, name, doc, f):
     type.__setattr__(cls, name, _fn(name, doc, f))
 
 def add_vector_api(cls, q, name, elem, p, elem_size):
+    elem_ret = p.get('elem_ret', elem) # The spelling as a return type, e.g. `pathlib.Path`.
     # The API of `pybind11::bind_vector()` plus the extras of the pybind11 target, over the primitives `p` of the C bindings.
     size, get, insert, erase, clear = p['size'], p['get'], p['insert'], p['erase'], p['clear']
     def norm(self, i, n=None):
@@ -1232,7 +1237,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     if comparable:
         _bind(cls, '__eq__', '__eq__(self: ' + q + ', arg0: ' + q + ') -> bool\n', __eq__)
         _bind(cls, '__ne__', '__ne__(self: ' + q + ', arg0: ' + q + ') -> bool\n', lambda self, other: not __eq__(self, other))
-    type.__setattr__(cls, '__hash__', None)
+        type.__setattr__(cls, '__hash__', None)
     def __getitem__(self, i):
         if isinstance(i, slice):
             ret = cls()
@@ -1240,7 +1245,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
                 insert(ret, size(ret), get(self, j))
             return ret
         return get(self, norm(self, i))
-    _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem + '\n', __getitem__)
+    _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem_ret + '\n', __getitem__)
     def __setitem__(self, i, v):
         if isinstance(i, slice):
             idx = range(*i.indices(size(self)))
@@ -1258,7 +1263,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     def __iter__(self):
         for i in range(size(self)):
             yield get(self, i)
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem + ']\n', __iter__)
+    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem_ret + ']\n', __iter__)
     _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: size(self))
     if 'repr' in p:
         _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
@@ -1288,7 +1293,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
             x = type(x)(x) # Copy before erasing.
         erase(self, i)
         return x
-    _bind(cls, 'pop', 'pop(*args, **kwargs)\nOverloaded function.\n\n1. pop(self: ' + q + ') -> ' + elem + '\n\nRemove and return the last item\n\n2. pop(self: ' + q + ', i: int) -> ' + elem + '\n\nRemove and return the item at index ``i``\n', pop)
+    _bind(cls, 'pop', 'pop(*args, **kwargs)\nOverloaded function.\n\n1. pop(self: ' + q + ') -> ' + elem_ret + '\n\nRemove and return the last item\n\n2. pop(self: ' + q + ', i: int) -> ' + elem_ret + '\n\nRemove and return the item at index ``i``\n', pop)
     def remove(self, x):
         for i in range(size(self)):
             if get(self, i) == x:
@@ -1579,6 +1584,104 @@ def enum_from_bits(cls, bits):
     inline PyType_Spec object_spec = {"mrbind_py.Object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
 
     // Sets up the runtime. Call first in the module init.
+    // ---- The C++ interop API, for the extension modules in C++ that pass the objects of this module (see `cpp_api.h` in mrbind).
+
+    // The records by the C++ spellings that the bindings use, e.g. `MR::Mesh`.
+    inline std::unordered_map<std::string, TypeRecord *> records_by_cpp_name;
+
+    inline TypeRecord *FindRecordForCpp(const char *cpp_type)
+    {
+        auto it = records_by_cpp_name.find(cpp_type);
+        if (it == records_by_cpp_name.end())
+        {
+            PyErr_Format(PyExc_TypeError, "No Python class for the C++ type `%s`.", cpp_type);
+            return nullptr;
+        }
+        return it->second;
+    }
+
+    inline void *ApiUnwrap(PyObject *obj, const char *cpp_type)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+            return nullptr;
+        void *out = nullptr;
+        if (!ArgObject(obj, *rec, false, out))
+        {
+            PyErr_Format(PyExc_TypeError, "Expected `%s`.", rec->qualname);
+            return nullptr;
+        }
+        return out;
+    }
+
+    inline const void *ApiGetHolder(PyObject *obj)
+    {
+        if (!obj || !PyObject_TypeCheck(obj, reinterpret_cast<PyTypeObject *>(object_type)))
+            return nullptr;
+        return GetHolder(obj);
+    }
+
+    inline PyObject *ApiWrap(const char *cpp_type, void *ptr, int owned, PyObject *owner)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+            return nullptr;
+        return Wrap(*rec, ptr, owned != 0, owned ? nullptr : owner);
+    }
+
+    inline PyObject *ApiWrapShared(const char *cpp_type, void *ptr, void *holder)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+        {
+            holder_destroy(holder);
+            return nullptr;
+        }
+        return Wrap(*rec, ptr, false, nullptr, holder);
+    }
+
+    // Must match `mrbind_py::CppApi` in `cpp_api.h`.
+    struct CppApi
+    {
+        int version;
+        void *(*unwrap)(PyObject *obj, const char *cpp_type);
+        const void *(*get_holder)(PyObject *obj);
+        PyObject *(*wrap)(const char *cpp_type, void *ptr, int owned, PyObject *owner);
+        PyObject *(*wrap_shared)(const char *cpp_type, void *ptr, void *holder);
+    };
+    inline CppApi cpp_api = {1, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared};
+
+    // Adds the capsule `<capsule_name>`, which must be `<module qualname>.__mrbind_cpp_api__` for `PyCapsule_Import()`.
+    inline bool AddCppApi(PyObject *module, const char *capsule_name)
+    {
+        PyObject *capsule = PyCapsule_New(&cpp_api, capsule_name, nullptr);
+        if (!capsule)
+            return false;
+        if (PyModule_AddObject(module, "__mrbind_cpp_api__", capsule) < 0)
+        {
+            Py_DECREF(capsule);
+            return false;
+        }
+        return true;
+    }
+
+    // Runs `--extra-python` code in the module's namespace, so its definitions become a part of the module.
+    inline bool RunExtraPython(PyObject *module, const char *source, const char *filename)
+    {
+        PyObject *dict = PyModule_GetDict(module); // Borrowed.
+        if (!PyDict_GetItemString(dict, "__builtins__") && PyDict_SetItemString(dict, "__builtins__", PyEval_GetBuiltins()) < 0)
+            return false;
+        PyObject *code = Py_CompileString(source, filename, Py_file_input);
+        if (!code)
+            return false;
+        PyObject *result = PyEval_EvalCode(code, dict, dict);
+        Py_DECREF(code);
+        if (!result)
+            return false;
+        Py_DECREF(result);
+        return true;
+    }
+
     inline bool Init()
     {
         object_type = PyType_FromSpec(&object_spec);

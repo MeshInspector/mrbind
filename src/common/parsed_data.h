@@ -119,6 +119,8 @@ namespace mrbind
             (std::string)(original_spelling)
             // Same, but adjusted to be viable as a C++ expression. (Primarily `{...}` have a type prepended to them.)
             (std::string)(as_cpp_expression)
+            // If the default argument is a constant of an arithmetic type: its value, `true`/`false`, an integer, or a `double` in the shortest round-trip form.
+            (std::optional<std::string>)(value, {})
         )
     };
 

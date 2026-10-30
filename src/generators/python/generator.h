@@ -35,10 +35,17 @@ namespace mrbind::Python
         std::vector<std::pair<std::string, std::string>> typeid_name_adjustments;
         // Extra Python names, like `RegisterCustomAlias()` in the pybind11 target: (alias, target), both dotted paths in the module.
         std::vector<std::pair<std::string, std::string>> aliases;
+        // Python code run in the module's namespace at the end of its initialization: (file name, source).
+        std::vector<std::pair<std::string, std::string>> extra_python;
         // Fields hidden from Python by name, e.g. the ones made public only for the C bindings.
         std::set<std::string> hidden_fields;
         // `MR_BIND_IGNORE_PY` isn't visible in the C bindings: regexes on the C++ names (also the `typeid` spellings) of the entities to skip.
         std::vector<std::string> ignored_for_python;
+        // Regexes on the C header names (`output_file.relative_name`) of the entities to skip, e.g. a sub-library.
+        std::vector<std::string> ignored_c_files;
+        // Regexes on the C++ names of the classes that get `__iter__` over `[0, elements)` with `operator[]` (for `begin()`/`end()` templates the C bindings don't have).
+        std::vector<std::string> iterate_by_index_regexes;
+        [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
         // Output: relative paths to file contents.

@@ -104,6 +104,20 @@ int main(int argc, char **argv)
             generator.aliases.emplace_back(args[0], args[1]);
         },
     });
+    args_parser.AddFlag("--extra-python", {
+        .allow_repeat = true,
+        .arg_names = {"file.py"},
+        .desc = "Python code to embed into the module and run in its namespace at the end of its initialization, for the functions written in Python. Like the helper functions in the pybind11 target.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            std::ifstream file(mrbind::MakePath(args.front()), std::ios::binary);
+            if (!file)
+                throw std::runtime_error("Unable to open `" + std::string(args.front()) + "`.");
+            std::string source(std::istreambuf_iterator<char>(file), {});
+            std::erase(source, '\r');
+            generator.extra_python.emplace_back(mrbind::MakePath(args.front()).filename().string(), std::move(source));
+        },
+    });
     args_parser.AddFlag("--ignore-for-python", {
         .allow_repeat = true,
         .arg_names = {"regex"},
@@ -111,6 +125,24 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.ignored_for_python.push_back(std::string(args[0]));
+        },
+    });
+    args_parser.AddFlag("--ignore-c-file", {
+        .allow_repeat = true,
+        .arg_names = {"regex"},
+        .desc = "Skip the entities whose C headers (relative to the include directory, without the extension) match this regex, e.g. `^MRCCuda/` for a sub-library.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.ignored_c_files.push_back(std::string(args[0]));
+        },
+    });
+    args_parser.AddFlag("--iterate-by-index", {
+        .allow_repeat = true,
+        .arg_names = {"regex"},
+        .desc = "The classes with matching C++ names get `__iter__` over `[0, elements)` with `operator[]` (needs a static `elements` field), for the free `begin()`/`end()` templates that the C bindings don't instantiate. E.g. `^MR::Vector[234](b|i|i64|f|d|<)` (note the preferred names like `Vector3f`).",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.iterate_by_index_regexes.push_back(std::string(args[0]));
         },
     });
     args_parser.AddFlag("--hide-field", {
@@ -166,6 +198,7 @@ int main(int argc, char **argv)
     if (generator.module_name.empty())
         throw std::runtime_error("`--module-name` is required.");
     generator.c_desc = mrbind::CInterop::LoadOutputDescFromFile(input_json_path->c_str());
+    std::erase_if(generator.c_desc.functions, [&](const auto &f){return generator.IsIgnoredCFile(f.output_file.relative_name);});
 
     if (!output_dir_path)
         throw std::runtime_error("`--output-dir` is required.");
