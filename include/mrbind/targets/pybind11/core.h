@@ -4008,8 +4008,16 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
-    if (MRBIND_CAT(DETAIL_MB_PB11_SKIP_ASSIGNMENT_, assignment_kind_)) {} else \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_METHOD_, assignment_kind_)(qualname_, static_, assignment_kind_, __VA_ARGS__)
+
+// The move assignment is never bound: in Python it would be the same as the copy one.
+#define DETAIL_MB_PB11_METHOD_none DETAIL_MB_PB11_METHOD
+#define DETAIL_MB_PB11_METHOD_copy DETAIL_MB_PB11_METHOD
+#define DETAIL_MB_PB11_METHOD_move(...)
+#define DETAIL_MB_PB11_METHOD_by_value_assignment DETAIL_MB_PB11_METHOD
+
+#define DETAIL_MB_PB11_METHOD(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
@@ -4048,15 +4056,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     /* If this is `__getitem__`, also generate `__setitem__`. */\
     DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT(simplename_, params_, const_)
 
-// The move assignment is the same as the copy one in Python, so it's only bound when there's no copy one.
-#define DETAIL_MB_PB11_SKIP_ASSIGNMENT_none false
-#define DETAIL_MB_PB11_SKIP_ASSIGNMENT_copy false
-#define DETAIL_MB_PB11_SKIP_ASSIGNMENT_move pybind11::detail::is_copy_assignable<_pb11_C>::value
-#define DETAIL_MB_PB11_SKIP_ASSIGNMENT_by_value_assignment false
-// The name of the unnamed parameter of the copy and move assignments.
+// The name of the unnamed parameter of the assignments.
 #define DETAIL_MB_PB11_UNNAMED_PARAM_none ""
 #define DETAIL_MB_PB11_UNNAMED_PARAM_copy "other"
-#define DETAIL_MB_PB11_UNNAMED_PARAM_move "other"
 #define DETAIL_MB_PB11_UNNAMED_PARAM_by_value_assignment "other"
 
 // `DETAIL_MB_PB11_DISPATCH_MEMBER_method` calls this to generate the assigning overload of `[]`. The normal non-assigning overload is generated the normal way.
