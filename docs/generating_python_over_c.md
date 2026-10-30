@@ -79,3 +79,4 @@ python3 scripts/python_api_dump.py diff old.json new.json
 * The overloads are in the order of the C bindings, which can differ from the registration order of the pybind11 build.
 * `_offsetof_<field>` of the reference fields is the one on the parser's target platform (the other offsets are computed on this one).
 * The whitespace of the block comments (`/** ... */`) that depends on their indentation in the source.
+* A C++ extension module that uses `pybind11_casters.h` returns the `std::vector`s that have no class in the C bindings (no C function takes or returns them) as Python lists.
