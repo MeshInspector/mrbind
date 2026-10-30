@@ -8,6 +8,10 @@ namespace mrbind::Python
 // Builds against the limited API (`Py_LIMITED_API`), so one binary serves every Python version.
 #pragma once
 
+// The `#` formats below pass `Py_ssize_t` lengths, which Python 3.10+ requires this for.
+#ifndef PY_SSIZE_T_CLEAN
+#define PY_SSIZE_T_CLEAN
+#endif
 #include <Python.h>
 
 #include <charconv>
