@@ -861,8 +861,8 @@ namespace mrbind
         (static_data_member, = 1 << 5)
         // Some typedef refers to this type.
         (typedef_target, = 1 << 6)
-        // Some `mrbind::instantiate_only` typedef refers to this type, to have it bound even if nothing else uses it.
-        (instantiate_only, = 1 << 7)
+        // `mrbind::instantiate_only` was applied to this type, to generate a binding for it even if nothing else needs it.
+        (force_instantiated, = 1 << 7)
 
         (_valid_bits, [[maybe_unused]] = (1 << 8) - 1)
 

@@ -2649,7 +2649,9 @@ namespace mrbind
 
             if (HasInstantiateOnlyAttribute(*decl))
             {
-                (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target | TypeUses::instantiate_only); // Register the type.
+                // Register the type.
+                // Not bothering to add `TypeUses::typedef_target`, since `mrbind::instantiate_only` is not considered a "real" typedef.
+                (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::force_instantiated);
                 return true;
             }
 
