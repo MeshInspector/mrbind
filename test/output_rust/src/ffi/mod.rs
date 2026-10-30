@@ -268,6 +268,8 @@ pub mod std_vector_MR_CSharp_A_ptr;
 pub use self::std_vector_MR_CSharp_A_ptr::*;
 pub mod std_vector_MR_CSharp_ExposedLayout;
 pub use self::std_vector_MR_CSharp_ExposedLayout::*;
+pub mod std_vector_MR_InstantiateOnly_A;
+pub use self::std_vector_MR_InstantiateOnly_A::*;
 pub mod std_vector_MR_SeparateA;
 pub use self::std_vector_MR_SeparateA::*;
 pub mod std_vector_MR_SeparateB;

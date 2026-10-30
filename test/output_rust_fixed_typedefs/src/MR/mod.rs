@@ -16,6 +16,7 @@ pub mod test_deprecation;
 pub mod test_includes_for_enum_constants;
 pub mod test_includes_for_enum_constants_2;
 pub mod test_includes_for_enum_constants_3;
+pub mod test_instantiate_only;
 pub mod test_iostream;
 pub mod test_lifetime_inference;
 pub mod test_matching_layout;

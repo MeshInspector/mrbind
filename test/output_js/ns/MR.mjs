@@ -17,6 +17,7 @@ export * as Deprecation from "./MR/Deprecation.mjs";
 export * as IOStream from "./MR/IOStream.mjs";
 export * as IncludesForEnumConstants from "./MR/IncludesForEnumConstants.mjs";
 export * as IncompleteArrayElemType from "./MR/IncompleteArrayElemType.mjs";
+export * as InstantiateOnly from "./MR/InstantiateOnly.mjs";
 export * as LifetimeInference from "./MR/LifetimeInference.mjs";
 export * as MatchingLayout from "./MR/MatchingLayout.mjs";
 export * as MemberVars from "./MR/MemberVars.mjs";
