@@ -154,6 +154,7 @@ export { MR_C_std_variant_std_monostate_int_float as std_variant_std_monostate_i
 export { MR_C_std_vector_MR_A as std_vector_MR_A } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_CSharp_A_ptr as std_vector_MR_CSharp_A_ptr } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_CSharp_ExposedLayout as std_vector_MR_CSharp_ExposedLayout } from "../../lib/_all.mjs";
+export { MR_C_std_vector_MR_InstantiateOnly_A as std_vector_MR_InstantiateOnly_A } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_SeparateA as std_vector_MR_SeparateA } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_SeparateB as std_vector_MR_SeparateB } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_StdContainers_NonAssignable as std_vector_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";

@@ -135,6 +135,7 @@ pub mod std_variant_std_monostate_int_float_float;
 pub mod std_vector_MR_A;
 pub mod std_vector_MR_CSharp_A_ptr;
 pub mod std_vector_MR_CSharp_ExposedLayout;
+pub mod std_vector_MR_InstantiateOnly_A;
 pub mod std_vector_MR_SeparateA;
 pub mod std_vector_MR_SeparateB;
 pub mod std_vector_MR_StdContainers_NonAssignable;
@@ -932,6 +933,7 @@ pub mod mr
         pub use crate::std_vector_MR_A::std_vector_MR_A;
         pub use crate::std_vector_MR_CSharp_A_ptr::std_vector_MR_CSharp_A_ptr;
         pub use crate::std_vector_MR_CSharp_ExposedLayout::std_vector_MR_CSharp_ExposedLayout;
+        pub use crate::std_vector_MR_InstantiateOnly_A::std_vector_MR_InstantiateOnly_A;
         pub use crate::std_vector_MR_SeparateA::std_vector_MR_SeparateA;
         pub use crate::std_vector_MR_SeparateB::std_vector_MR_SeparateB;
         pub use crate::std_vector_MR_StdContainers_NonAssignable::std_vector_MR_StdContainers_NonAssignable;
@@ -1038,6 +1040,11 @@ pub mod mr
         pub use crate::MR::test_arrays_of_incomplete_types_2::E;
         pub use crate::MR::test_arrays_of_incomplete_types_2::bar;
         pub use crate::MR::test_arrays_of_incomplete_types::foo;
+    }
+
+    pub mod instantiate_only
+    {
+        pub use crate::MR::test_instantiate_only::A;
     }
 
     pub mod io_stream
