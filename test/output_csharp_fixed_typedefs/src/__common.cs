@@ -1070,6 +1070,80 @@ public static partial class MR
             public override bool Equals(object? other) {return base.Equals(other);}
         }
 
+        public static partial class InstantiateOnly
+        {
+            public unsafe struct ConstPtrA : IEquatable<ConstPtrA>
+            {
+                public readonly MR.CS.InstantiateOnly.Const_A deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void incr()
+                {
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void decr()
+                {
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.InstantiateOnly.Const_A._Underlying *Ptr;
+
+                internal ConstPtrA(MR.CS.InstantiateOnly.Const_A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.InstantiateOnly.Const_A this[nint i]
+                {
+                    get
+                    {
+                        return new(__MR_InstantiateOnly_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(ConstPtrA a, ConstPtrA b) {return a.Equals(b);}
+                public static bool operator!=(ConstPtrA a, ConstPtrA b) {return !a.Equals(b);}
+                public readonly bool Equals(ConstPtrA other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
+
+            public unsafe struct PtrA : IEquatable<PtrA>
+            {
+                public readonly MR.CS.InstantiateOnly.A deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void incr()
+                {
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void decr()
+                {
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.InstantiateOnly.A._Underlying *Ptr;
+
+                internal PtrA(MR.CS.InstantiateOnly.A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.InstantiateOnly.A this[nint i]
+                {
+                    get
+                    {
+                        return new(__MR_InstantiateOnly_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(PtrA a, PtrA b) {return a.Equals(b);}
+                public static bool operator!=(PtrA a, PtrA b) {return !a.Equals(b);}
+                public readonly bool Equals(PtrA other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
+
+            // DllImport:
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_InstantiateOnly_A_OffsetPtr", ExactSpelling = true)]
+            extern static unsafe MR.CS.InstantiateOnly.Const_A._Underlying *__MR_InstantiateOnly_A_OffsetPtr(MR.CS.InstantiateOnly.Const_A._Underlying *ptr, nint i);
+        }
+
         public unsafe struct PtrA : IEquatable<PtrA>
         {
             public readonly MR.CS.A deref()
