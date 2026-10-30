@@ -3178,6 +3178,8 @@ namespace mrbind::Python
             out_init += "        Py_DECREF(prims_);\n    }\n";
             return;
         }
+        if (std::string elem_ret = DocTypeName(elem, true); elem_ret != DocTypeName(elem, false))
+            out_init += "        {PyObject *s_ = PyUnicode_FromString(" + CppStringLiteral(elem_ret) + "); PyDict_SetItemString(prims_, \"elem_ret\", s_); Py_XDECREF(s_);}\n";
         out_init += "        if (!rt::CallRt(\"add_vector_api\", Py_BuildValue(\"(OsssNn)\", " + cls_obj + ", " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(info.py_name) + ", " + CppStringLiteral(DocTypeName(elem, false)) + ", prims_, " + elem_size + "))) return nullptr;\n";
         out_init += "    }\n";
     }

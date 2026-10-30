@@ -1186,6 +1186,7 @@ def _bind(cls, name, doc, f):
     type.__setattr__(cls, name, _fn(name, doc, f))
 
 def add_vector_api(cls, q, name, elem, p, elem_size):
+    elem_ret = p.get('elem_ret', elem) # The spelling as a return type, e.g. `pathlib.Path`.
     # The API of `pybind11::bind_vector()` plus the extras of the pybind11 target, over the primitives `p` of the C bindings.
     size, get, insert, erase, clear = p['size'], p['get'], p['insert'], p['erase'], p['clear']
     def norm(self, i, n=None):
@@ -1240,7 +1241,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
                 insert(ret, size(ret), get(self, j))
             return ret
         return get(self, norm(self, i))
-    _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem + '\n', __getitem__)
+    _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem_ret + '\n', __getitem__)
     def __setitem__(self, i, v):
         if isinstance(i, slice):
             idx = range(*i.indices(size(self)))
@@ -1258,7 +1259,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     def __iter__(self):
         for i in range(size(self)):
             yield get(self, i)
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem + ']\n', __iter__)
+    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem_ret + ']\n', __iter__)
     _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: size(self))
     if 'repr' in p:
         _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
@@ -1288,7 +1289,7 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
             x = type(x)(x) # Copy before erasing.
         erase(self, i)
         return x
-    _bind(cls, 'pop', 'pop(*args, **kwargs)\nOverloaded function.\n\n1. pop(self: ' + q + ') -> ' + elem + '\n\nRemove and return the last item\n\n2. pop(self: ' + q + ', i: int) -> ' + elem + '\n\nRemove and return the item at index ``i``\n', pop)
+    _bind(cls, 'pop', 'pop(*args, **kwargs)\nOverloaded function.\n\n1. pop(self: ' + q + ') -> ' + elem_ret + '\n\nRemove and return the last item\n\n2. pop(self: ' + q + ', i: int) -> ' + elem_ret + '\n\nRemove and return the item at index ``i``\n', pop)
     def remove(self, x):
         for i in range(size(self)):
             if get(self, i) == x:
