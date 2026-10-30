@@ -2649,7 +2649,7 @@ namespace mrbind
 
             if (HasInstantiateOnlyAttribute(*decl))
             {
-                (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target); // Register the type.
+                (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target | TypeUses::instantiate_only); // Register the type.
                 return true;
             }
 

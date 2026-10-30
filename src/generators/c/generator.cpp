@@ -5819,6 +5819,15 @@ namespace mrbind::C
             v.Process(data.entities);
         }
 
+        // Emit the types forced with `mrbind::instantiate_only`, even if nothing uses them.
+        for (const auto &outer : data.type_info)
+        {
+            if (!std::any_of(outer.second.begin(), outer.second.end(), [](const auto &variant){return bool(variant.second.uses & TypeUses::instantiate_only);}))
+                continue;
+            if (const BindableType *bindable = FindBindableTypeOpt(ParseTypeOrThrow(outer.first)); bindable && bindable->bindable_with_same_address.declared_in_file)
+                (void)bindable->bindable_with_same_address.declared_in_file();
+        }
+
         // Poke the helpers file, if forced.
         if (force_emit_helpers_file)
             (void)GetCommonPublicHelpersFile();
