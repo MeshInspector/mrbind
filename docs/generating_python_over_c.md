@@ -71,6 +71,15 @@ python3 scripts/python_api_dump.py dump mypackage.mylib --path new_build --strip
 python3 scripts/python_api_dump.py diff old.json new.json
 ```
 
+## Deliberate differences from pybind11
+
+The pybind11 target has a few naming bugs that this generator doesn't copy:
+
+* The assignments (`operator=`) are `assign(self, other)`, not `operator`. There is one overload for the copy and the move assignment, since they are the same in Python.
+* `*=` is `__imul__`, not `__imatmul__` (which is `@=`).
+* `<`, `>`, `<=`, `>=` are `__lt__`, `__gt__`, `__le__`, `__ge__`, not `operator`, so the Python operators and `sorted()` work. The reflected ones are their mirrors (`x < y` is `y > x`).
+* The prefix `++` and `--` are `increment()` and `decrement()`, not `operator` and `operator_minus_minus`. The postfix ones aren't bound: Python has no such operators, and they modify the object the same way.
+
 ## Known differences from pybind11
 
 * Calling an unbound method with a wrong `self` raises CPython's own `TypeError` text.

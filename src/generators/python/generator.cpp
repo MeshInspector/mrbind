@@ -236,7 +236,7 @@ namespace mrbind::Python
             if (token == "~") return "__invert__";
             if (token == "+=") return "__iadd__";
             if (token == "-=") return "__isub__";
-            if (token == "*=") return "__imatmul__"; // Sic, this is what the pybind11 target does.
+            if (token == "*=") return "__imul__";
             if (token == "/=") return "__itruediv__";
             if (token == "%=") return "__imod__";
             if (token == "^=") return "__ixor__";
@@ -248,6 +248,10 @@ namespace mrbind::Python
             if (token == ">>=") return "__irshift__";
             if (token == "==") return "__eq__";
             if (token == "!=") return "__ne__";
+            if (token == "<") return "__lt__";
+            if (token == ">") return "__gt__";
+            if (token == "<=") return "__le__";
+            if (token == ">=") return "__ge__";
             if (token == "()") return "__call__";
             if (token == "[]") return "__getitem__";
             return "";
@@ -255,6 +259,12 @@ namespace mrbind::Python
 
         std::string ReflectedName(const std::string &name)
         {
+            // The comparisons reflect into each other, like `x < y` into `y > x`.
+            if (name == "__eq__" || name == "__ne__") return name;
+            if (name == "__lt__") return "__gt__";
+            if (name == "__gt__") return "__lt__";
+            if (name == "__le__") return "__ge__";
+            if (name == "__ge__") return "__le__";
             // `__mul__` -> `__rmul__`.
             return "__r" + name.substr(2);
         }
@@ -2245,15 +2255,13 @@ namespace mrbind::Python
             out_impls += "    if (!rt::ArgObject(a[0], " + info.var + ", false, self_) || !rt::ArgObject(a[1], " + info.var + ", false, other_)) return nullptr;\n";
             out_impls += "    matched = true;\n    *(" + info.c_name + " *)self_ = *(" + info.c_name + " *)other_;\n    return rt::Wrap(" + info.var + ", self_, false, a[0]);\n}\n\n";
             std::string self_doc = module_qualname + "." + info.py_qualname;
-            ov.params = {{"self", self_doc, ""}, {"", self_doc, ""}};
+            ov.params = {{"self", self_doc, ""}, {"other", self_doc, ""}};
             ov.ret_type = self_doc;
             ov.num_required = 2;
-            AddTo(methods, "operator", ov);
-            AddTo(methods, "operator", ov);
+            AddTo(methods, "assign", ov);
         }
 
-        // The assignment operators show up as `operator` in pybind11: the copy one,
-        //   and the move one if the argument can be copied into a temporary.
+        // The copy assignment as `assign()` (the move one is the same in Python). The pybind11 target calls them `operator`.
         for (const auto &m : cls.methods)
         {
             auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
@@ -2263,31 +2271,25 @@ namespace mrbind::Python
             if (!ov || ov->params.size() != 2)
                 continue;
             if (ov->params[1].name == "_other")
-                ov->params[1].name = "";
+                ov->params[1].name = "other";
             ov->comment.clear();
-            AddTo(methods, "operator", *ov);
-            if (info.traits->move_assignable != CInterop::SpecialMemberKind::disabled && info.traits->copy_constructible != CInterop::SpecialMemberKind::disabled)
-                AddTo(methods, "operator", *ov);
+            AddTo(methods, "assign", *ov);
         }
-        // The other operators without Python names: the other assignments and `++` are `operator` too, `--` is `operator_minus_minus`.
+        // The operators without Python counterparts: the other assignments as `assign()`, and the prefix `++`/`--` as `increment()`/`decrement()`.
+        //   The pybind11 target calls them `operator` (`operator_minus_minus` for `--`), and binds the postfix ones too.
         for (const auto &m : cls.methods)
         {
             auto op = std::get_if<CInterop::MethodKinds::Operator>(&m.var);
-            if (!op || m.inherited_from || !((op->token == "=" && !op->is_copying_assignment) || op->token == "++" || op->token == "--" || op->token == "<" || op->token == ">" || op->token == "<=" || op->token == ">="))
+            if (!op || m.inherited_from || op->is_post_incr_or_decr || !((op->token == "=" && !op->is_copying_assignment) || op->token == "++" || op->token == "--"))
                 continue;
             auto ov = PrepareOverload(m, &info, 1);
             if (!ov)
                 continue;
             for (auto &p : ov->params)
                 if (p.name == "_other")
-                    p.name = "";
-            if (op->is_post_incr_or_decr)
-            {
-                ov->params.push_back({"", "int", ""}); // The dummy argument, ignored.
-                ov->num_required = ov->params.size();
-            }
+                    p.name = "other";
             ov->comment.clear();
-            AddTo(methods, op->token == "--" ? "operator_minus_minus" : "operator", std::move(*ov));
+            AddTo(methods, op->token == "=" ? "assign" : op->token == "++" ? "increment" : "decrement", std::move(*ov));
         }
 
         // A `[]` returning a mutable reference to a scalar also gets `__setitem__`.
