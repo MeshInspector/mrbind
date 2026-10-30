@@ -31,6 +31,8 @@ Where:
 
 * `--alias <alias> <target>` adds extra names, like `RegisterCustomAlias()` of the pybind11 target. Both are dotted paths in the module.
 
+* `--extra-python <file.py>` embeds this Python code into the module and runs it in the module's namespace at the end of its initialization, for the functions written in C++ only for the pybind11 target. The code sees the module's names directly; don't import the module itself from it.
+
 * `--ignore-for-python <regex>` skips the entities with matching C++ names, for the ones the pybind11 build ignores with annotations that the C bindings don't see.
 
 * `--hide-field <name>` skips the fields with this name, e.g. the ones that are public only for the C bindings.

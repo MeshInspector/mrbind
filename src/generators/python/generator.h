@@ -35,6 +35,8 @@ namespace mrbind::Python
         std::vector<std::pair<std::string, std::string>> typeid_name_adjustments;
         // Extra Python names, like `RegisterCustomAlias()` in the pybind11 target: (alias, target), both dotted paths in the module.
         std::vector<std::pair<std::string, std::string>> aliases;
+        // Python code run in the module's namespace at the end of its initialization: (file name, source).
+        std::vector<std::pair<std::string, std::string>> extra_python;
         // Fields hidden from Python by name, e.g. the ones made public only for the C bindings.
         std::set<std::string> hidden_fields;
         // `MR_BIND_IGNORE_PY` isn't visible in the C bindings: regexes on the C++ names (also the `typeid` spellings) of the entities to skip.

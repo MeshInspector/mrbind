@@ -3974,6 +3974,18 @@ namespace mrbind::Python
                 file += "    rt::records_by_cpp_name[" + CppStringLiteral(info->cpp_name) + "] = &" + info->var + ";\n";
         }
         file += "    if (!rt::AddCppApi(module, " + CppStringLiteral(module_qualname + ".__mrbind_cpp_api__") + ")) return nullptr;\n";
+        for (const auto &[filename, source] : extra_python)
+        {
+            // A literal per line, for the length limit of a single literal in MSVC.
+            file += "    if (!rt::RunExtraPython(module,\n";
+            for (std::string_view rest = source; !rest.empty();)
+            {
+                std::size_t len = std::min(rest.find('\n'), rest.size() - 1) + 1;
+                file += "        " + CppStringLiteral(rest.substr(0, len)) + "\n";
+                rest.remove_prefix(len);
+            }
+            file += "        , " + CppStringLiteral(filename) + ")) { Py_DECREF(module); return nullptr; }\n";
+        }
         file += "    return module;\n}\n";
 
         output_files[module_name + ".cpp"] = std::move(file);

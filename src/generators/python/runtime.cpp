@@ -1665,6 +1665,23 @@ def enum_from_bits(cls, bits):
         return true;
     }
 
+    // Runs `--extra-python` code in the module's namespace, so its definitions become a part of the module.
+    inline bool RunExtraPython(PyObject *module, const char *source, const char *filename)
+    {
+        PyObject *dict = PyModule_GetDict(module); // Borrowed.
+        if (!PyDict_GetItemString(dict, "__builtins__") && PyDict_SetItemString(dict, "__builtins__", PyEval_GetBuiltins()) < 0)
+            return false;
+        PyObject *code = Py_CompileString(source, filename, Py_file_input);
+        if (!code)
+            return false;
+        PyObject *result = PyEval_EvalCode(code, dict, dict);
+        Py_DECREF(code);
+        if (!result)
+            return false;
+        Py_DECREF(result);
+        return true;
+    }
+
     inline bool Init()
     {
         object_type = PyType_FromSpec(&object_spec);

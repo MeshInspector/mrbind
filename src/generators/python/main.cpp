@@ -104,6 +104,20 @@ int main(int argc, char **argv)
             generator.aliases.emplace_back(args[0], args[1]);
         },
     });
+    args_parser.AddFlag("--extra-python", {
+        .allow_repeat = true,
+        .arg_names = {"file.py"},
+        .desc = "Python code to embed into the module and run in its namespace at the end of its initialization, for the functions written in Python. Like the helper functions in the pybind11 target.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            std::ifstream file(mrbind::MakePath(args.front()), std::ios::binary);
+            if (!file)
+                throw std::runtime_error("Unable to open `" + std::string(args.front()) + "`.");
+            std::string source(std::istreambuf_iterator<char>(file), {});
+            std::erase(source, '\r');
+            generator.extra_python.emplace_back(mrbind::MakePath(args.front()).filename().string(), std::move(source));
+        },
+    });
     args_parser.AddFlag("--ignore-for-python", {
         .allow_repeat = true,
         .arg_names = {"regex"},
