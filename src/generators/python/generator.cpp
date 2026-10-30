@@ -3967,6 +3967,13 @@ namespace mrbind::Python
         file += out_init;
         for (const auto &[alias, target] : aliases)
             file += "    if (!rt::CallRt(\"add_alias\", Py_BuildValue(\"(Oss)\", module, " + CppStringLiteral(alias) + ", " + CppStringLiteral(target) + "))) PyErr_Clear();\n";
+        // The C++ interop API.
+        for (TypeInfo *info : class_order)
+        {
+            if (info->IsClass() && !info->no_class)
+                file += "    rt::records_by_cpp_name[" + CppStringLiteral(info->cpp_name) + "] = &" + info->var + ";\n";
+        }
+        file += "    if (!rt::AddCppApi(module, " + CppStringLiteral(module_qualname + ".__mrbind_cpp_api__") + ")) return nullptr;\n";
         file += "    return module;\n}\n";
 
         output_files[module_name + ".cpp"] = std::move(file);

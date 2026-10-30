@@ -32,6 +32,7 @@ SKIPPED_CLASS_ATTRS = {
 # Attributes every module has.
 SKIPPED_MODULE_ATTRS = {
     "__name__", "__doc__", "__file__", "__loader__", "__package__", "__spec__", "__builtins__", "__cached__", "__path__",
+    "__mrbind_cpp_api__",  # The C++ interop capsule of `mrbind_gen_python`.
 }
 
 # Base classes that are implementation details of a backend.

@@ -1580,6 +1580,87 @@ def enum_from_bits(cls, bits):
     inline PyType_Spec object_spec = {"mrbind_py.Object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
 
     // Sets up the runtime. Call first in the module init.
+    // ---- The C++ interop API, for the extension modules in C++ that pass the objects of this module (see `cpp_api.h` in mrbind).
+
+    // The records by the C++ spellings that the bindings use, e.g. `MR::Mesh`.
+    inline std::unordered_map<std::string, TypeRecord *> records_by_cpp_name;
+
+    inline TypeRecord *FindRecordForCpp(const char *cpp_type)
+    {
+        auto it = records_by_cpp_name.find(cpp_type);
+        if (it == records_by_cpp_name.end())
+        {
+            PyErr_Format(PyExc_TypeError, "No Python class for the C++ type `%s`.", cpp_type);
+            return nullptr;
+        }
+        return it->second;
+    }
+
+    inline void *ApiUnwrap(PyObject *obj, const char *cpp_type)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+            return nullptr;
+        void *out = nullptr;
+        if (!ArgObject(obj, *rec, false, out))
+        {
+            PyErr_Format(PyExc_TypeError, "Expected `%s`.", rec->qualname);
+            return nullptr;
+        }
+        return out;
+    }
+
+    inline const void *ApiGetHolder(PyObject *obj)
+    {
+        if (!obj || !PyObject_TypeCheck(obj, reinterpret_cast<PyTypeObject *>(object_type)))
+            return nullptr;
+        return GetHolder(obj);
+    }
+
+    inline PyObject *ApiWrap(const char *cpp_type, void *ptr, int owned, PyObject *owner)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+            return nullptr;
+        return Wrap(*rec, ptr, owned != 0, owned ? nullptr : owner);
+    }
+
+    inline PyObject *ApiWrapShared(const char *cpp_type, void *ptr, void *holder)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+        {
+            holder_destroy(holder);
+            return nullptr;
+        }
+        return Wrap(*rec, ptr, false, nullptr, holder);
+    }
+
+    // Must match `mrbind_py::CppApi` in `cpp_api.h`.
+    struct CppApi
+    {
+        int version;
+        void *(*unwrap)(PyObject *obj, const char *cpp_type);
+        const void *(*get_holder)(PyObject *obj);
+        PyObject *(*wrap)(const char *cpp_type, void *ptr, int owned, PyObject *owner);
+        PyObject *(*wrap_shared)(const char *cpp_type, void *ptr, void *holder);
+    };
+    inline CppApi cpp_api = {1, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared};
+
+    // Adds the capsule `<capsule_name>`, which must be `<module qualname>.__mrbind_cpp_api__` for `PyCapsule_Import()`.
+    inline bool AddCppApi(PyObject *module, const char *capsule_name)
+    {
+        PyObject *capsule = PyCapsule_New(&cpp_api, capsule_name, nullptr);
+        if (!capsule)
+            return false;
+        if (PyModule_AddObject(module, "__mrbind_cpp_api__", capsule) < 0)
+        {
+            Py_DECREF(capsule);
+            return false;
+        }
+        return true;
+    }
+
     inline bool Init()
     {
         object_type = PyType_FromSpec(&object_spec);

@@ -47,6 +47,19 @@ The output is `out/<module>.cpp` and `out/mrbind_py_runtime.h`. Compile the form
 
 The extension and the C bindings must use the same C++ standard library, because `__repr__` and the stream parameters pass `std::ostream`/`std::istream` objects created on the extension side.
 
+## Extension modules in C++
+
+The generated module exports a C++ interop API (see [`include/mrbind/python_over_c/cpp_api.h`](/include/mrbind/python_over_c/cpp_api.h)) in the capsule `<module qualname>.__mrbind_cpp_api__`: other extension modules can accept its objects as C++ objects, and return C++ objects as its objects, by the C++ type names of the bindings (e.g. `MR::Mesh`).
+
+For pybind11 modules, [`include/mrbind/python_over_c/pybind11_casters.h`](/include/mrbind/python_over_c/pybind11_casters.h) has the type casters:
+```cpp
+#define MRBIND_PY_CPP_API_CAPSULE "mypackage.mylib.__mrbind_cpp_api__"
+#include <mrbind/python_over_c/pybind11_casters.h>
+
+MRBIND_PY_FOREIGN_TYPE(MyLib::Mesh, "MyLib::Mesh", "mypackage.mylib.Mesh")
+```
+Then the pybind11 functions can take and return `MyLib::Mesh` by value, reference, pointer and `std::shared_ptr`. Such a module must use the same C++ standard library as the C bindings.
+
 ## Comparing with the pybind11 bindings
 
 [`scripts/python_api_dump.py`](/scripts/python_api_dump.py) dumps everything observable about a module (names, signatures, docstrings, properties, enum members) and diffs two dumps:
