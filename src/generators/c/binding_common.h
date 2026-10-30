@@ -83,7 +83,8 @@ namespace mrbind::C
         // Those are used internally by `EmitSpecialMemberFunctions()`, but you can call them manually too:
         // [
 
-        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor(Generator &generator) const;
+        // If the `comment`, it replaces the default comment. It must not begin or end with a newline, and must include the slashes.
+        [[nodiscard]] Generator::EmitFuncParams PrepareFuncDefaultCtor(Generator &generator, std::string comment = "") const;
 
         // This `new`s an array of a runtime size.
         // This exists solely for consistence with array delete, which we need to support `std::unique_ptr<T[]>`.

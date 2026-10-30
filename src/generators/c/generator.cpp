@@ -5407,7 +5407,7 @@ namespace mrbind::C
                             const CInterop::InheritanceInfo::Kind base_kind = inheritance_info.bases_indirect.Map().at(base_class);
 
                             if (base_kind == CInterop::InheritanceInfo::Kind::ambiguous)
-                                return;
+                                continue;
 
                             // The C type name of the target.
                             const cppdecl::QualifiedName base_cpp_qual_name = self.ParseQualNameOrThrow(base_class);
@@ -5484,6 +5484,10 @@ namespace mrbind::C
                                             );
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;
+
+                                            // Noexcept if this is not a dynamic downcast acting on a reference.
+                                            // I think dynamic upcasts using references should never be emitted, but also those should never throw too. So I don't bother special-casing them here.
+                                            emit.is_noexcept = !(is_dynamic && acts_on_ref);
 
                                             // Will add a pointer or a reference later.
                                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_class_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
@@ -5589,7 +5593,7 @@ namespace mrbind::C
                                 if (elem.params.empty())
                                 {
                                     HeapAllocatedClassBinder binder = self.MakeParsedClassBinder(cl.full_type);
-                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self));
+                                    self.EmitFunction(file, binder.PrepareFuncDefaultCtor(self, elem.comment ? elem.comment->text_with_slashes : ""));
                                 }
                                 else
                                 {

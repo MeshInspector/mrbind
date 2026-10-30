@@ -35,56 +35,44 @@ MR_SeparateA *MR_SeparateA_OffsetMutablePtr(MR_SeparateA *ptr, ptrdiff_t i)
 
 const MR_CommonBaseAB *MR_SeparateA_UpcastTo_MR_CommonBaseAB(const MR_SeparateA *object)
 {
-    MRBINDC_TRY(
     return (const MR_CommonBaseAB *)(static_cast<const MR::CommonBaseAB *>(
         ((const MR::SeparateA *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_CommonBaseAB *MR_SeparateA_MutableUpcastTo_MR_CommonBaseAB(MR_SeparateA *object)
 {
-    MRBINDC_TRY(
     return (MR_CommonBaseAB *)(static_cast<MR::CommonBaseAB *>(
         ((MR::SeparateA *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_SeparateA *MR_SeparateA_StaticDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
-    MRBINDC_TRY(
     return (const MR_SeparateA *)(static_cast<const MR::SeparateA *>(
         ((const MR::CommonBaseAB *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_SeparateA *MR_SeparateA_MutableStaticDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
-    MRBINDC_TRY(
     return (MR_SeparateA *)(static_cast<MR::SeparateA *>(
         ((MR::CommonBaseAB *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_SeparateA *MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
-    MRBINDC_TRY(
     return (const MR_SeparateA *)(dynamic_cast<const MR::SeparateA *>(
         ((const MR::CommonBaseAB *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 MR_SeparateA *MR_SeparateA_MutableDynamicDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
-    MRBINDC_TRY(
     return (MR_SeparateA *)(dynamic_cast<MR::SeparateA *>(
         ((MR::CommonBaseAB *)object)
     ));
-    ) // MRBINDC_TRY
 }
 
 const MR_SeparateA *MR_SeparateA_DynamicDowncastFromOrFail_MR_CommonBaseAB(const MR_CommonBaseAB *object)
