@@ -2,8 +2,9 @@
 
 #include "generators/python/runtime.h"
 
+#include "common/strings.h"
+
 #include <algorithm>
-#include <charconv>
 #include <cmath>
 #include <cstdlib>
 #include <functional>
@@ -134,9 +135,7 @@ namespace mrbind::Python
                 return "nan";
             if (std::isinf(value))
                 return value < 0 ? "-inf" : "inf";
-            char buf[64];
-            auto res = std::to_chars(buf, buf + sizeof buf, value, std::chars_format::scientific);
-            std::string sci(buf, res.ptr);
+            std::string sci = Strings::ShortestScientific(value);
             // `-1.2345e+05` -> sign, digits, exponent.
             bool neg = false;
             std::size_t i = 0;

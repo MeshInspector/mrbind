@@ -4,7 +4,6 @@
 // Similarly, on libc++ (Mac and MSYS2 CLANG64)  I get warnings about `std::aligned_union` in `<type_traits>`
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include <algorithm>
-#include <charconv>
 #include <type_traits>
 #pragma GCC diagnostic pop
 #endif
@@ -12,6 +11,7 @@
 #include "main.h"
 
 #include "common/command_line_args_as_utf8.h"
+#include "common/strings.h"
 #include "common/command_line_parser.h"
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
@@ -904,9 +904,7 @@ namespace mrbind
                         llvm::APFloat f = result.Val.getFloat();
                         bool loses_info = false;
                         f.convert(llvm::APFloat::IEEEdouble(), llvm::APFloat::rmNearestTiesToEven, &loses_info);
-                        char buf[64];
-                        auto r = std::to_chars(buf, buf + sizeof(buf), f.convertToDouble(), std::chars_format::scientific);
-                        out_arg->value = std::string(buf, r.ptr);
+                        out_arg->value = Strings::ShortestScientific(f.convertToDouble());
                     }
                 }
             }
