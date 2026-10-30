@@ -16,9 +16,9 @@
 #endif
 
 #if MB_INCLUDE_ORIGINAL_HEADER
-#include "/home/user/repos/MeshInspectorCode-2/MeshLib/thirdparty/mrbind/test/input_py/all.h"
+#include "/home/runner/work/mrbind/mrbind/test/input_py/all.h"
 #if MB_INCLUDE_ORIGINAL_HEADER >= 2 // Headers from the corresponding implementation file.
-// Implementation file doesn't exist: /home/user/repos/MeshInspectorCode-2/MeshLib/thirdparty/mrbind/test/input_py/all.cpp
+// Implementation file doesn't exist: /home/runner/work/mrbind/mrbind/test/input_py/all.cpp
 #endif
 #undef MB_INCLUDE_ORIGINAL_HEADER
 #endif
@@ -27,95 +27,111 @@ MB_FILE
 
 MB_NAMESPACE(MR, /*not inline*/, /*::*/, /*no comment*/)
 #if MB_CHECK_FRAGMENT(0)
-MB_FUNC(/*returns*/(std::vector<int>), GetVector, GetVector, (MR::GetVector), (MR::GetVector), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::vector<int>), GetVector, GetVector, (MR::GetVector), (MR::GetVector), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(1)
-MB_FUNC(/*returns*/(std::set<int>), GetSet, GetSet, (MR::GetSet), (MR::GetSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::set<int>), GetSet, GetSet, (MR::GetSet), (MR::GetSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(2)
-MB_FUNC(/*returns*/(std::multiset<int>), GetMultiSet, GetMultiSet, (MR::GetMultiSet), (MR::GetMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::multiset<int>), GetMultiSet, GetMultiSet, (MR::GetMultiSet), (MR::GetMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(3)
-MB_FUNC(/*returns*/(std::unordered_set<int>), GetUnorderedSet, GetUnorderedSet, (MR::GetUnorderedSet), (MR::GetUnorderedSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_set<int>), GetUnorderedSet, GetUnorderedSet, (MR::GetUnorderedSet), (MR::GetUnorderedSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(4)
-MB_FUNC(/*returns*/(std::unordered_multiset<int>), GetUnorderedMultiSet, GetUnorderedMultiSet, (MR::GetUnorderedMultiSet), (MR::GetUnorderedMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_multiset<int>), GetUnorderedMultiSet, GetUnorderedMultiSet, (MR::GetUnorderedMultiSet), (MR::GetUnorderedMultiSet), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(5)
-MB_FUNC(/*returns*/(std::map<int, float>), GetMap, GetMap, (MR::GetMap), (MR::GetMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::map<int, float>), GetMap, GetMap, (MR::GetMap), (MR::GetMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(6)
-MB_FUNC(/*returns*/(std::multimap<int, float>), GetMultiMap, GetMultiMap, (MR::GetMultiMap), (MR::GetMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::multimap<int, float>), GetMultiMap, GetMultiMap, (MR::GetMultiMap), (MR::GetMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(7)
-MB_FUNC(/*returns*/(std::unordered_map<int, float>), GetUnorderedMap, GetUnorderedMap, (MR::GetUnorderedMap), (MR::GetUnorderedMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_map<int, float>), GetUnorderedMap, GetUnorderedMap, (MR::GetUnorderedMap), (MR::GetUnorderedMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(8)
-MB_FUNC(/*returns*/(std::unordered_multimap<int, float>), GetUnorderedMultiMap, GetUnorderedMultiMap, (MR::GetUnorderedMultiMap), (MR::GetUnorderedMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unordered_multimap<int, float>), GetUnorderedMultiMap, GetUnorderedMultiMap, (MR::GetUnorderedMultiMap), (MR::GetUnorderedMultiMap), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(9)
-MB_FUNC(/*returns*/(std::array<int, 42>), GetStdArray, GetStdArray, (MR::GetStdArray), (MR::GetStdArray), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::array<int, 42>), GetStdArray, GetStdArray, (MR::GetStdArray), (MR::GetStdArray), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(10)
-MB_FUNC(/*returns*/(std::unique_ptr<int>), GetUniquePtrInt, GetUniquePtrInt, (MR::GetUniquePtrInt), (MR::GetUniquePtrInt), (MR,ns), /*not deprecated*/, "Pybind doesn't like shared pointers to built-in types.\ninline std::shared_ptr<int> GetSharedPtrInt() {return std::make_shared<int>();}", /*no params*/)
+MB_FUNC(/*returns*/(std::unique_ptr<int>), GetUniquePtrInt, GetUniquePtrInt, (MR::GetUniquePtrInt), (MR::GetUniquePtrInt), (MR,ns), /*not deprecated*/, "Pybind doesn't like shared pointers to built-in types.\ninline std::shared_ptr<int> GetSharedPtrInt() {return std::make_shared<int>();}", /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(11)
 MB_CLASS(struct, A, (MR::A), (MR,ns), /*is aggregate:*/1, "No weak pointers yet.\ninline std::weak_ptr<int> GetWeakPtrInt() {return std::make_shared<int>();}", /*no bases*/,
     /*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::A &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::A &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::A &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::A &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::A &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::A &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(A)
 #endif
 #if MB_CHECK_FRAGMENT(12)
-MB_FUNC(/*returns*/(std::shared_ptr<MR::A>), GetSharedPtrClass, GetSharedPtrClass, (MR::GetSharedPtrClass), (MR::GetSharedPtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::shared_ptr<MR::A>), GetSharedPtrClass, GetSharedPtrClass, (MR::GetSharedPtrClass), (MR::GetSharedPtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(13)
-MB_FUNC(/*returns*/(std::unique_ptr<MR::A>), GetUniquePtrClass, GetUniquePtrClass, (MR::GetUniquePtrClass), (MR::GetUniquePtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/)
+MB_FUNC(/*returns*/(std::unique_ptr<MR::A>), GetUniquePtrClass, GetUniquePtrClass, (MR::GetUniquePtrClass), (MR::GetUniquePtrClass), (MR,ns), /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(14)
 MB_FUNC(/*returns*/(void), PassUniquePtr, PassUniquePtr, (MR::PassUniquePtr), (MR::PassUniquePtr), (MR,ns), /*not deprecated*/, "Weak pointers in parameters disable the entire function.", /*params:*/
     ((std::unique_ptr<MR::A>), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(15)
 MB_FUNC(/*returns*/(void), PassUniquePtrLref, PassUniquePtrLref, (MR::PassUniquePtrLref), (MR::PassUniquePtrLref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
     ((std::unique_ptr<MR::A> &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(16)
 MB_FUNC(/*returns*/(void), PassUniquePtrRref, PassUniquePtrRref, (MR::PassUniquePtrRref), (MR::PassUniquePtrRref), (MR,ns), /*not deprecated*/, /*no comment*/, /*params:*/
     ((std::unique_ptr<MR::A> &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
-)
+, /*no lifetime info*/)
 #endif
 #if MB_CHECK_FRAGMENT(17)
 MB_CLASS(struct, B, (MR::B), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::A), virtual)
     ,/*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::B &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::B &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::B &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::B &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::B &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::B &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(B)
@@ -125,108 +141,197 @@ MB_CLASS(struct, C, (MR::C), (MR,ns), /*is aggregate:*/0, /*no comment*/,
     /*bases:*/
     ((MR::B), /*not virtual*/)
     ,/*members:*/
-    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
     (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::C &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::C &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, copy, (MR::C &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((const MR::C &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
     (method, /*non-static*/, move, (MR::C &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
         ((MR::C &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
     )
 )
 MB_END_CLASS(C)
 #endif
+#if MB_CHECK_FRAGMENT(19)
+MB_CLASS(struct, Ops, (MR::Ops), (MR,ns), /*is aggregate:*/1, "The operators without Python counterparts (`assign()`, `increment()`, `decrement()`), and the comparisons.", /*no bases*/,
+    /*members:*/
+    (field, /*non-static*/, (int), x, (x), /*no comment*/)
+    (ctor, /*not explicit*/, none, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
+    (ctor, /*not explicit*/, copy, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
+    )
+    (ctor, /*not explicit*/, move, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((MR::Ops &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
+    )
+    (method, /*non-static*/, copy, (MR::Ops &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
+    )
+    (method, /*non-static*/, move, (MR::Ops &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((MR::Ops &&), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (1/*holder: this*/, 2/*target: param #0*/)
+    )
+    (method, /*non-static*/, none, (MR::Ops &), operator=, _Equal, (operator=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((int), v, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (0/*holder: return*/, 1/*target: this*/)
+    )
+    (method, /*non-static*/, none, (MR::Ops &), operator*=, _StarEqual, (operator*=), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((int), v, /*no default argument*/, /*no default argument*/)
+    , /*lifetime info:*/
+        (0/*holder: return*/, 1/*target: this*/)
+    )
+    (method, /*non-static*/, none, (bool), operator<, _Less, (operator<), const, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), o, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+    (method, /*non-static*/, none, (bool), operator>, _Greater, (operator>), const, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), o, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+    (method, /*non-static*/, none, (bool), operator<=, _LessEqual, (operator<=), const, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), o, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+    (method, /*non-static*/, none, (bool), operator>=, _GreaterEqual, (operator>=), const, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((const MR::Ops &), o, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+    (method, /*non-static*/, none, (MR::Ops &), operator++, _PlusPlus, (operator++), /*not const*/, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
+    (method, /*non-static*/, none, (MR::Ops), operator++, _PlusPlus, (operator++), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((int), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+    (method, /*non-static*/, none, (MR::Ops &), operator--, _MinusMinus, (operator--), /*not const*/, /*not deprecated*/, /*no comment*/, /*no params*/, /*no lifetime info*/)
+    (method, /*non-static*/, none, (MR::Ops), operator--, _MinusMinus, (operator--), /*not const*/, /*not deprecated*/, /*no comment*/, /*params:*/
+        ((int), /*unnamed*/, /*no default argument*/, /*no default argument*/)
+    , /*no lifetime info*/)
+)
+MB_END_CLASS(Ops)
+#endif
+#if MB_CHECK_FRAGMENT(20)
+MB_FUNC(/*returns*/(bool), operator<, _Less, (MR::operator<), (MR::operator<), (MR,ns), /*not deprecated*/, "Reflected into `Ops.__gt__`.", /*params:*/
+    ((int), a, /*no default argument*/, /*no default argument*/)
+    ((const MR::Ops &), b, /*no default argument*/, /*no default argument*/)
+, /*no lifetime info*/)
+#endif
 MB_END_NAMESPACE(MR, /*not inline*/, /*::*/)
 
-#if MB_CHECK_FRAGMENT_TYPES(19)
-MB_REGISTER_TYPE(19, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_PARSED(19, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_BASE(19, /*name source: auto*/, MR::A)
-MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, MR::A &)
-MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, MR::A &&)
-MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::shared_ptr<MR::A>)
-MB_REGISTER_TYPE_RETURNED(19, /*name source: auto*/, std::unique_ptr<MR::A>)
-MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A>)
-MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A> &)
-MB_REGISTER_TYPE_PARAM(19, /*name source: auto*/, std::unique_ptr<MR::A> &&)
-#endif
-#if MB_CHECK_FRAGMENT_TYPES(20)
-MB_REGISTER_TYPE(20, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_PARSED(20, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_BASE(20, /*name source: auto*/, MR::B)
-MB_REGISTER_TYPE_RETURNED(20, /*name source: auto*/, MR::B &)
-MB_REGISTER_TYPE_PARAM(20, /*name source: auto*/, MR::B &&)
-#endif
 #if MB_CHECK_FRAGMENT_TYPES(21)
-MB_REGISTER_TYPE(21, /*name source: auto*/, MR::C)
-MB_REGISTER_TYPE_PARSED(21, /*name source: auto*/, MR::C)
-MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, MR::C &)
-MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, MR::C &&)
+MB_REGISTER_TYPE(21, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_PARSED(21, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_BASE(21, /*name source: auto*/, MR::A)
+MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, MR::A &)
+MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, MR::A &&)
+MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, std::shared_ptr<MR::A>)
+MB_REGISTER_TYPE_RETURNED(21, /*name source: auto*/, std::unique_ptr<MR::A>)
+MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, std::unique_ptr<MR::A>)
+MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, std::unique_ptr<MR::A> &)
+MB_REGISTER_TYPE_PARAM(21, /*name source: auto*/, std::unique_ptr<MR::A> &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(22)
-MB_REGISTER_TYPE(22, /*name source: auto*/, const MR::A)
-MB_REGISTER_TYPE_PARAM(22, /*name source: auto*/, const MR::A &)
+MB_REGISTER_TYPE(22, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_PARSED(22, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_BASE(22, /*name source: auto*/, MR::B)
+MB_REGISTER_TYPE_RETURNED(22, /*name source: auto*/, MR::B &)
+MB_REGISTER_TYPE_PARAM(22, /*name source: auto*/, MR::B &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(23)
-MB_REGISTER_TYPE(23, /*name source: auto*/, const MR::B)
-MB_REGISTER_TYPE_PARAM(23, /*name source: auto*/, const MR::B &)
+MB_REGISTER_TYPE(23, /*name source: auto*/, MR::C)
+MB_REGISTER_TYPE_PARSED(23, /*name source: auto*/, MR::C)
+MB_REGISTER_TYPE_RETURNED(23, /*name source: auto*/, MR::C &)
+MB_REGISTER_TYPE_PARAM(23, /*name source: auto*/, MR::C &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(24)
-MB_REGISTER_TYPE(24, /*name source: auto*/, const MR::C)
-MB_REGISTER_TYPE_PARAM(24, /*name source: auto*/, const MR::C &)
+MB_REGISTER_TYPE(24, /*name source: auto*/, MR::Ops)
+MB_REGISTER_TYPE_RETURNED(24, /*name source: auto*/, MR::Ops)
+MB_REGISTER_TYPE_PARSED(24, /*name source: auto*/, MR::Ops)
+MB_REGISTER_TYPE_RETURNED(24, /*name source: auto*/, MR::Ops &)
+MB_REGISTER_TYPE_PARAM(24, /*name source: auto*/, MR::Ops &&)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(25)
-MB_REGISTER_TYPE(25, /*name source: auto*/, int)
-MB_REGISTER_TYPE_RETURNED(25, /*name source: auto*/, std::unique_ptr<int>)
+MB_REGISTER_TYPE(25, /*name source: auto*/, bool)
+MB_REGISTER_TYPE_RETURNED(25, /*name source: auto*/, bool)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(26)
-MB_REGISTER_TYPE(26, /*name source: auto*/, std::array<int, 42>)
-MB_REGISTER_TYPE_RETURNED(26, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE(26, /*name source: auto*/, const MR::A)
+MB_REGISTER_TYPE_PARAM(26, /*name source: auto*/, const MR::A &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(27)
-MB_REGISTER_TYPE(27, /*name source: auto*/, std::map<int, float>)
-MB_REGISTER_TYPE_RETURNED(27, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE(27, /*name source: auto*/, const MR::B)
+MB_REGISTER_TYPE_PARAM(27, /*name source: auto*/, const MR::B &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(28)
-MB_REGISTER_TYPE(28, /*name source: auto*/, std::multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(28, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE(28, /*name source: auto*/, const MR::C)
+MB_REGISTER_TYPE_PARAM(28, /*name source: auto*/, const MR::C &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(29)
-MB_REGISTER_TYPE(29, /*name source: auto*/, std::multiset<int>)
-MB_REGISTER_TYPE_RETURNED(29, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE(29, /*name source: auto*/, const MR::Ops)
+MB_REGISTER_TYPE_PARAM(29, /*name source: auto*/, const MR::Ops &)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(30)
-MB_REGISTER_TYPE(30, /*name source: auto*/, std::set<int>)
-MB_REGISTER_TYPE_RETURNED(30, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE(30, /*name source: auto*/, int)
+MB_REGISTER_TYPE_PARAM(30, /*name source: auto*/, int)
+MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(30, /*name source: auto*/, int)
+MB_REGISTER_TYPE_RETURNED(30, /*name source: auto*/, std::unique_ptr<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(31)
-MB_REGISTER_TYPE(31, /*name source: auto*/, std::unordered_map<int, float>)
-MB_REGISTER_TYPE_RETURNED(31, /*name source: auto*/, std::unordered_map<int, float>)
+MB_REGISTER_TYPE(31, /*name source: auto*/, std::array<int, 42>)
+MB_REGISTER_TYPE_RETURNED(31, /*name source: auto*/, std::array<int, 42>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(32)
-MB_REGISTER_TYPE(32, /*name source: auto*/, std::unordered_multimap<int, float>)
-MB_REGISTER_TYPE_RETURNED(32, /*name source: auto*/, std::unordered_multimap<int, float>)
+MB_REGISTER_TYPE(32, /*name source: auto*/, std::map<int, float>)
+MB_REGISTER_TYPE_RETURNED(32, /*name source: auto*/, std::map<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(33)
-MB_REGISTER_TYPE(33, /*name source: auto*/, std::unordered_multiset<int>)
-MB_REGISTER_TYPE_RETURNED(33, /*name source: auto*/, std::unordered_multiset<int>)
+MB_REGISTER_TYPE(33, /*name source: auto*/, std::multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(33, /*name source: auto*/, std::multimap<int, float>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(34)
-MB_REGISTER_TYPE(34, /*name source: auto*/, std::unordered_set<int>)
-MB_REGISTER_TYPE_RETURNED(34, /*name source: auto*/, std::unordered_set<int>)
+MB_REGISTER_TYPE(34, /*name source: auto*/, std::multiset<int>)
+MB_REGISTER_TYPE_RETURNED(34, /*name source: auto*/, std::multiset<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(35)
-MB_REGISTER_TYPE(35, /*name source: auto*/, std::vector<int>)
-MB_REGISTER_TYPE_RETURNED(35, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE(35, /*name source: auto*/, std::set<int>)
+MB_REGISTER_TYPE_RETURNED(35, /*name source: auto*/, std::set<int>)
 #endif
 #if MB_CHECK_FRAGMENT_TYPES(36)
-MB_REGISTER_TYPE(36, /*name source: auto*/, void)
-MB_REGISTER_TYPE_RETURNED(36, /*name source: auto*/, void)
+MB_REGISTER_TYPE(36, /*name source: auto*/, std::unordered_map<int, float>)
+MB_REGISTER_TYPE_RETURNED(36, /*name source: auto*/, std::unordered_map<int, float>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(37)
+MB_REGISTER_TYPE(37, /*name source: auto*/, std::unordered_multimap<int, float>)
+MB_REGISTER_TYPE_RETURNED(37, /*name source: auto*/, std::unordered_multimap<int, float>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(38)
+MB_REGISTER_TYPE(38, /*name source: auto*/, std::unordered_multiset<int>)
+MB_REGISTER_TYPE_RETURNED(38, /*name source: auto*/, std::unordered_multiset<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(39)
+MB_REGISTER_TYPE(39, /*name source: auto*/, std::unordered_set<int>)
+MB_REGISTER_TYPE_RETURNED(39, /*name source: auto*/, std::unordered_set<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(40)
+MB_REGISTER_TYPE(40, /*name source: auto*/, std::vector<int>)
+MB_REGISTER_TYPE_RETURNED(40, /*name source: auto*/, std::vector<int>)
+#endif
+#if MB_CHECK_FRAGMENT_TYPES(41)
+MB_REGISTER_TYPE(41, /*name source: auto*/, void)
+MB_REGISTER_TYPE_RETURNED(41, /*name source: auto*/, void)
 #endif
 
 MB_END_FILE
