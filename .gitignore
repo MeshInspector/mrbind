@@ -17,6 +17,7 @@
 /test/output_java*/classes/
 /test/output_java*/sources.txt
 /test/run_java/classes/
+/test/output_python_c/
 parallel-hashmap/
 /examples/cxx.txt
 /examples/c/output

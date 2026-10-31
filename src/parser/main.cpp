@@ -11,6 +11,7 @@
 #include "main.h"
 
 #include "common/command_line_args_as_utf8.h"
+#include "common/strings.h"
 #include "common/command_line_parser.h"
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
@@ -35,6 +36,7 @@
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/Basic/Version.h>
 #include <clang/Frontend/CompilerInstance.h>
+#include <clang/Sema/EnterExpressionEvaluationContext.h>
 #include <clang/Sema/Sema.h>
 #include <clang/Sema/SemaConcept.h>
 #include <clang/Sema/Template.h>
@@ -883,6 +885,30 @@ namespace mrbind
         {
             out_arg.emplace();
 
+            // The value, if it's an arithmetic constant. Of the expression itself, before the conversion to the parameter type.
+            const clang::Expr *value_expr = default_arg->IgnoreImpCasts();
+            if (!value_expr->isValueDependent() && !value_expr->isTypeDependent() && value_expr->getType()->isArithmeticType() && !value_expr->getType()->isEnumeralType())
+            {
+                clang::Expr::EvalResult result;
+                if (value_expr->EvaluateAsRValue(result, param.getASTContext()) && !result.HasSideEffects)
+                {
+                    if (result.Val.isInt())
+                    {
+                        if (value_expr->getType()->isBooleanType())
+                            out_arg->value = result.Val.getInt().getBoolValue() ? "true" : "false";
+                        else
+                            out_arg->value = llvm::toString(result.Val.getInt(), 10);
+                    }
+                    else if (result.Val.isFloat())
+                    {
+                        llvm::APFloat f = result.Val.getFloat();
+                        bool loses_info = false;
+                        f.convert(llvm::APFloat::IEEEdouble(), llvm::APFloat::rmNearestTiesToEven, &loses_info);
+                        out_arg->value = Strings::ShortestScientific(f.convertToDouble());
+                    }
+                }
+            }
+
             // Convert the default argument to string.
             if (params.default_args_mode == VisitorParams::DefaultArgsMode::as_is)
             {
@@ -1504,6 +1530,82 @@ namespace mrbind
             return mrbind::GetCanonicalTypeName(type, *ci, *params, printing_policies.*policy, false);
         }
 
+        // `std::equality_comparable<T>`: are `a == b` and `a != b` valid for `const T &` operands?
+        // Only checked for complete classes, in an unevaluated context.
+        // The overload resolution can instantiate unrelated templates outside of the SFINAE context (and fail there), so all diagnostics are suppressed.
+        [[nodiscard]] bool IsEqualityComparable(const clang::QualType &type)
+        {
+            const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
+            if (!rec || type->isDependentType())
+                return false;
+            clang::Sema &sema = ci->getSema();
+            clang::DiagnosticsEngine &diags = sema.getDiagnostics();
+            const bool prev_suppress = diags.getSuppressAllDiagnostics();
+            diags.setSuppressAllDiagnostics(true);
+            struct RestoreSuppress
+            {
+                clang::DiagnosticsEngine &diags;
+                bool value;
+                ~RestoreSuppress() {diags.setSuppressAllDiagnostics(value);}
+            } restore_suppress{diags, prev_suppress};
+            clang::SourceLocation loc = rec->getLocation();
+            // Instantiate the class if it wasn't yet (e.g. if only mentioned as a template argument). This runs after the final visit, so nothing new gets bound.
+            if (!rec->hasDefinition() && !sema.isCompleteType(loc, type))
+                return false;
+            clang::Sema::SFINAETrap trap(sema);
+            clang::Sema::TentativeAnalysisScope tentative(sema);
+            clang::EnterExpressionEvaluationContext unevaluated(sema, clang::Sema::ExpressionEvaluationContext::Unevaluated);
+            clang::QualType operand = type.getNonReferenceType().getUnqualifiedType();
+            operand.addConst();
+            clang::OpaqueValueExpr lhs(loc, operand, clang::VK_LValue), rhs(loc, operand, clang::VK_LValue);
+            for (clang::BinaryOperatorKind op : {clang::BO_EQ, clang::BO_NE})
+            {
+                clang::ExprResult result = sema.CreateOverloadedBinOp(loc, op, clang::UnresolvedSet<0>{}, &lhs, &rhs);
+                if (result.isInvalid() || trap.hasErrorOccurred())
+                    return false;
+            }
+            return true;
+        }
+
+        std::set<std::string, std::less<>> equality_checked_types;
+
+        // The types for `FinishEqualityComparable()`.
+        // Checking them right away would instantiate templates (e.g. `operator==` specializations) that this visitor would then bind.
+        std::vector<clang::QualType> types_to_check_equality;
+
+        // Call after the traversal.
+        void FinishEqualityComparable()
+        {
+            for (const clang::QualType &type : types_to_check_equality)
+                CollectEqualityComparable(type);
+            types_to_check_equality.clear();
+        }
+
+        // Fills `equality_comparable_types` for this class (ignoring the cv-qualifiers, references and pointers) and its template arguments.
+        void CollectEqualityComparable(clang::QualType type)
+        {
+            type = type.getNonReferenceType();
+            while (type->isPointerType())
+                type = type->getPointeeType();
+            type = type.getUnqualifiedType();
+            const clang::CXXRecordDecl *rec = type->getAsCXXRecordDecl();
+            if (!rec)
+                return;
+            std::string name = GetCanonicalTypeName(type);
+            if (!equality_checked_types.insert(name).second)
+                return;
+            if (IsEqualityComparable(type))
+                params->parsed_result.equality_comparable_types.insert(name);
+            if (const auto *spec = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(rec))
+            {
+                for (const clang::TemplateArgument &arg : spec->getTemplateArgs().asArray())
+                {
+                    if (arg.getKind() == clang::TemplateArgument::Type)
+                        CollectEqualityComparable(arg.getAsType());
+                }
+            }
+        }
+
         // If `reason` is zero, the function does nothing.
         void RegisterTypeSpelling(const clang::QualType &type, const std::string &pretty, TypeUses reason)
         {
@@ -1519,7 +1621,10 @@ namespace mrbind
             info.uses |= reason & TypeUses::_valid_bits;
 
             if (is_new_type)
+            {
                 info.has_custom_canonical_name = canonical != GetCanonicalTypeName(type, &PrintingPolicies::without_preferred_names);
+                types_to_check_equality.push_back(type);
+            }
 
             auto &spelling = info.alt_spellings.try_emplace(pretty).first->second;
             if (bool(reason & TypeUses::_poisoned))
@@ -3202,6 +3307,7 @@ namespace mrbind
             ClangAstVisitor_Final vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
             VerifyStacks();
+            vis.FinishEqualityComparable();
         }
 
         params->rejected_namespace_stack.pop_back();

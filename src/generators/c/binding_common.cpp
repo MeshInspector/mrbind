@@ -101,6 +101,7 @@ namespace mrbind::C
 
             class_desc.inheritance_info = inheritance_info.AdjustAllTypes([&](std::string &s){s = generator.CppdeclToCodeForComments(generator.ParseTypeOrThrow(s));});
             class_desc.is_polymorphic = mark_polymorphic;
+            class_desc.is_aggregate = mark_aggregate;
 
             // `fields` must be set separately, manually.
             // `methods` is filled when you call `EmitFunction()`.

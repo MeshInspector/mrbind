@@ -1299,6 +1299,9 @@ namespace mrbind::C
             // This is primarily for interop, the C generator doesn't care about it.
             bool mark_virtual = false;
 
+            // For the interop description: the base class this member was copied from, if any.
+            std::optional<std::string> inherited_from;
+
             // Omit exception handling code.
             bool is_noexcept = false;
 
@@ -1448,6 +1451,7 @@ namespace mrbind::C
                 {
                     std::string cpp_expr; // Spelled as a C++ expression.
                     std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
+                    std::optional<std::string> value; // The value of an arithmetic constant, see `DefaultArgument::value`.
                 };
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
             };

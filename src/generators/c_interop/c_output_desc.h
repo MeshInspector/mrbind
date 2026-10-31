@@ -261,6 +261,8 @@ namespace mrbind::CInterop
             // The C++ spelling of the default argument of this parameter, if any.
             // If this is set, we have a default argument.
             (std::optional<std::string>)(default_arg_spelling, {})
+            // If the default argument is an arithmetic constant, its value: `true`/`false`, an integer, or a `double` in the shortest round-trip scientific form.
+            (std::optional<std::string>)(default_arg_value, {})
             // If this is true, then `default_arg_spelling` will also be set.
             // This being true indicates that the default argument affects the parameter passing style.
             // If this is false, you should pass the parameter with the same ABI as if there was no default argument,
@@ -476,6 +478,9 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             (bool)(is_static, false)
             (bool)(is_virtual, false)
+
+            // If this member was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
         , // Bases:
             (BasicFuncLike)
         )
@@ -526,8 +531,11 @@ namespace mrbind::CInterop
             (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
             // ]
 
-            // Describes the location of this field in an exposed struct.
-            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
+            // If this field was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
+
+            // Describes the location of this field in the class.
+            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and for the non-static fields with accessors.
             (std::optional<Layout>)(layout)
         )
 
@@ -669,6 +677,9 @@ namespace mrbind::CInterop
                 // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
                 (bool)(is_polymorphic, false)
 
+                // Only set for the parsed classes.
+                (bool)(is_aggregate, false)
+
                 // This is currently only set for `std::function<...>`, and stores the C function types that can be assigned to it.
                 // This is a hack originally added for the vibecoded Rust bindings. Since they wrap C code more naively, they benefit from knowing the C funciton pointer types.
                 // Normally they would be able to get them from the ctors and assignment operators, but they are currently hidden from interop, because e.g. C# needs custom handling for them.
@@ -699,6 +710,25 @@ namespace mrbind::CInterop
     };
 
     // The combined description of the C generator output.
+    // A typedef from the parsed code, for the generators that expose the typedef names (the Python one, for pybind11-compatible aliases).
+    struct Typedef
+    {
+        MBREFL_STRUCT(
+            (std::string)(full_name)
+            (std::string)(pretty) // The target type as written.
+            (std::string)(canonical) // The target type with the typedefs expanded.
+        )
+    };
+
+    // A spelling of a type in the parsed code, for the generators that expose those as aliases (the Python one, like the pybind11 target).
+    struct TypeAlias
+    {
+        MBREFL_STRUCT(
+            (std::string)(target) // The canonical C++ type.
+            (std::string)(spelling)
+        )
+    };
+
     struct OutputDesc
     {
         MBREFL_STRUCT(
@@ -717,6 +747,16 @@ namespace mrbind::CInterop
 
             // Do the C bindings have exception handling enabled?
             (bool)(exception_handling_enabled, false)
+
+            // All typedefs in the parsed code, in the parsing order.
+            (std::vector<Typedef>)(typedefs, {})
+
+            // The spellings that the pybind11 target registers as aliases: the type itself, and its alternative spellings,
+            //   except the ones of types named by a `preferred_name` (but the typedef names are always included).
+            (std::vector<TypeAlias>)(type_aliases, {})
+
+            // The classes satisfying `std::equality_comparable` (the pybind11 target adds the comparison methods to the vectors of those).
+            (std::vector<std::string>)(equality_comparable_types, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)

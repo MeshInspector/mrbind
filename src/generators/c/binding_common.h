@@ -27,6 +27,9 @@ namespace mrbind::C
         // This defaults to false. This only matters for the C interop, to allow clients to call `dynamic_cast`s.
         bool mark_polymorphic = false;
 
+        // Same, the C++ class is an aggregate.
+        bool mark_aggregate = false;
+
         // Set to true if this type has a sugared constructor, that preserves references to its parameters.
         bool sugared_constructor_preserves_reference = false;
 

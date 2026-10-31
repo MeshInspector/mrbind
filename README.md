@@ -8,7 +8,7 @@ MRBind parses C++ headers and can generates bindings for them for the following 
 
 * **Python** - Uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
 
-* **Rust**, **Java**, **JavaScript** - Custom generators, call our C bindings like the C# backend. Vibecoded, so live in [a separate aptly named branch](https://github.com/MeshInspector/mrbind/tree/vibecoded), but seem to work fine despite being vibecoded. Also see [note on AI usage below.](#ai-usage-and-policy)
+* **Rust**, **Java**, **JavaScript**, **Python over C** - Custom generators, call our C bindings like the C# backend. Vibecoded, so live in [a separate aptly named branch](https://github.com/MeshInspector/mrbind/tree/vibecoded), but seem to work fine despite being vibecoded. Also see [note on AI usage below.](#ai-usage-and-policy)
 
 The parser is shared between all the output languages, so the APIs produced for different languages should match closely.
 
@@ -34,7 +34,7 @@ All documentation in `master` are handwritten, including this one.
 
 The parser and C/C#/Python backends are handwritten, but I've since received some simple AI contributions that were merged after manual review and cleanup (or manually reimplemented sometimes).
 
-Rust, Java and JavaScript backends are a vibecoded contribution, and are kept [in the `vibecoded` branch](https://github.com/MeshInspector/mrbind/tree/vibecoded) to not taint the `master`. They pass some internal tests and seem to work well enough. Their documentation is generated.
+Rust, Java, JavaScript and Python-over-C backends are a vibecoded contribution, and are kept [in the `vibecoded` branch](https://github.com/MeshInspector/mrbind/tree/vibecoded) to not taint the `master`. They pass some internal tests and seem to work well enough. Their documentation is generated.
 
 While it would be nice to live in a timeline where vibecoding isn't a thing, we aren't in one. I can't refuse vibecoded internal contributions if they are useful, on the grounds of being vibecoded alone. This process is the next best thing I can do.
 
@@ -56,6 +56,7 @@ While it would be nice to live in a timeline where vibecoding isn't a thing, we 
 
    * [Generate Rust bindings.](/docs/generating_rust.md)
    * [Generate JavaScript bindings.](/docs/generating_js.md)
+   * [Generate Python bindings over the C bindings (no pybind11).](/docs/generating_python_over_c.md)
 
 5. Additional articles:
 
