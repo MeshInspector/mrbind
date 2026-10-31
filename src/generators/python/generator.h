@@ -28,14 +28,9 @@ namespace mrbind::Python
         // This is what `MB_PB11_STRIPPED_NAMESPACES` does for pybind11.
         std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
         // Regex replacements applied to the C++ type names before making the Python names from them, like `MB_PB11_ADJUST_NAMES`.
-        struct NameAdjustment
-        {
-            std::string regex;
-            std::string replacement;
-            // Also for the alias names.
-            bool for_aliases = true;
-        };
-        std::vector<NameAdjustment> name_adjustments;
+        std::vector<std::pair<std::string, std::string>> name_adjustments;
+        // Applied to the alias spellings after `name_adjustments`.
+        std::vector<std::pair<std::string, std::string>> alias_name_adjustments;
         // Same, but for the C++ names in the docs ("Generated from:").
         std::vector<std::pair<std::string, std::string>> doc_name_adjustments;
         // Same, but for the C++ names before spelling them like `typeid()`.
@@ -120,6 +115,9 @@ namespace mrbind::Python
         std::vector<std::string> namespace_order;
 
         // The generated code.
+        // The empty tag types (e.g. `std::monostate`, `std::greater<T>`), as classes without constructors like in pybind11.
+        // C++ name -> (Python name, C++ variable of the class).
+        std::map<std::string, std::pair<std::string, std::string>> tag_classes;
         std::string out_decls; // Type records, forward declarations.
         std::string out_impls; // Overload implementations, groups, method tables.
         std::string out_init; // The body of the init function, after the classes are created.

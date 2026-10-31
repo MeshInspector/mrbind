@@ -160,16 +160,16 @@ int main(int argc, char **argv)
         .desc = "A regex replacement applied to the C++ type names before making the Python names from them, like `MB_PB11_ADJUST_NAMES` in the pybind11 target. E.g. `--adjust-name '\\bMR::' ''`.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            generator.name_adjustments.push_back({std::string(args[0]), std::string(args[1]), true});
+            generator.name_adjustments.emplace_back(args[0], args[1]);
         },
     });
-    args_parser.AddFlag("--adjust-type-name", {
+    args_parser.AddFlag("--adjust-alias-name", {
         .allow_repeat = true,
         .arg_names = {"regex", "replacement"},
-        .desc = "Like `--adjust-name`, but not for the aliases, which the pybind11 target spells as written. E.g. `--adjust-type-name '\\bsize_t\\b' 'unsigned long'`, since the names of the types come from their canonical spelling.",
+        .desc = "A regex replacement applied to the alias spellings after `--adjust-name`, for the spellings that the pybind11 target keeps as written. E.g. `--adjust-alias-name '\\bstd::vector<unsigned long>' 'std::vector<size_t>'`.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            generator.name_adjustments.push_back({std::string(args[0]), std::string(args[1]), false});
+            generator.alias_name_adjustments.emplace_back(args[0], args[1]);
         },
     });
     args_parser.AddFlag("--adjust-doc-name", {

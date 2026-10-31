@@ -5256,6 +5256,7 @@ namespace mrbind::C
                     CInterop::TypeKinds::Class &class_desc = self.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(cpp_class_name));
                     if (cl.comment)
                         class_desc.comment.formatted = cl.comment->text;
+                    class_desc.some_nonstatic_data_members_skipped = cl.some_nonstatic_data_members_skipped;
                     if (parsed_class_info.is_same_layout_struct)
                     {
                         std::size_t i = 0;

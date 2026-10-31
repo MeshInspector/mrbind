@@ -42,6 +42,7 @@ Where:
 * `--ignore-c-file <regex>` skips the entities from the matching C headers (relative to the include directory, without the extension), e.g. `^MyLibCuda/` to leave out a sub-library.
 
 * `--adjust-typeid-name <regex> <replacement>` is applied to the C++ names before spelling them like `typeid()` does, e.g. `--adjust-typeid-name '(^|[^:\w])expected<' '$1tl::expected<'` if the C bindings were generated with `--merge-std-and-tl-expected`.
+* `--adjust-alias-name <regex> <replacement>` is applied to the alias spellings after `--adjust-name`, for the spellings that the pybind11 target keeps as written (e.g. `std::vector<size_t>` while `--adjust-name` makes the rest canonical).
 
 * `--adjust-doc-name <regex> <replacement>` is applied to the C++ names in the docs (`Generated from:`), e.g. to spell `size_t` as its underlying type if the pybind11 build was parsed without the `size_t` support.
 
@@ -85,10 +86,11 @@ The pybind11 target has a few naming bugs that this generator doesn't copy:
 * Calling an unbound method with a wrong `self` raises CPython's own `TypeError` text.
 * The iterators are lists built eagerly.
 * Default arguments that aren't arithmetic constants are printed as spelled in C++ (pybind11 prints their `repr()`). The arithmetic ones are evaluated by the parser for its target platform; the maximum of a narrower `size_t` (e.g. wasm32) is printed as this platform's.
-* The overloads are in the order of the C bindings, which can differ from the registration order of the pybind11 build.
-* There is no `_offsetof_<field>` for the reference fields if the parser's target platform has another pointer size (the other offsets are computed on this one).
+* The overloads of the free functions are in the order of the C bindings (grouped by header), which can differ from the registration order of the pybind11 build.
+* The offset of a reference field (`_offsetof_<field>`) is that of the next non-reference field minus the pointer sizes, if the parser's target platform has another pointer size (the other offsets are computed on this one). Without such a next field there is none.
 * The sets have no `erase()` in the C bindings, so `discard()`, `remove()` and `pop()` rebuild the set. `pop()` returns the removed element.
-* A parameter of an empty tag type with a default argument (e.g. a `std::greater<T>` comparator) isn't exposed, the C bindings don't take it.
+* The empty tag types (e.g. `std::monostate`, a `std::greater<T>` comparator) are classes without constructors, like in pybind11. The C bindings don't take them, so a parameter of such type is only checked.
 * `expected<T, E>` is a class (with `__bool__()`, `value()` and `error()`) only as the element of a `std::vector`. Elsewhere a returned one is unwrapped into the value, or raises its error. It has no `make_unexpected()`, the C bindings can't make one in the error state.
-* The docs come from the `formatted` comments of the description (`clang::RawComment::getFormattedText()`, as in pybind11), so it must come from an `mrbind_gen_c` that writes them; with an older one, the whitespace of the block comments that depends on their indentation in the source differs.
+* A `std::function` returning `expected<T, E>` can hold a Python function (pybind11 can't).
+* The abstract classes have no `assign()`, the C bindings don't assign them.
 * A C++ extension module that uses `pybind11_casters.h` returns the `std::vector`s that have no class in the C bindings (no C function takes or returns them) as Python lists.

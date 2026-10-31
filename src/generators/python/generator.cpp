@@ -502,6 +502,8 @@ namespace mrbind::Python
         }
         if (auto it = types.find(t); it != types.end() && it->second.is_expected)
             return DocTypeName(it->second.expected_value, is_return);
+        if (auto it = tag_classes.find(t); it != tag_classes.end())
+            return module_qualname + "." + it->second.first;
         if (auto it = types.find(t); it != types.end() && !it->second.pair_first.empty())
             return "tuple[" + DocTypeName(it->second.pair_first, is_return) + ", " + DocTypeName(it->second.pair_second, is_return) + "]";
         if (StartsWith(t, "std::optional<") && EndsWith(t, ">") && is_return && !st.is_ptr && !st.is_ref)
@@ -627,10 +629,12 @@ namespace mrbind::Python
 
     std::string Generator::AdjustName(std::string name, bool is_alias) const
     {
-        for (const auto &a : name_adjustments)
+        for (const auto &[regex, replacement] : name_adjustments)
+            name = std::regex_replace(name, std::regex(regex), replacement);
+        if (is_alias)
         {
-            if (!is_alias || a.for_aliases)
-                name = std::regex_replace(name, std::regex(a.regex), a.replacement);
+            for (const auto &[regex, replacement] : alias_name_adjustments)
+                name = std::regex_replace(name, std::regex(regex), replacement);
         }
         return name;
     }
@@ -752,6 +756,8 @@ namespace mrbind::Python
         auto it = types.find(st.base);
         if (it != types.end() && (it->second.IsClass() || it->second.IsEnum()) && !it->second.is_std_function && spelling == "{}")
             return module_qualname + "." + it->second.py_qualname + "()";
+        if (auto tag = tag_classes.find(st.base); tag != tag_classes.end() && spelling == "{}")
+            return module_qualname + "." + tag->second.first + "()";
         // The float literals as Clang prints them, like pybind11 has them: `1.0f` -> `1.F`, `-0.5f` -> `-0.5F`.
         static const std::regex float_literal(R"((^|[^\w.])(\d+)\.(\d*?)0*f\b)");
         return "'" + std::regex_replace(spelling, float_literal, "$1$2.$3F") + "'";
@@ -1136,14 +1142,22 @@ namespace mrbind::Python
         for (std::size_t pi = 0; pi < py_params.size(); pi++)
         {
             const CInterop::FuncParam &p = *py_params[pi];
-            // An empty tag with a default argument, e.g. a `std::greater<T>` comparator: C takes nothing for it, so neither do we.
-            if (p.c_params.empty() && p.default_arg_spelling)
-            {
-                auto tag_it = c_desc.cpp_types.Map().find(StripType(p.cpp_type).base);
-                if (tag_it != c_desc.cpp_types.Map().end() && std::holds_alternative<CInterop::TypeKinds::EmptyTag>(tag_it->second.var))
-                    continue;
-            }
             std::string a = "a[" + std::to_string(slot) + "]";
+            // An empty tag, e.g. a `std::greater<T>` comparator or `std::monostate`: C takes nothing for it.
+            if (auto tag = tag_classes.find(StripType(p.cpp_type).base); p.c_params.empty() && tag != tag_classes.end())
+            {
+                param_slots[py_params[pi]] = slot;
+                checks += "    if (" + a + " && PyObject_IsInstance(" + a + ", " + tag->second.second + ") != 1) {PyErr_Clear(); return nullptr;}\n";
+                PyParam pp;
+                pp.name = p.name ? AdjustPythonKeywords(*p.name) : "";
+                pp.type = DocTypeName(p.cpp_type, false);
+                pp.default_repr = DefaultArgRepr(p);
+                if (!p.default_arg_spelling)
+                    ret.num_required = slot + 1;
+                ret.params.push_back(std::move(pp));
+                slot++;
+                continue;
+            }
             std::string v = "p" + std::to_string(slot) + "_";
             param_slots[py_params[pi]] = slot;
             PyParam pp;
@@ -2179,7 +2193,15 @@ namespace mrbind::Python
             if (ctor->is_copying_ctor)
                 copy_ctor = std::move(ov);
             else if (EndsWith(m.c_name, "_ConstructFrom"))
-                aggregate_ctor = std::move(ov);
+            {
+                // pybind11 takes the fields by value, so the non-copyable ones prevent it.
+                if (std::none_of(cls.fields.begin(), cls.fields.end(), [&](const CInterop::ClassField &f)
+                {
+                    const TypeInfo *ft = f.is_static ? nullptr : FindType(StripType(f.type).base);
+                    return ft && ft->traits && ft->traits->copy_constructible == CInterop::SpecialMemberKind::disabled;
+                }))
+                    aggregate_ctor = std::move(ov);
+            }
             else
             {
                 init.overloads.push_back(std::move(*ov));
@@ -2271,7 +2293,7 @@ namespace mrbind::Python
                 aggregate_ctor = std::move(ov);
             }
         }
-        if (aggregate_ctor || (cls.is_aggregate && cls.inheritance_info.bases_direct_combined.Vec().empty() && !has_fields && !std_function && !init.overloads.empty()))
+        if (aggregate_ctor || (cls.is_aggregate && !cls.some_nonstatic_data_members_skipped && cls.inheritance_info.bases_direct_combined.Vec().empty() && !has_fields && !std_function && !init.overloads.empty()))
         {
             PreparedOverload a = aggregate_ctor ? *aggregate_ctor : init.overloads.front();
             a.comment = "Implicit aggregate constructor.";
@@ -2353,8 +2375,10 @@ namespace mrbind::Python
             {
                 if (const TypeInfo *t = ConversionCtorTarget(m); t && t != &info)
                     continue; // A constructor of the target instead.
-                ScalarKind sk = GetScalarKind(StripType(m.ret.cpp_type).base);
-                std::string name = sk == ScalarKind::boolean ? "__bool__" : sk == ScalarKind::integer ? "__int__" : sk == ScalarKind::floating ? "__float__" : "convert_to_" + ToPythonName(m.ret.cpp_type);
+                // Like the pybind11 target: only a scalar by value is `__int__()` etc.
+                StrippedType rst = StripType(m.ret.cpp_type);
+                ScalarKind sk = rst.is_ref || rst.is_ptr ? ScalarKind::none : GetScalarKind(rst.base);
+                std::string name = sk == ScalarKind::boolean ? "__bool__" : sk == ScalarKind::integer ? "__int__" : sk == ScalarKind::floating ? "__float__" : "convert_to_" + ToPythonName(AdjustName(m.ret.cpp_type));
                 auto ov = PrepareOverload(m, &info, 1);
                 if (!ov)
                     continue;
@@ -2492,6 +2516,24 @@ namespace mrbind::Python
             out_init += "    if (!rt::TypeSetAttr(" + cls_obj + ", \"__hash__\", Py_None)) return nullptr;\n";
 
         // Fields.
+        // The offset of a field on this platform, from its getter. Not for the references, their getters return the referenced objects.
+        auto GetterOffset = [&](const CInterop::ClassField &f) -> std::string
+        {
+            if (StripType(f.type).is_ref)
+                return "";
+            for (const auto *acc : {&f.getter_mutable, &f.getter_const})
+            {
+                if (*acc && (*acc)->params.size() == 1 && (*acc)->params[0].c_params.size() == 1 && StripType((*acc)->ret.c_type).is_ptr)
+                    return "[]{alignas(64) static char buf_[1]; return (Py_ssize_t)((const char *)" + (*acc)->c_name + "((" + (*acc)->params[0].c_params[0].c_type + ")buf_) - buf_);}()";
+            }
+            return "";
+        };
+        std::vector<const CInterop::ClassField *> laid_out; // The own non-static fields, in order.
+        for (const auto &f : cls.fields)
+        {
+            if (!f.inherited_from && !f.is_static && f.layout)
+                laid_out.push_back(&f);
+        }
         for (const auto &f : cls.fields)
         {
             if (f.inherited_from || hidden_fields.contains(f.name))
@@ -2502,16 +2544,17 @@ namespace mrbind::Python
                 std::string offset;
                 if (info.IsExposedStruct())
                     offset = "offsetof(" + info.c_name + ", " + f.name + ")";
-                else if (!StripType(f.type).is_ref) // The getters of the references return the referenced objects.
+                else if (!StripType(f.type).is_ref)
+                    offset = GetterOffset(f);
+                else
                 {
-                    for (const auto *acc : {&f.getter_mutable, &f.getter_const})
-                    {
-                        if (*acc && (*acc)->params.size() == 1 && (*acc)->params[0].c_params.size() == 1 && StripType((*acc)->ret.c_type).is_ptr)
-                        {
-                            offset = "[]{alignas(64) static char buf_[1]; return (Py_ssize_t)((const char *)" + (*acc)->c_name + "((" + (*acc)->params[0].c_params[0].c_type + ")buf_) - buf_);}()";
-                            break;
-                        }
-                    }
+                    // A reference is pointer-sized: it's right before the next field that isn't one.
+                    std::size_t i = std::size_t(std::find(laid_out.begin(), laid_out.end(), &f) - laid_out.begin());
+                    std::size_t j = i + 1;
+                    while (j < laid_out.size() && StripType(laid_out[j]->type).is_ref)
+                        j++;
+                    if (std::string next = j < laid_out.size() ? GetterOffset(*laid_out[j]) : ""; !next.empty())
+                        offset = "(" + next + " - (Py_ssize_t)sizeof(void *) * " + std::to_string(j - i) + ")";
                 }
                 // Else the parser's offset, only if that platform has the same pointer size (it might be a 32-bit one).
                 std::string cond;
@@ -2560,6 +2603,21 @@ namespace mrbind::Python
                         sov->params[1].name = "arg1";
                     sov->comment.clear();
                     set_def = "&" + EmitGroup({"", {*sov}}, &info, false, false);
+                }
+            }
+            // A reference: pybind11 assigns to the referenced object. Also a class without a setter in C (e.g. not move-assignable).
+            if (const auto &gm = f.getter_mutable ? f.getter_mutable : f.getter_const; set_def == "nullptr" && (st.is_ref || (!st.is_ptr && !f.setter && field_ti && field_ti->IsClass() && !field_ti->no_class)) && !st.is_const && !f.is_static && !not_assignable && gm && gm->params.size() == 1 && gm->params[0].c_params.size() == 1 && !StartsWith(gm->ret.c_type, "const "))
+            {
+                if (auto assign = AssignFromPy(st.base, "dst_", "a[1]"))
+                {
+                    PreparedOverload sov;
+                    sov.impl = NewId("impl_");
+                    out_impls += "static PyObject *" + sov.impl + "(PyObject *const *a, bool, bool &matched)\n{\n    void *self_ = nullptr;\n    if (!rt::ArgObject(a[0], " + info.var + ", false, self_)) return nullptr;\n    matched = true;\n";
+                    out_impls += "    try\n    {\n        auto dst_ = " + gm->c_name + "((" + gm->params[0].c_params[0].c_type + ")self_);\n" + *assign + "        Py_RETURN_NONE;\n    }\n    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
+                    sov.params = {{"arg0", module_qualname + "." + info.py_qualname, ""}, {"arg1", DocTypeName(st.base, false), ""}};
+                    sov.ret_type = "None";
+                    sov.num_required = 2;
+                    set_def = "&" + EmitGroup({"", {sov}}, &info, false, false);
                 }
             }
             if (!st.is_ptr && StartsWith(Trim(f.type), "const "))
@@ -3552,7 +3610,7 @@ namespace mrbind::Python
                 continue;
             for (const auto &p : m.params)
             {
-                if (p.is_this_param || p.c_params.empty())
+                if (p.is_this_param || (p.c_params.empty() && !tag_classes.contains(StripType(p.cpp_type).base)))
                     continue;
                 Alt alt{.cpp = StripType(p.cpp_type).base, .ctor = &m};
                 alt.name = ToPythonName(AdjustName(TypeidSpelling(alt.cpp)));
@@ -3610,7 +3668,11 @@ namespace mrbind::Python
         {
             if (!alt.get || alt.get->params.size() != 1 || alt.get->params[0].c_params.size() != 1)
                 continue;
-            auto conv = CToPy("const " + alt.cpp + " &", alt.get->ret.c_type, "p_", "a[0]", "r_");
+            std::optional<std::string> conv;
+            if (auto tag = tag_classes.find(alt.cpp); tag != tag_classes.end())
+                conv = "        PyObject *r_ = PyType_GenericAlloc((PyTypeObject *)" + tag->second.second + ", 0);\n"; // An instance without the C++ object, it's empty anyway.
+            else
+                conv = CToPy("const " + alt.cpp + " &", alt.get->ret.c_type, "p_", "a[0]", "r_");
             if (!conv)
                 continue;
             PreparedOverload ov;
@@ -4068,6 +4130,17 @@ namespace mrbind::Python
                 out_decls += "static PyObject *" + info->var + " = nullptr; // " + info->cpp_name + "\n";
             }
         }
+        for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
+        {
+            if (!std::holds_alternative<CInterop::TypeKinds::EmptyTag>(type.var) || StartsWith(cpp_name, "std::variant_index<") || IsIgnoredForPython(cpp_name))
+                continue;
+            std::string name = ToPythonName(AdjustName(TypeidSpelling(cpp_name)));
+            std::string var = NewId("tag_");
+            tag_classes.try_emplace(cpp_name, name, var);
+            out_decls += "static PyObject *" + var + " = nullptr; // " + cpp_name + "\n";
+            out_init_classes += "    " + var + " = rt::MakeClass(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(name) + ", " + CppStringLiteral(name) + ", bases_default, nullptr);\n";
+            out_init_classes += "    if (!" + var + ") return nullptr;\n    Py_INCREF(" + var + "); if (PyModule_AddObject(module, " + CppStringLiteral(name) + ", " + var + ") < 0) return nullptr;\n";
+        }
         out_decls += "\n";
 
         // Namespace scopes and classes.
@@ -4215,7 +4288,29 @@ namespace mrbind::Python
             if (!info->IsClass() || info->no_class)
                 continue;
             if (info->is_vector)
+            {
                 EmitVectorMembers(*info);
+                // The non-member operators taking it first, e.g. `|` of `std::vector<MR::IOFilter>`.
+                std::map<std::string, GroupEntry> ops;
+                for (const auto &f : c_desc.functions)
+                {
+                    auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
+                    if (!op || f.params.empty() || f.params.size() > 2 || StripType(f.params[0].cpp_type).base != info->cpp_name)
+                        continue;
+                    std::string name = OperatorPyName(op->token, f.params.size() == 1);
+                    if (name.empty() || name == "__eq__" || name == "__ne__")
+                        continue;
+                    if (auto ov = PrepareOverload(f, info, 0))
+                    {
+                        ov->params[0].name = "self";
+                        GroupEntry &g = ops[name];
+                        g.py_name = name;
+                        g.overloads.push_back(std::move(*ov));
+                    }
+                }
+                for (const auto &[name, g] : ops)
+                    out_init += "    if (!rt::AddMethod(" + info->var + ".type, &" + EmitGroup(g, info, true, false) + ")) return nullptr;\n";
+            }
             else if (info->is_array)
                 EmitArrayMembers(*info);
             else if (!info->optional_value.empty())

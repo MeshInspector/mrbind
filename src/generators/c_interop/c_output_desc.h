@@ -148,7 +148,7 @@ namespace mrbind::CInterop
             // The comment, or empty if none. Has a trailing newline if not empty. Includes `//` and/or `/**/` (possibly multiple blocks).
             (std::string)(c_style)
             // Only the parsed part of the comment, as `clang::RawComment::getFormattedText()` returns it. Empty if none.
-            (std::string)(formatted)
+            (std::string)(formatted, "")
         )
     };
 
@@ -681,6 +681,9 @@ namespace mrbind::CInterop
 
                 // Only set for the parsed classes.
                 (bool)(is_aggregate, false)
+
+                // Only set for the parsed classes. Some non-static fields aren't in `fields` (e.g. the bitfields).
+                (bool)(some_nonstatic_data_members_skipped, false)
 
                 // This is currently only set for `std::function<...>`, and stores the C function types that can be assigned to it.
                 // This is a hack originally added for the vibecoded Rust bindings. Since they wrap C code more naively, they benefit from knowing the C funciton pointer types.
