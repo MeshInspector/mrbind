@@ -1240,6 +1240,10 @@ def add_set_api(cls, q, name, elem):
     if not all(k in d for k in ('__init__', '__iter__', 'contains', 'insert', 'size', 'clear')):
         return
     init0, contains, insert, size, clear = d['__init__'], d['contains'], d['insert'], d['size'], d['clear']
+    # Only the Python set protocol is public, like in pybind11.
+    for k in ('assign', 'clear', 'contains', 'empty', 'insert', 'is_begin', 'is_end', 'size'):
+        if k in d:
+            type.__delattr__(cls, k)
     def __init__(self, *args):
         if len(args) == 1 and not isinstance(args[0], cls):
             init0(self)
@@ -1247,7 +1251,7 @@ def add_set_api(cls, q, name, elem):
                 insert(self, x)
         else:
             init0(self, *args)
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n', __init__)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n', __init__)
     _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: size(self))
     _bind(cls, '__contains__', '__contains__(self: ' + q + ', arg0: ' + elem + ') -> bool\n', lambda self, x: contains(self, x))
     _bind(cls, 'add', 'add(self: ' + q + ', arg0: ' + elem + ') -> None\n', lambda self, x: insert(self, x))
@@ -1550,7 +1554,7 @@ def add_map_api(cls, q, name, key, value, p):
     if 'repr' in p:
         _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
     _bind(cls, '__bool__', '__bool__(self: ' + q + ') -> bool\n\nCheck whether the map is nonempty\n', lambda self: p['size'](self) != 0)
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + key + ']\n', lambda self: iter(p['keys'](self)))
+    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + p.get('key_ret', key) + ']\n', lambda self: iter(p['keys'](self)))
     def view(kind):
         def f(self):
             v = enum_new_raw(_views[kind], 0)

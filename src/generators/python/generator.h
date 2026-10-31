@@ -28,7 +28,14 @@ namespace mrbind::Python
         // This is what `MB_PB11_STRIPPED_NAMESPACES` does for pybind11.
         std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
         // Regex replacements applied to the C++ type names before making the Python names from them, like `MB_PB11_ADJUST_NAMES`.
-        std::vector<std::pair<std::string, std::string>> name_adjustments;
+        struct NameAdjustment
+        {
+            std::string regex;
+            std::string replacement;
+            // Also for the alias names.
+            bool for_aliases = true;
+        };
+        std::vector<NameAdjustment> name_adjustments;
         // Same, but for the C++ names in the docs ("Generated from:").
         std::vector<std::pair<std::string, std::string>> doc_name_adjustments;
         // Same, but for the C++ names before spelling them like `typeid()`.
@@ -158,7 +165,9 @@ namespace mrbind::Python
         [[nodiscard]] std::optional<std::string> PyToCReturn(const std::string &cpp_type, const std::string &c_type, const std::string &py, const std::string &out);
         // `require_generated_from`: the C generator appends `Generated from ...` to the comments of the entities parsed from C++,
         //   so the comments without it are invented by the C generator, and pybind11 has nothing there.
-        [[nodiscard]] static std::string ProcessComment(const std::string &c_style, bool require_generated_from = true);
+        // Like `DocTypeName()`, but an `expected` that has its own class (as a container element) is that class.
+        [[nodiscard]] std::string ElemDocTypeName(const std::string &type, bool is_return);
+        [[nodiscard]] static std::string ProcessComment(const CInterop::Comment &comment, bool require_generated_from = true);
 
         // Generates the implementation of one overload. `this_type` is null for free functions.
         // `self_kind`: 0 = no self, 1 = a method (`this` is slot 0), 2 = a constructor (slot 0 is the instance being initialized),
@@ -210,7 +219,7 @@ namespace mrbind::Python
         // Finds a method by the C name suffix, e.g. `_size`.
         [[nodiscard]] static const CInterop::ClassMethod *FindMethod(const TypeInfo &info, std::string_view c_name_suffix);
 
-        [[nodiscard]] std::string AdjustName(std::string name) const;
+        [[nodiscard]] std::string AdjustName(std::string name, bool is_alias = false) const;
         // Spells a C++ type like the demangled `typeid()` that pybind11 makes the names from: typedefs expanded, `T const`.
         [[nodiscard]] std::string TypeidSpelling(std::string name);
         // `typeid(T)` drops the references and the top-level constness, but keeps the pointers.

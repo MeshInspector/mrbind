@@ -147,6 +147,8 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             // The comment, or empty if none. Has a trailing newline if not empty. Includes `//` and/or `/**/` (possibly multiple blocks).
             (std::string)(c_style)
+            // Only the parsed part of the comment, as `clang::RawComment::getFormattedText()` returns it. Empty if none.
+            (std::string)(formatted)
         )
     };
 

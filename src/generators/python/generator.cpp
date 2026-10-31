@@ -344,8 +344,19 @@ namespace mrbind::Python
         return ret;
     }
 
-    std::string Generator::ProcessComment(const std::string &c_style, bool require_generated_from)
+    std::string Generator::ElemDocTypeName(const std::string &type, bool is_return)
     {
+        if (auto it = types.find(StripType(type).base); it != types.end() && it->second.is_expected && !it->second.no_class)
+            return module_qualname + "." + it->second.py_qualname;
+        return DocTypeName(type, is_return);
+    }
+
+    std::string Generator::ProcessComment(const CInterop::Comment &comment, bool require_generated_from)
+    {
+        // The parsed part as `clang::RawComment::getFormattedText()` returns it, which keeps the original indentation.
+        if (!comment.formatted.empty())
+            return comment.formatted;
+        const std::string &c_style = comment.c_style;
         // The comment of the default constructors added by the C generator, when they have no parsed one.
         static constexpr std::string_view default_ctor_comment = "Constructs an empty (default-constructed) instance.";
         if (require_generated_from && !c_style.starts_with("/// Generated from ") && c_style.find("\n/// Generated from ") == std::string::npos)
@@ -614,10 +625,13 @@ namespace mrbind::Python
         return TypeidSpelling("<" + type + ">").substr(1, std::string::npos).substr(0, TypeidSpelling("<" + type + ">").size() - 2);
     }
 
-    std::string Generator::AdjustName(std::string name) const
+    std::string Generator::AdjustName(std::string name, bool is_alias) const
     {
-        for (const auto &[regex, replacement] : name_adjustments)
-            name = std::regex_replace(name, std::regex(regex), replacement);
+        for (const auto &a : name_adjustments)
+        {
+            if (!is_alias || a.for_aliases)
+                name = std::regex_replace(name, std::regex(a.regex), a.replacement);
+        }
         return name;
     }
 
@@ -738,7 +752,9 @@ namespace mrbind::Python
         auto it = types.find(st.base);
         if (it != types.end() && (it->second.IsClass() || it->second.IsEnum()) && !it->second.is_std_function && spelling == "{}")
             return module_qualname + "." + it->second.py_qualname + "()";
-        return "'" + spelling + "'";
+        // The float literals as Clang prints them, like pybind11 has them: `1.0f` -> `1.F`, `-0.5f` -> `-0.5F`.
+        static const std::regex float_literal(R"((^|[^\w.])(\d+)\.(\d*?)0*f\b)");
+        return "'" + std::regex_replace(spelling, float_literal, "$1$2.$3F") + "'";
     }
 
     void Generator::CollectTypes()
@@ -1571,7 +1587,7 @@ namespace mrbind::Python
         o += "    }\n    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
 
         // A default constructor has either its parsed comment alone, or `default_ctor_comment`.
-        ret.comment = ProcessComment(func.comment.c_style, !EndsWith(func.c_name, "_DefaultConstruct"));
+        ret.comment = ProcessComment(func.comment, !EndsWith(func.c_name, "_DefaultConstruct"));
         std::string sig;
         for (const auto &p : func.params)
         {
@@ -2130,13 +2146,13 @@ namespace mrbind::Python
 
         std::vector<GroupEntry> methods; // In order of first appearance.
         std::vector<GroupEntry> statics;
-        auto AddTo = [&](std::vector<GroupEntry> &list, const std::string &name, PreparedOverload ov)
+        auto AddTo = [&](std::vector<GroupEntry> &list, const std::string &name, PreparedOverload ov, bool first = false)
         {
             for (auto &g : list)
             {
                 if (g.py_name == name)
                 {
-                    g.overloads.push_back(std::move(ov));
+                    g.overloads.insert(first ? g.overloads.begin() : g.overloads.end(), std::move(ov));
                     return;
                 }
             }
@@ -2270,13 +2286,14 @@ namespace mrbind::Python
             c.comment.clear();
             init.overloads.push_back(c);
         }
-        // The conversion operators of other classes.
+        // The conversion operators of other classes, which pybind11 binds before the constructors.
         if (auto it = conversion_ctors.find(&info); it != conversion_ctors.end())
         {
+            std::size_t pos = 0;
             for (const auto &[src, m] : it->second)
             {
                 if (auto ov = PrepareOverload(*m, &info, 4))
-                    init.overloads.push_back(std::move(*ov));
+                    init.overloads.insert(init.overloads.begin() + std::ptrdiff_t(pos++), std::move(*ov));
             }
         }
         if (std_function)
@@ -2402,7 +2419,8 @@ namespace mrbind::Python
             if (ov->params[1].name == "_other")
                 ov->params[1].name = "other";
             ov->comment.clear();
-            AddTo(methods, "assign", *ov);
+            // pybind11 binds the copy assignment before the other methods.
+            AddTo(methods, "assign", *ov, true);
         }
         // The operators without Python counterparts: the other assignments as `assign()`, and the prefix `++`/`--` as `increment()`/`decrement()`.
         //   The pybind11 target calls them `operator` (`operator_minus_minus` for `--`), and binds the postfix ones too.
@@ -2546,7 +2564,7 @@ namespace mrbind::Python
             }
             if (!st.is_ptr && StartsWith(Trim(f.type), "const "))
                 set_def = "nullptr";
-            std::string doc = ProcessComment(f.comment.c_style, false);
+            std::string doc = ProcessComment(f.comment, false);
             out_init += "    if (!rt::AddProperty(" + cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", &" + get_def + ", " + set_def + ", " + (doc.empty() ? "nullptr" : CppStringLiteral(doc)) + ", " + (f.is_static ? "true" : "false") + ", module_name)) return nullptr;\n";
         }
     }
@@ -2598,7 +2616,7 @@ namespace mrbind::Python
         sov.num_required = 2;
         std::string get_def = EmitGroup({"", {gov}}, &info, false, false);
         std::string set_def = EmitGroup({"", {sov}}, &info, false, false);
-        std::string doc = ProcessComment(f.comment.c_style, false);
+        std::string doc = ProcessComment(f.comment, false);
         out_init += "    if (!rt::AddProperty(" + cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", &" + get_def + ", &" + set_def + ", " + (doc.empty() ? "nullptr" : CppStringLiteral(doc)) + ", false, module_name)) return nullptr;\n";
     }
 
@@ -3047,6 +3065,12 @@ namespace mrbind::Python
                 target = target.substr(6);
             const TypeInfo *t = FindType(target);
             if (!t)
+            {
+                // With `--merge-std-and-tl-expected`, the types are spelled without the namespace of the `expected`.
+                static const std::regex expected_ns(R"(\b(std|tl)::expected<)");
+                t = FindType(std::regex_replace(target, expected_ns, "expected<"));
+            }
+            if (!t)
                 continue;
             if (t->pointee)
                 t = t->pointee;
@@ -3067,8 +3091,8 @@ namespace mrbind::Python
             if (targets.size() != 1)
                 continue;
             const TypeInfo *target = *targets.begin();
-            // The pybind11 target registers no aliases for the `std::function`s, and none spelled with expressions in the template arguments.
-            if (target->no_class || target->is_std_function || spelling.find('?') != std::string::npos || spelling.find("==") != std::string::npos)
+            // The pybind11 target registers no aliases for the `std::function`s.
+            if (target->no_class || target->is_std_function)
                 continue;
             // The scope: the namespaces, then the parsed classes.
             std::vector<std::string> parts = SplitQualified(spelling);
@@ -3098,7 +3122,7 @@ namespace mrbind::Python
                 }
                 break;
             }
-            std::string name = ToPythonName(AdjustName(Join(std::vector<std::string>(parts.begin() + std::ptrdiff_t(i), parts.end()), "::")));
+            std::string name = ToPythonName(AdjustName(Join(std::vector<std::string>(parts.begin() + std::ptrdiff_t(i), parts.end()), "::"), true));
             if (name.empty() || occupied.contains({scope_var, name}))
                 continue;
             std::string qualname = scope_qual.empty() ? name : scope_qual + "." + name;
@@ -3314,9 +3338,9 @@ namespace mrbind::Python
             out_init += "        Py_DECREF(prims_);\n    }\n";
             return;
         }
-        if (std::string elem_ret = DocTypeName(elem, true); elem_ret != DocTypeName(elem, false))
+        if (std::string elem_ret = ElemDocTypeName(elem, true); elem_ret != ElemDocTypeName(elem, false))
             out_init += "        {PyObject *s_ = PyUnicode_FromString(" + CppStringLiteral(elem_ret) + "); PyDict_SetItemString(prims_, \"elem_ret\", s_); Py_XDECREF(s_);}\n";
-        out_init += "        if (!rt::CallRt(\"add_vector_api\", Py_BuildValue(\"(OsssNn)\", " + cls_obj + ", " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(info.py_name) + ", " + CppStringLiteral(DocTypeName(elem, false)) + ", prims_, " + elem_size + "))) return nullptr;\n";
+        out_init += "        if (!rt::CallRt(\"add_vector_api\", Py_BuildValue(\"(OsssNn)\", " + cls_obj + ", " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(info.py_name) + ", " + CppStringLiteral(ElemDocTypeName(elem, false)) + ", prims_, " + elem_size + "))) return nullptr;\n";
         out_init += "    }\n";
     }
 
@@ -3810,6 +3834,8 @@ namespace mrbind::Python
             out_init += "        {\n            PyObject *f_ = PyDict_GetItemString(PyModule_GetDict(rt::rt), \"make_views\");\n            PyObject *v_ = f_ ? PyObject_CallFunction(f_, \"sO\", " + CppStringLiteral(module_qualname) + ", rt::object_type) : nullptr;\n            if (!v_) return nullptr;\n";
             out_init += "            const char *names_[] = {\"KeysView\", \"ValuesView\", \"ItemsView\"};\n            for (int j_ = 0; j_ < 3; j_++)\n            {\n                PyObject *c_ = PyTuple_GetItem(v_, j_);\n                Py_INCREF(c_);\n                if (PyModule_AddObject(module, names_[j_], c_) < 0) return nullptr;\n            }\n            Py_DECREF(v_);\n        }\n";
         }
+        if (std::string key_ret = DocTypeName(key, true); key_ret != DocTypeName(key, false))
+            out_init += "        {PyObject *s_ = PyUnicode_FromString(" + CppStringLiteral(key_ret) + "); PyDict_SetItemString(prims_, \"key_ret\", s_); Py_XDECREF(s_);}\n";
         out_init += "        if (!rt::CallRt(\"add_map_api\", Py_BuildValue(\"(OssssN)\", " + info.var + ".type, " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(info.py_name) + ", " + CppStringLiteral(DocTypeName(key, false)) + ", " + CppStringLiteral(DocTypeName(value, true)) + ", prims_))) return nullptr;\n    }\n";
     }
 
@@ -3826,14 +3852,36 @@ namespace mrbind::Python
         if (def)
         {
             if (auto ov = PrepareOverload(*def, &info, 2))
+            {
+                ov->comment = "Constructs in the valid state, with the default-constructed value.";
                 init.overloads.push_back(std::move(*ov));
+            }
         }
         if (copy)
         {
             if (auto ov = PrepareOverload(*copy, &info, 2))
             {
                 ov->params[1].name = "arg0";
+                ov->params[1].type = self_doc;
+                ov->comment.clear();
                 init.overloads.push_back(std::move(*ov));
+            }
+        }
+        // From the value, by assigning it to a default-constructed one. The C bindings can't make one in the error state.
+        if (const TypeInfo *vt = FindType(StripType(info.expected_value).base); def && value && vt && vt->IsClass() && !vt->no_class)
+        {
+            if (auto assign = AssignFromPy(StripType(info.expected_value).base, "dst_", "a[1]"))
+            {
+                PreparedOverload ov;
+                ov.impl = NewId("impl_");
+                out_impls += "static PyObject *" + ov.impl + "(PyObject *const *a, bool, bool &matched)\n{\n    void *v_ = nullptr;\n    if (!rt::ArgObject(a[1], " + vt->var + ", false, v_)) return nullptr;\n    matched = true;\n";
+                out_impls += "    try\n    {\n        auto *e_ = " + def->c_name + "();\n        auto dst_ = " + value->c_name + "((" + value->params[0].c_params[0].c_type + ")e_);\n" + *assign + "        return rt::InitInstance(a[0], " + info.var + ", e_);\n    }\n";
+                out_impls += "    catch (...)\n    {\n        return rt::TranslateException();\n    }\n}\n\n";
+                ov.params = {{"self", self_doc, ""}, {"arg0", DocTypeName(info.expected_value, false), ""}};
+                ov.ret_type = "None";
+                ov.num_required = 2;
+                ov.comment = "Constructs in the valid state.";
+                init.overloads.push_back(std::move(ov));
             }
         }
         if (!init.overloads.empty())
@@ -3908,6 +3956,8 @@ namespace mrbind::Python
             StrippedType pst = StripType(p.cpp_type);
             if (GetScalarKind(pst.base) != ScalarKind::none && !pst.is_const && (pst.is_ptr || (pst.is_ref && !pst.is_rvalue_ref)))
                 callable_doc += OutputTypeName(pst.base);
+            else if (pst.base == "std::filesystem::path")
+                callable_doc += "os.PathLike";
             else
                 callable_doc += DocTypeName(p.cpp_type, false);
         }
@@ -4063,7 +4113,7 @@ namespace mrbind::Python
                         doc += (i ? ", " : "") + al->second[i].qualname;
                     doc += "\n";
                 }
-                std::string comment = ProcessComment(info->class_desc->comment.c_style);
+                std::string comment = ProcessComment(info->class_desc->comment);
                 if (!comment.empty())
                     doc += (doc.empty() ? "" : "\n") + comment;
                 std::string bases = "bases_default";
@@ -4086,7 +4136,7 @@ namespace mrbind::Python
                 for (const auto &e : info->enum_desc->elems)
                 {
                     std::string v = info->is_signed_enum ? std::to_string((long long)e.unsigned_value) : std::to_string(e.unsigned_value);
-                    std::string doc = ProcessComment(e.comment.c_style, false);
+                    std::string doc = ProcessComment(e.comment, false);
                     out_init_classes += "        {PyObject *e_ = Py_BuildValue(\"(sNO)\", " + CppStringLiteral(e.name) + ", PyLong_FromString(" + CppStringLiteral(v) + ", nullptr, 10), " + (doc.empty() ? "Py_None" : "PyUnicode_FromString(" + CppStringLiteral(doc) + ")") + "); PyList_Append(entries_, e_); Py_XDECREF(e_);}\n";
                 }
                 out_init_classes += "        " + info->var + " = rt::MakeEnum(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(info->py_qualname) + ", " + CppStringLiteral(info->py_name) + ", entries_, " + (info->is_signed_enum ? "true" : "false") + ");\n";
