@@ -2200,7 +2200,7 @@ namespace mrbind::Python
                 // pybind11 takes the fields by value, so the non-copyable ones prevent it.
                 if (std::none_of(cls.fields.begin(), cls.fields.end(), [&](const CInterop::ClassField &f)
                 {
-                    const TypeInfo *ft = f.is_static ? nullptr : FindType(StripType(f.type).base);
+                    const TypeInfo *ft = f.is_static || StripType(f.type).is_ptr || StripType(f.type).is_ref ? nullptr : FindType(StripType(f.type).base);
                     return ft && ft->traits && ft->traits->copy_constructible == CInterop::SpecialMemberKind::disabled;
                 }))
                     aggregate_ctor = std::move(ov);
@@ -2308,7 +2308,7 @@ namespace mrbind::Python
             // The parameter is unnamed in the implicit copy constructors (`_other` in the C bindings).
             if (c.params[1].name == "_other")
                 c.params[1].name = "";
-            c.comment.clear();
+
             init.overloads.push_back(c);
         }
         // The conversion operators of other classes, which pybind11 binds before the constructors.
@@ -2558,8 +2558,7 @@ namespace mrbind::Python
         }
         for (const auto &f : cls.fields)
         {
-            // The pybind11 target skips the C array fields.
-            if (f.inherited_from || hidden_fields.contains(f.name) || IsUsingDeclaredField(f) || f.type.find('[') != std::string::npos)
+            if (f.inherited_from || hidden_fields.contains(f.name) || IsUsingDeclaredField(f))
                 continue;
             if (!f.is_static && f.layout)
             {
@@ -2578,6 +2577,8 @@ namespace mrbind::Python
                         j++;
                     if (std::string next = j < laid_out.size() ? GetterOffset(*laid_out[j]) : ""; !next.empty())
                         offset = "(" + next + " - (Py_ssize_t)sizeof(void *) * " + std::to_string(j - i) + ")";
+                    else if (cls.inheritance_info.bases_direct_combined.Vec().empty() && std::all_of(laid_out.begin(), laid_out.begin() + std::ptrdiff_t(i), [](const CInterop::ClassField *p){return StripType(p->type).is_ref;}))
+                        offset = "((Py_ssize_t)sizeof(void *) * " + std::to_string(i + (cls.is_polymorphic ? 1 : 0)) + ")"; // Or right after the start.
                 }
                 // Else the parser's offset, only if that platform has the same pointer size (it might be a 32-bit one).
                 std::string cond;
@@ -2588,6 +2589,9 @@ namespace mrbind::Python
                 }
                 out_init += "    " + cond + "if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
             }
+            // The pybind11 target has no properties for the C array fields.
+            if (f.type.find('[') != std::string::npos)
+                continue;
             const CInterop::ClassField::Accessor *getter = nullptr;
             StrippedType st = StripType(f.type);
             bool scalar = GetScalarKind(st.base) != ScalarKind::none || (types.contains(st.base) && types.at(st.base).IsEnum()) || st.base == "std::string";
@@ -3549,6 +3553,23 @@ namespace mrbind::Python
             return "    {\n        rt::StringArg v_;\n        if (!rt::ArgPath(" + py + ", v_)) " + fail + "\n        " + ti->c_name + "_AssignFrom(" + dst + ", v_.data, v_.end());\n    }\n";
         if (ti && ti->IsExposedStruct())
             return "    {\n        void *v_ = nullptr;\n        if (!rt::ArgObject(" + py + ", " + ti->var + ", false, v_)) " + fail + "\n        *" + dst + " = *(" + ti->c_name + " *)v_;\n    }\n";
+        // A pair from a tuple or a list, element by element.
+        if (ti && ti->IsClass() && !ti->pair_first.empty())
+        {
+            const CInterop::ClassMethod *fm = FindMethod(*ti, "_first_mut"), *sm = FindMethod(*ti, "_second_mut");
+            if (!fm || !sm || fm->params.size() != 1 || sm->params.size() != 1 || fm->params[0].c_params.size() != 1 || sm->params[0].c_params.size() != 1)
+                return {};
+            auto first = AssignFromPy(ti->pair_first, "f_", "e_[0]");
+            auto second = AssignFromPy(ti->pair_second, "s_", "e_[1]");
+            if (!first || !second)
+                return {};
+            std::string r = "    {\n        PyObject *t_ = " + py + ", *e_[2] = {};\n";
+            r += "        for (int i_ = 0; i_ < 2; i_++) e_[i_] = PyTuple_Check(t_) && PyTuple_Size(t_) == 2 ? PyTuple_GetItem(t_, i_) : PyList_Check(t_) && PyList_Size(t_) == 2 ? PyList_GetItem(t_, i_) : nullptr;\n";
+            r += "        if (!e_[0] || !e_[1]) " + fail + "\n";
+            r += "        auto f_ = " + fm->c_name + "((" + fm->params[0].c_params[0].c_type + ")" + dst + ");\n" + *first;
+            r += "        auto s_ = " + sm->c_name + "((" + sm->params[0].c_params[0].c_type + ")" + dst + ");\n" + *second + "    }\n";
+            return r;
+        }
         if (ti && ti->IsClass() && !ti->no_class)
         {
             for (const auto &m : ti->class_desc->methods)
@@ -4174,16 +4195,30 @@ namespace mrbind::Python
                 out_decls += "static PyObject *" + info->var + " = nullptr; // " + info->cpp_name + "\n";
             }
         }
+        // The tags of the defaulted parameters and of the variant alternatives (the C bindings have more, e.g. for `std::shared_ptr`).
+        std::set<std::string> used_tags;
+        auto NoteTags = [&](const auto &func)
+        {
+            for (const auto &p : func.params)
+                if (p.c_params.empty() && !p.is_this_param && (p.default_arg_spelling || func.c_name.find("_ConstructAs_") != std::string::npos))
+                    used_tags.insert(StripType(p.cpp_type).base);
+        };
+        for (const auto &f : c_desc.functions)
+            NoteTags(f);
+        for (const auto &[n, t] : c_desc.cpp_types.Map())
+            if (auto c = std::get_if<CInterop::TypeKinds::Class>(&t.var))
+                for (const auto &m : c->methods)
+                    NoteTags(m);
         for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
         {
-            if (!std::holds_alternative<CInterop::TypeKinds::EmptyTag>(type.var) || StartsWith(cpp_name, "std::variant_index<") || IsIgnoredForPython(cpp_name))
+            if (!std::holds_alternative<CInterop::TypeKinds::EmptyTag>(type.var) || StartsWith(cpp_name, "std::variant_index<") || IsIgnoredForPython(cpp_name) || !used_tags.contains(cpp_name))
                 continue;
             std::string name = ToPythonName(AdjustName(TypeidSpelling(cpp_name)));
             std::string var = NewId("tag_");
             tag_classes.try_emplace(cpp_name, name, var);
             out_decls += "static PyObject *" + var + " = nullptr; // " + cpp_name + "\n";
             out_init_classes += "    " + var + " = rt::MakeClass(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(name) + ", " + CppStringLiteral(name) + ", bases_default, nullptr);\n";
-            out_init_classes += "    if (!" + var + ") return nullptr;\n    Py_INCREF(" + var + "); if (PyModule_AddObject(module, " + CppStringLiteral(name) + ", " + var + ") < 0) return nullptr;\n";
+            out_init_classes += "    if (!" + var + " || !rt::SetNoConstructorInit(" + var + ")) return nullptr;\n    Py_INCREF(" + var + "); if (PyModule_AddObject(module, " + CppStringLiteral(name) + ", " + var + ") < 0) return nullptr;\n";
         }
         out_decls += "\n";
 
