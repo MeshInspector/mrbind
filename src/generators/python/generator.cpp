@@ -2347,9 +2347,13 @@ namespace mrbind::Python
         }
         auto IsUsingDeclaredField = [&](const CInterop::ClassField &f)
         {
-            return !f.is_static && std::any_of(all_bases.begin(), all_bases.end(), [&](const TypeInfo *b)
+            // A static one redeclared in this class has a comment of its own.
+            return std::any_of(all_bases.begin(), all_bases.end(), [&](const TypeInfo *b)
             {
-                return b->class_desc && std::any_of(b->class_desc->fields.begin(), b->class_desc->fields.end(), [&](const CInterop::ClassField &bf){return !bf.is_static && bf.name == f.name;});
+                return b->class_desc && std::any_of(b->class_desc->fields.begin(), b->class_desc->fields.end(), [&](const CInterop::ClassField &bf)
+                {
+                    return bf.is_static == f.is_static && bf.name == f.name && (!f.is_static || (bf.type == f.type && bf.comment.formatted == f.comment.formatted));
+                });
             });
         };
 
@@ -3523,7 +3527,7 @@ namespace mrbind::Python
         for (const auto &m : ti->class_desc->methods)
         {
             auto conv = std::get_if<CInterop::MethodKinds::ConversionOperator>(&m.var);
-            if (conv && !conv->is_explicit && m.params.size() == 1 && m.params[0].c_params.size() == 1 && GetScalarKind(StripType(m.ret.cpp_type).base) == ScalarKind::integer && m.ret.c_type.find('*') == std::string::npos)
+            if (conv && !conv->is_explicit && m.params.size() == 1 && m.params[0].c_params.size() == 1 && GetScalarKind(StripType(m.ret.cpp_type).base) != ScalarKind::none && m.ret.c_type.find('*') == std::string::npos)
                 return "    ss_ << " + m.c_name + "((" + m.params[0].c_params[0].c_type + ")" + ptr + ");\n";
         }
         return {};
@@ -3600,6 +3604,12 @@ namespace mrbind::Python
         {
             std::string f = sk == ScalarKind::boolean ? "ArgBool" : sk == ScalarKind::integer ? "ArgInt" : "ArgFloat";
             return "    " + st.base + " " + var + "v_{};\n    if (!rt::" + f + "(" + py + ", true, " + var + "v_)) " + fail + "\n    const " + st.base + " *" + var + " = &" + var + "v_;\n";
+        }
+        if (ti && (st.base == "std::string" || st.base == "std::filesystem::path"))
+        {
+            // A temporary, destroyed on return.
+            std::string h = "std::unique_ptr<" + ti->c_name + ", decltype(&" + ti->c_name + "_Destroy)>";
+            return "    rt::StringArg " + var + "s_;\n    if (!rt::" + (st.base == "std::string" ? "ArgString" : "ArgPath") + "(" + py + ", " + var + "s_)) " + fail + "\n    " + h + " " + var + "h_(" + ti->c_name + "_ConstructFrom(" + var + "s_.data, " + var + "s_.end()), &" + ti->c_name + "_Destroy);\n    const " + ti->c_name + " *" + var + " = " + var + "h_.get();\n";
         }
         if (ti && ti->IsEnum())
             return "    " + ti->c_name + " " + var + "v_{};\n    if (!rt::ArgEnum(" + py + ", " + ti->var + ", " + var + "v_)) " + fail + "\n    const " + ti->c_name + " *" + var + " = &" + var + "v_;\n";
