@@ -182,6 +182,7 @@ namespace mrbind::Python
         void EmitVectorMembers(TypeInfo &info);
         void EmitArrayMembers(TypeInfo &info);
         void EmitMapMembers(TypeInfo &info);
+        void EmitExpectedMembers(TypeInfo &info);
         void EmitOptionalMembers(TypeInfo &info);
         // `std::variant`, like `CustomTypeBinding<std::variant<P...>>` of the pybind11 target.
         void EmitVariantMembers(TypeInfo &info);
@@ -202,6 +203,8 @@ namespace mrbind::Python
         std::map<std::string, std::string> output_types;
         [[nodiscard]] std::string RequireOutputType(const std::string &scalar);
         [[nodiscard]] std::string OutputTypeName(const std::string &scalar);
+        // While preparing the setter of a field: the pointers it stores keep their Python objects alive.
+        bool preparing_field_setter = false;
         // The fields of exposed structs, which are accessed directly.
         void EmitExposedField(TypeInfo &info, const CInterop::ClassField &f);
         // Finds a method by the C name suffix, e.g. `_size`.

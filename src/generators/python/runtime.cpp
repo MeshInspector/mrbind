@@ -19,6 +19,7 @@ namespace mrbind::Python
 #include <cstdint>
 #include <cstring>
 #include <exception>
+#include <iomanip>
 #include <sstream>
 #include <new>
 #include <stdexcept>
@@ -598,12 +599,21 @@ namespace mrbind_py
     {
         using Elem = std::conditional_t<std::is_same_v<T, bool>, char, T>;
         std::vector<Elem> values;
+        T *target = nullptr; // If set, `values` is ignored, the only value is what this points to. For the callback parameters.
     };
 
     template <typename T>
     bool ArgScalar(PyObject *o, T &out)
     {
-        if constexpr (std::is_same_v<T, bool>)
+        if constexpr (std::is_same_v<T, std::string>)
+        {
+            StringArg s;
+            if (!ArgString(o, s))
+                return false;
+            out.assign(s.data, s.end());
+            return true;
+        }
+        else if constexpr (std::is_same_v<T, bool>)
             return ArgBool(o, true, out);
         else if constexpr (std::is_floating_point_v<T>)
             return ArgFloat(o, true, out);
@@ -614,7 +624,9 @@ namespace mrbind_py
     template <typename T>
     PyObject *RetScalar(T v)
     {
-        if constexpr (std::is_same_v<T, bool>)
+        if constexpr (std::is_same_v<T, std::string>)
+            return RetString(v.data(), v.data() + v.size());
+        else if constexpr (std::is_same_v<T, bool>)
             return RetBool(v);
         else if constexpr (std::is_floating_point_v<T>)
             return RetFloat(v);
@@ -655,6 +667,8 @@ namespace mrbind_py
     template <typename T>
     PyObject *OutputGetValues(PyObject *o)
     {
+        if (T *t = OutputSelf<T>(o)->target)
+            return Py_BuildValue("[N]", RetScalar(*t));
         auto &vals = OutputSelf<T>(o)->values;
         PyObject *list = PyList_New(Py_ssize_t(vals.size()));
         for (std::size_t i = 0; list && i < vals.size(); i++)
@@ -681,6 +695,16 @@ namespace mrbind_py
             vals.push_back(typename OutputBuf<T>::Elem(v));
         }
         Py_DECREF(seq);
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            if (vals.size() != 1)
+            {
+                PyErr_SetString(PyExc_RuntimeError, "Expected exactly one value.");
+                return nullptr;
+            }
+            *t = T(vals.front());
+            Py_RETURN_NONE;
+        }
         OutputSelf<T>(o)->values = std::move(vals);
         Py_RETURN_NONE;
     }
@@ -688,6 +712,8 @@ namespace mrbind_py
     template <typename T>
     PyObject *OutputGetValue(PyObject *o)
     {
+        if (T *t = OutputSelf<T>(o)->target)
+            return RetScalar(*t);
         auto &vals = OutputSelf<T>(o)->values;
         if (vals.size() != 1)
         {
@@ -706,6 +732,11 @@ namespace mrbind_py
             PyErr_SetString(PyExc_TypeError, "Incompatible value type.");
             return nullptr;
         }
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            *t = v;
+            Py_RETURN_NONE;
+        }
         auto &vals = OutputSelf<T>(o)->values;
         vals.clear();
         vals.push_back(typename OutputBuf<T>::Elem(v));
@@ -717,13 +748,19 @@ namespace mrbind_py
     {
         std::ostringstream ss;
         ss << name << '[';
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            ss << *t << ']';
+            std::string s = std::move(ss).str();
+            return RetString(s.data(), s.data() + s.size());
+        }
         auto &vals = OutputSelf<T>(o)->values;
         for (std::size_t i = 0; i < vals.size(); i++)
         {
             if (i)
                 ss << ", ";
-            if constexpr (std::is_same_v<T, char> || std::is_same_v<T, signed char> || std::is_same_v<T, unsigned char> || std::is_same_v<T, bool>)
-                ss << vals[i];
+            if constexpr (std::is_same_v<T, std::string>)
+                ss << std::quoted(vals[i]);
             else
                 ss << vals[i];
         }
@@ -736,10 +773,23 @@ namespace mrbind_py
     template <typename T>
     T *OutputPtr(void *buf, bool is_ref)
     {
+        if (T *t = static_cast<OutputBuf<T> *>(buf)->target)
+            return t;
         auto &vals = static_cast<OutputBuf<T> *>(buf)->values;
         if (is_ref && vals.size() != 1)
             throw std::runtime_error("Expected the output parameter size to be exactly 1.");
         return reinterpret_cast<T *>(vals.data());
+    }
+
+    // A `<T>_output` referring to `*target`, for the `T &` and `T *` parameters of the callbacks. `None` for null.
+    template <typename T>
+    PyObject *OutputWrapTarget(TypeRecord &rec, T *target)
+    {
+        if (!target)
+            return Py_INCREF(Py_None), Py_None;
+        auto *buf = new OutputBuf<T>;
+        buf->target = target;
+        return Wrap(rec, buf, true);
     }
 
     // --- Overload resolution:
@@ -1182,6 +1232,50 @@ def make_enum(base, module, qualname, name, entries, signed, enum_new, enum_bits
     _enum_members[cls] = {to_bits(v): members[n] for n, v, d in entries}
     return cls
 
+
+def add_set_api(cls, q, name, elem):
+    # The Python set protocol of the pybind11 target, over the C++-style methods. The C bindings have no `erase()`,
+    #   so `discard()` rebuilds the set.
+    d = cls.__dict__
+    if not all(k in d for k in ('__init__', '__iter__', 'contains', 'insert', 'size', 'clear')):
+        return
+    init0, contains, insert, size, clear = d['__init__'], d['contains'], d['insert'], d['size'], d['clear']
+    def __init__(self, *args):
+        if len(args) == 1 and not isinstance(args[0], cls):
+            init0(self)
+            for x in args[0]:
+                insert(self, x)
+        else:
+            init0(self, *args)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n', __init__)
+    _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: size(self))
+    _bind(cls, '__contains__', '__contains__(self: ' + q + ', arg0: ' + elem + ') -> bool\n', lambda self, x: contains(self, x))
+    _bind(cls, 'add', 'add(self: ' + q + ', arg0: ' + elem + ') -> None\n', lambda self, x: insert(self, x))
+    def discard(self, x):
+        if not contains(self, x):
+            return 0
+        rest = [y for y in self if y != x]
+        clear(self)
+        for y in rest:
+            insert(self, y)
+        return 1
+    _bind(cls, 'discard', 'discard(self: ' + q + ', arg0: ' + elem + ') -> int\n', discard)
+    def remove(self, x):
+        if not discard(self, x):
+            raise KeyError(x)
+    _bind(cls, 'remove', 'remove(self: ' + q + ', arg0: ' + elem + ') -> None\n', remove)
+    def pop(self):
+        for y in self:
+            discard(self, y)
+            return y
+        raise KeyError('pop from an empty set')
+    _bind(cls, 'pop', 'pop(self: ' + q + ') -> ' + elem + '\n', pop)
+    _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this set.\n', lambda self: name + '{' + ', '.join(str(y) for y in self) + '}')
+
+def finish_enum_operators(cls):
+    for inplace, binary in (('__iand__', '__and__'), ('__ior__', '__or__'), ('__ixor__', '__xor__'), ('__imul__', '__mul__')):
+        if binary in cls.__dict__ and inplace not in cls.__dict__:
+            type.__setattr__(cls, inplace, cls.__dict__[binary])
 
 def add_offsetof(cls, name, value):
     type.__setattr__(cls, '_offsetof_' + name, static_property(lambda c: value, None, None, ''))

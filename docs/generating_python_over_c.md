@@ -84,8 +84,11 @@ The pybind11 target has a few naming bugs that this generator doesn't copy:
 
 * Calling an unbound method with a wrong `self` raises CPython's own `TypeError` text.
 * The iterators are lists built eagerly.
-* Default arguments that aren't arithmetic constants are printed as spelled in C++ (pybind11 prints their `repr()`). The arithmetic ones are evaluated by the parser for its target platform, e.g. `size_t(-1)` differs if the C bindings were parsed for wasm32.
+* Default arguments that aren't arithmetic constants are printed as spelled in C++ (pybind11 prints their `repr()`). The arithmetic ones are evaluated by the parser for its target platform; the maximum of a narrower `size_t` (e.g. wasm32) is printed as this platform's.
 * The overloads are in the order of the C bindings, which can differ from the registration order of the pybind11 build.
-* `_offsetof_<field>` of the reference fields is the one on the parser's target platform (the other offsets are computed on this one).
+* There is no `_offsetof_<field>` for the reference fields if the parser's target platform has another pointer size (the other offsets are computed on this one).
+* The sets have no `erase()` in the C bindings, so `discard()`, `remove()` and `pop()` rebuild the set. `pop()` returns the removed element.
+* A parameter of an empty tag type with a default argument (e.g. a `std::greater<T>` comparator) isn't exposed, the C bindings don't take it.
+* `expected<T, E>` is a class (with `__bool__()`, `value()` and `error()`) only as the element of a `std::vector`. Elsewhere a returned one is unwrapped into the value, or raises its error.
 * The whitespace of the block comments (`/** ... */`) that depends on their indentation in the source.
 * A C++ extension module that uses `pybind11_casters.h` returns the `std::vector`s that have no class in the C bindings (no C function takes or returns them) as Python lists.
