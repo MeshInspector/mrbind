@@ -145,6 +145,7 @@ namespace mrbind::Python
             std::size_t num_required = 0;
             std::string cpp_signature; // To skip the inherited copies.
             std::string template_py_name; // The name with the template arguments, for the disambiguation of the overloads.
+            bool takes_stream = false; // pybind11 registers these after the other overloads.
         };
 
         struct GroupEntry

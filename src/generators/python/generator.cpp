@@ -1313,6 +1313,7 @@ namespace mrbind::Python
             else if ((st.base == "std::ostream" || st.base == "std::istream") && cp.size() == 1)
             {
                 bool out = st.base == "std::ostream";
+                ret.takes_stream = true;
                 checks += std::string("    rt::") + (out ? "OStreamArg " : "IStreamArg ") + v + ";\n";
                 checks += "    if (!" + v + ".Init(" + a + ")) return nullptr;\n";
                 c_args[&p] = "(" + cp[0].c_type + ")static_cast<std::" + (out ? "ostream" : "istream") + " *>(&" + v + ".ss)";
@@ -1971,9 +1972,11 @@ namespace mrbind::Python
         return ret;
     }
 
-    std::string Generator::EmitGroup(const GroupEntry &group, const TypeInfo *cls, bool is_method, bool is_init, int py_flags_extra)
+    std::string Generator::EmitGroup(const GroupEntry &original_group, const TypeInfo *cls, bool is_method, bool is_init, int py_flags_extra)
     {
         (void)py_flags_extra;
+        GroupEntry group = original_group;
+        std::stable_partition(group.overloads.begin(), group.overloads.end(), [](const PreparedOverload &ov){return !ov.takes_stream;});
         std::string id = NewId("G_");
         std::string &o = out_impls;
         std::string ovs;
@@ -2331,6 +2334,25 @@ namespace mrbind::Python
             init.overloads.push_back(ov);
         }
 
+        // The fields that `using Base::x;` brings into this class: pybind11 leaves them to the base.
+        // (Not the methods, those can't be told apart from the ones hiding the methods of the base.)
+        std::vector<const TypeInfo *> all_bases;
+        for (std::size_t i = 0; i < info.bases.size(); i++)
+            all_bases.push_back(info.bases[i]);
+        for (std::size_t i = 0; i < all_bases.size(); i++)
+        {
+            for (const TypeInfo *b : all_bases[i]->bases)
+                if (std::find(all_bases.begin(), all_bases.end(), b) == all_bases.end())
+                    all_bases.push_back(b);
+        }
+        auto IsUsingDeclaredField = [&](const CInterop::ClassField &f)
+        {
+            return !f.is_static && std::any_of(all_bases.begin(), all_bases.end(), [&](const TypeInfo *b)
+            {
+                return b->class_desc && std::any_of(b->class_desc->fields.begin(), b->class_desc->fields.end(), [&](const CInterop::ClassField &bf){return !bf.is_static && bf.name == f.name;});
+            });
+        };
+
         bool has_eq = false;
         for (const auto &m : cls.methods)
         {
@@ -2536,7 +2558,8 @@ namespace mrbind::Python
         }
         for (const auto &f : cls.fields)
         {
-            if (f.inherited_from || hidden_fields.contains(f.name))
+            // The pybind11 target skips the C array fields.
+            if (f.inherited_from || hidden_fields.contains(f.name) || IsUsingDeclaredField(f) || f.type.find('[') != std::string::npos)
                 continue;
             if (!f.is_static && f.layout)
             {
@@ -3342,23 +3365,44 @@ namespace mrbind::Python
             data = FindMethod(info, "_data");
         if (!data)
             data = FindMethod(info, "_begin_mut");
-        bool comparable = GetScalarKind(StripType(elem).base) != ScalarKind::none || StripType(elem).is_ptr || StripType(elem).base == "std::string";
-        if (const TypeInfo *eti = FindType(StripType(elem).base); eti && (eti->IsEnum() || eti->is_vector))
-            comparable = true;
-        if (std::find(c_desc.equality_comparable_types.begin(), c_desc.equality_comparable_types.end(), StripType(elem).base) != c_desc.equality_comparable_types.end())
-            comparable = true;
-        for (const auto &f : c_desc.functions)
+        // Like `pybind11::detail::is_comparable`: a vector is comparable if its elements are.
+        std::function<bool(const std::string &)> IsComparable = [&](const std::string &type) -> bool
         {
-            auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
-            if (op && op->token == "==" && f.params.size() == 2 && StripType(f.params[0].cpp_type).base == StripType(elem).base)
-                comparable = true;
-        }
-        if (const TypeInfo *eti = FindType(StripType(elem).base); eti && eti->IsClass())
-        {
-            for (const auto &mm : eti->class_desc->methods)
-                if (auto op = std::get_if<CInterop::MethodKinds::Operator>(&mm.var); op && op->token == "==")
-                    comparable = true;
-        }
+            StrippedType st = StripType(type);
+            if (GetScalarKind(st.base) != ScalarKind::none || st.is_ptr || st.base == "std::string")
+                return true;
+            const TypeInfo *eti = FindType(st.base);
+            if (eti && eti->IsEnum())
+                return true;
+            if (eti && eti->is_vector)
+            {
+                std::string inner = st.base.substr(12, st.base.size() - 13);
+                int depth = 0;
+                for (std::size_t i = 0; i < inner.size(); i++)
+                {
+                    if (inner[i] == '<' || inner[i] == '(') depth++;
+                    else if (inner[i] == '>' || inner[i] == ')') depth--;
+                    else if (inner[i] == ',' && depth == 0) {inner = inner.substr(0, i); break;}
+                }
+                return IsComparable(Trim(inner));
+            }
+            if (std::find(c_desc.equality_comparable_types.begin(), c_desc.equality_comparable_types.end(), st.base) != c_desc.equality_comparable_types.end())
+                return true;
+            for (const auto &f : c_desc.functions)
+            {
+                auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
+                if (op && op->token == "==" && f.params.size() == 2 && StripType(f.params[0].cpp_type).base == st.base)
+                    return true;
+            }
+            if (eti && eti->IsClass())
+            {
+                for (const auto &mm : eti->class_desc->methods)
+                    if (auto op = std::get_if<CInterop::MethodKinds::Operator>(&mm.var); op && op->token == "==")
+                        return true;
+            }
+            return false;
+        };
+        bool comparable = IsComparable(elem);
         if (comparable)
             out_init += "        PyDict_SetItemString(prims_, \"comparable\", Py_True);\n";
         if (data)

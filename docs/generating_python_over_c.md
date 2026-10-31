@@ -93,4 +93,7 @@ The pybind11 target has a few naming bugs that this generator doesn't copy:
 * `expected<T, E>` is a class (with `__bool__()`, `value()` and `error()`) only as the element of a `std::vector`. Elsewhere a returned one is unwrapped into the value, or raises its error. It has no `make_unexpected()`, the C bindings can't make one in the error state.
 * A `std::function` returning `expected<T, E>` can hold a Python function (pybind11 can't).
 * The abstract classes have no `assign()`, the C bindings don't assign them.
+* The methods that `using Base::f;` brings into a class are bound on it too (the fields aren't, like in pybind11): the description can't tell them from the methods hiding those of the base.
+* A `std::optional` without a class in the C bindings (e.g. only a parameter) has no Python class, its parameters take the value or `None`.
+* The types and functions that aren't in the C bindings (e.g. the namespaces without bound entities, some template instantiations) aren't in the module either.
 * A C++ extension module that uses `pybind11_casters.h` returns the `std::vector`s that have no class in the C bindings (no C function takes or returns them) as Python lists.
