@@ -1275,7 +1275,8 @@ def add_set_api(cls, q, name, elem):
 def finish_enum_operators(cls):
     for inplace, binary in (('__iand__', '__and__'), ('__ior__', '__or__'), ('__ixor__', '__xor__'), ('__imul__', '__mul__')):
         if binary in cls.__dict__ and inplace not in cls.__dict__:
-            type.__setattr__(cls, inplace, cls.__dict__[binary])
+            f = cls.__dict__[binary]
+            _bind(cls, inplace, (f.__doc__ or '').replace(binary + '(', inplace + '('), lambda self, other, f=f: f(self, other))
 
 def add_offsetof(cls, name, value):
     type.__setattr__(cls, '_offsetof_' + name, static_property(lambda c: value, None, None, ''))
@@ -1476,7 +1477,7 @@ def add_array_api(cls, q, name, elem, n, p):
         if not isinstance(i, int) or i < 0 or i >= n:
             raise IndexError()
         p['set'](self, i, v)
-    _bind(cls, '__setitem__', '__setitem__(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', __setitem__)
+    _bind(cls, '__setitem__', '__setitem__(self: ' + q + ', arg0: int, arg1: ' + p.get('elem_arg', elem) + ') -> None\n', __setitem__)
     def __iter__(self):
         return iter([p['get'](self, i) for i in range(n)])
     _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem + ']\n', __iter__)

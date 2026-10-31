@@ -662,7 +662,7 @@ namespace mrbind::Python
         StrippedType st = StripType(param.cpp_type);
         if (st.is_ptr)
             return spelling == "0" || spelling == "nullptr" ? "None" : "'" + spelling + "'";
-        if (const TypeInfo *ti = FindType(st.base); ti && ti->is_std_function && (spelling == "nullptr" || spelling == "{}"))
+        if (const TypeInfo *ti = FindType(st.base); ti && ti->is_std_function && spelling == "nullptr")
             return "None";
         // An arithmetic constant evaluated by the parser: printed like pybind11 prints the value of the default argument expression.
         if (const auto &value = param.default_arg_value)
@@ -3694,6 +3694,8 @@ namespace mrbind::Python
             body += "    ss_ << ']';\n    std::string s_ = std::move(ss_).str();\n    return rt::RetString(s_.data(), s_.data() + s_.size());\n";
             Add("repr", body, 1);
         }
+        if (std::string elem_arg = DocTypeName(elem, false); elem_arg != DocTypeName(elem, true))
+            out_init += "        {PyObject *s_ = PyUnicode_FromString(" + CppStringLiteral(elem_arg) + "); PyDict_SetItemString(prims_, \"elem_arg\", s_); Py_XDECREF(s_);}\n";
         out_init += "        if (!rt::CallRt(\"add_array_api\", Py_BuildValue(\"(OsssnN)\", " + info.var + ".type, " + CppStringLiteral(module_qualname + "." + info.py_qualname) + ", " + CppStringLiteral(info.py_name) + ", " + CppStringLiteral(DocTypeName(elem, true)) + ", (Py_ssize_t)" + std::to_string(n) + ", prims_))) return nullptr;\n    }\n";
     }
 
