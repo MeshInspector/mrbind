@@ -4519,6 +4519,8 @@ namespace mrbind::Python
         file += out_impls;
         file += "PyModuleDef module_def = {PyModuleDef_HEAD_INIT, " + CppStringLiteral(module_name) + ", nullptr, -1, nullptr, nullptr, nullptr, nullptr, nullptr};\n";
         file += "}\n\n";
+        // The headers of Python 3.8 don't give `PyMODINIT_FUNC` the default visibility, which `-fvisibility=hidden` needs.
+        file += "#if !defined(_WIN32) && defined(__GNUC__)\nextern \"C\" __attribute__((visibility(\"default\"))) PyObject *PyInit_" + module_name + "(void);\n#endif\n";
         file += "PyMODINIT_FUNC PyInit_" + module_name + "(void)\n{\n";
         file += "    if (!rt::Init()) return nullptr;\n";
         if (!depends_on.empty())
