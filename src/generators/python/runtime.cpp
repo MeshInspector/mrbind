@@ -12,7 +12,19 @@ namespace mrbind::Python
 #ifndef PY_SSIZE_T_CLEAN
 #define PY_SSIZE_T_CLEAN
 #endif
+// The MSVC debug builds define `_DEBUG`, which makes `pyconfig.h` define `Py_DEBUG` (another object layout) and link
+//   the debug Python. Like pybind11, include `Python.h` without it, after the headers that pick the debug runtime.
+#if defined(_MSC_VER) && defined(_DEBUG) && !defined(Py_DEBUG)
+#include <yvals.h>
+#include <crtdefs.h>
+#define MRBIND_PY_RESTORE_DEBUG
+#undef _DEBUG
+#endif
 #include <Python.h>
+#ifdef MRBIND_PY_RESTORE_DEBUG
+#define _DEBUG
+#undef MRBIND_PY_RESTORE_DEBUG
+#endif
 
 #include <charconv>
 #include <cstdio>
