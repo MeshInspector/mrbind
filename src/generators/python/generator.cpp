@@ -3524,10 +3524,11 @@ namespace mrbind::Python
                 return "    " + f.c_name + "((" + f.params[0].c_params[0].c_type + ")static_cast<std::ostream *>(&ss_), " + arg + ");\n";
             }
         }
+        // The `operator bool` of `expected` is explicit in C++, the C bindings mark it implicit for C#.
         for (const auto &m : ti->class_desc->methods)
         {
             auto conv = std::get_if<CInterop::MethodKinds::ConversionOperator>(&m.var);
-            if (conv && !conv->is_explicit && m.params.size() == 1 && m.params[0].c_params.size() == 1 && GetScalarKind(StripType(m.ret.cpp_type).base) != ScalarKind::none && m.ret.c_type.find('*') == std::string::npos)
+            if (conv && !conv->is_explicit && !ti->is_expected && m.params.size() == 1 && m.params[0].c_params.size() == 1 && GetScalarKind(StripType(m.ret.cpp_type).base) != ScalarKind::none && m.ret.c_type.find('*') == std::string::npos)
                 return "    ss_ << " + m.c_name + "((" + m.params[0].c_params[0].c_type + ")" + ptr + ");\n";
         }
         return {};
