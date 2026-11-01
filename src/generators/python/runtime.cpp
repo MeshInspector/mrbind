@@ -1706,7 +1706,8 @@ def enum_from_bits(cls, bits):
         {Py_tp_new, reinterpret_cast<void *>(PyType_GenericNew)},
         {0, nullptr},
     };
-    inline PyType_Spec object_spec = {"mrbind_py.Object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
+    // Named like in pybind11: `pybind11-stubgen` knows it.
+    inline PyType_Spec object_spec = {"pybind11_builtins.pybind11_object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
 
     // Sets up the runtime. Call first in the module init.
     // ---- The C++ interop API, for the extension modules in C++ that pass the objects of this module (see `cpp_api.h` in mrbind).

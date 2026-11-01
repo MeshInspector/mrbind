@@ -484,6 +484,9 @@ namespace mrbind::Python
         (void)is_return;
         StrippedType st = StripType(cpp_type);
         std::string t = st.base;
+        // A reference to a pointer, e.g. returned by the getter of a pointer field: pybind11 names the pointee.
+        if (std::string p = Trim(EndsWith(t, "const") ? t.substr(0, t.size() - 5) : t); st.is_ref && EndsWith(p, "*"))
+            return DocTypeName(p, is_return);
         if (t == "void")
             return "None";
         if (t == "char")
@@ -519,6 +522,27 @@ namespace mrbind::Python
         auto it = types.find(t);
         if (it != types.end() && (it->second.IsClass() || it->second.IsEnum()))
             return (it->second.foreign ? depends_on : module_qualname) + "." + it->second.py_qualname;
+        // Without a class (e.g. only a parameter), like the pybind11 type casters name them.
+        bool is_optional = StartsWith(t, "std::optional<"), is_variant = StartsWith(t, "std::variant<");
+        if ((is_optional || is_variant) && EndsWith(t, ">"))
+        {
+            std::string inner = t.substr(t.find('<') + 1);
+            inner.pop_back();
+            std::vector<std::string> args;
+            int depth = 0;
+            std::size_t start = 0;
+            for (std::size_t i = 0; i <= inner.size(); i++)
+            {
+                if (i < inner.size() && (inner[i] == '<' || inner[i] == '(')) depth++;
+                else if (i < inner.size() && (inner[i] == '>' || inner[i] == ')')) depth--;
+                else if (i == inner.size() || (inner[i] == ',' && depth == 0))
+                {
+                    args.push_back(DocTypeName(Trim(inner.substr(start, i - start)), is_return));
+                    start = i + 1;
+                }
+            }
+            return (is_optional ? "Optional[" : "Union[") + Join(args, ", ") + "]";
+        }
         return ToPythonName(AdjustName(t));
     }
 
