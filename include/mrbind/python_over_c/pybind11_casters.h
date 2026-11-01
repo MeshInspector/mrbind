@@ -6,9 +6,9 @@
 //   at the global scope, before they're used in the bindings.
 // Both `T` (by value, reference and pointer) and `std::shared_ptr<T>` are handled.
 
-#include "cpp_api.h"
-
 #include <pybind11/pybind11.h>
+
+#include "cpp_api.h"
 
 #include <memory>
 
