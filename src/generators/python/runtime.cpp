@@ -1181,6 +1181,10 @@ class pybind11_static_property(property):
         self.fset(obj if isinstance(obj, type) else type(obj), value)
 
 class pybind11_type(type):
+    # Python 3.8 calls an inherited `type.mro()` of this metaclass wrong from the second subclass of `Object` on
+    #   ("'pybind11_type' object is not iterable"), but not one defined here.
+    def mro(cls):
+        return type.mro(cls)
     def __setattr__(cls, name, value):
         for k in cls.__mro__:
             d = k.__dict__.get(name)
