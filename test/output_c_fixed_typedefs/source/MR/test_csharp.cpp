@@ -2005,8 +2005,8 @@ const MR_C_std_string *MR_CSharp_test_string_cptr(const MR_C_std_string *a, cons
 MR_C_std_string_view *MR_CSharp_test_stringview(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     return (MR_C_std_string_view *)new std::string_view(::MR::CSharp::test_stringview(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(MR::CSharp::default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view(MR::CSharp::default_stringview))
     ));
 }
 
@@ -2021,24 +2021,24 @@ MR_C_std_string_view *MR_CSharp_test_stringview_ref(MR_C_std_string_view *a, MR_
 const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     return (const MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_cref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(MR::CSharp::default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view(MR::CSharp::default_stringview))
     ));
 }
 
 MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     return (MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_rref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)MR::CSharp::default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)MR::CSharp::default_stringview))
     )));
 }
 
 const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     return (const MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_crref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)MR::CSharp::default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)MR::CSharp::default_stringview))
     )));
 }
 
