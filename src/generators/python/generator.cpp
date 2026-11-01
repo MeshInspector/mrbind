@@ -3605,12 +3605,6 @@ namespace mrbind::Python
             std::string f = sk == ScalarKind::boolean ? "ArgBool" : sk == ScalarKind::integer ? "ArgInt" : "ArgFloat";
             return "    " + st.base + " " + var + "v_{};\n    if (!rt::" + f + "(" + py + ", true, " + var + "v_)) " + fail + "\n    const " + st.base + " *" + var + " = &" + var + "v_;\n";
         }
-        if (ti && (st.base == "std::string" || st.base == "std::filesystem::path"))
-        {
-            // A temporary, destroyed on return.
-            std::string h = "std::unique_ptr<" + ti->c_name + ", decltype(&" + ti->c_name + "_Destroy)>";
-            return "    rt::StringArg " + var + "s_;\n    if (!rt::" + (st.base == "std::string" ? "ArgString" : "ArgPath") + "(" + py + ", " + var + "s_)) " + fail + "\n    " + h + " " + var + "h_(" + ti->c_name + "_ConstructFrom(" + var + "s_.data, " + var + "s_.end()), &" + ti->c_name + "_Destroy);\n    const " + ti->c_name + " *" + var + " = " + var + "h_.get();\n";
-        }
         if (ti && ti->IsEnum())
             return "    " + ti->c_name + " " + var + "v_{};\n    if (!rt::ArgEnum(" + py + ", " + ti->var + ", " + var + "v_)) " + fail + "\n    const " + ti->c_name + " *" + var + " = &" + var + "v_;\n";
         if (ti && ti->IsClass() && !ti->no_class)
@@ -3910,10 +3904,19 @@ namespace mrbind::Python
         if (assign)
             (void)Prim("assign", *assign, 1);
         // `__setitem__`.
-        auto key_arg = ArgToPtr(key, "a[1]", "k_");
+        // The string and path keys are passed as `const char *` ranges.
+        std::optional<std::string> key_arg;
+        std::string key_c_args = "k_";
+        if (const auto &kp = ref->params.back().c_params; kp.size() == 2 && kp[0].c_type == "const char *" && kp[1].c_type == "const char *")
+        {
+            key_arg = "    rt::StringArg k_;\n    if (!rt::" + std::string(StripType(key).base == "std::filesystem::path" ? "ArgPath" : "ArgString") + "(a[1], k_)) {PyErr_SetString(PyExc_TypeError, \"Incompatible key type.\"); return nullptr;}\n";
+            key_c_args = "k_.data, k_.end()";
+        }
+        else
+            key_arg = ArgToPtr(key, "a[1]", "k_");
         auto set = AssignFromPy(value, "dst_", "a[2]");
         if (key_arg && set)
-            Add("set", self + *key_arg + "    auto dst_ = " + ref->c_name + "((" + m + " *)self_, k_);\n" + *set + "    Py_RETURN_NONE;\n", 3);
+            Add("set", self + *key_arg + "    auto dst_ = " + ref->c_name + "((" + m + " *)self_, " + key_c_args + ");\n" + *set + "    Py_RETURN_NONE;\n", 3);
         // Iteration.
         auto key_conv = CToPy("const " + key + " &", "const " + key_c + " *", "k_", "nullptr", "kp_");
         auto value_conv = CToPy(value + " &", value_c + " *", "v_", "a[0]", "vp_");

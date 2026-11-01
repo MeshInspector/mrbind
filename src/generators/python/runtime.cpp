@@ -20,7 +20,6 @@ namespace mrbind::Python
 #include <cstring>
 #include <exception>
 #include <iomanip>
-#include <memory>
 #include <sstream>
 #include <new>
 #include <stdexcept>
