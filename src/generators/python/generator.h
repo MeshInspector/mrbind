@@ -47,6 +47,9 @@ namespace mrbind::Python
         std::vector<std::string> ignored_c_files;
         // Regexes on the C++ names of the classes that get `__iter__` over `[0, elements)` with `operator[]` (for `begin()`/`end()` templates the C bindings don't have).
         std::vector<std::string> iterate_by_index_regexes;
+        // The qualified name of another module generated from the same description, e.g. `mypackage.mylib`.
+        // The classes and enums of the ignored C files are then taken from it instead of skipped.
+        std::string depends_on;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
@@ -80,6 +83,8 @@ namespace mrbind::Python
             std::string py_qualname; // Relative to the module, e.g. `MR.Widget`.
             std::string scope_var; // Where the class is stored.
             std::string var; // `T_<n>` for classes (a `TypeRecord`), `E_<n>` for enums (a `PyObject *`).
+            bool foreign = false; // From `depends_on`. Then `T_<n>` is a macro for its record there.
+            std::string foreign_ptr; // `F_<n>`, the pointer to that record.
             std::vector<const TypeInfo *> bases; // Direct bases.
             bool is_std_function = false;
             bool is_vector = false; // `std::vector<T>`, gets the API of `pybind11::bind_vector()`.
@@ -113,6 +118,11 @@ namespace mrbind::Python
         // The namespaces seen in the input, by C++ qualified name (`MR`, `MR::Nested`), to their Python scope.
         std::map<std::string, Scope> namespaces;
         std::vector<std::string> namespace_order;
+        // With `depends_on`: the namespaces that have own entities (and their parents), the others aren't created.
+        std::set<std::string> used_namespaces;
+        void MarkNamespaceUsed(const std::vector<std::string> &cpp_parts);
+        [[nodiscard]] bool IsNamespaceSkipped(const std::string &key) const {return !depends_on.empty() && !used_namespaces.contains(key);}
+        std::set<std::string> skipped_scope_vars; // Of those, and of the foreign classes.
 
         // The generated code.
         // The empty tag types (e.g. `std::monostate`, `std::greater<T>`), as classes without constructors like in pybind11.

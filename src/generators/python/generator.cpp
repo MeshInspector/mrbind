@@ -347,7 +347,7 @@ namespace mrbind::Python
     std::string Generator::ElemDocTypeName(const std::string &type, bool is_return)
     {
         if (auto it = types.find(StripType(type).base); it != types.end() && it->second.is_expected && !it->second.no_class)
-            return module_qualname + "." + it->second.py_qualname;
+            return (it->second.foreign ? depends_on : module_qualname) + "." + it->second.py_qualname;
         return DocTypeName(type, is_return);
     }
 
@@ -473,6 +473,12 @@ namespace mrbind::Python
         return namespaces.emplace(key, std::move(scope)).first->second;
     }
 
+    void Generator::MarkNamespaceUsed(const std::vector<std::string> &cpp_parts)
+    {
+        for (std::size_t i = 0; i <= cpp_parts.size(); i++)
+            used_namespaces.insert(Join(std::vector<std::string>(cpp_parts.begin(), cpp_parts.begin() + std::ptrdiff_t(i)), "::"));
+    }
+
     std::string Generator::DocTypeName(std::string cpp_type, bool is_return)
     {
         (void)is_return;
@@ -512,7 +518,7 @@ namespace mrbind::Python
             return DocTypeName(t.substr(16, t.size() - 17), is_return);
         auto it = types.find(t);
         if (it != types.end() && (it->second.IsClass() || it->second.IsEnum()))
-            return module_qualname + "." + it->second.py_qualname;
+            return (it->second.foreign ? depends_on : module_qualname) + "." + it->second.py_qualname;
         return ToPythonName(AdjustName(t));
     }
 
@@ -755,7 +761,7 @@ namespace mrbind::Python
             return PyStrRepr(spelling); // pybind11 passes the spelling itself.
         auto it = types.find(st.base);
         if (it != types.end() && (it->second.IsClass() || it->second.IsEnum()) && !it->second.is_std_function && spelling == "{}")
-            return module_qualname + "." + it->second.py_qualname + "()";
+            return (it->second.foreign ? depends_on : module_qualname) + "." + it->second.py_qualname + "()";
         if (auto tag = tag_classes.find(st.base); tag != tag_classes.end() && spelling == "{}")
             return module_qualname + "." + tag->second.first + "()";
         // The float literals as Clang prints them, like pybind11 has them: `1.0f` -> `1.F`, `-0.5f` -> `-0.5F`.
@@ -767,12 +773,22 @@ namespace mrbind::Python
     {
         for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
         {
+            bool foreign = false;
             if (auto c = std::get_if<CInterop::TypeKinds::Class>(&type.var); c && IsIgnoredCFile(c->output_file.relative_name))
-                continue;
+            {
+                if (depends_on.empty())
+                    continue;
+                foreign = true;
+            }
             if (auto e = std::get_if<CInterop::TypeKinds::Enum>(&type.var); e && IsIgnoredCFile(e->output_file.relative_name))
-                continue;
+            {
+                if (depends_on.empty())
+                    continue;
+                foreign = true;
+            }
             TypeInfo info;
             info.cpp_name = cpp_name;
+            info.foreign = foreign;
             info.traits = type.traits ? &*type.traits : nullptr;
             if (auto c = std::get_if<CInterop::TypeKinds::Class>(&type.var))
             {
@@ -1000,6 +1016,8 @@ namespace mrbind::Python
             }
             std::vector<std::string> ns_parts(parts.begin(), parts.begin() + std::ptrdiff_t(ns_len));
             Scope &scope = GetNamespaceScope(ns_parts);
+            if (!info.foreign)
+                MarkNamespaceUsed(ns_parts);
             if (flatten)
             {
                 info.py_name = ToPythonName(AdjustName(TypeidSpelling(Join(std::vector<std::string>(parts.begin() + std::ptrdiff_t(ns_len), parts.end()), "::"))));
@@ -1024,16 +1042,27 @@ namespace mrbind::Python
 
         for (const auto &f : c_desc.functions)
         {
-            if (auto reg = std::get_if<CInterop::FuncKinds::Regular>(&f.var))
+            if (auto reg = std::get_if<CInterop::FuncKinds::Regular>(&f.var); reg && !IsIgnoredCFile(f.output_file.relative_name))
             {
                 std::vector<std::string> parts = SplitQualified(reg->name);
                 (void)GetNamespaceScope(std::vector<std::string>(parts.begin(), parts.end() - 1));
+                MarkNamespaceUsed(std::vector<std::string>(parts.begin(), parts.end() - 1));
             }
+        }
+        for (const auto &[key, s] : namespaces)
+        {
+            if (IsNamespaceSkipped(key))
+                skipped_scope_vars.insert(s.var);
         }
 
         for (auto &[cpp_name, info] : types)
         {
             info.var = NewId(info.IsClass() ? "T_" : "E_");
+            if (info.foreign && info.IsClass() && !info.no_class)
+            {
+                info.foreign_ptr = NewId("F_");
+                skipped_scope_vars.insert(info.var + ".type");
+            }
             types_by_c_name[info.c_name] = &info;
             if (info.IsClass())
             {
@@ -3233,10 +3262,12 @@ namespace mrbind::Python
         {
             for (const auto &[target, list] : aliases_by_type)
             {
+                if (target->foreign)
+                    continue;
                 std::string value = target->IsClass() ? target->var + ".type" : target->var;
                 for (const auto &a : list)
                 {
-                    if (a.doc_only)
+                    if (a.doc_only || skipped_scope_vars.contains(a.scope_var))
                         continue;
                     if (a.scope_var == "module")
                         out_init_classes += "    Py_INCREF(" + value + "); if (PyModule_AddObject(module, " + CppStringLiteral(a.name) + ", " + value + ") < 0) return nullptr;\n";
@@ -3265,7 +3296,7 @@ namespace mrbind::Python
         }
         auto Emit = [&](const std::string &scope_var, const std::string &name, const TypeInfo &target)
         {
-            if (name.empty() || target.no_class || !done.emplace(scope_var, name).second)
+            if (name.empty() || target.no_class || target.foreign || skipped_scope_vars.contains(scope_var) || !done.emplace(scope_var, name).second)
                 return;
             std::string value = target.IsClass() ? target.var + ".type" : target.var;
             if (scope_var == "module")
@@ -4133,7 +4164,7 @@ namespace mrbind::Python
             auto reg = std::get_if<CInterop::FuncKinds::Regular>(&f.var);
             if (!reg)
                 continue; // Operators are injected into the classes.
-            if (IsIgnoredForPython(reg->name + "(" + (f.params.empty() ? std::string() : f.params[0].cpp_type) + ")"))
+            if (IsIgnoredCFile(f.output_file.relative_name) || IsIgnoredForPython(reg->name + "(" + (f.params.empty() ? std::string() : f.params[0].cpp_type) + ")"))
                 continue;
             std::vector<std::string> parts = SplitQualified(reg->name);
             std::vector<std::string> ns(parts.begin(), parts.end() - 1);
@@ -4198,7 +4229,17 @@ namespace mrbind::Python
         // Type records.
         for (TypeInfo *info : class_order)
         {
-            if (info->IsClass())
+            if (!info->foreign_ptr.empty())
+            {
+                out_decls += "static rt::TypeRecord *" + info->foreign_ptr + " = nullptr;\n#define " + info->var + " (*" + info->foreign_ptr + ") // " + info->cpp_name + "\n";
+                out_init_classes += "    " + info->foreign_ptr + " = rt::DepRecord(" + CppStringLiteral(info->cpp_name) + ");\n    if (!" + info->foreign_ptr + ") return nullptr;\n";
+            }
+            else if (info->foreign && info->IsEnum())
+            {
+                out_decls += "static PyObject *" + info->var + " = nullptr; // " + info->cpp_name + "\n";
+                out_init_classes += "    " + info->var + " = rt::DepAttr(" + CppStringLiteral(info->py_qualname) + ");\n    if (!" + info->var + ") return nullptr;\n";
+            }
+            else if (info->IsClass())
             {
                 bool destructible = info->traits && info->traits->destructible != CInterop::SpecialMemberKind::disabled;
                 std::string destroy = info->IsExposedStruct() ? "[](void *p) {delete (" + info->c_name + " *)p;}" : destructible ? "[](void *p) {" + info->c_name + "_Destroy((" + info->c_name + " *)p);}" : std::string("nullptr");
@@ -4218,9 +4259,10 @@ namespace mrbind::Python
                     used_tags.insert(StripType(p.cpp_type).base);
         };
         for (const auto &f : c_desc.functions)
-            NoteTags(f);
+            if (!IsIgnoredCFile(f.output_file.relative_name))
+                NoteTags(f);
         for (const auto &[n, t] : c_desc.cpp_types.Map())
-            if (auto c = std::get_if<CInterop::TypeKinds::Class>(&t.var))
+            if (auto c = std::get_if<CInterop::TypeKinds::Class>(&t.var); c && !IsIgnoredCFile(c->output_file.relative_name))
                 for (const auto &m : c->methods)
                     NoteTags(m);
         for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
@@ -4242,7 +4284,7 @@ namespace mrbind::Python
             const Scope &s = namespaces.at(key);
             if (s.var == "module")
                 continue;
-            if (key.empty())
+            if (key.empty() || IsNamespaceSkipped(key))
                 continue;
             std::vector<std::string> parent_parts(s.ns_parts.begin(), s.ns_parts.end() - 1);
             const Scope &parent = namespaces.at(Join(parent_parts, "::"));
@@ -4261,7 +4303,7 @@ namespace mrbind::Python
 
         for (TypeInfo *info : class_order)
         {
-            if (info->no_class)
+            if (info->no_class || info->foreign)
                 continue;
             std::string scope = info->scope_var;
             std::string value;
@@ -4359,6 +4401,8 @@ namespace mrbind::Python
             out_init_classes += "    rt::holder_destroy = [](void *p) {" + cv->c_name + "_Destroy((" + cv->c_name + " *)p);};\n";
         for (TypeInfo *info : class_order)
         {
+            if (info->foreign)
+                continue;
             if (info->pointee && !info->pointee_const && !info->pointee->IsExposedStruct() && FindMethod(*info, "_Construct"))
                 out_init_classes += "    " + info->pointee->var + ".holder_from_raw = [](void *p) -> void * {" + info->c_name + " *sp_ = " + info->c_name + "_Construct((" + info->pointee->c_name + " *)p); void *h_ = " + HolderFromSharedPtr(*info, "sp_") + "; " + info->c_name + "_Destroy(sp_); return h_;};\n";
             if (info->IsClass() && !info->no_class)
@@ -4378,7 +4422,7 @@ namespace mrbind::Python
         }
         for (TypeInfo *info : class_order)
         {
-            if (!info->IsClass() || info->no_class)
+            if (!info->IsClass() || info->no_class || info->foreign)
                 continue;
             if (info->is_vector)
             {
@@ -4431,7 +4475,12 @@ namespace mrbind::Python
         EmitFreeFunctions();
 
         std::string file;
+        // The modules generated with `--depends-on` share the runtime state only with the same runtime.
+        unsigned long long runtime_hash = 14695981039346656037ull;
+        for (char ch : std::string_view(runtime_header))
+            runtime_hash = (runtime_hash ^ (unsigned char)ch) * 1099511628211ull;
         file += "// Generated by mrbind_gen_python.\n";
+        file += "#define MRBIND_PY_RUNTIME_HASH " + std::to_string(runtime_hash) + "ull\n";
         file += "#include \"mrbind_py_runtime.h\"\n\n#include <cstring>\n#include <iomanip>\n#include <ostream>\n#include <sstream>\n\n";
         for (const auto &inc : c_includes)
             file += "#include <" + inc + ".h>\n";
@@ -4444,6 +4493,8 @@ namespace mrbind::Python
         file += "}\n\n";
         file += "PyMODINIT_FUNC PyInit_" + module_name + "(void)\n{\n";
         file += "    if (!rt::Init()) return nullptr;\n";
+        if (!depends_on.empty())
+            file += "    if (!rt::InitDependent(" + CppStringLiteral(depends_on) + ")) return nullptr;\n";
         file += "    PyObject *module = PyModule_Create(&module_def);\n    if (!module) return nullptr;\n";
         file += "    PyObject *module_name = PyUnicode_FromString(" + CppStringLiteral(module_qualname) + ");\n";
         file += "    PyObject *bases_default = PyTuple_Pack(1, rt::object_type);\n";
@@ -4454,7 +4505,7 @@ namespace mrbind::Python
         // The C++ interop API.
         for (TypeInfo *info : class_order)
         {
-            if (info->IsClass() && !info->no_class)
+            if (info->IsClass() && !info->no_class && !info->foreign)
                 file += "    rt::records_by_cpp_name[" + CppStringLiteral(info->cpp_name) + "] = &" + info->var + ";\n";
         }
         file += "    if (!rt::AddCppApi(module, " + CppStringLiteral(module_qualname + ".__mrbind_cpp_api__") + ")) return nullptr;\n";

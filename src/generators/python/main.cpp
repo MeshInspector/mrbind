@@ -136,6 +136,14 @@ int main(int argc, char **argv)
             generator.ignored_c_files.push_back(std::string(args[0]));
         },
     });
+    args_parser.AddFlag("--depends-on", {
+        .arg_names = {"module qualname"},
+        .desc = "Another module generated from the same description (with the same `mrbind_gen_python`), e.g. `mypackage.mylib`. The classes and enums of the C files skipped by `--ignore-c-file` are taken from it, so this module can be a sub-library that uses its types.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.depends_on = std::string(args[0]);
+        },
+    });
     args_parser.AddFlag("--iterate-by-index", {
         .allow_repeat = true,
         .arg_names = {"regex"},
