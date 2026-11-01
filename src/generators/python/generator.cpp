@@ -1167,6 +1167,10 @@ namespace mrbind::Python
         }
 
         std::string owner_expr = self_kind == 1 ? "a[0]" : "nullptr";
+        // A free function returning a reference (e.g. `operator+=` bound as a method) keeps its first reference argument
+        //   alive, like the methods keep `self`: otherwise `v[i] += x` would assign from a freed temporary.
+        if (self_kind == 0 && !func.params.empty() && StripType(func.params[0].cpp_type).is_ref)
+            owner_expr = swap_first_two && func.params.size() > 1 ? "a[1]" : "a[0]";
 
         for (std::size_t pi = 0; pi < py_params.size(); pi++)
         {
