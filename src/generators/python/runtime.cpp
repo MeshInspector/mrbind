@@ -1947,6 +1947,36 @@ def enum_from_bits(cls, bits):
         return Wrap(*rec, ptr, false, nullptr, holder);
     }
 
+    inline PyObject *ApiWrapEx(const char *cpp_type, void *ptr, int owned, PyObject *owner, int is_const)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+            return nullptr;
+        return Wrap(*rec, ptr, owned != 0, owned ? nullptr : owner, nullptr, is_const != 0);
+    }
+
+    inline PyObject *ApiWrapSharedEx(const char *cpp_type, void *ptr, void *holder, int is_const)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+        {
+            holder_destroy(holder);
+            return nullptr;
+        }
+        return Wrap(*rec, ptr, false, nullptr, holder, is_const != 0);
+    }
+
+    inline int ApiIsMutable(PyObject *obj, const char *cpp_type)
+    {
+        TypeRecord *rec = FindRecordForCpp(cpp_type);
+        if (!rec)
+        {
+            PyErr_Clear();
+            return 0;
+        }
+        return PyObject_TypeCheck(obj, reinterpret_cast<PyTypeObject *>(rec->type));
+    }
+
     // Must match `mrbind_py::CppApi` in `cpp_api.h`.
     struct CppApi
     {
@@ -1955,6 +1985,10 @@ def enum_from_bits(cls, bits):
         const void *(*get_holder)(PyObject *obj);
         PyObject *(*wrap)(const char *cpp_type, void *ptr, int owned, PyObject *owner);
         PyObject *(*wrap_shared)(const char *cpp_type, void *ptr, void *holder);
+        // Version 2:
+        PyObject *(*wrap_ex)(const char *cpp_type, void *ptr, int owned, PyObject *owner, int is_const);
+        PyObject *(*wrap_shared_ex)(const char *cpp_type, void *ptr, void *holder, int is_const);
+        int (*is_mutable)(PyObject *obj, const char *cpp_type);
 
         // Not in `cpp_api.h`: for the modules generated with `--depends-on` this one, which share its runtime state.
         unsigned long long runtime_hash; // Of the runtime source, the state is shared only with the same runtime.
@@ -1962,7 +1996,7 @@ def enum_from_bits(cls, bits):
         PyObject **object_type, **meta, **static_property;
         void (**holder_destroy)(void *);
     };
-    inline CppApi cpp_api = {1, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared, MRBIND_PY_RUNTIME_HASH, FindRecordForCpp, &object_type, &meta, &static_property, &holder_destroy};
+    inline CppApi cpp_api = {2, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared, ApiWrapEx, ApiWrapSharedEx, ApiIsMutable, MRBIND_PY_RUNTIME_HASH, FindRecordForCpp, &object_type, &meta, &static_property, &holder_destroy};
 
     // ---- For the modules generated with `--depends-on`.
 

@@ -63,7 +63,9 @@ For pybind11 modules, [`include/mrbind/python_over_c/pybind11_casters.h`](/inclu
 
 MRBIND_PY_FOREIGN_TYPE(MyLib::Mesh, "MyLib::Mesh", "mypackage.mylib.Mesh")
 ```
-Then the pybind11 functions can take and return `MyLib::Mesh` by value, reference, pointer and `std::shared_ptr`. Such a module must use the same C++ standard library as the C bindings.
+Then the pybind11 functions can take and return `MyLib::Mesh` by value, reference, pointer, `std::shared_ptr` and `std::shared_ptr<const ...>`. Such a module must use the same C++ standard library as the C bindings.
+
+The casters keep the [const classes](#const-classes-and-ownership): a returned const reference or pointer (or `std::shared_ptr<const T>`) is a `ConstT`, and a non-const reference or pointer parameter raises `TypeError` for a `ConstT` (a `std::shared_ptr<T>` parameter doesn't match it, so pybind11 tries the other overloads). The parameters by value (and `T &&`, which pybind11 can't tell from them) take a copy. Version 2 of the interop API (`wrap_ex()`, `wrap_shared_ex()`, `is_mutable()`) provides this.
 
 ## Comparing with the pybind11 bindings
 
