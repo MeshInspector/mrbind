@@ -2,11 +2,13 @@
 
 #include "generators/python/runtime.h"
 
+#include "common/parse_cpp_comment.h"
 #include "common/strings.h"
 
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
 #include <functional>
 #include <regex>
@@ -136,7 +138,15 @@ namespace mrbind::Python
                 return "nan";
             if (std::isinf(value))
                 return value < 0 ? "-inf" : "inf";
-            std::string sci = Strings::ShortestScientific(value);
+            // The shortest scientific notation that reads back as `value` (no floating-point `std::to_chars`, libc++ has it only since macOS 13.3).
+            char sci_buf[64];
+            for (int precision = 0; precision < 17; precision++)
+            {
+                std::snprintf(sci_buf, sizeof sci_buf, "%.*e", precision, value);
+                if (std::strtod(sci_buf, nullptr) == value)
+                    break;
+            }
+            std::string sci = sci_buf;
             // `-1.2345e+05` -> sign, digits, exponent.
             bool neg = false;
             std::size_t i = 0;
@@ -354,9 +364,6 @@ namespace mrbind::Python
 
     std::string Generator::ProcessComment(const CInterop::Comment &comment, bool require_generated_from)
     {
-        // The parsed part as `clang::RawComment::getFormattedText()` returns it, which keeps the original indentation.
-        if (!comment.formatted.empty())
-            return comment.formatted;
         const std::string &c_style = comment.c_style;
         // The comment of the default constructors added by the C generator, when they have no parsed one.
         static constexpr std::string_view default_ctor_comment = "Constructs an empty (default-constructed) instance.";
@@ -364,58 +371,22 @@ namespace mrbind::Python
             return "";
         // Like `clang::RawComment::getFormattedText()` that the pybind11 target uses: no comment markers,
         //   and the indentation of the first line removed from all lines.
-        std::vector<std::string_view> lines;
-        // A block comment with nothing on the line of `/**`: then the lines keep the space after their `*`, and the line of `*/` gives a space.
-        bool block = false;
-        std::size_t pos = 0;
-        while (pos < c_style.size())
+        std::vector<std::string> lines;
+        const std::string text = RemoveSlashesFromCppComment(c_style);
+        for (std::string_view rest = text; !rest.empty();)
         {
-            std::size_t end = c_style.find('\n', pos);
-            if (end == std::string::npos)
-                end = c_style.size();
-            std::string_view line(c_style.data() + pos, end - pos);
-            const bool first = pos == 0;
-            pos = end + 1;
-            while (!line.empty() && (line.front() == ' ' || line.front() == '\t'))
-                line.remove_prefix(1);
-            bool had_marker = false;
-            for (std::string_view marker : {"///<", "//!<", "//<", "///", "//!", "//", "/**<", "/*!<", "/**", "/*!", "/*"})
-            {
-                if (StartsWith(line, marker))
-                {
-                    line.remove_prefix(marker.size());
-                    had_marker = true;
-                    if (first && StartsWith(marker, "/*") && line.find_first_not_of(' ') == std::string_view::npos)
-                        block = true;
-                    break;
-                }
-            }
-            if (!had_marker && StartsWith(line, "*/"))
-            {
-                if (block)
-                    lines.push_back(" ");
-                continue;
-            }
-            if (!had_marker && StartsWith(line, "*"))
-                line.remove_prefix(1);
-            if (EndsWith(line, "*/"))
-                line.remove_suffix(2);
+            std::size_t end = rest.find('\n');
+            std::string line(rest.substr(0, end));
+            rest.remove_prefix(end == std::string_view::npos ? rest.size() : end + 1);
             // Everything from here on is added by the C generator.
-            if (StartsWith(Trim(std::string(line)), "Generated from ") || Trim(std::string(line)) == default_ctor_comment)
+            if (StartsWith(Trim(line), "Generated from ") || Trim(line) == default_ctor_comment)
                 break;
-            lines.push_back(line);
-        }
-        if (block)
-        {
-            std::string ret;
-            for (std::size_t i = 0; i < lines.size(); i++)
-                ret += (i ? "\n" : "") + std::string(lines[i]);
-            return ret;
+            lines.push_back(std::move(line));
         }
         std::size_t indent = std::string_view::npos;
-        for (std::string_view line : lines)
+        for (const std::string &line : lines)
         {
-            if (std::size_t i = line.find_first_not_of(' '); i != std::string_view::npos)
+            if (std::size_t i = line.find_first_not_of(' '); i != std::string::npos)
             {
                 indent = i;
                 break;
@@ -674,39 +645,6 @@ namespace mrbind::Python
         return name;
     }
 
-    // Python's `repr()` of a `double`, from its shortest round-trip scientific form `d.ddde+XX`.
-    static std::string PyFloatRepr(std::string s)
-    {
-        std::string sign;
-        if (!s.empty() && s.front() == '-')
-        {
-            sign = "-";
-            s.erase(0, 1);
-        }
-        std::size_t e = s.find('e');
-        if (e == std::string::npos)
-            return sign + s; // `inf`, `nan`.
-        std::string digits = s.substr(0, e);
-        digits.erase(std::remove(digits.begin(), digits.end(), '.'), digits.end());
-        int exp = std::stoi(s.substr(e + 1));
-        if (exp >= -4 && exp <= 15)
-        {
-            // Fixed notation, always with a fractional part.
-            if (exp >= 0)
-            {
-                while (digits.size() < std::size_t(exp) + 1)
-                    digits += '0';
-                std::string frac = digits.substr(std::size_t(exp) + 1);
-                return sign + digits.substr(0, std::size_t(exp) + 1) + "." + (frac.empty() ? "0" : frac);
-            }
-            return sign + "0." + std::string(std::size_t(-exp - 1), '0') + digits;
-        }
-        std::string exp_str = std::to_string(exp < 0 ? -exp : exp);
-        if (exp_str.size() < 2)
-            exp_str = "0" + exp_str;
-        return sign + digits.substr(0, 1) + (digits.size() > 1 ? "." + digits.substr(1) : "") + "e" + (exp < 0 ? "-" : "+") + exp_str;
-    }
-
     std::string Generator::DefaultArgRepr(const CInterop::FuncParam &param)
     {
         if (!param.default_arg_spelling)
@@ -717,21 +655,9 @@ namespace mrbind::Python
             return spelling == "0" || spelling == "nullptr" ? "None" : "'" + spelling + "'";
         if (const TypeInfo *ti = FindType(st.base); ti && ti->is_std_function && spelling == "nullptr")
             return "None";
-        // An arithmetic constant evaluated by the parser: printed like pybind11 prints the value of the default argument expression.
-        if (const auto &value = param.default_arg_value)
-        {
-            if (*value == "true" || *value == "false")
-                return *value == "true" ? "True" : "False";
-            if (value->find('e') != std::string::npos || value->find("inf") != std::string::npos || value->find("nan") != std::string::npos)
-                return PyFloatRepr(*value);
-            if (st.base == "char" && !value->empty() && std::all_of(value->begin(), value->end(), [](char ch){return std::isdigit((unsigned char)ch);}))
-                return PyStrRepr(std::string(1, char(std::stoi(*value)))); // pybind11 converts `char` to `str`.
-            // The parser's platform might have a 32-bit `size_t`: its maximum is this one's maximum.
-            if (const PrimitiveTypeInfo *pt = c_desc.platform_info.FindPrimitiveType(st.base); pt && pt->is_size_type && pt->kind == PrimitiveTypeInfo::Kind::unsigned_integral && pt->type_size < sizeof(std::size_t)
-                && *value == std::to_string((1ull << (pt->type_size * 8)) - 1))
-                return std::to_string(std::size_t(-1));
-            return *value;
-        }
+        // A character literal: pybind11 converts `char` to `str`.
+        if (st.base == "char" && spelling.size() == 3 && spelling.front() == '\'' && spelling.back() == '\'')
+            return PyStrRepr(spelling.substr(1, 1));
         ScalarKind kind = GetScalarKind(st.base);
         if (kind != ScalarKind::none)
         {
@@ -2488,7 +2414,7 @@ namespace mrbind::Python
             {
                 return b->class_desc && std::any_of(b->class_desc->fields.begin(), b->class_desc->fields.end(), [&](const CInterop::ClassField &bf)
                 {
-                    return bf.is_static == f.is_static && bf.name == f.name && (!f.is_static || (bf.type == f.type && bf.comment.formatted == f.comment.formatted));
+                    return bf.is_static == f.is_static && bf.name == f.name && (!f.is_static || (bf.type == f.type && bf.comment.c_style == f.comment.c_style));
                 });
             });
         };
@@ -3616,40 +3542,66 @@ namespace mrbind::Python
             data = FindMethod(info, "_data");
         if (!data)
             data = FindMethod(info, "_begin_mut");
-        // Like `pybind11::detail::is_comparable`: a vector is comparable if its elements are.
+        // Like `pybind11::detail::is_comparable`: a vector is comparable if its elements are. A class is comparable if it or a base has
+        //   `operator==` in the C bindings, the standard containers and wrappers if their elements are.
+        auto TemplateArgs = [](const std::string &type)
+        {
+            std::vector<std::string> args;
+            std::size_t open = type.find('<');
+            if (open == std::string::npos || !EndsWith(type, ">"))
+                return args;
+            int depth = 0;
+            std::size_t start = open + 1;
+            for (std::size_t i = start; i + 1 < type.size(); i++)
+            {
+                if (type[i] == '<' || type[i] == '(') depth++;
+                else if (type[i] == '>' || type[i] == ')') depth--;
+                else if (type[i] == ',' && depth == 0)
+                {
+                    args.push_back(Trim(type.substr(start, i - start)));
+                    start = i + 1;
+                }
+            }
+            args.push_back(Trim(type.substr(start, type.size() - 1 - start)));
+            return args;
+        };
         std::function<bool(const std::string &)> IsComparable = [&](const std::string &type) -> bool
         {
             StrippedType st = StripType(type);
-            if (GetScalarKind(st.base) != ScalarKind::none || st.is_ptr || st.base == "std::string")
+            if (GetScalarKind(st.base) != ScalarKind::none || st.is_ptr || st.base == "std::string" || st.base == "std::filesystem::path" ||
+                StartsWith(st.base, "std::shared_ptr<") || StartsWith(st.base, "std::unique_ptr<"))
                 return true;
             const TypeInfo *eti = FindType(st.base);
             if (eti && eti->IsEnum())
                 return true;
             if (eti && eti->is_vector)
+                return IsComparable(TemplateArgs(st.base).front());
+            if (StartsWith(st.base, "std::array<"))
+                return IsComparable(TemplateArgs(st.base).front());
+            if (StartsWith(st.base, "std::pair<") || StartsWith(st.base, "std::tuple<") || StartsWith(st.base, "std::optional<") || StartsWith(st.base, "std::variant<"))
             {
-                std::string inner = st.base.substr(12, st.base.size() - 13);
-                int depth = 0;
-                for (std::size_t i = 0; i < inner.size(); i++)
-                {
-                    if (inner[i] == '<' || inner[i] == '(') depth++;
-                    else if (inner[i] == '>' || inner[i] == ')') depth--;
-                    else if (inner[i] == ',' && depth == 0) {inner = inner.substr(0, i); break;}
-                }
-                return IsComparable(Trim(inner));
+                auto args = TemplateArgs(st.base);
+                return std::all_of(args.begin(), args.end(), [&](const std::string &a){return IsComparable(a);});
             }
-            if (std::find(c_desc.equality_comparable_types.begin(), c_desc.equality_comparable_types.end(), st.base) != c_desc.equality_comparable_types.end())
-                return true;
-            for (const auto &f : c_desc.functions)
-            {
-                auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
-                if (op && op->token == "==" && f.params.size() == 2 && StripType(f.params[0].cpp_type).base == st.base)
-                    return true;
-            }
+            // The class and its bases (an `operator==` of a base takes the derived objects too).
+            std::vector<std::string> candidates = {st.base};
             if (eti && eti->IsClass())
+                for (const auto &b : eti->class_desc->inheritance_info.bases_indirect.Vec())
+                    candidates.push_back(b);
+            for (const std::string &c : candidates)
             {
-                for (const auto &mm : eti->class_desc->methods)
-                    if (auto op = std::get_if<CInterop::MethodKinds::Operator>(&mm.var); op && op->token == "==")
+                for (const auto &f : c_desc.functions)
+                {
+                    auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
+                    if (op && op->token == "==" && f.params.size() == 2 && StripType(f.params[0].cpp_type).base == c)
                         return true;
+                }
+                if (const TypeInfo *ct = FindType(c); ct && ct->IsClass())
+                {
+                    for (const auto &mm : ct->class_desc->methods)
+                        if (auto op = std::get_if<CInterop::MethodKinds::Operator>(&mm.var); op && op->token == "==")
+                            return true;
+                }
             }
             return false;
         };

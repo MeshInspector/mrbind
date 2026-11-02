@@ -60,7 +60,7 @@ MR_C_std_pair_int_std_string *MR_C_std_pair_int_std_string_Construct(int first, 
 {
     return (MR_C_std_pair_int_std_string *)new std::pair<int, std::string>(std::pair<int, std::string>(
         first,
-        ((second ? void() : MRBINDC_THROW("Parameter `second` can not be null.", void)), (second_end ? std::string(second, second_end) : std::string(second)))
+        ((second ? void() : MRBINDC_THROW("Parameter `second` can not be null.", void)), (second_end ? std::string(second, std::size_t(second_end - second)) : std::string(second)))
     ));
 }
 

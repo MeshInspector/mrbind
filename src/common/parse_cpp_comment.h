@@ -5,6 +5,7 @@
 #include <cppdecl/misc/string_helpers.h>
 
 #include <cassert>
+#include <string>
 #include <string_view>
 #include <utility>
 
@@ -116,6 +117,20 @@ namespace mrbind
         }
 
         return false;
+    }
+
+    // The text of a C++ comment without the comment markers: the lines reported by `ParseCppComment()`, each followed by a line break.
+    [[nodiscard]] inline std::string RemoveSlashesFromCppComment(std::string_view comment)
+    {
+        std::string ret;
+        ParseCppComment(comment, [&](bool is_doc, std::string_view part)
+        {
+            (void)is_doc;
+            ret += part;
+            ret += '\n';
+            return false;
+        });
+        return ret;
     }
 }
 

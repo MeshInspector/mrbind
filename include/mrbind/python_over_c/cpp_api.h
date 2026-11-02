@@ -25,7 +25,7 @@ namespace mrbind_py
     // Must match `CppApi` in the runtime of `mrbind_gen_python`.
     struct CppApi
     {
-        int version; // 1.
+        int version; // 2.
 
         // The C++ object of `obj`, which must be an instance of the class of `cpp_type` or of a class derived from it.
         // Returns null with a `TypeError` set otherwise.
@@ -42,6 +42,16 @@ namespace mrbind_py
 
         // Same, sharing the ownership: `holder` is a `new std::shared_ptr<const void>` owning `ptr`, consumed even on failure.
         PyObject *(*wrap_shared)(const char *cpp_type, void *ptr, void *holder);
+
+        // Version 2, the const classes:
+
+        // Like `wrap()` and `wrap_shared()`, but `is_const` makes an instance of the `Const...` class.
+        PyObject *(*wrap_ex)(const char *cpp_type, void *ptr, int owned, PyObject *owner, int is_const);
+        PyObject *(*wrap_shared_ex)(const char *cpp_type, void *ptr, void *holder, int is_const);
+
+        // Whether `obj` is an instance of the mutable class of `cpp_type` (or of a class derived from it), not only of its `Const...` class.
+        //   `unwrap()` accepts both.
+        int (*is_mutable)(PyObject *obj, const char *cpp_type);
     };
 
     [[nodiscard]] inline const CppApi *ImportCppApi(const char *capsule_name)

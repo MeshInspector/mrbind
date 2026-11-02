@@ -278,8 +278,8 @@ MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_constness_str(
-        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1))),
-        (_2 ? (_2_end ? std::string(_2, _2_end) : std::string(_2)) : std::string("42"))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, std::size_t(_1_end - _1)) : std::string(_1))),
+        (_2 ? (_2_end ? std::string(_2, std::size_t(_2_end - _2)) : std::string(_2)) : std::string("42"))
     ));
     ) // MRBINDC_TRY
 }
@@ -2117,7 +2117,7 @@ const MR_C_std_string *MR_CSharp_SB_Get_s(const MR_CSharp_SB *_this)
 
 void MR_CSharp_SB_Set_s(MR_CSharp_SB *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SB *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SB *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SB_GetMutable_s(MR_CSharp_SB *_this)
@@ -2143,7 +2143,7 @@ MR_CSharp_SB *MR_CSharp_SB_ConstructFrom(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SB *)new MR::CSharp::SB(MR::CSharp::SB{
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     });
     ) // MRBINDC_TRY
 }
@@ -2203,7 +2203,7 @@ const MR_C_std_string *MR_CSharp_SC_Get_s(const MR_CSharp_SC *_this)
 
 void MR_CSharp_SC_Set_s(MR_CSharp_SC *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SC *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SC *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SC_GetMutable_s(MR_CSharp_SC *_this)
@@ -2398,7 +2398,7 @@ const MR_C_std_string *MR_CSharp_SE_Get_s(const MR_CSharp_SE *_this)
 
 void MR_CSharp_SE_Set_s(MR_CSharp_SE *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SE *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SE *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SE_GetMutable_s(MR_CSharp_SE *_this)
@@ -2424,7 +2424,7 @@ MR_CSharp_SE *MR_CSharp_SE_ConstructFrom(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE{
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     });
     ) // MRBINDC_TRY
 }
@@ -2484,7 +2484,7 @@ const MR_C_std_string *MR_CSharp_SF_Get_s(const MR_CSharp_SF *_this)
 
 void MR_CSharp_SF_Set_s(MR_CSharp_SF *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SF *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SF *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SF_GetMutable_s(MR_CSharp_SF *_this)
@@ -2862,8 +2862,8 @@ MR_C_std_string *MR_CSharp_test_string(const char *a, const char *a_end, const c
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_string(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
-        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a))),
+        (b ? (b_end ? std::string(b, std::size_t(b_end - b)) : std::string(b)) : std::string(default_string))
     ));
     ) // MRBINDC_TRY
 }
@@ -2886,8 +2886,8 @@ const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_e
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(::MR::CSharp::test_string_cref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
-        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a))),
+        (b ? (b_end ? std::string(b, std::size_t(b_end - b)) : std::string(b)) : std::string(default_string))
     ));
     ) // MRBINDC_TRY
 }
@@ -2898,8 +2898,8 @@ MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, co
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_rref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
-        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a))),
+        (b ? (b_end ? std::string(b, std::size_t(b_end - b)) : std::string(b)) : std::string((std::string &&)default_string))
     )));
     ) // MRBINDC_TRY
 }
@@ -2910,8 +2910,8 @@ const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_crref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
-        (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a))),
+        (b ? (b_end ? std::string(b, std::size_t(b_end - b)) : std::string(b)) : std::string((std::string &&)default_string))
     )));
     ) // MRBINDC_TRY
 }
@@ -2946,8 +2946,8 @@ MR_C_std_string_view *MR_CSharp_test_stringview(const char *a, const char *a_end
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string_view *)new std::string_view(::MR::CSharp::test_stringview(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view(default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, std::size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, std::size_t(b_end - b)) : std::string_view(b)) : std::string_view(default_stringview))
     ));
     ) // MRBINDC_TRY
 }
@@ -2970,8 +2970,8 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const 
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_cref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view(default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, std::size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, std::size_t(b_end - b)) : std::string_view(b)) : std::string_view(default_stringview))
     ));
     ) // MRBINDC_TRY
 }
@@ -2982,8 +2982,8 @@ MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_rref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, std::size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, std::size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
     )));
     ) // MRBINDC_TRY
 }
@@ -2994,8 +2994,8 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_crref(
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, size_t(a_end - a)) : std::string_view(a))),
-        (b ? (b_end ? std::string_view(b, size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, std::size_t(a_end - a)) : std::string_view(a))),
+        (b ? (b_end ? std::string_view(b, std::size_t(b_end - b)) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
     )));
     ) // MRBINDC_TRY
 }
@@ -3287,7 +3287,7 @@ const MR_C_std_string *MR_CSharp_TestFields_Get_static_s(void)
 
 void MR_CSharp_TestFields_Set_static_s(const char *value, const char *value_end)
 {
-    MR::CSharp::TestFields::static_s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    MR::CSharp::TestFields::static_s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_TestFields_GetMutable_static_s(void)
@@ -3347,7 +3347,7 @@ const MR_C_std_string *MR_CSharp_TestFields_Get_s(const MR_CSharp_TestFields *_t
 
 void MR_CSharp_TestFields_Set_s(MR_CSharp_TestFields *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_TestFields_GetMutable_s(MR_CSharp_TestFields *_this)
@@ -3388,10 +3388,10 @@ MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFrom(int i, int const_i, int
         const_i,
         ((i_ref ? void() : MRBINDC_THROW("Parameter `i_ref` can not be null.", void)), *i_ref),
         ((const_i_ref ? void() : MRBINDC_THROW("Parameter `const_i_ref` can not be null.", void)), *const_i_ref),
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s))),
-        ((const_s ? void() : MRBINDC_THROW("Parameter `const_s` can not be null.", void)), (const_s_end ? std::string(const_s, const_s_end) : std::string(const_s))),
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s))),
+        ((const_s ? void() : MRBINDC_THROW("Parameter `const_s` can not be null.", void)), (const_s_end ? std::string(const_s, std::size_t(const_s_end - const_s)) : std::string(const_s))),
         ((s_ref ? void() : MRBINDC_THROW("Parameter `s_ref` can not be null.", void)), *(std::string *)(s_ref)),
-        ((const_s_ref ? void() : MRBINDC_THROW("Parameter `const_s_ref` can not be null.", void)), (const_s_ref_end ? std::string(const_s_ref, const_s_ref_end) : std::string(const_s_ref)))
+        ((const_s_ref ? void() : MRBINDC_THROW("Parameter `const_s_ref` can not be null.", void)), (const_s_ref_end ? std::string(const_s_ref, std::size_t(const_s_ref_end - const_s_ref)) : std::string(const_s_ref)))
     });
     ) // MRBINDC_TRY
 }
@@ -9519,7 +9519,7 @@ const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_ArrayMembers
 
 void MR_CSharp_ArrayMembers_Set_s(MR_CSharp_ArrayMembers *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_s(MR_CSharp_ArrayMembers *_this)
@@ -9680,7 +9680,7 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr(const char *a, const char *a
     MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
     MRBINDC_CLASSARG_GUARD(c, std::optional<std::string>);
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(::MR::CSharp::test_optstr(
-        (a ? std::optional<std::string>(a_end ? std::string(a, a_end) : std::string(a)) : std::nullopt),
+        (a ? std::optional<std::string>(a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a)) : std::nullopt),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<std::string>) MRBINDC_CLASSARG_COPY(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optstr), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(b, std::optional<std::string>)),
         (MRBINDC_CLASSARG_DEF_CTOR(c, std::optional<std::string>) MRBINDC_CLASSARG_COPY(c, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(c, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_DEF_ARG(c, (MR_C_PassBy_DefaultArgument), (default_optstr), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(c, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(c, std::optional<std::string>))
     ));
@@ -9706,7 +9706,7 @@ const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cref(const char *a, co
     using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
     return (const MR_C_std_optional_std_string *)std::addressof(::MR::CSharp::test_optstr_cref(
-        (a ? std::optional<std::string>(a_end ? std::string(a, a_end) : std::string(a)) : std::nullopt),
+        (a ? std::optional<std::string>(a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a)) : std::nullopt),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<std::string>) MRBINDC_CLASSARG_COPY(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optstr), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(b, std::optional<std::string>))
     ));
     ) // MRBINDC_TRY

@@ -4,13 +4,17 @@
 // Define `MRBIND_PY_CPP_API_CAPSULE` (e.g. `"mypackage.mymodule.__mrbind_cpp_api__"`) before including this,
 //   then list the types with `MRBIND_PY_FOREIGN_TYPE(T, "C++ spelling in the bindings", "Python name for the docstrings")`
 //   at the global scope, before they're used in the bindings.
-// Both `T` (by value, reference and pointer) and `std::shared_ptr<T>` are handled.
+// `T` (by value, reference and pointer), `std::shared_ptr<T>` and `std::shared_ptr<const T>` are handled.
+// Const correctness: a const reference or pointer is returned as the `Const...` class, and a non-const reference or pointer
+//   (or `std::shared_ptr<T>`) parameter rejects the objects of the `Const...` class.
 
 #include <pybind11/pybind11.h>
 
 #include "cpp_api.h"
 
 #include <memory>
+#include <string>
+#include <type_traits>
 
 #ifndef MRBIND_PY_CPP_API_CAPSULE
 #error Define `MRBIND_PY_CPP_API_CAPSULE` to the name of the capsule of the generated module.
@@ -24,6 +28,8 @@ namespace mrbind_py::pb11
             const CppApi *ret = ImportCppApi(MRBIND_PY_CPP_API_CAPSULE);
             if (!ret)
                 throw pybind11::error_already_set();
+            if (ret->version < 2)
+                throw pybind11::import_error("`" MRBIND_PY_CPP_API_CAPSULE "` is too old, the const classes need version 2 of its API.");
             return ret;
         }();
         return *api;
@@ -33,6 +39,7 @@ namespace mrbind_py::pb11
     struct ForeignCaster
     {
         T *ptr = nullptr;
+        bool is_mutable = false;
 
         bool load(pybind11::handle src, bool /*convert*/)
         {
@@ -45,53 +52,97 @@ namespace mrbind_py::pb11
                 return false;
             }
             ptr = static_cast<T *>(p);
+            is_mutable = Api().is_mutable(src.ptr(), Derived::CppName()) != 0;
             return true;
         }
 
-        template <typename U> using cast_op_type = pybind11::detail::movable_cast_op_type<U>;
-        operator T *() {return ptr;}
-        operator T &() {if (!ptr) throw pybind11::reference_cast_error(); return *ptr;}
-        operator T &&() && {if (!ptr) throw pybind11::reference_cast_error(); return std::move(*ptr);}
+        // A non-const reference or pointer parameter needs a mutable object. A parameter by value is copied, and so is a `T &&` one
+        //   (pybind11 can't tell them apart, and it must not move from the Python object).
+        template <typename U>
+        using cast_op_type =
+            std::conditional_t<std::is_pointer_v<std::remove_reference_t<U>>,
+                std::conditional_t<std::is_const_v<std::remove_pointer_t<std::remove_reference_t<U>>>, const T *, T *>,
+            std::conditional_t<std::is_lvalue_reference_v<U>,
+                std::conditional_t<std::is_const_v<std::remove_reference_t<U>>, const T &, T &>,
+                T
+            >>;
 
-        static pybind11::handle Wrap(T *p, bool owned, pybind11::handle owner)
+        T *MutablePtr() const
         {
-            PyObject *ret = Api().wrap(Derived::CppName(), p, owned, owner.ptr());
+            if (ptr && !is_mutable)
+                throw pybind11::type_error(std::string("Expected a mutable `") + Derived::CppName() + "`, got a const one.");
+            return ptr;
+        }
+        const T &Ref() const
+        {
+            if (!ptr)
+                throw pybind11::reference_cast_error();
+            return *ptr;
+        }
+
+        operator const T *() {return ptr;}
+        operator T *() {return MutablePtr();}
+        operator const T &() {return Ref();}
+        operator T &() {Ref(); return *MutablePtr();}
+        operator T() {return Ref();}
+
+        static pybind11::handle Wrap(T *p, bool owned, pybind11::handle owner, bool is_const)
+        {
+            PyObject *ret = Api().wrap_ex(Derived::CppName(), p, owned, owner.ptr(), is_const);
             if (!ret)
                 throw pybind11::error_already_set();
             return ret;
         }
 
-        static pybind11::handle cast(T &&src, pybind11::return_value_policy, pybind11::handle)
-        {
-            return Wrap(new T(std::move(src)), true, {});
-        }
-
-        static pybind11::handle cast(const T &src, pybind11::return_value_policy policy, pybind11::handle parent)
+        static pybind11::handle CastRef(T *p, bool is_const, pybind11::return_value_policy policy, pybind11::handle parent)
         {
             switch (policy)
             {
               case pybind11::return_value_policy::reference:
-                return Wrap(const_cast<T *>(&src), false, {});
+                return Wrap(p, false, {}, is_const);
               case pybind11::return_value_policy::reference_internal:
-                return Wrap(const_cast<T *>(&src), false, parent);
+                return Wrap(p, false, parent, is_const);
               default:
-                return Wrap(new T(src), true, {});
+                return Wrap(new T(*p), true, {}, false);
             }
         }
 
-        static pybind11::handle cast(const T *src, pybind11::return_value_policy policy, pybind11::handle parent)
+        static pybind11::handle CastPtr(T *p, bool is_const, pybind11::return_value_policy policy, pybind11::handle parent)
         {
-            if (!src)
+            if (!p)
                 return pybind11::none().release();
             if (policy == pybind11::return_value_policy::take_ownership || policy == pybind11::return_value_policy::automatic)
-                return Wrap(const_cast<T *>(src), true, {});
-            return cast(*src, policy, parent);
+                return Wrap(p, true, {}, is_const);
+            return CastRef(p, is_const, policy, parent);
+        }
+
+        static pybind11::handle cast(T &&src, pybind11::return_value_policy, pybind11::handle)
+        {
+            return Wrap(new T(std::move(src)), true, {}, false);
+        }
+        static pybind11::handle cast(T &src, pybind11::return_value_policy policy, pybind11::handle parent)
+        {
+            return CastRef(&src, false, policy, parent);
+        }
+        static pybind11::handle cast(const T &src, pybind11::return_value_policy policy, pybind11::handle parent)
+        {
+            return CastRef(const_cast<T *>(&src), true, policy, parent);
+        }
+        static pybind11::handle cast(T *src, pybind11::return_value_policy policy, pybind11::handle parent)
+        {
+            return CastPtr(src, false, policy, parent);
+        }
+        static pybind11::handle cast(const T *src, pybind11::return_value_policy policy, pybind11::handle parent)
+        {
+            return CastPtr(const_cast<T *>(src), true, policy, parent);
         }
     };
 
+    // `std::shared_ptr<T>` or `std::shared_ptr<const T>`. The former needs a mutable object, the latter returns the `Const...` class.
     template <typename T, typename Derived>
     struct ForeignSharedCaster
     {
+        static constexpr bool is_const = std::is_const_v<T>;
         std::shared_ptr<T> value;
 
         bool load(pybind11::handle src, bool /*convert*/)
@@ -104,6 +155,8 @@ namespace mrbind_py::pb11
                 PyErr_Clear();
                 return false;
             }
+            if (!is_const && !Api().is_mutable(src.ptr(), Derived::CppName()))
+                return false;
             if (const void *holder = Api().get_holder(src.ptr()))
                 value = std::shared_ptr<T>(*static_cast<const std::shared_ptr<const void> *>(holder), static_cast<T *>(p));
             else
@@ -118,7 +171,7 @@ namespace mrbind_py::pb11
         {
             if (!src)
                 return pybind11::none().release();
-            PyObject *ret = Api().wrap_shared(Derived::CppName(), src.get(), new std::shared_ptr<const void>(src));
+            PyObject *ret = Api().wrap_shared_ex(Derived::CppName(), const_cast<std::remove_const_t<T> *>(src.get()), new std::shared_ptr<const void>(src), is_const);
             if (!ret)
                 throw pybind11::error_already_set();
             return ret;
@@ -133,6 +186,11 @@ namespace mrbind_py::pb11
         static const char *CppName() {return cpp_name_;} \
     }; \
     template <> struct pybind11::detail::type_caster<std::shared_ptr<type_>> : ::mrbind_py::pb11::ForeignSharedCaster<type_, pybind11::detail::type_caster<std::shared_ptr<type_>>> \
+    { \
+        static constexpr auto name = pybind11::detail::const_name(py_name_); \
+        static const char *CppName() {return cpp_name_;} \
+    }; \
+    template <> struct pybind11::detail::type_caster<std::shared_ptr<const type_>> : ::mrbind_py::pb11::ForeignSharedCaster<const type_, pybind11::detail::type_caster<std::shared_ptr<const type_>>> \
     { \
         static constexpr auto name = pybind11::detail::const_name(py_name_); \
         static const char *CppName() {return cpp_name_;} \

@@ -183,7 +183,7 @@ const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this)
 
 void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdOptional::B *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdOptional::B *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this)
@@ -204,7 +204,7 @@ MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_elems)
 MR_StdOptional_B *MR_StdOptional_B_ConstructFrom(const char *s, const char *s_end)
 {
     return (MR_StdOptional_B *)new MR::StdOptional::B(MR::StdOptional::B{
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     });
 }
 

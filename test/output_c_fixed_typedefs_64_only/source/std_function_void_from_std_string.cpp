@@ -69,7 +69,7 @@ void MR_C_std_function_void_from_std_string_reset(MR_C_std_function_void_from_st
 void MR_C_std_function_void_from_std_string_call(const MR_C_std_function_void_from_std_string *_this, const char *_1, const char *_1_end)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<void(std::string)> *)(_this)).operator()(
-        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, std::size_t(_1_end - _1)) : std::string(_1)))
     );
 }
 
