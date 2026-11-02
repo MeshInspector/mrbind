@@ -66,6 +66,11 @@ try:
     check(False, "a const object for a non-const reference")
 except TypeError:
     pass
+# A copy doesn't keep its source alive.
+refs = sys.getrefcount(nt)
+nt_copy = cs.NonTrivial(nt)
+check(sys.getrefcount(nt) == refs, "a copy doesn't keep the source alive")
+
 # Bases: a mutable object is also a const and a mutable base, a const one only a const base.
 check(issubclass(cs.SC, cs.SA) and issubclass(cs.SC, cs.ConstSA) and issubclass(cs.ConstSC, cs.ConstSA), "bases")
 check(not issubclass(cs.ConstSC, cs.SA) and not issubclass(cs.SA, cs.ConstSC), "no const to mutable")
