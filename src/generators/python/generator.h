@@ -242,7 +242,7 @@ namespace mrbind::Python
         std::vector<std::pair<std::string, std::string>> alias_template_targets;
         // The typedef names as aliases of the classes.
         void EmitAliases();
-        // From `type_aliases`: the aliases by target type (in the order of the spellings, as in the docs), computed before the classes.
+        // From `alt_type_spellings`: the aliases by target type (in the order of the spellings, as in the docs), computed before the classes.
         struct AliasEntry {std::string scope_var, name, qualname; bool doc_only = false;};
         std::map<const TypeInfo *, std::vector<AliasEntry>> aliases_by_type;
         void CollectAliases();

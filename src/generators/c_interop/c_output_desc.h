@@ -675,11 +675,9 @@ namespace mrbind::CInterop
                 // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
                 (bool)(is_polymorphic, false)
 
-                // Only set for the parsed classes.
+                // Is this an aggregate?
+                // This excludes C++ aggregates that had some of their fields skipped, since those don't get aggregate constructors in our bindings.
                 (bool)(is_aggregate, false)
-
-                // Only set for the parsed classes. Some non-static fields aren't in `fields` (e.g. the bitfields).
-                (bool)(some_nonstatic_data_members_skipped, false)
 
                 // This is currently only set for `std::function<...>`, and stores the C function types that can be assigned to it.
                 // This is a hack originally added for the vibecoded Rust bindings. Since they wrap C code more naively, they benefit from knowing the C funciton pointer types.
@@ -714,10 +712,14 @@ namespace mrbind::CInterop
     struct Typedef
     {
         MBREFL_STRUCT(
-            (std::string)(full_name) // The fully qualified name of the typedef itself.
-            (std::string)(pretty) // The target type as written.
-            (std::string)(canonical) // The target type with the typedefs expanded.
-            (OutputFile)(output_file) // In which file would the typedef be emitted (the C file corresponding to the C++ input file) if we were emitting them in C code.
+            // In which file would the typedef be emitted (the C file corresponding to the C++ input file) if we were emitting them in C code.
+            (OutputFile)(output_file)
+            // The fully qualified name of the typedef itself.
+            (std::string)(full_name)
+            // The target type as written.
+            (std::string)(pretty)
+            // The target type with the typedefs expanded.
+            (std::string)(canonical)
         )
     };
 
@@ -741,13 +743,13 @@ namespace mrbind::CInterop
             // Do the C bindings have exception handling enabled?
             (bool)(exception_handling_enabled, false)
 
-            // All typedefs in the parsed code, in the parsing order.
+            // Typedefs. We don't actually emit them in C at the moment, but still propagate them for the generators that want them.
             (std::vector<Typedef>)(typedefs, {})
 
-            // The spellings that the pybind11 target registers as aliases, mapped to their canonical C++ types: the types themselves, and their
-            //   alternative spellings, except the ones of types named by a `preferred_name` (but the typedef names are always included).
-            // A spelling of several types is omitted.
-            (OrderedMap<std::string, std::string>)(type_aliases, {})
+            // Alternative type spellings, mapped to their target canonical types.
+            // Both keys and values are C++ types.
+            // C bindings don't use those, they are propagated from the parser for the generators that want them.
+            (OrderedMap<std::string, std::string>)(alt_type_spellings, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)
