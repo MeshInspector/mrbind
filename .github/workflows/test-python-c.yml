@@ -25,7 +25,9 @@ jobs:
       - name: C test bindings
         run: bash test/make_c.sh
       - name: Check the C test outputs
-        run: git diff --stat --exit-code -- test/output_c test/output_c_fixed_typedefs test/output_c_fixed_typedefs_64_only || { git diff -- test/output_c | head -100; exit 1; }
+        run: |
+          git diff --stat --exit-code -- test/output_c test/output_c_fixed_typedefs test/output_c_fixed_typedefs_64_only || { git diff -- test/output_c | head -100; exit 1; }
+          git status --porcelain --untracked-files=all -- test/output_c test/output_c_fixed_typedefs test/output_c_fixed_typedefs_64_only | grep -v -E '(parsed|desc)\.json$' && exit 1 || true
       - name: Python over C
         run: bash test/make_python_c.sh
       - uses: actions/upload-artifact@v4
