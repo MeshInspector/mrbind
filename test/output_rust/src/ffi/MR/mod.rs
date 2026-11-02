@@ -33,6 +33,8 @@ pub mod test_includes_for_enum_constants_2;
 pub use self::test_includes_for_enum_constants_2::*;
 pub mod test_includes_for_enum_constants_3;
 pub use self::test_includes_for_enum_constants_3::*;
+pub mod test_instantiate_only;
+pub use self::test_instantiate_only::*;
 pub mod test_iostream;
 pub use self::test_iostream::*;
 pub mod test_lifetime_inference;

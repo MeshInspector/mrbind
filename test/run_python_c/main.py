@@ -52,6 +52,29 @@ m.StdFunction.foo(lambda: 1)
 m.StdFunction.foo(m.func_int(lambda: 1))
 check(m.func_int_from_int_int(lambda x, y: x + y)(2, 3) == 5, "callback")
 
+# The const classes, like in C#: `ConstT` has the const members, `T` derives from it.
+cs = m.CSharp
+nt = cs.NonTrivial()
+check(isinstance(nt, cs.ConstNonTrivial) and not isinstance(cs.ConstNonTrivial(), cs.NonTrivial), "const base")
+check(nt._is_owning and cs.ConstNonTrivial()._is_owning, "owning")
+cref = cs.test_class_nontrivial_cref(nt)  # A const parameter takes a mutable object too.
+check(type(cref) is cs.ConstNonTrivial and not cref._is_owning, "a const reference isn't copied")
+check(type(cs.test_class_nontrivial_ref(nt)) is cs.NonTrivial and not cs.test_class_nontrivial_ptr(nt)._is_owning, "a mutable reference")
+check(type(cs.test_class_nontrivial(cref)) is cs.NonTrivial and cs.test_class_nontrivial(cref)._is_owning, "by value")
+try:
+    cs.test_class_nontrivial_ref(cref)
+    check(False, "a const object for a non-const reference")
+except TypeError:
+    pass
+# Bases: a mutable object is also a const and a mutable base, a const one only a const base.
+check(issubclass(cs.SC, cs.SA) and issubclass(cs.SC, cs.ConstSA) and issubclass(cs.ConstSC, cs.ConstSA), "bases")
+check(not issubclass(cs.ConstSC, cs.SA) and not issubclass(cs.SA, cs.ConstSC), "no const to mutable")
+# `std::shared_ptr<const T>` is the const class.
+check(type(cs.test_shcptr(cs.SA(), cs.SA())) is cs.ConstSA and type(cs.test_shptr(cs.SA(), cs.SA())) is cs.SA, "shared_ptr<const T>")
+# The vectors: the const ones can't be modified.
+cv = m.Const_std_vector_int(v)
+check(list(cv) == [0, 0, 0, 7] and not hasattr(cv, "append") and isinstance(v, m.Const_std_vector_int), "const vector")
+
 # `--extra-python` functions are a part of the module.
 check(m.make_a("extra").x == "extra" and m.make_a.__module__ == "mrbind_test", "extra python")
 

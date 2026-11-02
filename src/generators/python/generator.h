@@ -29,6 +29,8 @@ namespace mrbind::Python
         std::vector<std::pair<std::vector<std::string>, std::vector<std::string>>> replaced_namespaces;
         // Regex replacements applied to the C++ type names before making the Python names from them, like `MB_PB11_ADJUST_NAMES`.
         std::vector<std::pair<std::string, std::string>> name_adjustments;
+        // Applied to the alias spellings after `name_adjustments`.
+        std::vector<std::pair<std::string, std::string>> alias_name_adjustments;
         // Same, but for the C++ names in the docs ("Generated from:").
         std::vector<std::pair<std::string, std::string>> doc_name_adjustments;
         // Same, but for the C++ names before spelling them like `typeid()`.
@@ -45,6 +47,9 @@ namespace mrbind::Python
         std::vector<std::string> ignored_c_files;
         // Regexes on the C++ names of the classes that get `__iter__` over `[0, elements)` with `operator[]` (for `begin()`/`end()` templates the C bindings don't have).
         std::vector<std::string> iterate_by_index_regexes;
+        // The qualified name of another module generated from the same description, e.g. `mypackage.mylib`.
+        // The classes and enums of the ignored C files are then taken from it instead of skipped.
+        std::string depends_on;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
@@ -76,8 +81,12 @@ namespace mrbind::Python
             std::string c_name;
             std::string py_name; // Unqualified.
             std::string py_qualname; // Relative to the module, e.g. `MR.Widget`.
+            // The `Const...` class: a base of the mutable one, with only the const members. `const T &` results are its instances.
+            std::string const_py_name, const_py_qualname;
             std::string scope_var; // Where the class is stored.
             std::string var; // `T_<n>` for classes (a `TypeRecord`), `E_<n>` for enums (a `PyObject *`).
+            bool foreign = false; // From `depends_on`. Then `T_<n>` is a macro for its record there.
+            std::string foreign_ptr; // `F_<n>`, the pointer to that record.
             std::vector<const TypeInfo *> bases; // Direct bases.
             bool is_std_function = false;
             bool is_vector = false; // `std::vector<T>`, gets the API of `pybind11::bind_vector()`.
@@ -111,8 +120,16 @@ namespace mrbind::Python
         // The namespaces seen in the input, by C++ qualified name (`MR`, `MR::Nested`), to their Python scope.
         std::map<std::string, Scope> namespaces;
         std::vector<std::string> namespace_order;
+        // With `depends_on`: the namespaces that have own entities (and their parents), the others aren't created.
+        std::set<std::string> used_namespaces;
+        void MarkNamespaceUsed(const std::vector<std::string> &cpp_parts);
+        [[nodiscard]] bool IsNamespaceSkipped(const std::string &key) const {return !depends_on.empty() && !used_namespaces.contains(key);}
+        std::set<std::string> skipped_scope_vars; // Of those, and of the foreign classes.
 
         // The generated code.
+        // The empty tag types (e.g. `std::monostate`, `std::greater<T>`), as classes without constructors like in pybind11.
+        // C++ name -> (Python name, C++ variable of the class).
+        std::map<std::string, std::pair<std::string, std::string>> tag_classes;
         std::string out_decls; // Type records, forward declarations.
         std::string out_impls; // Overload implementations, groups, method tables.
         std::string out_init; // The body of the init function, after the classes are created.
@@ -140,6 +157,8 @@ namespace mrbind::Python
             std::size_t num_required = 0;
             std::string cpp_signature; // To skip the inherited copies.
             std::string template_py_name; // The name with the template arguments, for the disambiguation of the overloads.
+            bool takes_stream = false; // pybind11 registers these after the other overloads.
+            bool const_self = true; // A method of the `Const...` class: doesn't need a mutable `self`.
         };
 
         struct GroupEntry
@@ -153,12 +172,15 @@ namespace mrbind::Python
         [[nodiscard]] std::string DefaultArgRepr(const CInterop::FuncParam &param);
         // Statements converting the C value `expr` (of a C++ type `cpp_type`) to a new `PyObject *out`. `owner` is kept alive by the returned references.
         // `borrowed` is for the callback parameters: the objects by value are the caller's, so they are copied or referenced, never owned.
-        [[nodiscard]] std::optional<std::string> CToPy(const std::string &cpp_type, const std::string &c_type, const std::string &expr, const std::string &owner, const std::string &out, bool borrowed = false);
+        // `copy_refs` copies the referenced classes instead of referencing them, for the references into the temporaries.
+        [[nodiscard]] std::optional<std::string> CToPy(const std::string &cpp_type, const std::string &c_type, const std::string &expr, const std::string &owner, const std::string &out, bool borrowed = false, bool copy_refs = false);
         // For the callback trampolines: converts the Python result `py` to the C value `out`, or throws with the GIL state `gil_`.
         [[nodiscard]] std::optional<std::string> PyToCReturn(const std::string &cpp_type, const std::string &c_type, const std::string &py, const std::string &out);
         // `require_generated_from`: the C generator appends `Generated from ...` to the comments of the entities parsed from C++,
         //   so the comments without it are invented by the C generator, and pybind11 has nothing there.
-        [[nodiscard]] static std::string ProcessComment(const std::string &c_style, bool require_generated_from = true);
+        // Like `DocTypeName()`, but an `expected` that has its own class (as a container element) is that class.
+        [[nodiscard]] std::string ElemDocTypeName(const std::string &type, bool is_return);
+        [[nodiscard]] static std::string ProcessComment(const CInterop::Comment &comment, bool require_generated_from = true);
 
         // Generates the implementation of one overload. `this_type` is null for free functions.
         // `self_kind`: 0 = no self, 1 = a method (`this` is slot 0), 2 = a constructor (slot 0 is the instance being initialized),
@@ -182,6 +204,7 @@ namespace mrbind::Python
         void EmitVectorMembers(TypeInfo &info);
         void EmitArrayMembers(TypeInfo &info);
         void EmitMapMembers(TypeInfo &info);
+        void EmitExpectedMembers(TypeInfo &info);
         void EmitOptionalMembers(TypeInfo &info);
         // `std::variant`, like `CustomTypeBinding<std::variant<P...>>` of the pybind11 target.
         void EmitVariantMembers(TypeInfo &info);
@@ -202,12 +225,14 @@ namespace mrbind::Python
         std::map<std::string, std::string> output_types;
         [[nodiscard]] std::string RequireOutputType(const std::string &scalar);
         [[nodiscard]] std::string OutputTypeName(const std::string &scalar);
+        // While preparing the setter of a field: the pointers it stores keep their Python objects alive.
+        bool preparing_field_setter = false;
         // The fields of exposed structs, which are accessed directly.
         void EmitExposedField(TypeInfo &info, const CInterop::ClassField &f);
         // Finds a method by the C name suffix, e.g. `_size`.
         [[nodiscard]] static const CInterop::ClassMethod *FindMethod(const TypeInfo &info, std::string_view c_name_suffix);
 
-        [[nodiscard]] std::string AdjustName(std::string name) const;
+        [[nodiscard]] std::string AdjustName(std::string name, bool is_alias = false) const;
         // Spells a C++ type like the demangled `typeid()` that pybind11 makes the names from: typedefs expanded, `T const`.
         [[nodiscard]] std::string TypeidSpelling(std::string name);
         // `typeid(T)` drops the references and the top-level constness, but keeps the pointers.
@@ -230,13 +255,22 @@ namespace mrbind::Python
         void CollectConversionCtors();
         std::string out_implicit;
         // The check of an object, then the implicit conversion in the second pass. `a` is the argument, `v` receives the pointer.
-        [[nodiscard]] std::string ArgObjectWithImplicit(const TypeInfo &cls, const std::string &a, const std::string &v, bool allow_none, bool optional_arg);
+        // `mut` requires a mutable object (not a `Const...` one), and then there are no implicit conversions (a temporary can't bind to it).
+        [[nodiscard]] std::string ArgObjectWithImplicit(const TypeInfo &cls, const std::string &a, const std::string &v, bool allow_none, bool optional_arg, bool mut = false);
         // A new `std::shared_ptr<const void>` (as `void *`) sharing the ownership with the `std::shared_ptr` `expr` of type `sp`.
         [[nodiscard]] std::string HolderFromSharedPtr(const TypeInfo &sp, const std::string &expr);
         [[nodiscard]] const TypeInfo *FindType(const std::string &cpp_name) const;
         // pybind11's generic extras of every class: `__iter__` (from `begin()`/`end()`), `__len__` (contiguous sequences), `__repr__` (from `operator<<`).
         // Returns the prepared overloads by Python name.
-        [[nodiscard]] std::vector<std::pair<std::string, PreparedOverload>> MakeGenericExtras(const TypeInfo &info);
+        // `mut`: only the `__iter__` over the mutable elements, if the class has the non-const `begin()`/`end()` etc.
+        [[nodiscard]] std::vector<std::pair<std::string, PreparedOverload>> MakeGenericExtras(const TypeInfo &info, bool mut = false);
+        // The class object of `info` in the generated code: the mutable one or the `Const...` one.
+        [[nodiscard]] static std::string ClassObj(const TypeInfo &info, bool is_const) {return info.var + (is_const ? ".const_type" : ".type");}
+        // The qualified Python name of `info` for the docs.
+        [[nodiscard]] std::string ClassDoc(const TypeInfo &info, bool is_const) const {return (info.foreign ? depends_on : module_qualname) + "." + (is_const ? info.const_py_qualname : info.py_qualname);}
+        // Adds the method groups of a class: the overloads with a const `self` go to the `Const...` class, the groups with
+        //   non-const ones to the mutable class (with the const overloads too). Returns the code.
+        [[nodiscard]] std::string AddMethodGroups(const TypeInfo &info, const std::vector<GroupEntry> &groups);
         // An element of a pointer range, stepped by `step` (`+ 1` or an `OffsetPtr()` call).
         [[nodiscard]] std::optional<std::string> PointerStep(const std::string &ptr_c_type, const std::string &expr);
                 [[nodiscard]] std::vector<std::string> ApplyNamespaceReplacements(std::vector<std::string> parts) const;

@@ -1362,6 +1362,8 @@ namespace mrbind::C
             // Do add leading slashes. Don't add the trailing newline.
             // Leave empty for no comment.
             std::string c_comment;
+            // The parsed part of `c_comment` as `clang::RawComment::getFormattedText()` returns it, for the interop description.
+            std::string c_comment_formatted;
 
             // Like `c_comment`, but added after the generated part of the comment, not before.
             std::string c_comment_trailing;

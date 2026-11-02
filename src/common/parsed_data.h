@@ -863,20 +863,22 @@ namespace mrbind
         (static_data_member, = 1 << 5)
         // Some typedef refers to this type.
         (typedef_target, = 1 << 6)
+        // `mrbind::instantiate_only` was applied to this type, to generate a binding for it even if nothing else needs it.
+        (force_instantiated, = 1 << 7)
 
-        (_valid_bits, [[maybe_unused]] = (1 << 7) - 1)
+        (_valid_bits, [[maybe_unused]] = (1 << 8) - 1)
 
         // Those bits are valid only for type SPELLINGS:
 
         // This spelling is a typedef name (not its target).
-        (typedef_name, = 1 << 7)
+        (typedef_name, = 1 << 8)
 
-        (_valid_bits_spelling, [[maybe_unused]] = (1 << 8) - 1)
+        (_valid_bits_spelling, [[maybe_unused]] = (1 << 9) - 1)
 
     , // Internal stuff: (hidden from reflection)
 
         // This is used internally but should never be set in `struct TypeAltSpellingInfo`.
-        _poisoned = 1 << 8,
+        _poisoned = 1 << 9,
     )
     MRBIND_FLAG_OPERATORS(TypeUses)
 

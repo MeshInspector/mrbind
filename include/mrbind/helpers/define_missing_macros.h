@@ -170,6 +170,9 @@
 #ifndef MB_REGISTER_TYPE_TYPEDEF_TARGET
 #define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, name_source_, ...)
 #endif
+#ifndef MB_REGISTER_TYPE_FORCE_INSTANTIATED
+#define MB_REGISTER_TYPE_FORCE_INSTANTIATED(i_, name_source_, ...)
+#endif
 
 // Specifies an alternative type spelling `spelling_` for `type_`. Both are parenthesized.
 // `i_` is the counter for multiplexing binding fragments.
@@ -198,6 +201,9 @@
 #endif
 #ifndef MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET(i_, name_source_, ...)
+#endif
+#ifndef MB_ALT_TYPE_SPELLING_FORCE_INSTANTIATED
+#define MB_ALT_TYPE_SPELLING_FORCE_INSTANTIATED(i_, name_source_, ...)
 #endif
 #ifndef MB_ALT_TYPE_SPELLING_TYPEDEF_NAME
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_NAME(i_, name_source_, ...)

@@ -1,11 +1,27 @@
 #pragma once
 
+#include <cstdio>
+#include <cstdlib>
 #include <string_view>
 #include <string>
 #include <tuple>
 
 namespace mrbind::Strings
 {
+    // The shortest scientific notation that reads back as `value`, like `std::to_chars(..., std::chars_format::scientific)`,
+    //   which libc++ has only since macOS 13.3.
+    [[nodiscard]] inline std::string ShortestScientific(double value)
+    {
+        char buf[64];
+        for (int precision = 0; precision < 17; precision++)
+        {
+            std::snprintf(buf, sizeof buf, "%.*e", precision, value);
+            if (std::strtod(buf, nullptr) == value)
+                break;
+        }
+        return buf;
+    }
+
     // This orders strings by decreasing length, and falls back to the regular `<` for equal lengths.
     struct OrderByDecreasingLength
     {

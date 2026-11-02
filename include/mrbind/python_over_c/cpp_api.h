@@ -6,7 +6,19 @@
 // The types are named by the C++ spellings that the bindings use (e.g. `MR::Mesh`, `MR::Vector3f`).
 // The extension must use the same C++ standard library as the C bindings, since the shared pointers are passed directly.
 
+// The MSVC debug builds define `_DEBUG`, which makes `pyconfig.h` define `Py_DEBUG` (another object layout) and link
+//   the debug Python. Like pybind11, include `Python.h` without it, after the headers that pick the debug runtime.
+#if defined(_MSC_VER) && defined(_DEBUG) && !defined(Py_DEBUG)
+#include <yvals.h>
+#include <crtdefs.h>
+#define MRBIND_PY_CPP_API_RESTORE_DEBUG
+#undef _DEBUG
+#endif
 #include <Python.h>
+#ifdef MRBIND_PY_CPP_API_RESTORE_DEBUG
+#define _DEBUG
+#undef MRBIND_PY_CPP_API_RESTORE_DEBUG
+#endif
 
 namespace mrbind_py
 {

@@ -12,17 +12,31 @@ namespace mrbind::Python
 #ifndef PY_SSIZE_T_CLEAN
 #define PY_SSIZE_T_CLEAN
 #endif
+// The MSVC debug builds define `_DEBUG`, which makes `pyconfig.h` define `Py_DEBUG` (another object layout) and link
+//   the debug Python. Like pybind11, include `Python.h` without it, after the headers that pick the debug runtime.
+#if defined(_MSC_VER) && defined(_DEBUG) && !defined(Py_DEBUG)
+#include <yvals.h>
+#include <crtdefs.h>
+#define MRBIND_PY_RESTORE_DEBUG
+#undef _DEBUG
+#endif
 #include <Python.h>
+#ifdef MRBIND_PY_RESTORE_DEBUG
+#define _DEBUG
+#undef MRBIND_PY_RESTORE_DEBUG
+#endif
 
 #include <charconv>
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
 #include <exception>
+#include <iomanip>
 #include <sstream>
 #include <new>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <system_error>
 #include <type_traits>
 #include <unordered_map>
@@ -52,6 +66,9 @@ namespace mrbind_py
         void (*destroy)(void *) = nullptr;
         std::vector<BaseCast> bases; // The direct bases.
         PyObject *type = nullptr; // Set at the module init.
+        // The `Const...` class, a base of `type`: only the const members, the `const T &` results are its instances.
+        // Null for the helper classes without one, then `type` is used.
+        PyObject *const_type = nullptr;
         // For the classes used in `std::shared_ptr`: makes a `std::shared_ptr<const void>` taking ownership of a raw pointer.
         void *(*holder_from_raw)(void *) = nullptr;
         // For the polymorphic classes: the direct derived classes, so that the returned objects get their most derived Python type, like in pybind11.
@@ -68,6 +85,10 @@ namespace mrbind_py
         int owned;
         void *holder; // A `std::shared_ptr<const void>` owning the object, if it's shared. Then `owned` is false.
     };
+
+#ifndef MRBIND_PY_RUNTIME_HASH
+#define MRBIND_PY_RUNTIME_HASH 0
+#endif
 
     // Set by the module: the functions of `std::shared_ptr<const void>`.
     inline void (*holder_destroy)(void *) = nullptr;
@@ -176,7 +197,8 @@ namespace mrbind_py
     }
 
     // Creates a new instance of `rec` (or of its most derived class) without calling `__init__`. If `owned`, it destroys `ptr` when it dies.
-    inline PyObject *Wrap(TypeRecord &rec_in, void *ptr, bool owned, PyObject *owner = nullptr, void *holder = nullptr)
+    // `is_const` makes it an instance of the `Const...` class.
+    inline PyObject *Wrap(TypeRecord &rec_in, void *ptr, bool owned, PyObject *owner = nullptr, void *holder = nullptr, bool is_const = false)
     {
         if (!ptr)
         {
@@ -185,7 +207,7 @@ namespace mrbind_py
             Py_RETURN_NONE;
         }
         TypeRecord &rec = rec_in.derived.empty() ? rec_in : *MostDerived(&rec_in, ptr);
-        PyObject *ret = PyType_GenericAlloc(reinterpret_cast<PyTypeObject *>(rec.type), 0);
+        PyObject *ret = PyType_GenericAlloc(reinterpret_cast<PyTypeObject *>(is_const && rec.const_type ? rec.const_type : rec.type), 0);
         if (!ret)
         {
             if (owned && rec.destroy)
@@ -286,7 +308,8 @@ namespace mrbind_py
     }
 
     // Gets the C pointer of a `rec` instance (or of a derived class). Rejects `None` unless `allow_none`, which gives a null pointer.
-    inline bool ArgObject(PyObject *o, TypeRecord &rec, bool allow_none, void *&out)
+    // Accepts the `Const...` instances unless `mut`.
+    inline bool ArgObject(PyObject *o, TypeRecord &rec, bool allow_none, void *&out, bool mut = false)
     {
         if (o == Py_None)
         {
@@ -295,7 +318,7 @@ namespace mrbind_py
             out = nullptr;
             return true;
         }
-        if (!PyObject_TypeCheck(o, reinterpret_cast<PyTypeObject *>(rec.type)))
+        if (!PyObject_TypeCheck(o, reinterpret_cast<PyTypeObject *>(mut || !rec.const_type ? rec.type : rec.const_type)))
             return false;
         Instance *self = reinterpret_cast<Instance *>(o);
         if (!self->ptr || !self->rec)
@@ -598,12 +621,21 @@ namespace mrbind_py
     {
         using Elem = std::conditional_t<std::is_same_v<T, bool>, char, T>;
         std::vector<Elem> values;
+        T *target = nullptr; // If set, `values` is ignored, the only value is what this points to. For the callback parameters.
     };
 
     template <typename T>
     bool ArgScalar(PyObject *o, T &out)
     {
-        if constexpr (std::is_same_v<T, bool>)
+        if constexpr (std::is_same_v<T, std::string>)
+        {
+            StringArg s;
+            if (!ArgString(o, s))
+                return false;
+            out.assign(s.data, s.end());
+            return true;
+        }
+        else if constexpr (std::is_same_v<T, bool>)
             return ArgBool(o, true, out);
         else if constexpr (std::is_floating_point_v<T>)
             return ArgFloat(o, true, out);
@@ -614,7 +646,9 @@ namespace mrbind_py
     template <typename T>
     PyObject *RetScalar(T v)
     {
-        if constexpr (std::is_same_v<T, bool>)
+        if constexpr (std::is_same_v<T, std::string>)
+            return RetString(v.data(), v.data() + v.size());
+        else if constexpr (std::is_same_v<T, bool>)
             return RetBool(v);
         else if constexpr (std::is_floating_point_v<T>)
             return RetFloat(v);
@@ -655,6 +689,8 @@ namespace mrbind_py
     template <typename T>
     PyObject *OutputGetValues(PyObject *o)
     {
+        if (T *t = OutputSelf<T>(o)->target)
+            return Py_BuildValue("[N]", RetScalar(*t));
         auto &vals = OutputSelf<T>(o)->values;
         PyObject *list = PyList_New(Py_ssize_t(vals.size()));
         for (std::size_t i = 0; list && i < vals.size(); i++)
@@ -681,6 +717,16 @@ namespace mrbind_py
             vals.push_back(typename OutputBuf<T>::Elem(v));
         }
         Py_DECREF(seq);
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            if (vals.size() != 1)
+            {
+                PyErr_SetString(PyExc_RuntimeError, "Expected exactly one value.");
+                return nullptr;
+            }
+            *t = T(vals.front());
+            Py_RETURN_NONE;
+        }
         OutputSelf<T>(o)->values = std::move(vals);
         Py_RETURN_NONE;
     }
@@ -688,6 +734,8 @@ namespace mrbind_py
     template <typename T>
     PyObject *OutputGetValue(PyObject *o)
     {
+        if (T *t = OutputSelf<T>(o)->target)
+            return RetScalar(*t);
         auto &vals = OutputSelf<T>(o)->values;
         if (vals.size() != 1)
         {
@@ -706,6 +754,11 @@ namespace mrbind_py
             PyErr_SetString(PyExc_TypeError, "Incompatible value type.");
             return nullptr;
         }
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            *t = v;
+            Py_RETURN_NONE;
+        }
         auto &vals = OutputSelf<T>(o)->values;
         vals.clear();
         vals.push_back(typename OutputBuf<T>::Elem(v));
@@ -717,13 +770,19 @@ namespace mrbind_py
     {
         std::ostringstream ss;
         ss << name << '[';
+        if (T *t = OutputSelf<T>(o)->target)
+        {
+            ss << *t << ']';
+            std::string s = std::move(ss).str();
+            return RetString(s.data(), s.data() + s.size());
+        }
         auto &vals = OutputSelf<T>(o)->values;
         for (std::size_t i = 0; i < vals.size(); i++)
         {
             if (i)
                 ss << ", ";
-            if constexpr (std::is_same_v<T, char> || std::is_same_v<T, signed char> || std::is_same_v<T, unsigned char> || std::is_same_v<T, bool>)
-                ss << vals[i];
+            if constexpr (std::is_same_v<T, std::string>)
+                ss << std::quoted(vals[i]);
             else
                 ss << vals[i];
         }
@@ -736,10 +795,23 @@ namespace mrbind_py
     template <typename T>
     T *OutputPtr(void *buf, bool is_ref)
     {
+        if (T *t = static_cast<OutputBuf<T> *>(buf)->target)
+            return t;
         auto &vals = static_cast<OutputBuf<T> *>(buf)->values;
         if (is_ref && vals.size() != 1)
             throw std::runtime_error("Expected the output parameter size to be exactly 1.");
         return reinterpret_cast<T *>(vals.data());
+    }
+
+    // A `<T>_output` referring to `*target`, for the `T &` and `T *` parameters of the callbacks. `None` for null.
+    template <typename T>
+    PyObject *OutputWrapTarget(TypeRecord &rec, T *target)
+    {
+        if (!target)
+            return Py_INCREF(Py_None), Py_None;
+        auto *buf = new OutputBuf<T>;
+        buf->target = target;
+        return Wrap(rec, buf, true);
     }
 
     // --- Overload resolution:
@@ -1114,6 +1186,10 @@ class pybind11_static_property(property):
         self.fset(obj if isinstance(obj, type) else type(obj), value)
 
 class pybind11_type(type):
+    # Python 3.8 calls an inherited `type.mro()` of this metaclass wrong from the second subclass of `Object` on
+    #   ("'pybind11_type' object is not iterable"), but not one defined here.
+    def mro(cls):
+        return type.mro(cls)
     def __setattr__(cls, name, value):
         for k in cls.__mro__:
             d = k.__dict__.get(name)
@@ -1183,16 +1259,82 @@ def make_enum(base, module, qualname, name, entries, signed, enum_new, enum_bits
     return cls
 
 
+def add_set_api(ccls, cls, cq, q, name, elem):
+    # The Python set protocol of the pybind11 target, over the C++-style methods. The C bindings have no `erase()`,
+    #   so `discard()` rebuilds the set. The reading part goes to the `Const...` class.
+    cd, d = ccls.__dict__, cls.__dict__
+    if not ('__init__' in d and '__iter__' in cd and 'contains' in cd and 'size' in cd and 'insert' in d and 'clear' in d):
+        return
+    init0, contains, insert, size, clear = d['__init__'], cd['contains'], d['insert'], cd['size'], d['clear']
+    # Only the Python set protocol is public, like in pybind11.
+    for c in (ccls, cls):
+        for k in ('assign', 'clear', 'contains', 'empty', 'insert', 'is_begin', 'is_end', 'size'):
+            if k in c.__dict__:
+                type.__delattr__(c, k)
+    def __init__(self, *args):
+        if len(args) == 1 and not isinstance(args[0], ccls):
+            init0(self)
+            for x in args[0]:
+                insert(self, x)
+        else:
+            init0(self, *args)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n', __init__)
+    _bind(ccls, '__len__', '__len__(self: ' + cq + ') -> int\n', lambda self: size(self))
+    _bind(ccls, '__contains__', '__contains__(self: ' + cq + ', arg0: ' + elem + ') -> bool\n', lambda self, x: contains(self, x))
+    _bind(cls, 'add', 'add(self: ' + q + ', arg0: ' + elem + ') -> None\n', lambda self, x: insert(self, x))
+    def discard(self, x):
+        if not contains(self, x):
+            return 0
+        rest = [y for y in self if y != x]
+        clear(self)
+        for y in rest:
+            insert(self, y)
+        return 1
+    _bind(cls, 'discard', 'discard(self: ' + q + ', arg0: ' + elem + ') -> int\n', discard)
+    def remove(self, x):
+        if not discard(self, x):
+            raise KeyError(x)
+    _bind(cls, 'remove', 'remove(self: ' + q + ', arg0: ' + elem + ') -> None\n', remove)
+    def pop(self):
+        for y in self:
+            discard(self, y)
+            return y
+        raise KeyError('pop from an empty set')
+    _bind(cls, 'pop', 'pop(self: ' + q + ') -> ' + elem + '\n', pop)
+    _bind(ccls, '__repr__', '__repr__(self: ' + cq + ') -> str\n\nReturn the canonical string representation of this set.\n', lambda self: name + '{' + ', '.join(str(y) for y in self) + '}')
+
+def finish_enum_operators(cls):
+    for inplace, binary in (('__iand__', '__and__'), ('__ior__', '__or__'), ('__ixor__', '__xor__'), ('__imul__', '__mul__')):
+        if binary in cls.__dict__ and inplace not in cls.__dict__:
+            f = cls.__dict__[binary]
+            _bind(cls, inplace, (f.__doc__ or '').replace(binary + '(', inplace + '('), lambda self, other, f=f: f(self, other))
+
 def add_offsetof(cls, name, value):
     type.__setattr__(cls, '_offsetof_' + name, static_property(lambda c: value, None, None, ''))
 
 def _bind(cls, name, doc, f):
     type.__setattr__(cls, name, _fn(name, doc, f))
 
-def add_vector_api(cls, q, name, elem, p, elem_size):
+def finish_const_class(ccls, cls, cq, q):
+    # The `Const...` classes construct through the mutable ones, whose `__init__` can mutate the new object, then take the result over.
+    init = cls.__dict__.get('__init__')
+    if init is None or '__init__' in ccls.__dict__:
+        return
+    if init is object_type.__dict__['__init__']:
+        type.__setattr__(ccls, '__init__', init)
+        return
+    def __init__(self, *args, **kwargs):
+        move_instance(self, cls(*args, **kwargs))
+    doc = (getattr(init, '__doc__', None) or '').replace(q + '(', cq + '(').replace('self: ' + q + ',', 'self: ' + cq + ',').replace('self: ' + q + ')', 'self: ' + cq + ')')
+    _bind(ccls, '__init__', doc, __init__)
+
+def add_vector_api(ccls, cls, cq, q, name, elem, p, elem_size):
     elem_ret = p.get('elem_ret', elem) # The spelling as a return type, e.g. `pathlib.Path`.
+    elem_cret = p.get('elem_cret', elem_ret) # Of the const elements.
     # The API of `pybind11::bind_vector()` plus the extras of the pybind11 target, over the primitives `p` of the C bindings.
+    # The `Const...` class gets the reading part, with `cget` returning the const elements.
     size, get, insert, erase, clear = p['size'], p['get'], p['insert'], p['erase'], p['clear']
+    cget = p.get('cget', get)
     def norm(self, i, n=None):
         n = size(self) if n is None else n
         if i < 0:
@@ -1203,27 +1345,36 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     def __init__(self, *args):
         p['init'](self)
         if len(args) == 1:
-            for x in (list(args[0]) if isinstance(args[0], cls) else args[0]):
+            for x in (list(args[0]) if isinstance(args[0], ccls) else args[0]):
                 insert(self, size(self), x)
         elif args:
             raise TypeError('__init__(): incompatible constructor arguments.')
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n', __init__)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: Iterable) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + cq + ') -> None\n', __init__)
     # The C++-style methods (`MB_PB11_ENABLE_CXX_STYLE_CONTAINER_METHODS`).
-    _bind(cls, 'size', 'size(self: ' + q + ') -> int\n', lambda self: size(self))
-    _bind(cls, 'empty', 'empty(self: ' + q + ') -> bool\n', lambda self: size(self) == 0)
+    _bind(ccls, 'size', 'size(self: ' + cq + ') -> int\n', lambda self: size(self))
+    _bind(ccls, 'empty', 'empty(self: ' + cq + ') -> bool\n', lambda self: size(self) == 0)
+    def resize(self, n, *v):
+        if not v:
+            if 'resize' not in p:
+                raise TypeError('resize(): incompatible function arguments.')
+            p['resize'](self, n)
+        elif 'resize_value' in p:
+            p['resize_value'](self, n, v[0])
+        else:
+            # `--minimal-containers` C bindings have no `resize_with_default_value`.
+            while size(self) > n:
+                erase(self, size(self) - 1)
+            while size(self) < n:
+                insert(self, size(self), v[0])
     if 'resize' in p:
-        def resize(self, n, *v):
-            if v:
-                p['resize_value'](self, n, v[0])
-            else:
-                p['resize'](self, n)
-        doc = 'resize(*args, **kwargs)\nOverloaded function.\n\n1. resize(self: ' + q + ', arg0: int) -> None\n\n2. resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n' if 'resize_value' in p else 'resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n'
-        _bind(cls, 'resize', doc, resize)
-    _bind(cls, '__bool__', '__bool__(self: ' + q + ') -> bool\n\nCheck whether the list is nonempty\n', lambda self: size(self) != 0)
+        _bind(cls, 'resize', 'resize(*args, **kwargs)\nOverloaded function.\n\n1. resize(self: ' + q + ', arg0: int) -> None\n\n2. resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', resize)
+    else:
+        _bind(cls, 'resize', 'resize(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', resize)
+    _bind(ccls, '__bool__', '__bool__(self: ' + cq + ') -> bool\n\nCheck whether the list is nonempty\n', lambda self: size(self) != 0)
     comparable = 'comparable' in p
     def __contains__(self, x):
-        return any(get(self, i) == x for i in range(size(self)))
-    if comparable: _bind(cls, '__contains__', '__contains__(self: ' + q + ', x: ' + elem + ') -> bool\n\nReturn true the container contains ``x``\n', __contains__)
+        return any(cget(self, i) == x for i in range(size(self)))
+    if comparable: _bind(ccls, '__contains__', '__contains__(self: ' + cq + ', x: ' + elem + ') -> bool\n\nReturn true the container contains ``x``\n', __contains__)
     def __delitem__(self, i):
         if isinstance(i, slice):
             for j in sorted(range(*i.indices(size(self))), reverse=True):
@@ -1233,19 +1384,21 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     _bind(cls, '__delitem__', '__delitem__(*args, **kwargs)\nOverloaded function.\n\n1. __delitem__(self: ' + q + ', arg0: int) -> None\n\nDelete the list elements at index ``i``\n\n2. __delitem__(self: ' + q + ', arg0: slice) -> None\n\nDelete list elements using a slice object\n', __delitem__)
     def __eq__(self, other):
         n = size(self)
-        return isinstance(other, cls) and n == size(other) and all(get(self, i) == get(other, i) for i in range(n))
+        return isinstance(other, ccls) and n == size(other) and all(cget(self, i) == cget(other, i) for i in range(n))
     if comparable:
-        _bind(cls, '__eq__', '__eq__(self: ' + q + ', arg0: ' + q + ') -> bool\n', __eq__)
-        _bind(cls, '__ne__', '__ne__(self: ' + q + ', arg0: ' + q + ') -> bool\n', lambda self, other: not __eq__(self, other))
-        type.__setattr__(cls, '__hash__', None)
-    def __getitem__(self, i):
-        if isinstance(i, slice):
-            ret = cls()
-            for j in range(*i.indices(size(self))):
-                insert(ret, size(ret), get(self, j))
-            return ret
-        return get(self, norm(self, i))
-    _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem_ret + '\n', __getitem__)
+        _bind(ccls, '__eq__', '__eq__(self: ' + cq + ', arg0: ' + cq + ') -> bool\n', __eq__)
+        _bind(ccls, '__ne__', '__ne__(self: ' + cq + ', arg0: ' + cq + ') -> bool\n', lambda self, other: not __eq__(self, other))
+        type.__setattr__(ccls, '__hash__', None)
+    def getitem(g):
+        def __getitem__(self, i):
+            if isinstance(i, slice):
+                ret = cls()
+                for j in range(*i.indices(size(self))):
+                    insert(ret, size(ret), cget(self, j))
+                return ret
+            return g(self, norm(self, i))
+        return __getitem__
+    _bind(ccls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + cq + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + cq + ', arg0: int) -> ' + elem_cret + '\n', getitem(cget))
     def __setitem__(self, i, v):
         if isinstance(i, slice):
             idx = range(*i.indices(size(self)))
@@ -1259,25 +1412,31 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
             i = norm(self, i)
             erase(self, i)
             insert(self, i, v)
-    _bind(cls, '__setitem__', '__setitem__(*args, **kwargs)\nOverloaded function.\n\n1. __setitem__(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n\n2. __setitem__(self: ' + q + ', arg0: slice, arg1: ' + q + ') -> None\n\nAssign list elements using a slice object\n', __setitem__)
-    def __iter__(self):
-        for i in range(size(self)):
-            yield get(self, i)
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem_ret + ']\n', __iter__)
-    _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: size(self))
+    _bind(cls, '__setitem__', '__setitem__(*args, **kwargs)\nOverloaded function.\n\n1. __setitem__(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n\n2. __setitem__(self: ' + q + ', arg0: slice, arg1: ' + cq + ') -> None\n\nAssign list elements using a slice object\n', __setitem__)
+    def iterate(g):
+        def __iter__(self):
+            for i in range(size(self)):
+                yield g(self, i)
+        return __iter__
+    _bind(ccls, '__iter__', '__iter__(self: ' + cq + ') -> Iterator[' + elem_cret + ']\n', iterate(cget))
+    if cget is not get and elem_cret != elem_ret:
+        # The mutable elements from the mutable vectors.
+        _bind(cls, '__getitem__', '__getitem__(*args, **kwargs)\nOverloaded function.\n\n1. __getitem__(self: ' + q + ', s: slice) -> ' + q + '\n\nRetrieve list elements using a slice object\n\n2. __getitem__(self: ' + q + ', arg0: int) -> ' + elem_ret + '\n', getitem(get))
+        _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem_ret + ']\n', iterate(get))
+    _bind(ccls, '__len__', '__len__(self: ' + cq + ') -> int\n', lambda self: size(self))
     if 'repr' in p:
-        _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
+        _bind(ccls, '__repr__', '__repr__(self: ' + cq + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
     _bind(cls, 'append', 'append(self: ' + q + ', x: ' + elem + ') -> None\n\nAdd an item to the end of the list\n', lambda self, x: insert(self, size(self), x))
     _bind(cls, 'clear', 'clear(self: ' + q + ') -> None\n\nClear the contents\n', lambda self: clear(self))
     if comparable:
-        _bind(cls, 'count', 'count(self: ' + q + ', x: ' + elem + ') -> int\n\nReturn the number of times ``x`` appears in the list\n', lambda self, x: sum(1 for i in range(size(self)) if get(self, i) == x))
+        _bind(ccls, 'count', 'count(self: ' + cq + ', x: ' + elem + ') -> int\n\nReturn the number of times ``x`` appears in the list\n', lambda self, x: sum(1 for i in range(size(self)) if cget(self, i) == x))
     if 'data' in p:
-        _bind(cls, 'data_pointer', 'data_pointer(self: ' + q + ') -> int\n\nReturns the pointer to the contiguous vector contents, as an integer.\n', lambda self: p['data'](self))
-        type.__setattr__(cls, 'element_type_byte_size', static_property(lambda c: elem_size, None, None, 'Returns the size of the element type, in bytes. Use with `data_pointer()`.'))
+        _bind(ccls, 'data_pointer', 'data_pointer(self: ' + cq + ') -> int\n\nReturns the pointer to the contiguous vector contents, as an integer.\n', lambda self: p['data'](self))
+        type.__setattr__(ccls, 'element_type_byte_size', static_property(lambda c: elem_size, None, None, 'Returns the size of the element type, in bytes. Use with `data_pointer()`.'))
     def extend(self, L):
         for x in list(L):
             insert(self, size(self), x)
-    _bind(cls, 'extend', 'extend(*args, **kwargs)\nOverloaded function.\n\n1. extend(self: ' + q + ', L: ' + q + ') -> None\n\nExtend the list by appending all the items in the given list\n\n2. extend(self: ' + q + ', L: Iterable) -> None\n\nExtend the list by appending all the items in the given list\n', extend)
+    _bind(cls, 'extend', 'extend(*args, **kwargs)\nOverloaded function.\n\n1. extend(self: ' + q + ', L: ' + cq + ') -> None\n\nExtend the list by appending all the items in the given list\n\n2. extend(self: ' + q + ', L: Iterable) -> None\n\nExtend the list by appending all the items in the given list\n', extend)
     def insert_(self, i, x):
         n = size(self)
         if i < 0:
@@ -1296,27 +1455,27 @@ def add_vector_api(cls, q, name, elem, p, elem_size):
     _bind(cls, 'pop', 'pop(*args, **kwargs)\nOverloaded function.\n\n1. pop(self: ' + q + ') -> ' + elem_ret + '\n\nRemove and return the last item\n\n2. pop(self: ' + q + ', i: int) -> ' + elem_ret + '\n\nRemove and return the item at index ``i``\n', pop)
     def remove(self, x):
         for i in range(size(self)):
-            if get(self, i) == x:
+            if cget(self, i) == x:
                 erase(self, i)
                 return
         raise ValueError()
     if comparable:
         _bind(cls, 'remove', 'remove(self: ' + q + ', x: ' + elem + ') -> None\n\nRemove the first item from the list whose value is x. It is an error if there is no such item.\n', remove)
 
-def add_function_api(cls, q, callable_doc, p):
+def add_function_api(ccls, cls, cq, q, callable_doc, p):
     # The API of the `std::function` wrappers of the pybind11 target.
     def __init__(self, *args):
         if not args or (len(args) == 1 and args[0] is None):
             p['init'](self)
-        elif len(args) == 1 and isinstance(args[0], cls):
+        elif len(args) == 1 and isinstance(args[0], ccls):
             p['copy'](self, args[0])
         elif len(args) == 1 and callable(args[0]):
             p['callable'](self, args[0])
         else:
             raise TypeError('__init__(): incompatible constructor arguments.')
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: None) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n\n4. __init__(self: ' + q + ', arg0: ' + callable_doc + ') -> None\n', __init__)
-    _bind(cls, 'can_be_created_from_python', 'can_be_created_from_python(self: ' + q + ') -> bool\n\nIf false, this function type can\'t hold a Python function, and can only be created from C++.\n', lambda self: True)
-    _bind(cls, 'holds_cpp_function', 'holds_cpp_function(self: ' + q + ') -> bool\n\nDoes this object currentlyhold a C++ function? As opposed to a Python one.\n', lambda self: not has_owner(self))
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: None) -> None\n\n3. __init__(self: ' + q + ', arg0: ' + cq + ') -> None\n\n4. __init__(self: ' + q + ', arg0: ' + callable_doc + ') -> None\n', __init__)
+    _bind(ccls, 'can_be_created_from_python', 'can_be_created_from_python(self: ' + cq + ') -> bool\n\nIf false, this function type can\'t hold a Python function, and can only be created from C++.\n', lambda self: True)
+    _bind(ccls, 'holds_cpp_function', 'holds_cpp_function(self: ' + cq + ') -> bool\n\nDoes this object currentlyhold a C++ function? As opposed to a Python one.\n', lambda self: not has_owner(self))
 
 def add_alias(module, name, target):
     # Like `RegisterCustomAlias()` of the pybind11 target: `name` and `target` are dotted paths in the module.
@@ -1339,17 +1498,31 @@ def add_alias(module, name, target):
     # The functions defined directly in the target scope (not inherited) get copies with the new name, like in the pybind11 target.
     if not isinstance(target_scope, type) or target.split('.')[-1] in target_scope.__dict__:
         obj = renamed_function(obj, last)
-    if isinstance(scope, type):
-        type.__setattr__(scope, last, obj)
-    else:
-        setattr(scope, last, obj)
+    def set_attr(name, value):
+        if isinstance(scope, type):
+            type.__setattr__(scope, name, value)
+        else:
+            setattr(scope, name, value)
+    set_attr(last, obj)
+    # An alias of a class also gets a `Const...` one, for its `Const...` class.
+    if isinstance(obj, type):
+        try:
+            const_obj = find(target_scope, const_name(target.split('.')[-1]))
+        except AttributeError:
+            const_obj = None
+        if isinstance(const_obj, type) and issubclass(obj, const_obj) and not hasattr(scope, const_name(last)):
+            set_attr(const_name(last), const_obj)
 
-def add_array_api(cls, q, name, elem, n, p):
-    # The API of `std::array` in the pybind11 target.
+def const_name(name):
+    # The name of the `Const...` class: `Const_` before the lowercase names, like `mrbind_gen_python` does.
+    return ('Const_' if name[:1].islower() or name[:1] == '_' else 'Const') + name
+
+def add_array_api(ccls, cls, cq, q, name, elem, celem, n, p):
+    # The API of `std::array` in the pybind11 target. The `Const...` class gets the reading part, with `cget` returning the const elements.
     def __init__(self, *args):
         if not args:
             p['init'](self)
-        elif len(args) == 1 and isinstance(args[0], cls):
+        elif len(args) == 1 and isinstance(args[0], ccls):
             p['copy'](self, args[0])
         elif len(args) == 1:
             items = list(args[0])
@@ -1362,42 +1535,53 @@ def add_array_api(cls, q, name, elem, n, p):
                 p['set'](self, i, x)
         else:
             raise TypeError('__init__(): incompatible constructor arguments.')
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n\n3. __init__(self: ' + q + ', arg0: Iterable) -> None\n\nInitialize from a list of ' + str(n) + 'elements.\n', __init__)
-    _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: n)
-    def __getitem__(self, i):
-        if not isinstance(i, int) or i < 0 or i >= n:
-            raise IndexError()
-        return p['get'](self, i)
-    _bind(cls, '__getitem__', '__getitem__(self: ' + q + ', arg0: int) -> ' + elem + '\n', __getitem__)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + cq + ') -> None\n\n3. __init__(self: ' + q + ', arg0: Iterable) -> None\n\nInitialize from a list of ' + str(n) + 'elements.\n', __init__)
+    _bind(ccls, '__len__', '__len__(self: ' + cq + ') -> int\n', lambda self: n)
+    def getitem(g):
+        def __getitem__(self, i):
+            if not isinstance(i, int) or i < 0 or i >= n:
+                raise IndexError()
+            return g(self, i)
+        return __getitem__
+    def iterate(g):
+        def __iter__(self):
+            return iter([g(self, i) for i in range(n)])
+        return __iter__
+    _bind(ccls, '__getitem__', '__getitem__(self: ' + cq + ', arg0: int) -> ' + celem + '\n', getitem(p['cget']))
+    _bind(ccls, '__iter__', '__iter__(self: ' + cq + ') -> Iterator[' + celem + ']\n', iterate(p['cget']))
+    if celem != elem:
+        _bind(cls, '__getitem__', '__getitem__(self: ' + q + ', arg0: int) -> ' + elem + '\n', getitem(p['get']))
+        _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem + ']\n', iterate(p['get']))
     def __setitem__(self, i, v):
         if not isinstance(i, int) or i < 0 or i >= n:
             raise IndexError()
         p['set'](self, i, v)
-    _bind(cls, '__setitem__', '__setitem__(self: ' + q + ', arg0: int, arg1: ' + elem + ') -> None\n', __setitem__)
-    def __iter__(self):
-        return iter([p['get'](self, i) for i in range(n)])
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + elem + ']\n', __iter__)
+    _bind(cls, '__setitem__', '__setitem__(self: ' + q + ', arg0: int, arg1: ' + p.get('elem_arg', elem) + ') -> None\n', __setitem__)
     if 'repr' in p:
-        _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n', lambda self: p['repr'](self))
+        _bind(ccls, '__repr__', '__repr__(self: ' + cq + ') -> str\n', lambda self: p['repr'](self))
 
-def add_optional_api(cls, q, value, p):
-    # The API of `std::optional` in the pybind11 target.
+def add_optional_api(ccls, cls, cq, q, value, cvalue, p):
+    # The API of `std::optional` in the pybind11 target. The `Const...` class gets the reading part.
     def __init__(self, *args):
         if not args or (len(args) == 1 and args[0] is None):
             p['init'](self)
-        elif len(args) == 1 and isinstance(args[0], cls) and 'copy' in p:
+        elif len(args) == 1 and isinstance(args[0], ccls) and 'copy' in p:
             p['copy'](self, args[0])
         elif len(args) == 1 and 'from' in p:
             p['from'](self, args[0])
         else:
             raise TypeError('__init__(): incompatible constructor arguments.')
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n\n3. __init__(self: ' + q + ', arg0: ' + value + ') -> None\n\n4. __init__(self: ' + q + ', arg0: None) -> None\n', __init__)
-    _bind(cls, '__bool__', '__bool__(self: ' + q + ') -> bool\n', lambda self: p['has_value'](self))
-    def value_(self):
-        if not p['has_value'](self):
-            raise RuntimeError('bad optional access')
-        return p['value'](self)
-    _bind(cls, 'value', 'value(self: ' + q + ') -> ' + value + '\n', value_)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + cq + ') -> None\n\n3. __init__(self: ' + q + ', arg0: ' + cvalue + ') -> None\n\n4. __init__(self: ' + q + ', arg0: None) -> None\n', __init__)
+    _bind(ccls, '__bool__', '__bool__(self: ' + cq + ') -> bool\n', lambda self: p['has_value'](self))
+    def value_(g):
+        def f(self):
+            if not p['has_value'](self):
+                raise RuntimeError('bad optional access')
+            return g(self)
+        return f
+    _bind(ccls, 'value', 'value(self: ' + cq + ') -> ' + cvalue + '\n', value_(p['value']))
+    if 'value_mut' in p:
+        _bind(cls, 'value', 'value(self: ' + q + ') -> ' + value + '\n', value_(p['value_mut']))
 
 def add_output_api(cls, q, p, is_bool):
     doc = 'A helper class containing a list of scalars. This is used for functions with scalar output parameters.\nNOTE: If a function outputs an array, you must manually resize this to the correct size or risk undefined behavior.'
@@ -1432,41 +1616,49 @@ def make_views(module, base):
 
 _map_prims = {}
 
-def add_map_api(cls, q, name, key, value, p):
+def add_map_api(ccls, cls, cq, q, name, key, value, cvalue, p):
     # The API of `pybind11::bind_map()` plus the extras of the pybind11 target.
+    # The `Const...` class gets the reading part: `cref`, `cvalues`, `citems` give the const values.
+    pc = dict(p)
+    pc['values'], pc['items'] = p['cvalues'], p['citems']
+    _map_prims[ccls] = pc
     _map_prims[cls] = p
     def __init__(self, *args):
         if not args:
             p['init'](self)
-        elif len(args) == 1 and isinstance(args[0], cls):
+        elif len(args) == 1 and isinstance(args[0], ccls):
             p['copy'](self, args[0])
         else:
             raise TypeError('__init__(): incompatible constructor arguments.')
-    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + q + ') -> None\n', __init__)
+    _bind(cls, '__init__', '__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: ' + q + ') -> None\n\n2. __init__(self: ' + q + ', arg0: ' + cq + ') -> None\n', __init__)
     if 'repr' in p:
-        _bind(cls, '__repr__', '__repr__(self: ' + q + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
-    _bind(cls, '__bool__', '__bool__(self: ' + q + ') -> bool\n\nCheck whether the map is nonempty\n', lambda self: p['size'](self) != 0)
-    _bind(cls, '__iter__', '__iter__(self: ' + q + ') -> Iterator[' + key + ']\n', lambda self: iter(p['keys'](self)))
+        _bind(ccls, '__repr__', '__repr__(self: ' + cq + ') -> str\n\nReturn the canonical string representation of this map.\n', lambda self: p['repr'](self))
+    _bind(ccls, '__bool__', '__bool__(self: ' + cq + ') -> bool\n\nCheck whether the map is nonempty\n', lambda self: p['size'](self) != 0)
+    _bind(ccls, '__iter__', '__iter__(self: ' + cq + ') -> Iterator[' + p.get('key_ret', key) + ']\n', lambda self: iter(p['keys'](self)))
     def view(kind):
         def f(self):
             v = enum_new_raw(_views[kind], 0)
             set_owner(v, self)
             return v
         return f
-    _bind(cls, 'keys', 'keys(self: ' + q + ') -> KeysView\n', view('KeysView'))
-    _bind(cls, 'values', 'values(self: ' + q + ') -> ValuesView\n', view('ValuesView'))
-    _bind(cls, 'items', 'items(self: ' + q + ') -> ItemsView\n', view('ItemsView'))
+    _bind(ccls, 'keys', 'keys(self: ' + cq + ') -> KeysView\n', view('KeysView'))
+    _bind(ccls, 'values', 'values(self: ' + cq + ') -> ValuesView\n', view('ValuesView'))
+    _bind(ccls, 'items', 'items(self: ' + cq + ') -> ItemsView\n', view('ItemsView'))
     def contains(self, k):
         try:
             return p['contains'](self, k)
         except TypeError:
             return False
-    def __getitem__(self, k):
-        if not contains(self, k):
-            raise KeyError(k)
-        return p['ref'](self, k)
-    _bind(cls, '__getitem__', '__getitem__(self: ' + q + ', arg0: ' + key + ') -> ' + value + '\n', __getitem__)
-    _bind(cls, '__contains__', '__contains__(*args, **kwargs)\nOverloaded function.\n\n1. __contains__(self: ' + q + ', arg0: ' + key + ') -> bool\n\n2. __contains__(self: ' + q + ', arg0: object) -> bool\n', contains)
+    def getitem(ref):
+        def __getitem__(self, k):
+            if not contains(self, k):
+                raise KeyError(k)
+            return ref(self, k)
+        return __getitem__
+    _bind(ccls, '__getitem__', '__getitem__(self: ' + cq + ', arg0: ' + key + ') -> ' + cvalue + '\n', getitem(p['cref']))
+    if cvalue != value:
+        _bind(cls, '__getitem__', '__getitem__(self: ' + q + ', arg0: ' + key + ') -> ' + value + '\n', getitem(p['ref']))
+    _bind(ccls, '__contains__', '__contains__(*args, **kwargs)\nOverloaded function.\n\n1. __contains__(self: ' + cq + ', arg0: ' + key + ') -> bool\n\n2. __contains__(self: ' + cq + ', arg0: object) -> bool\n', contains)
     if 'set' in p:
         _bind(cls, '__setitem__', '__setitem__(self: ' + q + ', arg0: ' + key + ', arg1: ' + value + ') -> None\n', lambda self, k, v: p['set'](self, k, v))
     def __delitem__(self, k):
@@ -1474,13 +1666,13 @@ def add_map_api(cls, q, name, key, value, p):
             raise KeyError(k)
         # The C bindings have no `erase(key)`, rebuild the map without the key.
         rest = cls()
-        for kk, vv in p['items'](self):
+        for kk, vv in p['citems'](self):
             if not (kk == k):
                 p['set'](rest, kk, vv)
         p['assign'](self, rest)
     _bind(cls, '__delitem__', '__delitem__(self: ' + q + ', arg0: ' + key + ') -> None\n', __delitem__)
-    _bind(cls, '__len__', '__len__(self: ' + q + ') -> int\n', lambda self: p['size'](self))
-    _bind(cls, 'size', 'size(self: ' + q + ') -> int\n', lambda self: p['size'](self))
+    _bind(ccls, '__len__', '__len__(self: ' + cq + ') -> int\n', lambda self: p['size'](self))
+    _bind(ccls, 'size', 'size(self: ' + cq + ') -> int\n', lambda self: p['size'](self))
 
 _enum_members = {}
 
@@ -1544,6 +1736,37 @@ def enum_from_bits(cls, bits):
         Py_RETURN_NONE;
     }
 
+    // `move_instance(dst, src)`: `dst` takes over the object of `src` (with its ownership), `src` becomes empty.
+    // The `Const...` classes construct through the mutable ones with this.
+    inline PyObject *MoveInstancePy(PyObject *, PyObject *args)
+    {
+        PyObject *dst, *src;
+        if (!PyArg_ParseTuple(args, "OO", &dst, &src))
+            return nullptr;
+        if (!PyObject_TypeCheck(dst, reinterpret_cast<PyTypeObject *>(object_type)) || !PyObject_TypeCheck(src, reinterpret_cast<PyTypeObject *>(object_type)))
+        {
+            PyErr_SetString(PyExc_TypeError, "move_instance(): expected two bound objects.");
+            return nullptr;
+        }
+        Instance *d = reinterpret_cast<Instance *>(dst), *s = reinterpret_cast<Instance *>(src);
+        if (d->owned && d->ptr && d->rec && d->rec->destroy)
+            d->rec->destroy(d->ptr);
+        if (d->holder)
+            holder_destroy(d->holder);
+        Py_CLEAR(d->owner);
+        d->ptr = s->ptr;
+        d->rec = s->rec;
+        d->owned = s->owned;
+        d->holder = s->holder;
+        d->owner = s->owner;
+        s->ptr = nullptr;
+        s->owned = 0;
+        s->holder = nullptr;
+        s->owner = nullptr;
+        Py_RETURN_NONE;
+    }
+
+    inline PyMethodDef move_instance_def = {"move_instance", MoveInstancePy, METH_VARARGS, nullptr};
     inline PyMethodDef get_owner_def = {"get_owner", GetOwnerPy, METH_O, nullptr};
     inline PyMethodDef set_owner_def = {"set_owner", SetOwnerPy, METH_VARARGS, nullptr};
     inline PyMethodDef renamed_function_def = {"renamed_function", RenamedFunctionPy, METH_VARARGS, nullptr};
@@ -1575,13 +1798,28 @@ def enum_from_bits(cls, bits):
         return ok;
     }
 
+    // `_is_owning`, like `_IsOwning` in C#: whether this object owns the C++ object (directly or through a shared pointer),
+    //   as opposed to referencing an object owned by something else.
+    inline PyObject *IsOwningGet(PyObject *o, void *)
+    {
+        Instance *self = reinterpret_cast<Instance *>(o);
+        return PyBool_FromLong(self->ptr && (self->owned || self->holder));
+    }
+
+    inline PyGetSetDef object_getset[] = {
+        {"_is_owning", IsOwningGet, nullptr, "Whether this object owns the C++ object, as opposed to referencing an object owned by something else.", nullptr},
+        {nullptr, nullptr, nullptr, nullptr, nullptr},
+    };
+
     inline PyType_Slot object_slots[] = {
         {Py_tp_dealloc, reinterpret_cast<void *>(Dealloc)},
+        {Py_tp_getset, reinterpret_cast<void *>(object_getset)},
         {Py_tp_init, reinterpret_cast<void *>(NoConstructorInit)},
         {Py_tp_new, reinterpret_cast<void *>(PyType_GenericNew)},
         {0, nullptr},
     };
-    inline PyType_Spec object_spec = {"mrbind_py.Object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
+    // Named like in pybind11: `pybind11-stubgen` knows it.
+    inline PyType_Spec object_spec = {"pybind11_builtins.pybind11_object", sizeof(Instance), 0, Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE, object_slots};
 
     // Sets up the runtime. Call first in the module init.
     // ---- The C++ interop API, for the extension modules in C++ that pass the objects of this module (see `cpp_api.h` in mrbind).
@@ -1648,8 +1886,71 @@ def enum_from_bits(cls, bits):
         const void *(*get_holder)(PyObject *obj);
         PyObject *(*wrap)(const char *cpp_type, void *ptr, int owned, PyObject *owner);
         PyObject *(*wrap_shared)(const char *cpp_type, void *ptr, void *holder);
+
+        // Not in `cpp_api.h`: for the modules generated with `--depends-on` this one, which share its runtime state.
+        unsigned long long runtime_hash; // Of the runtime source, the state is shared only with the same runtime.
+        TypeRecord *(*find_record)(const char *cpp_type);
+        PyObject **object_type, **meta, **static_property;
+        void (**holder_destroy)(void *);
     };
-    inline CppApi cpp_api = {1, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared};
+    inline CppApi cpp_api = {1, ApiUnwrap, ApiGetHolder, ApiWrap, ApiWrapShared, MRBIND_PY_RUNTIME_HASH, FindRecordForCpp, &object_type, &meta, &static_property, &holder_destroy};
+
+    // ---- For the modules generated with `--depends-on`.
+
+    inline const CppApi *dep_api = nullptr;
+    inline PyObject *dep_module = nullptr;
+
+    // Call after `Init()`: imports the module `qualname` and shares its classes and runtime state.
+    inline bool InitDependent(const char *qualname)
+    {
+        dep_module = PyImport_ImportModule(qualname);
+        if (!dep_module)
+            return false;
+        std::string capsule = std::string(qualname) + ".__mrbind_cpp_api__";
+        dep_api = static_cast<const CppApi *>(PyCapsule_Import(capsule.c_str(), 0));
+        if (!dep_api)
+            return false;
+        if (MRBIND_PY_RUNTIME_HASH == 0 || dep_api->runtime_hash != MRBIND_PY_RUNTIME_HASH)
+        {
+            PyErr_Format(PyExc_ImportError, "`%s` was generated by another version of mrbind.", qualname);
+            return false;
+        }
+        object_type = *dep_api->object_type;
+        meta = *dep_api->meta;
+        static_property = *dep_api->static_property;
+        holder_destroy = *dep_api->holder_destroy;
+        // For the Python part of the runtime.
+        PyObject *dict = PyModule_GetDict(rt); // Borrowed.
+        return PyDict_SetItemString(dict, "meta", meta) == 0 && PyDict_SetItemString(dict, "pybind11_type", meta) == 0 &&
+            PyDict_SetItemString(dict, "static_property", static_property) == 0 && PyDict_SetItemString(dict, "pybind11_static_property", static_property) == 0;
+    }
+
+    // The record of a class of the module we depend on.
+    inline TypeRecord *DepRecord(const char *cpp_type)
+    {
+        TypeRecord *ret = dep_api->find_record(cpp_type);
+        if (!ret)
+            PyErr_Format(PyExc_ImportError, "The dependency has no class for `%s`.", cpp_type);
+        return ret;
+    }
+
+    // A new reference to an attribute of the module we depend on, by a dotted path.
+    inline PyObject *DepAttr(const char *path)
+    {
+        PyObject *cur = dep_module;
+        Py_INCREF(cur);
+        std::string_view rest = path;
+        while (cur && !rest.empty())
+        {
+            std::size_t dot = rest.find('.');
+            std::string part(rest.substr(0, dot));
+            rest = dot == std::string_view::npos ? std::string_view() : rest.substr(dot + 1);
+            PyObject *next = PyObject_GetAttrString(cur, part.c_str());
+            Py_DECREF(cur);
+            cur = next;
+        }
+        return cur;
+    }
 
     // Adds the capsule `<capsule_name>`, which must be `<module qualname>.__mrbind_cpp_api__` for `PyCapsule_Import()`.
     inline bool AddCppApi(PyObject *module, const char *capsule_name)
@@ -1693,6 +1994,7 @@ def enum_from_bits(cls, bits):
             return false;
         PyObject *dict = PyModule_GetDict(rt); // Borrowed.
         PyDict_SetItemString(dict, "__builtins__", builtins);
+        PyDict_SetItemString(dict, "object_type", object_type);
         PyObject *code = Py_CompileString(runtime_python_source, "<mrbind_py runtime>", Py_file_input);
         if (!code)
             return false;
@@ -1708,6 +2010,7 @@ def enum_from_bits(cls, bits):
         f = PyCFunction_NewEx(&has_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "has_owner", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&get_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "get_owner", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&set_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "set_owner", f); Py_XDECREF(f);
+        f = PyCFunction_NewEx(&move_instance_def, nullptr, nullptr); PyDict_SetItemString(dict, "move_instance", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&renamed_function_def, nullptr, nullptr); PyDict_SetItemString(dict, "renamed_function", f); Py_XDECREF(f);
         meta = PyDict_GetItemString(dict, "meta");
         static_property = PyDict_GetItemString(dict, "static_property");

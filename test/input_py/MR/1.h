@@ -50,4 +50,26 @@ namespace MR
     struct B : virtual A {};
 
     struct C : B {};
+
+    // The operators without Python counterparts (`assign()`, `increment()`, `decrement()`), and the comparisons.
+    struct Ops
+    {
+        int x = 0;
+
+        Ops &operator=(int v) {x = v; return *this;}
+        Ops &operator*=(int v) {x *= v; return *this;}
+
+        bool operator<(const Ops &o) const {return x < o.x;}
+        bool operator>(const Ops &o) const {return x > o.x;}
+        bool operator<=(const Ops &o) const {return x <= o.x;}
+        bool operator>=(const Ops &o) const {return x >= o.x;}
+
+        Ops &operator++() {++x; return *this;}
+        Ops operator++(int) {Ops ret = *this; ++x; return ret;}
+        Ops &operator--() {--x; return *this;}
+        Ops operator--(int) {Ops ret = *this; --x; return ret;}
+    };
+
+    // Reflected into `Ops.__gt__`.
+    inline bool operator<(int a, const Ops &b) {return a < b.x;}
 }

@@ -2543,6 +2543,7 @@ namespace mrbind::C
         {
             c_comment = new_func.comment->text_with_slashes;
             c_comment += '\n';
+            c_comment_formatted = new_func.comment->text;
         }
         c_comment += "/// Generated from function `";
         c_comment += full_qual_name_fixed_deco;
@@ -2601,6 +2602,7 @@ namespace mrbind::C
         {
             c_comment = new_ctor.comment->text_with_slashes;
             c_comment += '\n';
+            c_comment_formatted = new_ctor.comment->text;
         }
         c_comment += "/// Generated from constructor `";
         c_comment += cpp_type_str_deco;
@@ -2713,6 +2715,7 @@ namespace mrbind::C
         {
             c_comment = new_method.comment->text_with_slashes;
             c_comment += '\n';
+            c_comment_formatted = new_method.comment->text;
         }
         c_comment += "/// Generated from method `";
         c_comment += cpp_type_str_deco;
@@ -2763,6 +2766,7 @@ namespace mrbind::C
         {
             c_comment = new_conv_op.comment->text_with_slashes;
             c_comment += '\n';
+            c_comment_formatted = new_conv_op.comment->text;
         }
         c_comment += "/// Generated from conversion operator `";
         c_comment += cpp_type_str_deco;
@@ -2905,6 +2909,7 @@ namespace mrbind::C
         {
             c_comment = new_field.comment->text_with_slashes;
             c_comment += '\n';
+            c_comment_formatted = new_field.comment->text;
         }
         c_comment += "/// " + std::string(is_setter ? "Modifies" : is_const ? "Returns a pointer to" : "Returns a mutable pointer to") + " a member variable of class `";
         c_comment += class_cpp_type_str_deco;
@@ -3861,6 +3866,7 @@ namespace mrbind::C
 
                     func_like->comment.c_style = params.c_comment;
                     func_like->comment.c_style += '\n';
+                    func_like->comment.formatted = params.c_comment_formatted;
 
                     // Separately, the lifetimes comment.
                     func_like->comment_extra_lifetimes.c_style = strings.comment_lifetimes;
@@ -3938,6 +3944,8 @@ namespace mrbind::C
             interop_field = &class_desc.fields.emplace_back();
 
             interop_field->comment = MakeCommentForInterop(new_field.comment ? new_field.comment->text_with_slashes + '\n' : "");
+            if (new_field.comment)
+                interop_field->comment.formatted = new_field.comment->text;
             interop_field->is_static = new_field.is_static;
             if (new_field.inherited_from)
                 interop_field->inherited_from = new_field.inherited_from->base;
@@ -5242,6 +5250,27 @@ namespace mrbind::C
                         }
                     );
                 }
+
+                if (self.output_desc)
+                {
+                    CInterop::TypeKinds::Class &class_desc = self.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(cpp_class_name));
+                    if (cl.comment)
+                        class_desc.comment.formatted = cl.comment->text;
+                    class_desc.some_nonstatic_data_members_skipped = cl.some_nonstatic_data_members_skipped;
+                    if (parsed_class_info.is_same_layout_struct)
+                    {
+                        std::size_t i = 0;
+                        for (const auto &member : cl.members)
+                        {
+                            const ClassField *field = std::get_if<ClassField>(&member);
+                            if (!field || field->is_static)
+                                continue;
+                            if (field->comment && i < class_desc.fields.size())
+                                class_desc.fields[i].comment.formatted = field->comment->text;
+                            i++;
+                        }
+                    }
+                }
             }
             catch (...)
             {
@@ -5779,6 +5808,20 @@ namespace mrbind::C
                     }
                 }
             );
+
+            if (self.output_desc)
+            {
+                if (auto *enum_desc = std::get_if<CInterop::TypeKinds::Enum>(&self.FindBindableType_Mutable(cppdecl::Type::FromQualifiedName(parsed_type)).interop_info))
+                {
+                    if (en.comment)
+                        enum_desc->comment.formatted = en.comment->text;
+                    for (std::size_t i = 0; i < en.elems.size() && i < enum_desc->elems.size(); i++)
+                    {
+                        if (en.elems[i].comment)
+                            enum_desc->elems[i].comment.formatted = en.elems[i].comment->text;
+                    }
+                }
+            }
         }
 
         // void Visit(const TypedefEntity &td) override
@@ -5864,6 +5907,15 @@ namespace mrbind::C
         { // Emit.
             VisitorEmit v(*this);
             v.Process(data.entities);
+        }
+
+        // Emit the types forced with `mrbind::instantiate_only`, even if nothing else needs them.
+        for (const auto &outer : data.type_info)
+        {
+            if (!std::any_of(outer.second.begin(), outer.second.end(), [](const auto &inner){return bool(inner.second.uses & TypeUses::force_instantiated);}))
+                continue;
+            if (const BindableType *bindable = FindBindableTypeOpt(ParseTypeOrThrow(outer.first)); bindable && bindable->bindable_with_same_address.declared_in_file)
+                (void)bindable->bindable_with_same_address.declared_in_file(); // Force generate the file.
         }
 
         // Poke the helpers file, if forced.

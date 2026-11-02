@@ -114,6 +114,7 @@ namespace MRBind::pb11
     [[nodiscard]] std::string ImproveTypeName(std::string str);
 
     // Given MRBind's internal overloaded operator name, output Python's name for it. Otherwise returns the name unchanged.
+    // Returns null for the operators that shouldn't be bound.
     [[nodiscard]] const char *AdjustOverloadedOperatorName(const char *name, bool unary);
 
     void RegisterTypeAliasLow(MRBind::TypeIndex type, std::string_view spelling);
@@ -184,6 +185,8 @@ namespace MRBind::pb11
         // which during subsequent passes can be changed to include template arguments to resolve ambiguous overloads.
         std::string python_name;
         bool is_overloaded_operator = false;
+        // An operator that shouldn't be bound, such as the postfix `++`.
+        bool is_skipped = false;
     };
 
     // Use `ToPybindSignatureType` with this.
@@ -1461,7 +1464,11 @@ namespace MRBind::pb11
                 return false;
 
             const char *op = AdjustOverloadedOperatorName(simplename, unary);
-            if (op != simplename)
+            if (!op)
+            {
+                state->is_skipped = true;
+            }
+            else if (op != simplename)
             {
                 state->is_overloaded_operator = true;
                 state->python_name = op;
@@ -1493,6 +1500,17 @@ namespace MRBind::pb11
             }
         }
 
+        // The name of a binary operator with the reverse argument order: `__add__` becomes `__radd__`, but `__lt__` becomes `__gt__` (`x < y` is `y > x`).
+        inline std::string ReflectedOperatorName(std::string_view name)
+        {
+            if (name == "__eq__" || name == "__ne__") return std::string(name);
+            if (name == "__lt__") return "__gt__";
+            if (name == "__gt__") return "__lt__";
+            if (name == "__le__") return "__ge__";
+            if (name == "__ge__") return "__le__";
+            return "__r" + std::string(name.substr(2));
+        }
+
         // Injects an overloaded operator that's originally a free function into a class of one of its operand.
         template <bool IsBinary>
         void InjectOverloadedOperatorIntoClass(
@@ -1519,8 +1537,7 @@ namespace MRBind::pb11
                 {
                     if (auto iter = r.type_entries.find(second_param_typeid); iter != r.type_entries.end())
                     {
-                        // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
-                        iter->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
+                        iter->second.pybind_type->AddExtraMethod(ReflectedOperatorName(final_name).c_str(), symmetric_lambda, ret_policy, decltype(trimmed_data)(trimmed_data)...);
                     }
                 }
             }
@@ -1692,7 +1709,7 @@ namespace MRBind::pb11
 
                 // Check the pass number.
                 static constexpr int desired_pass_number = (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
-                if (pass_number != desired_pass_number && pass_number >= 0)
+                if ((pass_number != desired_pass_number && pass_number >= 0) || (state && state->is_skipped))
                     return;
 
                 const char *final_name = state ? state->python_name.c_str() : fullname;
@@ -2402,7 +2419,7 @@ namespace MRBind::pb11
         if (view == "_Tilde") return "__invert__";
         if (view == "_PlusEqual") return "__iadd__";
         if (view == "_MinusEqual") return "__isub__";
-        if (view == "_StarEqual") return "__imatmul__";
+        if (view == "_StarEqual") return "__imul__";
         if (view == "_SlashEqual") return "__itruediv__";
         if (view == "_PercentEqual") return "__imod__";
         if (view == "_CaretEqual") return "__ixor__";
@@ -2414,9 +2431,16 @@ namespace MRBind::pb11
         if (view == "_GreaterGreaterEqual") return "__irshift__";
         if (view == "_EqualEqual") return "__eq__"; // If missing, Python implements this in terms of `is` (basically an address comparison).
         if (view == "_ExclaimEqual") return "__ne__"; // Python automatically implements this in terms of `__eq__` if it's missing, like in C++.
+        if (view == "_Less") return "__lt__";
+        if (view == "_Greater") return "__gt__";
+        if (view == "_LessEqual") return "__le__";
+        if (view == "_GreaterEqual") return "__ge__";
         if (view == "_Call") return "__call__";
         if (view == "_Subscript") return "__getitem__"; // `__setitem__` is generated separately.
-        // We don't handle <,<=,>,>= at the moment. Would need to do something about `<=>` too....
+        // No Python counterparts, so ordinary methods. The postfix `++`/`--` (with the dummy `int`) aren't bound.
+        if (view == "_Equal") return "assign";
+        if (view == "_PlusPlus") return unary ? "increment" : nullptr;
+        if (view == "_MinusMinus") return unary ? "decrement" : nullptr;
         return name;
         // Unhandled operators: (taken from /usr/lib/llvm-18/include/clang/Basic/OperatorKinds.def)
         // _New
@@ -2424,16 +2448,9 @@ namespace MRBind::pb11
         // _Array_New
         // _Array_Delete
         // _Exclaim
-        // _Equal
-        // _Less
-        // _Greater
-        // _LessEqual
-        // _GreaterEqual
         // _Spaceship
         // _AmpAmp
         // _PipePipe
-        // _PlusPlus
-        // _MinusMinus
         // _Comma
         // _ArrowStar
         // _Arrow
@@ -3619,14 +3636,16 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_PREPEND_PLUS(...) __VA_OPT__(+__VA_ARGS__)
 
 // A helper that generates function parameter bindings.
-#define DETAIL_MB_PB11_MAKE_PARAMS(seq) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_NULL, SF_NULL,, seq)
+#define DETAIL_MB_PB11_MAKE_PARAMS(seq) DETAIL_MB_PB11_MAKE_PARAMS_OR(seq, "")
+// `unnamed_` is the name of the unnamed parameters.
+#define DETAIL_MB_PB11_MAKE_PARAMS_OR(seq, unnamed_) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_STATE, SF_NULL, unnamed_, seq)
 #define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) \
-    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))(name_, default_arg_, __VA_ARGS__)
+    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))((*MRBIND_STR(name_) ? MRBIND_STR(name_) : d), default_arg_, __VA_ARGS__)
 
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_, default_arg, default_arg_cpp_) \
-    , pybind11::arg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str())
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_, default_arg_, default_arg_cpp_) \
-    , MRBind::pb11::ParamWithDefaultArg(MRBind::pb11::AdjustPythonKeywords(MRBIND_STR(name_)).c_str(), MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_str_, default_arg, default_arg_cpp_) \
+    , pybind11::arg(MRBind::pb11::AdjustPythonKeywords(name_str_).c_str())
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_str_, default_arg_, default_arg_cpp_) \
+    , MRBind::pb11::ParamWithDefaultArg(MRBind::pb11::AdjustPythonKeywords(name_str_).c_str(), MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
 
 // A helper that generates a list of parameter types.
 // We also decay arrays and functions to pointers here.
@@ -3989,7 +4008,16 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_METHOD_, assignment_kind_)(qualname_, static_, assignment_kind_, __VA_ARGS__)
+
+// The move assignment is never bound: in Python it would be the same as the copy one.
+#define DETAIL_MB_PB11_METHOD_none DETAIL_MB_PB11_METHOD
+#define DETAIL_MB_PB11_METHOD_copy DETAIL_MB_PB11_METHOD
+#define DETAIL_MB_PB11_METHOD_move(...)
+#define DETAIL_MB_PB11_METHOD_by_value_assignment DETAIL_MB_PB11_METHOD
+
+#define DETAIL_MB_PB11_METHOD(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
@@ -4018,7 +4046,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* Pybind extras: */\
         [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
             /* Parameters. */\
-            DETAIL_MB_PB11_MAKE_PARAMS(params_), \
+            DETAIL_MB_PB11_MAKE_PARAMS_OR(params_, MRBIND_CAT(DETAIL_MB_PB11_UNNAMED_PARAM_, assignment_kind_)), \
             /* Comment, possibly null. */ \
             DETAIL_MB_PB11_COMMENT_PTR(comment_) \
             /* Lifetime annotations. */ \
@@ -4027,6 +4055,11 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     ); \
     /* If this is `__getitem__`, also generate `__setitem__`. */\
     DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT(simplename_, params_, const_)
+
+// The name of the unnamed parameter of the assignments.
+#define DETAIL_MB_PB11_UNNAMED_PARAM_none ""
+#define DETAIL_MB_PB11_UNNAMED_PARAM_copy "other"
+#define DETAIL_MB_PB11_UNNAMED_PARAM_by_value_assignment "other"
 
 // `DETAIL_MB_PB11_DISPATCH_MEMBER_method` calls this to generate the assigning overload of `[]`. The normal non-assigning overload is generated the normal way.
 // Only has effect if `simplename_` == `_Subscript`. Then calls `TryAddMutableSubscriptOperator()`.
@@ -4073,6 +4106,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_REGISTER_TYPE_NONSTATIC_DATA_MEMBER(i_, name_source_, ...) (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_STATIC_DATA_MEMBER(i_, name_source_, ...)    (void)MRBind::pb11::RegisterFieldType<__VA_ARGS__>{};
 #define MB_REGISTER_TYPE_TYPEDEF_TARGET(i_, name_source_, ...)        MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
+#define MB_REGISTER_TYPE_FORCE_INSTANTIATED(i_, name_source_, ...)    MB_REGISTER_TYPE_PARSED(i_, name_source_, __VA_ARGS__)
 
 #define MB_ALT_TYPE_SPELLING(i_, name_source_, type_, spelling_) // Base version is empty, we check the specific usecases.
 
@@ -4083,6 +4117,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_ALT_TYPE_SPELLING_NONSTATIC_DATA_MEMBER(i_, name_source_, type_, spelling_) DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_STATIC_DATA_MEMBER(i_, name_source_, type_, spelling_)    DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_TARGET(i_, name_source_, type_, spelling_)        DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
+#define MB_ALT_TYPE_SPELLING_FORCE_INSTANTIATED(i_, name_source_, type_, spelling_)    DETAIL_MB_PB11_ALT_SPELLING_IF_NOT_CUSTOM(name_source_, type_, spelling_)
 #define MB_ALT_TYPE_SPELLING_TYPEDEF_NAME(i_, name_source_, type_, spelling_)          DETAIL_MB_PB11_ALT_SPELLING              (              type_, spelling_)
 
 // This one registers the spelling only if `name_source_` is empty. Because if it's `custom` instead, it means the canonical name comes from
