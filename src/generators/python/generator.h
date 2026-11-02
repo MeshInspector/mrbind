@@ -251,6 +251,8 @@ namespace mrbind::Python
         [[nodiscard]] const std::regex &CachedRegex(const std::string &pattern) const;
         // Spells a C++ type like the demangled `typeid()` that pybind11 makes the names from: typedefs expanded, `T const`.
         [[nodiscard]] std::string TypeidSpelling(std::string name);
+        [[nodiscard]] std::string TypeidSpellingUncached(std::string name);
+        std::unordered_map<std::string, std::string> typeid_spellings; // The results of `TypeidSpelling()`.
         // `typeid(T)` drops the references and the top-level constness, but keeps the pointers.
         [[nodiscard]] std::string TypeidArg(std::string type);
         std::unordered_map<std::string, std::string> typedef_targets; // For `TypeidSpelling()`.
