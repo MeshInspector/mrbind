@@ -50,6 +50,8 @@ namespace mrbind::Python
         // The qualified name of another module generated from the same description, e.g. `mypackage.mylib`.
         // The classes and enums of the ignored C files are then taken from it instead of skipped.
         std::string depends_on;
+        // Splits the module into `<module>.cpp`, `<module>_1.cpp`, ... `<module>_<N-1>.cpp` with a common `<module>.h`, to compile them in parallel.
+        std::size_t num_fragments = 1;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
@@ -138,6 +140,11 @@ namespace mrbind::Python
         std::size_t counter = 0;
 
         [[nodiscard]] std::string NewId(std::string_view prefix) {return std::string(prefix) + std::to_string(counter++);}
+
+        // With `num_fragments > 1`: the namespace of the generated code, instead of an unnamed one.
+        [[nodiscard]] std::string FragmentNamespace() const;
+        // Splits the generated code into the fragments and the common header.
+        void EmitFragments(const std::string &prologue, const std::string &module_def, const std::string &init_func, const std::string &init_body);
 
         // One Python parameter of a wrapper.
         struct PyParam

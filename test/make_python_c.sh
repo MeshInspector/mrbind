@@ -21,10 +21,11 @@ build/mrbind_gen_python \
     --replace-namespace MR :: \
     --adjust-name '\bMR::' '' \
     --extra-python test/run_python_c/extra.py \
+    --fragments 3 \
 
-# The limited API, so one module serves every Python version.
+# The limited API, so one module serves every Python version. The fragments are compiled together here.
 "$CXX" \
-    test/output_python_c/src/mrbind_test.cpp \
+    test/output_python_c/src/mrbind_test*.cpp \
     -o "test/output_python_c/mrbind_test$EXT_MODULE" \
     -shared -fPIC -std=c++20 -O1 -Wall -Wextra -Wno-missing-field-initializers -Wno-unused-parameter -Wno-cast-function-type-mismatch \
     -DPy_LIMITED_API=0x03080000 \
