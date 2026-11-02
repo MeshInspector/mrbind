@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <map>
 #include <optional>
+#include <regex>
 #include <set>
 #include <string>
 #include <unordered_map>
@@ -245,6 +246,9 @@ namespace mrbind::Python
         [[nodiscard]] static const CInterop::ClassMethod *FindMethod(const TypeInfo &info, std::string_view c_name_suffix);
 
         [[nodiscard]] std::string AdjustName(std::string name, bool is_alias = false) const;
+        // The regexes from the command line, compiled once.
+        mutable std::unordered_map<std::string, std::regex> regex_cache;
+        [[nodiscard]] const std::regex &CachedRegex(const std::string &pattern) const;
         // Spells a C++ type like the demangled `typeid()` that pybind11 makes the names from: typedefs expanded, `T const`.
         [[nodiscard]] std::string TypeidSpelling(std::string name);
         // `typeid(T)` drops the references and the top-level constness, but keeps the pointers.
