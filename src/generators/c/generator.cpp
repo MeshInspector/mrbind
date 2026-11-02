@@ -5796,30 +5796,49 @@ namespace mrbind::C
 
             struct VisitorTypedefs : Visitor
             {
-                CInterop::OutputDesc &desc;
-                VisitorTypedefs(CInterop::OutputDesc &desc) : desc(desc) {}
+                Generator &self;
+                VisitorTypedefs(Generator &self) : self(self) {}
                 void Visit(const TypedefEntity &td) override
                 {
-                    desc.typedefs.push_back({.full_name = td.full_name, .pretty = td.type.pretty, .canonical = td.type.canonical});
+                    self.output_desc->typedefs.push_back({
+                        .full_name = td.full_name,
+                        .pretty = td.type.pretty,
+                        .canonical = td.type.canonical,
+                        .output_file = self.MakeOutputFileDescForInterop(self.GetOutputFile(td.declared_in_file)),
+                    });
                 }
             };
-            VisitorTypedefs v(*output_desc);
+            VisitorTypedefs v(*this);
             v.Process(data.entities);
 
-            for (const auto &outer : data.type_info)
-            {
-                bool custom = !outer.second.empty() && outer.second.begin()->second.has_custom_canonical_name;
-                output_desc->type_aliases.push_back({.target = outer.first, .spelling = outer.first});
-                for (const auto &variant : outer.second)
+            { // The type spellings. A spelling of several types is omitted.
+                std::vector<std::pair<std::string, std::string>> spellings; // (spelling, target), in order.
+                std::map<std::string, std::set<std::string>, std::less<>> targets_by_spelling;
+                auto Add = [&](const std::string &spelling, const std::string &target)
                 {
-                    for (const auto &spelling : variant.second.alt_spellings)
+                    spellings.emplace_back(spelling, target);
+                    targets_by_spelling[spelling].insert(target);
+                };
+                for (const auto &outer : data.type_info)
+                {
+                    bool custom = !outer.second.empty() && outer.second.begin()->second.has_custom_canonical_name;
+                    Add(outer.first, outer.first);
+                    for (const auto &variant : outer.second)
                     {
-                        if (spelling.second.poisoned)
-                            continue;
-                        if (custom && !bool(spelling.second.uses & TypeUses::typedef_name))
-                            continue;
-                        output_desc->type_aliases.push_back({.target = outer.first, .spelling = spelling.first});
+                        for (const auto &spelling : variant.second.alt_spellings)
+                        {
+                            if (spelling.second.poisoned)
+                                continue;
+                            if (custom && !bool(spelling.second.uses & TypeUses::typedef_name))
+                                continue;
+                            Add(spelling.first, outer.first);
+                        }
                     }
+                }
+                for (const auto &[spelling, target] : spellings)
+                {
+                    if (targets_by_spelling.at(spelling).size() == 1)
+                        output_desc->type_aliases.TryEmplace(spelling, target);
                 }
             }
         }

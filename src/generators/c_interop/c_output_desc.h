@@ -710,26 +710,18 @@ namespace mrbind::CInterop
         )
     };
 
-    // The combined description of the C generator output.
     // A typedef from the parsed code, for the generators that expose the typedef names (the Python one, for pybind11-compatible aliases).
     struct Typedef
     {
         MBREFL_STRUCT(
-            (std::string)(full_name)
+            (std::string)(full_name) // The fully qualified name of the typedef itself.
             (std::string)(pretty) // The target type as written.
             (std::string)(canonical) // The target type with the typedefs expanded.
+            (OutputFile)(output_file) // In which file would the typedef be emitted (the C file corresponding to the C++ input file) if we were emitting them in C code.
         )
     };
 
-    // A spelling of a type in the parsed code, for the generators that expose those as aliases (the Python one, like the pybind11 target).
-    struct TypeAlias
-    {
-        MBREFL_STRUCT(
-            (std::string)(target) // The canonical C++ type.
-            (std::string)(spelling)
-        )
-    };
-
+    // The combined description of the C generator output.
     struct OutputDesc
     {
         MBREFL_STRUCT(
@@ -752,9 +744,10 @@ namespace mrbind::CInterop
             // All typedefs in the parsed code, in the parsing order.
             (std::vector<Typedef>)(typedefs, {})
 
-            // The spellings that the pybind11 target registers as aliases: the type itself, and its alternative spellings,
-            //   except the ones of types named by a `preferred_name` (but the typedef names are always included).
-            (std::vector<TypeAlias>)(type_aliases, {})
+            // The spellings that the pybind11 target registers as aliases, mapped to their canonical C++ types: the types themselves, and their
+            //   alternative spellings, except the ones of types named by a `preferred_name` (but the typedef names are always included).
+            // A spelling of several types is omitted.
+            (OrderedMap<std::string, std::string>)(type_aliases, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)
