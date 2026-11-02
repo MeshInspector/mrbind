@@ -54,8 +54,8 @@ MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_s
     return (MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *)new std::tuple<const int &, const float &&, const std::string &, const std::string &&>(std::tuple<const int &, const float &&, const std::string &, const std::string &&>(
         ((_0 ? void() : MRBINDC_THROW("Parameter `_0` can not be null.", void)), *_0),
         ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*_1)),
-        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), (_2_end ? std::string(_2, _2_end) : std::string(_2))),
-        ((_3 ? void() : MRBINDC_THROW("Parameter `_3` can not be null.", void)), (_3_end ? std::string(_3, _3_end) : std::string(_3)))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), (_2_end ? std::string(_2, std::size_t(_2_end - _2)) : std::string(_2))),
+        ((_3 ? void() : MRBINDC_THROW("Parameter `_3` can not be null.", void)), (_3_end ? std::string(_3, std::size_t(_3_end - _3)) : std::string(_3)))
     ));
     ) // MRBINDC_TRY
 }

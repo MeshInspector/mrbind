@@ -476,6 +476,9 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             (bool)(is_static, false)
             (bool)(is_virtual, false)
+
+            // If this member was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
         , // Bases:
             (BasicFuncLike)
         )
@@ -525,6 +528,9 @@ namespace mrbind::CInterop
             (std::optional<Accessor>)(setter)
             (std::optional<Accessor>)(getter_array_size) // If the field is an array, this function returns its size.
             // ]
+
+            // If this field was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
+            (std::optional<std::string>)(inherited_from, {})
 
             // Describes the location of this field in an exposed struct.
             // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
@@ -669,6 +675,10 @@ namespace mrbind::CInterop
                 // This is important to know because it affects whether we can apply `dynamic_cast` to this type.
                 (bool)(is_polymorphic, false)
 
+                // Is this an aggregate?
+                // This excludes C++ aggregates that had some of their fields skipped, since those don't get aggregate constructors in our bindings.
+                (bool)(is_aggregate, false)
+
                 // This is currently only set for `std::function<...>`, and stores the C function types that can be assigned to it.
                 // This is a hack originally added for the vibecoded Rust bindings. Since they wrap C code more naively, they benefit from knowing the C funciton pointer types.
                 // Normally they would be able to get them from the ctors and assignment operators, but they are currently hidden from interop, because e.g. C# needs custom handling for them.
@@ -698,6 +708,21 @@ namespace mrbind::CInterop
         )
     };
 
+    // A typedef from the parsed code, for the generators that expose the typedef names (the Python one, for pybind11-compatible aliases).
+    struct Typedef
+    {
+        MBREFL_STRUCT(
+            // In which file would the typedef be emitted (the C file corresponding to the C++ input file) if we were emitting them in C code.
+            (OutputFile)(output_file)
+            // The fully qualified name of the typedef itself.
+            (std::string)(full_name)
+            // The target type as written.
+            (std::string)(pretty)
+            // The target type with the typedefs expanded.
+            (std::string)(canonical)
+        )
+    };
+
     // The combined description of the C generator output.
     struct OutputDesc
     {
@@ -717,6 +742,14 @@ namespace mrbind::CInterop
 
             // Do the C bindings have exception handling enabled?
             (bool)(exception_handling_enabled, false)
+
+            // Typedefs. We don't actually emit them in C at the moment, but still propagate them for the generators that want them.
+            (std::vector<Typedef>)(typedefs, {})
+
+            // Alternative type spellings, mapped to their target canonical types.
+            // Both keys and values are C++ types.
+            // C bindings don't use those, they are propagated from the parser for the generators that want them.
+            (OrderedMap<std::string, std::string>)(alt_type_spellings, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)

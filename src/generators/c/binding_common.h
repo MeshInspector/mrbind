@@ -24,8 +24,11 @@ namespace mrbind::C
         // Making this `optional` and requiring to fill it manually for every class is too much hassle.
         CInterop::InheritanceInfo inheritance_info;
 
-        // This defaults to false. This only matters for the C interop, to allow clients to call `dynamic_cast`s.
+        // Defaults to false. This only matters for the C interop, to allow clients to call `dynamic_cast`s.
         bool mark_polymorphic = false;
+
+        // Defaults to false. This only matters for the C interop.
+        bool mark_aggregate = false;
 
         // Set to true if this type has a sugared constructor, that preserves references to its parameters.
         bool sugared_constructor_preserves_reference = false;

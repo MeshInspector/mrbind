@@ -37,7 +37,7 @@ MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *MR
         ((_0 ? void() : MRBINDC_THROW("Parameter `_0` can not be null.", void)), *_0),
         ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*_1)),
         ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(std::string *)(_2)),
-        ((_3 ? void() : MRBINDC_THROW("Parameter `_3` can not be null.", void)), (_3_end ? std::string(_3, _3_end) : std::string(_3)))
+        ((_3 ? void() : MRBINDC_THROW("Parameter `_3` can not be null.", void)), (_3_end ? std::string(_3, std::size_t(_3_end - _3)) : std::string(_3)))
     ));
 }
 

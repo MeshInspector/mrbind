@@ -30,7 +30,7 @@ MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFromAnother(
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFrom(const char *other, const char *other_end)
 {
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(std::optional<std::string>(
-        (other ? std::optional<std::string>(other_end ? std::string(other, other_end) : std::string(other)) : std::nullopt)
+        (other ? std::optional<std::string>(other_end ? std::string(other, std::size_t(other_end - other)) : std::string(other)) : std::nullopt)
     ));
 }
 
@@ -45,7 +45,7 @@ void MR_C_std_optional_std_string_AssignFromAnother(MR_C_std_optional_std_string
 void MR_C_std_optional_std_string_AssignFrom(MR_C_std_optional_std_string *_this, const char *other, const char *other_end)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<std::string> *)(_this)).operator=(
-        (other ? std::optional<std::string>(other_end ? std::string(other, other_end) : std::string(other)) : std::nullopt)
+        (other ? std::optional<std::string>(other_end ? std::string(other, std::size_t(other_end - other)) : std::string(other)) : std::nullopt)
     );
 }
 

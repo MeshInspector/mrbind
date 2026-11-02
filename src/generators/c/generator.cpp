@@ -2619,6 +2619,8 @@ namespace mrbind::C
         SetLifetimesFromParsedFunc(new_method, true, false);
 
         mark_virtual = new_method.is_virtual;
+        if (new_method.inherited_from)
+            inherited_from = new_method.inherited_from->base;
 
         cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
@@ -2727,6 +2729,8 @@ namespace mrbind::C
         is_noexcept = new_conv_op.is_noexcept;
 
         mark_virtual = new_conv_op.is_virtual;
+        if (new_conv_op.inherited_from)
+            inherited_from = new_conv_op.inherited_from->base;
 
         const cppdecl::Type cpp_type = self.ParseTypeOrThrow(new_class.full_type);
         const std::string cpp_type_str = self.CppdeclToCode(cpp_type);
@@ -3804,6 +3808,7 @@ namespace mrbind::C
                     assert(!params.params.empty());
                     method_like->is_static = params.params.front().kind == EmitFuncParams::Param::Kind::static_;
                     method_like->is_virtual = params.mark_virtual;
+                    method_like->inherited_from = params.inherited_from;
                 }
                 else if (auto method = std::get_if<CInterop::MethodKindVar>(&params.name.cpp_for_interop); method && std::holds_alternative<CInterop::MethodKinds::Constructor>(*method))
                 {
@@ -3932,6 +3937,8 @@ namespace mrbind::C
 
             interop_field->comment = MakeCommentForInterop(new_field.comment ? new_field.comment->text_with_slashes + '\n' : "");
             interop_field->is_static = new_field.is_static;
+            if (new_field.inherited_from)
+                interop_field->inherited_from = new_field.inherited_from->base;
             interop_field->type = CppdeclToCodeForComments(ParseTypeOrThrow(new_field.type.canonical)); // Roundtrip the type to canonicalize it, and to apply the `...ForComments` transformations, if any.
             interop_field->name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.name)); // This one should be a no-op. Just in case.
             interop_field->full_name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.full_name)); // Need to fix the template arguments here.
@@ -4244,6 +4251,7 @@ namespace mrbind::C
         binder.inheritance_info = parsed_class_inheritance_info.at(cpp_class_name_str);
 
         binder.mark_polymorphic = class_desc.is_polymorphic;
+        binder.mark_aggregate = class_desc.parsed && class_desc.parsed->is_aggregate && !class_desc.parsed->some_nonstatic_data_members_skipped;
 
         return binder;
     }
@@ -5779,6 +5787,54 @@ namespace mrbind::C
             output_desc->platform_info = data.platform_info;
 
             output_desc->exception_handling_enabled = enable_exceptions_support;
+
+            struct VisitorTypedefs : Visitor
+            {
+                Generator &self;
+                VisitorTypedefs(Generator &self) : self(self) {}
+                void Visit(const TypedefEntity &td) override
+                {
+                    self.output_desc->typedefs.push_back({
+                        .output_file = self.MakeOutputFileDescForInterop(self.GetOutputFile(td.declared_in_file)),
+                        .full_name = td.full_name,
+                        .pretty = td.type.pretty,
+                        .canonical = td.type.canonical,
+                    });
+                }
+            };
+            VisitorTypedefs v(*this);
+            v.Process(data.entities);
+
+            { // The type spellings. A spelling of several types is omitted.
+                std::vector<std::pair<std::string, std::string>> spellings; // (spelling, target), in order.
+                std::map<std::string, std::set<std::string>, std::less<>> targets_by_spelling;
+                auto Add = [&](const std::string &spelling, const std::string &target)
+                {
+                    spellings.emplace_back(spelling, target);
+                    targets_by_spelling[spelling].insert(target);
+                };
+                for (const auto &outer : data.type_info)
+                {
+                    bool custom = !outer.second.empty() && outer.second.begin()->second.has_custom_canonical_name;
+                    Add(outer.first, outer.first);
+                    for (const auto &variant : outer.second)
+                    {
+                        for (const auto &spelling : variant.second.alt_spellings)
+                        {
+                            if (spelling.second.poisoned)
+                                continue;
+                            if (custom && !bool(spelling.second.uses & TypeUses::typedef_name))
+                                continue;
+                            Add(spelling.first, outer.first);
+                        }
+                    }
+                }
+                for (const auto &[spelling, target] : spellings)
+                {
+                    if (targets_by_spelling.at(spelling).size() == 1)
+                        output_desc->alt_type_spellings.TryEmplace(spelling, target);
+                }
+            }
         }
 
         { // Construct the `type_alt_spelling_to_canonical` mapping.
