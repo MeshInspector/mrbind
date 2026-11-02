@@ -559,6 +559,15 @@ namespace mrbind::Python
 
     std::string Generator::TypeidSpelling(std::string name)
     {
+        if (auto it = typeid_spellings.find(name); it != typeid_spellings.end())
+            return it->second;
+        std::string ret = TypeidSpellingUncached(name);
+        typeid_spellings.try_emplace(std::move(name), ret);
+        return ret;
+    }
+
+    std::string Generator::TypeidSpellingUncached(std::string name)
+    {
         if (typedef_targets.empty())
         {
             for (const auto &td : c_desc.typedefs)
