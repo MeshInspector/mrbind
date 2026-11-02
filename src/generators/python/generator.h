@@ -145,6 +145,11 @@ namespace mrbind::Python
         [[nodiscard]] std::string FragmentNamespace() const;
         // Splits the generated code into the fragments and the common header.
         void EmitFragments(const std::string &prologue, const std::string &module_def, const std::string &init_func, const std::string &init_body);
+        // Splits the statements of the module initialization into at least `min_parts` parts of at most about 1000 lines.
+        [[nodiscard]] static std::vector<std::string_view> SplitInitBody(std::string_view body, std::size_t min_parts);
+        // A function `InitPart<index>(module, module_name, bases_default)` running `body`, and the calls of all of them.
+        [[nodiscard]] static std::string InitPartFunc(std::size_t index, std::string_view body, bool is_static = true);
+        [[nodiscard]] static std::string InitPartCalls(std::size_t num_parts);
 
         // One Python parameter of a wrapper.
         struct PyParam
