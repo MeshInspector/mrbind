@@ -624,7 +624,7 @@ namespace mrbind::Python
         }
         // After the expansions, so that they see the expanded names.
         for (const auto &[regex, replacement] : typeid_name_adjustments)
-            name = std::regex_replace(name, std::regex(regex), replacement);
+            name = std::regex_replace(name, CachedRegex(regex), replacement);
         // MSVC demangles `const T` as `T const`.
         std::string out;
         std::size_t i = 0;
@@ -669,14 +669,22 @@ namespace mrbind::Python
         return TypeidSpelling("<" + type + ">").substr(1, std::string::npos).substr(0, TypeidSpelling("<" + type + ">").size() - 2);
     }
 
+    const std::regex &Generator::CachedRegex(const std::string &pattern) const
+    {
+        auto it = regex_cache.find(pattern);
+        if (it == regex_cache.end())
+            it = regex_cache.try_emplace(pattern, pattern).first;
+        return it->second;
+    }
+
     std::string Generator::AdjustName(std::string name, bool is_alias) const
     {
         for (const auto &[regex, replacement] : name_adjustments)
-            name = std::regex_replace(name, std::regex(regex), replacement);
+            name = std::regex_replace(name, CachedRegex(regex), replacement);
         if (is_alias)
         {
             for (const auto &[regex, replacement] : alias_name_adjustments)
-                name = std::regex_replace(name, std::regex(regex), replacement);
+                name = std::regex_replace(name, CachedRegex(regex), replacement);
         }
         return name;
     }
@@ -1945,7 +1953,7 @@ namespace mrbind::Python
         out_decls += "static PyObject *" + f + "get_value(PyObject *, PyObject *o) {return rt::OutputGetValue<" + t + ">(o);}\n";
         out_decls += "static PyObject *" + f + "set_value(PyObject *, PyObject *args) {PyObject *o, *v; if (!PyArg_ParseTuple(args, \"OO\", &o, &v)) return nullptr; return rt::OutputSetValue<" + t + ">(o, v);}\n";
         out_decls += "static PyObject *" + f + "repr(PyObject *, PyObject *o) {return rt::OutputRepr<" + t + ">(o, " + CppStringLiteral(name) + ");}\n";
-        out_decls += "static PyMethodDef " + f + "defs[] = {{\"init\", " + f + "init, METH_VARARGS, nullptr}, {\"get_values\", " + f + "get_values, METH_O, nullptr}, {\"set_values\", " + f + "set_values, METH_VARARGS, nullptr}, {\"get_value\", " + f + "get_value, METH_O, nullptr}, {\"set_value\", " + f + "set_value, METH_VARARGS, nullptr}, {\"repr\", " + f + "repr, METH_O, nullptr}};\n";
+        out_decls += "static PyMethodDef " + f + "defs[6] = {{\"init\", " + f + "init, METH_VARARGS, nullptr}, {\"get_values\", " + f + "get_values, METH_O, nullptr}, {\"set_values\", " + f + "set_values, METH_VARARGS, nullptr}, {\"get_value\", " + f + "get_value, METH_O, nullptr}, {\"set_value\", " + f + "set_value, METH_VARARGS, nullptr}, {\"repr\", " + f + "repr, METH_O, nullptr}};\n";
         out_init_classes += "    " + var + ".type = rt::MakeClass(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(name) + ", " + CppStringLiteral(name) + ", bases_default, nullptr);\n    if (!" + var + ".type) return nullptr;\n";
         out_init_classes += "    Py_INCREF(" + var + ".type); if (PyModule_AddObject(module, " + CppStringLiteral(name) + ", " + var + ".type) < 0) return nullptr;\n";
         out_init_classes += "    {\n        PyObject *prims_ = PyDict_New();\n        for (auto &d_ : " + f + "defs) rt::AddPrim(prims_, d_.ml_name, &d_, module_name);\n";
@@ -3099,7 +3107,7 @@ namespace mrbind::Python
         for (const auto &r : ret)
             if (r.first == "__iter__")
                 has_iter_now = true;
-        bool iterate_by_index = std::any_of(iterate_by_index_regexes.begin(), iterate_by_index_regexes.end(), [&](const std::string &r){return std::regex_search(info.cpp_name, std::regex(r));});
+        bool iterate_by_index = std::any_of(iterate_by_index_regexes.begin(), iterate_by_index_regexes.end(), [&](const std::string &r){return std::regex_search(info.cpp_name, CachedRegex(r));});
         if (!has_iter_now && iterate_by_index)
         {
             const CInterop::ClassField *elements = nullptr;
@@ -3437,15 +3445,17 @@ namespace mrbind::Python
 
         if (!c_desc.alt_type_spellings.Vec().empty())
         {
-            for (const auto &[target, list] : aliases_by_type)
+            // By the C++ names of the targets, not by the pointers, for the same output in every run.
+            for (const auto &[cpp_name, target] : types)
             {
-                if (target->foreign)
+                auto it = aliases_by_type.find(&target);
+                if (it == aliases_by_type.end() || target.foreign)
                     continue;
-                for (const auto &a : list)
+                for (const auto &a : it->second)
                 {
                     if (a.doc_only || skipped_scope_vars.contains(a.scope_var))
                         continue;
-                    EmitWithConst(a.scope_var, a.name, *target);
+                    EmitWithConst(a.scope_var, a.name, target);
                 }
             }
             return;
@@ -3851,7 +3861,7 @@ namespace mrbind::Python
 
     bool Generator::IsIgnoredCFile(const std::string &relative_name) const
     {
-        return std::any_of(ignored_c_files.begin(), ignored_c_files.end(), [&](const std::string &r){return std::regex_search(relative_name, std::regex(r));});
+        return std::any_of(ignored_c_files.begin(), ignored_c_files.end(), [&](const std::string &r){return std::regex_search(relative_name, CachedRegex(r));});
     }
 
     bool Generator::IsIgnoredForPython(const std::string &cpp_name)
@@ -3861,7 +3871,7 @@ namespace mrbind::Python
         std::string spelled = TypeidSpelling(cpp_name);
         for (const auto &r : ignored_for_python)
         {
-            std::regex re(r);
+            const std::regex &re = CachedRegex(r);
             if (std::regex_search(cpp_name, re) || std::regex_search(spelled, re))
                 return true;
         }
@@ -4551,7 +4561,7 @@ namespace mrbind::Python
                 bool parsed = !(info->is_std_function || StartsWith(info->cpp_name, "std::") || StartsWith(info->cpp_name, "phmap::") || StartsWith(info->cpp_name, "expected<"));
                 std::string doc_cpp_name = info->cpp_name;
                 for (const auto &[regex, replacement] : doc_name_adjustments)
-                    doc_cpp_name = std::regex_replace(doc_cpp_name, std::regex(regex), replacement);
+                    doc_cpp_name = std::regex_replace(doc_cpp_name, CachedRegex(regex), replacement);
                 std::string doc = parsed ? "Generated from:  " + doc_cpp_name + "\n" : "";
                 if (auto al = aliases_by_type.find(info); al != aliases_by_type.end() && !al->second.empty())
                 {
@@ -4905,7 +4915,8 @@ namespace mrbind::Python
         const std::string hidden_begin = "#if !defined(_WIN32) && defined(__GNUC__)\n#pragma GCC visibility push(hidden)\n#endif\n";
         const std::string hidden_end = "#if !defined(_WIN32) && defined(__GNUC__)\n#pragma GCC visibility pop\n#endif\n";
 
-        // The top-level entities of the implementations. Each starts at a line with `static ` or a comment in the first column.
+        // The top-level entities: the type records and the other declarations, then the implementations. Each starts at a line with `static `
+        //   or a comment in the first column. Defining them in the fragments instead of the header saves compiling them in every fragment.
         struct Item
         {
             std::string_view text;
@@ -4914,7 +4925,12 @@ namespace mrbind::Python
             bool is_var = false;
             std::size_t fragment = 0;
         };
-        const std::string impls = out_implicit + out_impls;
+        std::string defines; // The macros of the declarations, they stay in the header.
+        std::string impls;
+        for (std::string_view line : SplitLinesKeepingNewlines(out_decls))
+            (StartsWith(line, "#") ? defines : impls) += line;
+        impls += out_implicit;
+        impls += out_impls;
         std::vector<Item> items;
         for (std::size_t pos = 0; pos < impls.size();)
         {
@@ -4965,7 +4981,9 @@ namespace mrbind::Python
             }
             else
                 throw std::runtime_error("Unable to parse the generated entity `" + std::string(line) + "`.");
-            while (!name_part.empty() && (name_part.back() == ' ' || name_part.back() == '[' || name_part.back() == ']'))
+            if (EndsWith(name_part, "]")) // An array.
+                name_part = name_part.substr(0, name_part.rfind('['));
+            while (!name_part.empty() && name_part.back() == ' ')
                 name_part.remove_suffix(1);
             std::size_t name_start = name_part.size();
             while (name_start > 0 && IsIdentChar(name_part[name_start - 1]))
@@ -5006,14 +5024,7 @@ namespace mrbind::Python
                 header += (item.is_var ? "extern " : "") + item.decl + ";\n";
         }
         header += "\n";
-        // The type records and the other declarations are `inline`, to be shared by the fragments.
-        for (std::string_view line : SplitLinesKeepingNewlines(out_decls))
-        {
-            if (StartsWith(line, "static "))
-                header += "inline " + std::string(line.substr(7));
-            else
-                header += line;
-        }
+        header += defines;
         header += "\n";
         for (std::size_t j = 0; j < init_parts.size(); j++)
             header += "PyObject *InitPart" + std::to_string(j) + "(PyObject *module, PyObject *module_name, PyObject *bases_default);\n";
