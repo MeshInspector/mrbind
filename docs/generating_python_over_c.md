@@ -48,7 +48,9 @@ Where:
 
 * `--adjust-doc-name <regex> <replacement>` is applied to the C++ names in the docs (`Generated from:`), e.g. to spell `size_t` as its underlying type if the pybind11 build was parsed without the `size_t` support.
 
-The output is `out/<module>.cpp` and `out/mrbind_py_runtime.h`. Compile the former as C++20 with `-DPy_LIMITED_API=0x03080000` (or newer), the Python headers, the C bindings headers, and link it to the C bindings library and `python3` (`python3.lib` on Windows; nothing on Linux and macOS).
+* `--fragments <N>` splits the module into `N` source files, `<module>.cpp` and `<module>_1.cpp` to `<module>_<N-1>.cpp`, with a common header `<module>.h`, to compile them in parallel. A big module compiles slowly as one translation unit.
+
+The output is `out/<module>.cpp` (and the other fragments) and `out/mrbind_py_runtime.h`. Compile the `.cpp` files as C++20 with `-DPy_LIMITED_API=0x03080000` (or newer), the Python headers, the C bindings headers, and link them to the C bindings library and `python3` (`python3.lib` on Windows; nothing on Linux and macOS).
 
 The extension and the C bindings must use the same C++ standard library, because `__repr__` and the stream parameters pass `std::ostream`/`std::istream` objects created on the extension side.
 

@@ -7,6 +7,7 @@
 
 #include <cppdecl/declarations/parse.h>
 
+#include <charconv>
 #include <cstdio>
 #include <fstream>
 #include <optional>
@@ -196,6 +197,19 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.typeid_name_adjustments.emplace_back(args[0], args[1]);
+        },
+    });
+    args_parser.AddFlag("--fragments", {
+        .arg_names = {"N"},
+        .desc = "Split the module into `N` source files, `<module>.cpp` and `<module>_1.cpp` to `<module>_<N-1>.cpp`, with a common header `<module>.h`, to compile them in parallel. The default is 1, a single `<module>.cpp`.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            std::string_view str = args.front();
+            std::size_t value = 0;
+            auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), value);
+            if (ec != std::errc{} || ptr != str.data() + str.size() || value == 0)
+                throw std::runtime_error("The argument of `--fragments` must be a positive integer.");
+            generator.num_fragments = value;
         },
     });
     args_parser.AddFlag("--verbose", {
