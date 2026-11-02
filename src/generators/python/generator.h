@@ -81,6 +81,8 @@ namespace mrbind::Python
             std::string c_name;
             std::string py_name; // Unqualified.
             std::string py_qualname; // Relative to the module, e.g. `MR.Widget`.
+            // The `Const...` class: a base of the mutable one, with only the const members. `const T &` results are its instances.
+            std::string const_py_name, const_py_qualname;
             std::string scope_var; // Where the class is stored.
             std::string var; // `T_<n>` for classes (a `TypeRecord`), `E_<n>` for enums (a `PyObject *`).
             bool foreign = false; // From `depends_on`. Then `T_<n>` is a macro for its record there.
@@ -156,6 +158,7 @@ namespace mrbind::Python
             std::string cpp_signature; // To skip the inherited copies.
             std::string template_py_name; // The name with the template arguments, for the disambiguation of the overloads.
             bool takes_stream = false; // pybind11 registers these after the other overloads.
+            bool const_self = true; // A method of the `Const...` class: doesn't need a mutable `self`.
         };
 
         struct GroupEntry
@@ -169,7 +172,8 @@ namespace mrbind::Python
         [[nodiscard]] std::string DefaultArgRepr(const CInterop::FuncParam &param);
         // Statements converting the C value `expr` (of a C++ type `cpp_type`) to a new `PyObject *out`. `owner` is kept alive by the returned references.
         // `borrowed` is for the callback parameters: the objects by value are the caller's, so they are copied or referenced, never owned.
-        [[nodiscard]] std::optional<std::string> CToPy(const std::string &cpp_type, const std::string &c_type, const std::string &expr, const std::string &owner, const std::string &out, bool borrowed = false);
+        // `copy_refs` copies the referenced classes instead of referencing them, for the references into the temporaries.
+        [[nodiscard]] std::optional<std::string> CToPy(const std::string &cpp_type, const std::string &c_type, const std::string &expr, const std::string &owner, const std::string &out, bool borrowed = false, bool copy_refs = false);
         // For the callback trampolines: converts the Python result `py` to the C value `out`, or throws with the GIL state `gil_`.
         [[nodiscard]] std::optional<std::string> PyToCReturn(const std::string &cpp_type, const std::string &c_type, const std::string &py, const std::string &out);
         // `require_generated_from`: the C generator appends `Generated from ...` to the comments of the entities parsed from C++,
@@ -251,13 +255,22 @@ namespace mrbind::Python
         void CollectConversionCtors();
         std::string out_implicit;
         // The check of an object, then the implicit conversion in the second pass. `a` is the argument, `v` receives the pointer.
-        [[nodiscard]] std::string ArgObjectWithImplicit(const TypeInfo &cls, const std::string &a, const std::string &v, bool allow_none, bool optional_arg);
+        // `mut` requires a mutable object (not a `Const...` one), and then there are no implicit conversions (a temporary can't bind to it).
+        [[nodiscard]] std::string ArgObjectWithImplicit(const TypeInfo &cls, const std::string &a, const std::string &v, bool allow_none, bool optional_arg, bool mut = false);
         // A new `std::shared_ptr<const void>` (as `void *`) sharing the ownership with the `std::shared_ptr` `expr` of type `sp`.
         [[nodiscard]] std::string HolderFromSharedPtr(const TypeInfo &sp, const std::string &expr);
         [[nodiscard]] const TypeInfo *FindType(const std::string &cpp_name) const;
         // pybind11's generic extras of every class: `__iter__` (from `begin()`/`end()`), `__len__` (contiguous sequences), `__repr__` (from `operator<<`).
         // Returns the prepared overloads by Python name.
-        [[nodiscard]] std::vector<std::pair<std::string, PreparedOverload>> MakeGenericExtras(const TypeInfo &info);
+        // `mut`: only the `__iter__` over the mutable elements, if the class has the non-const `begin()`/`end()` etc.
+        [[nodiscard]] std::vector<std::pair<std::string, PreparedOverload>> MakeGenericExtras(const TypeInfo &info, bool mut = false);
+        // The class object of `info` in the generated code: the mutable one or the `Const...` one.
+        [[nodiscard]] static std::string ClassObj(const TypeInfo &info, bool is_const) {return info.var + (is_const ? ".const_type" : ".type");}
+        // The qualified Python name of `info` for the docs.
+        [[nodiscard]] std::string ClassDoc(const TypeInfo &info, bool is_const) const {return (info.foreign ? depends_on : module_qualname) + "." + (is_const ? info.const_py_qualname : info.py_qualname);}
+        // Adds the method groups of a class: the overloads with a const `self` go to the `Const...` class, the groups with
+        //   non-const ones to the mutable class (with the const overloads too). Returns the code.
+        [[nodiscard]] std::string AddMethodGroups(const TypeInfo &info, const std::vector<GroupEntry> &groups);
         // An element of a pointer range, stepped by `step` (`+ 1` or an `OffsetPtr()` call).
         [[nodiscard]] std::optional<std::string> PointerStep(const std::string &ptr_c_type, const std::string &expr);
                 [[nodiscard]] std::vector<std::string> ApplyNamespaceReplacements(std::vector<std::string> parts) const;

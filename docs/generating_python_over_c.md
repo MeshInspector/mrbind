@@ -1,6 +1,6 @@
 # Generating Python bindings over the C bindings
 
-This is an alternative to the [pybind11-based Python bindings](/docs/generating_python.md): a CPython extension module that calls our C bindings, like the C#, Rust, Java and JavaScript backends do. It aims to produce the **same Python API** as the pybind11 target for the same headers: the same names, overloads with keyword arguments and default arguments, docstrings, aliases, containers, `std::function` wrappers and so on.
+This is an alternative to the [pybind11-based Python bindings](/docs/generating_python.md): a CPython extension module that calls our C bindings, like the C#, Rust, Java and JavaScript backends do. It aims to produce the **same Python API** as the pybind11 target for the same headers: the same names, overloads with keyword arguments and default arguments, docstrings, aliases, containers, `std::function` wrappers and so on. Unlike pybind11, it has const classes, like the C# bindings (see [below](#const-classes-and-ownership)).
 
 The extension builds against the CPython limited API (`Py_LIMITED_API`), so one binary serves every Python version. It doesn't depend on pybind11.
 
@@ -74,7 +74,23 @@ python3 scripts/python_api_dump.py dump mypackage.mylib --path new_build --strip
 python3 scripts/python_api_dump.py diff old.json new.json
 ```
 
+## Const classes and ownership
+
+Like in C#, every class `T` has two Python classes: `ConstT` with only the const members, and `T` with all of them. The names starting with a lowercase letter or `_` get `Const_` (`Const_std_vector_int`). `T` derives from `ConstT`, so:
+
+* A mutable object is also a const one (`isinstance(T(), ConstT)`), but not the other way around.
+* `ConstT` derives from the `Const...` classes of the bases, and `T` derives from `ConstT` and the mutable bases. So a mutable object is also a const or mutable base, and a const object is only a const base.
+* A const method (also `__eq__`, `__len__`, `__iter__` and the other read-only container methods) is in `ConstT`. A non-const one is in `T`. If a name has both kinds of overloads, `T` has all of them, the non-const ones first.
+* A field is a read-only property of `ConstT` (with the const getter), and a property of `T` with the mutable getter and the setter.
+* The constructors are in `T`. `ConstT(...)` constructs a `T` and takes it over. The static members are in `ConstT` (and inherited by `T`).
+* A parameter by value or by const reference or pointer takes both kinds of objects. A non-const reference or pointer only takes a mutable object, and then there are no implicit conversions (a temporary can't bind to it).
+* The aliases of the classes get `Const...` aliases too, e.g. `ConstVertCoords` for `VertCoords`.
+
+An object either owns its C++ object or references one, which is `_is_owning` (like `_IsOwning` in C#). A function returning a reference doesn't copy the referenced object (unlike pybind11, which copies the const references): it returns a non-owning object, of `ConstT` for a const reference or pointer and of `T` for a non-const one. It keeps alive the object it was obtained from (`self` for the methods), but like a C++ reference it sees the later modifications of that object. To keep a snapshot, copy it: `T(x)`. A result by value is an owning `T`.
+
 ## Deliberate differences from pybind11
+
+* The const classes and the references to the C++ objects, see above.
 
 The pybind11 target has a few naming bugs that this generator doesn't copy:
 
