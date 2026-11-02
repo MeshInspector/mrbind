@@ -1,4 +1,4 @@
-# Scratch workflow (not for merging): the full mrbind build vs only the generators over the C bindings, like MeshLib's "Install MRBind" step.
+# Scratch workflow (not for merging): the full mrbind build vs variants without the parser, like MeshLib's "Install MRBind" step.
 name: Time mrbind build
 
 on:
@@ -18,21 +18,18 @@ jobs:
           nproc
           wget -q https://apt.llvm.org/llvm.sh
           sudo bash llvm.sh 22
-          sudo apt-get install -y libclang-22-dev llvm-22-dev clang-tools-22
-      - name: Full build (make, like install_mrbind_ubuntu.sh)
+          sudo apt-get install -y libclang-22-dev llvm-22-dev clang-tools-22 ninja-build
+      - name: Time the variants, twice
         run: |
-          rm -rf build
-          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DClang_DIR=/usr/lib/cmake/clang-22 -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null)
-      - name: Generators only
-        run: |
-          rm -rf build
-          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) --target mrbind_gen_csharp mrbind_gen_rust mrbind_gen_java mrbind_gen_python > /dev/null)
-          ls build
-      - name: Full build again
-        run: |
-          rm -rf build
-          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DClang_DIR=/usr/lib/cmake/clang-22 -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null)
-      - name: Generators only again
-        run: |
-          rm -rf build
-          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) --target mrbind_gen_csharp mrbind_gen_rust mrbind_gen_java mrbind_gen_python > /dev/null)
+          full() { cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DClang_DIR=/usr/lib/cmake/clang-22 -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null; }
+          noparser_all() { cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null; }
+          ninja_targets() { cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) --target mrbind_gen_csharp mrbind_gen_rust mrbind_gen_java mrbind_gen_python > /dev/null; }
+          export CC=clang-22 CXX=clang++-22
+          for round in 1 2; do
+            for v in full noparser_all ninja_targets; do
+              rm -rf build
+              s=$(date +%s)
+              $v
+              echo "$v: $(( $(date +%s) - s )) s"
+            done
+          done
