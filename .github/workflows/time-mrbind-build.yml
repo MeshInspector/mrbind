@@ -1,0 +1,38 @@
+# Scratch workflow (not for merging): the full mrbind build vs only the generators over the C bindings, like MeshLib's "Install MRBind" step.
+name: Time mrbind build
+
+on:
+  push:
+    branches: [python-generator-ci-test]
+  workflow_dispatch:
+
+jobs:
+  time:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - name: Install Clang 22
+        run: |
+          nproc
+          wget -q https://apt.llvm.org/llvm.sh
+          sudo bash llvm.sh 22
+          sudo apt-get install -y libclang-22-dev llvm-22-dev clang-tools-22
+      - name: Full build (make, like install_mrbind_ubuntu.sh)
+        run: |
+          rm -rf build
+          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DClang_DIR=/usr/lib/cmake/clang-22 -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null)
+      - name: Generators only
+        run: |
+          rm -rf build
+          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) --target mrbind_gen_csharp mrbind_gen_rust mrbind_gen_java mrbind_gen_python > /dev/null)
+          ls build
+      - name: Full build again
+        run: |
+          rm -rf build
+          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DClang_DIR=/usr/lib/cmake/clang-22 -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) > /dev/null)
+      - name: Generators only again
+        run: |
+          rm -rf build
+          time (CC=clang-22 CXX=clang++-22 cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMRBIND_BUILD_PARSER=OFF -DCMAKE_LINKER_TYPE=LLD > /dev/null && cmake --build build -j$(nproc) --target mrbind_gen_csharp mrbind_gen_rust mrbind_gen_java mrbind_gen_python > /dev/null)
