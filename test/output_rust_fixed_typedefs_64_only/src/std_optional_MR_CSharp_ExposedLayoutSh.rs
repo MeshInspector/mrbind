@@ -33,9 +33,9 @@ impl std_optional_MR_CSharp_ExposedLayoutSh
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom()`.
-    pub fn construct_from(other: &crate::ffi::MR_CSharp_ExposedLayoutSh) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>
+    pub fn construct_from(other: Option<&crate::ffi::MR_CSharp_ExposedLayoutSh>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom(other as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFrom(other.map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh)}
     }
 
@@ -52,9 +52,9 @@ impl std_optional_MR_CSharp_ExposedLayoutSh
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &crate::ffi::MR_CSharp_ExposedLayoutSh)
+    pub fn assign_from(&mut self, other: Option<&crate::ffi::MR_CSharp_ExposedLayoutSh>)
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh, other as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh, other.map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh))};
         __ret
     }
 

@@ -888,6 +888,8 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
         const bool cpp_is_optional = cpp_base_str.starts_with("std::optional<");
         const bool cpp_is_unique_ptr = cpp_base_str.starts_with("std::unique_ptr<");
         const bool cpp_is_string = cpp_base_str == "std::string" || cpp_base_str == "std::string_view" || cpp_base_str == "std::filesystem::path";
+        // `std::optional<T>` passed as a nullable `T`, null meaning no value. Non-const lvalue refs instead pass the optional class itself.
+        const bool cpp_is_sugared_optional = cpp_is_optional && param.uses_sugar;
 
         // Describes a single C parameter that is a pointer.
         struct PointerInfo
@@ -988,9 +990,9 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
         }
 
         // Strings.
-        if (c_types.size() == 2 && cpp_is_string && IsConstCharPtr(*c_types[0]) && IsConstCharPtr(*c_types[1]))
+        if (c_types.size() == 2 && (cpp_is_string || cpp_is_sugared_optional) && IsConstCharPtr(*c_types[0]) && IsConstCharPtr(*c_types[1]))
         {
-            if (param.default_arg_affects_parameter_passing)
+            if (param.default_arg_affects_parameter_passing || cpp_is_sugared_optional)
             {
                 ret.rust_params.emplace_back(name, "Option<&str>");
                 ret.pre += "let (__begin_" + name + ", __end_" + name + ") = match " + name + " {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};\n";
@@ -1047,10 +1049,10 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
                 const bool is_class_or_builtin = ptr->pointee_is_builtin || (ptr->pointee_type && (ptr->pointee_type->class_desc || ptr->pointee_type->IsEnum()));
                 if (is_class_or_builtin && (cpp_shape == CppShape::value || cpp_shape == CppShape::lref || cpp_shape == CppShape::rref || cpp_shape == CppShape::ptr) && !param.is_array_pointer)
                 {
-                    const bool optional = cpp_shape == CppShape::ptr || param.default_arg_affects_parameter_passing;
+                    const bool optional = cpp_shape == CppShape::ptr || param.default_arg_affects_parameter_passing || cpp_is_sugared_optional;
                     const std::string ref_type = (ptr->is_const ? "&" : "&mut ") + pointee_path;
                     const bool small_by_value = ptr->pointee_is_builtin || (ptr->pointee_type && ptr->pointee_type->IsEnum());
-                    if (optional && small_by_value && cpp_shape == CppShape::value && ptr->is_const)
+                    if (optional && small_by_value && (cpp_shape == CppShape::value || cpp_is_sugared_optional) && ptr->is_const)
                     {
                         // A by-value scalar with a default argument: `Option<T>` is nicer than `Option<&T>`.
                         ret.rust_params.emplace_back(name, "Option<" + pointee_path + ">");

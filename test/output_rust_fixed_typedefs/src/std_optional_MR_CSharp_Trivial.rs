@@ -33,9 +33,9 @@ impl std_optional_MR_CSharp_Trivial
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom()`.
-    pub fn construct_from(other: &crate::mr::c_sharp::Trivial) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_Trivial>
+    pub fn construct_from(other: Option<&crate::mr::c_sharp::Trivial>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_Trivial>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_Trivial)}
     }
 
@@ -52,9 +52,9 @@ impl std_optional_MR_CSharp_Trivial
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_Trivial_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &crate::mr::c_sharp::Trivial)
+    pub fn assign_from(&mut self, other: Option<&crate::mr::c_sharp::Trivial>)
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_Trivial, other as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_Trivial, other.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial))};
         __ret
     }
 

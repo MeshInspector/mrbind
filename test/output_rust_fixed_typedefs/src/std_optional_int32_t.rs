@@ -33,9 +33,9 @@ impl std_optional_int32_t
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_int32_t_ConstructFrom()`.
-    pub fn construct_from(other: &i32) -> crate::Owned<crate::mr::cs::std_optional_int32_t>
+    pub fn construct_from(other: Option<i32>) -> crate::Owned<crate::mr::cs::std_optional_int32_t>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_ConstructFrom(other as *const i32 as *const i32)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_ConstructFrom(other.as_ref().map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int32_t)}
     }
 
@@ -52,9 +52,9 @@ impl std_optional_int32_t
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_int32_t_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &i32)
+    pub fn assign_from(&mut self, other: Option<i32>)
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int32_t, other as *const i32 as *const i32)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int32_t_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int32_t, other.as_ref().map_or(core::ptr::null(), |r| r as *const i32 as *const i32))};
         __ret
     }
 

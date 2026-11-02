@@ -105,6 +105,12 @@ fn main()
     assert_eq!(mr::std_expected::get_exp_void().into_result(), Ok(()));
     assert_eq!(mr::std_optional::get_int().into_option(), None);
     assert!(mr::std_optional::get_class().into_option().is_none());
+    // `std::optional<T>` parameters take an `Option`, `None` passes no value.
+    mr::std_optional::set_int(None);
+    mr::std_optional::set_int_const_ref(Some(1));
+    mr::std_optional::set_enum(None);
+    mr::std_optional::set_class(None);
+    mr::std_optional::set_class_const_ref(Some(&mr::std_optional::A::construct_from(1)));
 
     println!("All Rust binding tests passed.");
 }

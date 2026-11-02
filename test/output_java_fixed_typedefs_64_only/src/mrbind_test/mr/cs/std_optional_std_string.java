@@ -79,18 +79,19 @@ public final class std_optional_std_string extends mrbind_test.CppObject
     /**
      * Constructs a new instance.
      *
-     * Calls `MR_C_std_optional_std_string_ConstructFrom()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_optional_std_string_ConstructFrom()`.
      */
-    public std_optional_std_string(java.lang.foreign.MemorySegment other, java.lang.foreign.MemorySegment other_end)
+    public std_optional_std_string(java.lang.String other)
     {
-        this(__ctor_constructFrom(other, other_end), true, null);
+        this(__ctor_constructFrom(other), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(java.lang.foreign.MemorySegment other, java.lang.foreign.MemorySegment other_end)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(java.lang.String other)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_std_string.H0.MR_C_std_optional_std_string_ConstructFrom.invokeExact(other, other_end);
+            java.lang.foreign.MemorySegment __str_other = mrbind_test.Ffi.utf8(__arena, other);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_std_string.H0.MR_C_std_optional_std_string_ConstructFrom.invokeExact(__str_other, mrbind_test.Ffi.end(__str_other));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -127,13 +128,14 @@ public final class std_optional_std_string extends mrbind_test.CppObject
     /**
      * Assigns the contents.
      *
-     * Calls `MR_C_std_optional_std_string_AssignFrom()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_C_std_optional_std_string_AssignFrom()`.
      */
-    public void assignFrom(java.lang.foreign.MemorySegment other, java.lang.foreign.MemorySegment other_end)
+    public void assignFrom(java.lang.String other)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.std_optional_std_string.H0.MR_C_std_optional_std_string_AssignFrom.invokeExact(rawPointer(), other, other_end);
+            java.lang.foreign.MemorySegment __str_other = mrbind_test.Ffi.utf8(__arena, other);
+            mrbind_test.ffi.std_optional_std_string.H0.MR_C_std_optional_std_string_AssignFrom.invokeExact(rawPointer(), __str_other, mrbind_test.Ffi.end(__str_other));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

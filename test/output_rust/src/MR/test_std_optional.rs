@@ -199,10 +199,10 @@ pub fn get_int() -> crate::Owned<crate::mr::cs::std_optional_int>
 /// Generated from function `MR::StdOptional::SetInt`.
 ///
 /// Calls `MR_StdOptional_SetInt()`.
-pub fn set_int(_1: &core::ffi::c_int)
+pub fn set_int(_1: Option<core::ffi::c_int>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetInt(_1 as *const core::ffi::c_int as *const core::ffi::c_int)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetInt(_1.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
     crate::__check_exception();
     __ret
 }
@@ -210,10 +210,10 @@ pub fn set_int(_1: &core::ffi::c_int)
 /// Generated from function `MR::StdOptional::SetIntConstRef`.
 ///
 /// Calls `MR_StdOptional_SetIntConstRef()`.
-pub fn set_int_const_ref(_1: &core::ffi::c_int)
+pub fn set_int_const_ref(_1: Option<core::ffi::c_int>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetIntConstRef(_1 as *const core::ffi::c_int as *const core::ffi::c_int)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetIntConstRef(_1.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
     crate::__check_exception();
     __ret
 }
@@ -221,10 +221,10 @@ pub fn set_int_const_ref(_1: &core::ffi::c_int)
 /// Generated from function `MR::StdOptional::SetIntDefTrivial`.
 ///
 /// Calls `MR_StdOptional_SetIntDefTrivial()`.
-pub fn set_int_def_trivial(_1: &core::ffi::c_int)
+pub fn set_int_def_trivial(_1: Option<core::ffi::c_int>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetIntDefTrivial(_1 as *const core::ffi::c_int as *const core::ffi::c_int)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetIntDefTrivial(_1.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
     crate::__check_exception();
     __ret
 }
@@ -254,10 +254,10 @@ pub fn get_enum() -> crate::Owned<crate::mr::cs::std_optional_MR_StdOptional_E>
 /// Generated from function `MR::StdOptional::SetEnum`.
 ///
 /// Calls `MR_StdOptional_SetEnum()`.
-pub fn set_enum(_1: &crate::ffi::MR_StdOptional_E)
+pub fn set_enum(_1: Option<crate::ffi::MR_StdOptional_E>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnum(_1 as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnum(_1.as_ref().map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E))};
     crate::__check_exception();
     __ret
 }
@@ -265,10 +265,10 @@ pub fn set_enum(_1: &crate::ffi::MR_StdOptional_E)
 /// Generated from function `MR::StdOptional::SetEnumConstRef`.
 ///
 /// Calls `MR_StdOptional_SetEnumConstRef()`.
-pub fn set_enum_const_ref(_1: &crate::ffi::MR_StdOptional_E)
+pub fn set_enum_const_ref(_1: Option<crate::ffi::MR_StdOptional_E>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnumConstRef(_1 as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnumConstRef(_1.as_ref().map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E))};
     crate::__check_exception();
     __ret
 }
@@ -276,10 +276,10 @@ pub fn set_enum_const_ref(_1: &crate::ffi::MR_StdOptional_E)
 /// Generated from function `MR::StdOptional::SetEnumDefTrivial`.
 ///
 /// Calls `MR_StdOptional_SetEnumDefTrivial()`.
-pub fn set_enum_def_trivial(_1: &crate::ffi::MR_StdOptional_E)
+pub fn set_enum_def_trivial(_1: Option<crate::ffi::MR_StdOptional_E>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnumDefTrivial(_1 as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetEnumDefTrivial(_1.as_ref().map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E))};
     crate::__check_exception();
     __ret
 }
@@ -309,10 +309,10 @@ pub fn get_class() -> crate::Owned<crate::mr::cs::std_optional_MR_StdOptional_A>
 /// Generated from function `MR::StdOptional::SetClass`.
 ///
 /// Calls `MR_StdOptional_SetClass()`.
-pub fn set_class(_1: &crate::mr::std_optional::A)
+pub fn set_class(_1: Option<&crate::mr::std_optional::A>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClass(_1 as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClass(_1.map_or(core::ptr::null(), |r| r as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A))};
     crate::__check_exception();
     __ret
 }
@@ -320,10 +320,10 @@ pub fn set_class(_1: &crate::mr::std_optional::A)
 /// Generated from function `MR::StdOptional::SetClassConstRef`.
 ///
 /// Calls `MR_StdOptional_SetClassConstRef()`.
-pub fn set_class_const_ref(_1: &crate::mr::std_optional::A)
+pub fn set_class_const_ref(_1: Option<&crate::mr::std_optional::A>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClassConstRef(_1 as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClassConstRef(_1.map_or(core::ptr::null(), |r| r as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A))};
     crate::__check_exception();
     __ret
 }
@@ -331,10 +331,10 @@ pub fn set_class_const_ref(_1: &crate::mr::std_optional::A)
 /// Generated from function `MR::StdOptional::SetClassDefTrivial`.
 ///
 /// Calls `MR_StdOptional_SetClassDefTrivial()`.
-pub fn set_class_def_trivial(_1: &crate::mr::std_optional::A)
+pub fn set_class_def_trivial(_1: Option<&crate::mr::std_optional::A>)
 {
     crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClassDefTrivial(_1 as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A)};
+    let __ret = unsafe {crate::ffi::MR_StdOptional_SetClassDefTrivial(_1.map_or(core::ptr::null(), |r| r as *const crate::mr::std_optional::A as *const crate::ffi::MR_StdOptional_A))};
     crate::__check_exception();
     __ret
 }
