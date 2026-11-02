@@ -176,8 +176,7 @@ namespace mrbind::C
     [[nodiscard]] std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
 
     // Create a parameter usage in the style of `std::string` and `std::string_view`.
-    // If `from_one_pointer` and/or `from_two_pointers` are provided, they are used instead of calling the constructor of `cpp_type_name` with one pointer,
-    //   and with a pointer and a size respectively (not with two pointers, that constructor of `std::string_view` is C++20, missing e.g. in libc++ of Xcode 14).
+    // If `from_one_pointer` and/or `from_two_pointers` are provided, they are used instead of calling the constructor of `cpp_type_name` with one and two pointers respectively.
     [[nodiscard]] Generator::BindableType::ParamUsageWithDefaultArg MakeStringLikeParamUsageSupportingDefaultArg(
         Generator &generator,
         std::string_view cpp_type_name,

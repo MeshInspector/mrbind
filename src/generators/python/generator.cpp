@@ -531,10 +531,11 @@ namespace mrbind::Python
                 if (td.full_name.find('<') == std::string::npos && td.pretty != td.full_name)
                     typedef_targets.emplace(td.full_name, td.pretty);
             }
-            for (const auto &a : c_desc.type_aliases)
+            for (const auto &spelling : c_desc.type_aliases.Vec())
             {
-                if (a.spelling != a.target && a.spelling.find('<') != std::string::npos && !StartsWith(a.spelling, "const ") && !types.contains(a.spelling) && !StartsWith(a.spelling, "std::"))
-                    alias_template_targets.emplace_back(a.spelling, a.target);
+                const std::string &target = c_desc.type_aliases.Map().at(spelling);
+                if (spelling != target && spelling.find('<') != std::string::npos && !StartsWith(spelling, "const ") && !types.contains(spelling) && !StartsWith(spelling, "std::"))
+                    alias_template_targets.emplace_back(spelling, target);
             }
             // Longest first, so that the nested ones don't match first.
             std::stable_sort(alias_template_targets.begin(), alias_template_targets.end(), [](const auto &a, const auto &b){return a.first.size() > b.first.size();});
@@ -2625,17 +2626,19 @@ namespace mrbind::Python
             }
             return "";
         };
-        std::vector<const CInterop::ClassField *> laid_out; // The own non-static fields, in order.
+        // The own non-static fields, in order. The description has the layout of the exposed structs only, the offsets of the others come from their getters.
+        auto HasOffset = [&](const CInterop::ClassField &f){return !f.is_static && (f.layout || !info.IsExposedStruct());};
+        std::vector<const CInterop::ClassField *> laid_out;
         for (const auto &f : cls.fields)
         {
-            if (!f.inherited_from && !f.is_static && f.layout)
+            if (!f.inherited_from && HasOffset(f))
                 laid_out.push_back(&f);
         }
         for (const auto &f : cls.fields)
         {
             if (f.inherited_from || hidden_fields.contains(f.name) || IsUsingDeclaredField(f))
                 continue;
-            if (!f.is_static && f.layout)
+            if (HasOffset(f))
             {
                 // The layout in the description is the parser's target platform, compute the offset on this one.
                 std::string offset;
@@ -2657,12 +2660,13 @@ namespace mrbind::Python
                 }
                 // Else the parser's offset, only if that platform has the same pointer size (it might be a 32-bit one).
                 std::string cond;
-                if (offset.empty())
+                if (offset.empty() && f.layout)
                 {
                     offset = std::to_string(f.layout->byte_offset);
                     cond = "if (sizeof(void *) == " + std::to_string(c_desc.platform_info.pointer_size) + ") ";
                 }
-                out_init += "    " + cond + "if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + const_cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
+                if (!offset.empty())
+                    out_init += "    " + cond + "if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + const_cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
             }
             // The pybind11 target has no properties for the C array fields.
             if (f.type.find('[') != std::string::npos)
@@ -3271,13 +3275,13 @@ namespace mrbind::Python
 
     void Generator::CollectAliases()
     {
-        if (c_desc.type_aliases.empty())
+        if (c_desc.type_aliases.Vec().empty())
             return;
         // By spelling, sorted like the `std::map` in the pybind11 target. A spelling of several types is ambiguous and skipped.
         std::map<std::string, std::set<const TypeInfo *>> by_spelling;
-        for (const auto &a : c_desc.type_aliases)
+        for (const auto &alias_spelling : c_desc.type_aliases.Vec())
         {
-            std::string target = Trim(a.target);
+            std::string target = Trim(c_desc.type_aliases.Map().at(alias_spelling));
             if (StartsWith(target, "const "))
                 target = target.substr(6);
             const TypeInfo *t = FindType(target);
@@ -3293,7 +3297,7 @@ namespace mrbind::Python
                 t = t->pointee;
             if (!t->IsClass() && !t->IsEnum())
                 continue;
-            std::string s = Trim(a.spelling);
+            std::string s = Trim(alias_spelling);
             if (StartsWith(s, "const "))
                 s = s.substr(6);
             by_spelling[s].insert(t);
@@ -3396,7 +3400,7 @@ namespace mrbind::Python
                 EmitOne(scope_var, const_name, target.var + ".const_type");
         };
 
-        if (!c_desc.type_aliases.empty())
+        if (!c_desc.type_aliases.Vec().empty())
         {
             for (const auto &[target, list] : aliases_by_type)
             {
