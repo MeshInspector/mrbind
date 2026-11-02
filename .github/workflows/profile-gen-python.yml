@@ -39,13 +39,13 @@ jobs:
           ninja -C build mrbind_gen_python
       - name: Time
         run: |
-          json=$(find cb -name interop_desc.json | head -1)
+          json=cb/MeshLibC2/temp/interop_desc.json
           ls -la "$json"
           mkdir -p out1 out2
           for i in 1 2; do /usr/bin/time -v bash meshlib/scripts/mrbind/generate_python.sh build/mrbind_gen_python "$json" out1/mrmeshpy mrmeshpy 4 2>&1 | grep -E 'Generated|Elapsed|Maximum resident'; done
       - name: Profile
         run: |
-          json=$(find cb -name interop_desc.json | head -1)
+          json=cb/MeshLibC2/temp/interop_desc.json
           sudo sysctl kernel.perf_event_paranoid=-1
           printf '#!/bin/bash\nexec perf record -F 499 -g -o %s/perf.data %s/build/mrbind_gen_python "$@"\n' "$PWD" "$PWD" > gen_perf.sh
           chmod +x gen_perf.sh
