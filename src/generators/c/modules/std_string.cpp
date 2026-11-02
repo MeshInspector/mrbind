@@ -128,13 +128,7 @@ namespace mrbind::C::Modules
 
                 new_type.return_usage = binder.MakeReturnUsage(generator);
 
-                // The `(first, last)` constructor of `std::string_view` is C++20, missing e.g. in libc++ of Xcode 14.
-                new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(generator, type_str, nullptr,
-                    is_view ? std::function<std::string(std::string_view, std::string_view)>([](std::string_view begin, std::string_view end)
-                    {
-                        return "std::string_view(" + std::string(begin) + ", size_t(" + std::string(end) + " - " + std::string(begin) + "))";
-                    }) : nullptr
-                );
+                new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(generator, type_str);
             }
 
             return ret;

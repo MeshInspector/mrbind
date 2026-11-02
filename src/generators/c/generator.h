@@ -1362,8 +1362,6 @@ namespace mrbind::C
             // Do add leading slashes. Don't add the trailing newline.
             // Leave empty for no comment.
             std::string c_comment;
-            // The parsed part of `c_comment` as `clang::RawComment::getFormattedText()` returns it, for the interop description.
-            std::string c_comment_formatted;
 
             // Like `c_comment`, but added after the generated part of the comment, not before.
             std::string c_comment_trailing;
@@ -1453,7 +1451,6 @@ namespace mrbind::C
                 {
                     std::string cpp_expr; // Spelled as a C++ expression.
                     std::string original_spelling; // Spelled in a user-friendly manner (as originally written in the C++ source).
-                    std::optional<std::string> value; // The value of an arithmetic constant, see `DefaultArgument::value`.
                 };
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
             };

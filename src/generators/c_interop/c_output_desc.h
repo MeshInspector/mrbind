@@ -147,8 +147,6 @@ namespace mrbind::CInterop
         MBREFL_STRUCT(
             // The comment, or empty if none. Has a trailing newline if not empty. Includes `//` and/or `/**/` (possibly multiple blocks).
             (std::string)(c_style)
-            // Only the parsed part of the comment, as `clang::RawComment::getFormattedText()` returns it. Empty if none.
-            (std::string)(formatted, "")
         )
     };
 
@@ -263,8 +261,6 @@ namespace mrbind::CInterop
             // The C++ spelling of the default argument of this parameter, if any.
             // If this is set, we have a default argument.
             (std::optional<std::string>)(default_arg_spelling, {})
-            // If the default argument is an arithmetic constant, its value: `true`/`false`, an integer, or a `double` in the shortest round-trip scientific form.
-            (std::optional<std::string>)(default_arg_value, {})
             // If this is true, then `default_arg_spelling` will also be set.
             // This being true indicates that the default argument affects the parameter passing style.
             // If this is false, you should pass the parameter with the same ABI as if there was no default argument,
@@ -759,9 +755,6 @@ namespace mrbind::CInterop
             // The spellings that the pybind11 target registers as aliases: the type itself, and its alternative spellings,
             //   except the ones of types named by a `preferred_name` (but the typedef names are always included).
             (std::vector<TypeAlias>)(type_aliases, {})
-
-            // The classes satisfying `std::equality_comparable` (the pybind11 target adds the comparison methods to the vectors of those).
-            (std::vector<std::string>)(equality_comparable_types, {})
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)
