@@ -27,6 +27,9 @@ namespace mrbind::C
         // This defaults to false. This only matters for the C interop, to allow clients to call `dynamic_cast`s.
         bool mark_polymorphic = false;
 
+        // This defaults to false. This only matters for the C interop.
+        bool mark_aggregate = false;
+
         // Set to true if this type has a sugared constructor, that preserves references to its parameters.
         bool sugared_constructor_preserves_reference = false;
 
@@ -173,7 +176,8 @@ namespace mrbind::C
     [[nodiscard]] std::optional<Generator::BindableType> BindRvalueRefParamsSameAsNonRef(Generator &generator, const cppdecl::Type &cpp_type, const cppdecl::QualifiedName &target_name, const cppdecl::QualifiedName::EqualsFlags comparison_flags = {});
 
     // Create a parameter usage in the style of `std::string` and `std::string_view`.
-    // If `from_one_pointer` and/or `from_two_pointers` are provided, they are used instead of calling the constructor of `cpp_type_name` with one and two pointers respectively.
+    // If `from_one_pointer` and/or `from_two_pointers` are provided, they are used instead of calling the constructor of `cpp_type_name` with one pointer,
+    //   and with a pointer and a size respectively (not with two pointers, that constructor of `std::string_view` is C++20, missing e.g. in libc++ of Xcode 14).
     [[nodiscard]] Generator::BindableType::ParamUsageWithDefaultArg MakeStringLikeParamUsageSupportingDefaultArg(
         Generator &generator,
         std::string_view cpp_type_name,

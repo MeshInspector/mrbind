@@ -19,7 +19,7 @@ const MR_C_std_string *MR_A_Get_x(const MR_A *_this)
 
 void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::A *)(_this)).x = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::A *)(_this)).x = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)

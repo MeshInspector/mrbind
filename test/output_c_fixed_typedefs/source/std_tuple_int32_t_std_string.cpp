@@ -62,7 +62,7 @@ MR_C_std_tuple_int32_t_std_string *MR_C_std_tuple_int32_t_std_string_Construct(i
 {
     return (MR_C_std_tuple_int32_t_std_string *)new std::tuple<int32_t, std::string>(std::tuple<int32_t, std::string>(
         _0,
-        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, std::size_t(_1_end - _1)) : std::string(_1)))
     ));
 }
 

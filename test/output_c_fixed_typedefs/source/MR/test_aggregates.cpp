@@ -34,7 +34,7 @@ const MR_C_std_string *MR_Aggregates_A_Get_y(const MR_Aggregates_A *_this)
 
 void MR_Aggregates_A_Set_y(MR_Aggregates_A *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::Aggregates::A *)(_this)).y = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::Aggregates::A *)(_this)).y = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_Aggregates_A_GetMutable_y(MR_Aggregates_A *_this)
@@ -56,7 +56,7 @@ MR_Aggregates_A *MR_Aggregates_A_ConstructFrom(int32_t x, const char *y, const c
 {
     return (MR_Aggregates_A *)new MR::Aggregates::A(MR::Aggregates::A{
         x,
-        ((y ? void() : MRBINDC_THROW("Parameter `y` can not be null.", void)), (y_end ? std::string(y, y_end) : std::string(y)))
+        ((y ? void() : MRBINDC_THROW("Parameter `y` can not be null.", void)), (y_end ? std::string(y, std::size_t(y_end - y)) : std::string(y)))
     });
 }
 

@@ -36,7 +36,7 @@ MR_C_std_string *MR_C_std_string_ConstructFrom(const char *other, const char *ot
 {
     MRBINDC_TRY(
     return (MR_C_std_string *)new std::string(std::string(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, other_end) : std::string(other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, std::size_t(other_end - other)) : std::string(other)))
     ));
     ) // MRBINDC_TRY
 }
@@ -55,7 +55,7 @@ void MR_C_std_string_AssignFrom(MR_C_std_string *_this, const char *other, const
 {
     MRBINDC_TRY(
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).operator=(
-        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, other_end) : std::string(other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, std::size_t(other_end - other)) : std::string(other)))
     );
     ) // MRBINDC_TRY
 }

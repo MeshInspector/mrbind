@@ -101,6 +101,7 @@ namespace mrbind::C
 
             class_desc.inheritance_info = inheritance_info.AdjustAllTypes([&](std::string &s){s = generator.CppdeclToCodeForComments(generator.ParseTypeOrThrow(s));});
             class_desc.is_polymorphic = mark_polymorphic;
+            class_desc.is_aggregate = mark_aggregate;
 
             // `fields` must be set separately, manually.
             // `methods` is filled when you call `EmitFunction()`.
@@ -1454,7 +1455,7 @@ namespace mrbind::C
             if (from_two_pointers)
                 ret += from_two_pointers(cpp_param_name, std::string(cpp_param_name) + "_end");
             else
-                ret += cpp_type_name + "(" + std::string(cpp_param_name) + ", " + std::string(cpp_param_name) + "_end)";
+                ret += cpp_type_name + "(" + std::string(cpp_param_name) + ", std::size_t(" + std::string(cpp_param_name) + "_end - " + std::string(cpp_param_name) + "))";
 
             ret += " : ";
 
@@ -1517,6 +1518,9 @@ namespace mrbind::C
         };
 
         ret.considered_sugar_for_interop = true; // This is 100% sugar.
+
+        if (!from_two_pointers)
+            ret.extra_headers.stdlib_in_source_file.insert("cstddef"); // For `std::size_t`.
 
         return ret;
     }
