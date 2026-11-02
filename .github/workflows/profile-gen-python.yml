@@ -1,0 +1,58 @@
+# Scratch workflow (not for merging): times and profiles mrbind_gen_python on MeshLib's C bindings description, on arm64 Linux like MeshLib's CI.
+name: Profile gen_python
+
+on:
+  push:
+    branches: [python-generator-ci-test]
+  workflow_dispatch:
+
+jobs:
+  profile:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - uses: actions/checkout@v6
+        with:
+          repository: MeshInspector/MeshLib
+          ref: python-over-c
+          path: meshlib
+          sparse-checkout: scripts/mrbind
+      - uses: actions/download-artifact@v4
+        with:
+          name: CBindings
+          repository: MeshInspector/MeshLib
+          run-id: 41498141380
+          github-token: ${{ github.token }}
+          path: cb
+      - name: Install
+        run: |
+          grep -m1 -i -E 'model name|CPU part' /proc/cpuinfo || true
+          lscpu | grep -i -E 'model name|^CPU\(s\)' || true
+          wget -q https://apt.llvm.org/llvm.sh
+          sudo bash llvm.sh 22
+          sudo apt-get install -y ninja-build linux-tools-common "linux-tools-$(uname -r)" || sudo apt-get install -y linux-tools-generic
+      - name: Build
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_CXX_COMPILER=clang++-22 -DCMAKE_C_COMPILER=clang-22 -DMRBIND_BUILD_PARSER=OFF -DCMAKE_CXX_FLAGS=-fno-omit-frame-pointer
+          ninja -C build mrbind_gen_python
+      - name: Time
+        run: |
+          json=$(find cb -name interop_desc.json | head -1)
+          ls -la "$json"
+          mkdir -p out1 out2
+          for i in 1 2; do /usr/bin/time -v bash meshlib/scripts/mrbind/generate_python.sh build/mrbind_gen_python "$json" out1/mrmeshpy mrmeshpy 4 2>&1 | grep -E 'Generated|Elapsed|Maximum resident'; done
+      - name: Profile
+        run: |
+          json=$(find cb -name interop_desc.json | head -1)
+          sudo sysctl kernel.perf_event_paranoid=-1
+          printf '#!/bin/bash\nexec perf record -F 499 -g -o %s/perf.data %s/build/mrbind_gen_python "$@"\n' "$PWD" "$PWD" > gen_perf.sh
+          chmod +x gen_perf.sh
+          bash meshlib/scripts/mrbind/generate_python.sh "$PWD/gen_perf.sh" "$json" out2/mrmeshpy mrmeshpy 4
+          echo "===== self"
+          perf report -i perf.data --stdio --no-children --percent-limit 0.7 -g none 2>/dev/null | grep -v '^$' | head -80
+          echo "===== children"
+          perf report -i perf.data --stdio --children --percent-limit 3 -g none 2>/dev/null | grep -v '^$' | head -100
+          echo "===== callers of the top self symbols"
+          perf report -i perf.data --stdio --no-children --percent-limit 4 -g caller,0.5,callee,function,percent --max-stack 12 2>/dev/null | grep -v '^$' | head -300
