@@ -74,7 +74,7 @@ MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_st
 
 MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_string_ConstructAs_std_string(const char *value, const char *value_end)
 {
-    return (MR_C_std_variant_int32_t_float_std_string *)new std::variant<int32_t, float, std::string>(std::variant<int32_t, float, std::string>(std::in_place_index<2>, ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)))));
+    return (MR_C_std_variant_int32_t_float_std_string *)new std::variant<int32_t, float, std::string>(std::variant<int32_t, float, std::string>(std::in_place_index<2>, ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)))));
 }
 
 void MR_C_std_variant_int32_t_float_std_string_AssignAs_int32_t(MR_C_std_variant_int32_t_float_std_string *_this, int32_t value)
@@ -99,9 +99,9 @@ void MR_C_std_variant_int32_t_float_std_string_AssignAs_std_string(MR_C_std_vari
 {
     auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float, std::string> *)(_this));
     if (_self.index() == 2)
-        std::get<2>(_self) = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+        std::get<2>(_self) = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
     else
-        _self.emplace<2>(((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value))));
+        _self.emplace<2>(((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value))));
 }
 
 const int32_t *MR_C_std_variant_int32_t_float_std_string_get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this)

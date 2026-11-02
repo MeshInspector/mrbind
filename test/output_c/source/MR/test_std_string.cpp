@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_std_string.h>
 
+#include <cstddef>
 #include <stdexcept>
 #include <string>
 
@@ -12,7 +13,7 @@ void MR_StdString_Set(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdString::Set(
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -23,7 +24,7 @@ void MR_StdString_SetWithDefault(const char *s, const char *s_end)
     using namespace MR;
     using namespace StdString;
     ::MR::StdString::SetWithDefault(
-        (s ? (s_end ? std::string(s, s_end) : std::string(s)) : std::string("42"))
+        (s ? (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)) : std::string("42"))
     );
     ) // MRBINDC_TRY
 }
@@ -57,7 +58,7 @@ void MR_StdString_ConstRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdString::ConstRef(
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -66,7 +67,7 @@ void MR_StdString_RvalueRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdString::RvalueRef(
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -75,7 +76,7 @@ void MR_StdString_ConstRvalueRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdString::ConstRvalueRef(
-        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, std::size_t(s_end - s)) : std::string(s)))
     );
     ) // MRBINDC_TRY
 }

@@ -66,7 +66,7 @@ const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_this)
 
 void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdFunction::A *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdFunction::A *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, std::size_t(value_end - value)) : std::string(value)));
 }
 
 MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this)
@@ -87,7 +87,7 @@ MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_elems)
 MR_StdFunction_A *MR_StdFunction_A_ConstructFrom(const char *a, const char *a_end)
 {
     return (MR_StdFunction_A *)new MR::StdFunction::A(MR::StdFunction::A{
-        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a)))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, std::size_t(a_end - a)) : std::string(a)))
     });
 }
 
