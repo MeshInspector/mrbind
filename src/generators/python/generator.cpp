@@ -1170,6 +1170,11 @@ namespace mrbind::Python
             ret.params.push_back({"", "object", ""}); // Ignored.
             slot = 1;
         }
+        // A field setter releases what the previous value kept alive: the key of its lifetimes (the field name).
+        std::string setter_key;
+        for (const auto &rel : func.lifetimes.relations)
+            if (const std::string *key = std::get_if<std::string>(&rel.key); preparing_field_setter && key && !key->empty() && std::holds_alternative<LifetimeRelation::ThisObject>(rel.holder))
+                setter_key = *key;
         std::vector<const CInterop::FuncParam *> py_params;
         const CInterop::FuncParam *this_param = nullptr;
         for (const auto &p : func.params)
@@ -1329,7 +1334,7 @@ namespace mrbind::Python
                 late += "    " + vt + " *" + v + "ptr = " + v + " ? rt::OutputPtr<" + vt + ">(" + v + ", " + (st.is_ref ? "true" : "false") + ") : nullptr;\n";
                 c_args[&p] = v + "ptr";
                 if (preparing_field_setter && self_kind == 1)
-                    post += "    rt::KeepAlive(a[0], " + a + ");\n";
+                    post += "    rt::KeepAliveKeyed(a[0], " + a + ", " + CppStringLiteral(setter_key) + ");\n";
             }
             else if (const TypeInfo *str = st.base == "std::string" && !st.is_const && (st.is_ptr || (st.is_ref && !st.is_rvalue_ref)) && cp.size() == 1 && std::count(cp[0].c_type.begin(), cp[0].c_type.end(), '*') == 1 ? FindType("std::string") : nullptr;
                 str && StripType(cp[0].c_type).base == str->c_name)
@@ -1413,7 +1418,7 @@ namespace mrbind::Python
                 checks += "    if (" + a + " && " + a + " != Py_None && !rt::ArgString(" + a + ", " + v + ")) return nullptr;\n";
                 c_args[&p] = v + ".data";
                 if (preparing_field_setter && self_kind == 1)
-                    post += "    if (" + v + ".bytes) rt::KeepAlive(a[0], " + v + ".bytes);\n";
+                    post += "    if (" + v + ".bytes) rt::KeepAliveKeyed(a[0], " + v + ".bytes, " + CppStringLiteral(setter_key) + ");\n";
             }
             else if (cp.size() == 2 && cp[0].c_type == "const char *" && cp[1].c_type == "const char *")
             {
@@ -1553,33 +1558,54 @@ namespace mrbind::Python
             StrippedType rt_ = StripType(func.ret.cpp_type);
             std::string ctype = func.ret.c_type;
             ret.ret_type = DocTypeName(func.ret.cpp_type, true);
-            // The lifetimes from the parser, like `MB_PB11_USE_PARSED_LIFETIMES` in the pybind11 target.
-            std::string keep_alive;
+            // The lifetimes from the parser, like `MB_PB11_USE_PARSED_LIFETIMES` in the pybind11 target, plus the keys and `only_nested` (like C#).
+            std::string keep_alive, discard;
+            auto Expr = [&](const auto &var) -> std::string
+            {
+                std::string ret;
+                std::visit(Overload{
+                    [&](const LifetimeRelation::ThisObject &) {if (self_kind == 1 || self_kind == 2) ret = "a[0]"; else if (self_kind == 4) ret = "a[1]";},
+                    [&](const LifetimeRelation::ReturnValue &) {if (self_kind == 4) ret = "a[0]"; else if (self_kind != 2) ret = "r_";},
+                    [&](const LifetimeRelation::Param &p)
+                    {
+                        if (p.index >= 0 && std::size_t(p.index) < func.params.size())
+                        {
+                            auto it = param_slots.find(&func.params[std::size_t(p.index)]);
+                            if (it != param_slots.end())
+                                ret = "a[" + std::to_string(it->second) + "]";
+                        }
+                    },
+                    [&](const auto &) {},
+                }, var);
+                return ret;
+            };
+            // First the references that the C++ objects drop (before the parameters store theirs in `post`).
+            for (const auto &[holder, keys] : func.lifetimes.removed_keys)
+            {
+                std::string h = Expr(holder);
+                if (h.empty())
+                    continue;
+                std::string &dst = std::holds_alternative<LifetimeRelation::ReturnValue>(holder) ? keep_alive : discard;
+                if (keys.contains(""))
+                    dst += "    rt::DiscardKeepAlive(" + h + ", \"\");\n";
+                else
+                    for (const auto &key : keys)
+                        dst += "    rt::DiscardKeepAlive(" + h + ", " + CppStringLiteral(key) + ");\n";
+            }
             for (const auto &rel : func.lifetimes.relations)
             {
-                auto Expr = [&](const auto &var) -> std::string
-                {
-                    std::string ret;
-                    std::visit(Overload{
-                        [&](const LifetimeRelation::ThisObject &) {if (self_kind == 1 || self_kind == 2) ret = "a[0]"; else if (self_kind == 4) ret = "a[1]";},
-                        [&](const LifetimeRelation::ReturnValue &) {if (self_kind == 4) ret = "a[0]"; else if (self_kind != 2) ret = "r_";},
-                        [&](const LifetimeRelation::Param &p)
-                        {
-                            if (p.index >= 0 && std::size_t(p.index) < func.params.size())
-                            {
-                                auto it = param_slots.find(&func.params[std::size_t(p.index)]);
-                                if (it != param_slots.end())
-                                    ret = "a[" + std::to_string(it->second) + "]";
-                            }
-                        },
-                        [&](const auto &) {},
-                    }, var);
-                    return ret;
-                };
                 std::string h = Expr(rel.holder), t = Expr(rel.target);
-                if (!h.empty() && !t.empty())
-                    keep_alive += "    rt::KeepAlive(" + h + ", " + t + ");\n";
+                if (h.empty() || t.empty())
+                    continue;
+                const std::string *key = std::get_if<std::string>(&rel.key);
+                if (rel.only_nested)
+                    keep_alive += "    rt::KeepAliveNested(" + h + ", " + t + ", " + CppStringLiteral(key ? *key : "") + ");\n";
+                else if (!key)
+                    keep_alive += "    rt::KeepAlive(" + h + ", " + t + ");\n"; // A subobject, never released.
+                else
+                    keep_alive += "    rt::KeepAliveKeyed(" + h + ", " + t + ", " + CppStringLiteral(*key) + ");\n";
             }
+            post = discard + post;
             if (self_kind == 2 || self_kind == 4)
             {
                 ret.ret_type = "None";

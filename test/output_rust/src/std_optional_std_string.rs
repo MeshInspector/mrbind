@@ -37,11 +37,12 @@ impl std_optional_std_string
 
     /// Constructs a new instance.
     ///
-    /// Calls `MR_C_std_optional_std_string_ConstructFrom()`. Some types are raw C types, see the C bindings for the details.
-    pub unsafe fn construct_from(other: *const core::ffi::c_char, other_end: *const core::ffi::c_char) -> crate::Owned<crate::mr::cs::std_optional_std_string>
+    /// Calls `MR_C_std_optional_std_string_ConstructFrom()`.
+    pub fn construct_from(other: Option<&str>) -> crate::Owned<crate::mr::cs::std_optional_std_string>
     {
+        let (__begin_other, __end_other) = match other {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
         crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_std_string_ConstructFrom(other, other_end)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_std_string_ConstructFrom(__begin_other, __end_other)};
         crate::__check_exception();
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_std_string)}
     }
@@ -61,11 +62,12 @@ impl std_optional_std_string
 
     /// Assigns the contents.
     ///
-    /// Calls `MR_C_std_optional_std_string_AssignFrom()`. Some types are raw C types, see the C bindings for the details.
-    pub unsafe fn assign_from(&mut self, other: *const core::ffi::c_char, other_end: *const core::ffi::c_char)
+    /// Calls `MR_C_std_optional_std_string_AssignFrom()`.
+    pub fn assign_from(&mut self, other: Option<&str>)
     {
+        let (__begin_other, __end_other) = match other {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
         crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_std_string_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_std_string, other, other_end)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_std_string_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_std_string, __begin_other, __end_other)};
         crate::__check_exception();
         __ret
     }

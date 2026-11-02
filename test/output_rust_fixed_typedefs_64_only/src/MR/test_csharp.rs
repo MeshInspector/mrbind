@@ -12444,9 +12444,9 @@ pub fn op_equal_mr_c_sharp_exposed_layout_b(_1: &crate::ffi::MR_CSharp_ExposedLa
 /// Generated from function `MR::CSharp::test_optint`.
 ///
 /// Calls `MR_CSharp_test_optint()`.
-pub fn test_optint(a: &core::ffi::c_int, b: Option<&crate::mr::cs::std_optional_int>, c: Option<&crate::mr::cs::std_optional_int>) -> crate::Owned<crate::mr::cs::std_optional_int>
+pub fn test_optint(a: Option<core::ffi::c_int>, b: Option<&crate::mr::cs::std_optional_int>, c: Option<&crate::mr::cs::std_optional_int>) -> crate::Owned<crate::mr::cs::std_optional_int>
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optint(a as *const core::ffi::c_int as *const core::ffi::c_int, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optint(a.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int))};
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int)}
 }
 
@@ -12462,10 +12462,10 @@ pub fn test_optint_ref(a: &mut crate::mr::cs::std_optional_int, b: Option<&mut c
 /// Generated from function `MR::CSharp::test_optint_cref`.
 ///
 /// Calls `MR_CSharp_test_optint_cref()`.
-pub fn test_optint_cref(a: &core::ffi::c_int, b: Option<&crate::mr::cs::std_optional_int>) -> *const crate::ffi::MR_C_std_optional_int
+pub fn test_optint_cref(a: Option<core::ffi::c_int>, b: Option<&crate::mr::cs::std_optional_int>) -> &crate::mr::cs::std_optional_int
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optint_cref(a as *const core::ffi::c_int as *const core::ffi::c_int, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int))};
-    __ret
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optint_cref(a.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_int as *const crate::ffi::MR_C_std_optional_int))};
+    unsafe {&*(__ret as *const crate::mr::cs::std_optional_int)}
 }
 
 /// Generated from function `MR::CSharp::test_optint_ptr`.
@@ -12488,12 +12488,13 @@ pub unsafe fn test_optint_cptr(a: Option<&crate::mr::cs::std_optional_int>, b: O
 
 /// Generated from function `MR::CSharp::test_optstr`.
 ///
-/// Calls `MR_CSharp_test_optstr()`. Some types are raw C types, see the C bindings for the details.
-pub unsafe fn test_optstr(a: *const core::ffi::c_char, a_end: *const core::ffi::c_char, b: Option<&crate::mr::cs::std_optional_std_string>, c: Option<&crate::mr::cs::std_optional_std_string>) -> crate::Owned<crate::mr::cs::std_optional_std_string>
+/// Calls `MR_CSharp_test_optstr()`.
+pub fn test_optstr(a: Option<&str>, b: Option<&crate::mr::cs::std_optional_std_string>, c: Option<&crate::mr::cs::std_optional_std_string>) -> crate::Owned<crate::mr::cs::std_optional_std_string>
 {
+    let (__begin_a, __end_a) = match a {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
     let (__pb_b, __ptr_b) = match b {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_optional_std_string as *mut crate::ffi::MR_C_std_optional_std_string), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
     let (__pb_c, __ptr_c) = match c {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_optional_std_string as *mut crate::ffi::MR_C_std_optional_std_string), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optstr(a, a_end, __pb_b, __ptr_b, __pb_c, __ptr_c)};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optstr(__begin_a, __end_a, __pb_b, __ptr_b, __pb_c, __ptr_c)};
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_std_string)}
 }
 
@@ -12508,12 +12509,13 @@ pub fn test_optstr_ref(a: &mut crate::mr::cs::std_optional_std_string, b: Option
 
 /// Generated from function `MR::CSharp::test_optstr_cref`.
 ///
-/// Calls `MR_CSharp_test_optstr_cref()`. Some types are raw C types, see the C bindings for the details.
-pub unsafe fn test_optstr_cref(a: *const core::ffi::c_char, a_end: *const core::ffi::c_char, b: Option<&crate::mr::cs::std_optional_std_string>) -> &crate::mr::cs::std_optional_std_string
+/// Calls `MR_CSharp_test_optstr_cref()`.
+pub fn test_optstr_cref(a: Option<&str>, b: Option<&crate::mr::cs::std_optional_std_string>) -> *const crate::ffi::MR_C_std_optional_std_string
 {
+    let (__begin_a, __end_a) = match a {Some(s) => (s.as_ptr() as *const core::ffi::c_char, s.as_ptr().wrapping_add(s.len()) as *const core::ffi::c_char), None => (core::ptr::null(), core::ptr::null())};
     let (__pb_b, __ptr_b) = match b {Some(r) => (crate::ffi::MR_C_PassBy_Copy, r as *const crate::mr::cs::std_optional_std_string as *mut crate::ffi::MR_C_std_optional_std_string), None => (crate::ffi::MR_C_PassBy_NoObject, core::ptr::null_mut())};
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optstr_cref(a, a_end, __pb_b, __ptr_b)};
-    unsafe {&*(__ret as *const crate::mr::cs::std_optional_std_string)}
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optstr_cref(__begin_a, __end_a, __pb_b, __ptr_b)};
+    __ret
 }
 
 /// Generated from function `MR::CSharp::test_optstr_ptr`.
@@ -12537,9 +12539,9 @@ pub unsafe fn test_optstr_cptr(a: Option<&crate::mr::cs::std_optional_std_string
 /// Generated from function `MR::CSharp::test_opttriv`.
 ///
 /// Calls `MR_CSharp_test_opttriv()`.
-pub fn test_opttriv(a: &crate::mr::c_sharp::Trivial, b: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_Trivial>
+pub fn test_opttriv(a: Option<&crate::mr::c_sharp::Trivial>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_Trivial>
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_opttriv(a as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_opttriv(a.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial))};
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_Trivial)}
 }
 
@@ -12555,9 +12557,9 @@ pub fn test_opttriv_ref(a: &mut crate::mr::cs::std_optional_MR_CSharp_Trivial, b
 /// Generated from function `MR::CSharp::test_opttriv_cref`.
 ///
 /// Calls `MR_CSharp_test_opttriv_cref()`.
-pub fn test_opttriv_cref(a: &crate::mr::c_sharp::Trivial, b: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial
+pub fn test_opttriv_cref(a: Option<&crate::mr::c_sharp::Trivial>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_Trivial>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_opttriv_cref(a as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_opttriv_cref(a.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::Trivial as *const crate::ffi::MR_CSharp_Trivial), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_Trivial as *const crate::ffi::MR_C_std_optional_MR_CSharp_Trivial))};
     __ret
 }
 
@@ -12632,9 +12634,9 @@ pub unsafe fn test_optnontriv_cptr(a: Option<&crate::mr::cs::std_optional_MR_CSh
 /// Generated from function `MR::CSharp::test_optshexp`.
 ///
 /// Calls `MR_CSharp_test_optshexp()`.
-pub fn test_optshexp(a: &crate::ffi::MR_CSharp_ExposedLayoutSh, b: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>
+pub fn test_optshexp(a: Option<&crate::ffi::MR_CSharp_ExposedLayoutSh>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshexp(a as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshexp(a.map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh))};
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh)}
 }
 
@@ -12650,9 +12652,9 @@ pub fn test_optshexp_ref(a: &mut crate::mr::cs::std_optional_MR_CSharp_ExposedLa
 /// Generated from function `MR::CSharp::test_optshexp_cref`.
 ///
 /// Calls `MR_CSharp_test_optshexp_cref()`.
-pub fn test_optshexp_cref(a: &crate::ffi::MR_CSharp_ExposedLayoutSh, b: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh
+pub fn test_optshexp_cref(a: Option<&crate::ffi::MR_CSharp_ExposedLayoutSh>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshexp_cref(a as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshexp_cref(a.map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_C_std_optional_MR_CSharp_ExposedLayoutSh))};
     __ret
 }
 
@@ -12677,9 +12679,9 @@ pub unsafe fn test_optshexp_cptr(a: Option<&crate::mr::cs::std_optional_MR_CShar
 /// Generated from function `MR::CSharp::test_optshtriv`.
 ///
 /// Calls `MR_CSharp_test_optshtriv()`.
-pub fn test_optshtriv(a: &crate::mr::c_sharp::SA, b: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_SA>
+pub fn test_optshtriv(a: Option<&crate::mr::c_sharp::SA>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>, c: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_SA>
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshtriv(a as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshtriv(a.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA), c.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA))};
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_SA)}
 }
 
@@ -12695,9 +12697,9 @@ pub fn test_optshtriv_ref(a: &mut crate::mr::cs::std_optional_MR_CSharp_SA, b: O
 /// Generated from function `MR::CSharp::test_optshtriv_cref`.
 ///
 /// Calls `MR_CSharp_test_optshtriv_cref()`.
-pub fn test_optshtriv_cref(a: &crate::mr::c_sharp::SA, b: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_SA
+pub fn test_optshtriv_cref(a: Option<&crate::mr::c_sharp::SA>, b: Option<&crate::mr::cs::std_optional_MR_CSharp_SA>) -> *const crate::ffi::MR_C_std_optional_MR_CSharp_SA
 {
-    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshtriv_cref(a as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA, b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA))};
+    let __ret = unsafe {crate::ffi::MR_CSharp_test_optshtriv_cref(a.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA), b.map_or(core::ptr::null(), |r| r as *const crate::mr::cs::std_optional_MR_CSharp_SA as *const crate::ffi::MR_C_std_optional_MR_CSharp_SA))};
     __ret
 }
 

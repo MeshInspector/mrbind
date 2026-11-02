@@ -90,7 +90,7 @@ public final class std_optional_MR_StdOptional_E extends mrbind_test.CppObject
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_E.H0.MR_C_std_optional_MR_StdOptional_E_ConstructFrom.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, java.util.Objects.requireNonNull(other, "other").value));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_StdOptional_E.H0.MR_C_std_optional_MR_StdOptional_E_ConstructFrom.invokeExact((java.lang.foreign.MemorySegment)(other == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other.value)));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -133,7 +133,7 @@ public final class std_optional_MR_StdOptional_E extends mrbind_test.CppObject
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.std_optional_MR_StdOptional_E.H0.MR_C_std_optional_MR_StdOptional_E_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, java.util.Objects.requireNonNull(other, "other").value));
+            mrbind_test.ffi.std_optional_MR_StdOptional_E.H0.MR_C_std_optional_MR_StdOptional_E_AssignFrom.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(other == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other.value)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

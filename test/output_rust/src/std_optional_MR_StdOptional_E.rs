@@ -37,10 +37,10 @@ impl std_optional_MR_StdOptional_E
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_MR_StdOptional_E_ConstructFrom()`.
-    pub fn construct_from(other: &crate::ffi::MR_StdOptional_E) -> crate::Owned<crate::mr::cs::std_optional_MR_StdOptional_E>
+    pub fn construct_from(other: Option<crate::ffi::MR_StdOptional_E>) -> crate::Owned<crate::mr::cs::std_optional_MR_StdOptional_E>
     {
         crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_StdOptional_E_ConstructFrom(other as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_StdOptional_E_ConstructFrom(other.as_ref().map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E))};
         crate::__check_exception();
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_StdOptional_E)}
     }
@@ -60,10 +60,10 @@ impl std_optional_MR_StdOptional_E
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_MR_StdOptional_E_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &crate::ffi::MR_StdOptional_E)
+    pub fn assign_from(&mut self, other: Option<crate::ffi::MR_StdOptional_E>)
     {
         crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_StdOptional_E_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_StdOptional_E, other as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_StdOptional_E_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_StdOptional_E, other.as_ref().map_or(core::ptr::null(), |r| r as *const crate::ffi::MR_StdOptional_E as *const crate::ffi::MR_StdOptional_E))};
         crate::__check_exception();
         __ret
     }

@@ -84,6 +84,9 @@ namespace mrbind_py
         PyObject *owner; // Keeps the object owning `ptr` alive, if `ptr` isn't owned.
         int owned;
         void *holder; // A `std::shared_ptr<const void>` owning the object, if it's shared. Then `owned` is false.
+        // The objects that the C++ object references, from the parsed lifetimes: a dict from the key (`""` if none) to a list.
+        // Unlike `owner`, they are released when the C++ object drops them (`DiscardKeepAlive()`). Null if none.
+        PyObject *refs;
     };
 
 #ifndef MRBIND_PY_RUNTIME_HASH
@@ -177,6 +180,7 @@ namespace mrbind_py
         self->holder = nullptr;
         self->ptr = nullptr;
         Py_CLEAR(self->owner);
+        Py_CLEAR(self->refs);
         PyTypeObject *type = Py_TYPE(o);
         reinterpret_cast<freefunc>(PyType_GetSlot(type, Py_tp_free))(o);
         Py_DECREF(type);
@@ -256,6 +260,67 @@ namespace mrbind_py
         }
     }
 
+    // A lifetime relation from the parser: the C++ object of `holder` now references `target`, marked with `key`.
+    // Nulls, `None` and the foreign objects are ignored.
+    inline void KeepAliveKeyed(PyObject *holder, PyObject *target, const char *key)
+    {
+        if (!holder || !target || holder == Py_None || target == Py_None || holder == target || !PyObject_TypeCheck(holder, reinterpret_cast<PyTypeObject *>(object_type)))
+            return;
+        Instance *self = reinterpret_cast<Instance *>(holder);
+        if (!self->refs && !(self->refs = PyDict_New()))
+        {
+            PyErr_Clear();
+            return;
+        }
+        PyObject *list = PyDict_GetItemString(self->refs, key); // Borrowed.
+        if (!list)
+        {
+            list = PyList_New(0);
+            if (!list || PyDict_SetItemString(self->refs, key, list) < 0)
+            {
+                Py_XDECREF(list);
+                PyErr_Clear();
+                return;
+            }
+            Py_DECREF(list);
+        }
+        if (PyList_Append(list, target) < 0)
+            PyErr_Clear();
+    }
+
+    // The C++ object of `holder` dropped the references marked with `key`, or all of them if it's empty.
+    inline void DiscardKeepAlive(PyObject *holder, const char *key)
+    {
+        if (!holder || holder == Py_None || !PyObject_TypeCheck(holder, reinterpret_cast<PyTypeObject *>(object_type)))
+            return;
+        Instance *self = reinterpret_cast<Instance *>(holder);
+        if (!self->refs)
+            return;
+        if (!*key)
+            PyDict_Clear(self->refs);
+        else if (PyDict_GetItemString(self->refs, key) && PyDict_DelItemString(self->refs, key) < 0)
+            PyErr_Clear();
+    }
+
+    // `holder` references whatever `target` references, but not `target` itself (e.g. a copy).
+    inline void KeepAliveNested(PyObject *holder, PyObject *target, const char *key)
+    {
+        if (!target || target == Py_None || holder == target || !PyObject_TypeCheck(target, reinterpret_cast<PyTypeObject *>(object_type)))
+            return;
+        PyObject *refs = reinterpret_cast<Instance *>(target)->refs;
+        if (!refs)
+            return;
+        Py_INCREF(refs);
+        PyObject *k, *list;
+        Py_ssize_t pos = 0;
+        while (PyDict_Next(refs, &pos, &k, &list))
+        {
+            for (Py_ssize_t i = 0, n = PyList_Size(list); i < n; i++)
+                KeepAliveKeyed(holder, PyList_GetItem(list, i), key);
+        }
+        Py_DECREF(refs);
+    }
+
     // The `std::shared_ptr<const void>` owning the object of an instance, or null if the instance doesn't own it.
     // An object owned through a raw pointer is moved into a new shared pointer.
     inline void *GetHolder(PyObject *o)
@@ -284,6 +349,7 @@ namespace mrbind_py
             holder_destroy(self->holder);
         self->holder = nullptr;
         Py_CLEAR(self->owner);
+        Py_CLEAR(self->refs);
         self->ptr = ptr;
         self->rec = &rec;
         self->owned = 1;
@@ -1754,15 +1820,18 @@ def enum_from_bits(cls, bits):
         if (d->holder)
             holder_destroy(d->holder);
         Py_CLEAR(d->owner);
+        Py_CLEAR(d->refs);
         d->ptr = s->ptr;
         d->rec = s->rec;
         d->owned = s->owned;
         d->holder = s->holder;
         d->owner = s->owner;
+        d->refs = s->refs;
         s->ptr = nullptr;
         s->owned = 0;
         s->holder = nullptr;
         s->owner = nullptr;
+        s->refs = nullptr;
         Py_RETURN_NONE;
     }
 

@@ -30,11 +30,11 @@ public final class Functions
      *
      * Calls `MR_StdOptional_SetInt()`.
      */
-    public static void SetInt(int _1)
+    public static void SetInt(java.lang.Integer _1)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetInt.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetInt.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -48,11 +48,11 @@ public final class Functions
      *
      * Calls `MR_StdOptional_SetIntConstRef()`.
      */
-    public static void SetIntConstRef(int _1)
+    public static void SetIntConstRef(java.lang.Integer _1)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetIntConstRef.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetIntConstRef.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -66,11 +66,11 @@ public final class Functions
      *
      * Calls `MR_StdOptional_SetIntDefTrivial()`.
      */
-    public static void SetIntDefTrivial(int _1)
+    public static void SetIntDefTrivial(java.lang.Integer _1)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetIntDefTrivial.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetIntDefTrivial.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -129,7 +129,7 @@ public final class Functions
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnum.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, java.util.Objects.requireNonNull(_1, "_1").value));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnum.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1.value)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -147,7 +147,7 @@ public final class Functions
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnumConstRef.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, java.util.Objects.requireNonNull(_1, "_1").value));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnumConstRef.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1.value)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -165,7 +165,7 @@ public final class Functions
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnumDefTrivial.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, java.util.Objects.requireNonNull(_1, "_1").value));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetEnumDefTrivial.invokeExact((java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1.value)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -224,7 +224,7 @@ public final class Functions
     {
         try
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClass.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClass.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -246,7 +246,7 @@ public final class Functions
     {
         try
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClassConstRef.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClassConstRef.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -268,7 +268,7 @@ public final class Functions
     {
         try
         {
-            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClassDefTrivial.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.ffi.MR.test_std_optional.H0.MR_StdOptional_SetClassDefTrivial.invokeExact(mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

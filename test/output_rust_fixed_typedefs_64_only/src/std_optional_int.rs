@@ -33,9 +33,9 @@ impl std_optional_int
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_int_ConstructFrom()`.
-    pub fn construct_from(other: &core::ffi::c_int) -> crate::Owned<crate::mr::cs::std_optional_int>
+    pub fn construct_from(other: Option<core::ffi::c_int>) -> crate::Owned<crate::mr::cs::std_optional_int>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_int_ConstructFrom(other as *const core::ffi::c_int as *const core::ffi::c_int)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int_ConstructFrom(other.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_int)}
     }
 
@@ -52,9 +52,9 @@ impl std_optional_int
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_int_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &core::ffi::c_int)
+    pub fn assign_from(&mut self, other: Option<core::ffi::c_int>)
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_int_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int, other as *const core::ffi::c_int as *const core::ffi::c_int)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_int_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_int, other.as_ref().map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
         __ret
     }
 

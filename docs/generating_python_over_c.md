@@ -88,6 +88,8 @@ Like in C#, every class `T` has two Python classes: `ConstT` with only the const
 
 An object either owns its C++ object or references one, which is `_is_owning` (like `_IsOwning` in C#). A function returning a reference doesn't copy the referenced object (unlike pybind11, which copies the const references): it returns a non-owning object, of `ConstT` for a const reference or pointer and of `T` for a non-const one. It keeps alive the object it was obtained from (`self` for the methods), but like a C++ reference it sees the later modifications of that object. To keep a snapshot, copy it: `T(x)`. A result by value is an owning `T`.
 
+The other objects that a C++ object references are kept alive by its Python object, from the lifetimes of the C description (like `MB_PB11_USE_PARSED_LIFETIMES` in pybind11, plus what C# does with them): the keyed ones are released when the C++ object drops them, e.g. assigning a pointer field releases the previous target, and a copy (or an assignment) keeps alive what its source keeps alive, but not the source itself.
+
 ## Deliberate differences from pybind11
 
 * The const classes and the references to the C++ objects, see above.

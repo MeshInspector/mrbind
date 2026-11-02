@@ -171,5 +171,13 @@ public class Main
         check(mrbind_test.mr.stdexpected.Functions.GetExp() == 0, "expected<int> unwrapped");
         mrbind_test.mr.stdexpected.Functions.GetExpVoid();
         check(new mrbind_test.mr.cs.std_expected_int_std_string().valueOrThrow() == 0, "valueOrThrow");
+
+        // `std::optional<T>` parameters are nullable, `null` passes no value.
+        mrbind_test.mr.stdoptional.Functions.SetInt(null);
+        mrbind_test.mr.stdoptional.Functions.SetIntConstRef(1);
+        mrbind_test.mr.stdoptional.Functions.SetEnum(null);
+        mrbind_test.mr.stdoptional.Functions.SetEnum(mrbind_test.mr.stdoptional.E.e1);
+        mrbind_test.mr.stdoptional.Functions.SetClass(null);
+        mrbind_test.mr.stdoptional.Functions.SetClassConstRef(new mrbind_test.mr.stdoptional.A(1));
     }
 }

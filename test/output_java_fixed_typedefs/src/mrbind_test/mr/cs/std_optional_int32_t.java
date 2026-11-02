@@ -81,16 +81,16 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
      *
      * Calls `MR_C_std_optional_int32_t_ConstructFrom()`.
      */
-    public std_optional_int32_t(int other)
+    public std_optional_int32_t(java.lang.Integer other)
     {
         this(__ctor_constructFrom(other), true, null);
     }
 
-    private static java.lang.foreign.MemorySegment __ctor_constructFrom(int other)
+    private static java.lang.foreign.MemorySegment __ctor_constructFrom(java.lang.Integer other)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_ConstructFrom.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_ConstructFrom.invokeExact((java.lang.foreign.MemorySegment)(other == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other)));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -129,11 +129,11 @@ public final class std_optional_int32_t extends mrbind_test.CppObject
      *
      * Calls `MR_C_std_optional_int32_t_AssignFrom()`.
      */
-    public void assignFrom(int other)
+    public void assignFrom(java.lang.Integer other)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other));
+            mrbind_test.ffi.std_optional_int32_t.H0.MR_C_std_optional_int32_t_AssignFrom.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(other == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, other)));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
