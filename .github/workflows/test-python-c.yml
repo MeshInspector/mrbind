@@ -24,6 +24,8 @@ jobs:
           ninja -C build mrbind mrbind_gen_c mrbind_gen_python
       - name: C test bindings
         run: bash test/make_c.sh
+      - name: Check the C test outputs
+        run: git diff --stat --exit-code -- test/output_c test/output_c_fixed_typedefs test/output_c_fixed_typedefs_64_only || { git diff -- test/output_c | head -100; exit 1; }
       - name: Python over C
         run: bash test/make_python_c.sh
       - uses: actions/upload-artifact@v4
