@@ -531,9 +531,9 @@ namespace mrbind::Python
                 if (td.full_name.find('<') == std::string::npos && td.pretty != td.full_name)
                     typedef_targets.emplace(td.full_name, td.pretty);
             }
-            for (const auto &spelling : c_desc.type_aliases.Vec())
+            for (const auto &spelling : c_desc.alt_type_spellings.Vec())
             {
-                const std::string &target = c_desc.type_aliases.Map().at(spelling);
+                const std::string &target = c_desc.alt_type_spellings.Map().at(spelling);
                 if (spelling != target && spelling.find('<') != std::string::npos && !StartsWith(spelling, "const ") && !types.contains(spelling) && !StartsWith(spelling, "std::"))
                     alias_template_targets.emplace_back(spelling, target);
             }
@@ -2359,7 +2359,7 @@ namespace mrbind::Python
                 aggregate_ctor = std::move(ov);
             }
         }
-        if (aggregate_ctor || (cls.is_aggregate && !cls.some_nonstatic_data_members_skipped && cls.inheritance_info.bases_direct_combined.Vec().empty() && !has_fields && !std_function && !init.overloads.empty()))
+        if (aggregate_ctor || (cls.is_aggregate && cls.inheritance_info.bases_direct_combined.Vec().empty() && !has_fields && !std_function && !init.overloads.empty()))
         {
             PreparedOverload a = aggregate_ctor ? *aggregate_ctor : init.overloads.front();
             a.comment = "Implicit aggregate constructor.";
@@ -3275,13 +3275,13 @@ namespace mrbind::Python
 
     void Generator::CollectAliases()
     {
-        if (c_desc.type_aliases.Vec().empty())
+        if (c_desc.alt_type_spellings.Vec().empty())
             return;
         // By spelling, sorted like the `std::map` in the pybind11 target. A spelling of several types is ambiguous and skipped.
         std::map<std::string, std::set<const TypeInfo *>> by_spelling;
-        for (const auto &alias_spelling : c_desc.type_aliases.Vec())
+        for (const auto &alias_spelling : c_desc.alt_type_spellings.Vec())
         {
-            std::string target = Trim(c_desc.type_aliases.Map().at(alias_spelling));
+            std::string target = Trim(c_desc.alt_type_spellings.Map().at(alias_spelling));
             if (StartsWith(target, "const "))
                 target = target.substr(6);
             const TypeInfo *t = FindType(target);
@@ -3400,7 +3400,7 @@ namespace mrbind::Python
                 EmitOne(scope_var, const_name, target.var + ".const_type");
         };
 
-        if (!c_desc.type_aliases.Vec().empty())
+        if (!c_desc.alt_type_spellings.Vec().empty())
         {
             for (const auto &[target, list] : aliases_by_type)
             {

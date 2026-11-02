@@ -4251,7 +4251,7 @@ namespace mrbind::C
         binder.inheritance_info = parsed_class_inheritance_info.at(cpp_class_name_str);
 
         binder.mark_polymorphic = class_desc.is_polymorphic;
-        binder.mark_aggregate = class_desc.parsed && class_desc.parsed->is_aggregate;
+        binder.mark_aggregate = class_desc.parsed && class_desc.parsed->is_aggregate && !class_desc.parsed->some_nonstatic_data_members_skipped;
 
         return binder;
     }
@@ -5234,12 +5234,6 @@ namespace mrbind::C
                         }
                     );
                 }
-
-                if (self.output_desc)
-                {
-                    CInterop::TypeKinds::Class &class_desc = self.FindClassDescForInterop(cppdecl::Type::FromQualifiedName(cpp_class_name));
-                    class_desc.some_nonstatic_data_members_skipped = cl.some_nonstatic_data_members_skipped;
-                }
             }
             catch (...)
             {
@@ -5801,10 +5795,10 @@ namespace mrbind::C
                 void Visit(const TypedefEntity &td) override
                 {
                     self.output_desc->typedefs.push_back({
+                        .output_file = self.MakeOutputFileDescForInterop(self.GetOutputFile(td.declared_in_file)),
                         .full_name = td.full_name,
                         .pretty = td.type.pretty,
                         .canonical = td.type.canonical,
-                        .output_file = self.MakeOutputFileDescForInterop(self.GetOutputFile(td.declared_in_file)),
                     });
                 }
             };
@@ -5838,7 +5832,7 @@ namespace mrbind::C
                 for (const auto &[spelling, target] : spellings)
                 {
                     if (targets_by_spelling.at(spelling).size() == 1)
-                        output_desc->type_aliases.TryEmplace(spelling, target);
+                        output_desc->alt_type_spellings.TryEmplace(spelling, target);
                 }
             }
         }
