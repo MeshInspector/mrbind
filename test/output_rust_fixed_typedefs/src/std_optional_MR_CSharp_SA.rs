@@ -33,9 +33,9 @@ impl std_optional_MR_CSharp_SA
     /// Constructs a new instance.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_SA_ConstructFrom()`.
-    pub fn construct_from(other: &crate::mr::c_sharp::SA) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_SA>
+    pub fn construct_from(other: Option<&crate::mr::c_sharp::SA>) -> crate::Owned<crate::mr::cs::std_optional_MR_CSharp_SA>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_SA_ConstructFrom(other as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_SA_ConstructFrom(other.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_optional_MR_CSharp_SA)}
     }
 
@@ -52,9 +52,9 @@ impl std_optional_MR_CSharp_SA
     /// Assigns the contents.
     ///
     /// Calls `MR_C_std_optional_MR_CSharp_SA_AssignFrom()`.
-    pub fn assign_from(&mut self, other: &crate::mr::c_sharp::SA)
+    pub fn assign_from(&mut self, other: Option<&crate::mr::c_sharp::SA>)
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_SA_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_SA, other as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA)};
+        let __ret = unsafe {crate::ffi::MR_C_std_optional_MR_CSharp_SA_AssignFrom(self as *mut Self as *mut crate::ffi::MR_C_std_optional_MR_CSharp_SA, other.map_or(core::ptr::null(), |r| r as *const crate::mr::c_sharp::SA as *const crate::ffi::MR_CSharp_SA))};
         __ret
     }
 

@@ -3431,11 +3431,11 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_optint()`.
      */
-    public static mrbind_test.mr.cs.std_optional_int test_optint(int a, mrbind_test.mr.cs.std_optional_int b, mrbind_test.mr.cs.std_optional_int c)
+    public static mrbind_test.mr.cs.std_optional_int test_optint(java.lang.Integer a, mrbind_test.mr.cs.std_optional_int b, mrbind_test.mr.cs.std_optional_int c)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optint.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, a), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optint.invokeExact((java.lang.foreign.MemorySegment)(a == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, a)), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_optional_int(__ret, true, null);
         }
@@ -3480,11 +3480,11 @@ public final class Functions
      *
      * Calls `MR_CSharp_test_optint_cref()`.
      */
-    public static mrbind_test.mr.cs.std_optional_int test_optint_cref(int a, mrbind_test.mr.cs.std_optional_int b)
+    public static mrbind_test.mr.cs.std_optional_int test_optint_cref(java.lang.Integer a, mrbind_test.mr.cs.std_optional_int b)
     {
         try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optint_cref.invokeExact(mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, a), mrbind_test.Ffi.ptr(b));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optint_cref.invokeExact((java.lang.foreign.MemorySegment)(a == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, a)), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = b;
             return new mrbind_test.mr.cs.std_optional_int(__ret, false, __owner);
@@ -3552,13 +3552,14 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_optstr`.
      *
-     * Calls `MR_CSharp_test_optstr()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_test_optstr()`.
      */
-    public static mrbind_test.mr.cs.std_optional_std_string test_optstr(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment a_end, mrbind_test.mr.cs.std_optional_std_string b, mrbind_test.mr.cs.std_optional_std_string c)
+    public static mrbind_test.mr.cs.std_optional_std_string test_optstr(java.lang.String a, mrbind_test.mr.cs.std_optional_std_string b, mrbind_test.mr.cs.std_optional_std_string c)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optstr.invokeExact(a, a_end, (int)(b == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(b), (int)(c == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(c));
+            java.lang.foreign.MemorySegment __str_a = mrbind_test.Ffi.utf8(__arena, a);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optstr.invokeExact(__str_a, mrbind_test.Ffi.end(__str_a), (int)(b == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(b), (int)(c == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(c));
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_optional_std_string(__ret, true, null);
         }
@@ -3601,13 +3602,14 @@ public final class Functions
     /**
      * Generated from function `MR::CSharp::test_optstr_cref`.
      *
-     * Calls `MR_CSharp_test_optstr_cref()`. Some types are raw C types, see the C bindings for the details.
+     * Calls `MR_CSharp_test_optstr_cref()`.
      */
-    public static mrbind_test.mr.cs.std_optional_std_string test_optstr_cref(java.lang.foreign.MemorySegment a, java.lang.foreign.MemorySegment a_end, mrbind_test.mr.cs.std_optional_std_string b)
+    public static mrbind_test.mr.cs.std_optional_std_string test_optstr_cref(java.lang.String a, mrbind_test.mr.cs.std_optional_std_string b)
     {
-        try
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optstr_cref.invokeExact(a, a_end, (int)(b == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(b));
+            java.lang.foreign.MemorySegment __str_a = mrbind_test.Ffi.utf8(__arena, a);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optstr_cref.invokeExact(__str_a, mrbind_test.Ffi.end(__str_a), (int)(b == null ? mrbind_test.Ffi.PASS_BY_NO_OBJECT : mrbind_test.Ffi.PASS_BY_COPY), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = b;
             return new mrbind_test.mr.cs.std_optional_std_string(__ret, false, __owner);
@@ -3681,7 +3683,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_opttriv.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_opttriv.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_Trivial(__ret, true, null);
         }
@@ -3731,7 +3733,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_opttriv_cref.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_opttriv_cref.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_Trivial(__ret, false, __owner);
@@ -3931,7 +3933,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshexp.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshexp.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_ExposedLayoutSh(__ret, true, null);
         }
@@ -3981,7 +3983,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshexp_cref.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshexp_cref.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_ExposedLayoutSh(__ret, false, __owner);
@@ -4056,7 +4058,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshtriv.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshtriv.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), mrbind_test.Ffi.ptr(c));
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_SA(__ret, true, null);
         }
@@ -4106,7 +4108,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshtriv_cref.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptr(b));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_optshtriv_cref.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return new mrbind_test.mr.cs.std_optional_MR_CSharp_SA(__ret, false, __owner);

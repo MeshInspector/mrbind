@@ -1997,6 +1997,8 @@ public abstract class ScalarOutput implements Native
         const bool cpp_is_optional = cpp_base_str.starts_with("std::optional<");
         const bool cpp_is_unique_ptr = cpp_base_str.starts_with("std::unique_ptr<");
         const bool cpp_is_string = cpp_base_str == "std::string" || cpp_base_str == "std::string_view" || cpp_base_str == "std::filesystem::path";
+        // `std::optional<T>` passed as a nullable `T`, null meaning no value. Non-const lvalue refs instead pass the optional class itself.
+        const bool cpp_is_sugared_optional = cpp_is_optional && param.uses_sugar;
 
         const std::string F = RuntimeClass("Ffi");
 
@@ -2090,11 +2092,11 @@ public abstract class ScalarOutput implements Native
         }
 
         // Strings.
-        if (c_types.size() == 2 && cpp_is_string && IsConstCharPtr(*c_types[0]) && IsConstCharPtr(*c_types[1]))
+        if (c_types.size() == 2 && (cpp_is_string || cpp_is_sugared_optional) && IsConstCharPtr(*c_types[0]) && IsConstCharPtr(*c_types[1]))
         {
             ret.java_params.emplace_back(name, "java.lang.String");
             ret.needs_arena = true;
-            if (param.default_arg_affects_parameter_passing)
+            if (param.default_arg_affects_parameter_passing || cpp_is_sugared_optional)
                 ret.pre += std::string(kMemorySegment) + " __str_" + name + " = " + F + ".utf8(__arena, " + name + ");\n";
             else
                 ret.pre += std::string(kMemorySegment) + " __str_" + name + " = " + F + ".utf8(__arena, java.util.Objects.requireNonNull(" + name + ", \"" + name + "\"));\n";
@@ -2137,7 +2139,7 @@ public abstract class ScalarOutput implements Native
             // Pointers.
             if (auto ptr = AnalyzePointer(ct); ptr && !param.is_array_pointer && (cpp_shape == CppShape::value || cpp_shape == CppShape::lref || cpp_shape == CppShape::rref || cpp_shape == CppShape::ptr))
             {
-                const bool optional = cpp_shape == CppShape::ptr || param.default_arg_affects_parameter_passing;
+                const bool optional = cpp_shape == CppShape::ptr || param.default_arg_affects_parameter_passing || cpp_is_sugared_optional;
 
                 // `std::unique_ptr<T>` takes ownership.
                 if (cpp_is_unique_ptr && ptr->pointee_type && ptr->pointee_type->has_destroy && !ptr->is_const)

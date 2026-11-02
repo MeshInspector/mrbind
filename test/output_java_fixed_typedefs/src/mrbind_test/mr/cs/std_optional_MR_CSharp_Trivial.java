@@ -90,7 +90,7 @@ public final class std_optional_MR_CSharp_Trivial extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_Trivial.H0.MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom.invokeExact(mrbind_test.Ffi.ptrNonNull(other, "other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_optional_MR_CSharp_Trivial.H0.MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom.invokeExact(mrbind_test.Ffi.ptr(other));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -137,7 +137,7 @@ public final class std_optional_MR_CSharp_Trivial extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.std_optional_MR_CSharp_Trivial.H0.MR_C_std_optional_MR_CSharp_Trivial_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(other, "other"));
+            mrbind_test.ffi.std_optional_MR_CSharp_Trivial.H0.MR_C_std_optional_MR_CSharp_Trivial_AssignFrom.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(other));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
