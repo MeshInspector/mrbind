@@ -3942,14 +3942,8 @@ namespace mrbind::C
             interop_field->type = CppdeclToCodeForComments(ParseTypeOrThrow(new_field.type.canonical)); // Roundtrip the type to canonicalize it, and to apply the `...ForComments` transformations, if any.
             interop_field->name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.name)); // This one should be a no-op. Just in case.
             interop_field->full_name = CppdeclToCodeForComments(ParseQualNameOrThrow(new_field.full_name)); // Need to fix the template arguments here.
-            // The layout of opaque fields is for the Python generator, which mimics pybind11's `_offsetof_<field>`.
-            if (!new_field.is_static && new_field.byte_offset != std::size_t(-1))
-            {
-                interop_field->layout.emplace();
-                interop_field->layout->byte_size = new_field.type_size;
-                interop_field->layout->byte_alignment = new_field.type_alignment;
-                interop_field->layout->byte_offset = new_field.byte_offset;
-            }
+            // We COULD set `layout` too, but who needs it for opaque fields?
+            // If you decide to write to it here, don't forget to change the comment on it to reflect that it can be set for opaque fields too.
         }
 
         for (auto kind :

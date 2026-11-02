@@ -2625,17 +2625,19 @@ namespace mrbind::Python
             }
             return "";
         };
-        std::vector<const CInterop::ClassField *> laid_out; // The own non-static fields, in order.
+        // The own non-static fields, in order. The description has the layout of the exposed structs only, the offsets of the others come from their getters.
+        auto HasOffset = [&](const CInterop::ClassField &f){return !f.is_static && (f.layout || !info.IsExposedStruct());};
+        std::vector<const CInterop::ClassField *> laid_out;
         for (const auto &f : cls.fields)
         {
-            if (!f.inherited_from && !f.is_static && f.layout)
+            if (!f.inherited_from && HasOffset(f))
                 laid_out.push_back(&f);
         }
         for (const auto &f : cls.fields)
         {
             if (f.inherited_from || hidden_fields.contains(f.name) || IsUsingDeclaredField(f))
                 continue;
-            if (!f.is_static && f.layout)
+            if (HasOffset(f))
             {
                 // The layout in the description is the parser's target platform, compute the offset on this one.
                 std::string offset;
@@ -2657,12 +2659,13 @@ namespace mrbind::Python
                 }
                 // Else the parser's offset, only if that platform has the same pointer size (it might be a 32-bit one).
                 std::string cond;
-                if (offset.empty())
+                if (offset.empty() && f.layout)
                 {
                     offset = std::to_string(f.layout->byte_offset);
                     cond = "if (sizeof(void *) == " + std::to_string(c_desc.platform_info.pointer_size) + ") ";
                 }
-                out_init += "    " + cond + "if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + const_cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
+                if (!offset.empty())
+                    out_init += "    " + cond + "if (!rt::CallRt(\"add_offsetof\", Py_BuildValue(\"(Osn)\", " + const_cls_obj + ", " + CppStringLiteral(AdjustPythonKeywords(f.name)) + ", (Py_ssize_t)" + offset + "))) return nullptr;\n";
             }
             // The pybind11 target has no properties for the C array fields.
             if (f.type.find('[') != std::string::npos)

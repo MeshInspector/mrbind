@@ -532,8 +532,8 @@ namespace mrbind::CInterop
             // If this field was copied from a base class (`--copy-inherited-members`), the C++ name of that base.
             (std::optional<std::string>)(inherited_from, {})
 
-            // Describes the location of this field in the class.
-            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and for the non-static fields with accessors.
+            // Describes the location of this field in an exposed struct.
+            // This is set for all non-static members of classes with `kind == ClassKind::exposed_struct`, and only for those.
             (std::optional<Layout>)(layout)
         )
 
