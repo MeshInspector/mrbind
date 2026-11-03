@@ -1675,6 +1675,216 @@ public static partial class MR
                 public _InOptConst_D(Const_D value) {Opt = value;}
                 public static implicit operator _InOptConst_D(Const_D value) {return new(value);}
             }
+
+            /// Generated from class `MR::OverloadedOps::E`.
+            /// This is the const half of the class.
+            public class Const_E : MR.CS.Misc.Object<Const_E>, System.IDisposable, System.IEquatable<MR.CS.OverloadedOps.Const_E>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_OverloadedOps_E_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_E() {Dispose(false);}
+
+                public unsafe int x
+                {
+                    get
+                    {
+                        return *__MR_OverloadedOps_E_Get_x(_UnderlyingPtr);
+                    }
+                }
+
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_E() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Constructs `MR::OverloadedOps::E` elementwise.
+                public unsafe Const_E(int x) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_ConstructFrom(x);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::OverloadedOps::E::E`.
+                public unsafe Const_E(MR.CS.OverloadedOps.Const_E _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::OverloadedOps::E::E`.
+                public Const_E(E _other) : this((Const_E)_other) {}
+
+                /// Generated from method `MR::OverloadedOps::E::operator==`.
+                public static unsafe bool operator==(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_equal_MR_OverloadedOps_E(_this._UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    return !(_this == _1);
+                }
+
+                // IEquatable:
+
+                public bool Equals(MR.CS.OverloadedOps.Const_E? _1)
+                {
+                    if (_1 is null)
+                        return false;
+                    return this == _1;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is MR.CS.OverloadedOps.Const_E)
+                        return this == (MR.CS.OverloadedOps.Const_E)other;
+                    return false;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_E", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_equal_MR_OverloadedOps_E(MR.CS.OverloadedOps.Const_E._Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_ConstructFromAnother(MR.CS.OverloadedOps.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_OverloadedOps_E_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_Get_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_OverloadedOps_E_Get_x(_Underlying *_this);
+            }
+
+            /// Generated from class `MR::OverloadedOps::E`.
+            /// This is the non-const half of the class.
+            public class E : Const_E
+            {
+                public new unsafe ref int x
+                {
+                    get
+                    {
+                        return ref *__MR_OverloadedOps_E_GetMutable_x(_UnderlyingPtr);
+                    }
+                }
+
+                internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe E() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Constructs `MR::OverloadedOps::E` elementwise.
+                public unsafe E(int x) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_ConstructFrom(x);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::OverloadedOps::E::E`.
+                public unsafe E(MR.CS.OverloadedOps.Const_E _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_OverloadedOps_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::OverloadedOps::E::E`.
+                public E(E _other) : this((Const_E)_other) {}
+
+                /// Generated from method `MR::OverloadedOps::E::operator=`.
+                public unsafe MR.CS.OverloadedOps.E Assign(MR.CS.OverloadedOps.Const_E _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_OverloadedOps_E_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_ConstructFrom", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_ConstructFrom(int x);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_ConstructFromAnother(MR.CS.OverloadedOps.E._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_GetMutable_x", ExactSpelling = true)]
+                extern static unsafe int *__MR_OverloadedOps_E_GetMutable_x(_Underlying *_this);
+            }
+
+            /// This is used for optional parameters of class `E` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_E`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `E`/`Const_E` directly.
+            public class _InOptMut_E
+            {
+                public E? Opt;
+
+                public _InOptMut_E() {}
+                public _InOptMut_E(E value) {Opt = value;}
+                public static implicit operator _InOptMut_E(E value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `E` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_E`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `E`/`Const_E` to pass it to the function.
+            public class _InOptConst_E
+            {
+                public Const_E? Opt;
+
+                public _InOptConst_E() {}
+                public _InOptConst_E(Const_E value) {Opt = value;}
+                public static implicit operator _InOptConst_E(Const_E value) {return new(value);}
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <compare>
+
 namespace MR::OverloadedOps
 {
     // Member functions.
@@ -213,5 +215,13 @@ namespace MR::OverloadedOps
 
         friend int operator+(D &);
         friend int operator+(const D &);
+    };
+
+    struct E
+    {
+        int x = 0;
+
+        // Implicitly declares a defaulted `operator==` too.
+        auto operator<=>(const E &) const = default;
     };
 }
