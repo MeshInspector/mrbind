@@ -53,6 +53,8 @@ namespace mrbind::Python
         std::string depends_on;
         // Splits the module into `<module>.cpp`, `<module>_1.cpp`, ... `<module>_<N-1>.cpp` with a common `<module>.h`, to compile them in parallel.
         std::size_t num_fragments = 1;
+        // Release the GIL around every call into C++, not only the ones taking callables.
+        bool release_gil_always = false;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 

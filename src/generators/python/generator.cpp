@@ -1133,7 +1133,7 @@ namespace mrbind::Python
         num_funcs_total++;
         PreparedOverload ret;
         std::string checks, late, call_args, after, post;
-        bool release_gil = false;
+        bool release_gil = release_gil_always;
         std::string fail;
 
         // The C++ params in the Python order, with their slot indices.

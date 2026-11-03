@@ -154,6 +154,13 @@ int main(int argc, char **argv)
             generator.iterate_by_index_regexes.push_back(std::string(args[0]));
         },
     });
+    args_parser.AddFlag("--release-gil", {
+        .desc = "Release the GIL around every call into C++, e.g. for the functions that wait for other threads that call into Python. Without this, only the calls taking callables release it.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan)
+        {
+            generator.release_gil_always = true;
+        },
+    });
     args_parser.AddFlag("--hide-field", {
         .allow_repeat = true,
         .arg_names = {"name"},
