@@ -55,6 +55,27 @@ typedef struct MR_OverloadedOps_E MR_OverloadedOps_E;
 typedef struct MR_OverloadedOps_F MR_OverloadedOps_F;
 #endif
 
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_G
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_G
+/// Generated from class `MR::OverloadedOps::G`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_OverloadedOps_G MR_OverloadedOps_G;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_H
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_H
+/// Generated from class `MR::OverloadedOps::H`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_OverloadedOps_H MR_OverloadedOps_H;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_I
+#define MR_C_DETAIL_TYPEDEF_MR_OverloadedOps_I
+/// Generated from class `MR::OverloadedOps::I`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_OverloadedOps_I MR_OverloadedOps_I;
+#endif
+
 // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
 /// Generated from constructor `MR::OverloadedOps::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -883,6 +904,181 @@ MR_C_API bool MR_C_greater_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_t
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
+
+/// Returns a pointer to a member variable of class `MR::OverloadedOps::G` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const int *MR_OverloadedOps_G_Get_x(const MR_OverloadedOps_G *_this);
+
+/// Modifies a member variable of class `MR::OverloadedOps::G` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+/// When this function is called, this object will drop object references it held previously in `x`.
+MR_C_API void MR_OverloadedOps_G_Set_x(MR_OverloadedOps_G *_this, int value);
+
+/// Returns a mutable pointer to a member variable of class `MR::OverloadedOps::G` named `x`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
+MR_C_API int *MR_OverloadedOps_G_GetMutable_x(MR_OverloadedOps_G *_this);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_G_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_OverloadedOps_G_DestroyArray()`.
+/// Use `MR_OverloadedOps_G_OffsetMutablePtr()` and `MR_OverloadedOps_G_OffsetPtr()` to access the array elements.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_DefaultConstructArray(size_t num_elems);
+
+/// Constructs `MR::OverloadedOps::G` elementwise.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_G_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_ConstructFrom(int x);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_OverloadedOps_G *MR_OverloadedOps_G_OffsetPtr(const MR_OverloadedOps_G *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_OffsetMutablePtr(MR_OverloadedOps_G *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::OverloadedOps::G::G`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_G_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_ConstructFromAnother(const MR_OverloadedOps_G *_other);
+
+/// Destroys a heap-allocated instance of `MR_OverloadedOps_G`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_G_Destroy(const MR_OverloadedOps_G *_this);
+
+/// Destroys a heap-allocated array of `MR_OverloadedOps_G`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_G_DestroyArray(const MR_OverloadedOps_G *_this);
+
+/// Generated from method `MR::OverloadedOps::G::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_AssignFromAnother(MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_other);
+
+/// Generated from method `MR::OverloadedOps::G::operator<`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_less_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
+
+/// Generated from method `MR::OverloadedOps::G::operator>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
+
+/// Generated from method `MR::OverloadedOps::G::operator<=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_less_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
+
+/// Generated from method `MR::OverloadedOps::G::operator>=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_H_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_OverloadedOps_H_DestroyArray()`.
+/// Use `MR_OverloadedOps_H_OffsetMutablePtr()` and `MR_OverloadedOps_H_OffsetPtr()` to access the array elements.
+MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_OverloadedOps_H *MR_OverloadedOps_H_OffsetPtr(const MR_OverloadedOps_H *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_OffsetMutablePtr(MR_OverloadedOps_H *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::OverloadedOps::H::H`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_H_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_ConstructFromAnother(const MR_OverloadedOps_H *_other);
+
+/// Destroys a heap-allocated instance of `MR_OverloadedOps_H`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_H_Destroy(const MR_OverloadedOps_H *_this);
+
+/// Destroys a heap-allocated array of `MR_OverloadedOps_H`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_H_DestroyArray(const MR_OverloadedOps_H *_this);
+
+/// Generated from method `MR::OverloadedOps::H::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_AssignFromAnother(MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_other);
+
+// Gives `!=`.
+/// Generated from method `MR::OverloadedOps::H::operator==`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1);
+
+/// Generated from method `MR::OverloadedOps::H::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_I_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_OverloadedOps_I_DestroyArray()`.
+/// Use `MR_OverloadedOps_I_OffsetMutablePtr()` and `MR_OverloadedOps_I_OffsetPtr()` to access the array elements.
+MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_OverloadedOps_I *MR_OverloadedOps_I_OffsetPtr(const MR_OverloadedOps_I *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_OffsetMutablePtr(MR_OverloadedOps_I *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::OverloadedOps::I::I`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_I_Destroy()` to free it when you're done using it.
+MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_ConstructFromAnother(const MR_OverloadedOps_I *_other);
+
+/// Destroys a heap-allocated instance of `MR_OverloadedOps_I`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_I_Destroy(const MR_OverloadedOps_I *_this);
+
+/// Destroys a heap-allocated array of `MR_OverloadedOps_I`. Does nothing if the pointer is null.
+MR_C_API void MR_OverloadedOps_I_DestroyArray(const MR_OverloadedOps_I *_this);
+
+/// Generated from method `MR::OverloadedOps::I::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_AssignFromAnother(MR_OverloadedOps_I *_this, const MR_OverloadedOps_I *_other);
+
+// Gives a free `!=`.
+/// Generated from function `MR::OverloadedOps::operator==`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2);
+
+/// Generated from function `MR::OverloadedOps::operator!=`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2);
 
 #ifdef __cplusplus
 } // extern "C"

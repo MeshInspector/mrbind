@@ -387,6 +387,8 @@ namespace mrbind
                     },
                     [&](const FuncEntity &e)
                     {
+                        if (e.is_rewritten_comparison)
+                            return; // The macro users take the addresses of the functions, and these aren't declared.
                         BeginMultiplexBlock();
                         out << "MB_FUNC("
                             << "/*returns*/(" << TypeToDefaultSpelling(e.return_type) << "), "

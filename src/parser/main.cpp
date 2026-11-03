@@ -50,6 +50,7 @@
 #include <concepts>
 #include <cstddef>
 #include <cstring>
+#include <span>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -148,9 +149,21 @@ namespace mrbind
         macros,
     };
 
+    // A comparison that C++20 rewrites through a declared operator: `a < b` to `(a <=> b) < 0`, `a != b` to `!(a == b)`.
+    struct RewrittenComparison
+    {
+        clang::OverloadedOperatorKind kind;
+        std::string_view from_token; // `<=>` or `==`.
+        std::string_view token;
+        std::string_view simple_name;
+    };
+
     struct VisitorParams
     {
         bool verbose = false;
+
+        // Set while `VisitFunctionDecl()` emits a comparison rewritten through the visited `<=>` or `==`, instead of that operator.
+        mutable const RewrittenComparison *rewritten_comparison = nullptr;
 
         StringFilter blacklisted_entities;
         StringFilter whitelisted_entities;
@@ -709,6 +722,14 @@ namespace mrbind
     // `params` is optional.
     // NOTE: If `out_ignore` is specified, will write true to it INSTEAD of the rejecting the declaration ONLY IF the rejection is caused
     //   by a blacklisted name or the `mrbind::ignore` attribute.
+    // Replaces the last `operator<=>` or `operator==` in `name` with the operator of `r`.
+    void RenameToRewrittenComparison(const RewrittenComparison &r, std::string &name)
+    {
+        const std::string from = "operator" + std::string(r.from_token);
+        if (std::size_t pos = name.rfind(from); pos != std::string::npos)
+            name.replace(pos, from.size(), "operator" + std::string(r.token));
+    }
+
     [[nodiscard]] bool ShouldRejectDeclaration(const clang::NamedDecl &decl, const clang::ASTContext &ctx, const VisitorParams &params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {}, bool *out_ignore = nullptr)
     {
         (void)ctx;
@@ -783,6 +804,13 @@ namespace mrbind
             // Make sure the name doesn't contain unspellable stuff, such as lambda types.
             if (!NameSpellingIsLegal(name))
                 return true;
+
+            // A rewritten comparison is checked under its own name.
+            if (params.rewritten_comparison && llvm::isa<clang::FunctionDecl>(decl))
+            {
+                RenameToRewrittenComparison(*params.rewritten_comparison, name);
+                RenameToRewrittenComparison(*params.rewritten_comparison, name_without_template_args);
+            }
         }
 
         // if (auto t = llvm::dyn_cast<clang::ClassTemplateSpecializationDecl>(&decl); t && ctx.getFullLoc(t->getPointOfInstantiation()).getFileID() == ctx.getSourceManager().getMainFileID())
@@ -1912,9 +1940,103 @@ namespace mrbind
             return true;
         }
 
+        // The types of the operands of an operator: the class of `this` (for a non-static member) and the parameters, without references and cv-qualifiers.
+        [[nodiscard]] std::vector<clang::QualType> GetOperandTypes(const clang::FunctionDecl &func)
+        {
+            std::vector<clang::QualType> ret;
+            if (auto method = llvm::dyn_cast<clang::CXXMethodDecl>(&func); method && method->isInstance())
+                ret.push_back(method->getFunctionObjectParameterType().getCanonicalType().getUnqualifiedType());
+            for (const clang::ParmVarDecl *param : func.parameters())
+                ret.push_back(param->getType().getNonReferenceType().getCanonicalType().getUnqualifiedType());
+            return ret;
+        }
+
+        // Is the operator `kind` declared for the operands of `func`? Looks in the scope of `func`, and in the friends of the class
+        //   that declares `func` and of the operand classes.
+        [[nodiscard]] bool IsOperatorDeclaredLike(const clang::FunctionDecl &func, clang::OverloadedOperatorKind kind)
+        {
+            const std::vector<clang::QualType> operands = GetOperandTypes(func);
+            auto Matches = [&](const clang::NamedDecl *candidate)
+            {
+                auto f = llvm::dyn_cast_or_null<clang::FunctionDecl>(candidate);
+                return f && f->getOverloadedOperator() == kind && GetOperandTypes(*f) == operands;
+            };
+            for (const clang::NamedDecl *candidate : func.getDeclContext()->getRedeclContext()->lookup(ctx->DeclarationNames.getCXXOperatorName(kind)))
+            {
+                if (Matches(candidate))
+                    return true;
+            }
+            std::vector<const clang::CXXRecordDecl *> classes;
+            if (auto cl = llvm::dyn_cast<clang::CXXRecordDecl>(func.getLexicalDeclContext()))
+                classes.push_back(cl);
+            for (clang::QualType operand : operands)
+            {
+                if (auto cl = operand->getAsCXXRecordDecl())
+                    classes.push_back(cl);
+            }
+            for (const clang::CXXRecordDecl *cl : classes)
+            {
+                for (const clang::FriendDecl *friend_decl : cl->friends())
+                {
+                    if (Matches(friend_decl->getFriendDecl()))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        // If `decl` is an `operator<=>` or `operator==` that C++20 rewrites other comparisons through, emits those of them that aren't declared:
+        //   `<`, `>`, `<=`, `>=` from a `<=>`, and `!=` from a `==` returning `bool`. (The `==` that a defaulted `<=>` implicitly declares is visited separately.)
+        void EmitRewrittenComparisons(clang::FunctionDecl &decl)
+        {
+            const clang::OverloadedOperatorKind op = decl.getOverloadedOperator();
+            if ((op != clang::OO_Spaceship && op != clang::OO_EqualEqual) || decl.isTemplated() || decl.isDeleted())
+                return;
+
+            // `(a <=> b) < 0` needs a comparison category or an arithmetic type, `!(a == b)` needs `bool`.
+            (void)InstantiateReturnTypeIfNeeded(*ci, decl);
+            const clang::QualType ret = decl.getReturnType().getCanonicalType();
+            if (op == clang::OO_EqualEqual ? !ret->isBooleanType() : !ret->isArithmeticType())
+            {
+                const clang::CXXRecordDecl *cl = ret->getAsCXXRecordDecl();
+                if (op == clang::OO_EqualEqual || !cl || !cl->isInStdNamespace() || !cl->getIdentifier() ||
+                    (cl->getName() != "strong_ordering" && cl->getName() != "weak_ordering" && cl->getName() != "partial_ordering"))
+                    return;
+            }
+
+            static constexpr RewrittenComparison from_three_way[] = {
+                {clang::OO_Less, "<=>", "<", "_Less"},
+                {clang::OO_Greater, "<=>", ">", "_Greater"},
+                {clang::OO_LessEqual, "<=>", "<=", "_LessEqual"},
+                {clang::OO_GreaterEqual, "<=>", ">=", "_GreaterEqual"},
+            };
+            static constexpr RewrittenComparison from_equal[] = {
+                {clang::OO_ExclaimEqual, "==", "!=", "_ExclaimEqual"},
+            };
+            for (const RewrittenComparison &r : op == clang::OO_Spaceship ? std::span<const RewrittenComparison>(from_three_way) : std::span<const RewrittenComparison>(from_equal))
+            {
+                if (IsOperatorDeclaredLike(decl, r.kind))
+                    continue;
+                params->rewritten_comparison = &r;
+                struct Reset {const VisitorParams &p; ~Reset() {p.rewritten_comparison = nullptr;}} reset{*params};
+                VisitFunctionDeclItself(&decl);
+            }
+        }
+
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
+            bool ret = VisitFunctionDeclItself(decl);
+            // Even if `decl` itself is rejected, what it gives can be accepted (e.g. a `<=>` returning an unbindable type is often ignored).
+            EmitRewrittenComparisons(*decl);
+            return ret;
+        }
+
+        // Emits `decl`, or the comparison `params->rewritten_comparison` rewritten through it if not null.
+        bool VisitFunctionDeclItself(clang::FunctionDecl *decl)
+        {
             LogScope log(*params, [&]{return "Function at " + decl->getLocation().printToString(ci->getSourceManager());});
+
+            const RewrittenComparison *const rewritten = params->rewritten_comparison;
 
             if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies))
                 return true;
@@ -1998,8 +2120,8 @@ namespace mrbind
                         if (new_method.assignment_kind != CopyMoveKind::none)
                             is_copy_or_move_ctor_or_assignment = true;
 
-                        new_method.name = method->getDeclName().getAsString();
-                        new_method.simple_name = GetAdjustedFuncName(*method);
+                        new_method.name = rewritten ? "operator" + std::string(rewritten->token) : method->getDeclName().getAsString();
+                        new_method.simple_name = rewritten ? std::string(rewritten->simple_name) : GetAdjustedFuncName(*method);
 
                         new_method.full_name = new_method.name;
                         // Add the template arguments, if any.
@@ -2032,10 +2154,12 @@ namespace mrbind
                     // Force instantiate body to know the true return type rather than `auto`.
                     (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 
-                    basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType(), TypeUses::returned);
+                    basic_ret_class_func->return_type = GetTypeStrings(rewritten ? ctx->BoolTy : method->getReturnType(), TypeUses::returned);
+                    basic_ret_class_func->is_rewritten_comparison = rewritten;
                 }
 
-                basic_func->comment = GetCommentString(*ctx, *params, *method);
+                if (!rewritten)
+                    basic_func->comment = GetCommentString(*ctx, *params, *method);
                 basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
                 basic_func->deprecation_message = GetDeprecationMessage(*method);
                 basic_func->is_noexcept = clang::isNoexceptExceptionSpec(method->getExceptionSpecType());
@@ -2110,8 +2234,17 @@ namespace mrbind
 
             new_func.name = decl->getDeclName().getAsString();
             new_func.simple_name = GetAdjustedFuncName(*decl);
-            new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
-            new_func.comment = GetCommentString(*ctx, *params, *decl);
+            if (rewritten)
+            {
+                RenameToRewrittenComparison(*rewritten, new_func.qual_name);
+                RenameToRewrittenComparison(*rewritten, new_func.full_qual_name);
+                new_func.name = "operator" + std::string(rewritten->token);
+                new_func.simple_name = rewritten->simple_name;
+                new_func.is_rewritten_comparison = true;
+            }
+            new_func.return_type = GetTypeStrings(rewritten ? ctx->BoolTy : decl->getReturnType(), TypeUses::returned);
+            if (!rewritten)
+                new_func.comment = GetCommentString(*ctx, *params, *decl);
             new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false, false);
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.is_noexcept = clang::isNoexceptExceptionSpec(decl->getExceptionSpecType());
@@ -2311,47 +2444,6 @@ namespace mrbind
                 }
             };
 
-            // Adds `!=`, `<`, `>`, `<=` and `>=` as copies of the implicit `equal`, unless the class declares them.
-            auto AddRewrittenComparisons = [&](ClassEntity &target_class, ClassMethod equal)
-            {
-                auto IsDeclared = [&](clang::OverloadedOperatorKind kind)
-                {
-                    for (const clang::Decl *member : cxxdecl->decls())
-                    {
-                        const clang::FunctionDecl *func = llvm::dyn_cast<clang::FunctionDecl>(member);
-                        if (auto friend_decl = llvm::dyn_cast<clang::FriendDecl>(member))
-                            func = llvm::dyn_cast_or_null<clang::FunctionDecl>(friend_decl->getFriendDecl());
-                        else if (auto func_template = llvm::dyn_cast<clang::FunctionTemplateDecl>(member))
-                            func = func_template->getTemplatedDecl();
-                        if (func && func->getOverloadedOperator() == kind)
-                            return true;
-                    }
-                    return false;
-                };
-
-                const bool has_three_way = std::any_of(cxxdecl->method_begin(), cxxdecl->method_end(), [](const clang::CXXMethodDecl *m)
-                {
-                    return m->getOverloadedOperator() == clang::OO_Spaceship && m->isDefaulted() && !m->isDeleted();
-                });
-
-                static constexpr struct {clang::OverloadedOperatorKind kind; std::string_view token; std::string_view simple_name;} comparisons[] = {
-                    {clang::OO_ExclaimEqual, "!=", "_ExclaimEqual"},
-                    {clang::OO_Less, "<", "_Less"},
-                    {clang::OO_Greater, ">", "_Greater"},
-                    {clang::OO_LessEqual, "<=", "_LessEqual"},
-                    {clang::OO_GreaterEqual, ">=", "_GreaterEqual"},
-                };
-                for (const auto &c : comparisons)
-                {
-                    if ((c.kind != clang::OO_ExclaimEqual && !has_three_way) || IsDeclared(c.kind))
-                        continue;
-                    ClassMethod &new_method = target_class.members.emplace_back().emplace<ClassMethod>(equal);
-                    new_method.name = new_method.full_name = "operator" + std::string(c.token);
-                    new_method.simple_name = c.simple_name;
-                    new_method.is_rewritten_comparison = true;
-                }
-            };
-
             auto TryHandleImplicitAssignment = [&](clang::CXXMethodDecl *method)
             {
                 if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
@@ -2366,14 +2458,10 @@ namespace mrbind
                     return;
                 }
 
-                // The `operator==` that a defaulted `operator<=>` implicitly declares, and the other comparisons that work through them.
+                // The `operator==` that a defaulted `operator<=>` implicitly declares.
                 if (method->getOverloadedOperator() == clang::OO_EqualEqual && method->isImplicit())
                 {
-                    ClassEntity &target_class = *params->nonrejected_class_stack.back();
-                    const std::size_t num_members = target_class.members.size();
                     VisitFunctionDecl(method);
-                    if (target_class.members.size() == num_members + 1)
-                        AddRewrittenComparisons(target_class, std::get<ClassMethod>(target_class.members.back()));
                     return;
                 }
             };

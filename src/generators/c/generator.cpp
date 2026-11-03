@@ -2518,7 +2518,11 @@ namespace mrbind::C
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
 
-        if (is_class_friend)
+        if (new_func.is_rewritten_comparison)
+        {
+            cpp_called_func = "@1@ " + std::string(new_func.GetOverloadedOperatorToken()) + " @2@"; // Not declared, so only the operator syntax works.
+        }
+        else if (is_class_friend)
         {
             // Skip the qualifiers, but keep the template arguments. The template arguments might matter in some cases.
             // The qualifiers must be skipped because friend functions are normally only reachable via ADL.
