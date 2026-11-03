@@ -2324,6 +2324,13 @@ namespace mrbind
                     VisitFunctionDecl(dtor);
                     return;
                 }
+
+                // The `operator==` that a defaulted `operator<=>` implicitly declares.
+                if (method->getOverloadedOperator() == clang::OO_EqualEqual && method->isImplicit())
+                {
+                    VisitFunctionDecl(method);
+                    return;
+                }
             };
 
             {
