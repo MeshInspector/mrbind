@@ -931,13 +931,15 @@ namespace mrbind::Python
                 if (StartsWith(st.base, "std::optional<") && st.base != owner && !(by_value_return && !st.is_ptr && !st.is_ref))
                     needs_class.insert(st.base);
             };
-            for (const auto &[cpp_name, info] : types)
+            // All classes of the description, also of the ignored C files: the modules generated from it with `--depends-on` must agree.
+            for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
             {
-                if (!info.IsClass())
+                const auto *c = std::get_if<CInterop::TypeKinds::Class>(&type.var);
+                if (!c)
                     continue;
-                for (const auto &f : info.class_desc->fields)
+                for (const auto &f : c->fields)
                     Note(f.type, false, cpp_name);
-                for (const auto &m : info.class_desc->methods)
+                for (const auto &m : c->methods)
                 {
                     for (const auto &p : m.params)
                         if (!p.is_this_param)
