@@ -794,6 +794,9 @@ namespace mrbind::Python
                     continue;
                 foreign = true;
             }
+            // Not in the module it depends on either, e.g. the types of another sub-library.
+            if (foreign && IsIgnoredForPython(cpp_name))
+                continue;
             TypeInfo info;
             info.cpp_name = cpp_name;
             info.foreign = foreign;

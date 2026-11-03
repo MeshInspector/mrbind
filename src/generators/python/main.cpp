@@ -122,7 +122,7 @@ int main(int argc, char **argv)
     args_parser.AddFlag("--ignore-for-python", {
         .allow_repeat = true,
         .arg_names = {"regex"},
-        .desc = "Skip the entities whose C++ names match this regex, for the `MR_BIND_IGNORE_PY`-like annotations that the C bindings don't see.",
+        .desc = "Skip the entities whose C++ names match this regex, for the `MR_BIND_IGNORE_PY`-like annotations that the C bindings don't see. With `--depends-on`, the matching classes and enums of the ignored C files aren't taken from the other module either, e.g. the ones of another sub-library.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.ignored_for_python.push_back(std::string(args[0]));
