@@ -384,6 +384,9 @@ namespace mrbind
         MBREFL_STRUCT(
             // Note that the parser can emit this specific type as `const` if it's marked const in the input (even on scalar types on which it's ignored anyway).
             (Type)(return_type)
+            // A comparison operator that isn't declared, but that C++20 rewrites through a declared `<=>` or `==` (`<`, `>`, `<=`, `>=`, `!=`).
+            // It has the parameters of that operator and returns `bool`. It can only be called with the operator syntax.
+            (bool)(is_rewritten_comparison, false)
         , // Bases:
             (BasicFunc)
         )
