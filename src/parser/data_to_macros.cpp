@@ -482,6 +482,8 @@ namespace mrbind
                                     },
                                     [&](const ClassMethod &method)
                                     {
+                                        if (method.is_rewritten_comparison)
+                                            return; // The macro users take the addresses of the methods, and these aren't declared.
                                         out
                                             << "    (method, "
                                             << (method.is_static ? "static" : "/*non-static*/") << ", ";

@@ -221,7 +221,16 @@ namespace MR::OverloadedOps
     {
         int x = 0;
 
-        // Implicitly declares a defaulted `operator==` too.
+        // Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
         auto operator<=>(const E &) const = default;
+    };
+
+    struct F
+    {
+        int x = 0;
+
+        auto operator<=>(const F &) const = default;
+        // Declared, so it isn't added once more.
+        bool operator<(const F &) const;
     };
 }
