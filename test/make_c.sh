@@ -12,7 +12,7 @@ fi
 # Clone phmap if missing:
 [[ -d test/input/parallel-hashmap ]] || git clone https://github.com/greg7mdp/parallel-hashmap test/input/parallel-hashmap
 
-echo test/input/{MR,A,B}/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
+echo test/input/{MR,A,B,ABC}/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
 
 
 MRBIND_FLAGS=(
@@ -163,6 +163,7 @@ build/mrbind_gen_c \
     test/output_c/source/A/*.cpp \
     test/output_c/source/B/*.cpp \
     test/output_c/source/AB/*.cpp \
+    test/output_c/source/ABC/*.cpp \
     -o test/output_c/libbleh$EXT_SHARED \
     -Itest/output_c/include \
     -Itest/output_c/source \
@@ -174,6 +175,7 @@ build/mrbind_gen_c \
     test/output_c_fixed_typedefs/source/A/*.cpp \
     test/output_c_fixed_typedefs/source/B/*.cpp \
     test/output_c_fixed_typedefs/source/AB/*.cpp \
+    test/output_c_fixed_typedefs/source/ABC/*.cpp \
     -o test/output_c_fixed_typedefs/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs/include \
     -Itest/output_c_fixed_typedefs/source \
@@ -185,6 +187,7 @@ build/mrbind_gen_c \
     test/output_c_fixed_typedefs_64_only/source/A/*.cpp \
     test/output_c_fixed_typedefs_64_only/source/B/*.cpp \
     test/output_c_fixed_typedefs_64_only/source/AB/*.cpp \
+    test/output_c_fixed_typedefs_64_only/source/ABC/*.cpp \
     -o test/output_c_fixed_typedefs_64_only/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs_64_only/include \
     -Itest/output_c_fixed_typedefs_64_only/source \

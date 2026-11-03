@@ -761,4 +761,8 @@ namespace mrbind::CInterop
                 return nullptr;
         }
     };
+
+    // Removes the entities of the sub-library `group` (the macro prefix passed to `--split-library` of the C generator), for the bindings that
+    //   don't expose it. Nothing outside of it may use its types, e.g. a sub-library that nothing else depends on and whose classes derive from nothing.
+    void RemoveSplitLibrary(OutputDesc &desc, std::string_view group);
 }
