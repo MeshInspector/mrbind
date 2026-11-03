@@ -23,7 +23,6 @@ build/mrbind_gen_csharp \
     --imported-split-lib-name MR_A_ bleh_A \
     --imported-split-lib-name MR_B_ bleh_B \
     --imported-split-lib-name MR_AB_ bleh_AB \
-    --skip-split-lib MR_ABC_ \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
     --force-namespace MR::CS \

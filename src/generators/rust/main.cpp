@@ -65,16 +65,6 @@ int main(int argc, char **argv)
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
-    std::vector<std::string> skipped_split_libs;
-    args_parser.AddFlag("--skip-split-lib", {
-        .allow_repeat = true,
-        .arg_names = {"macro_prefix"},
-        .desc = "Optional, can be repeated. Don't generate the files of this sub-library, made by the `--split-library <macro_prefix> ...` flag of the C generator, e.g. one meant for another language. Nothing outside of it may use its types.",
-        .func = [&](mrbind::CommandLineParser::ArgSpan args)
-        {
-            skipped_split_libs.push_back(std::string(args[0]));
-        },
-    });
     // Splits a C++-style `Foo::Bar` namespace name into parts.
     auto ParseNamespace = [](std::string_view name)
     {
@@ -134,8 +124,6 @@ int main(int argc, char **argv)
     if (!input_json_path)
         throw std::runtime_error("`--input-json` is required.");
     generator.c_desc = mrbind::CInterop::LoadOutputDescFromFile(input_json_path->c_str());
-    for (const std::string &group : skipped_split_libs)
-        mrbind::CInterop::RemoveSplitLibrary(generator.c_desc, group);
 
     if (!output_dir_path)
         throw std::runtime_error("`--output-dir` is required.");
