@@ -2311,6 +2311,47 @@ namespace mrbind
                 }
             };
 
+            // Adds `!=`, `<`, `>`, `<=` and `>=` as copies of the implicit `equal`, unless the class declares them.
+            auto AddRewrittenComparisons = [&](ClassEntity &target_class, ClassMethod equal)
+            {
+                auto IsDeclared = [&](clang::OverloadedOperatorKind kind)
+                {
+                    for (const clang::Decl *member : cxxdecl->decls())
+                    {
+                        const clang::FunctionDecl *func = llvm::dyn_cast<clang::FunctionDecl>(member);
+                        if (auto friend_decl = llvm::dyn_cast<clang::FriendDecl>(member))
+                            func = llvm::dyn_cast_or_null<clang::FunctionDecl>(friend_decl->getFriendDecl());
+                        else if (auto func_template = llvm::dyn_cast<clang::FunctionTemplateDecl>(member))
+                            func = func_template->getTemplatedDecl();
+                        if (func && func->getOverloadedOperator() == kind)
+                            return true;
+                    }
+                    return false;
+                };
+
+                const bool has_three_way = std::any_of(cxxdecl->method_begin(), cxxdecl->method_end(), [](const clang::CXXMethodDecl *m)
+                {
+                    return m->getOverloadedOperator() == clang::OO_Spaceship && m->isDefaulted() && !m->isDeleted();
+                });
+
+                static constexpr struct {clang::OverloadedOperatorKind kind; std::string_view token; std::string_view simple_name;} comparisons[] = {
+                    {clang::OO_ExclaimEqual, "!=", "_ExclaimEqual"},
+                    {clang::OO_Less, "<", "_Less"},
+                    {clang::OO_Greater, ">", "_Greater"},
+                    {clang::OO_LessEqual, "<=", "_LessEqual"},
+                    {clang::OO_GreaterEqual, ">=", "_GreaterEqual"},
+                };
+                for (const auto &c : comparisons)
+                {
+                    if ((c.kind != clang::OO_ExclaimEqual && !has_three_way) || IsDeclared(c.kind))
+                        continue;
+                    ClassMethod &new_method = target_class.members.emplace_back().emplace<ClassMethod>(equal);
+                    new_method.name = new_method.full_name = "operator" + std::string(c.token);
+                    new_method.simple_name = c.simple_name;
+                    new_method.is_rewritten_comparison = true;
+                }
+            };
+
             auto TryHandleImplicitAssignment = [&](clang::CXXMethodDecl *method)
             {
                 if ((method->isCopyAssignmentOperator() || method->isMoveAssignmentOperator()) && method->isImplicit())
@@ -2325,10 +2366,14 @@ namespace mrbind
                     return;
                 }
 
-                // The `operator==` that a defaulted `operator<=>` implicitly declares.
+                // The `operator==` that a defaulted `operator<=>` implicitly declares, and the other comparisons that work through them.
                 if (method->getOverloadedOperator() == clang::OO_EqualEqual && method->isImplicit())
                 {
+                    ClassEntity &target_class = *params->nonrejected_class_stack.back();
+                    const std::size_t num_members = target_class.members.size();
                     VisitFunctionDecl(method);
+                    if (target_class.members.size() == num_members + 1)
+                        AddRewrittenComparisons(target_class, std::get<ClassMethod>(target_class.members.back()));
                     return;
                 }
             };

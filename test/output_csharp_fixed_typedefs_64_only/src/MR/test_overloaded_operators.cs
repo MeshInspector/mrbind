@@ -1613,6 +1613,31 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::E::operator&lt;`.
+                /// </summary>
+                public static unsafe bool operator<(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_E", ExactSpelling = true)]
+                    extern static unsafe byte __MR_C_less_MR_OverloadedOps_E(MR.CS.OverloadedOps.Const_E._Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
+                    return __MR_C_less_MR_OverloadedOps_E(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
+                }
+
+                public static unsafe bool operator>(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    return _1 < _this;
+                }
+
+                public static unsafe bool operator<=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    return !(_1 < _this);
+                }
+
+                public static unsafe bool operator>=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                {
+                    return !(_this < _1);
+                }
+
                 // IEquatable:
 
                 public bool Equals(MR.CS.OverloadedOps.Const_E? _1)
@@ -1733,6 +1758,255 @@ public static partial class MR
                 public _InOptConst_E() {}
                 public _InOptConst_E(Const_E value) {Opt = value;}
                 public static implicit operator _InOptConst_E(Const_E value) {return new(value);}
+            }
+
+            /// <summary>
+            /// Generated from class `MR::OverloadedOps::F`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_F : MR.CS.Misc.Object<Const_F>, System.IDisposable, System.IEquatable<MR.CS.OverloadedOps.Const_F>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_Destroy", ExactSpelling = true)]
+                    extern static unsafe void __MR_OverloadedOps_F_Destroy(_Underlying *_this);
+                    __MR_OverloadedOps_F_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_F() {Dispose(false);}
+
+                public unsafe int x => *__ref_storage_x;
+                private protected unsafe int *__ref_storage_x;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // x (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_Get_x", ExactSpelling = true)]
+                        extern static unsafe int *__MR_OverloadedOps_F_Get_x(MR.CS.OverloadedOps.Const_F._Underlying *_this);
+                        this.__ref_storage_x = __MR_OverloadedOps_F_Get_x(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_F() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_DefaultConstruct();
+                    _UnderlyingPtr = __MR_OverloadedOps_F_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::OverloadedOps::F` elementwise.
+                /// </summary>
+                public unsafe Const_F(int x) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_ConstructFrom", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_ConstructFrom(int x);
+                    _UnderlyingPtr = __MR_OverloadedOps_F_ConstructFrom(x);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::F::F`.
+                /// </summary>
+                public unsafe Const_F(MR.CS.OverloadedOps.Const_F _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_ConstructFromAnother(MR.CS.OverloadedOps.F._Underlying *_other);
+                    _UnderlyingPtr = __MR_OverloadedOps_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::F::F`.
+                /// </summary>
+                public Const_F(F _other) : this((Const_F)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::F::operator==`.
+                /// </summary>
+                public static unsafe bool operator==(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_F", ExactSpelling = true)]
+                    extern static unsafe byte __MR_C_equal_MR_OverloadedOps_F(MR.CS.OverloadedOps.Const_F._Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
+                    return __MR_C_equal_MR_OverloadedOps_F(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    return !(_this == _1);
+                }
+
+                // Declared, so it isn't added once more.
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::F::operator&lt;`.
+                /// </summary>
+                public static unsafe bool operator<(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_F", ExactSpelling = true)]
+                    extern static unsafe byte __MR_C_less_MR_OverloadedOps_F(MR.CS.OverloadedOps.Const_F._Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
+                    return __MR_C_less_MR_OverloadedOps_F(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
+                }
+
+                public static unsafe bool operator>(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    return _1 < _this;
+                }
+
+                public static unsafe bool operator<=(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    return !(_1 < _this);
+                }
+
+                public static unsafe bool operator>=(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                {
+                    return !(_this < _1);
+                }
+
+                // IEquatable:
+
+                public bool Equals(MR.CS.OverloadedOps.Const_F? _1)
+                {
+                    if (_1 is null)
+                        return false;
+                    return this == _1;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is MR.CS.OverloadedOps.Const_F)
+                        return this == (MR.CS.OverloadedOps.Const_F)other;
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Generated from class `MR::OverloadedOps::F`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class F : Const_F
+            {
+                public new unsafe ref int x => ref *__ref_storage_x;
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe F() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_DefaultConstruct", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_DefaultConstruct();
+                    _UnderlyingPtr = __MR_OverloadedOps_F_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::OverloadedOps::F` elementwise.
+                /// </summary>
+                public unsafe F(int x) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_ConstructFrom", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_ConstructFrom(int x);
+                    _UnderlyingPtr = __MR_OverloadedOps_F_ConstructFrom(x);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::F::F`.
+                /// </summary>
+                public unsafe F(MR.CS.OverloadedOps.Const_F _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_ConstructFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_ConstructFromAnother(MR.CS.OverloadedOps.F._Underlying *_other);
+                    _UnderlyingPtr = __MR_OverloadedOps_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::F::F`.
+                /// </summary>
+                public F(F _other) : this((Const_F)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::F::operator=`.
+                /// </summary>
+                public unsafe MR.CS.OverloadedOps.F assign(MR.CS.OverloadedOps.Const_F _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_F_AssignFromAnother", ExactSpelling = true)]
+                    extern static unsafe MR.CS.OverloadedOps.F._Underlying *__MR_OverloadedOps_F_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.F._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_OverloadedOps_F_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `F` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_F`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `F`/`Const_F` directly.
+            /// </summary>
+            public class _InOptMut_F
+            {
+                public F? Opt;
+
+                public _InOptMut_F() {}
+                public _InOptMut_F(F value) {Opt = value;}
+                public static implicit operator _InOptMut_F(F value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `F` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_F`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `F`/`Const_F` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_F
+            {
+                public Const_F? Opt;
+
+                public _InOptConst_F() {}
+                public _InOptConst_F(Const_F value) {Opt = value;}
+                public static implicit operator _InOptConst_F(Const_F value) {return new(value);}
             }
         }
     }

@@ -2703,7 +2703,9 @@ namespace mrbind::C
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
-        if (new_method.IsOverloadedOperator())
+        if (new_method.is_rewritten_comparison)
+            cpp_called_func = "@this@ " + std::string(new_method.GetOverloadedOperatorToken()) + " @1@"; // Not declared, so only the operator syntax works.
+        else if (new_method.IsOverloadedOperator())
             cpp_called_func = new_method.name; // Skip template arguments. We don't roundtrip this through cppdecl, since there are no template arguments to adjust.
         else
             cpp_called_func = full_name_fixed;
