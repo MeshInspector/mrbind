@@ -384,6 +384,9 @@ namespace mrbind
         MBREFL_STRUCT(
             // Note that the parser can emit this specific type as `const` if it's marked const in the input (even on scalar types on which it's ignored anyway).
             (Type)(return_type)
+            // A comparison operator that isn't declared, but that C++20 rewrites through a declared `<=>` or `==` (`<`, `>`, `<=`, `>=`, `!=`).
+            // It has the parameters of that operator and returns `bool`. It can only be called with the operator syntax.
+            (bool)(is_rewritten_comparison, false)
         , // Bases:
             (BasicFunc)
         )
@@ -631,9 +634,6 @@ namespace mrbind
             (CopyMoveKind)(assignment_kind, CopyMoveKind::none)
             // This can only be true for copy/move assignments.
             (bool)(is_trivial_assignment, false)
-            // A comparison operator that the class doesn't declare, but that works through the `operator==` and the defaulted `operator<=>`
-            //   (a copy of that `operator==` with another name). It can only be called with the operator syntax.
-            (bool)(is_rewritten_comparison, false)
         , // Bases:
             (BasicReturningClassFunc)
         )

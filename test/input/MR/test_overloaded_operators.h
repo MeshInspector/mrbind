@@ -233,4 +233,24 @@ namespace MR::OverloadedOps
         // Declared, so it isn't added once more.
         bool operator<(const F &) const;
     };
+
+    struct G
+    {
+        int x = 0;
+
+        // Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+        std::strong_ordering operator<=>(const G &) const;
+    };
+
+    struct H
+    {
+        // Gives `!=`.
+        bool operator==(const H &) const;
+    };
+
+    struct I
+    {
+        // Gives a free `!=`.
+        friend bool operator==(const I &, const I &);
+    };
 }
