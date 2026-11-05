@@ -815,3 +815,400 @@ int32_t MR_C_pos_const_MR_OverloadedOps_D_ref(const MR_OverloadedOps_D *_1)
     );
 }
 
+const int32_t *MR_OverloadedOps_E_Get_x(const MR_OverloadedOps_E *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)).x);
+}
+
+void MR_OverloadedOps_E_Set_x(MR_OverloadedOps_E *_this, int32_t value)
+{
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::E *)(_this)).x = value;
+}
+
+int32_t *MR_OverloadedOps_E_GetMutable_x(MR_OverloadedOps_E *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::E *)(_this)).x);
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_DefaultConstruct(void)
+{
+    return (MR_OverloadedOps_E *)new MR::OverloadedOps::E(MR::OverloadedOps::E());
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_OverloadedOps_E *)(new MR::OverloadedOps::E[num_elems]{});
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_ConstructFrom(int32_t x)
+{
+    return (MR_OverloadedOps_E *)new MR::OverloadedOps::E(MR::OverloadedOps::E{
+        x
+    });
+}
+
+const MR_OverloadedOps_E *MR_OverloadedOps_E_OffsetPtr(const MR_OverloadedOps_E *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_E *)(((const MR::OverloadedOps::E *)ptr) + i);
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_OffsetMutablePtr(MR_OverloadedOps_E *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_E *)(((MR::OverloadedOps::E *)ptr) + i);
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_ConstructFromAnother(const MR_OverloadedOps_E *_other)
+{
+    return (MR_OverloadedOps_E *)new MR::OverloadedOps::E(MR::OverloadedOps::E(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::E(*(MR::OverloadedOps::E *)_other))
+    ));
+}
+
+void MR_OverloadedOps_E_Destroy(const MR_OverloadedOps_E *_this)
+{
+    delete ((const MR::OverloadedOps::E *)_this);
+}
+
+void MR_OverloadedOps_E_DestroyArray(const MR_OverloadedOps_E *_this)
+{
+    delete[] ((const MR::OverloadedOps::E *)_this);
+}
+
+MR_OverloadedOps_E *MR_OverloadedOps_E_AssignFromAnother(MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_other)
+{
+    return (MR_OverloadedOps_E *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::E *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::E(*(MR::OverloadedOps::E *)_other))
+    ));
+}
+
+bool MR_C_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1))
+    );
+}
+
+bool MR_C_not_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)) != ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1));
+}
+
+bool MR_C_less_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)) < ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1));
+}
+
+bool MR_C_greater_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)) > ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1));
+}
+
+bool MR_C_less_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)) <= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1));
+}
+
+bool MR_C_greater_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::E *)(_this)) >= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::E *)(_1));
+}
+
+const int32_t *MR_OverloadedOps_F_Get_x(const MR_OverloadedOps_F *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)).x);
+}
+
+void MR_OverloadedOps_F_Set_x(MR_OverloadedOps_F *_this, int32_t value)
+{
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::F *)(_this)).x = value;
+}
+
+int32_t *MR_OverloadedOps_F_GetMutable_x(MR_OverloadedOps_F *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::F *)(_this)).x);
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_DefaultConstruct(void)
+{
+    return (MR_OverloadedOps_F *)new MR::OverloadedOps::F(MR::OverloadedOps::F());
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_OverloadedOps_F *)(new MR::OverloadedOps::F[num_elems]{});
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_ConstructFrom(int32_t x)
+{
+    return (MR_OverloadedOps_F *)new MR::OverloadedOps::F(MR::OverloadedOps::F{
+        x
+    });
+}
+
+const MR_OverloadedOps_F *MR_OverloadedOps_F_OffsetPtr(const MR_OverloadedOps_F *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_F *)(((const MR::OverloadedOps::F *)ptr) + i);
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_OffsetMutablePtr(MR_OverloadedOps_F *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_F *)(((MR::OverloadedOps::F *)ptr) + i);
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_ConstructFromAnother(const MR_OverloadedOps_F *_other)
+{
+    return (MR_OverloadedOps_F *)new MR::OverloadedOps::F(MR::OverloadedOps::F(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::F(*(MR::OverloadedOps::F *)_other))
+    ));
+}
+
+void MR_OverloadedOps_F_Destroy(const MR_OverloadedOps_F *_this)
+{
+    delete ((const MR::OverloadedOps::F *)_this);
+}
+
+void MR_OverloadedOps_F_DestroyArray(const MR_OverloadedOps_F *_this)
+{
+    delete[] ((const MR::OverloadedOps::F *)_this);
+}
+
+MR_OverloadedOps_F *MR_OverloadedOps_F_AssignFromAnother(MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_other)
+{
+    return (MR_OverloadedOps_F *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::F *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::F(*(MR::OverloadedOps::F *)_other))
+    ));
+}
+
+bool MR_C_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1))
+    );
+}
+
+bool MR_C_not_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)) != ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1));
+}
+
+bool MR_C_greater_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)) > ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1));
+}
+
+bool MR_C_less_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)) <= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1));
+}
+
+bool MR_C_greater_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)) >= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1));
+}
+
+bool MR_C_less_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::F *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::F *)(_1))
+    );
+}
+
+const int32_t *MR_OverloadedOps_G_Get_x(const MR_OverloadedOps_G *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::G *)(_this)).x);
+}
+
+void MR_OverloadedOps_G_Set_x(MR_OverloadedOps_G *_this, int32_t value)
+{
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::G *)(_this)).x = value;
+}
+
+int32_t *MR_OverloadedOps_G_GetMutable_x(MR_OverloadedOps_G *_this)
+{
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::G *)(_this)).x);
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_DefaultConstruct(void)
+{
+    return (MR_OverloadedOps_G *)new MR::OverloadedOps::G(MR::OverloadedOps::G());
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_OverloadedOps_G *)(new MR::OverloadedOps::G[num_elems]{});
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_ConstructFrom(int32_t x)
+{
+    return (MR_OverloadedOps_G *)new MR::OverloadedOps::G(MR::OverloadedOps::G{
+        x
+    });
+}
+
+const MR_OverloadedOps_G *MR_OverloadedOps_G_OffsetPtr(const MR_OverloadedOps_G *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_G *)(((const MR::OverloadedOps::G *)ptr) + i);
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_OffsetMutablePtr(MR_OverloadedOps_G *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_G *)(((MR::OverloadedOps::G *)ptr) + i);
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_ConstructFromAnother(const MR_OverloadedOps_G *_other)
+{
+    return (MR_OverloadedOps_G *)new MR::OverloadedOps::G(MR::OverloadedOps::G(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::G(*(MR::OverloadedOps::G *)_other))
+    ));
+}
+
+void MR_OverloadedOps_G_Destroy(const MR_OverloadedOps_G *_this)
+{
+    delete ((const MR::OverloadedOps::G *)_this);
+}
+
+void MR_OverloadedOps_G_DestroyArray(const MR_OverloadedOps_G *_this)
+{
+    delete[] ((const MR::OverloadedOps::G *)_this);
+}
+
+MR_OverloadedOps_G *MR_OverloadedOps_G_AssignFromAnother(MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_other)
+{
+    return (MR_OverloadedOps_G *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::G *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::G(*(MR::OverloadedOps::G *)_other))
+    ));
+}
+
+bool MR_C_less_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::G *)(_this)) < ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::G *)(_1));
+}
+
+bool MR_C_greater_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::G *)(_this)) > ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::G *)(_1));
+}
+
+bool MR_C_less_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::G *)(_this)) <= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::G *)(_1));
+}
+
+bool MR_C_greater_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::G *)(_this)) >= ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::G *)(_1));
+}
+
+MR_OverloadedOps_H *MR_OverloadedOps_H_DefaultConstruct(void)
+{
+    return (MR_OverloadedOps_H *)new MR::OverloadedOps::H(MR::OverloadedOps::H());
+}
+
+MR_OverloadedOps_H *MR_OverloadedOps_H_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_OverloadedOps_H *)(new MR::OverloadedOps::H[num_elems]{});
+}
+
+const MR_OverloadedOps_H *MR_OverloadedOps_H_OffsetPtr(const MR_OverloadedOps_H *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_H *)(((const MR::OverloadedOps::H *)ptr) + i);
+}
+
+MR_OverloadedOps_H *MR_OverloadedOps_H_OffsetMutablePtr(MR_OverloadedOps_H *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_H *)(((MR::OverloadedOps::H *)ptr) + i);
+}
+
+MR_OverloadedOps_H *MR_OverloadedOps_H_ConstructFromAnother(const MR_OverloadedOps_H *_other)
+{
+    return (MR_OverloadedOps_H *)new MR::OverloadedOps::H(MR::OverloadedOps::H(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::H(*(MR::OverloadedOps::H *)_other))
+    ));
+}
+
+void MR_OverloadedOps_H_Destroy(const MR_OverloadedOps_H *_this)
+{
+    delete ((const MR::OverloadedOps::H *)_this);
+}
+
+void MR_OverloadedOps_H_DestroyArray(const MR_OverloadedOps_H *_this)
+{
+    delete[] ((const MR::OverloadedOps::H *)_this);
+}
+
+MR_OverloadedOps_H *MR_OverloadedOps_H_AssignFromAnother(MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_other)
+{
+    return (MR_OverloadedOps_H *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::H *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::H(*(MR::OverloadedOps::H *)_other))
+    ));
+}
+
+bool MR_C_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::H *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::H *)(_1))
+    );
+}
+
+bool MR_C_not_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::OverloadedOps::H *)(_this)) != ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::H *)(_1));
+}
+
+MR_OverloadedOps_I *MR_OverloadedOps_I_DefaultConstruct(void)
+{
+    return (MR_OverloadedOps_I *)new MR::OverloadedOps::I(MR::OverloadedOps::I());
+}
+
+MR_OverloadedOps_I *MR_OverloadedOps_I_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_OverloadedOps_I *)(new MR::OverloadedOps::I[num_elems]{});
+}
+
+const MR_OverloadedOps_I *MR_OverloadedOps_I_OffsetPtr(const MR_OverloadedOps_I *ptr, ptrdiff_t i)
+{
+    return (const MR_OverloadedOps_I *)(((const MR::OverloadedOps::I *)ptr) + i);
+}
+
+MR_OverloadedOps_I *MR_OverloadedOps_I_OffsetMutablePtr(MR_OverloadedOps_I *ptr, ptrdiff_t i)
+{
+    return (MR_OverloadedOps_I *)(((MR::OverloadedOps::I *)ptr) + i);
+}
+
+MR_OverloadedOps_I *MR_OverloadedOps_I_ConstructFromAnother(const MR_OverloadedOps_I *_other)
+{
+    return (MR_OverloadedOps_I *)new MR::OverloadedOps::I(MR::OverloadedOps::I(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::I(*(MR::OverloadedOps::I *)_other))
+    ));
+}
+
+void MR_OverloadedOps_I_Destroy(const MR_OverloadedOps_I *_this)
+{
+    delete ((const MR::OverloadedOps::I *)_this);
+}
+
+void MR_OverloadedOps_I_DestroyArray(const MR_OverloadedOps_I *_this)
+{
+    delete[] ((const MR::OverloadedOps::I *)_this);
+}
+
+MR_OverloadedOps_I *MR_OverloadedOps_I_AssignFromAnother(MR_OverloadedOps_I *_this, const MR_OverloadedOps_I *_other)
+{
+    return (MR_OverloadedOps_I *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::OverloadedOps::I *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::OverloadedOps::I(*(MR::OverloadedOps::I *)_other))
+    ));
+}
+
+bool MR_C_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2)
+{
+    return operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::I *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::OverloadedOps::I *)(_2))
+    );
+}
+
+bool MR_C_not_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2)
+{
+    return ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::OverloadedOps::I *)(_1)) != ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::OverloadedOps::I *)(_2));
+}
+
