@@ -1,7 +1,7 @@
 #include "common/command_line_args_as_utf8.h"
 #include "common/command_line_parser.h"
 #include "common/filesystem.h"
-#include "common/polyfill/std_filesystem_path_hash.h"
+#include "common/polyfill/std_filesystem_path_hash.h" // IWYU pragma: keep, there is a `std::unordered_set<std::filesystem::path>` below.
 #include "common/set_error_handlers.h"
 #include "generators/c_interop/desc_to_and_from_json.h"
 #include "generators/csharp/generator.h"
@@ -9,6 +9,7 @@
 #include <exception>
 #include <fstream>
 #include <optional>
+#include <set>
 #include <span>
 #include <string>
 #include <unordered_set>
@@ -22,6 +23,7 @@ int main(int argc, char **argv)
     std::optional<std::string> input_json_path;
     std::optional<std::string> output_dir_path;
     bool clean_output_dir = false;
+    std::set<std::string> skipped_split_libs;
 
     mrbind::CSharp::Generator generator;
 
@@ -66,6 +68,15 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
+        },
+    });
+    args_parser.AddFlag("--skip-split-lib", {
+        .allow_repeat = true,
+        .arg_names = {"macro_prefix"},
+        .desc = "Optional, can be repeated. Don't generate the files for the specified sub-library. It's your job to ensure that the remaining sub-libraries don't depend on it.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            skipped_split_libs.insert(std::string(args[0]));
         },
     });
     args_parser.AddFlag("--helpers-namespace", {
@@ -239,6 +250,8 @@ int main(int argc, char **argv)
     if (!input_json_path)
         throw std::runtime_error("`--input-json` is required.");
     generator.c_desc = mrbind::CInterop::LoadOutputDescFromFile(input_json_path->c_str());
+    for (const std::string &group : skipped_split_libs)
+        generator.c_desc.RemoveSplitLibrary(group);
 
     // Prepare output dir.
     if (!output_dir_path)
