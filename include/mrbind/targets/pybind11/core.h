@@ -552,9 +552,14 @@ namespace MRBind::pb11
 
     // ---
 
-    // Replaces `pybind11::arg_v`.
+    // A customization point. Specialize it with `static AdjustedType Adjust(auto &&default_arg)` to convert the default arguments
+    //   of parameter type `P` to the type the binding accepts, if pybind11 would otherwise cast them to Python as something else.
+    // Otherwise every call that leaves the argument at its default goes through pybind11's slow conversion pass.
+    template <typename P>
+    struct DefaultArgTraits {};
+
     template <typename T>
-    auto ParamWithDefaultArg(const char *name, T &&default_arg, const char *default_arg_str)
+    auto ParamWithDefaultArgLow(const char *name, T &&default_arg, const char *default_arg_str)
     {
         // This logic is only needed to emit nicer default argument strings.
 
@@ -591,6 +596,19 @@ namespace MRBind::pb11
         {
             return pybind11::arg_v(name, std::forward<T>(default_arg), default_arg_str); // Leave the string as is.
         }
+    }
+
+    // Replaces `pybind11::arg_v`. `P` is the parameter type.
+    template <typename P, typename T>
+    auto ParamWithDefaultArg(const char *name, T &&default_arg, const char *default_arg_str)
+    {
+        if constexpr (requires{DefaultArgTraits<P>::Adjust(std::forward<T>(default_arg));})
+        {
+            // A null pointer becomes a default-constructed object, spell it like `{}`.
+            return ParamWithDefaultArgLow(name, DefaultArgTraits<P>::Adjust(std::forward<T>(default_arg)), std::is_null_pointer_v<RemoveConstAndConstRef<T>> ? "'{}'" : default_arg_str);
+        }
+        else
+            return ParamWithDefaultArgLow(name, std::forward<T>(default_arg), default_arg_str);
     }
 
     // ---
@@ -3640,12 +3658,12 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 // `unnamed_` is the name of the unnamed parameters.
 #define DETAIL_MB_PB11_MAKE_PARAMS_OR(seq, unnamed_) SF_FOR_EACH0(DETAIL_MB_PB11_MAKE_PARAMS_BODY, SF_STATE, SF_NULL, unnamed_, seq)
 #define DETAIL_MB_PB11_MAKE_PARAMS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) \
-    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))((*MRBIND_STR(name_) ? MRBIND_STR(name_) : d), default_arg_, __VA_ARGS__)
+    MRBIND_CAT(DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_, __VA_OPT__(0))(type_, (*MRBIND_STR(name_) ? MRBIND_STR(name_) : d), default_arg_, __VA_ARGS__)
 
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(name_str_, default_arg, default_arg_cpp_) \
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_(type_, name_str_, default_arg, default_arg_cpp_) \
     , pybind11::arg(MRBind::pb11::AdjustPythonKeywords(name_str_).c_str())
-#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(name_str_, default_arg_, default_arg_cpp_) \
-    , MRBind::pb11::ParamWithDefaultArg(MRBind::pb11::AdjustPythonKeywords(name_str_).c_str(), MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
+#define DETAIL_MB_PB11_MAKE_PARAMS_BODY_ARG_0(type_, name_str_, default_arg_, default_arg_cpp_) \
+    , MRBind::pb11::ParamWithDefaultArg<MRBIND_IDENTITY type_>(MRBind::pb11::AdjustPythonKeywords(name_str_).c_str(), MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'")
 
 // A helper that generates a list of parameter types.
 // We also decay arrays and functions to pointers here.
