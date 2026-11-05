@@ -1747,6 +1747,72 @@ def enum_from_bits(cls, bits):
         return EnumNew(type, bits);
     }
 
+    inline PyObject *HasOwnerPy(PyObject *, PyObject *o)
+    {
+        return PyBool_FromLong(reinterpret_cast<Instance *>(o)->owner != nullptr);
+    }
+
+    inline PyMethodDef has_owner_def = {"has_owner", HasOwnerPy, METH_O, nullptr};
+
+    inline PyObject *GetOwnerPy(PyObject *, PyObject *o)
+    {
+        PyObject *r = reinterpret_cast<Instance *>(o)->owner;
+        if (!r)
+            r = Py_None;
+        Py_INCREF(r);
+        return r;
+    }
+
+    inline PyObject *SetOwnerPy(PyObject *, PyObject *args)
+    {
+        PyObject *o, *owner;
+        if (!PyArg_ParseTuple(args, "OO", &o, &owner))
+            return nullptr;
+        Instance *self = reinterpret_cast<Instance *>(o);
+        PyObject *old = self->owner;
+        Py_INCREF(owner);
+        self->owner = owner;
+        Py_XDECREF(old);
+        Py_RETURN_NONE;
+    }
+
+    // `move_instance(dst, src)`: `dst` takes over the object of `src` (with its ownership), `src` becomes empty.
+    // The `Const...` classes construct through the mutable ones with this.
+    inline PyObject *MoveInstancePy(PyObject *, PyObject *args)
+    {
+        PyObject *dst, *src;
+        if (!PyArg_ParseTuple(args, "OO", &dst, &src))
+            return nullptr;
+        if (!PyObject_TypeCheck(dst, reinterpret_cast<PyTypeObject *>(object_type)) || !PyObject_TypeCheck(src, reinterpret_cast<PyTypeObject *>(object_type)))
+        {
+            PyErr_SetString(PyExc_TypeError, "move_instance(): expected two bound objects.");
+            return nullptr;
+        }
+        Instance *d = reinterpret_cast<Instance *>(dst), *s = reinterpret_cast<Instance *>(src);
+        if (d->owned && d->ptr && d->rec && d->rec->destroy)
+            d->rec->destroy(d->ptr);
+        if (d->holder)
+            holder_destroy(d->holder);
+        Py_CLEAR(d->owner);
+        Py_CLEAR(d->refs);
+        d->ptr = s->ptr;
+        d->rec = s->rec;
+        d->owned = s->owned;
+        d->holder = s->holder;
+        d->owner = s->owner;
+        d->refs = s->refs;
+        s->ptr = nullptr;
+        s->owned = 0;
+        s->holder = nullptr;
+        s->owner = nullptr;
+        s->refs = nullptr;
+        Py_RETURN_NONE;
+    }
+
+    inline PyMethodDef move_instance_def = {"move_instance", MoveInstancePy, METH_VARARGS, nullptr};
+    inline PyMethodDef get_owner_def = {"get_owner", GetOwnerPy, METH_O, nullptr};
+    inline PyMethodDef set_owner_def = {"set_owner", SetOwnerPy, METH_VARARGS, nullptr};
+    inline PyMethodDef renamed_function_def = {"renamed_function", RenamedFunctionPy, METH_VARARGS, nullptr};
     inline PyMethodDef enum_new_def = {"enum_new_raw", EnumNewPy, METH_VARARGS, nullptr};
 
     // The `__init__` of the classes without constructors, like `pybind11_object_init()`.
