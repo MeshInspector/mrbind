@@ -97,6 +97,7 @@ The other objects that a C++ object references are kept alive by its Python obje
 ## Deliberate differences from pybind11
 
 * The const classes and the references to the C++ objects, see above.
+* The enums are native Python enums, like `pybind11::native_enum`, not like `pybind11::enum_`: `enum.IntFlag` for the ones with a `|` in C++ (whose C++ operators are bound over the native ones), `enum.IntEnum` for the others. So they are iterable, `E['Name']` and `E(value)` work, `isinstance(x, enum.Enum)` holds, and they compare and hash like their values (`E.A == 1`). A value without a name gets a member without a name, like in C++. `str()` is `E.A` on all Python versions, as in pybind11 (Python 3.11 made it the number for `IntEnum`).
 
 The pybind11 target has a few naming bugs that this generator doesn't copy:
 

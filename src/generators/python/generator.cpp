@@ -4616,7 +4616,13 @@ namespace mrbind::Python
                     std::string doc = ProcessComment(e.comment, false);
                     out_init_classes += "        {PyObject *e_ = Py_BuildValue(\"(sNO)\", " + CppStringLiteral(e.name) + ", PyLong_FromString(" + CppStringLiteral(v) + ", nullptr, 10), " + (doc.empty() ? "Py_None" : "PyUnicode_FromString(" + CppStringLiteral(doc) + ")") + "); PyList_Append(entries_, e_); Py_XDECREF(e_);}\n";
                 }
-                out_init_classes += "        " + info->var + " = rt::MakeEnum(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(info->py_qualname) + ", " + CppStringLiteral(info->py_name) + ", entries_, " + (info->is_signed_enum ? "true" : "false") + ");\n";
+                // `enum.IntFlag` for the flags, i.e. the enums with a `|`.
+                bool is_flag = std::any_of(c_desc.functions.begin(), c_desc.functions.end(), [&](const CInterop::Function &f)
+                {
+                    auto op = std::get_if<CInterop::FuncKinds::Operator>(&f.var);
+                    return op && op->token == "|" && f.params.size() == 2 && StripType(f.params[0].cpp_type).base == info->cpp_name;
+                });
+                out_init_classes += "        " + info->var + " = rt::MakeEnum(" + CppStringLiteral(module_qualname) + ", " + CppStringLiteral(info->py_qualname) + ", " + CppStringLiteral(info->py_name) + ", entries_, " + (info->is_signed_enum ? "true" : "false") + ", " + (is_flag ? "true" : "false") + ");\n";
                 out_init_classes += "        Py_DECREF(entries_);\n        if (!" + info->var + ") return nullptr;\n    }\n";
                 value = info->var;
 
