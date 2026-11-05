@@ -603,8 +603,9 @@ namespace mrbind_py
         return PyFloat_FromDouble(value);
     }
 
-    // --- Enums. The value is stored in `Instance::ptr`.
+    // --- Enums: native Python ones (`enum.IntEnum`, `enum.IntFlag`), see `make_enum`.
 
+    // An instance of `type` with `value` in `Instance::ptr` (the views of the maps).
     inline PyObject *EnumNew(PyObject *type, unsigned long long value)
     {
         PyObject *ret = PyType_GenericAlloc(reinterpret_cast<PyTypeObject *>(type), 0);
@@ -619,7 +620,13 @@ namespace mrbind_py
     {
         if (!PyObject_TypeCheck(o, reinterpret_cast<PyTypeObject *>(type)))
             return false;
-        out = T(std::uintptr_t(reinterpret_cast<Instance *>(o)->ptr));
+        unsigned long long bits = PyLong_AsUnsignedLongLongMask(o);
+        if (bits == (unsigned long long)-1 && PyErr_Occurred())
+        {
+            PyErr_Clear();
+            return false;
+        }
+        out = T(bits);
         return true;
     }
 
@@ -1241,6 +1248,7 @@ namespace mrbind_py
 
     inline const char *runtime_python_source = R"PY(
 import builtins
+import enum as _enum
 
 # Named like in pybind11, since the names show up in the error messages.
 class pybind11_static_property(property):
@@ -1277,53 +1285,35 @@ def _fn(name, doc, f):
     f.__doc__ = doc
     return f
 
-def make_enum(base, module, qualname, name, entries, signed, enum_new, enum_bits):
-    q = module + '.' + qualname
-    doc = 'Members:' + ''.join('\n\n  ' + n + (' : ' + d if d else '') for n, v, d in entries)
-    names = {}
-    def member_name(self):
-        return names.get(enum_bits(self), '???')
-    def get_value(self):
-        b = enum_bits(self)
-        return b - (1 << 64) if signed and b >= (1 << 63) else b
-    def to_bits(v):
-        return v & ((1 << 64) - 1)
-    ns = {
-        '__module__': module,
-        '__qualname__': qualname,
-        '__doc__': doc,
-        '__slots__': (),
-    }
-    cls = meta(name, (base,), ns)
-    def __init__(self, value):
-        set_bits(self, to_bits(int(value)))
-    cls.__init__ = _fn('__init__', '__init__(self: ' + q + ', value: int) -> None\n', __init__)
-    cls.__repr__ = _fn('__repr__', '__repr__(self: object, /) -> str\n', lambda self: '<%s.%s: %d>' % (name, member_name(self), get_value(self)))
-    cls.__str__ = _fn('__str__', '__str__(self: object, /) -> str\n', lambda self: '%s.%s' % (name, member_name(self)))
-    cls.__eq__ = _fn('__eq__', '__eq__(self: object, other: object, /) -> bool\n', lambda self, other: type(self) is type(other) and enum_bits(self) == enum_bits(other))
-    cls.__ne__ = _fn('__ne__', '__ne__(self: object, other: object, /) -> bool\n', lambda self, other: not (type(self) is type(other) and enum_bits(self) == enum_bits(other)))
-    cls.__hash__ = _fn('__hash__', '__hash__(self: object, /) -> int\n', lambda self: get_value(self))
-    cls.__getstate__ = _fn('__getstate__', '__getstate__(self: object, /) -> int\n', lambda self: get_value(self))
-    def __setstate__(self, state):
-        set_bits(self, to_bits(int(state)))
-    cls.__setstate__ = _fn('__setstate__', '__setstate__(self: ' + q + ', state: int, /) -> None\n', __setstate__)
-    cls.__int__ = _fn('__int__', '__int__(self: ' + q + ', /) -> int\n', lambda self: get_value(self))
-    cls.__index__ = _fn('__index__', '__index__(self: ' + q + ', /) -> int\n', lambda self: get_value(self))
-    type.__setattr__(cls, 'name', property(_fn('name', 'name(self: object, /) -> str\n', member_name)))
-    type.__setattr__(cls, 'value', property(get_value, None, None, ''))
-    members = {}
-    entries_dict = {}
-    for n, v, d in entries:
-        m = enum_new(cls, to_bits(v))
-        names.setdefault(to_bits(v), n)
-        members[n] = m
-        entries_dict[n] = (m, d)
-        type.__setattr__(cls, n, m)
-    type.__setattr__(cls, '__entries', entries_dict)
-    type.__setattr__(cls, '__members__', static_property(lambda c: dict(members), None, None, ''))
-    _enum_members[cls] = {to_bits(v): members[n] for n, v, d in entries}
-    return cls
+# A C++ enum can hold any value of its underlying type, not only the named ones: those get a member without a name.
+def _enum_missing(cls, value):
+    if not isinstance(value, int):
+        return None
+    m = int.__new__(cls, value)
+    m._name_ = None
+    m._value_ = value
+    return m
 
+# `Name.member` on all Python versions (3.11 made `str()` of an `IntEnum` the number), as in pybind11.
+def _enum_str(self):
+    return '%s.%s' % (type(self).__name__, self._name_ if self._name_ is not None else self._value_)
+
+# The enums with a `|` in C++ are `IntFlag`s, the C++ operators are bound over theirs. The bases are the ones of `enum`,
+#   so that the stub generators and the type checkers can see them.
+def make_enum(module, qualname, name, entries, signed, is_flag):
+    cls = (_enum.IntFlag if is_flag else _enum.IntEnum)(name, [(n, v) for n, v, d in entries], module=module, qualname=qualname)
+    if is_flag:
+        type.__setattr__(cls, '__str__', _enum.Flag.__str__)
+    else:
+        type.__setattr__(cls, '_missing_', classmethod(_enum_missing))
+        type.__setattr__(cls, '__str__', _enum_str)
+    cls.__doc__ = 'Members:' + ''.join('\n\n  ' + n + (' : ' + d if d else '') for n, v, d in entries)
+    to_bits = lambda v: v & ((1 << 64) - 1)
+    members = {}
+    for n, v, d in entries:
+        members.setdefault(to_bits(v), getattr(cls, n))
+    _enum_members[cls] = (members, signed)
+    return cls
 
 def add_set_api(ccls, cls, cq, q, name, elem):
     # The Python set protocol of the pybind11 target, over the C++-style methods. The C bindings have no `erase()`,
@@ -1743,10 +1733,11 @@ def add_map_api(ccls, cls, cq, q, name, key, value, cvalue, p):
 _enum_members = {}
 
 def enum_from_bits(cls, bits):
-    m = _enum_members[cls].get(bits)
+    members, signed = _enum_members[cls]
+    m = members.get(bits)
     if m is not None:
         return m
-    return enum_new_raw(cls, bits)
+    return cls(bits - (1 << 64) if signed and bits >= (1 << 63) else bits)
 )PY";
 
     inline PyObject *EnumNewPy(PyObject *, PyObject *args)
@@ -1756,21 +1747,6 @@ def enum_from_bits(cls, bits):
         if (!PyArg_ParseTuple(args, "OK", &type, &bits))
             return nullptr;
         return EnumNew(type, bits);
-    }
-
-    inline PyObject *EnumBitsPy(PyObject *, PyObject *o)
-    {
-        return PyLong_FromUnsignedLongLong((unsigned long long)std::uintptr_t(reinterpret_cast<Instance *>(o)->ptr));
-    }
-
-    inline PyObject *EnumSetBitsPy(PyObject *, PyObject *args)
-    {
-        PyObject *o;
-        unsigned long long bits;
-        if (!PyArg_ParseTuple(args, "OK", &o, &bits))
-            return nullptr;
-        reinterpret_cast<Instance *>(o)->ptr = reinterpret_cast<void *>(std::uintptr_t(bits));
-        Py_RETURN_NONE;
     }
 
     inline PyObject *HasOwnerPy(PyObject *, PyObject *o)
@@ -1840,8 +1816,6 @@ def enum_from_bits(cls, bits):
     inline PyMethodDef set_owner_def = {"set_owner", SetOwnerPy, METH_VARARGS, nullptr};
     inline PyMethodDef renamed_function_def = {"renamed_function", RenamedFunctionPy, METH_VARARGS, nullptr};
     inline PyMethodDef enum_new_def = {"enum_new_raw", EnumNewPy, METH_VARARGS, nullptr};
-    inline PyMethodDef enum_bits_def = {"enum_bits", EnumBitsPy, METH_O, nullptr};
-    inline PyMethodDef enum_set_bits_def = {"set_bits", EnumSetBitsPy, METH_VARARGS, nullptr};
 
     // The `__init__` of the classes without constructors, like `pybind11_object_init()`.
     inline int NoConstructorInit(PyObject *self, PyObject *, PyObject *)
@@ -2108,8 +2082,6 @@ def enum_from_bits(cls, bits):
         Py_DECREF(r);
         PyObject *f;
         f = PyCFunction_NewEx(&enum_new_def, nullptr, nullptr); PyDict_SetItemString(dict, "enum_new_raw", f); Py_XDECREF(f);
-        f = PyCFunction_NewEx(&enum_bits_def, nullptr, nullptr); PyDict_SetItemString(dict, "enum_bits", f); Py_XDECREF(f);
-        f = PyCFunction_NewEx(&enum_set_bits_def, nullptr, nullptr); PyDict_SetItemString(dict, "set_bits", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&has_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "has_owner", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&get_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "get_owner", f); Py_XDECREF(f);
         f = PyCFunction_NewEx(&set_owner_def, nullptr, nullptr); PyDict_SetItemString(dict, "set_owner", f); Py_XDECREF(f);
@@ -2155,15 +2127,12 @@ def enum_from_bits(cls, bits):
     }
 
     // Creates an enum class. `entries` is a list of `(name, value, doc or None)`.
-    inline PyObject *MakeEnum(const char *module, const char *qualname, const char *name, PyObject *entries, bool is_signed)
+    inline PyObject *MakeEnum(const char *module, const char *qualname, const char *name, PyObject *entries, bool is_signed, bool is_flag)
     {
-        PyObject *dict = PyModule_GetDict(rt);
-        PyObject *make = PyDict_GetItemString(dict, "make_enum");
-        PyObject *enum_new = PyDict_GetItemString(dict, "enum_new_raw");
-        PyObject *enum_bits = PyDict_GetItemString(dict, "enum_bits");
-        if (!make || !enum_new || !enum_bits)
+        PyObject *make = PyDict_GetItemString(PyModule_GetDict(rt), "make_enum");
+        if (!make)
             return nullptr;
-        return PyObject_CallFunction(make, "OsssOOOO", object_type, module, qualname, name, entries, is_signed ? Py_True : Py_False, enum_new, enum_bits);
+        return PyObject_CallFunction(make, "sssOOO", module, qualname, name, entries, is_signed ? Py_True : Py_False, is_flag ? Py_True : Py_False);
     }
 }
 )MRBIND_PY";
