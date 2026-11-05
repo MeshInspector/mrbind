@@ -1483,6 +1483,19 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
     opEqual(_1: L.MR_CSharp_EqualityA): boolean;
     /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
+     * Generated from method `MR::CSharp::EqualityA::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityA_int()`.
+     */
+    opNotEqual(_1: number): boolean;
+    /**
+     * Generated from method `MR::CSharp::EqualityA::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
+     */
+    opNotEqual(_1: L.MR_CSharp_EqualityA): boolean;
+    /** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /**
      * Generated from method `MR::CSharp::EqualityA::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
      *
@@ -1500,13 +1513,19 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
      *
      * Calls `MR_C_not_equal_MR_CSharp_EqualityA_int()`.
      */
-    opNotEqual(_1: number): boolean;
+    opNot_equal_int(_1: number): boolean;
     /**
      * Generated from method `MR::CSharp::EqualityA::operator==`.
      *
      * Calls `MR_C_equal_MR_CSharp_EqualityA()`.
      */
     opEqual_2(_1: L.MR_CSharp_EqualityA): boolean;
+    /**
+     * Generated from method `MR::CSharp::EqualityA::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
+     */
+    opNot_equal(_1: L.MR_CSharp_EqualityA): boolean;
 }
 
 /**
@@ -1674,6 +1693,12 @@ export declare class MR_CSharp_EqualityD extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityD_const_int_ptr()`.
      */
     opEqual(_1?: number | null): boolean;
+    /**
+     * Generated from method `MR::CSharp::EqualityD::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr()`.
+     */
+    opNotEqual(_1?: number | null): boolean;
 }
 
 /**
@@ -1713,6 +1738,12 @@ export declare class MR_CSharp_EqualityE extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
      */
     opEqual(_1?: L.MR_CSharp_EqualityD | null): boolean;
+    /**
+     * Generated from method `MR::CSharp::EqualityE::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
+     */
+    opNotEqual(_1?: L.MR_CSharp_EqualityD | null): boolean;
 }
 
 /**
@@ -1813,6 +1844,12 @@ export declare class MR_CSharp_ExposedLayout extends ffi.CppStruct
      * Calls `MR_C_equal_MR_CSharp_ExposedLayout_float()`.
      */
     opEqual(_1: number): boolean;
+    /**
+     * Generated from method `MR::CSharp::ExposedLayout::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayout_float()`.
+     */
+    opNotEqual(_1: number): boolean;
     /**
      * Generated from method `MR::CSharp::ExposedLayout::operator<`.
      *
@@ -1941,6 +1978,25 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
     opEqual(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
     /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
+     */
+    opNotEqual(_1: number): boolean;
+    /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
+     */
+    opNotEqual(_1: L.MR_CSharp_ExposedLayout): boolean;
+    /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
+     */
+    opNotEqual(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
+    /** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
      *
      * Calls `MR_CSharp_ExposedLayoutSh_foo()`.
@@ -1984,6 +2040,12 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      */
     opEqual_float(_1: number): boolean;
     /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
+     */
+    opNot_equal_float(_1: number): boolean;
+    /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
      *
      * Calls `MR_C_less_MR_CSharp_ExposedLayoutSh_char()`.
@@ -1997,12 +2059,24 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      */
     opEqual_MR_CSharp_ExposedLayout(_1: L.MR_CSharp_ExposedLayout): boolean;
     /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
+     */
+    opNot_equal_MR_CSharp_ExposedLayout(_1: L.MR_CSharp_ExposedLayout): boolean;
+    /**
      * And against itself, too.
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
      *
      * Calls `MR_C_equal_MR_CSharp_ExposedLayoutSh()`.
      */
     opEqual_2(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
+    /**
+     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
+     */
+    opNot_equal(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
 }
 
 /**
@@ -3587,6 +3661,12 @@ export declare class MR_CSharp_IterableK_Iter extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
      */
     opEqual(s: L.MR_CSharp_IterableK_Sentinel): boolean;
+    /**
+     * Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
+     */
+    opNotEqual(s: L.MR_CSharp_IterableK_Sentinel): boolean;
 }
 
 /**
@@ -6136,6 +6216,30 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      */
     opCompareThreeWay(_1: L.MR_CSharp_TestOpsA): number;
     /**
+     * Generated from method `MR::CSharp::TestOpsA::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_TestOpsA()`.
+     */
+    opLess(_1: L.MR_CSharp_TestOpsA): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsA::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_TestOpsA()`.
+     */
+    opGreater(_1: L.MR_CSharp_TestOpsA): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsA::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_TestOpsA()`.
+     */
+    opLessEqual(_1: L.MR_CSharp_TestOpsA): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsA::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_TestOpsA()`.
+     */
+    opGreaterEqual(_1: L.MR_CSharp_TestOpsA): boolean;
+    /**
      * Generated from method `MR::CSharp::TestOpsA::operator&&`.
      *
      * Calls `MR_C_and_MR_CSharp_TestOpsA()`.
@@ -6416,6 +6520,30 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_compare_three_way_MR_CSharp_TestOpsB()`.
      */
     opCompareThreeWay(_1: L.MR_CSharp_TestOpsB): number;
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_TestOpsB()`.
+     */
+    opLess(_1: L.MR_CSharp_TestOpsB): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_TestOpsB()`.
+     */
+    opGreater(_1: L.MR_CSharp_TestOpsB): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_TestOpsB()`.
+     */
+    opLessEqual(_1: L.MR_CSharp_TestOpsB): boolean;
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_TestOpsB()`.
+     */
+    opGreaterEqual(_1: L.MR_CSharp_TestOpsB): boolean;
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator&&`.
      *
@@ -7990,6 +8118,13 @@ export declare function MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayou
  * Calls `MR_C_equal_MR_CSharp_ExposedLayoutB()`.
  */
 export declare function MR_C_equal_MR_CSharp_ExposedLayoutB(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
+
+/**
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
+ */
+export declare function MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
 
 /**
  * Generated from function `MR::CSharp::test_optint`.

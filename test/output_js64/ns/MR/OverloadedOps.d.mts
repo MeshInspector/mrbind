@@ -7,6 +7,11 @@ export { MR_OverloadedOps_A as A } from "../../lib/_all.mjs";
 export { MR_OverloadedOps_B as B } from "../../lib/_all.mjs";
 export { MR_OverloadedOps_C as C } from "../../lib/_all.mjs";
 export { MR_OverloadedOps_D as D } from "../../lib/_all.mjs";
+export { MR_OverloadedOps_E as E } from "../../lib/_all.mjs";
+export { MR_OverloadedOps_F as F } from "../../lib/_all.mjs";
+export { MR_OverloadedOps_G as G } from "../../lib/_all.mjs";
+export { MR_OverloadedOps_H as H } from "../../lib/_all.mjs";
+export { MR_OverloadedOps_I as I } from "../../lib/_all.mjs";
 export { MR_C_pos_MR_OverloadedOps_B as opPos_MR_OverloadedOps_B } from "../../lib/_all.mjs";
 export { MR_C_add_MR_OverloadedOps_B as opAdd_MR_OverloadedOps_B } from "../../lib/_all.mjs";
 export { MR_C_neg_MR_OverloadedOps_B as opNeg_MR_OverloadedOps_B } from "../../lib/_all.mjs";
@@ -34,8 +39,8 @@ export { MR_C_lshift_MR_OverloadedOps_B as opLshift } from "../../lib/_all.mjs";
 export { MR_C_rshift_MR_OverloadedOps_B as opRshift } from "../../lib/_all.mjs";
 export { MR_C_lshift_assign_MR_OverloadedOps_B as opLshiftAssign } from "../../lib/_all.mjs";
 export { MR_C_rshift_assign_MR_OverloadedOps_B as opRshiftAssign } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_OverloadedOps_B as opEqual } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_OverloadedOps_B as opNotEqual } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_OverloadedOps_B as opEqual_MR_OverloadedOps_B } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_OverloadedOps_B as opNot_equal_MR_OverloadedOps_B } from "../../lib/_all.mjs";
 export { MR_C_less_equal_MR_OverloadedOps_B as opLessEqual } from "../../lib/_all.mjs";
 export { MR_C_greater_equal_MR_OverloadedOps_B as opGreaterEqual } from "../../lib/_all.mjs";
 export { MR_C_compare_three_way_MR_OverloadedOps_B as opCompareThreeWay } from "../../lib/_all.mjs";
@@ -51,6 +56,8 @@ export { MR_C_add_MR_OverloadedOps_C as opAdd_MR_OverloadedOps_C } from "../../l
 export { MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B as opAdd_MR_OverloadedOps_C_MR_OverloadedOps_B } from "../../lib/_all.mjs";
 export { MR_C_pos_MR_OverloadedOps_D_ref as opPos_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
 export { MR_C_pos_const_MR_OverloadedOps_D_ref as opPos_const_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_OverloadedOps_I as opEqual_MR_OverloadedOps_I } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_OverloadedOps_I as opNot_equal_MR_OverloadedOps_I } from "../../lib/_all.mjs";
 
 /**
  * Unary plus.
@@ -117,3 +124,32 @@ export declare function opMul(_1: L.MR_OverloadedOps_B): number;
  */
 export declare function opMul(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
 /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Equal.
+ * Generated from function `MR::OverloadedOps::operator==`.
+ *
+ * Calls `MR_C_equal_MR_OverloadedOps_B()`.
+ */
+export declare function opEqual(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
+/**
+ * Gives a free `!=`.
+ * Generated from function `MR::OverloadedOps::operator==`.
+ *
+ * Calls `MR_C_equal_MR_OverloadedOps_I()`.
+ */
+export declare function opEqual(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
+/** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Not equal.
+ * Generated from function `MR::OverloadedOps::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_OverloadedOps_B()`.
+ */
+export declare function opNotEqual(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
+/**
+ * Generated from function `MR::OverloadedOps::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
+ */
+export declare function opNotEqual(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
+/** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

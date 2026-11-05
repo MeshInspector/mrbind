@@ -1,5 +1,6 @@
 // Re-exports every `lib` module, so the wrappers can refer to each other without import cycles between the files.
 export * from "./A/a.mjs";
+export * from "./ABC/abc.mjs";
 export * from "./AB_base/ab_base.mjs";
 export * from "./B/b.mjs";
 export * from "./MR/_1.mjs";
@@ -179,6 +180,7 @@ export * from "./std_vector_MR_CSharp_A_ptr.mjs";
 export * from "./std_vector_MR_CSharp_ExposedLayout.mjs";
 export * from "./std_vector_MR_InstantiateOnly_A.mjs";
 export * from "./std_vector_MR_SeparateA.mjs";
+export * from "./std_vector_MR_SeparateABC.mjs";
 export * from "./std_vector_MR_SeparateB.mjs";
 export * from "./std_vector_MR_StdContainers_NonAssignable.mjs";
 export * from "./std_vector_MR_StdContainers_NonDefaultConstructible.mjs";

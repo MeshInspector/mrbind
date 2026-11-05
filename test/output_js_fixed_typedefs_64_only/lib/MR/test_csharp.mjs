@@ -4246,6 +4246,16 @@ export class MR_CSharp_EqualityA extends ffi.CppObject
         throw new TypeError("No overload of `opEqual` accepts these arguments.");
     }
 
+    opNotEqual(...args)
+    {
+        const __n = args.length;
+        if (__n === 1 && typeof args[0] === "number")
+            return this.opNot_equal_int(args[0]);
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_EqualityA))
+            return this.opNot_equal(args[0]);
+        throw new TypeError("No overload of `opNotEqual` accepts these arguments.");
+    }
+
     assignFromAnother(_other)
     {
         const __sp = ffi.stackSave();
@@ -4285,7 +4295,7 @@ export class MR_CSharp_EqualityA extends ffi.CppObject
         }
     }
 
-    opNotEqual(_1)
+    opNot_equal_int(_1)
     {
         const __sp = ffi.stackSave();
         try
@@ -4310,6 +4320,25 @@ export class MR_CSharp_EqualityA extends ffi.CppObject
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_CSharp_EqualityA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNot_equal(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_EqualityA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
             ffi.check();
             return (__ret !== 0);
         }
@@ -4740,6 +4769,26 @@ export class MR_CSharp_EqualityD extends ffi.CppObject
             ffi.stackRestore(__sp);
         }
     }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ptr__1 = _1 == null ? 0 : ffi.stackScalar(4, (p) => {ffi.HEAPU32()[(p) >>> 2] = _1;});
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr(this.rawPointer(), __ptr__1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
 }
 
 /**
@@ -4836,6 +4885,25 @@ export class MR_CSharp_EqualityE extends ffi.CppObject
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(this.rawPointer(), ffi.ptr(_1));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(this.rawPointer(), ffi.ptr(_1));
             ffi.check();
             return (__ret !== 0);
         }
@@ -5076,6 +5144,25 @@ export class MR_CSharp_ExposedLayout extends ffi.CppStruct
         }
     }
 
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ExposedLayout_float(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opLess_char(_1)
     {
         const __sp = ffi.stackSave();
@@ -5296,6 +5383,18 @@ export class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
         throw new TypeError("No overload of `opEqual` accepts these arguments.");
     }
 
+    opNotEqual(...args)
+    {
+        const __n = args.length;
+        if (__n === 1 && typeof args[0] === "number")
+            return this.opNot_equal_float(args[0]);
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ExposedLayout))
+            return this.opNot_equal_MR_CSharp_ExposedLayout(args[0]);
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ExposedLayoutSh))
+            return this.opNot_equal(args[0]);
+        throw new TypeError("No overload of `opNotEqual` accepts these arguments.");
+    }
+
     foo()
     {
         const __sp = ffi.stackSave();
@@ -5426,6 +5525,25 @@ export class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
         }
     }
 
+    opNot_equal_float(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opLess_char(_1)
     {
         const __sp = ffi.stackSave();
@@ -5464,12 +5582,50 @@ export class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
         }
     }
 
+    opNot_equal_MR_CSharp_ExposedLayout(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opEqual_2(_1)
     {
         const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_CSharp_ExposedLayoutSh(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNot_equal(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ExposedLayoutSh(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
             ffi.check();
             return (__ret !== 0);
         }
@@ -9940,6 +10096,25 @@ export class MR_CSharp_IterableK_Iter extends ffi.CppObject
         try
         {
             const __ret = ffi.C.MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(this.rawPointer(), ffi.ptrNonNull(s, "s"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(s)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(this.rawPointer(), ffi.ptrNonNull(s, "s"));
             ffi.check();
             return (__ret !== 0);
         }
@@ -17089,6 +17264,82 @@ export class MR_CSharp_TestOpsA extends ffi.CppObject
         }
     }
 
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_TestOpsA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_TestOpsA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_TestOpsA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_TestOpsA(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opAnd(_1)
     {
         const __sp = ffi.stackSave();
@@ -17830,6 +18081,82 @@ export class MR_CSharp_TestOpsB extends ffi.CppObject
             const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_TestOpsB(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
             ffi.check();
             return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_TestOpsB(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_TestOpsB(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_TestOpsB(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_TestOpsB(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
         }
         catch (__e)
         {
@@ -22337,6 +22664,25 @@ export function MR_C_equal_MR_CSharp_ExposedLayoutB(_1, _2)
     try
     {
         const __ret = ffi.C.MR_C_equal_MR_CSharp_ExposedLayoutB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ExposedLayoutB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
         ffi.check();
         return (__ret !== 0);
     }
