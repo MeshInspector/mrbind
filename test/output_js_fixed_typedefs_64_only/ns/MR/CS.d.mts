@@ -148,6 +148,7 @@ export { MR_C_std_vector_MR_CSharp_A_ptr as std_vector_MR_CSharp_A_ptr } from ".
 export { MR_C_std_vector_MR_CSharp_ExposedLayout as std_vector_MR_CSharp_ExposedLayout } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_InstantiateOnly_A as std_vector_MR_InstantiateOnly_A } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_SeparateA as std_vector_MR_SeparateA } from "../../lib/_all.mjs";
+export { MR_C_std_vector_MR_SeparateABC as std_vector_MR_SeparateABC } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_SeparateB as std_vector_MR_SeparateB } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_StdContainers_NonAssignable as std_vector_MR_StdContainers_NonAssignable } from "../../lib/_all.mjs";
 export { MR_C_std_vector_MR_StdContainers_NonDefaultConstructible as std_vector_MR_StdContainers_NonDefaultConstructible } from "../../lib/_all.mjs";

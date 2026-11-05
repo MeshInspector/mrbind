@@ -273,6 +273,7 @@ export { MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh as test_exposed_c
 export { MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
 export { MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_CSharp_ExposedLayoutB as opEqual } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ExposedLayoutB as opNotEqual } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint as test_optint } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_ref as test_optint_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_cref as test_optint_cref } from "../../lib/_all.mjs";

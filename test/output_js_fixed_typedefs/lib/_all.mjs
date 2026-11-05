@@ -3,6 +3,8 @@ export * from "./A/a.mjs";
 export * from "./A/std_vector_MR_SeparateA.mjs";
 export * from "./AB/std_pair_MR_SeparateA_MR_SeparateB.mjs";
 export * from "./AB/std_vector_std_pair_MR_SeparateA_MR_SeparateB.mjs";
+export * from "./ABC/abc.mjs";
+export * from "./ABC/std_vector_MR_SeparateABC.mjs";
 export * from "./AB_base/ab_base.mjs";
 export * from "./B/b.mjs";
 export * from "./B/std_vector_MR_SeparateB.mjs";

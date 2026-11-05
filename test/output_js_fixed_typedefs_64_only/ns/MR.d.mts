@@ -49,6 +49,7 @@ export * as UsingDecls from "./MR/UsingDecls.mjs";
 export { MR_A as A } from "../lib/_all.mjs";
 export { MR_CommonBaseAB as CommonBaseAB } from "../lib/_all.mjs";
 export { MR_SeparateA as SeparateA } from "../lib/_all.mjs";
+export { MR_SeparateABC as SeparateABC } from "../lib/_all.mjs";
 export { MR_SeparateB as SeparateB } from "../lib/_all.mjs";
 export { MR_foo as foo } from "../lib/_all.mjs";
 export { MR_bar as bar } from "../lib/_all.mjs";
@@ -56,4 +57,5 @@ export { MR_mark_shared_common_base_ab as mark_shared_common_base_ab } from "../
 export { MR_GetSeparateVecA as GetSeparateVecA } from "../lib/_all.mjs";
 export { MR_GetSeparateVecB as GetSeparateVecB } from "../lib/_all.mjs";
 export { MR_GetCombinedVecAB as GetCombinedVecAB } from "../lib/_all.mjs";
+export { MR_GetSeparateVecABC as GetSeparateVecABC } from "../lib/_all.mjs";
 

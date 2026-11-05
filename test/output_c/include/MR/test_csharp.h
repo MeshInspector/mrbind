@@ -3453,6 +3453,11 @@ MR_C_API bool MR_C_not_equal_MR_CSharp_EqualityA_int(MR_CSharp_EqualityA *_this,
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_EqualityA(const MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_1);
 
+/// Generated from method `MR::CSharp::EqualityA::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_EqualityA(const MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_1);
+
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_DefaultConstruct(void);
@@ -3594,6 +3599,10 @@ MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_AssignFromAnother(MR_CSharp_Eq
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_EqualityD_const_int_ptr(MR_CSharp_EqualityD *_this, const int *_1);
 
+/// Generated from method `MR::CSharp::EqualityD::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr(MR_CSharp_EqualityD *_this, const int *_1);
+
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_DefaultConstruct(void);
@@ -3634,6 +3643,10 @@ MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_AssignFromAnother(MR_CSharp_Eq
 /// Generated from method `MR::CSharp::EqualityE::operator==`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(MR_CSharp_EqualityE *_this, MR_CSharp_EqualityD *_1);
+
+/// Generated from method `MR::CSharp::EqualityE::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(MR_CSharp_EqualityE *_this, MR_CSharp_EqualityD *_1);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalA_Destroy()` to free it when you're done using it.
@@ -4973,6 +4986,26 @@ MR_C_API int MR_CSharp_TestOpsA_rshift_assign(MR_CSharp_TestOpsA *_this, const M
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API int MR_C_compare_three_way_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
 
+/// Generated from method `MR::CSharp::TestOpsA::operator<`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_less_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
+
+/// Generated from method `MR::CSharp::TestOpsA::operator>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
+
+/// Generated from method `MR::CSharp::TestOpsA::operator<=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_less_equal_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
+
+/// Generated from method `MR::CSharp::TestOpsA::operator>=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_equal_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
+
 /// Generated from method `MR::CSharp::TestOpsA::operator&&`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
@@ -5139,6 +5172,22 @@ MR_C_API int MR_CSharp_TestOpsB_rshift_assign(MR_CSharp_TestOpsB *_this, MR_C_Pa
 /// Generated from method `MR::CSharp::TestOpsB::operator<=>`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_compare_three_way_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1);
+
+/// Generated from method `MR::CSharp::TestOpsB::operator<`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_less_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1);
+
+/// Generated from method `MR::CSharp::TestOpsB::operator>`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1);
+
+/// Generated from method `MR::CSharp::TestOpsB::operator<=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_less_equal_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1);
+
+/// Generated from method `MR::CSharp::TestOpsB::operator>=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_equal_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1);
 
 /// Generated from method `MR::CSharp::TestOpsB::operator&&`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -6119,6 +6168,10 @@ MR_C_API bool MR_C_less_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *_
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayout_float(MR_CSharp_ExposedLayout *_this, float _1);
 
+/// Generated from method `MR::CSharp::ExposedLayout::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ExposedLayout_float(MR_CSharp_ExposedLayout *_this, float _1);
+
 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_CSharp_ExposedLayout_char(MR_CSharp_ExposedLayout *_this, char _1);
@@ -6234,6 +6287,10 @@ MR_C_API bool MR_C_less_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutS
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh_float(MR_CSharp_ExposedLayoutSh *_this, float _1);
 
+/// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(MR_CSharp_ExposedLayoutSh *_this, float _1);
+
 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_CSharp_ExposedLayoutSh_char(MR_CSharp_ExposedLayoutSh *_this, char _1);
@@ -6244,11 +6301,21 @@ MR_C_API bool MR_C_less_MR_CSharp_ExposedLayoutSh_char(MR_CSharp_ExposedLayoutSh
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayout *_1);
 
+/// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayout *_1);
+
 // And against itself, too.
 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1);
+
+/// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1);
 
 /// Generated from function `MR::CSharp::operator-`.
 MR_C_API int MR_C_sub_int_MR_CSharp_ExposedLayoutSh(int _1, MR_CSharp_ExposedLayoutSh _2);
@@ -6311,6 +6378,11 @@ MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_1(const MR_
 /// Parameter `_1` can not be null. It is a single object.
 /// Parameter `_2` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, const MR_CSharp_ExposedLayoutB *_2);
+
+/// Generated from function `MR::CSharp::operator!=`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, const MR_CSharp_ExposedLayoutB *_2);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -9087,6 +9159,11 @@ MR_C_API void MR_C_incr_MR_CSharp_IterableK_Iter(MR_CSharp_IterableK_Iter *_this
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `s` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Sentinel *s);
+
+/// Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `s` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Sentinel *s);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::IterableL<int>` named `arr`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.

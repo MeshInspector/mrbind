@@ -307,6 +307,12 @@ bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssigna
     );
 }
 
+bool MR_C_not_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1)
+{
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdContainers::NonAssignable);
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(_this)) != (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_1, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_1, MR::StdContainers::NonAssignable));
+}
+
 MR_C_std_vector_MR_StdContainers_NonAssignable *MR_StdContainers_GetVectorNA(void)
 {
     return (MR_C_std_vector_MR_StdContainers_NonAssignable *)new std::vector<MR::StdContainers::NonAssignable>(::MR::StdContainers::GetVectorNA());

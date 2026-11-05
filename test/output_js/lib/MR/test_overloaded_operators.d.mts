@@ -488,6 +488,315 @@ export declare class MR_OverloadedOps_D extends ffi.CppObject
 }
 
 /**
+ * Generated from class `MR::OverloadedOps::E`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_OverloadedOps_E extends ffi.CppObject
+{
+    /**
+     * Returns a pointer to a member variable of class `MR::OverloadedOps::E` named `x`.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_OverloadedOps_E_Get_x()`.
+     */
+    x: number;
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_OverloadedOps_E_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Constructs `MR::OverloadedOps::E` elementwise.
+     *
+     * Calls `MR_OverloadedOps_E_ConstructFrom()`.
+     */
+    constructor(x: number);
+    /**
+     * Generated from constructor `MR::OverloadedOps::E::E`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_OverloadedOps_E_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_OverloadedOps_E);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_OverloadedOps_E_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_OverloadedOps_E): L.MR_OverloadedOps_E;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator==`.
+     *
+     * Calls `MR_C_equal_MR_OverloadedOps_E()`.
+     */
+    opEqual(_1: L.MR_OverloadedOps_E): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_OverloadedOps_E()`.
+     */
+    opNotEqual(_1: L.MR_OverloadedOps_E): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator<`.
+     *
+     * Calls `MR_C_less_MR_OverloadedOps_E()`.
+     */
+    opLess(_1: L.MR_OverloadedOps_E): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator>`.
+     *
+     * Calls `MR_C_greater_MR_OverloadedOps_E()`.
+     */
+    opGreater(_1: L.MR_OverloadedOps_E): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_OverloadedOps_E()`.
+     */
+    opLessEqual(_1: L.MR_OverloadedOps_E): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::E::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_OverloadedOps_E()`.
+     */
+    opGreaterEqual(_1: L.MR_OverloadedOps_E): boolean;
+}
+
+/**
+ * Generated from class `MR::OverloadedOps::F`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_OverloadedOps_F extends ffi.CppObject
+{
+    /**
+     * Returns a pointer to a member variable of class `MR::OverloadedOps::F` named `x`.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_OverloadedOps_F_Get_x()`.
+     */
+    x: number;
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_OverloadedOps_F_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Constructs `MR::OverloadedOps::F` elementwise.
+     *
+     * Calls `MR_OverloadedOps_F_ConstructFrom()`.
+     */
+    constructor(x: number);
+    /**
+     * Generated from constructor `MR::OverloadedOps::F::F`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_OverloadedOps_F_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_OverloadedOps_F);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_OverloadedOps_F_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_OverloadedOps_F): L.MR_OverloadedOps_F;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator==`.
+     *
+     * Calls `MR_C_equal_MR_OverloadedOps_F()`.
+     */
+    opEqual(_1: L.MR_OverloadedOps_F): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_OverloadedOps_F()`.
+     */
+    opNotEqual(_1: L.MR_OverloadedOps_F): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator>`.
+     *
+     * Calls `MR_C_greater_MR_OverloadedOps_F()`.
+     */
+    opGreater(_1: L.MR_OverloadedOps_F): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_OverloadedOps_F()`.
+     */
+    opLessEqual(_1: L.MR_OverloadedOps_F): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_OverloadedOps_F()`.
+     */
+    opGreaterEqual(_1: L.MR_OverloadedOps_F): boolean;
+    /**
+     * Declared, so it isn't added once more.
+     * Generated from method `MR::OverloadedOps::F::operator<`.
+     *
+     * Calls `MR_C_less_MR_OverloadedOps_F()`.
+     */
+    opLess(_1: L.MR_OverloadedOps_F): boolean;
+}
+
+/**
+ * Generated from class `MR::OverloadedOps::G`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_OverloadedOps_G extends ffi.CppObject
+{
+    /**
+     * Returns a pointer to a member variable of class `MR::OverloadedOps::G` named `x`.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_OverloadedOps_G_Get_x()`.
+     */
+    x: number;
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_OverloadedOps_G_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Constructs `MR::OverloadedOps::G` elementwise.
+     *
+     * Calls `MR_OverloadedOps_G_ConstructFrom()`.
+     */
+    constructor(x: number);
+    /**
+     * Generated from constructor `MR::OverloadedOps::G::G`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_OverloadedOps_G_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_OverloadedOps_G);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::OverloadedOps::G::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_OverloadedOps_G_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_OverloadedOps_G): L.MR_OverloadedOps_G;
+    /**
+     * Generated from method `MR::OverloadedOps::G::operator<`.
+     *
+     * Calls `MR_C_less_MR_OverloadedOps_G()`.
+     */
+    opLess(_1: L.MR_OverloadedOps_G): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::G::operator>`.
+     *
+     * Calls `MR_C_greater_MR_OverloadedOps_G()`.
+     */
+    opGreater(_1: L.MR_OverloadedOps_G): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::G::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
+     */
+    opLessEqual(_1: L.MR_OverloadedOps_G): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::G::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
+     */
+    opGreaterEqual(_1: L.MR_OverloadedOps_G): boolean;
+}
+
+/**
+ * Generated from class `MR::OverloadedOps::H`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_OverloadedOps_H extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_OverloadedOps_H_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::OverloadedOps::H::H`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_OverloadedOps_H_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_OverloadedOps_H);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::OverloadedOps::H::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_OverloadedOps_H_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_OverloadedOps_H): L.MR_OverloadedOps_H;
+    /**
+     * Gives `!=`.
+     * Generated from method `MR::OverloadedOps::H::operator==`.
+     *
+     * Calls `MR_C_equal_MR_OverloadedOps_H()`.
+     */
+    opEqual(_1: L.MR_OverloadedOps_H): boolean;
+    /**
+     * Generated from method `MR::OverloadedOps::H::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_OverloadedOps_H()`.
+     */
+    opNotEqual(_1: L.MR_OverloadedOps_H): boolean;
+}
+
+/**
+ * Generated from class `MR::OverloadedOps::I`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_OverloadedOps_I extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_OverloadedOps_I_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::OverloadedOps::I::I`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_OverloadedOps_I_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_OverloadedOps_I);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::OverloadedOps::I::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_OverloadedOps_I_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_OverloadedOps_I): L.MR_OverloadedOps_I;
+}
+
+/**
  * Unary plus.
  * Generated from function `MR::OverloadedOps::operator+`.
  *
@@ -838,4 +1147,19 @@ export declare function MR_C_pos_MR_OverloadedOps_D_ref(_1: L.MR_OverloadedOps_D
  * Calls `MR_C_pos_const_MR_OverloadedOps_D_ref()`.
  */
 export declare function MR_C_pos_const_MR_OverloadedOps_D_ref(_1: L.MR_OverloadedOps_D): number;
+
+/**
+ * Gives a free `!=`.
+ * Generated from function `MR::OverloadedOps::operator==`.
+ *
+ * Calls `MR_C_equal_MR_OverloadedOps_I()`.
+ */
+export declare function MR_C_equal_MR_OverloadedOps_I(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
+
+/**
+ * Generated from function `MR::OverloadedOps::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
+ */
+export declare function MR_C_not_equal_MR_OverloadedOps_I(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
 
