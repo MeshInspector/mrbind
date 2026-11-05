@@ -1286,25 +1286,27 @@ def _fn(name, doc, f):
     return f
 
 # A C++ enum can hold any value of its underlying type, not only the named ones: those get a member without a name.
-class _IntEnum(_enum.IntEnum):
-    @classmethod
-    def _missing_(cls, value):
-        if not isinstance(value, int):
-            return None
-        m = int.__new__(cls, value)
-        m._name_ = None
-        m._value_ = value
-        return m
-    # `Name.member` on all Python versions (3.11 made `str()` of an `IntEnum` the number), as in pybind11.
-    def __str__(self):
-        return '%s.%s' % (type(self).__name__, self._name_ if self._name_ is not None else self._value_)
+def _enum_missing(cls, value):
+    if not isinstance(value, int):
+        return None
+    m = int.__new__(cls, value)
+    m._name_ = None
+    m._value_ = value
+    return m
 
-# The enums with a bitwise `|` in C++. The C++ operators are bound over the ones of `IntFlag`.
-class _IntFlag(_enum.IntFlag):
-    __str__ = _enum.Flag.__str__
+# `Name.member` on all Python versions (3.11 made `str()` of an `IntEnum` the number), as in pybind11.
+def _enum_str(self):
+    return '%s.%s' % (type(self).__name__, self._name_ if self._name_ is not None else self._value_)
 
+# The enums with a `|` in C++ are `IntFlag`s, the C++ operators are bound over theirs. The bases are the ones of `enum`,
+#   so that the stub generators and the type checkers can see them.
 def make_enum(module, qualname, name, entries, signed, is_flag):
-    cls = (_IntFlag if is_flag else _IntEnum)(name, [(n, v) for n, v, d in entries], module=module, qualname=qualname)
+    cls = (_enum.IntFlag if is_flag else _enum.IntEnum)(name, [(n, v) for n, v, d in entries], module=module, qualname=qualname)
+    if is_flag:
+        type.__setattr__(cls, '__str__', _enum.Flag.__str__)
+    else:
+        type.__setattr__(cls, '_missing_', classmethod(_enum_missing))
+        type.__setattr__(cls, '__str__', _enum_str)
     cls.__doc__ = 'Members:' + ''.join('\n\n  ' + n + (' : ' + d if d else '') for n, v, d in entries)
     to_bits = lambda v: v & ((1 << 64) - 1)
     members = {}
