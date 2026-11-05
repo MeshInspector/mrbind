@@ -1183,6 +1183,7 @@ unsafe extern "C"
     pub fn MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(a: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, b: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, c: *const *mut crate::ffi::MR_CSharp_ExposedLayoutSh) -> *mut crate::ffi::MR_CSharp_ExposedLayoutSh;
     pub fn MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a: *const crate::ffi::MR_CSharp_ExposedLayoutSh, b: *const crate::ffi::MR_CSharp_ExposedLayoutSh, c: *const *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> *const crate::ffi::MR_CSharp_ExposedLayoutSh;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutB(_1: *const crate::ffi::MR_CSharp_ExposedLayoutB, _2: *const crate::ffi::MR_CSharp_ExposedLayoutB) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1: *const crate::ffi::MR_CSharp_ExposedLayoutB, _2: *const crate::ffi::MR_CSharp_ExposedLayoutB) -> bool;
     pub fn MR_CSharp_test_optint(a: *const i32, b: *const crate::ffi::MR_C_std_optional_int32_t, c: *const crate::ffi::MR_C_std_optional_int32_t) -> *mut crate::ffi::MR_C_std_optional_int32_t;
     pub fn MR_CSharp_test_optint_ref(a: *mut crate::ffi::MR_C_std_optional_int32_t, b: *mut crate::ffi::MR_C_std_optional_int32_t) -> *mut crate::ffi::MR_C_std_optional_int32_t;
     pub fn MR_CSharp_test_optint_cref(a: *const i32, b: *const crate::ffi::MR_C_std_optional_int32_t) -> *const crate::ffi::MR_C_std_optional_int32_t;
@@ -1577,6 +1578,7 @@ unsafe extern "C"
     pub fn MR_C_equal_MR_CSharp_EqualityA_int32_t(_this: *mut crate::ffi::MR_CSharp_EqualityA, _1: i32) -> bool;
     pub fn MR_C_not_equal_MR_CSharp_EqualityA_int32_t(_this: *mut crate::ffi::MR_CSharp_EqualityA, _1: i32) -> bool;
     pub fn MR_C_equal_MR_CSharp_EqualityA(_this: *const crate::ffi::MR_CSharp_EqualityA, _1: *const crate::ffi::MR_CSharp_EqualityA) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_EqualityA(_this: *const crate::ffi::MR_CSharp_EqualityA, _1: *const crate::ffi::MR_CSharp_EqualityA) -> bool;
     pub fn MR_CSharp_EqualityA_Destroy(_this: *const MR_CSharp_EqualityA);
     pub fn MR_CSharp_EqualityB_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_EqualityB;
     pub fn MR_CSharp_EqualityB_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityB) -> *mut crate::ffi::MR_CSharp_EqualityB;
@@ -1596,11 +1598,13 @@ unsafe extern "C"
     pub fn MR_CSharp_EqualityD_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityD) -> *mut crate::ffi::MR_CSharp_EqualityD;
     pub fn MR_CSharp_EqualityD_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_EqualityD, _other: *const crate::ffi::MR_CSharp_EqualityD) -> *mut crate::ffi::MR_CSharp_EqualityD;
     pub fn MR_C_equal_MR_CSharp_EqualityD_const_int32_t_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityD, _1: *const i32) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_EqualityD_const_int32_t_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityD, _1: *const i32) -> bool;
     pub fn MR_CSharp_EqualityD_Destroy(_this: *const MR_CSharp_EqualityD);
     pub fn MR_CSharp_EqualityE_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_CSharp_EqualityE_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityE) -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_CSharp_EqualityE_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_EqualityE, _other: *const crate::ffi::MR_CSharp_EqualityE) -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityE, _1: *mut crate::ffi::MR_CSharp_EqualityD) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityE, _1: *mut crate::ffi::MR_CSharp_EqualityD) -> bool;
     pub fn MR_CSharp_EqualityE_Destroy(_this: *const MR_CSharp_EqualityE);
     pub fn MR_CSharp_ExposedLayout_foo(_this: *mut crate::ffi::MR_CSharp_ExposedLayout);
     pub fn MR_CSharp_ExposedLayout_bar(_this: *const crate::ffi::MR_CSharp_ExposedLayout);
@@ -1611,6 +1615,7 @@ unsafe extern "C"
     pub fn MR_C_add_const_MR_CSharp_ExposedLayout_ref_int32_t(_this: *const crate::ffi::MR_CSharp_ExposedLayout, _1: i32) -> *const crate::ffi::MR_CSharp_ExposedLayout;
     pub fn MR_C_less_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayout, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayout_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: f32) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_ExposedLayout_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: f32) -> bool;
     pub fn MR_C_less_MR_CSharp_ExposedLayout_char(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: core::ffi::c_char) -> bool;
     pub fn MR_CSharp_ExposedLayoutB_Construct_2(_1: i32, _2: i32) -> crate::ffi::MR_CSharp_ExposedLayoutB;
     pub fn MR_CSharp_ExposedLayoutB_Construct_1(_1: *const crate::ffi::MR_CSharp_A) -> crate::ffi::MR_CSharp_ExposedLayoutB;
@@ -1622,9 +1627,12 @@ unsafe extern "C"
     pub fn MR_C_mul_MR_CSharp_ExposedLayoutSh_int32_t(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: i32) -> i32;
     pub fn MR_C_less_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: f32) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: f32) -> bool;
     pub fn MR_C_less_MR_CSharp_ExposedLayoutSh_char(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: core::ffi::c_char) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
     pub fn MR_CSharp_F_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_F;
     pub fn MR_CSharp_F_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_CSharp_F) -> *mut crate::ffi::MR_CSharp_F;
     pub fn MR_CSharp_F_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_F, _other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_CSharp_F) -> *mut crate::ffi::MR_CSharp_F;
@@ -1825,6 +1833,7 @@ unsafe extern "C"
     pub fn MR_C_deref_MR_CSharp_IterableK_Iter(_this: *const crate::ffi::MR_CSharp_IterableK_Iter) -> i32;
     pub fn MR_C_incr_MR_CSharp_IterableK_Iter(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter);
     pub fn MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, s: *const crate::ffi::MR_CSharp_IterableK_Sentinel) -> bool;
+    pub fn MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, s: *const crate::ffi::MR_CSharp_IterableK_Sentinel) -> bool;
     pub fn MR_CSharp_IterableK_Iter_Get_ptr(_this: *const crate::ffi::MR_CSharp_IterableK_Iter) -> *const *mut i32;
     pub fn MR_CSharp_IterableK_Iter_GetMutable_ptr(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter) -> *mut *mut i32;
     pub fn MR_CSharp_IterableK_Iter_Set_ptr(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, value: *mut i32);
@@ -2169,6 +2178,10 @@ unsafe extern "C"
     pub fn MR_CSharp_TestOpsA_lshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
     pub fn MR_CSharp_TestOpsA_rshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
     pub fn MR_C_compare_three_way_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
+    pub fn MR_C_less_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
+    pub fn MR_C_greater_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
+    pub fn MR_C_less_equal_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
+    pub fn MR_C_greater_equal_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
     pub fn MR_C_and_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
     pub fn MR_C_or_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
     pub fn MR_C_comma_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> i32;
@@ -2206,6 +2219,10 @@ unsafe extern "C"
     pub fn MR_CSharp_TestOpsB_lshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;
     pub fn MR_CSharp_TestOpsB_rshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;
     pub fn MR_C_compare_three_way_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;
+    pub fn MR_C_less_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
+    pub fn MR_C_greater_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
+    pub fn MR_C_less_equal_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
+    pub fn MR_C_greater_equal_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
     pub fn MR_C_and_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;
     pub fn MR_C_or_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;
     pub fn MR_C_comma_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> i32;

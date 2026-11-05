@@ -720,6 +720,102 @@ public final class TestOpsB extends mrbind_test.CppObject
     }
 
     /**
+     * Generated from method `MR::CSharp::TestOpsB::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_TestOpsB()`.
+     */
+    public boolean opLess(mrbind_test.mr.csharp.TestOpsB _1)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H6.MR_C_less_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_TestOpsB()`.
+     */
+    public boolean opGreater(mrbind_test.mr.csharp.TestOpsB _1)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H6.MR_C_greater_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_TestOpsB()`.
+     */
+    public boolean opLessEqual(mrbind_test.mr.csharp.TestOpsB _1)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H6.MR_C_less_equal_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CSharp::TestOpsB::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_TestOpsB()`.
+     */
+    public boolean opGreaterEqual(mrbind_test.mr.csharp.TestOpsB _1)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H6.MR_C_greater_equal_MR_CSharp_TestOpsB.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
      * Generated from method `MR::CSharp::TestOpsB::operator&&`.
      *
      * Calls `MR_C_and_MR_CSharp_TestOpsB()`.

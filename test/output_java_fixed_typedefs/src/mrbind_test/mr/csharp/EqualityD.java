@@ -125,4 +125,27 @@ public final class EqualityD extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
+
+    /**
+     * Generated from method `MR::CSharp::EqualityD::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_EqualityD_const_int32_t_ptr()`.
+     */
+    public boolean opNotEqual(java.lang.Integer _1)
+    {
+        try (java.lang.foreign.Arena __arena = java.lang.foreign.Arena.ofConfined())
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_EqualityD_const_int32_t_ptr.invokeExact(rawPointer(), (java.lang.foreign.MemorySegment)(_1 == null ? java.lang.foreign.MemorySegment.NULL : mrbind_test.Ffi.alloc(__arena, java.lang.foreign.ValueLayout.JAVA_INT, _1)));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
 }

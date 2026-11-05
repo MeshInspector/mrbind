@@ -123,4 +123,23 @@ public final class Functions
             throw mrbind_test.Ffi.rethrow(__e);
         }
     }
+
+    /**
+     * Generated from function `MR::GetSeparateVecABC`.
+     *
+     * Calls `MR_GetSeparateVecABC()`.
+     */
+    public static mrbind_test.mr.cs.std_vector_MR_SeparateABC GetSeparateVecABC()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.ABC.abc.H0.MR_GetSeparateVecABC.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return new mrbind_test.mr.cs.std_vector_MR_SeparateABC(__ret, true, null);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
 }

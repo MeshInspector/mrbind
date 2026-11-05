@@ -216,7 +216,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_less_MR_CSharp_ExposedLayout.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_less_MR_CSharp_ExposedLayout.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -240,7 +240,30 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * Generated from method `MR::CSharp::ExposedLayout::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayout_float()`.
+     */
+    public boolean opNotEqual(float _1)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_not_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -263,7 +286,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_less_MR_CSharp_ExposedLayout_char.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_less_MR_CSharp_ExposedLayout_char.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }

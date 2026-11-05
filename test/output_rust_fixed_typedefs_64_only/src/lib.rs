@@ -5,6 +5,7 @@
 pub mod ffi;
 pub mod A;
 pub mod AB;
+pub mod ABC;
 pub mod AB_base;
 pub mod B;
 pub mod MR;
@@ -140,6 +141,7 @@ pub mod std_vector_MR_A;
 pub mod std_vector_MR_CSharp_A_ptr;
 pub mod std_vector_MR_CSharp_ExposedLayout;
 pub mod std_vector_MR_InstantiateOnly_A;
+pub mod std_vector_MR_SeparateABC;
 pub mod std_vector_MR_StdContainers_NonAssignable;
 pub mod std_vector_MR_StdContainers_NonDefaultConstructible;
 pub mod std_vector_const_MR_CSharp_A_ptr;
@@ -218,6 +220,7 @@ pub mod mr
     pub use crate::MR::_1::A;
     pub use crate::AB_base::ab_base::CommonBaseAB;
     pub use crate::A::a::SeparateA;
+    pub use crate::ABC::abc::SeparateABC;
     pub use crate::B::b::SeparateB;
     pub use crate::MR::_1::foo;
     pub use crate::MR::_1::bar;
@@ -225,6 +228,7 @@ pub mod mr
     pub use crate::A::a::get_separate_vec_a;
     pub use crate::B::b::get_separate_vec_b;
     pub use crate::MR::test_combined_a_b::get_combined_vec_ab;
+    pub use crate::ABC::abc::get_separate_vec_abc;
     pub mod abstract_classes
     {
         pub use crate::MR::test_abstract_classes::A;
@@ -537,6 +541,7 @@ pub mod mr
         pub use crate::MR::test_csharp::test_exposed_ptr_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::test_exposed_cptr_const_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::op_equal_mr_c_sharp_exposed_layout_b;
+        pub use crate::MR::test_csharp::op_not_equal_mr_c_sharp_exposed_layout_b;
         pub use crate::MR::test_csharp::test_optint;
         pub use crate::MR::test_csharp::test_optint_ref;
         pub use crate::MR::test_csharp::test_optint_cref;
@@ -892,6 +897,7 @@ pub mod mr
         pub use crate::std_vector_MR_CSharp_ExposedLayout::std_vector_MR_CSharp_ExposedLayout;
         pub use crate::std_vector_MR_InstantiateOnly_A::std_vector_MR_InstantiateOnly_A;
         pub use crate::AB::common::std_vector_MR_SeparateA::std_vector_MR_SeparateA;
+        pub use crate::std_vector_MR_SeparateABC::std_vector_MR_SeparateABC;
         pub use crate::AB::common::std_vector_MR_SeparateB::std_vector_MR_SeparateB;
         pub use crate::std_vector_MR_StdContainers_NonAssignable::std_vector_MR_StdContainers_NonAssignable;
         pub use crate::std_vector_MR_StdContainers_NonDefaultConstructible::std_vector_MR_StdContainers_NonDefaultConstructible;
@@ -1080,6 +1086,11 @@ pub mod mr
         pub use crate::MR::test_overloaded_operators::B;
         pub use crate::MR::test_overloaded_operators::C;
         pub use crate::MR::test_overloaded_operators::D;
+        pub use crate::MR::test_overloaded_operators::E;
+        pub use crate::MR::test_overloaded_operators::F;
+        pub use crate::MR::test_overloaded_operators::G;
+        pub use crate::MR::test_overloaded_operators::H;
+        pub use crate::MR::test_overloaded_operators::I;
         pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_neg_mr_overloaded_ops_b;
@@ -1124,6 +1135,8 @@ pub mod mr
         pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_c_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_d_ref;
         pub use crate::MR::test_overloaded_operators::op_pos_const_mr_overloaded_ops_d_ref;
+        pub use crate::MR::test_overloaded_operators::op_equal_mr_overloaded_ops_i;
+        pub use crate::MR::test_overloaded_operators::op_not_equal_mr_overloaded_ops_i;
     }
 
     pub mod overloads

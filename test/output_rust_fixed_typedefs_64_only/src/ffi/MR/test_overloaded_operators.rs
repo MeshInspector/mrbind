@@ -30,6 +30,46 @@ pub struct MR_OverloadedOps_D
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
+/// Generated from class `MR::OverloadedOps::E`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_OverloadedOps_E
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::OverloadedOps::F`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_OverloadedOps_F
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::OverloadedOps::G`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_OverloadedOps_G
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::OverloadedOps::H`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_OverloadedOps_H
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::OverloadedOps::I`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_OverloadedOps_I
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
 #[cfg_attr(windows, link(name = "bleh", kind = "raw-dylib"))]
 #[cfg_attr(not(windows), link(name = "bleh"))]
 unsafe extern "C"
@@ -78,6 +118,8 @@ unsafe extern "C"
     pub fn MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B(_1: *const crate::ffi::MR_OverloadedOps_C, _2: *const crate::ffi::MR_OverloadedOps_B);
     pub fn MR_C_pos_MR_OverloadedOps_D_ref(_1: *mut crate::ffi::MR_OverloadedOps_D) -> core::ffi::c_int;
     pub fn MR_C_pos_const_MR_OverloadedOps_D_ref(_1: *const crate::ffi::MR_OverloadedOps_D) -> core::ffi::c_int;
+    pub fn MR_C_equal_MR_OverloadedOps_I(_1: *const crate::ffi::MR_OverloadedOps_I, _2: *const crate::ffi::MR_OverloadedOps_I) -> bool;
+    pub fn MR_C_not_equal_MR_OverloadedOps_I(_1: *const crate::ffi::MR_OverloadedOps_I, _2: *const crate::ffi::MR_OverloadedOps_I) -> bool;
     pub fn MR_OverloadedOps_A_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_A) -> *mut crate::ffi::MR_OverloadedOps_A;
     pub fn MR_OverloadedOps_A_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_A, _other: *const crate::ffi::MR_OverloadedOps_A) -> core::ffi::c_int;
     pub fn MR_C_pos_MR_OverloadedOps_A(_this: *mut crate::ffi::MR_OverloadedOps_A) -> core::ffi::c_int;
@@ -138,4 +180,54 @@ unsafe extern "C"
     pub fn MR_C_deref_MR_OverloadedOps_D_ref(_this: *mut crate::ffi::MR_OverloadedOps_D) -> core::ffi::c_int;
     pub fn MR_C_deref_const_MR_OverloadedOps_D_ref(_this: *const crate::ffi::MR_OverloadedOps_D) -> core::ffi::c_int;
     pub fn MR_OverloadedOps_D_Destroy(_this: *const MR_OverloadedOps_D);
+    pub fn MR_OverloadedOps_E_DefaultConstruct() -> *mut crate::ffi::MR_OverloadedOps_E;
+    pub fn MR_OverloadedOps_E_ConstructFrom(x: core::ffi::c_int) -> *mut crate::ffi::MR_OverloadedOps_E;
+    pub fn MR_OverloadedOps_E_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_E) -> *mut crate::ffi::MR_OverloadedOps_E;
+    pub fn MR_OverloadedOps_E_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_E, _other: *const crate::ffi::MR_OverloadedOps_E) -> *mut crate::ffi::MR_OverloadedOps_E;
+    pub fn MR_C_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_C_not_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_C_less_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_C_greater_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_C_less_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_C_greater_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
+    pub fn MR_OverloadedOps_E_Get_x(_this: *const crate::ffi::MR_OverloadedOps_E) -> *const core::ffi::c_int;
+    pub fn MR_OverloadedOps_E_GetMutable_x(_this: *mut crate::ffi::MR_OverloadedOps_E) -> *mut core::ffi::c_int;
+    pub fn MR_OverloadedOps_E_Set_x(_this: *mut crate::ffi::MR_OverloadedOps_E, value: core::ffi::c_int);
+    pub fn MR_OverloadedOps_E_Destroy(_this: *const MR_OverloadedOps_E);
+    pub fn MR_OverloadedOps_F_DefaultConstruct() -> *mut crate::ffi::MR_OverloadedOps_F;
+    pub fn MR_OverloadedOps_F_ConstructFrom(x: core::ffi::c_int) -> *mut crate::ffi::MR_OverloadedOps_F;
+    pub fn MR_OverloadedOps_F_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_F) -> *mut crate::ffi::MR_OverloadedOps_F;
+    pub fn MR_OverloadedOps_F_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_F, _other: *const crate::ffi::MR_OverloadedOps_F) -> *mut crate::ffi::MR_OverloadedOps_F;
+    pub fn MR_C_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_C_not_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_C_greater_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_C_less_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_C_greater_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_C_less_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
+    pub fn MR_OverloadedOps_F_Get_x(_this: *const crate::ffi::MR_OverloadedOps_F) -> *const core::ffi::c_int;
+    pub fn MR_OverloadedOps_F_GetMutable_x(_this: *mut crate::ffi::MR_OverloadedOps_F) -> *mut core::ffi::c_int;
+    pub fn MR_OverloadedOps_F_Set_x(_this: *mut crate::ffi::MR_OverloadedOps_F, value: core::ffi::c_int);
+    pub fn MR_OverloadedOps_F_Destroy(_this: *const MR_OverloadedOps_F);
+    pub fn MR_OverloadedOps_G_DefaultConstruct() -> *mut crate::ffi::MR_OverloadedOps_G;
+    pub fn MR_OverloadedOps_G_ConstructFrom(x: core::ffi::c_int) -> *mut crate::ffi::MR_OverloadedOps_G;
+    pub fn MR_OverloadedOps_G_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_G) -> *mut crate::ffi::MR_OverloadedOps_G;
+    pub fn MR_OverloadedOps_G_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_G, _other: *const crate::ffi::MR_OverloadedOps_G) -> *mut crate::ffi::MR_OverloadedOps_G;
+    pub fn MR_C_less_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
+    pub fn MR_C_greater_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
+    pub fn MR_C_less_equal_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
+    pub fn MR_C_greater_equal_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
+    pub fn MR_OverloadedOps_G_Get_x(_this: *const crate::ffi::MR_OverloadedOps_G) -> *const core::ffi::c_int;
+    pub fn MR_OverloadedOps_G_GetMutable_x(_this: *mut crate::ffi::MR_OverloadedOps_G) -> *mut core::ffi::c_int;
+    pub fn MR_OverloadedOps_G_Set_x(_this: *mut crate::ffi::MR_OverloadedOps_G, value: core::ffi::c_int);
+    pub fn MR_OverloadedOps_G_Destroy(_this: *const MR_OverloadedOps_G);
+    pub fn MR_OverloadedOps_H_DefaultConstruct() -> *mut crate::ffi::MR_OverloadedOps_H;
+    pub fn MR_OverloadedOps_H_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_H) -> *mut crate::ffi::MR_OverloadedOps_H;
+    pub fn MR_OverloadedOps_H_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_H, _other: *const crate::ffi::MR_OverloadedOps_H) -> *mut crate::ffi::MR_OverloadedOps_H;
+    pub fn MR_C_equal_MR_OverloadedOps_H(_this: *const crate::ffi::MR_OverloadedOps_H, _1: *const crate::ffi::MR_OverloadedOps_H) -> bool;
+    pub fn MR_C_not_equal_MR_OverloadedOps_H(_this: *const crate::ffi::MR_OverloadedOps_H, _1: *const crate::ffi::MR_OverloadedOps_H) -> bool;
+    pub fn MR_OverloadedOps_H_Destroy(_this: *const MR_OverloadedOps_H);
+    pub fn MR_OverloadedOps_I_DefaultConstruct() -> *mut crate::ffi::MR_OverloadedOps_I;
+    pub fn MR_OverloadedOps_I_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_I) -> *mut crate::ffi::MR_OverloadedOps_I;
+    pub fn MR_OverloadedOps_I_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_I, _other: *const crate::ffi::MR_OverloadedOps_I) -> *mut crate::ffi::MR_OverloadedOps_I;
+    pub fn MR_OverloadedOps_I_Destroy(_this: *const MR_OverloadedOps_I);
 }

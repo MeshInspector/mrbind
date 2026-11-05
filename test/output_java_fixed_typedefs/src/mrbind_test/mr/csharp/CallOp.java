@@ -135,7 +135,7 @@ public final class CallOp extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_CallOp_call_3.invokeExact(rawPointer(), _1, _2, _3);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_CallOp_call_3.invokeExact(rawPointer(), _1, _2, _3);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
