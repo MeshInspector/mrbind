@@ -155,10 +155,10 @@ int main(int argc, char **argv)
         },
     });
     args_parser.AddFlag("--release-gil", {
-        .desc = "Release the GIL around every call into C++, e.g. for the functions that wait for other threads that call into Python. Without this, only the calls taking callables release it.",
+        .desc = "Release the GIL around the calls of the functions and the regular methods, e.g. for the ones that wait for other threads that call into Python. Not around the constructors, field accessors, operators and the methods of the containers, which never wait. Without this, only the calls taking callables release it.",
         .func = [&](mrbind::CommandLineParser::ArgSpan)
         {
-            generator.release_gil_always = true;
+            generator.release_gil_in_functions = true;
         },
     });
     args_parser.AddFlag("--hide-field", {

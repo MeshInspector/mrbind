@@ -1133,12 +1133,12 @@ namespace mrbind::Python
             Visit(info);
     }
 
-    std::optional<Generator::PreparedOverload> Generator::PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two)
+    std::optional<Generator::PreparedOverload> Generator::PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two, bool is_function)
     {
         num_funcs_total++;
         PreparedOverload ret;
         std::string checks, late, call_args, after, post;
-        bool release_gil = release_gil_always;
+        bool release_gil = release_gil_in_functions && is_function;
         std::string fail;
 
         // The C++ params in the Python order, with their slot indices.
@@ -2492,7 +2492,7 @@ namespace mrbind::Python
             {
                 if (std_function || IsIgnoredForPython(info.cpp_name + "::" + r->name))
                     continue;
-                auto ov = PrepareOverload(m, &info, m.is_static ? 0 : 1);
+                auto ov = PrepareOverload(m, &info, m.is_static ? 0 : 1, false, true);
                 if (!ov)
                     continue;
                 ov->template_py_name = TemplatePyName(r->full_name);
@@ -4420,7 +4420,7 @@ namespace mrbind::Python
             std::vector<std::string> parts = SplitQualified(reg->name);
             std::vector<std::string> ns(parts.begin(), parts.end() - 1);
             Scope &scope = GetNamespaceScope(ns);
-            auto ov = PrepareOverload(f, nullptr, 0);
+            auto ov = PrepareOverload(f, nullptr, 0, false, true);
             if (!ov)
                 continue;
             auto &list = scopes[scope.var];
