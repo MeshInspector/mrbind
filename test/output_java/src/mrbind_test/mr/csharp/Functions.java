@@ -3427,6 +3427,30 @@ public final class Functions
     }
 
     /**
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ExposedLayoutB _1, mrbind_test.mr.csharp.ExposedLayoutB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H0.MR_C_not_equal_MR_CSharp_ExposedLayoutB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
      * Generated from function `MR::CSharp::test_optint`.
      *
      * Calls `MR_CSharp_test_optint()`.
@@ -4579,7 +4603,7 @@ public final class Functions
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H0.MR_CSharp_test_uniqueptr_cptr.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), c);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_test_uniqueptr_cptr.invokeExact(mrbind_test.Ffi.ptr(a), mrbind_test.Ffi.ptr(b), c);
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = null;
             return __ret.address() == 0 ? null : new mrbind_test.mr.cs.std_unique_ptr_int(__ret, false, __owner);

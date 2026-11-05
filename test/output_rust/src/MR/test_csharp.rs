@@ -2786,6 +2786,17 @@ impl EqualityA
         __ret
     }
 
+    /// Generated from method `MR::CSharp::EqualityA::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::c_sharp::EqualityA) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityA(self as *const Self as *const crate::ffi::MR_CSharp_EqualityA, _1 as *const crate::mr::c_sharp::EqualityA as *const crate::ffi::MR_CSharp_EqualityA)};
+        crate::__check_exception();
+        __ret
+    }
+
 }
 
 unsafe impl crate::CppCopy for EqualityA
@@ -3031,6 +3042,17 @@ impl EqualityD
         __ret
     }
 
+    /// Generated from method `MR::CSharp::EqualityD::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr()`.
+    pub fn op_not_equal_const_int_ptr(&mut self, _1: Option<&core::ffi::c_int>) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityD, _1.map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
+        crate::__check_exception();
+        __ret
+    }
+
 }
 
 unsafe impl crate::CppCopy for EqualityD
@@ -3094,6 +3116,17 @@ impl EqualityE
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityE, _1.map_or(core::ptr::null_mut(), |r| r as *mut crate::mr::c_sharp::EqualityD as *mut crate::ffi::MR_CSharp_EqualityD))};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::EqualityE::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
+    pub fn op_not_equal_mr_c_sharp_equality_d_ptr(&mut self, _1: Option<&mut crate::mr::c_sharp::EqualityD>) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityE, _1.map_or(core::ptr::null_mut(), |r| r as *mut crate::mr::c_sharp::EqualityD as *mut crate::ffi::MR_CSharp_EqualityD))};
         crate::__check_exception();
         __ret
     }
@@ -3211,6 +3244,17 @@ impl ExposedLayout
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ExposedLayout_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayout, _1)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::ExposedLayout::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayout_float()`.
+    pub fn op_not_equal_float(&mut self, _1: f32) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayout_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayout, _1)};
         crate::__check_exception();
         __ret
     }
@@ -3365,6 +3409,17 @@ impl ExposedLayoutSh
         __ret
     }
 
+    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
+    pub fn op_not_equal_float(&mut self, _1: f32) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1)};
+        crate::__check_exception();
+        __ret
+    }
+
     /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
     ///
     /// Calls `MR_C_less_MR_CSharp_ExposedLayoutSh_char()`.
@@ -3388,6 +3443,17 @@ impl ExposedLayoutSh
         __ret
     }
 
+    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
+    pub fn op_not_equal_mr_c_sharp_exposed_layout(&self, _1: &crate::ffi::MR_CSharp_ExposedLayout) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayout as *const crate::ffi::MR_CSharp_ExposedLayout)};
+        crate::__check_exception();
+        __ret
+    }
+
     /// And against itself, too.
     /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
     ///
@@ -3396,6 +3462,17 @@ impl ExposedLayoutSh
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ExposedLayoutSh(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
+    pub fn op_not_equal(&self, _1: &crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
         crate::__check_exception();
         __ret
     }
@@ -6388,6 +6465,17 @@ impl IterableK_Iter
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(self as *mut Self as *mut crate::ffi::MR_CSharp_IterableK_Iter, s as *const crate::mr::c_sharp::IterableK_Sentinel as *const crate::ffi::MR_CSharp_IterableK_Sentinel)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
+    pub fn op_not_equal_mr_c_sharp_iterable_k_sentinel(&mut self, s: &crate::mr::c_sharp::IterableK_Sentinel) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(self as *mut Self as *mut crate::ffi::MR_CSharp_IterableK_Iter, s as *const crate::mr::c_sharp::IterableK_Sentinel as *const crate::ffi::MR_CSharp_IterableK_Sentinel)};
         crate::__check_exception();
         __ret
     }
@@ -11013,6 +11101,50 @@ impl TestOpsA
         __ret
     }
 
+    /// Generated from method `MR::CSharp::TestOpsA::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_CSharp_TestOpsA()`.
+    pub fn op_less(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsA::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_CSharp_TestOpsA()`.
+    pub fn op_greater(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsA::operator<=`.
+    ///
+    /// Calls `MR_C_less_equal_MR_CSharp_TestOpsA()`.
+    pub fn op_less_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsA::operator>=`.
+    ///
+    /// Calls `MR_C_greater_equal_MR_CSharp_TestOpsA()`.
+    pub fn op_greater_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
+        crate::__check_exception();
+        __ret
+    }
+
     /// Generated from method `MR::CSharp::TestOpsA::operator&&`.
     ///
     /// Calls `MR_C_and_MR_CSharp_TestOpsA()`.
@@ -11427,6 +11559,50 @@ impl TestOpsB
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsB::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_CSharp_TestOpsB()`.
+    pub fn op_less(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsB::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_CSharp_TestOpsB()`.
+    pub fn op_greater(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsB::operator<=`.
+    ///
+    /// Calls `MR_C_less_equal_MR_CSharp_TestOpsB()`.
+    pub fn op_less_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::TestOpsB::operator>=`.
+    ///
+    /// Calls `MR_C_greater_equal_MR_CSharp_TestOpsB()`.
+    pub fn op_greater_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
         crate::__check_exception();
         __ret
     }
@@ -14032,6 +14208,17 @@ pub fn op_equal_mr_c_sharp_exposed_layout_b(_1: &crate::ffi::MR_CSharp_ExposedLa
 {
     crate::__init_exceptions();
     let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ExposedLayoutB(_1 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB, _2 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator!=`.
+///
+/// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
+pub fn op_not_equal_mr_c_sharp_exposed_layout_b(_1: &crate::ffi::MR_CSharp_ExposedLayoutB, _2: &crate::ffi::MR_CSharp_ExposedLayoutB) -> bool
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB, _2 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB)};
     crate::__check_exception();
     __ret
 }

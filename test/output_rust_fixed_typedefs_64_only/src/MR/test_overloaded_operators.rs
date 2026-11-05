@@ -639,6 +639,529 @@ unsafe impl crate::CppCopy for D
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
 }
 
+/// Generated from class `MR::OverloadedOps::E`.
+///
+/// Generated from class `MR::OverloadedOps::E`. Heap-allocated instances are held in `Owned<E>`.
+#[repr(transparent)]
+pub struct E(crate::ffi::MR_OverloadedOps_E);
+
+unsafe impl crate::CppClass for E
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_OverloadedOps_E_Destroy(ptr as *const crate::ffi::MR_OverloadedOps_E)}
+}
+
+impl E
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_OverloadedOps_E_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::overloaded_ops::E>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::E)}
+    }
+
+    /// Constructs `MR::OverloadedOps::E` elementwise.
+    ///
+    /// Calls `MR_OverloadedOps_E_ConstructFrom()`.
+    pub fn construct_from(x: core::ffi::c_int) -> crate::Owned<crate::mr::overloaded_ops::E>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_ConstructFrom(x)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::E)}
+    }
+
+    /// Generated from constructor `MR::OverloadedOps::E::E`.
+    ///
+    /// Calls `MR_OverloadedOps_E_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::overloaded_ops::E) -> crate::Owned<crate::mr::overloaded_ops::E>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_ConstructFromAnother(_other as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::E)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator=`.
+    ///
+    /// Calls `MR_OverloadedOps_E_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::overloaded_ops::E) -> &mut crate::mr::overloaded_ops::E
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_E, _other as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::E)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_OverloadedOps_E()`.
+    pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_OverloadedOps_E()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_OverloadedOps_E()`.
+    pub fn op_less(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_OverloadedOps_E()`.
+    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator<=`.
+    ///
+    /// Calls `MR_C_less_equal_MR_OverloadedOps_E()`.
+    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::E::operator>=`.
+    ///
+    /// Calls `MR_C_greater_equal_MR_OverloadedOps_E()`.
+    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::OverloadedOps::E` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_E_Get_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_Get_x(self as *const Self as *const crate::ffi::MR_OverloadedOps_E)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::OverloadedOps::E` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_E_GetMutable_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_GetMutable_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_E)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::OverloadedOps::E` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_E_Set_x()`.
+    pub fn set_x(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_E_Set_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_E, value)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for E
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::OverloadedOps::F`.
+///
+/// Generated from class `MR::OverloadedOps::F`. Heap-allocated instances are held in `Owned<F>`.
+#[repr(transparent)]
+pub struct F(crate::ffi::MR_OverloadedOps_F);
+
+unsafe impl crate::CppClass for F
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_OverloadedOps_F_Destroy(ptr as *const crate::ffi::MR_OverloadedOps_F)}
+}
+
+impl F
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_OverloadedOps_F_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::overloaded_ops::F>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::F)}
+    }
+
+    /// Constructs `MR::OverloadedOps::F` elementwise.
+    ///
+    /// Calls `MR_OverloadedOps_F_ConstructFrom()`.
+    pub fn construct_from(x: core::ffi::c_int) -> crate::Owned<crate::mr::overloaded_ops::F>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_ConstructFrom(x)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::F)}
+    }
+
+    /// Generated from constructor `MR::OverloadedOps::F::F`.
+    ///
+    /// Calls `MR_OverloadedOps_F_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::overloaded_ops::F) -> crate::Owned<crate::mr::overloaded_ops::F>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_ConstructFromAnother(_other as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::F)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator=`.
+    ///
+    /// Calls `MR_OverloadedOps_F_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::overloaded_ops::F) -> &mut crate::mr::overloaded_ops::F
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_F, _other as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::F)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_OverloadedOps_F()`.
+    pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_OverloadedOps_F()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_OverloadedOps_F()`.
+    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator<=`.
+    ///
+    /// Calls `MR_C_less_equal_MR_OverloadedOps_F()`.
+    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::F::operator>=`.
+    ///
+    /// Calls `MR_C_greater_equal_MR_OverloadedOps_F()`.
+    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Declared, so it isn't added once more.
+    /// Generated from method `MR::OverloadedOps::F::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_OverloadedOps_F()`.
+    pub fn op_less(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::OverloadedOps::F` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_F_Get_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_Get_x(self as *const Self as *const crate::ffi::MR_OverloadedOps_F)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::OverloadedOps::F` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_F_GetMutable_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_GetMutable_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_F)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::OverloadedOps::F` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_F_Set_x()`.
+    pub fn set_x(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_F_Set_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_F, value)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for F
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::OverloadedOps::G`.
+///
+/// Generated from class `MR::OverloadedOps::G`. Heap-allocated instances are held in `Owned<G>`.
+#[repr(transparent)]
+pub struct G(crate::ffi::MR_OverloadedOps_G);
+
+unsafe impl crate::CppClass for G
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_OverloadedOps_G_Destroy(ptr as *const crate::ffi::MR_OverloadedOps_G)}
+}
+
+impl G
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_OverloadedOps_G_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::overloaded_ops::G>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::G)}
+    }
+
+    /// Constructs `MR::OverloadedOps::G` elementwise.
+    ///
+    /// Calls `MR_OverloadedOps_G_ConstructFrom()`.
+    pub fn construct_from(x: core::ffi::c_int) -> crate::Owned<crate::mr::overloaded_ops::G>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_ConstructFrom(x)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::G)}
+    }
+
+    /// Generated from constructor `MR::OverloadedOps::G::G`.
+    ///
+    /// Calls `MR_OverloadedOps_G_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::overloaded_ops::G) -> crate::Owned<crate::mr::overloaded_ops::G>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_ConstructFromAnother(_other as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::G)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::G::operator=`.
+    ///
+    /// Calls `MR_OverloadedOps_G_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::overloaded_ops::G) -> &mut crate::mr::overloaded_ops::G
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_G, _other as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::G)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::G::operator<`.
+    ///
+    /// Calls `MR_C_less_MR_OverloadedOps_G()`.
+    pub fn op_less(&self, _1: &crate::mr::overloaded_ops::G) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::G::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_OverloadedOps_G()`.
+    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::G) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::G::operator<=`.
+    ///
+    /// Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
+    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::G) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::G::operator>=`.
+    ///
+    /// Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
+    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::G) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        __ret
+    }
+
+    /// Returns a pointer to a member variable of class `MR::OverloadedOps::G` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_G_Get_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x<'a>(&'a self) -> &'a core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_Get_x(self as *const Self as *const crate::ffi::MR_OverloadedOps_G)};
+        unsafe {&*(__ret as *const core::ffi::c_int)}
+    }
+
+    /// Returns a mutable pointer to a member variable of class `MR::OverloadedOps::G` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_G_GetMutable_x()`.
+    /// The reference to this object might be preserved as the return value.
+    pub fn x_mut<'a>(&'a mut self) -> &'a mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_GetMutable_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_G)};
+        unsafe {&mut *(__ret as *mut core::ffi::c_int)}
+    }
+
+    /// Modifies a member variable of class `MR::OverloadedOps::G` named `x`.
+    ///
+    /// Calls `MR_OverloadedOps_G_Set_x()`.
+    pub fn set_x(&mut self, value: core::ffi::c_int)
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_G_Set_x(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_G, value)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for G
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::OverloadedOps::H`.
+///
+/// Generated from class `MR::OverloadedOps::H`. Heap-allocated instances are held in `Owned<H>`.
+#[repr(transparent)]
+pub struct H(crate::ffi::MR_OverloadedOps_H);
+
+unsafe impl crate::CppClass for H
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_OverloadedOps_H_Destroy(ptr as *const crate::ffi::MR_OverloadedOps_H)}
+}
+
+impl H
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_OverloadedOps_H_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::overloaded_ops::H>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_H_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::H)}
+    }
+
+    /// Generated from constructor `MR::OverloadedOps::H::H`.
+    ///
+    /// Calls `MR_OverloadedOps_H_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::overloaded_ops::H) -> crate::Owned<crate::mr::overloaded_ops::H>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_H_ConstructFromAnother(_other as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::H)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::H::operator=`.
+    ///
+    /// Calls `MR_OverloadedOps_H_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::overloaded_ops::H) -> &mut crate::mr::overloaded_ops::H
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_H_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_H, _other as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
+        unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::H)}
+    }
+
+    /// Gives `!=`.
+    /// Generated from method `MR::OverloadedOps::H::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_OverloadedOps_H()`.
+    pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::H) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_H(self as *const Self as *const crate::ffi::MR_OverloadedOps_H, _1 as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
+        __ret
+    }
+
+    /// Generated from method `MR::OverloadedOps::H::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_OverloadedOps_H()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::H) -> bool
+    {
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_H(self as *const Self as *const crate::ffi::MR_OverloadedOps_H, _1 as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for H
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::OverloadedOps::I`.
+///
+/// Generated from class `MR::OverloadedOps::I`. Heap-allocated instances are held in `Owned<I>`.
+#[repr(transparent)]
+pub struct I(crate::ffi::MR_OverloadedOps_I);
+
+unsafe impl crate::CppClass for I
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_OverloadedOps_I_Destroy(ptr as *const crate::ffi::MR_OverloadedOps_I)}
+}
+
+impl I
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_OverloadedOps_I_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::overloaded_ops::I>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_I_DefaultConstruct()};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::I)}
+    }
+
+    /// Generated from constructor `MR::OverloadedOps::I::I`.
+    ///
+    /// Calls `MR_OverloadedOps_I_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::overloaded_ops::I) -> crate::Owned<crate::mr::overloaded_ops::I>
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_I_ConstructFromAnother(_other as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::overloaded_ops::I)}
+    }
+
+    /// Generated from method `MR::OverloadedOps::I::operator=`.
+    ///
+    /// Calls `MR_OverloadedOps_I_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::overloaded_ops::I) -> &mut crate::mr::overloaded_ops::I
+    {
+        let __ret = unsafe {crate::ffi::MR_OverloadedOps_I_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_OverloadedOps_I, _other as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
+        unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::I)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for I
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
 /// Unary plus.
 /// Generated from function `MR::OverloadedOps::operator+`.
 ///
@@ -1076,6 +1599,25 @@ pub fn op_pos_mr_overloaded_ops_d_ref(_1: &mut crate::mr::overloaded_ops::D) -> 
 pub fn op_pos_const_mr_overloaded_ops_d_ref(_1: &crate::mr::overloaded_ops::D) -> core::ffi::c_int
 {
     let __ret = unsafe {crate::ffi::MR_C_pos_const_MR_OverloadedOps_D_ref(_1 as *const crate::mr::overloaded_ops::D as *const crate::ffi::MR_OverloadedOps_D)};
+    __ret
+}
+
+/// Gives a free `!=`.
+/// Generated from function `MR::OverloadedOps::operator==`.
+///
+/// Calls `MR_C_equal_MR_OverloadedOps_I()`.
+pub fn op_equal_mr_overloaded_ops_i(_1: &crate::mr::overloaded_ops::I, _2: &crate::mr::overloaded_ops::I) -> bool
+{
+    let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_I(_1 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I, _2 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
+    __ret
+}
+
+/// Generated from function `MR::OverloadedOps::operator!=`.
+///
+/// Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
+pub fn op_not_equal_mr_overloaded_ops_i(_1: &crate::mr::overloaded_ops::I, _2: &crate::mr::overloaded_ops::I) -> bool
+{
+    let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_I(_1 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I, _2 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
     __ret
 }
 

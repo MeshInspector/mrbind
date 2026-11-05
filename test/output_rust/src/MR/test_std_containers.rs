@@ -113,6 +113,17 @@ impl NonAssignable
         __ret
     }
 
+    /// Generated from method `MR::StdContainers::NonAssignable::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_StdContainers_NonAssignable()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::std_containers::NonAssignable) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_StdContainers_NonAssignable(self as *const Self as *const crate::ffi::MR_StdContainers_NonAssignable, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::std_containers::NonAssignable as *mut crate::ffi::MR_StdContainers_NonAssignable)};
+        crate::__check_exception();
+        __ret
+    }
+
 }
 
 unsafe impl crate::CppCopy for NonAssignable

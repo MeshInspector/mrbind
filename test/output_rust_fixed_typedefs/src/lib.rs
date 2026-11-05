@@ -533,6 +533,7 @@ pub mod mr
         pub use crate::MR::test_csharp::test_exposed_ptr_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::test_exposed_cptr_const_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::op_equal_mr_c_sharp_exposed_layout_b;
+        pub use crate::MR::test_csharp::op_not_equal_mr_c_sharp_exposed_layout_b;
         pub use crate::MR::test_csharp::test_optint;
         pub use crate::MR::test_csharp::test_optint_ref;
         pub use crate::MR::test_csharp::test_optint_cref;
@@ -1108,6 +1109,11 @@ pub mod mr
         pub use crate::MR::test_overloaded_operators::B;
         pub use crate::MR::test_overloaded_operators::C;
         pub use crate::MR::test_overloaded_operators::D;
+        pub use crate::MR::test_overloaded_operators::E;
+        pub use crate::MR::test_overloaded_operators::F;
+        pub use crate::MR::test_overloaded_operators::G;
+        pub use crate::MR::test_overloaded_operators::H;
+        pub use crate::MR::test_overloaded_operators::I;
         pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_neg_mr_overloaded_ops_b;
@@ -1152,6 +1158,8 @@ pub mod mr
         pub use crate::MR::test_overloaded_operators::op_add_mr_overloaded_ops_c_mr_overloaded_ops_b;
         pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_d_ref;
         pub use crate::MR::test_overloaded_operators::op_pos_const_mr_overloaded_ops_d_ref;
+        pub use crate::MR::test_overloaded_operators::op_equal_mr_overloaded_ops_i;
+        pub use crate::MR::test_overloaded_operators::op_not_equal_mr_overloaded_ops_i;
     }
 
     pub mod overloads

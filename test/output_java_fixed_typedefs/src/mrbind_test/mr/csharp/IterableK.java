@@ -38,7 +38,7 @@ public final class IterableK extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableK_DefaultConstruct.invokeExact();
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_DefaultConstruct.invokeExact();
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -63,7 +63,7 @@ public final class IterableK extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableK_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -87,7 +87,7 @@ public final class IterableK extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableK_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.IterableK(__ret, false, __owner);
@@ -114,7 +114,7 @@ public final class IterableK extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableK_begin.invokeExact(rawPointer());
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_begin.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.csharp.IterableK_Iter(__ret, true, null);
         }
@@ -138,7 +138,7 @@ public final class IterableK extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableK_end.invokeExact(rawPointer());
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableK_end.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return new mrbind_test.mr.csharp.IterableK_Sentinel(__ret, true, null);
         }

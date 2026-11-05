@@ -40,7 +40,7 @@ public final class ExposedLayoutB extends mrbind_test.CppStruct
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutB_Construct_2.invokeExact((java.lang.foreign.SegmentAllocator)java.lang.foreign.Arena.ofAuto(), _1, _2);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutB_Construct_2.invokeExact((java.lang.foreign.SegmentAllocator)java.lang.foreign.Arena.ofAuto(), _1, _2);
             mrbind_test.Ffi.checkException();
             return __ret;
         }

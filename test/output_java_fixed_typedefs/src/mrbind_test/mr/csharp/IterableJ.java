@@ -16,7 +16,7 @@ public final class IterableJ extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableJ_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableJ_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -188,7 +188,7 @@ public final class IterableJ extends mrbind_test.CppObject
     {
         try
         {
-            long __ret = (long)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_IterableJ_GetSize_arr.invokeExact();
+            long __ret = (long)mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_IterableJ_GetSize_arr.invokeExact();
             mrbind_test.Ffi.checkException();
             return __ret;
         }

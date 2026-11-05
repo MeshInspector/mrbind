@@ -114,7 +114,7 @@ public final class C extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_C_foo.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_C_foo.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
