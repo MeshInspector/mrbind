@@ -53,6 +53,9 @@ namespace mrbind::Python
         std::string depends_on;
         // Splits the module into `<module>.cpp`, `<module>_1.cpp`, ... `<module>_<N-1>.cpp` with a common `<module>.h`, to compile them in parallel.
         std::size_t num_fragments = 1;
+        // Release the GIL around the calls of the functions and the regular methods, not only the ones taking callables.
+        // Not around the constructors, field accessors, operators and the methods of the containers: those never wait for other threads.
+        bool release_gil_in_functions = false;
         [[nodiscard]] bool IsIgnoredCFile(const std::string &relative_name) const;
         // ]
 
@@ -199,7 +202,7 @@ namespace mrbind::Python
         // `self_kind`: 0 = no self, 1 = a method (`this` is slot 0), 2 = a constructor (slot 0 is the instance being initialized),
         //   4 = a conversion operator as a constructor of `this_type` (slot 0 is the instance being initialized, slot 1 is the converted object).
         // `swap_first_two` is for the reflected operators (`__rmul__`): Python passes the class instance first.
-        [[nodiscard]] std::optional<PreparedOverload> PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two = false);
+        [[nodiscard]] std::optional<PreparedOverload> PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two = false, bool is_function = false);
 
         // Emits a dispatch group and returns the `PyMethodDef` variable name.
         [[nodiscard]] std::string EmitGroup(const GroupEntry &group, const TypeInfo *cls, bool is_method, bool is_init, int py_flags_extra = 0);

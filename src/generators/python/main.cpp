@@ -122,7 +122,7 @@ int main(int argc, char **argv)
     args_parser.AddFlag("--ignore-for-python", {
         .allow_repeat = true,
         .arg_names = {"regex"},
-        .desc = "Skip the entities whose C++ names match this regex, for the `MR_BIND_IGNORE_PY`-like annotations that the C bindings don't see.",
+        .desc = "Skip the entities whose C++ names match this regex, for the `MR_BIND_IGNORE_PY`-like annotations that the C bindings don't see. With `--depends-on`, the matching classes and enums of the ignored C files aren't taken from the other module either, e.g. the ones of another sub-library.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.ignored_for_python.push_back(std::string(args[0]));
@@ -152,6 +152,13 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             generator.iterate_by_index_regexes.push_back(std::string(args[0]));
+        },
+    });
+    args_parser.AddFlag("--release-gil", {
+        .desc = "Release the GIL around the calls of the functions and the regular methods, e.g. for the ones that wait for other threads that call into Python. Not around the constructors, field accessors, operators and the methods of the containers, which never wait. Without this, only the calls taking callables release it.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan)
+        {
+            generator.release_gil_in_functions = true;
         },
     });
     args_parser.AddFlag("--hide-field", {

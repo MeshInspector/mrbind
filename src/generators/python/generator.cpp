@@ -794,6 +794,9 @@ namespace mrbind::Python
                     continue;
                 foreign = true;
             }
+            // Not in the module it depends on either, e.g. the types of another sub-library.
+            if (foreign && IsIgnoredForPython(cpp_name))
+                continue;
             TypeInfo info;
             info.cpp_name = cpp_name;
             info.foreign = foreign;
@@ -928,13 +931,15 @@ namespace mrbind::Python
                 if (StartsWith(st.base, "std::optional<") && st.base != owner && !(by_value_return && !st.is_ptr && !st.is_ref))
                     needs_class.insert(st.base);
             };
-            for (const auto &[cpp_name, info] : types)
+            // All classes of the description, also of the ignored C files: the modules generated from it with `--depends-on` must agree.
+            for (const auto &[cpp_name, type] : c_desc.cpp_types.Map())
             {
-                if (!info.IsClass())
+                const auto *c = std::get_if<CInterop::TypeKinds::Class>(&type.var);
+                if (!c)
                     continue;
-                for (const auto &f : info.class_desc->fields)
+                for (const auto &f : c->fields)
                     Note(f.type, false, cpp_name);
-                for (const auto &m : info.class_desc->methods)
+                for (const auto &m : c->methods)
                 {
                     for (const auto &p : m.params)
                         if (!p.is_this_param)
@@ -1128,12 +1133,12 @@ namespace mrbind::Python
             Visit(info);
     }
 
-    std::optional<Generator::PreparedOverload> Generator::PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two)
+    std::optional<Generator::PreparedOverload> Generator::PrepareOverload(const CInterop::BasicFuncLike &func, const TypeInfo *this_type, int self_kind, bool swap_first_two, bool is_function)
     {
         num_funcs_total++;
         PreparedOverload ret;
         std::string checks, late, call_args, after, post;
-        bool release_gil = false;
+        bool release_gil = release_gil_in_functions && is_function;
         std::string fail;
 
         // The C++ params in the Python order, with their slot indices.
@@ -2487,7 +2492,7 @@ namespace mrbind::Python
             {
                 if (std_function || IsIgnoredForPython(info.cpp_name + "::" + r->name))
                     continue;
-                auto ov = PrepareOverload(m, &info, m.is_static ? 0 : 1);
+                auto ov = PrepareOverload(m, &info, m.is_static ? 0 : 1, false, true);
                 if (!ov)
                     continue;
                 ov->template_py_name = TemplatePyName(r->full_name);
@@ -4415,7 +4420,7 @@ namespace mrbind::Python
             std::vector<std::string> parts = SplitQualified(reg->name);
             std::vector<std::string> ns(parts.begin(), parts.end() - 1);
             Scope &scope = GetNamespaceScope(ns);
-            auto ov = PrepareOverload(f, nullptr, 0);
+            auto ov = PrepareOverload(f, nullptr, 0, false, true);
             if (!ov)
                 continue;
             auto &list = scopes[scope.var];
