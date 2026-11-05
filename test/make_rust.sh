@@ -19,6 +19,7 @@ build/mrbind_gen_rust \
     --imported-split-lib-name MR_A_ bleh_A \
     --imported-split-lib-name MR_B_ bleh_B \
     --imported-split-lib-name MR_AB_ bleh_AB \
+    --skip-split-lib MR_ABC_ \
 
 build/mrbind_gen_rust \
     --input-json test/output_c_fixed_typedefs_64_only/desc.json \
