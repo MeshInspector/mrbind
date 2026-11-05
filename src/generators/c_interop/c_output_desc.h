@@ -760,5 +760,9 @@ namespace mrbind::CInterop
             else
                 return nullptr;
         }
+
+        // Removes anything belonging to the specified sub-library `group` (which is the macro prefix as passed to `--split-library` of the C generator).
+        // Make sure the kept sub-libraries don't depend on the removed ones.
+        void RemoveSplitLibrary(std::string_view group);
     };
 }
