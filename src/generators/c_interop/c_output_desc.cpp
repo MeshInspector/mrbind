@@ -31,23 +31,27 @@ namespace mrbind::CInterop
         }
     }
 
-    void RemoveSplitLibrary(OutputDesc &desc, std::string_view group)
+    void OutputDesc::RemoveSplitLibrary(std::string_view group)
     {
-        OrderedMap<std::string, TypeDesc> kept_types;
-        for (const std::string &name : desc.cpp_types.Vec())
-        {
-            TypeDesc &type = desc.cpp_types.FindMutable(name)->second;
-            const OutputFile *file = nullptr;
-            if (auto e = std::get_if<TypeKinds::Enum>(&type.var))
-                file = &e->output_file;
-            else if (auto c = std::get_if<TypeKinds::Class>(&type.var))
-                file = &c->output_file;
-            if (!file || file->group != group)
-                kept_types.TryEmplace(name, std::move(type));
-        }
-        desc.cpp_types = std::move(kept_types);
+        { // Filter types.
+            OrderedMap<std::string, TypeDesc> kept_types;
+            for (const std::string &name : cpp_types.Vec())
+            {
+                TypeDesc &type = cpp_types.FindMutable(name)->second;
 
-        std::erase_if(desc.functions, [&](const Function &f){return f.output_file.group == group;});
-        std::erase_if(desc.typedefs, [&](const Typedef &t){return t.output_file.group == group;});
+                const OutputFile *file = nullptr;
+                if (auto e = std::get_if<TypeKinds::Enum>(&type.var))
+                    file = &e->output_file;
+                else if (auto c = std::get_if<TypeKinds::Class>(&type.var))
+                    file = &c->output_file;
+
+                if (!file || file->group != group)
+                    kept_types.TryEmplace(name, std::move(type));
+            }
+            cpp_types = std::move(kept_types);
+        }
+
+        std::erase_if(functions, [&](const Function &f){return f.output_file.group == group;});
+        std::erase_if(typedefs, [&](const Typedef &t){return t.output_file.group == group;});
     }
 }

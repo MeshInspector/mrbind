@@ -1236,6 +1236,39 @@ public static partial class MR
             public override bool Equals(object? other) {return base.Equals(other);}
         }
 
+        public unsafe struct ConstPtrSeparateABC : IEquatable<ConstPtrSeparateABC>
+        {
+            public readonly MR.CS.Const_SeparateABC Deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void Incr()
+            {
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void Decr()
+            {
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.Const_SeparateABC._Underlying *Ptr;
+
+            internal ConstPtrSeparateABC(MR.CS.Const_SeparateABC._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.Const_SeparateABC this[nint i]
+            {
+                get
+                {
+                    return new(__MR_SeparateABC_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(ConstPtrSeparateABC a, ConstPtrSeparateABC b) {return a.Equals(b);}
+            public static bool operator!=(ConstPtrSeparateABC a, ConstPtrSeparateABC b) {return !a.Equals(b);}
+            public readonly bool Equals(ConstPtrSeparateABC other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
         public unsafe struct ConstPtrSeparateB : IEquatable<ConstPtrSeparateB>
         {
             public readonly MR.CS.Const_SeparateB Deref()
@@ -1546,6 +1579,39 @@ public static partial class MR
             public static unsafe bool operator==(PtrSeparateA a, PtrSeparateA b) {return a.Equals(b);}
             public static bool operator!=(PtrSeparateA a, PtrSeparateA b) {return !a.Equals(b);}
             public readonly bool Equals(PtrSeparateA other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
+        public unsafe struct PtrSeparateABC : IEquatable<PtrSeparateABC>
+        {
+            public readonly MR.CS.SeparateABC Deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void Incr()
+            {
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void Decr()
+            {
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.SeparateABC._Underlying *Ptr;
+
+            internal PtrSeparateABC(MR.CS.SeparateABC._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.SeparateABC this[nint i]
+            {
+                get
+                {
+                    return new(__MR_SeparateABC_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(PtrSeparateABC a, PtrSeparateABC b) {return a.Equals(b);}
+            public static bool operator!=(PtrSeparateABC a, PtrSeparateABC b) {return !a.Equals(b);}
+            public readonly bool Equals(PtrSeparateABC other) {return base.Equals(other);}
             public override bool Equals(object? other) {return base.Equals(other);}
         }
 
@@ -2093,6 +2159,9 @@ public static partial class MR
 
         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_OffsetPtr", ExactSpelling = true)]
         extern static unsafe MR.CS.Const_A._Underlying *__MR_A_OffsetPtr(MR.CS.Const_A._Underlying *ptr, nint i);
+
+        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateABC_OffsetPtr", ExactSpelling = true)]
+        extern static unsafe MR.CS.Const_SeparateABC._Underlying *__MR_SeparateABC_OffsetPtr(MR.CS.Const_SeparateABC._Underlying *ptr, nint i);
 
         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateA_OffsetPtr", ExactSpelling = true)]
         extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_SeparateA_OffsetPtr(MR.CS.Const_SeparateA._Underlying *ptr, nint i);
