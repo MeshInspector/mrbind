@@ -1964,6 +1964,8 @@ namespace mrbind
                         clang::printTemplateArgumentList(ss, targs->asArray(), printing_policies.normal, method->getTemplateSpecializationInfo()->getTemplate()->getTemplateParameters());
                         *new_ctor.template_args = RoundtripTemplateArgumentListThroughCppdecl(std::move(*new_ctor.template_args), *ci, *params, true);
                     }
+
+                    new_ctor.is_implicit_or_defaulted = method->isImplicit() || method->isDefaulted();
                 }
                 else
                 {
@@ -2015,6 +2017,8 @@ namespace mrbind
 
                         if (new_method.assignment_kind != CopyMoveKind{})
                             new_method.is_trivial_assignment = method->isTrivial();
+
+                        new_method.is_implicit_or_defaulted = method->isImplicit() || method->isDefaulted();
                     }
 
                     basic_func = basic_ret_class_func;
@@ -2116,6 +2120,7 @@ namespace mrbind
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.is_noexcept = clang::isNoexceptExceptionSpec(decl->getExceptionSpecType());
             new_func.overload_suffix = GetOverloadSuffixFromCustomAttribute(*decl);
+            new_func.is_implicit_or_defaulted = decl->isImplicit() || decl->isDefaulted();
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
             // Infer lifetime for `begin`/`end`, and for dereferencing.

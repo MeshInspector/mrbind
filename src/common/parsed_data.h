@@ -522,6 +522,9 @@ namespace mrbind
             // Name with all scope qualifiers and template arguments added.
             (std::string)(full_qual_name)
 
+            // This can be true for comparison operators `==` and `<=>` (and also for various class members, but those are represented by other structs).
+            (bool)(is_implicit_or_defaulted, false)
+
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)
         , // Bases:
@@ -608,6 +611,9 @@ namespace mrbind
             // Other kinds of functions don't have this, because for them we store the name with and without the template arguments,
             //   and for them you just take a substring on the name with arguments.
             (std::optional<std::string>)(template_args)
+
+            // Is this implicitly generated or `=default`ed in class body?
+            (bool)(is_implicit_or_defaulted, false)
         , // Bases:
             (BasicFunc)
         )
@@ -631,6 +637,10 @@ namespace mrbind
             (CopyMoveKind)(assignment_kind, CopyMoveKind::none)
             // This can only be true for copy/move assignments.
             (bool)(is_trivial_assignment, false)
+
+            // Is this implicitly generated or `=default`ed in class body?
+            // This can be true for assignments and comparison operators `==` and `<=>` (and also for constructors, but that's a different struct).
+            (bool)(is_implicit_or_defaulted, false)
         , // Bases:
             (BasicReturningClassFunc)
         )
