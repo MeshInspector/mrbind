@@ -6,7 +6,7 @@
 
 #include <algorithm>
 #include <cassert>
-#include <concepts>
+#include <compare> // IWYU pragma: keep.
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -95,7 +95,7 @@ namespace mrbind
             (std::optional<std::string>)(virtual_base)
         )
 
-        friend bool operator==(const DeclInheritedFrom &, const DeclInheritedFrom &) = default;
+        friend auto operator<=>(const DeclInheritedFrom &, const DeclInheritedFrom &) = default;
     };
 
     // ---
@@ -108,6 +108,8 @@ namespace mrbind
             // With all typedefs expanded, and with all scope qualifiers added.
             (std::string)(canonical)
         )
+
+        friend auto operator<=>(const Type &, const Type &) = default;
     };
 
     // ---
@@ -523,7 +525,11 @@ namespace mrbind
             (std::string)(full_qual_name)
 
             // This can be true for comparison operators `==` and `<=>` (and also for various class members, but those are represented by other structs).
+            // If `is_rewritten_comparison == true`, this will be false.
             (bool)(is_implicit_or_defaulted, false)
+
+            // Is this a comparison operator generated from `==` or `<=>`? This is performed by our parser, emulating C++20 behavior.
+            (bool)(is_rewritten_comparison, false)
 
             // A path to the file where this is defined.
             (DeclFileName)(declared_in_file)
@@ -641,6 +647,9 @@ namespace mrbind
             // Is this implicitly generated or `=default`ed in class body?
             // This can be true for assignments and comparison operators `==` and `<=>` (and also for constructors, but that's a different struct).
             (bool)(is_implicit_or_defaulted, false)
+
+            // Is this a comparison operator generated from `==` or `<=>`? This is performed by our parser, emulating C++20 behavior.
+            (bool)(is_rewritten_comparison, false)
         , // Bases:
             (BasicReturningClassFunc)
         )
@@ -842,10 +851,10 @@ namespace mrbind
         }
 
         Entity() = default;
-        Entity(const Entity &other) : variant(std::make_unique<EntityVariant>(*other.variant)) {}
-        Entity(Entity &&other) : variant(std::make_unique<EntityVariant>(std::move(*other.variant))) {}
-        Entity &operator=(const Entity &other) {variant = std::make_unique<EntityVariant>(*other.variant); return *this;}
-        Entity &operator=(Entity &&other) {variant = std::make_unique<EntityVariant>(std::move(*other.variant)); return *this;}
+        Entity(const Entity &other) : variant(other.variant ? std::make_unique<EntityVariant>(*other.variant) : nullptr) {}
+        Entity(Entity &&other) : variant(other.variant ? std::make_unique<EntityVariant>(std::move(*other.variant)) : nullptr) {}
+        Entity &operator=(const Entity &other) {variant = (other.variant ? std::make_unique<EntityVariant>(*other.variant) : nullptr); return *this;}
+        Entity &operator=(Entity &&other) {variant = (other.variant ? std::make_unique<EntityVariant>(std::move(*other.variant)) : nullptr); return *this;}
 
         void VisitTypes(const std::function<void(Type &type)> &func)
         {

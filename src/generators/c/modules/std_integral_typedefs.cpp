@@ -7,7 +7,6 @@
 namespace mrbind::C::Modules
 {
     // Handles various typedefs from `<stddef.h>` and `<stdint.h>`.
-    // Since those shouldn't appear in canonical parsed type names, this is primarily to simplify writing custom bindings.
     struct StdIntegralTypedefs : DeriveModule<StdIntegralTypedefs>
     {
         struct TargetType

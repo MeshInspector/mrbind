@@ -1,5 +1,6 @@
 #pragma once
 
+#include <compare>
 #include <filesystem>
 #include <functional>
 #include <iostream>
@@ -1743,6 +1744,81 @@ namespace MR::CSharp
                 std::cout << "f7 = null\n";
             }
         }
+    };
+
+
+    // Test `<compare>`.
+
+    // We only support return usages for now.
+
+    inline std::strong_ordering returns_strong_ordering() {return std::strong_ordering::less;}
+    inline std::weak_ordering returns_weak_ordering() {return std::weak_ordering::less;}
+    inline std::partial_ordering returns_partial_ordering() {return std::partial_ordering::less;}
+
+    // // All those don't work because we don't ensure binary compatibility: [
+
+    // inline std::strong_ordering default_strong_ordering = std::strong_ordering::less;
+    // inline std::weak_ordering default_weak_ordering = std::weak_ordering::less;
+    // inline std::partial_ordering default_partial_ordering = std::partial_ordering::less;
+
+    // inline const std::strong_ordering &returns_strong_ordering_cref() {return default_strong_ordering;}
+    // inline const std::weak_ordering &returns_weak_ordering_cref() {return default_weak_ordering;}
+    // inline const std::partial_ordering &returns_partial_ordering_cref() {return default_partial_ordering;}
+
+    // inline std::strong_ordering &&returns_strong_ordering_rref() {return std::move(default_strong_ordering);}
+    // inline std::weak_ordering &&returns_weak_ordering_rref() {return std::move(default_weak_ordering);}
+    // inline std::partial_ordering &&returns_partial_ordering_rref() {return std::move(default_partial_ordering);}
+    // ]
+
+    // // Those don't work for now, since they try to use `std::??_ordering &&` internally.
+    // inline void callback_accepts_strong_ordering(std::function<void(std::strong_ordering a, std::strong_ordering b)>) {}
+    // inline void callback_accepts_weak_ordering(std::function<void(std::weak_ordering a, std::weak_ordering b)>) {}
+    // inline void callback_accepts_partial_ordering(std::function<void(std::partial_ordering a, std::partial_ordering b)>) {}
+
+
+    // Test implicitly generated operations from three-way comparisons.
+
+    struct ThreeWayA
+    {
+        friend auto operator<=>(const ThreeWayA &a, const ThreeWayA &b) = default;
+    };
+
+    struct ThreeWayB
+    {
+        friend auto operator<=>(const ThreeWayB &, const ThreeWayB &) = default;
+    };
+
+    struct ThreeWayC
+    {
+        auto operator<=>(const ThreeWayC &) const = default;
+    };
+
+    struct ThreeWayD
+    {
+        friend std::strong_ordering operator<=>(const ThreeWayD &, const ThreeWayD &) {return std::strong_ordering::less;}
+    };
+
+    struct ThreeWayE
+    {
+        std::strong_ordering operator<=>(const ThreeWayE &) const {return std::strong_ordering::less;}
+    };
+
+    struct ThreeWayF
+    {
+        friend std::strong_ordering operator<=>(const ThreeWayF &, const ThreeWayF &) = default;
+
+        // Some random operators that should not be replaced.
+        friend bool operator!=(const ThreeWayF &, const ThreeWayF &) {return false;}
+        friend bool operator>(const ThreeWayF &, const ThreeWayF &) {return false;}
+    };
+
+    struct ThreeWayG
+    {
+        std::strong_ordering operator<=>(const ThreeWayG &) const = default;
+
+        // Some random operators that should not be replaced.
+        bool operator!=(const ThreeWayG &) const {return false;}
+        bool operator>(const ThreeWayG &) const {return false;}
     };
 }
 

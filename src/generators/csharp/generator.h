@@ -785,6 +785,8 @@ namespace mrbind::CSharp
             try_enable_sugar_for_param_usage = 1 << 2 | try_enable_sugar,
             // Same, but the fallback also happens if the return usage is missing, and not just if the entire sugared binding is missing.
             try_enable_sugar_for_return_usage = 1 << 3 | try_enable_sugar,
+            // Zero those bits to disable any forms of sugar.
+            _mask_any_sugar = enable_sugar | try_enable_sugar | try_enable_sugar_for_param_usage | try_enable_sugar_for_return_usage,
             // When binding a pointer, bind it directly as a pointer, instead of trying to use some wrapper class.
             bind_ptrs_are_raw_ptrs = 1 << 5,
             // Treat a pointer as a pointer to an array element.

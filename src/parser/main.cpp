@@ -23,6 +23,7 @@
 #include "parser/data_to_json.h"
 #include "parser/data_to_macros.h"
 #include "parser/multiplex_data.h"
+#include "parser/rewrite_comparisons.h"
 
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/parse.h>
@@ -203,6 +204,9 @@ namespace mrbind
 
         // Copy inherited members into the derived classes.
         bool copy_inherited_members = false;
+
+        // Add rewritten comparisons, emualting C++20 rewrite rules.
+        bool rewrite_comparisons = false;
 
         // All the parsed comments are pre-processed by this.
         // Applies to both comment strings with and without slashes, so should handle both correctly.
@@ -3216,6 +3220,10 @@ namespace mrbind
         if (params->copy_inherited_members)
             CopyInheritedMembers(params->parsed_result);
 
+        // Optionally insert rewritten comparisons.
+        if (params->rewrite_comparisons)
+            RewriteComparisons(params->parsed_result);
+
         // Sort the class members.
         // We sometimes seem to get a different order of the implicit members on different platforms.
         // We could make the sorting optional and put it behind a flag, but for now I don't see a reason why one would want to disable it.
@@ -3734,6 +3742,14 @@ int main(int raw_argc, char **raw_argv)
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     params.copy_inherited_members = true;
+                },
+            });
+
+            args_parser.AddFlag("--rewrite-comparisons", {
+                .desc = "Add new comparison operators to the output, inferred from existing `==` and `<=>` comparisons in input, like what C++20 does. For now we don't generate the mirrored versions of operators.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.rewrite_comparisons = true;
                 },
             });
 

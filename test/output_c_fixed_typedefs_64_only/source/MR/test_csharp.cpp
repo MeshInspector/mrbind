@@ -4,6 +4,7 @@
 #include <__mrbind_c_details.h>
 #include <input/MR/test_csharp.h>
 
+#include <compare>
 #include <cstddef>
 #include <expected>
 #include <filesystem>
@@ -10688,6 +10689,412 @@ MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_AssignFromAnother(MR_CSharp
 void MR_CSharp_TestStdFunction_Call(MR_CSharp_TestStdFunction *_this)
 {
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).Call();
+}
+
+int MR_CSharp_returns_strong_ordering(void)
+{
+    return [&]{std::strong_ordering _result = ::MR::CSharp::returns_strong_ordering(); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+int MR_CSharp_returns_weak_ordering(void)
+{
+    return [&]{std::weak_ordering _result = ::MR::CSharp::returns_weak_ordering(); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_C_std_partial_ordering MR_CSharp_returns_partial_ordering(void)
+{
+    return [&]{std::partial_ordering _result = ::MR::CSharp::returns_partial_ordering(); return _result == std::partial_ordering::less ? MR_C_std_partial_ordering_less : _result == std::partial_ordering::greater ? MR_C_std_partial_ordering_greater : _result == std::partial_ordering::equivalent ? MR_C_std_partial_ordering_equivalent : MR_C_std_partial_ordering_unordered;}();
+}
+
+MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayA *)new MR::CSharp::ThreeWayA(MR::CSharp::ThreeWayA());
+}
+
+MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayA *)(new MR::CSharp::ThreeWayA[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_OffsetPtr(const MR_CSharp_ThreeWayA *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayA *)(((const MR::CSharp::ThreeWayA *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_OffsetMutablePtr(MR_CSharp_ThreeWayA *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayA *)(((MR::CSharp::ThreeWayA *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_ConstructFromAnother(const MR_CSharp_ThreeWayA *_other)
+{
+    return (MR_CSharp_ThreeWayA *)new MR::CSharp::ThreeWayA(MR::CSharp::ThreeWayA(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayA(*(MR::CSharp::ThreeWayA *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayA_Destroy(const MR_CSharp_ThreeWayA *_this)
+{
+    delete ((const MR::CSharp::ThreeWayA *)_this);
+}
+
+void MR_CSharp_ThreeWayA_DestroyArray(const MR_CSharp_ThreeWayA *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayA *)_this);
+}
+
+MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_AssignFromAnother(MR_CSharp_ThreeWayA *_this, const MR_CSharp_ThreeWayA *_other)
+{
+    return (MR_CSharp_ThreeWayA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayA(*(MR::CSharp::ThreeWayA *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayA(const MR_CSharp_ThreeWayA *a, const MR_CSharp_ThreeWayA *b)
+{
+    return [&]{std::strong_ordering _result = operator<=>(
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ThreeWayA *)(a)),
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(const MR::CSharp::ThreeWayA *)(b))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayB *)new MR::CSharp::ThreeWayB(MR::CSharp::ThreeWayB());
+}
+
+MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayB *)(new MR::CSharp::ThreeWayB[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_OffsetPtr(const MR_CSharp_ThreeWayB *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayB *)(((const MR::CSharp::ThreeWayB *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_OffsetMutablePtr(MR_CSharp_ThreeWayB *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayB *)(((MR::CSharp::ThreeWayB *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_ConstructFromAnother(const MR_CSharp_ThreeWayB *_other)
+{
+    return (MR_CSharp_ThreeWayB *)new MR::CSharp::ThreeWayB(MR::CSharp::ThreeWayB(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayB(*(MR::CSharp::ThreeWayB *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayB_Destroy(const MR_CSharp_ThreeWayB *_this)
+{
+    delete ((const MR::CSharp::ThreeWayB *)_this);
+}
+
+void MR_CSharp_ThreeWayB_DestroyArray(const MR_CSharp_ThreeWayB *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayB *)_this);
+}
+
+MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_AssignFromAnother(MR_CSharp_ThreeWayB *_this, const MR_CSharp_ThreeWayB *_other)
+{
+    return (MR_CSharp_ThreeWayB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayB(*(MR::CSharp::ThreeWayB *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayB(const MR_CSharp_ThreeWayB *_1, const MR_CSharp_ThreeWayB *_2)
+{
+    return [&]{std::strong_ordering _result = operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayB *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ThreeWayB *)(_2))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayC *)new MR::CSharp::ThreeWayC(MR::CSharp::ThreeWayC());
+}
+
+MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayC *)(new MR::CSharp::ThreeWayC[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_OffsetPtr(const MR_CSharp_ThreeWayC *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayC *)(((const MR::CSharp::ThreeWayC *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_OffsetMutablePtr(MR_CSharp_ThreeWayC *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayC *)(((MR::CSharp::ThreeWayC *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_ConstructFromAnother(const MR_CSharp_ThreeWayC *_other)
+{
+    return (MR_CSharp_ThreeWayC *)new MR::CSharp::ThreeWayC(MR::CSharp::ThreeWayC(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayC(*(MR::CSharp::ThreeWayC *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayC_Destroy(const MR_CSharp_ThreeWayC *_this)
+{
+    delete ((const MR::CSharp::ThreeWayC *)_this);
+}
+
+void MR_CSharp_ThreeWayC_DestroyArray(const MR_CSharp_ThreeWayC *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayC *)_this);
+}
+
+MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_AssignFromAnother(MR_CSharp_ThreeWayC *_this, const MR_CSharp_ThreeWayC *_other)
+{
+    return (MR_CSharp_ThreeWayC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayC(*(MR::CSharp::ThreeWayC *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayC(const MR_CSharp_ThreeWayC *_this, const MR_CSharp_ThreeWayC *_1)
+{
+    return [&]{std::strong_ordering _result = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ThreeWayC *)(_this)).operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayC *)(_1))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayD *)new MR::CSharp::ThreeWayD(MR::CSharp::ThreeWayD());
+}
+
+MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayD *)(new MR::CSharp::ThreeWayD[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_OffsetPtr(const MR_CSharp_ThreeWayD *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayD *)(((const MR::CSharp::ThreeWayD *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_OffsetMutablePtr(MR_CSharp_ThreeWayD *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayD *)(((MR::CSharp::ThreeWayD *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_ConstructFromAnother(const MR_CSharp_ThreeWayD *_other)
+{
+    return (MR_CSharp_ThreeWayD *)new MR::CSharp::ThreeWayD(MR::CSharp::ThreeWayD(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayD(*(MR::CSharp::ThreeWayD *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayD_Destroy(const MR_CSharp_ThreeWayD *_this)
+{
+    delete ((const MR::CSharp::ThreeWayD *)_this);
+}
+
+void MR_CSharp_ThreeWayD_DestroyArray(const MR_CSharp_ThreeWayD *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayD *)_this);
+}
+
+MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_AssignFromAnother(MR_CSharp_ThreeWayD *_this, const MR_CSharp_ThreeWayD *_other)
+{
+    return (MR_CSharp_ThreeWayD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayD *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayD(*(MR::CSharp::ThreeWayD *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayD(const MR_CSharp_ThreeWayD *_1, const MR_CSharp_ThreeWayD *_2)
+{
+    return [&]{std::strong_ordering _result = operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayD *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ThreeWayD *)(_2))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayE *)new MR::CSharp::ThreeWayE(MR::CSharp::ThreeWayE());
+}
+
+MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayE *)(new MR::CSharp::ThreeWayE[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_OffsetPtr(const MR_CSharp_ThreeWayE *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayE *)(((const MR::CSharp::ThreeWayE *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_OffsetMutablePtr(MR_CSharp_ThreeWayE *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayE *)(((MR::CSharp::ThreeWayE *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_ConstructFromAnother(const MR_CSharp_ThreeWayE *_other)
+{
+    return (MR_CSharp_ThreeWayE *)new MR::CSharp::ThreeWayE(MR::CSharp::ThreeWayE(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayE(*(MR::CSharp::ThreeWayE *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayE_Destroy(const MR_CSharp_ThreeWayE *_this)
+{
+    delete ((const MR::CSharp::ThreeWayE *)_this);
+}
+
+void MR_CSharp_ThreeWayE_DestroyArray(const MR_CSharp_ThreeWayE *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayE *)_this);
+}
+
+MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_AssignFromAnother(MR_CSharp_ThreeWayE *_this, const MR_CSharp_ThreeWayE *_other)
+{
+    return (MR_CSharp_ThreeWayE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayE(*(MR::CSharp::ThreeWayE *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayE(const MR_CSharp_ThreeWayE *_this, const MR_CSharp_ThreeWayE *_1)
+{
+    return [&]{std::strong_ordering _result = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ThreeWayE *)(_this)).operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayE *)(_1))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayF *)new MR::CSharp::ThreeWayF(MR::CSharp::ThreeWayF());
+}
+
+MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayF *)(new MR::CSharp::ThreeWayF[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_OffsetPtr(const MR_CSharp_ThreeWayF *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayF *)(((const MR::CSharp::ThreeWayF *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_OffsetMutablePtr(MR_CSharp_ThreeWayF *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayF *)(((MR::CSharp::ThreeWayF *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_ConstructFromAnother(const MR_CSharp_ThreeWayF *_other)
+{
+    return (MR_CSharp_ThreeWayF *)new MR::CSharp::ThreeWayF(MR::CSharp::ThreeWayF(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayF(*(MR::CSharp::ThreeWayF *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayF_Destroy(const MR_CSharp_ThreeWayF *_this)
+{
+    delete ((const MR::CSharp::ThreeWayF *)_this);
+}
+
+void MR_CSharp_ThreeWayF_DestroyArray(const MR_CSharp_ThreeWayF *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayF *)_this);
+}
+
+MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_AssignFromAnother(MR_CSharp_ThreeWayF *_this, const MR_CSharp_ThreeWayF *_other)
+{
+    return (MR_CSharp_ThreeWayF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayF *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayF(*(MR::CSharp::ThreeWayF *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2)
+{
+    return [&]{std::strong_ordering _result = operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_2))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+bool MR_C_not_equal_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2)
+{
+    return operator!=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_2))
+    );
+}
+
+bool MR_C_greater_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2)
+{
+    return operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ThreeWayF *)(_2))
+    );
+}
+
+MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_DefaultConstruct(void)
+{
+    return (MR_CSharp_ThreeWayG *)new MR::CSharp::ThreeWayG(MR::CSharp::ThreeWayG());
+}
+
+MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_ThreeWayG *)(new MR::CSharp::ThreeWayG[num_elems]{});
+}
+
+const MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_OffsetPtr(const MR_CSharp_ThreeWayG *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_ThreeWayG *)(((const MR::CSharp::ThreeWayG *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_OffsetMutablePtr(MR_CSharp_ThreeWayG *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_ThreeWayG *)(((MR::CSharp::ThreeWayG *)ptr) + i);
+}
+
+MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_ConstructFromAnother(const MR_CSharp_ThreeWayG *_other)
+{
+    return (MR_CSharp_ThreeWayG *)new MR::CSharp::ThreeWayG(MR::CSharp::ThreeWayG(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayG(*(MR::CSharp::ThreeWayG *)_other))
+    ));
+}
+
+void MR_CSharp_ThreeWayG_Destroy(const MR_CSharp_ThreeWayG *_this)
+{
+    delete ((const MR::CSharp::ThreeWayG *)_this);
+}
+
+void MR_CSharp_ThreeWayG_DestroyArray(const MR_CSharp_ThreeWayG *_this)
+{
+    delete[] ((const MR::CSharp::ThreeWayG *)_this);
+}
+
+MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_AssignFromAnother(MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_other)
+{
+    return (MR_CSharp_ThreeWayG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ThreeWayG *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ThreeWayG(*(MR::CSharp::ThreeWayG *)_other))
+    ));
+}
+
+int MR_C_compare_three_way_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1)
+{
+    return [&]{std::strong_ordering _result = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_this)).operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_1))
+    ); return _result < 0 ? -1 : _result > 0 ? 1 : 0;}();
+}
+
+bool MR_C_not_equal_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_this)).operator!=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_1))
+    );
+}
+
+bool MR_C_greater_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ThreeWayG *)(_1))
+    );
 }
 
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)

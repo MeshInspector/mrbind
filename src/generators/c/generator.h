@@ -788,7 +788,9 @@ namespace mrbind::C
         struct BindableType
         {
             // This is normally NOT optional. Using `std::optional` here to catch forgetting to set this.
-            // You don't need this if this is a `remove_sugar == true` desugared binding.
+            // You don't need this if this is a `remove_sugar == true` desugared binding (since the traits will be taken from the main version, which may or may not be sugared).
+            // You also don't need this if this is a sugared-only type. Then you might also want to set `.considered_sugar_for_interop = true` in parameter and return usage,
+            //   and `interop_info` should stay as `Invalid` in this case.
             std::optional<TypeTraits> traits;
 
             // This is optional, set only if known. This being set implies that the binary representation matches too.
@@ -1002,7 +1004,7 @@ namespace mrbind::C
                 cppdecl::Type c_type;
 
                 // Generates a return statement to return a value of this type.
-                // If null, defaults to `"return " + expr + ";"`.
+                // If null, defaults to just `expr`.
                 // You can generate more than one statement here.
                 // Providing the source `file` (which is the C++ source file, not the header) so you can add some extra headers or whatever. Note that this is intentionally redundant, as we also have `extra_headers` below.
                 // Note that `expr` can be insufficiently parenthesized. Don't forget to add your own parentheses if you do anything funny with it.
@@ -1023,8 +1025,9 @@ namespace mrbind::C
                 // When this type is returned, this string is appended to the comment.
                 // Don't include line breaks before and after, we add them automatically.
                 // Do include the leading slashes, normally `///`.
-                // `param_name` is typically empty. If it's not empty, your message must talk about a "callback parameter" with this name, as opposed to a return value.
+                // `callback_param_name` is typically empty. If it's not empty, your message must talk about a "callback parameter" with this name, as opposed to a return value.
                 //   This is when binding C callbacks, for their parameters.
+                //   This parameter is passed from C++ code to a user-provided C callback that it calls.
                 std::function<std::string(std::string_view callback_param_name)> append_to_comment;
 
                 // Only matters for interop.
@@ -1062,6 +1065,7 @@ namespace mrbind::C
 
             // The type description for interop. Note that this type automatically defaults to `CInterop::TypeKinds::Invalid`.
             // This is not optional for all types we support ourselves, but third-party custom types can skip this if they never use `--output-desc-json`.
+            // Note that for enums, `generator.EmitEnum()` fills this and complains if you try to do it yourself.
             CInterop::TypeKindVar interop_info;
 
 
@@ -1659,10 +1663,11 @@ namespace mrbind::C
 
         // Here if `elem_comment` isn't empty, must end with a newline and must include leading slashes.
         // `elem_name` automatically gets the enum name prepended to it, followed by `_`.
-        // The `unsigned_value` is not optional. It'll be conditionally cast to `std::int64_t` if the `cpp_underlying_type` passed to `EmitEnum()` is signed.
+        // The `elem_unsigned_value` is not optional. It'll be conditionally cast to `std::int64_t` if the `cpp_underlying_type` passed to `EmitEnum()` is signed.
         using EmitEnumFunc = std::function<void(std::string elem_comment, std::string_view elem_name, std::uint64_t elem_unsigned_value)>;
 
         // Emits a enum.
+        // The comment must end with a newline and must not start with a newline, and must include the slashes as usual.
         void EmitEnum(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_enum_type, std::string_view c_enum_name, std::string_view cpp_underlying_type, std::function<void(EmitEnumFunc emit_elem)> func);
 
         // Creates a binder for a parsed class. `parsed_full_type` should receive `ClassEntity::full_type` (you don't need to roundtrip it through cppdecl,

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <common.h>
+#include <compare.h>
 #include <exports.h>
 
 #include <stdbool.h>
@@ -1232,6 +1233,56 @@ typedef struct MR_CSharp_IterableL_int MR_CSharp_IterableL_int;
 /// Generated from class `MR::CSharp::TestStdFunction`.
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_TestStdFunction MR_CSharp_TestStdFunction;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayA
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayA
+// Test implicitly generated operations from three-way comparisons.
+/// Generated from class `MR::CSharp::ThreeWayA`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayA MR_CSharp_ThreeWayA;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayB
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayB
+/// Generated from class `MR::CSharp::ThreeWayB`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayB MR_CSharp_ThreeWayB;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayC
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayC
+/// Generated from class `MR::CSharp::ThreeWayC`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayC MR_CSharp_ThreeWayC;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayD
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayD
+/// Generated from class `MR::CSharp::ThreeWayD`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayD MR_CSharp_ThreeWayD;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayE
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayE
+/// Generated from class `MR::CSharp::ThreeWayE`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayE MR_CSharp_ThreeWayE;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayF
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayF
+/// Generated from class `MR::CSharp::ThreeWayF`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayF MR_CSharp_ThreeWayF;
+#endif
+
+#ifndef MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayG
+#define MR_C_DETAIL_TYPEDEF_MR_CSharp_ThreeWayG
+/// Generated from class `MR::CSharp::ThreeWayG`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_ThreeWayG MR_CSharp_ThreeWayG;
 #endif
 
 /// Generated from function `MR::CSharp::foo`.
@@ -9864,6 +9915,341 @@ MR_C_API MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_AssignFromAnother(
 /// Generated from method `MR::CSharp::TestStdFunction::Call`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_TestStdFunction_Call(MR_CSharp_TestStdFunction *_this);
+
+// We only support return usages for now.
+/// Generated from function `MR::CSharp::returns_strong_ordering`.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_CSharp_returns_strong_ordering(void);
+
+/// Generated from function `MR::CSharp::returns_weak_ordering`.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equivalent`.
+MR_C_API int MR_CSharp_returns_weak_ordering(void);
+
+/// Generated from function `MR::CSharp::returns_partial_ordering`.
+MR_C_API MR_C_std_partial_ordering MR_CSharp_returns_partial_ordering(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayA_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayA_OffsetMutablePtr()` and `MR_CSharp_ThreeWayA_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_OffsetPtr(const MR_CSharp_ThreeWayA *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_OffsetMutablePtr(MR_CSharp_ThreeWayA *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_ConstructFromAnother(const MR_CSharp_ThreeWayA *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayA_Destroy(const MR_CSharp_ThreeWayA *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayA_DestroyArray(const MR_CSharp_ThreeWayA *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayA::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayA *MR_CSharp_ThreeWayA_AssignFromAnother(MR_CSharp_ThreeWayA *_this, const MR_CSharp_ThreeWayA *_other);
+
+/// Generated from function `MR::CSharp::operator<=>`.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayA(const MR_CSharp_ThreeWayA *a, const MR_CSharp_ThreeWayA *b);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayB_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayB_OffsetMutablePtr()` and `MR_CSharp_ThreeWayB_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_OffsetPtr(const MR_CSharp_ThreeWayB *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_OffsetMutablePtr(MR_CSharp_ThreeWayB *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_ConstructFromAnother(const MR_CSharp_ThreeWayB *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayB_Destroy(const MR_CSharp_ThreeWayB *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayB_DestroyArray(const MR_CSharp_ThreeWayB *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayB::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayB *MR_CSharp_ThreeWayB_AssignFromAnother(MR_CSharp_ThreeWayB *_this, const MR_CSharp_ThreeWayB *_other);
+
+/// Generated from function `MR::CSharp::operator<=>`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayB(const MR_CSharp_ThreeWayB *_1, const MR_CSharp_ThreeWayB *_2);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayC_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayC_OffsetMutablePtr()` and `MR_CSharp_ThreeWayC_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_OffsetPtr(const MR_CSharp_ThreeWayC *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_OffsetMutablePtr(MR_CSharp_ThreeWayC *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_ConstructFromAnother(const MR_CSharp_ThreeWayC *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayC_Destroy(const MR_CSharp_ThreeWayC *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayC_DestroyArray(const MR_CSharp_ThreeWayC *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayC::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayC *MR_CSharp_ThreeWayC_AssignFromAnother(MR_CSharp_ThreeWayC *_this, const MR_CSharp_ThreeWayC *_other);
+
+/// Generated from method `MR::CSharp::ThreeWayC::operator<=>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayC(const MR_CSharp_ThreeWayC *_this, const MR_CSharp_ThreeWayC *_1);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayD_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayD_OffsetMutablePtr()` and `MR_CSharp_ThreeWayD_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_OffsetPtr(const MR_CSharp_ThreeWayD *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_OffsetMutablePtr(MR_CSharp_ThreeWayD *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_ConstructFromAnother(const MR_CSharp_ThreeWayD *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayD_Destroy(const MR_CSharp_ThreeWayD *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayD_DestroyArray(const MR_CSharp_ThreeWayD *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayD::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayD *MR_CSharp_ThreeWayD_AssignFromAnother(MR_CSharp_ThreeWayD *_this, const MR_CSharp_ThreeWayD *_other);
+
+/// Generated from function `MR::CSharp::operator<=>`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayD(const MR_CSharp_ThreeWayD *_1, const MR_CSharp_ThreeWayD *_2);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayE_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayE_OffsetMutablePtr()` and `MR_CSharp_ThreeWayE_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_OffsetPtr(const MR_CSharp_ThreeWayE *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_OffsetMutablePtr(MR_CSharp_ThreeWayE *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_ConstructFromAnother(const MR_CSharp_ThreeWayE *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayE_Destroy(const MR_CSharp_ThreeWayE *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayE_DestroyArray(const MR_CSharp_ThreeWayE *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayE::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayE *MR_CSharp_ThreeWayE_AssignFromAnother(MR_CSharp_ThreeWayE *_this, const MR_CSharp_ThreeWayE *_other);
+
+/// Generated from method `MR::CSharp::ThreeWayE::operator<=>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayE(const MR_CSharp_ThreeWayE *_this, const MR_CSharp_ThreeWayE *_1);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayF_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayF_OffsetMutablePtr()` and `MR_CSharp_ThreeWayF_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_OffsetPtr(const MR_CSharp_ThreeWayF *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_OffsetMutablePtr(MR_CSharp_ThreeWayF *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_ConstructFromAnother(const MR_CSharp_ThreeWayF *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayF_Destroy(const MR_CSharp_ThreeWayF *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayF_DestroyArray(const MR_CSharp_ThreeWayF *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayF::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayF *MR_CSharp_ThreeWayF_AssignFromAnother(MR_CSharp_ThreeWayF *_this, const MR_CSharp_ThreeWayF *_other);
+
+/// Generated from function `MR::CSharp::operator<=>`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2);
+
+// Some random operators that should not be replaced.
+/// Generated from function `MR::CSharp::operator!=`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2);
+
+/// Generated from function `MR::CSharp::operator>`.
+/// Parameter `_1` can not be null. It is a single object.
+/// Parameter `_2` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_MR_CSharp_ThreeWayF(const MR_CSharp_ThreeWayF *_1, const MR_CSharp_ThreeWayF *_2);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayG_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_ThreeWayG_DestroyArray()`.
+/// Use `MR_CSharp_ThreeWayG_OffsetMutablePtr()` and `MR_CSharp_ThreeWayG_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_OffsetPtr(const MR_CSharp_ThreeWayG *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_OffsetMutablePtr(MR_CSharp_ThreeWayG *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ThreeWayG_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_ConstructFromAnother(const MR_CSharp_ThreeWayG *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_ThreeWayG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayG_Destroy(const MR_CSharp_ThreeWayG *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_ThreeWayG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_ThreeWayG_DestroyArray(const MR_CSharp_ThreeWayG *_this);
+
+/// Generated from method `MR::CSharp::ThreeWayG::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_CSharp_ThreeWayG *MR_CSharp_ThreeWayG_AssignFromAnother(MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_other);
+
+/// Generated from method `MR::CSharp::ThreeWayG::operator<=>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1);
+
+// Some random operators that should not be replaced.
+/// Generated from method `MR::CSharp::ThreeWayG::operator!=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_not_equal_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1);
+
+/// Generated from method `MR::CSharp::ThreeWayG::operator>`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_greater_MR_CSharp_ThreeWayG(const MR_CSharp_ThreeWayG *_this, const MR_CSharp_ThreeWayG *_1);
 
 /// Generated from function `MR::CSharp::test_expected_int`.
 /// Parameter `a` can not be null. It is a single object.

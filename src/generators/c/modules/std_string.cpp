@@ -1,4 +1,3 @@
-#include "common/meta.h"
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 

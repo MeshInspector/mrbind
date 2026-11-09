@@ -2964,6 +2964,23 @@ namespace mrbind::CSharp
                 {
                     return CreateBinding(MakeStringLikeReadOnlyBinding());
                 }
+
+
+                // `std::strong_ordering` and `std::weak_ordering`.
+                // `std::partial_ordering` is not here because it's just a enum and not a sugared thing.
+                // References to those (to all three) are not supported, since I didn't check the original memory layout of them.
+
+                static const cppdecl::Type cpp_type_std_strong_ordering = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("strong_ordering"));
+                static const cppdecl::Type cpp_type_std_weak_ordering = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("weak_ordering"));
+
+                if (
+                    cpp_type == cpp_type_std_strong_ordering ||
+                    cpp_type == cpp_type_std_weak_ordering
+                )
+                {
+                    // Those are literally `int`s.
+                    return GetTypeBindingOpt(cppdecl::Type::FromSingleWord("int"), flags & ~TypeBindingFlags::_mask_any_sugar);
+                }
             }
 
             return {};

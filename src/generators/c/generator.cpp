@@ -2518,7 +2518,20 @@ namespace mrbind::C
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_qual_name));
 
-        if (is_class_friend)
+        if (new_func.is_rewritten_comparison)
+        {
+            // Can't use the function call syntax, have to use the operator syntax.
+
+            auto op_token = new_func.GetOverloadedOperatorToken();
+
+            // Special-case `!=`. This doesn't matter for C++20 users, but fixes pre-C++20 usage (where the only point of the rewrites is to get `!=` from `==`, since there's no `<=>`).
+            // We can't do `!a.operator==(b)` since we don't know if the underlying operator is `==` or `<=>`, and it's easier to not forward this information.
+            if (op_token == "!=")
+                cpp_called_func = "!(@1@ == @2@)";
+            else
+                cpp_called_func = "@1@ " + std::string(op_token) + " @2@";
+        }
+        else if (is_class_friend)
         {
             // Skip the qualifiers, but keep the template arguments. The template arguments might matter in some cases.
             // The qualifiers must be skipped because friend functions are normally only reachable via ADL.
@@ -2703,10 +2716,25 @@ namespace mrbind::C
         // Might need this at least for the custom `[u]int64_t` typedefs.
         extra_headers.MergeFrom(self.TryFindHeadersForCppNameForSourceFile(full_name_parsed));
 
-        if (new_method.IsOverloadedOperator())
+        if (new_method.is_rewritten_comparison)
+        {
+            // See `SetFromParsedFunc()` for explanation.
+
+            auto op_token = new_method.GetOverloadedOperatorToken();
+
+            if (op_token == "!=")
+                cpp_called_func = "!(@this@ == @1@)";
+            else
+                cpp_called_func = cpp_called_func = "@this@ " + std::string(new_method.GetOverloadedOperatorToken()) + " @1@";
+        }
+        else if (new_method.IsOverloadedOperator())
+        {
             cpp_called_func = new_method.name; // Skip template arguments. We don't roundtrip this through cppdecl, since there are no template arguments to adjust.
+        }
         else
+        {
             cpp_called_func = full_name_fixed;
+        }
 
         if (new_method.comment)
         {
