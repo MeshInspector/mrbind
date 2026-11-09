@@ -20,12 +20,12 @@ unsafe extern "C" fn __std_function_void_from_MR_StdFunction_A_userdata<F>(_this
 {
     if !(*_this_userdata).is_null()
     {
-        drop(std::sync::Arc::from_raw(*_this_userdata as *const F));
+        drop(alloc::sync::Arc::from_raw(*_this_userdata as *const F));
         *_this_userdata = core::ptr::null_mut();
     }
     if !_other_userdata.is_null()
     {
-        std::sync::Arc::increment_strong_count(_other_userdata as *const F);
+        alloc::sync::Arc::increment_strong_count(_other_userdata as *const F);
         *_this_userdata = _other_userdata;
     }
 }
@@ -93,7 +93,7 @@ impl std_function_void_from_MR_StdFunction_A
     /// Calls `MR_C_std_function_void_from_MR_StdFunction_A_ConstructEx()`.
     pub fn from_fn<F: Fn(&mut crate::mr::std_function::A) -> () + Send + Sync + 'static>(func: F) -> crate::Owned<crate::mr::cs::std_function_void_from_MR_StdFunction_A>
     {
-        let __ret = unsafe {crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A_ConstructEx(Some(__std_function_void_from_MR_StdFunction_A_call::<F>), std::sync::Arc::into_raw(std::sync::Arc::new(func)) as *mut core::ffi::c_void, None, Some(__std_function_void_from_MR_StdFunction_A_userdata::<F>))};
+        let __ret = unsafe {crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A_ConstructEx(Some(__std_function_void_from_MR_StdFunction_A_call::<F>), alloc::sync::Arc::into_raw(alloc::sync::Arc::new(func)) as *mut core::ffi::c_void, None, Some(__std_function_void_from_MR_StdFunction_A_userdata::<F>))};
         unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_function_void_from_MR_StdFunction_A)}
     }
 
@@ -102,7 +102,7 @@ impl std_function_void_from_MR_StdFunction_A
     /// Calls `MR_C_std_function_void_from_MR_StdFunction_A_AssignEx()`.
     pub fn assign_fn<F: Fn(&mut crate::mr::std_function::A) -> () + Send + Sync + 'static>(&mut self, func: F)
     {
-        unsafe {crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A_AssignEx(self as *mut Self as *mut crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A, Some(__std_function_void_from_MR_StdFunction_A_call::<F>), std::sync::Arc::into_raw(std::sync::Arc::new(func)) as *mut core::ffi::c_void, None, Some(__std_function_void_from_MR_StdFunction_A_userdata::<F>))};
+        unsafe {crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A_AssignEx(self as *mut Self as *mut crate::ffi::MR_C_std_function_void_from_MR_StdFunction_A, Some(__std_function_void_from_MR_StdFunction_A_call::<F>), alloc::sync::Arc::into_raw(alloc::sync::Arc::new(func)) as *mut core::ffi::c_void, None, Some(__std_function_void_from_MR_StdFunction_A_userdata::<F>))};
     }
 
 }

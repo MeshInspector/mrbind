@@ -96,9 +96,9 @@ impl std_optional_std_string
 impl crate::Owned<std_optional_std_string>
 {
     /// Converts to a Rust `Option`, taking the value out.
-    pub fn into_option(mut self) -> Option<String>
+    pub fn into_option(mut self) -> Option<alloc::string::String>
     {
-        self.value_mut().map(|x| x.to_string())
+        self.value_mut().map(|x| alloc::string::ToString::to_string(&*x))
     }
 }
 

@@ -124,9 +124,9 @@ impl std_expected_int_std_string
 impl crate::Owned<std_expected_int_std_string>
 {
     /// Converts to a Rust `Result`, taking the value or the error out, so `?` works on the return values: `let mesh = mesh_load(...).into_result()?;`.
-    pub fn into_result(mut self) -> Result<core::ffi::c_int, String>
+    pub fn into_result(mut self) -> Result<core::ffi::c_int, alloc::string::String>
     {
-        match self.as_result_mut() {Ok(x) => Ok(*x), Err(x) => Err(x.to_string())}
+        match self.as_result_mut() {Ok(x) => Ok(*x), Err(x) => Err(alloc::string::ToString::to_string(&*x))}
     }
 }
 

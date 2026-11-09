@@ -1,6 +1,11 @@
 //! The `ffi` module holds the raw C declarations. The definitions of the safe wrappers mirror the C file hierarchy,
 //! and the modules named after the C++ namespaces re-export them.
+//!
+//! Needs only `core` and `alloc`.
+#![no_std]
 #![allow(non_camel_case_types, non_snake_case, non_upper_case_globals, dead_code, deprecated, unused_unsafe, unused_variables, unused_imports, clippy::all)]
+
+extern crate alloc;
 
 pub mod ffi;
 pub mod A;
