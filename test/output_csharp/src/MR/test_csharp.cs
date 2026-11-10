@@ -25632,6 +25632,1713 @@ public static partial class MR
                 public static implicit operator _InOptConst_TestStdFunction(Const_TestStdFunction value) {return new(value);}
             }
 
+            // Test implicitly generated operations from three-way comparisons.
+            /// Generated from class `MR::CSharp::ThreeWayA`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayA : MR.CS.Misc.Object<Const_ThreeWayA>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayA_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayA() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayA() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayA_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+                public unsafe Const_ThreeWayA(MR.CS.CSharp.Const_ThreeWayA _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayA_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+                public Const_ThreeWayA(ThreeWayA _other) : this((Const_ThreeWayA)_other) {}
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayA b)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayA(_UnderlyingPtr, b._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayA._Underlying *__MR_CSharp_ThreeWayA_ConstructFromAnother(MR.CS.CSharp.ThreeWayA._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayA._Underlying *__MR_CSharp_ThreeWayA_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayA_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayA", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayA(_Underlying *a, MR.CS.CSharp.Const_ThreeWayA._Underlying *b);
+            }
+
+            // Test implicitly generated operations from three-way comparisons.
+            /// Generated from class `MR::CSharp::ThreeWayA`.
+            /// This is the non-const half of the class.
+            public class ThreeWayA : Const_ThreeWayA
+            {
+                internal unsafe ThreeWayA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayA() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayA_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+                public unsafe ThreeWayA(MR.CS.CSharp.Const_ThreeWayA _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayA_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+                public ThreeWayA(ThreeWayA _other) : this((Const_ThreeWayA)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayA::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayA Assign(MR.CS.CSharp.Const_ThreeWayA _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayA._Underlying *__MR_CSharp_ThreeWayA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayA._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayA._Underlying *__MR_CSharp_ThreeWayA_ConstructFromAnother(MR.CS.CSharp.ThreeWayA._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayA_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayA._Underlying *__MR_CSharp_ThreeWayA_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayA` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayA`/`Const_ThreeWayA` directly.
+            public class _InOptMut_ThreeWayA
+            {
+                public ThreeWayA? Opt;
+
+                public _InOptMut_ThreeWayA() {}
+                public _InOptMut_ThreeWayA(ThreeWayA value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayA(ThreeWayA value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayA`/`Const_ThreeWayA` to pass it to the function.
+            public class _InOptConst_ThreeWayA
+            {
+                public Const_ThreeWayA? Opt;
+
+                public _InOptConst_ThreeWayA() {}
+                public _InOptConst_ThreeWayA(Const_ThreeWayA value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayA(Const_ThreeWayA value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayB`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayB : MR.CS.Misc.Object<Const_ThreeWayB>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayB_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayB() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayB() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayB_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+                public unsafe Const_ThreeWayB(MR.CS.CSharp.Const_ThreeWayB _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayB_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+                public Const_ThreeWayB(ThreeWayB _other) : this((Const_ThreeWayB)_other) {}
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayB _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayB(_UnderlyingPtr, _2._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayB._Underlying *__MR_CSharp_ThreeWayB_ConstructFromAnother(MR.CS.CSharp.ThreeWayB._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayB._Underlying *__MR_CSharp_ThreeWayB_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayB_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayB", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayB(_Underlying *_1, MR.CS.CSharp.Const_ThreeWayB._Underlying *_2);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayB`.
+            /// This is the non-const half of the class.
+            public class ThreeWayB : Const_ThreeWayB
+            {
+                internal unsafe ThreeWayB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayB() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayB_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+                public unsafe ThreeWayB(MR.CS.CSharp.Const_ThreeWayB _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayB_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+                public ThreeWayB(ThreeWayB _other) : this((Const_ThreeWayB)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayB::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayB Assign(MR.CS.CSharp.Const_ThreeWayB _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayB._Underlying *__MR_CSharp_ThreeWayB_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayB._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayB._Underlying *__MR_CSharp_ThreeWayB_ConstructFromAnother(MR.CS.CSharp.ThreeWayB._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayB_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayB._Underlying *__MR_CSharp_ThreeWayB_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayB` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayB`/`Const_ThreeWayB` directly.
+            public class _InOptMut_ThreeWayB
+            {
+                public ThreeWayB? Opt;
+
+                public _InOptMut_ThreeWayB() {}
+                public _InOptMut_ThreeWayB(ThreeWayB value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayB(ThreeWayB value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayB`/`Const_ThreeWayB` to pass it to the function.
+            public class _InOptConst_ThreeWayB
+            {
+                public Const_ThreeWayB? Opt;
+
+                public _InOptConst_ThreeWayB() {}
+                public _InOptConst_ThreeWayB(Const_ThreeWayB value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayB(Const_ThreeWayB value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayC`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayC : MR.CS.Misc.Object<Const_ThreeWayC>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayC_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayC() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayC() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayC_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+                public unsafe Const_ThreeWayC(MR.CS.CSharp.Const_ThreeWayC _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayC_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+                public Const_ThreeWayC(ThreeWayC _other) : this((Const_ThreeWayC)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayC::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayC _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayC(_UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayC._Underlying *__MR_CSharp_ThreeWayC_ConstructFromAnother(MR.CS.CSharp.ThreeWayC._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayC._Underlying *__MR_CSharp_ThreeWayC_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayC_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayC", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayC(_Underlying *_this, MR.CS.CSharp.Const_ThreeWayC._Underlying *_1);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayC`.
+            /// This is the non-const half of the class.
+            public class ThreeWayC : Const_ThreeWayC
+            {
+                internal unsafe ThreeWayC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayC() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayC_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+                public unsafe ThreeWayC(MR.CS.CSharp.Const_ThreeWayC _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayC_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+                public ThreeWayC(ThreeWayC _other) : this((Const_ThreeWayC)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayC::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayC Assign(MR.CS.CSharp.Const_ThreeWayC _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayC._Underlying *__MR_CSharp_ThreeWayC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayC._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayC._Underlying *__MR_CSharp_ThreeWayC_ConstructFromAnother(MR.CS.CSharp.ThreeWayC._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayC_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayC._Underlying *__MR_CSharp_ThreeWayC_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayC` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayC`/`Const_ThreeWayC` directly.
+            public class _InOptMut_ThreeWayC
+            {
+                public ThreeWayC? Opt;
+
+                public _InOptMut_ThreeWayC() {}
+                public _InOptMut_ThreeWayC(ThreeWayC value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayC(ThreeWayC value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayC`/`Const_ThreeWayC` to pass it to the function.
+            public class _InOptConst_ThreeWayC
+            {
+                public Const_ThreeWayC? Opt;
+
+                public _InOptConst_ThreeWayC() {}
+                public _InOptConst_ThreeWayC(Const_ThreeWayC value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayC(Const_ThreeWayC value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayD`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayD : MR.CS.Misc.Object<Const_ThreeWayD>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayD_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayD() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayD() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayD_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+                public unsafe Const_ThreeWayD(MR.CS.CSharp.Const_ThreeWayD _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayD_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+                public Const_ThreeWayD(ThreeWayD _other) : this((Const_ThreeWayD)_other) {}
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayD _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayD(_UnderlyingPtr, _2._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayD._Underlying *__MR_CSharp_ThreeWayD_ConstructFromAnother(MR.CS.CSharp.ThreeWayD._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayD._Underlying *__MR_CSharp_ThreeWayD_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayD_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayD", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayD(_Underlying *_1, MR.CS.CSharp.Const_ThreeWayD._Underlying *_2);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayD`.
+            /// This is the non-const half of the class.
+            public class ThreeWayD : Const_ThreeWayD
+            {
+                internal unsafe ThreeWayD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayD() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayD_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+                public unsafe ThreeWayD(MR.CS.CSharp.Const_ThreeWayD _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayD_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+                public ThreeWayD(ThreeWayD _other) : this((Const_ThreeWayD)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayD::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayD Assign(MR.CS.CSharp.Const_ThreeWayD _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayD._Underlying *__MR_CSharp_ThreeWayD_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayD._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayD._Underlying *__MR_CSharp_ThreeWayD_ConstructFromAnother(MR.CS.CSharp.ThreeWayD._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayD_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayD._Underlying *__MR_CSharp_ThreeWayD_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayD` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayD`/`Const_ThreeWayD` directly.
+            public class _InOptMut_ThreeWayD
+            {
+                public ThreeWayD? Opt;
+
+                public _InOptMut_ThreeWayD() {}
+                public _InOptMut_ThreeWayD(ThreeWayD value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayD(ThreeWayD value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayD`/`Const_ThreeWayD` to pass it to the function.
+            public class _InOptConst_ThreeWayD
+            {
+                public Const_ThreeWayD? Opt;
+
+                public _InOptConst_ThreeWayD() {}
+                public _InOptConst_ThreeWayD(Const_ThreeWayD value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayD(Const_ThreeWayD value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayE`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayE : MR.CS.Misc.Object<Const_ThreeWayE>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayE_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayE() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayE() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayE_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+                public unsafe Const_ThreeWayE(MR.CS.CSharp.Const_ThreeWayE _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+                public Const_ThreeWayE(ThreeWayE _other) : this((Const_ThreeWayE)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayE::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayE _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayE(_UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayE._Underlying *__MR_CSharp_ThreeWayE_ConstructFromAnother(MR.CS.CSharp.ThreeWayE._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayE._Underlying *__MR_CSharp_ThreeWayE_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayE_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayE", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayE(_Underlying *_this, MR.CS.CSharp.Const_ThreeWayE._Underlying *_1);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayE`.
+            /// This is the non-const half of the class.
+            public class ThreeWayE : Const_ThreeWayE
+            {
+                internal unsafe ThreeWayE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayE() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayE_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+                public unsafe ThreeWayE(MR.CS.CSharp.Const_ThreeWayE _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+                public ThreeWayE(ThreeWayE _other) : this((Const_ThreeWayE)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayE::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayE Assign(MR.CS.CSharp.Const_ThreeWayE _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayE._Underlying *__MR_CSharp_ThreeWayE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayE._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayE._Underlying *__MR_CSharp_ThreeWayE_ConstructFromAnother(MR.CS.CSharp.ThreeWayE._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayE_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayE._Underlying *__MR_CSharp_ThreeWayE_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayE` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayE`/`Const_ThreeWayE` directly.
+            public class _InOptMut_ThreeWayE
+            {
+                public ThreeWayE? Opt;
+
+                public _InOptMut_ThreeWayE() {}
+                public _InOptMut_ThreeWayE(ThreeWayE value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayE(ThreeWayE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayE`/`Const_ThreeWayE` to pass it to the function.
+            public class _InOptConst_ThreeWayE
+            {
+                public Const_ThreeWayE? Opt;
+
+                public _InOptConst_ThreeWayE() {}
+                public _InOptConst_ThreeWayE(Const_ThreeWayE value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayE(Const_ThreeWayE value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayF`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayF : MR.CS.Misc.Object<Const_ThreeWayF>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayF_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayF() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayF() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayF_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+                public unsafe Const_ThreeWayF(MR.CS.CSharp.Const_ThreeWayF _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayF_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+                public Const_ThreeWayF(ThreeWayF _other) : this((Const_ThreeWayF)_other) {}
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayF _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayF(_UnderlyingPtr, _2._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayF._Underlying *__MR_CSharp_ThreeWayF_ConstructFromAnother(MR.CS.CSharp.ThreeWayF._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayF._Underlying *__MR_CSharp_ThreeWayF_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayF_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayF", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayF(_Underlying *_1, MR.CS.CSharp.Const_ThreeWayF._Underlying *_2);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayF`.
+            /// This is the non-const half of the class.
+            public class ThreeWayF : Const_ThreeWayF
+            {
+                internal unsafe ThreeWayF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayF() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayF_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+                public unsafe ThreeWayF(MR.CS.CSharp.Const_ThreeWayF _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayF_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+                public ThreeWayF(ThreeWayF _other) : this((Const_ThreeWayF)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayF::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayF Assign(MR.CS.CSharp.Const_ThreeWayF _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayF_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayF._Underlying *__MR_CSharp_ThreeWayF_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayF._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayF._Underlying *__MR_CSharp_ThreeWayF_ConstructFromAnother(MR.CS.CSharp.ThreeWayF._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayF_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayF._Underlying *__MR_CSharp_ThreeWayF_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayF` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayF`/`Const_ThreeWayF` directly.
+            public class _InOptMut_ThreeWayF
+            {
+                public ThreeWayF? Opt;
+
+                public _InOptMut_ThreeWayF() {}
+                public _InOptMut_ThreeWayF(ThreeWayF value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayF(ThreeWayF value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayF`/`Const_ThreeWayF` to pass it to the function.
+            public class _InOptConst_ThreeWayF
+            {
+                public Const_ThreeWayF? Opt;
+
+                public _InOptConst_ThreeWayF() {}
+                public _InOptConst_ThreeWayF(Const_ThreeWayF value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayF(Const_ThreeWayF value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayG`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayG : MR.CS.Misc.Object<Const_ThreeWayG>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayG_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayG() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayG() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayG_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+                public unsafe Const_ThreeWayG(MR.CS.CSharp.Const_ThreeWayG _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayG_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+                public Const_ThreeWayG(ThreeWayG _other) : this((Const_ThreeWayG)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayG::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayG _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayG(_UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayG._Underlying *__MR_CSharp_ThreeWayG_ConstructFromAnother(MR.CS.CSharp.ThreeWayG._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayG._Underlying *__MR_CSharp_ThreeWayG_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayG_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayG", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayG(_Underlying *_this, MR.CS.CSharp.Const_ThreeWayG._Underlying *_1);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayG`.
+            /// This is the non-const half of the class.
+            public class ThreeWayG : Const_ThreeWayG
+            {
+                internal unsafe ThreeWayG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayG() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayG_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+                public unsafe ThreeWayG(MR.CS.CSharp.Const_ThreeWayG _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayG_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+                public ThreeWayG(ThreeWayG _other) : this((Const_ThreeWayG)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayG::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayG Assign(MR.CS.CSharp.Const_ThreeWayG _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayG_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayG._Underlying *__MR_CSharp_ThreeWayG_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayG._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayG._Underlying *__MR_CSharp_ThreeWayG_ConstructFromAnother(MR.CS.CSharp.ThreeWayG._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayG_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayG._Underlying *__MR_CSharp_ThreeWayG_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayG` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayG`/`Const_ThreeWayG` directly.
+            public class _InOptMut_ThreeWayG
+            {
+                public ThreeWayG? Opt;
+
+                public _InOptMut_ThreeWayG() {}
+                public _InOptMut_ThreeWayG(ThreeWayG value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayG(ThreeWayG value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayG`/`Const_ThreeWayG` to pass it to the function.
+            public class _InOptConst_ThreeWayG
+            {
+                public Const_ThreeWayG? Opt;
+
+                public _InOptConst_ThreeWayG() {}
+                public _InOptConst_ThreeWayG(Const_ThreeWayG value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayG(Const_ThreeWayG value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayH`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayH : MR.CS.Misc.Object<Const_ThreeWayH>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayH_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayH() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayH() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayH_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+                public unsafe Const_ThreeWayH(MR.CS.CSharp.Const_ThreeWayH _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayH_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+                public Const_ThreeWayH(ThreeWayH _other) : this((Const_ThreeWayH)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayH::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayH _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayH(_UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayH._Underlying *__MR_CSharp_ThreeWayH_ConstructFromAnother(MR.CS.CSharp.ThreeWayH._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayH._Underlying *__MR_CSharp_ThreeWayH_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayH_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayH", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayH(_Underlying *_this, MR.CS.CSharp.Const_ThreeWayH._Underlying *_1);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayH`.
+            /// This is the non-const half of the class.
+            public class ThreeWayH : Const_ThreeWayH, System.IEquatable<int>
+            {
+                internal unsafe ThreeWayH(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayH() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayH_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+                public unsafe ThreeWayH(MR.CS.CSharp.Const_ThreeWayH _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayH_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+                public ThreeWayH(ThreeWayH _other) : this((Const_ThreeWayH)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayH::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayH Assign(MR.CS.CSharp.Const_ThreeWayH _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayH_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::ThreeWayH::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.ThreeWayH _this, int _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_equal_MR_CSharp_ThreeWayH_int(_this._UnderlyingPtr, _1);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.ThreeWayH _this, int _1)
+                {
+                    return !(_this == _1);
+                }
+
+                // IEquatable:
+
+                public bool Equals(int _1)
+                {
+                    return this == _1;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is int)
+                        return this == (int)other;
+                    return false;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayH._Underlying *__MR_CSharp_ThreeWayH_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayH._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayH._Underlying *__MR_CSharp_ThreeWayH_ConstructFromAnother(MR.CS.CSharp.ThreeWayH._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayH_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayH._Underlying *__MR_CSharp_ThreeWayH_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ThreeWayH_int", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_equal_MR_CSharp_ThreeWayH_int(MR.CS.CSharp.ThreeWayH._Underlying *_this, int _1);
+            }
+
+            /// This is used for optional parameters of class `ThreeWayH` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayH`/`Const_ThreeWayH` directly.
+            public class _InOptMut_ThreeWayH
+            {
+                public ThreeWayH? Opt;
+
+                public _InOptMut_ThreeWayH() {}
+                public _InOptMut_ThreeWayH(ThreeWayH value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayH(ThreeWayH value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayH`/`Const_ThreeWayH` to pass it to the function.
+            public class _InOptConst_ThreeWayH
+            {
+                public Const_ThreeWayH? Opt;
+
+                public _InOptConst_ThreeWayH() {}
+                public _InOptConst_ThreeWayH(Const_ThreeWayH value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayH(Const_ThreeWayH value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayI`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayI : MR.CS.Misc.Object<Const_ThreeWayI>, System.IDisposable, System.IEquatable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayI_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayI() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayI() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayI_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+                public unsafe Const_ThreeWayI(MR.CS.CSharp.Const_ThreeWayI _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayI_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+                public Const_ThreeWayI(ThreeWayI _other) : this((Const_ThreeWayI)_other) {}
+
+                /// Generated from function `MR::CSharp::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.Const_ThreeWayI _1, int _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_equal_MR_CSharp_ThreeWayI_int(_1._UnderlyingPtr, _2);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.Const_ThreeWayI _1, int _2)
+                {
+                    return !(_1 == _2);
+                }
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayI _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayI(_UnderlyingPtr, _2._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // IEquatable:
+
+                public bool Equals(int _2)
+                {
+                    return this == _2;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is int)
+                        return this == (int)other;
+                    return false;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayI._Underlying *__MR_CSharp_ThreeWayI_ConstructFromAnother(MR.CS.CSharp.ThreeWayI._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayI._Underlying *__MR_CSharp_ThreeWayI_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayI_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayI", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayI(_Underlying *_1, MR.CS.CSharp.Const_ThreeWayI._Underlying *_2);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ThreeWayI_int", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_equal_MR_CSharp_ThreeWayI_int(MR.CS.CSharp.Const_ThreeWayI._Underlying *_1, int _2);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayI`.
+            /// This is the non-const half of the class.
+            public class ThreeWayI : Const_ThreeWayI
+            {
+                internal unsafe ThreeWayI(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayI() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayI_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+                public unsafe ThreeWayI(MR.CS.CSharp.Const_ThreeWayI _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayI_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+                public ThreeWayI(ThreeWayI _other) : this((Const_ThreeWayI)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayI::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayI Assign(MR.CS.CSharp.Const_ThreeWayI _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayI_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayI._Underlying *__MR_CSharp_ThreeWayI_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayI._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayI._Underlying *__MR_CSharp_ThreeWayI_ConstructFromAnother(MR.CS.CSharp.ThreeWayI._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayI_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayI._Underlying *__MR_CSharp_ThreeWayI_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayI` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayI`/`Const_ThreeWayI` directly.
+            public class _InOptMut_ThreeWayI
+            {
+                public ThreeWayI? Opt;
+
+                public _InOptMut_ThreeWayI() {}
+                public _InOptMut_ThreeWayI(ThreeWayI value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayI(ThreeWayI value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayI` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayI`/`Const_ThreeWayI` to pass it to the function.
+            public class _InOptConst_ThreeWayI
+            {
+                public Const_ThreeWayI? Opt;
+
+                public _InOptConst_ThreeWayI() {}
+                public _InOptConst_ThreeWayI(Const_ThreeWayI value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayI(Const_ThreeWayI value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayJ`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayJ : MR.CS.Misc.Object<Const_ThreeWayJ>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayJ_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayJ() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayJ(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayJ() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayJ_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+                public unsafe Const_ThreeWayJ(MR.CS.CSharp.Const_ThreeWayJ _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayJ_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+                public Const_ThreeWayJ(ThreeWayJ _other) : this((Const_ThreeWayJ)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayJ::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayJ _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayJ(_UnderlyingPtr, _1._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayJ._Underlying *__MR_CSharp_ThreeWayJ_ConstructFromAnother(MR.CS.CSharp.ThreeWayJ._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayJ._Underlying *__MR_CSharp_ThreeWayJ_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayJ_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayJ", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayJ(_Underlying *_this, MR.CS.CSharp.Const_ThreeWayJ._Underlying *_1);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayJ`.
+            /// This is the non-const half of the class.
+            public class ThreeWayJ : Const_ThreeWayJ, System.IEquatable<int>
+            {
+                internal unsafe ThreeWayJ(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayJ() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayJ_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+                public unsafe ThreeWayJ(MR.CS.CSharp.Const_ThreeWayJ _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayJ_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+                public ThreeWayJ(ThreeWayJ _other) : this((Const_ThreeWayJ)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayJ::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayJ Assign(MR.CS.CSharp.Const_ThreeWayJ _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayJ_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::ThreeWayJ::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.ThreeWayJ _this, int _1)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_equal_MR_CSharp_ThreeWayJ_int(_this._UnderlyingPtr, _1);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.ThreeWayJ _this, int _1)
+                {
+                    return !(_this == _1);
+                }
+
+                // IEquatable:
+
+                public bool Equals(int _1)
+                {
+                    return this == _1;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is int)
+                        return this == (int)other;
+                    return false;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayJ._Underlying *__MR_CSharp_ThreeWayJ_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayJ._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayJ._Underlying *__MR_CSharp_ThreeWayJ_ConstructFromAnother(MR.CS.CSharp.ThreeWayJ._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayJ_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayJ._Underlying *__MR_CSharp_ThreeWayJ_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ThreeWayJ_int", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_equal_MR_CSharp_ThreeWayJ_int(MR.CS.CSharp.ThreeWayJ._Underlying *_this, int _1);
+            }
+
+            /// This is used for optional parameters of class `ThreeWayJ` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayJ`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayJ`/`Const_ThreeWayJ` directly.
+            public class _InOptMut_ThreeWayJ
+            {
+                public ThreeWayJ? Opt;
+
+                public _InOptMut_ThreeWayJ() {}
+                public _InOptMut_ThreeWayJ(ThreeWayJ value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayJ(ThreeWayJ value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayJ` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayJ`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayJ`/`Const_ThreeWayJ` to pass it to the function.
+            public class _InOptConst_ThreeWayJ
+            {
+                public Const_ThreeWayJ? Opt;
+
+                public _InOptConst_ThreeWayJ() {}
+                public _InOptConst_ThreeWayJ(Const_ThreeWayJ value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayJ(Const_ThreeWayJ value) {return new(value);}
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayK`.
+            /// This is the const half of the class.
+            public class Const_ThreeWayK : MR.CS.Misc.Object<Const_ThreeWayK>, System.IDisposable, System.IEquatable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    __MR_CSharp_ThreeWayK_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_ThreeWayK() {Dispose(false);}
+
+                internal unsafe Const_ThreeWayK(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_ThreeWayK() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayK_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+                public unsafe Const_ThreeWayK(MR.CS.CSharp.Const_ThreeWayK _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayK_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+                public Const_ThreeWayK(ThreeWayK _other) : this((Const_ThreeWayK)_other) {}
+
+                /// Generated from function `MR::CSharp::operator==`.
+                public static unsafe bool operator==(MR.CS.CSharp.Const_ThreeWayK _1, int _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_equal_MR_CSharp_ThreeWayK_int(_1._UnderlyingPtr, _2);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
+                }
+
+                public static unsafe bool operator!=(MR.CS.CSharp.Const_ThreeWayK _1, int _2)
+                {
+                    return !(_1 == _2);
+                }
+
+                /// Generated from function `MR::CSharp::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.CSharp.Const_ThreeWayK _2)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_compare_three_way_MR_CSharp_ThreeWayK(_UnderlyingPtr, _2._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
+                }
+
+                // IEquatable:
+
+                public bool Equals(int _2)
+                {
+                    return this == _2;
+                }
+
+                public override bool Equals(object? other)
+                {
+                    if (other is null)
+                        return false;
+                    if (other is int)
+                        return this == (int)other;
+                    return false;
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayK._Underlying *__MR_CSharp_ThreeWayK_ConstructFromAnother(MR.CS.CSharp.ThreeWayK._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayK._Underlying *__MR_CSharp_ThreeWayK_DefaultConstruct();
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_Destroy", ExactSpelling = true)]
+                extern static unsafe void __MR_CSharp_ThreeWayK_Destroy(_Underlying *_this);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_ThreeWayK", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_CSharp_ThreeWayK(_Underlying *_1, MR.CS.CSharp.Const_ThreeWayK._Underlying *_2);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ThreeWayK_int", ExactSpelling = true)]
+                extern static unsafe byte __MR_C_equal_MR_CSharp_ThreeWayK_int(MR.CS.CSharp.Const_ThreeWayK._Underlying *_1, int _2);
+            }
+
+            /// Generated from class `MR::CSharp::ThreeWayK`.
+            /// This is the non-const half of the class.
+            public class ThreeWayK : Const_ThreeWayK
+            {
+                internal unsafe ThreeWayK(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe ThreeWayK() : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayK_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+                public unsafe ThreeWayK(MR.CS.CSharp.Const_ThreeWayK _other) : this(null, is_owning: true)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    _UnderlyingPtr = __MR_CSharp_ThreeWayK_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                }
+
+                /// Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+                public ThreeWayK(ThreeWayK _other) : this((Const_ThreeWayK)_other) {}
+
+                /// Generated from method `MR::CSharp::ThreeWayK::operator=`.
+                public unsafe MR.CS.CSharp.ThreeWayK Assign(MR.CS.CSharp.Const_ThreeWayK _other)
+                {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_CSharp_ThreeWayK_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
+                }
+
+                // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_AssignFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayK._Underlying *__MR_CSharp_ThreeWayK_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.ThreeWayK._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_ConstructFromAnother", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayK._Underlying *__MR_CSharp_ThreeWayK_ConstructFromAnother(MR.CS.CSharp.ThreeWayK._Underlying *_other);
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ThreeWayK_DefaultConstruct", ExactSpelling = true)]
+                extern static unsafe MR.CS.CSharp.ThreeWayK._Underlying *__MR_CSharp_ThreeWayK_DefaultConstruct();
+            }
+
+            /// This is used for optional parameters of class `ThreeWayK` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ThreeWayK`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayK`/`Const_ThreeWayK` directly.
+            public class _InOptMut_ThreeWayK
+            {
+                public ThreeWayK? Opt;
+
+                public _InOptMut_ThreeWayK() {}
+                public _InOptMut_ThreeWayK(ThreeWayK value) {Opt = value;}
+                public static implicit operator _InOptMut_ThreeWayK(ThreeWayK value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `ThreeWayK` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ThreeWayK`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `ThreeWayK`/`Const_ThreeWayK` to pass it to the function.
+            public class _InOptConst_ThreeWayK
+            {
+                public Const_ThreeWayK? Opt;
+
+                public _InOptConst_ThreeWayK() {}
+                public _InOptConst_ThreeWayK(Const_ThreeWayK value) {Opt = value;}
+                public static implicit operator _InOptConst_ThreeWayK(Const_ThreeWayK value) {return new(value);}
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {
@@ -28624,6 +30331,34 @@ public static partial class MR
                 return new(__c_ret, is_owning: true);
             }
 
+            // We only support return usages for now.
+            /// Generated from function `MR::CSharp::returns_strong_ordering`.
+            public static int ReturnsStrongOrdering()
+            {
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_CSharp_returns_strong_ordering();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
+            }
+
+            /// Generated from function `MR::CSharp::returns_weak_ordering`.
+            public static int ReturnsWeakOrdering()
+            {
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_CSharp_returns_weak_ordering();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
+            }
+
+            /// Generated from function `MR::CSharp::returns_partial_ordering`.
+            public static MR.CS.Std.PartialOrdering ReturnsPartialOrdering()
+            {
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_CSharp_returns_partial_ordering();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
+            }
+
             /// Generated from function `MR::CSharp::test_expected_int`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe int TestExpectedInt(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
@@ -29166,6 +30901,15 @@ public static partial class MR
 
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_print_bool_ref", ExactSpelling = true)]
             extern static void __MR_CSharp_print_bool_ref();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_returns_partial_ordering", ExactSpelling = true)]
+            extern static MR.CS.Std.PartialOrdering __MR_CSharp_returns_partial_ordering();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_returns_strong_ordering", ExactSpelling = true)]
+            extern static int __MR_CSharp_returns_strong_ordering();
+
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_returns_weak_ordering", ExactSpelling = true)]
+            extern static int __MR_CSharp_returns_weak_ordering();
 
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_a_float", ExactSpelling = true)]
             extern static void __MR_CSharp_template_a_float(float _1);

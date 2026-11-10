@@ -10,8 +10,6 @@ Those are:
 
 * Global variables. But static variables in classes do work, and so do enums.
 
-* `operator<=>`
-
 * Explicit object parameter (aka "deducing `this`").
 
 ## C

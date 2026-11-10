@@ -387,8 +387,6 @@ namespace mrbind
                     },
                     [&](const FuncEntity &e)
                     {
-                        if (e.is_rewritten_comparison)
-                            return; // The macro users take the addresses of the functions, and these aren't declared.
                         BeginMultiplexBlock();
                         out << "MB_FUNC("
                             << "/*returns*/(" << TypeToDefaultSpelling(e.return_type) << "), "
@@ -396,6 +394,7 @@ namespace mrbind
                             << e.simple_name << ", "
                             << "(" << e.qual_name << "), "
                             << "(" << e.full_qual_name << "), "
+                            << (e.is_rewritten_comparison ? e.GetOverloadedOperatorToken() : "/*not a rewritten comparison*/") << ", "
                             << NsStackToString() << ", "
                             << (e.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*e.deprecation_message) : "/*not deprecated*/") + ", "
                             << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/")
@@ -484,8 +483,6 @@ namespace mrbind
                                     },
                                     [&](const ClassMethod &method)
                                     {
-                                        if (method.is_rewritten_comparison)
-                                            return; // The macro users take the addresses of the methods, and these aren't declared.
                                         out
                                             << "    (method, "
                                             << (method.is_static ? "static" : "/*non-static*/") << ", ";
@@ -502,6 +499,7 @@ namespace mrbind
                                             << method.name << ", "
                                             << method.simple_name << ", "
                                             << "(" << method.full_name << "), "
+                                            << (method.is_rewritten_comparison ? method.GetOverloadedOperatorToken() : "/*not a rewritten comparison*/") << ", "
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
                                             << (method.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*method.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (method.comment ? EscapeQuoteString(method.comment->text) : "/*no comment*/") << ", ";

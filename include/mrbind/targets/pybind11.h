@@ -25,5 +25,13 @@
 #include <mrbind/targets/pybind11/bind_tl_expected.h>
 #endif
 
+// std::strong_ordering, std::weak_ordering, std::partial_ordering
+#if __has_include(<version>)
+#include <version>
+#if __has_include(<compare>)
+#include <mrbind/targets/pybind11/bind_std_compare.h>
+#endif
+#endif
+
 // Casters for `std::filesystem::path`.
 #include <pybind11/stl/filesystem.h>

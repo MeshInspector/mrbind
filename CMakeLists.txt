@@ -66,6 +66,7 @@ if(MRBIND_BUILD_PARSER)
         src/parser/disable_rtti.cpp
         src/parser/main.cpp
         src/parser/multiplex_data.cpp
+        src/parser/rewrite_comparisons.cpp
     )
 
     if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
@@ -187,6 +188,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         src/generators/c/modules/std_pair.cpp
         src/generators/c/modules/std_shared_ptr.cpp
         src/generators/c/modules/std_string.cpp
+        src/generators/c/modules/std_three_way_orderings.cpp
         src/generators/c/modules/std_tuple.cpp
         src/generators/c/modules/std_unique_ptr.cpp
         src/generators/c/modules/std_variant.cpp
