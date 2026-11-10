@@ -205,8 +205,8 @@ namespace mrbind
         // Copy inherited members into the derived classes.
         bool copy_inherited_members = false;
 
-        // Add rewritten comparisons, emualting C++20 rewrite rules.
-        bool rewrite_comparisons = false;
+        // Add rewritten comparisons, emulating C++20 rewrite rules.
+        bool rewrite_comparisons = true;
 
         // All the parsed comments are pre-processed by this.
         // Applies to both comment strings with and without slashes, so should handle both correctly.
@@ -3745,11 +3745,11 @@ int main(int raw_argc, char **raw_argv)
                 },
             });
 
-            args_parser.AddFlag("--rewrite-comparisons", {
-                .desc = "Add new comparison operators to the output, inferred from existing `==` and `<=>` comparisons in input, like what C++20 does. For now we don't generate the mirrored versions of operators.",
+            args_parser.AddFlag("--no-rewrite-comparisons", {
+                .desc = "Disable adding new comparison operators to the output, inferred from existing `==` and `<=>` comparisons in input, like what C++20 does. For now we never generate the mirrored versions of operators.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
-                    params.rewrite_comparisons = true;
+                    params.rewrite_comparisons = false;
                 },
             });
 

@@ -127,10 +127,6 @@ Note that `--no-handle-exceptions` can be set independently from `-fno-exception
 
 One more thing: currently, using `-fno-exceptions` makes it impossible to recover from certain errors caused by incorrect usage of the bindings, which would be exceptions if exceptions were enabled. We may or may not fix this eventually.
 
-### `operator<=>`
-
-`<=>` binds as a single function by default. Pass `--rewrite-comparisons` to also add functions for the individual operators: `==`,`!=`,`<`,`<=`,`>`,`>=`. This flag also causes `!=` to be generated from `==`.
-
 ### Expose simple structs as structs
 
 The default behavior is to expose all classes/structs as opaque heap-allocated pointers.

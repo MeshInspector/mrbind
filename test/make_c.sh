@@ -92,6 +92,7 @@ build/mrbind \
     --copy-inherited-members \
     --infer-lifetime-constructors \
     --default-args=as-is \
+    --no-rewrite-comparisons \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c \
@@ -106,7 +107,6 @@ build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
     --canonicalize-to-fixed-size-typedefs \
     --canonicalize-size_t-to-uint64_t \
-    --rewrite-comparisons \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG \
     -DMBTEST_SIMULATE_MISSING_LIFETIME_CAPTURE_BY_SUPPORT
@@ -137,6 +137,7 @@ build/mrbind \
     --canonicalize-size_t-to-uint64_t \
     --copy-inherited-members \
     --no-infer-lifetime-iterators \
+    --no-rewrite-comparisons \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 
