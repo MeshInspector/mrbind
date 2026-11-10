@@ -45,6 +45,7 @@
 // `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Minus`.
 // `qualname_` - fully qualified function name, parenthesized.
 // `fullqualname_` - same as `qualname_`, but also includes template arguments, if any.
+// `rewritten_comp_` - normally empty, but if this is a rewritten comparison operator (that can't use the function call syntax), then this is that operator token (so same as `name_`, but without the `operator` prefix).
 // `ns_stack_` - the enclosing namespace stack, see comments on `MB_NAMESPACE` above.
 // `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 // `comment_` - a string literal with the comment, or empty if none.
@@ -60,7 +61,7 @@
 //     * 0 = return value
 //     * 1+ = parameters, where `1` is `this` in member functions, or just the first parameter in free functions (this macro can't receive member functions, but I'm documenting it here for completeness).
 //     In constructors, `0` is illegal and `1` is the resulting object (this macro can't receive constructors either, documenting here for completeness).
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_, lifetimes_)
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, rewritten_comp_, ns_stack_, deprecated_, comment_, params_, lifetimes_)
 #endif
 
 #ifndef MB_CLASS
@@ -90,13 +91,14 @@
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for `MB_FUNC(...)`, see above.
 //         * `lifetimes_` - lifetime relations, same as for `MB_FUNC(...)`, see above.
-//     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_)`, where:
+//     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, rewritten_comp_, const_, deprecated_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
 //         * `ret_` - parenthesized return type, or empty if void.
 //         * `name_` - method name.
 //         * `simplename_` - usually same as `name_`, but overloaded operators instead have an identifier placeholder here, such as `_Subscript`.
 //         * `fullname_` - `name_` plus template arguments, if any. Parenthesized.
+//         * `rewritten_comp_` - normally empty, but if this is a rewritten comparison operator (that can't use the function call syntax), then this is that operator token (so same as `name_`, but without the `operator` prefix).
 //         * `const_` - either `const` or nothing if non-const.
 //         * `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 //         * `comment_` - a string literal with the comment, or empty if none.

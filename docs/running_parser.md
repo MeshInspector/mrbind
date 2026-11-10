@@ -64,6 +64,10 @@ Pass include directories to `-I...` after `--`, as mentioned above.
 
 Pass `-std=c++??` after `--`, as mentioned above. (Where `??` is a specific version number.)
 
+### `operator<=>` woes
+
+We try to expand `<=>` to `==`,`!=`,`<`,`<=`,`>`,`>=` by default. If you're doing something jank with `<=>` and this breaks the expansion, pass `--no-rewrite-comparisons` to the parser to disable this behavior.
+
 ### Errors in templates
 
 MRBind aggressively instantiates all templates it sees.
@@ -177,4 +181,4 @@ Another way to fix this that you might be more familiar with is:
 template <typename TT = T>
 Vec3 operator*(Matrix3<TT>) requires std::is_floating_point_v<T /*or TT*/> {return {};}
 ```
-But this is worse, because now this function won't appear in the bindings unless you go out of your way to instantiate it. More about this [here](TODO_link).
+But this is worse, because now this function won't appear in the bindings unless you go out of your way to instantiate it.

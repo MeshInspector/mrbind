@@ -32,7 +32,6 @@
 #include <string_view>
 #include <string>
 #include <type_traits>
-#include <typeindex>
 #include <typeinfo>
 #include <unordered_map>
 #include <unordered_set>
@@ -599,7 +598,7 @@ namespace MRBind::pb11
     template <typename T>
     void RegisterTypeAlias(std::string_view spelling)
     {
-        if constexpr (requires{requires sizeof(typename StripToUnderlyingType<T>::type) > 0;}) // If complete.
+        if constexpr (requires{requires sizeof(typename StripToUnderlyingType<T>::type) > 0;}) // If complete. (NOLINT, this is intentional.)
             RegisterTypeAliasLow(typeid(typename StripToUnderlyingType<T>::type), spelling);
     }
 
@@ -3709,7 +3708,17 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_LAST_SCOPE_KIND_STEP(n, d, name_, kind_) kind_
 
 // For a function, provides either a function pointer to call it, or a lambda to do the same.
-#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) \
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_, .../*rewritten_comp_*/) \
+    MRBIND_CAT(DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP, __VA_OPT__(1))(ret_, name_, qualname_, ns_stack_, params_ __VA_OPT__(,) __VA_ARGS__)
+// This is the implementation for rewritten comparisons.
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP1(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_) \
+    DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP1A(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_, DETAIL_MB_PB11_MAKE_PARAM_USES(params_))
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP1A(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_, ...) \
+    DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP1B(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_, __VA_ARGS__)
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP1B(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_, arg1_, arg2_) \
+    +[]( DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_) ) -> decltype(auto) {return arg1_ rewritten_comp_ arg2_;}
+// This is the implementation for everything else.
+#define DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_OP(ret_, name_, qualname_, ns_stack_, params_) \
     MRBIND_CAT(DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA_,DETAIL_MB_PB11_LAST_SCOPE_KIND(ns_stack_))(ret_, name_, qualname_, ns_stack_, params_)
 // For namespace-scoped functions, we get a function pointer.
 // Cast it to the correct type to select an overload.
@@ -3806,7 +3815,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_, lifetimes_) \
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, rewritten_comp_, ns_stack_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::GetRegistry().func_entries.emplace_back( \
         /* Qualified name */\
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
@@ -3817,7 +3826,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             MRBind::pb11::TryAddFunc<\
                 MRBind::pb11::FuncKind::nonmember_or_static, \
                 /* The function pointer or a lambda. */\
-                DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullqualname_), deprecated_, DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) ) \
+                DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullqualname_), deprecated_, DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_, rewritten_comp_) ) \
                 /* Parameter types. */\
                 DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
             >( \
@@ -4022,13 +4031,28 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_METHOD_move(...)
 #define DETAIL_MB_PB11_METHOD_by_value_assignment DETAIL_MB_PB11_METHOD
 
-#define DETAIL_MB_PB11_METHOD(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA(qualname_, static_, ret_, name_, const_, params_, .../*rewritten_comp_*/) \
+    MRBIND_CAT(DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP, __VA_OPT__(1))(qualname_, static_, ret_, name_, const_, params_ __VA_OPT__(,) __VA_ARGS__)
+// This is the implementation for rewritten comparisons.
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_) \
+    DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1A(qualname_, static_, ret_, name_, const_, ((const_ MRBIND_IDENTITY qualname_ &), /*unnamed*/, /*no defarg*/, /*no defarg*/)params_, rewritten_comp_)
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1A(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_) \
+    DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1B(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_, DETAIL_MB_PB11_MAKE_PARAM_USES(params_))
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1B(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_, ...) \
+    DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1C(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_, __VA_ARGS__)
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP1C(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_, arg1_, arg2_) \
+    +[]( DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_) ) -> decltype(auto) {return arg1_ rewritten_comp_ arg2_;}
+// This is the implementation for everything else.
+#define DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA_OP(qualname_, static_, ret_, name_, const_, params_) \
+    static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_ ::name_)
+
+#define DETAIL_MB_PB11_METHOD(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, rewritten_comp_, const_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
         /* Member pointer. */\
         /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) ) \
+        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, DETAIL_MB_PB11_MEMFUNC_PTR_OR_LAMBDA(qualname_, static_, ret_, name_, const_, params_, rewritten_comp_) ) \
         /* Parameter types: */\
         /* Self parameter. */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\

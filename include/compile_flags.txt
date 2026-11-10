@@ -1,0 +1,6 @@
+-DMB_PB11_MODULE_NAME="example"
+-I/home/ubuntu/MeshInspectorCode/MeshLib/thirdparty/mrbind/include
+-xc++
+-std=c++20
+-I/home/ubuntu/MeshInspectorCode/MeshLib/thirdparty/mrbind/examples/python/pybind11/include
+-I/usr/include/python3.12
