@@ -2084,9 +2084,11 @@ namespace detail
     class type_caster<T> : public type_caster_base<T> /*MRBind::pb11::RegisterOneTypeWithCustomBinding<T>*/ {};
 
     // Disable stock enum casters for enums.
+    #if PYBIND11_VERSION_MAJOR >= 3
     template <typename T>
     requires MRBind::pb11::HasCustomTypeBinding<T>
     struct type_caster_enum_type_enabled<T> : std::false_type {};
+    #endif
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
