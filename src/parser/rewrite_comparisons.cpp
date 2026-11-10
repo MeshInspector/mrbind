@@ -90,8 +90,7 @@ namespace mrbind
 
                     static constexpr auto RemoveConstAndRef = [](cppdecl::Type type) -> cppdecl::Type
                     {
-                        if (!type.modifiers.empty())
-                            type.RemoveModifier();
+                        type.TryRemoveModifier<cppdecl::Reference>();
                         type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
                         return type;
                     };
