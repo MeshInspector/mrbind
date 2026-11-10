@@ -105,6 +105,14 @@ Overloaded functions get the disambiguated names of their C functions, converted
 
 C++ exceptions are caught by the C bindings (unless the C generator ran with `--no-handle-exceptions`) and turned into Rust panics with the exception message.
 
+The crate is `#![no_std]`: it needs only `core` and `alloc` (for the closures behind `std::function` and the error strings of `into_result()`). When the C bindings handle exceptions, the crate also needs a `std` feature in its manifest, which should be on by default:
+```toml
+[features]
+default = ["std"]
+std = []
+```
+With `std`, the exception is stored in a thread-local and re-raised as an ordinary panic after the C function returns, so `catch_unwind()` catches it. Without `std` there are no thread-locals, so the panic happens in the exception handler itself, which is called from C and can't unwind: it goes to your `#[panic_handler]`, and the program can't recover from it.
+
 ## Known limitations
 
 This is the youngest backend, and it's missing things that the C# backend has:

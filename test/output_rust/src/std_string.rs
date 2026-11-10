@@ -146,11 +146,11 @@ impl std_string
 
 impl core::fmt::Display for std_string
 {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {f.write_str(&String::from_utf8_lossy(self.as_bytes()))}
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {f.write_str(&alloc::string::String::from_utf8_lossy(self.as_bytes()))}
 }
 
 impl core::fmt::Debug for std_string
 {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {core::fmt::Debug::fmt(&*String::from_utf8_lossy(self.as_bytes()), f)}
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {core::fmt::Debug::fmt(&*alloc::string::String::from_utf8_lossy(self.as_bytes()), f)}
 }
 

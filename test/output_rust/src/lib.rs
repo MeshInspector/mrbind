@@ -1,6 +1,13 @@
 //! The `ffi` module holds the raw C declarations. The definitions of the safe wrappers mirror the C file hierarchy,
 //! and the modules named after the C++ namespaces re-export them.
+//!
+//! Needs only `core` and `alloc`. With the `std` feature, C++ exceptions become panics that can be caught; without it, they become panics that can't.
+#![no_std]
 #![allow(non_camel_case_types, non_snake_case, non_upper_case_globals, dead_code, deprecated, unused_unsafe, unused_variables, unused_imports, clippy::all)]
+
+extern crate alloc;
+#[cfg(feature = "std")]
+extern crate std;
 
 pub mod ffi;
 pub mod A;
@@ -213,14 +220,15 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {(**self).fmt(f)}
 }
 
-thread_local!
+#[cfg(feature = "std")]
+std::thread_local!
 {
-    static PENDING_EXCEPTION: core::cell::RefCell<Option<String>> = const {core::cell::RefCell::new(None)};
+    static PENDING_EXCEPTION: core::cell::RefCell<Option<alloc::string::String>> = const {core::cell::RefCell::new(None)};
 }
 
 unsafe extern "C" fn exception_handler(messages: *const *const core::ffi::c_char, _type_names: *const *const core::ffi::c_char, _userdata: *mut core::ffi::c_void)
 {
-    let mut text = String::new();
+    let mut text = alloc::string::String::new();
     let mut ptr = messages;
     while !(*ptr).is_null()
     {
@@ -228,21 +236,36 @@ unsafe extern "C" fn exception_handler(messages: *const *const core::ffi::c_char
         text.push_str(&core::ffi::CStr::from_ptr(*ptr).to_string_lossy());
         ptr = ptr.add(1);
     }
+    #[cfg(feature = "std")]
     PENDING_EXCEPTION.with(|e| *e.borrow_mut() = Some(text));
+    #[cfg(not(feature = "std"))]
+    panic!("C++ exception: {text}");
 }
 
-static INIT_EXCEPTIONS: std::sync::Once = std::sync::Once::new();
+/// 0 = the handler is not set, 1 = being set, 2 = set.
+static INIT_EXCEPTIONS: core::sync::atomic::AtomicU8 = core::sync::atomic::AtomicU8::new(0);
 
 #[doc(hidden)]
 pub fn __init_exceptions()
 {
-    INIT_EXCEPTIONS.call_once(|| unsafe {crate::ffi::MR_C_SetExceptionHandler(Some(exception_handler), core::ptr::null_mut())});
+    use core::sync::atomic::Ordering;
+    if INIT_EXCEPTIONS.load(Ordering::Acquire) == 2 {return;}
+    if INIT_EXCEPTIONS.compare_exchange(0, 1, Ordering::Acquire, Ordering::Acquire).is_ok()
+    {
+        unsafe {crate::ffi::MR_C_SetExceptionHandler(Some(exception_handler), core::ptr::null_mut())};
+        INIT_EXCEPTIONS.store(2, Ordering::Release);
+    }
+    else
+    {
+        while INIT_EXCEPTIONS.load(Ordering::Acquire) != 2 {core::hint::spin_loop();}
+    }
 }
 
 /// Panics if the last call into the C bindings threw a C++ exception.
 #[doc(hidden)]
 pub fn __check_exception()
 {
+    #[cfg(feature = "std")]
     if let Some(msg) = PENDING_EXCEPTION.with(|e| e.borrow_mut().take())
     {
         panic!("C++ exception: {msg}");

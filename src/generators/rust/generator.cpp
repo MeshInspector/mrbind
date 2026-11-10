@@ -820,14 +820,21 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
 
         if (c_desc.exception_handling_enabled)
         {
-            out += "thread_local!\n{\n    static PENDING_EXCEPTION: core::cell::RefCell<Option<String>> = const {core::cell::RefCell::new(None)};\n}\n\n";
+            // Without the `std` feature there is no `thread_local!`, so the handler panics right away. Unwinding out of an `extern "C"` function is impossible, so that panic can't be caught.
+            out += "#[cfg(feature = \"std\")]\nstd::thread_local!\n{\n    static PENDING_EXCEPTION: core::cell::RefCell<Option<alloc::string::String>> = const {core::cell::RefCell::new(None)};\n}\n\n";
             out += "unsafe extern \"C\" fn exception_handler(messages: *const *const core::ffi::c_char, _type_names: *const *const core::ffi::c_char, _userdata: *mut core::ffi::c_void)\n{\n";
-            out += "    let mut text = String::new();\n    let mut ptr = messages;\n    while !(*ptr).is_null()\n    {\n        if !text.is_empty() {text.push('\\n');}\n";
+            out += "    let mut text = alloc::string::String::new();\n    let mut ptr = messages;\n    while !(*ptr).is_null()\n    {\n        if !text.is_empty() {text.push('\\n');}\n";
             out += "        text.push_str(&core::ffi::CStr::from_ptr(*ptr).to_string_lossy());\n        ptr = ptr.add(1);\n    }\n";
-            out += "    PENDING_EXCEPTION.with(|e| *e.borrow_mut() = Some(text));\n}\n\n";
-            out += "static INIT_EXCEPTIONS: std::sync::Once = std::sync::Once::new();\n\n";
-            out += "#[doc(hidden)]\npub fn __init_exceptions()\n{\n    INIT_EXCEPTIONS.call_once(|| unsafe {crate::ffi::" + c_desc.helpers_prefix + "SetExceptionHandler(Some(exception_handler), core::ptr::null_mut())});\n}\n\n";
-            out += "/// Panics if the last call into the C bindings threw a C++ exception.\n#[doc(hidden)]\npub fn __check_exception()\n{\n    if let Some(msg) = PENDING_EXCEPTION.with(|e| e.borrow_mut().take())\n    {\n        panic!(\"C++ exception: {msg}\");\n    }\n}\n\n";
+            out += "    #[cfg(feature = \"std\")]\n    PENDING_EXCEPTION.with(|e| *e.borrow_mut() = Some(text));\n";
+            out += "    #[cfg(not(feature = \"std\"))]\n    panic!(\"C++ exception: {text}\");\n}\n\n";
+            out += "/// 0 = the handler is not set, 1 = being set, 2 = set.\nstatic INIT_EXCEPTIONS: core::sync::atomic::AtomicU8 = core::sync::atomic::AtomicU8::new(0);\n\n";
+            out += "#[doc(hidden)]\npub fn __init_exceptions()\n{\n    use core::sync::atomic::Ordering;\n";
+            out += "    if INIT_EXCEPTIONS.load(Ordering::Acquire) == 2 {return;}\n";
+            out += "    if INIT_EXCEPTIONS.compare_exchange(0, 1, Ordering::Acquire, Ordering::Acquire).is_ok()\n    {\n";
+            out += "        unsafe {crate::ffi::" + c_desc.helpers_prefix + "SetExceptionHandler(Some(exception_handler), core::ptr::null_mut())};\n";
+            out += "        INIT_EXCEPTIONS.store(2, Ordering::Release);\n    }\n";
+            out += "    else\n    {\n        while INIT_EXCEPTIONS.load(Ordering::Acquire) != 2 {core::hint::spin_loop();}\n    }\n}\n\n";
+            out += "/// Panics if the last call into the C bindings threw a C++ exception.\n#[doc(hidden)]\npub fn __check_exception()\n{\n    #[cfg(feature = \"std\")]\n    if let Some(msg) = PENDING_EXCEPTION.with(|e| e.borrow_mut().take())\n    {\n        panic!(\"C++ exception: {msg}\");\n    }\n}\n\n";
         }
     }
 
@@ -1458,8 +1465,8 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
                     out += "impl " + def_name + "\n{\n";
                     out += "    pub fn as_bytes(&self) -> &[u8]\n    {\n        unsafe {core::slice::from_raw_parts(crate::ffi::" + info.c_name + "_data(self as *const Self as *const " + ffi_name + ") as *const u8, crate::ffi::" + info.c_name + "_size(self as *const Self as *const " + ffi_name + "))}\n    }\n\n";
                     out += "    pub fn to_str(&self) -> Result<&str, core::str::Utf8Error> {core::str::from_utf8(self.as_bytes())}\n}\n\n";
-                    out += "impl core::fmt::Display for " + def_name + "\n{\n    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {f.write_str(&String::from_utf8_lossy(self.as_bytes()))}\n}\n\n";
-                    out += "impl core::fmt::Debug for " + def_name + "\n{\n    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {core::fmt::Debug::fmt(&*String::from_utf8_lossy(self.as_bytes()), f)}\n}\n\n";
+                    out += "impl core::fmt::Display for " + def_name + "\n{\n    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {f.write_str(&alloc::string::String::from_utf8_lossy(self.as_bytes()))}\n}\n\n";
+                    out += "impl core::fmt::Debug for " + def_name + "\n{\n    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {core::fmt::Debug::fmt(&*alloc::string::String::from_utf8_lossy(self.as_bytes()), f)}\n}\n\n";
                 }
             }
         }
@@ -1510,8 +1517,8 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
             ret.path = type->rust_path;
             if (type->cpp_name == "std::string")
             {
-                ret.owned_type = "String";
-                ret.take_out = "x.to_string()";
+                ret.owned_type = "alloc::string::String";
+                ret.take_out = "alloc::string::ToString::to_string(&*x)";
                 return ret;
             }
             if (!type->has_destroy)
@@ -1839,12 +1846,12 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
         out += Indent(ret_convert + "\n", 1);
         out += "}\n\n";
         out += "unsafe extern \"C\" fn " + prefix + "_userdata<F>(_this_userdata: *mut *mut " + c_void + ", _other_userdata: *mut " + c_void + ")\n{\n";
-        out += "    if !(*_this_userdata).is_null()\n    {\n        drop(std::sync::Arc::from_raw(*_this_userdata as *const F));\n        *_this_userdata = core::ptr::null_mut();\n    }\n";
-        out += "    if !_other_userdata.is_null()\n    {\n        std::sync::Arc::increment_strong_count(_other_userdata as *const F);\n        *_this_userdata = _other_userdata;\n    }\n";
+        out += "    if !(*_this_userdata).is_null()\n    {\n        drop(alloc::sync::Arc::from_raw(*_this_userdata as *const F));\n        *_this_userdata = core::ptr::null_mut();\n    }\n";
+        out += "    if !_other_userdata.is_null()\n    {\n        alloc::sync::Arc::increment_strong_count(_other_userdata as *const F);\n        *_this_userdata = _other_userdata;\n    }\n";
         out += "}\n\n";
 
         const std::string bounds = closure_sig + " + Send + Sync + 'static";
-        const std::string callbacks = "Some(" + prefix + "_call::<F>), std::sync::Arc::into_raw(std::sync::Arc::new(func)) as *mut " + c_void + ", None, Some(" + prefix + "_userdata::<F>)";
+        const std::string callbacks = "Some(" + prefix + "_call::<F>), alloc::sync::Arc::into_raw(alloc::sync::Arc::new(func)) as *mut " + c_void + ", None, Some(" + prefix + "_userdata::<F>)";
         std::string name = UniqueName(used_names, "from_fn");
         methods += "    /// Constructs an instance holding a Rust closure. The copies of the instance share the closure.\n    ///\n    /// Calls `" + info.c_name + "_ConstructEx()`.\n";
         methods += "    pub fn " + name + "<F: " + bounds + ">(func: F) -> crate::Owned<" + info.rust_path + ">\n    {\n";
@@ -1979,7 +1986,16 @@ impl<T: CppClass + core::fmt::Debug> core::fmt::Debug for Owned<T>
         std::string &lib = output_files["lib.rs"];
         lib += "//! The `ffi` module holds the raw C declarations. The definitions of the safe wrappers mirror the C file hierarchy,\n";
         lib += "//! and the modules named after the C++ namespaces re-export them.\n";
+        if (c_desc.exception_handling_enabled)
+            lib += "//!\n//! Needs only `core` and `alloc`. With the `std` feature, C++ exceptions become panics that can be caught; without it, they become panics that can't.\n";
+        else
+            lib += "//!\n//! Needs only `core` and `alloc`.\n";
+        lib += "#![no_std]\n";
         lib += "#![allow(non_camel_case_types, non_snake_case, non_upper_case_globals, dead_code, deprecated, unused_unsafe, unused_variables, unused_imports, clippy::all)]\n\n";
+        lib += "extern crate alloc;\n";
+        if (c_desc.exception_handling_enabled)
+            lib += "#[cfg(feature = \"std\")]\nextern crate std;\n";
+        lib += "\n";
         lib += "pub mod ffi;\n";
         lib += ModDecls(tree, false);
         lib += "\n";
