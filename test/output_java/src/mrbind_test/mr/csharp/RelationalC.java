@@ -16,7 +16,7 @@ public final class RelationalC extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H4.MR_CSharp_RelationalC_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H5.MR_CSharp_RelationalC_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -161,7 +161,7 @@ public final class RelationalC extends mrbind_test.CppObject
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H4.MR_C_greater_equal_MR_CSharp_RelationalC.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H5.MR_C_greater_equal_MR_CSharp_RelationalC.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

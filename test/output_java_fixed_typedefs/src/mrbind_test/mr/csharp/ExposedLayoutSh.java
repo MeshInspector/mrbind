@@ -58,7 +58,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_foo.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_foo.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -80,7 +80,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_bar.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_bar.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -102,7 +102,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayoutSh_blah.invokeExact();
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayoutSh_blah.invokeExact();
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -121,7 +121,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_incr_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_incr_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -143,7 +143,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_add_MR_CSharp_ExposedLayoutSh_int32_t.invokeExact(rawPointer(), _1);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H3.MR_C_add_MR_CSharp_ExposedLayoutSh_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -166,7 +166,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_mul_MR_CSharp_ExposedLayoutSh_int32_t.invokeExact(rawPointer(), _1);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H3.MR_C_mul_MR_CSharp_ExposedLayoutSh_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -189,7 +189,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_less_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_less_MR_CSharp_ExposedLayoutSh.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -213,7 +213,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_ExposedLayoutSh_float.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_ExposedLayoutSh_float.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -299,6 +299,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     }
 
     /**
+     * While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
@@ -348,6 +349,7 @@ public final class ExposedLayoutSh extends mrbind_test.CppStruct
     }
 
     /**
+     * And against itself, too.
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.

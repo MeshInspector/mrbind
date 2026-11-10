@@ -40,7 +40,7 @@ export { MR_C_rshift_MR_OverloadedOps_B as opRshift } from "../../lib/_all.mjs";
 export { MR_C_lshift_assign_MR_OverloadedOps_B as opLshiftAssign } from "../../lib/_all.mjs";
 export { MR_C_rshift_assign_MR_OverloadedOps_B as opRshiftAssign } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_OverloadedOps_B as opEqual_MR_OverloadedOps_B } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_OverloadedOps_B as opNot_equal_MR_OverloadedOps_B } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_OverloadedOps_B as opNotEqual } from "../../lib/_all.mjs";
 export { MR_C_less_equal_MR_OverloadedOps_B as opLessEqual } from "../../lib/_all.mjs";
 export { MR_C_greater_equal_MR_OverloadedOps_B as opGreaterEqual } from "../../lib/_all.mjs";
 export { MR_C_compare_three_way_MR_OverloadedOps_B as opCompareThreeWay } from "../../lib/_all.mjs";
@@ -57,7 +57,6 @@ export { MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B as opAdd_MR_OverloadedOp
 export { MR_C_pos_MR_OverloadedOps_D_ref as opPos_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
 export { MR_C_pos_const_MR_OverloadedOps_D_ref as opPos_const_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_OverloadedOps_I as opEqual_MR_OverloadedOps_I } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_OverloadedOps_I as opNot_equal_MR_OverloadedOps_I } from "../../lib/_all.mjs";
 
 export function opAdd(...args)
 {
@@ -103,15 +102,5 @@ export function opEqual(...args)
     if (__n === 2 && (args[0] instanceof L.MR_OverloadedOps_I) && (args[1] instanceof L.MR_OverloadedOps_I))
         return L.MR_C_equal_MR_OverloadedOps_I(args[0], args[1]);
     throw new TypeError("No overload of `opEqual` accepts these arguments.");
-}
-
-export function opNotEqual(...args)
-{
-    const __n = args.length;
-    if (__n === 2 && (args[0] instanceof L.MR_OverloadedOps_B) && (args[1] instanceof L.MR_OverloadedOps_B))
-        return L.MR_C_not_equal_MR_OverloadedOps_B(args[0], args[1]);
-    if (__n === 2 && (args[0] instanceof L.MR_OverloadedOps_I) && (args[1] instanceof L.MR_OverloadedOps_I))
-        return L.MR_C_not_equal_MR_OverloadedOps_I(args[0], args[1]);
-    throw new TypeError("No overload of `opNotEqual` accepts these arguments.");
 }
 

@@ -71,12 +71,6 @@ export declare class MR_StdContainers_NonAssignable extends ffi.CppObject
      * Calls `MR_C_equal_MR_StdContainers_NonAssignable()`.
      */
     opEqual(_1: L.MR_StdContainers_NonAssignable): boolean;
-    /**
-     * Generated from method `MR::StdContainers::NonAssignable::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_StdContainers_NonAssignable()`.
-     */
-    opNotEqual(_1: L.MR_StdContainers_NonAssignable): boolean;
 }
 
 /**

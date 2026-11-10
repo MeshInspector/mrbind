@@ -11478,42 +11478,6 @@ public static partial class MR
                     return __c_ret;
                 }
 
-                /// Generated from method `MR::CSharp::TestOpsA::operator<`.
-                public unsafe bool Less(MR.CS.CSharp.Const_TestOpsA _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsA::operator>`.
-                public unsafe bool Greater(MR.CS.CSharp.Const_TestOpsA _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_greater_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsA::operator<=`.
-                public unsafe bool LessEqual(MR.CS.CSharp.Const_TestOpsA _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_equal_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsA::operator>=`.
-                public unsafe bool GreaterEqual(MR.CS.CSharp.Const_TestOpsA _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_greater_equal_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
                 /// Generated from method `MR::CSharp::TestOpsA::operator&&`.
                 public unsafe int And(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -11659,18 +11623,6 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsA", ExactSpelling = true)]
                 extern static unsafe int __MR_C_div_MR_CSharp_TestOpsA(MR.CS.CSharp.TestOpsA._Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_TestOpsA", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_greater_MR_CSharp_TestOpsA(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_TestOpsA", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_greater_equal_MR_CSharp_TestOpsA(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_TestOpsA", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_MR_CSharp_TestOpsA(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_CSharp_TestOpsA", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_equal_MR_CSharp_TestOpsA(_Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsA", ExactSpelling = true)]
                 extern static unsafe int __MR_C_lshift_MR_CSharp_TestOpsA(MR.CS.CSharp.TestOpsA._Underlying *_this, MR.CS.CSharp.TestOpsA._Underlying *_1);
@@ -12052,42 +12004,6 @@ public static partial class MR
                     return __c_ret;
                 }
 
-                /// Generated from method `MR::CSharp::TestOpsB::operator<`.
-                public unsafe bool Less(MR.CS.CSharp._ByValue_TestOpsB _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsB::operator>`.
-                public unsafe bool Greater(MR.CS.CSharp._ByValue_TestOpsB _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_greater_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsB::operator<=`.
-                public unsafe bool LessEqual(MR.CS.CSharp._ByValue_TestOpsB _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_equal_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                /// Generated from method `MR::CSharp::TestOpsB::operator>=`.
-                public unsafe bool GreaterEqual(MR.CS.CSharp._ByValue_TestOpsB _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_greater_equal_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
                 /// Generated from method `MR::CSharp::TestOpsB::operator&&`.
                 public unsafe int And(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12233,18 +12149,6 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsB", ExactSpelling = true)]
                 extern static unsafe int __MR_C_div_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_TestOpsB", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_greater_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_TestOpsB", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_greater_equal_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_TestOpsB", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_CSharp_TestOpsB", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_equal_MR_CSharp_TestOpsB(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsB", ExactSpelling = true)]
                 extern static unsafe int __MR_C_lshift_MR_CSharp_TestOpsB(MR.CS.CSharp.TestOpsB._Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.CSharp.TestOpsB._Underlying *_1);

@@ -1117,28 +1117,4 @@ public final class Functions
             java.lang.ref.Reference.reachabilityFence(_2);
         }
     }
-
-    /**
-     * Generated from function `MR::OverloadedOps::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
-     */
-    public static boolean opNotEqual(mrbind_test.mr.overloadedops.I _1, mrbind_test.mr.overloadedops.I _2)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_not_equal_MR_OverloadedOps_I.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(_1);
-            java.lang.ref.Reference.reachabilityFence(_2);
-        }
-    }
 }

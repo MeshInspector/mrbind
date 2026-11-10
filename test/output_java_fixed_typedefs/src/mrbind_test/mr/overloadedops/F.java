@@ -128,6 +128,30 @@ public final class F extends mrbind_test.CppObject
     }
 
     /**
+     * Generated from method `MR::OverloadedOps::F::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_F()`.
+     */
+    public int opCompareThreeWay(mrbind_test.mr.overloadedops.F _1)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_compare_three_way_MR_OverloadedOps_F.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
      * Generated from method `MR::OverloadedOps::F::operator==`.
      *
      * Calls `MR_C_equal_MR_OverloadedOps_F()`.

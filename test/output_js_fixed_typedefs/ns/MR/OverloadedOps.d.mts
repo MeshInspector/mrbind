@@ -148,6 +148,7 @@ export declare function opEqual(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps
  */
 export declare function opNotEqual(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
 /**
+ * Gives a free `!=`.
  * Generated from function `MR::OverloadedOps::operator!=`.
  *
  * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.

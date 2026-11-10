@@ -73,7 +73,6 @@ unsafe extern "C"
     pub fn MR_StdContainers_NonAssignable_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_StdContainers_NonAssignable;
     pub fn MR_C_less_MR_StdContainers_NonAssignable(_this: *const crate::ffi::MR_StdContainers_NonAssignable, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_StdContainers_NonAssignable) -> bool;
     pub fn MR_C_equal_MR_StdContainers_NonAssignable(_this: *const crate::ffi::MR_StdContainers_NonAssignable, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_StdContainers_NonAssignable) -> bool;
-    pub fn MR_C_not_equal_MR_StdContainers_NonAssignable(_this: *const crate::ffi::MR_StdContainers_NonAssignable, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_StdContainers_NonAssignable) -> bool;
     pub fn MR_StdContainers_NonAssignable_Destroy(_this: *const MR_StdContainers_NonAssignable);
     pub fn MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other: *const crate::ffi::MR_StdContainers_NonDefaultConstructible) -> *mut crate::ffi::MR_StdContainers_NonDefaultConstructible;
     pub fn MR_StdContainers_NonDefaultConstructible_Construct(_1: core::ffi::c_int) -> *mut crate::ffi::MR_StdContainers_NonDefaultConstructible;

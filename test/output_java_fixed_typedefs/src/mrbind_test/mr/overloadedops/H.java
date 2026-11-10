@@ -128,6 +128,7 @@ public final class H extends mrbind_test.CppObject
     }
 
     /**
+     * Gives `!=`.
      * Generated from method `MR::OverloadedOps::H::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_OverloadedOps_H()`.

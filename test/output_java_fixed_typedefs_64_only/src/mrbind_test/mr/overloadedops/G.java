@@ -127,87 +127,16 @@ public final class G extends mrbind_test.CppObject
     }
 
     /**
-     * Generated from method `MR::OverloadedOps::G::operator<`.
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+     * Generated from method `MR::OverloadedOps::G::operator<=>`.
      *
-     * Calls `MR_C_less_MR_OverloadedOps_G()`.
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_G()`.
      */
-    public boolean opLess(mrbind_test.mr.overloadedops.G _1)
+    public int opCompareThreeWay(mrbind_test.mr.overloadedops.G _1)
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_less_MR_OverloadedOps_G.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
-
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator>`.
-     *
-     * Calls `MR_C_greater_MR_OverloadedOps_G()`.
-     */
-    public boolean opGreater(mrbind_test.mr.overloadedops.G _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_greater_MR_OverloadedOps_G.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
-
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
-     */
-    public boolean opLessEqual(mrbind_test.mr.overloadedops.G _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_less_equal_MR_OverloadedOps_G.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
-
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
-     */
-    public boolean opGreaterEqual(mrbind_test.mr.overloadedops.G _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_greater_equal_MR_OverloadedOps_G.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_overloaded_operators.H0.MR_C_compare_three_way_MR_OverloadedOps_G.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

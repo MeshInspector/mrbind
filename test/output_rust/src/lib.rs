@@ -15,6 +15,7 @@ pub mod ABC;
 pub mod AB_base;
 pub mod B;
 pub mod MR;
+pub mod compare;
 pub mod iostream;
 pub mod phmap_btree_map_int_float;
 pub mod phmap_btree_multimap_int_float;
@@ -446,6 +447,17 @@ pub mod mr
         pub use crate::MR::test_csharp::TestOpsB;
         pub use crate::MR::test_csharp::TestOpsC;
         pub use crate::MR::test_csharp::TestStdFunction;
+        pub use crate::MR::test_csharp::ThreeWayA;
+        pub use crate::MR::test_csharp::ThreeWayB;
+        pub use crate::MR::test_csharp::ThreeWayC;
+        pub use crate::MR::test_csharp::ThreeWayD;
+        pub use crate::MR::test_csharp::ThreeWayE;
+        pub use crate::MR::test_csharp::ThreeWayF;
+        pub use crate::MR::test_csharp::ThreeWayG;
+        pub use crate::MR::test_csharp::ThreeWayH;
+        pub use crate::MR::test_csharp::ThreeWayI;
+        pub use crate::MR::test_csharp::ThreeWayJ;
+        pub use crate::MR::test_csharp::ThreeWayK;
         pub use crate::MR::test_csharp::Trivial;
         pub use crate::MR::test_csharp::TrivialDerived;
         pub use crate::MR::test_csharp::foo;
@@ -599,7 +611,6 @@ pub mod mr
         pub use crate::MR::test_csharp::test_exposed_ptr_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::test_exposed_cptr_const_mr_c_sharp_exposed_layout_sh_ptr;
         pub use crate::MR::test_csharp::op_equal_mr_c_sharp_exposed_layout_b;
-        pub use crate::MR::test_csharp::op_not_equal_mr_c_sharp_exposed_layout_b;
         pub use crate::MR::test_csharp::test_optint;
         pub use crate::MR::test_csharp::test_optint_ref;
         pub use crate::MR::test_csharp::test_optint_cref;
@@ -742,6 +753,19 @@ pub mod mr
         pub use crate::MR::test_csharp::get_tuple_exposed_value;
         pub use crate::MR::test_csharp::get_tuple_exposed_lvalue_ref;
         pub use crate::MR::test_csharp::get_tuple_exposed_rvalue_ref;
+        pub use crate::MR::test_csharp::returns_strong_ordering;
+        pub use crate::MR::test_csharp::returns_weak_ordering;
+        pub use crate::MR::test_csharp::returns_partial_ordering;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_a;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_b;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_d;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_f;
+        pub use crate::MR::test_csharp::op_not_equal_mr_c_sharp_three_way_f;
+        pub use crate::MR::test_csharp::op_greater_mr_c_sharp_three_way_f;
+        pub use crate::MR::test_csharp::op_equal_mr_c_sharp_three_way_i_int;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_i;
+        pub use crate::MR::test_csharp::op_equal_mr_c_sharp_three_way_k_int;
+        pub use crate::MR::test_csharp::op_compare_three_way_mr_c_sharp_three_way_k;
         pub use crate::MR::test_csharp::test_expected_int;
         pub use crate::MR::test_csharp::test_expected_int_ref;
         pub use crate::MR::test_csharp::test_expected_int_cref;
@@ -810,6 +834,7 @@ pub mod mr
 
     pub mod cs
     {
+        pub use crate::compare::std_partial_ordering;
         pub use crate::std_array_MR_StdContainers_A_42::std_array_MR_StdContainers_A_42;
         pub use crate::std_array_MR_StdContainers_NonAssignable_42::std_array_MR_StdContainers_NonAssignable_42;
         pub use crate::std_array_int_43::std_array_int_43;
@@ -1226,7 +1251,6 @@ pub mod mr
         pub use crate::MR::test_overloaded_operators::op_pos_mr_overloaded_ops_d_ref;
         pub use crate::MR::test_overloaded_operators::op_pos_const_mr_overloaded_ops_d_ref;
         pub use crate::MR::test_overloaded_operators::op_equal_mr_overloaded_ops_i;
-        pub use crate::MR::test_overloaded_operators::op_not_equal_mr_overloaded_ops_i;
     }
 
     pub mod overloads

@@ -1678,7 +1678,7 @@ public static partial class MR
 
             /// Generated from class `MR::OverloadedOps::E`.
             /// This is the const half of the class.
-            public class Const_E : MR.CS.Misc.Object<Const_E>, System.IDisposable, System.IEquatable<MR.CS.OverloadedOps.Const_E>
+            public class Const_E : MR.CS.Misc.Object<Const_E>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1732,69 +1732,20 @@ public static partial class MR
                 /// Generated from constructor `MR::OverloadedOps::E::E`.
                 public Const_E(E _other) : this((Const_E)_other) {}
 
-                /// Generated from method `MR::OverloadedOps::E::operator==`.
-                public static unsafe bool operator==(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
+                // Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+                /// Generated from method `MR::OverloadedOps::E::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.OverloadedOps.Const_E _1)
                 {
                     MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_equal_MR_OverloadedOps_E(_this._UnderlyingPtr, _1._UnderlyingPtr);
+                    var __c_ret = __MR_C_compare_three_way_MR_OverloadedOps_E(_UnderlyingPtr, _1._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                public static unsafe bool operator!=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
-                {
-                    return !(_this == _1);
-                }
-
-                /// Generated from method `MR::OverloadedOps::E::operator<`.
-                public static unsafe bool operator<(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
-                {
-                    MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_MR_OverloadedOps_E(_this._UnderlyingPtr, _1._UnderlyingPtr);
-                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                public static unsafe bool operator>(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
-                {
-                    return _1 < _this;
-                }
-
-                public static unsafe bool operator<=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
-                {
-                    return !(_1 < _this);
-                }
-
-                public static unsafe bool operator>=(MR.CS.OverloadedOps.Const_E _this, MR.CS.OverloadedOps.Const_E _1)
-                {
-                    return !(_this < _1);
-                }
-
-                // IEquatable:
-
-                public bool Equals(MR.CS.OverloadedOps.Const_E? _1)
-                {
-                    if (_1 is null)
-                        return false;
-                    return this == _1;
-                }
-
-                public override bool Equals(object? other)
-                {
-                    if (other is null)
-                        return false;
-                    if (other is MR.CS.OverloadedOps.Const_E)
-                        return this == (MR.CS.OverloadedOps.Const_E)other;
-                    return false;
+                    return __c_ret;
                 }
 
                 // DllImport:
 
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_E", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_equal_MR_OverloadedOps_E(MR.CS.OverloadedOps.Const_E._Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
-
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_E", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_MR_OverloadedOps_E(MR.CS.OverloadedOps.Const_E._Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_E", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_E(_Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_E_ConstructFrom", ExactSpelling = true)]
                 extern static unsafe MR.CS.OverloadedOps.E._Underlying *__MR_OverloadedOps_E_ConstructFrom(int x);
@@ -1915,7 +1866,7 @@ public static partial class MR
 
             /// Generated from class `MR::OverloadedOps::F`.
             /// This is the const half of the class.
-            public class Const_F : MR.CS.Misc.Object<Const_F>, System.IDisposable, System.IEquatable<MR.CS.OverloadedOps.Const_F>
+            public class Const_F : MR.CS.Misc.Object<Const_F>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1969,18 +1920,13 @@ public static partial class MR
                 /// Generated from constructor `MR::OverloadedOps::F::F`.
                 public Const_F(F _other) : this((Const_F)_other) {}
 
-                /// Generated from method `MR::OverloadedOps::F::operator==`.
-                public static unsafe bool operator==(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
+                /// Generated from method `MR::OverloadedOps::F::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.OverloadedOps.Const_F _1)
                 {
                     MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_equal_MR_OverloadedOps_F(_this._UnderlyingPtr, _1._UnderlyingPtr);
+                    var __c_ret = __MR_C_compare_three_way_MR_OverloadedOps_F(_UnderlyingPtr, _1._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                public static unsafe bool operator!=(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
-                {
-                    return !(_this == _1);
+                    return __c_ret;
                 }
 
                 // Declared, so it isn't added once more.
@@ -2008,28 +1954,10 @@ public static partial class MR
                     return !(_this < _1);
                 }
 
-                // IEquatable:
-
-                public bool Equals(MR.CS.OverloadedOps.Const_F? _1)
-                {
-                    if (_1 is null)
-                        return false;
-                    return this == _1;
-                }
-
-                public override bool Equals(object? other)
-                {
-                    if (other is null)
-                        return false;
-                    if (other is MR.CS.OverloadedOps.Const_F)
-                        return this == (MR.CS.OverloadedOps.Const_F)other;
-                    return false;
-                }
-
                 // DllImport:
 
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_F", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_equal_MR_OverloadedOps_F(MR.CS.OverloadedOps.Const_F._Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_F", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_F(_Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_F", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_less_MR_OverloadedOps_F(MR.CS.OverloadedOps.Const_F._Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
@@ -2207,34 +2135,20 @@ public static partial class MR
                 /// Generated from constructor `MR::OverloadedOps::G::G`.
                 public Const_G(G _other) : this((Const_G)_other) {}
 
-                /// Generated from method `MR::OverloadedOps::G::operator<`.
-                public static unsafe bool operator<(MR.CS.OverloadedOps.Const_G _this, MR.CS.OverloadedOps.Const_G _1)
+                // Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+                /// Generated from method `MR::OverloadedOps::G::operator<=>`.
+                public unsafe int CompareThreeWay(MR.CS.OverloadedOps.Const_G _1)
                 {
                     MR.CS.Misc._Exceptions.Prepare();
-                    var __c_ret = __MR_C_less_MR_OverloadedOps_G(_this._UnderlyingPtr, _1._UnderlyingPtr);
+                    var __c_ret = __MR_C_compare_three_way_MR_OverloadedOps_G(_UnderlyingPtr, _1._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                    return __c_ret != 0;
-                }
-
-                public static unsafe bool operator>(MR.CS.OverloadedOps.Const_G _this, MR.CS.OverloadedOps.Const_G _1)
-                {
-                    return _1 < _this;
-                }
-
-                public static unsafe bool operator<=(MR.CS.OverloadedOps.Const_G _this, MR.CS.OverloadedOps.Const_G _1)
-                {
-                    return !(_1 < _this);
-                }
-
-                public static unsafe bool operator>=(MR.CS.OverloadedOps.Const_G _this, MR.CS.OverloadedOps.Const_G _1)
-                {
-                    return !(_this < _1);
+                    return __c_ret;
                 }
 
                 // DllImport:
 
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_G", ExactSpelling = true)]
-                extern static unsafe byte __MR_C_less_MR_OverloadedOps_G(MR.CS.OverloadedOps.Const_G._Underlying *_this, MR.CS.OverloadedOps.Const_G._Underlying *_1);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_G", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_G(_Underlying *_this, MR.CS.OverloadedOps.Const_G._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_G_ConstructFrom", ExactSpelling = true)]
                 extern static unsafe MR.CS.OverloadedOps.G._Underlying *__MR_OverloadedOps_G_ConstructFrom(int x);

@@ -14,6 +14,8 @@ pub mod B;
 pub use self::B::*;
 pub mod MR;
 pub use self::MR::*;
+pub mod compare;
+pub use self::compare::*;
 pub mod expected_MR_CSharp_E1_float;
 pub use self::expected_MR_CSharp_E1_float::*;
 pub mod expected_MR_CSharp_ExposedLayoutSh_float;

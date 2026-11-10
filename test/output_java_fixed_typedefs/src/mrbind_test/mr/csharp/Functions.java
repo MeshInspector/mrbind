@@ -3427,6 +3427,7 @@ public final class Functions
     }
 
     /**
+     * And try an equality comparison!
      * Generated from function `MR::CSharp::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
@@ -6493,6 +6494,1021 @@ public final class Functions
         catch (java.lang.Throwable __e)
         {
             throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * We only support return usages for now.
+     * Generated from function `MR::CSharp::returns_strong_ordering`.
+     *
+     * Calls `MR_CSharp_returns_strong_ordering()`.
+     */
+    public static int returns_strong_ordering()
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_returns_strong_ordering.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::returns_weak_ordering`.
+     *
+     * Calls `MR_CSharp_returns_weak_ordering()`.
+     */
+    public static int returns_weak_ordering()
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_returns_weak_ordering.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::returns_partial_ordering`.
+     *
+     * Calls `MR_CSharp_returns_partial_ordering()`.
+     */
+    public static mrbind_test.mr.cs.std_partial_ordering returns_partial_ordering()
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_returns_partial_ordering.invokeExact();
+            mrbind_test.Ffi.checkException();
+            return mrbind_test.mr.cs.std_partial_ordering.of(__ret);
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayA()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opEqual(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_equal_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_not_equal_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayA()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayA a, mrbind_test.mr.csharp.ThreeWayA b)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayA.invokeExact(mrbind_test.Ffi.ptrNonNull(a, "a"), mrbind_test.Ffi.ptrNonNull(b, "b"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(a);
+            java.lang.ref.Reference.reachabilityFence(b);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayB()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opEqual(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_equal_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_not_equal_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayB()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayB _1, mrbind_test.mr.csharp.ThreeWayB _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayB.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayD()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayD _1, mrbind_test.mr.csharp.ThreeWayD _2)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayD.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayD()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayD _1, mrbind_test.mr.csharp.ThreeWayD _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayD.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayD()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayD _1, mrbind_test.mr.csharp.ThreeWayD _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayD.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayD()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayD _1, mrbind_test.mr.csharp.ThreeWayD _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayD.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayD()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayD _1, mrbind_test.mr.csharp.ThreeWayD _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayD.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayF()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opEqual(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_equal_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Some random operators that should not be replaced.
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_not_equal_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayF()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayF _1, mrbind_test.mr.csharp.ThreeWayF _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayF.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayI_int32_t()`.
+     */
+    public static boolean opEqual(mrbind_test.mr.csharp.ThreeWayI _1, int _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_equal_MR_CSharp_ThreeWayI_int32_t.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), _2);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ThreeWayI _1, int _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), _2);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayI()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayI _1, mrbind_test.mr.csharp.ThreeWayI _2)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayI.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayI()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayI _1, mrbind_test.mr.csharp.ThreeWayI _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayI.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayI()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayI _1, mrbind_test.mr.csharp.ThreeWayI _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayI.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayI()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayI _1, mrbind_test.mr.csharp.ThreeWayI _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayI.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayI()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayI _1, mrbind_test.mr.csharp.ThreeWayI _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayI.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayK_int32_t()`.
+     */
+    public static boolean opEqual(mrbind_test.mr.csharp.ThreeWayK _1, int _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_equal_MR_CSharp_ThreeWayK_int32_t.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), _2);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t()`.
+     */
+    public static boolean opNotEqual(mrbind_test.mr.csharp.ThreeWayK _1, int _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), _2);
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayK()`.
+     */
+    public static int opCompareThreeWay(mrbind_test.mr.csharp.ThreeWayK _1, mrbind_test.mr.csharp.ThreeWayK _2)
+    {
+        try
+        {
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H1.MR_C_compare_three_way_MR_CSharp_ThreeWayK.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<`.
+     *
+     * Calls `MR_C_less_MR_CSharp_ThreeWayK()`.
+     */
+    public static boolean opLess(mrbind_test.mr.csharp.ThreeWayK _1, mrbind_test.mr.csharp.ThreeWayK _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_MR_CSharp_ThreeWayK.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayK()`.
+     */
+    public static boolean opGreater(mrbind_test.mr.csharp.ThreeWayK _1, mrbind_test.mr.csharp.ThreeWayK _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_MR_CSharp_ThreeWayK.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator<=`.
+     *
+     * Calls `MR_C_less_equal_MR_CSharp_ThreeWayK()`.
+     */
+    public static boolean opLessEqual(mrbind_test.mr.csharp.ThreeWayK _1, mrbind_test.mr.csharp.ThreeWayK _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_less_equal_MR_CSharp_ThreeWayK.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
+        }
+    }
+
+    /**
+     * Generated from function `MR::CSharp::operator>=`.
+     *
+     * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayK()`.
+     */
+    public static boolean opGreaterEqual(mrbind_test.mr.csharp.ThreeWayK _1, mrbind_test.mr.csharp.ThreeWayK _2)
+    {
+        try
+        {
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H1.MR_C_greater_equal_MR_CSharp_ThreeWayK.invokeExact(mrbind_test.Ffi.ptrNonNull(_1, "_1"), mrbind_test.Ffi.ptrNonNull(_2, "_2"));
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(_1);
+            java.lang.ref.Reference.reachabilityFence(_2);
         }
     }
 

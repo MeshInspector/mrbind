@@ -3,6 +3,7 @@
 import * as ffi from "../../ffi.mjs";
 import * as L from "../../lib/_all.mjs";
 
+export { MR_C_std_partial_ordering as std_partial_ordering } from "../../lib/_all.mjs";
 export { MR_C_expected_MR_CSharp_E1_float as expected_MR_CSharp_E1_float } from "../../lib/_all.mjs";
 export { MR_C_expected_MR_CSharp_ExposedLayout_float as expected_MR_CSharp_ExposedLayout_float } from "../../lib/_all.mjs";
 export { MR_C_expected_MR_CSharp_ExposedLayoutSh_float as expected_MR_CSharp_ExposedLayoutSh_float } from "../../lib/_all.mjs";

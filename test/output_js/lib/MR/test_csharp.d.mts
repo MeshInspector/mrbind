@@ -1483,19 +1483,6 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
     opEqual(_1: L.MR_CSharp_EqualityA): boolean;
     /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
-     * Generated from method `MR::CSharp::EqualityA::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityA_int()`.
-     */
-    opNotEqual(_1: number): boolean;
-    /**
-     * Generated from method `MR::CSharp::EqualityA::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
-     */
-    opNotEqual(_1: L.MR_CSharp_EqualityA): boolean;
-    /** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
-    /**
      * Generated from method `MR::CSharp::EqualityA::operator=`.
      * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
      *
@@ -1513,19 +1500,13 @@ export declare class MR_CSharp_EqualityA extends ffi.CppObject
      *
      * Calls `MR_C_not_equal_MR_CSharp_EqualityA_int()`.
      */
-    opNot_equal_int(_1: number): boolean;
+    opNotEqual(_1: number): boolean;
     /**
      * Generated from method `MR::CSharp::EqualityA::operator==`.
      *
      * Calls `MR_C_equal_MR_CSharp_EqualityA()`.
      */
     opEqual_2(_1: L.MR_CSharp_EqualityA): boolean;
-    /**
-     * Generated from method `MR::CSharp::EqualityA::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
-     */
-    opNot_equal(_1: L.MR_CSharp_EqualityA): boolean;
 }
 
 /**
@@ -1693,12 +1674,6 @@ export declare class MR_CSharp_EqualityD extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityD_const_int_ptr()`.
      */
     opEqual(_1?: number | null): boolean;
-    /**
-     * Generated from method `MR::CSharp::EqualityD::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr()`.
-     */
-    opNotEqual(_1?: number | null): boolean;
 }
 
 /**
@@ -1738,12 +1713,6 @@ export declare class MR_CSharp_EqualityE extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
      */
     opEqual(_1?: L.MR_CSharp_EqualityD | null): boolean;
-    /**
-     * Generated from method `MR::CSharp::EqualityE::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
-     */
-    opNotEqual(_1?: L.MR_CSharp_EqualityD | null): boolean;
 }
 
 /**
@@ -1844,12 +1813,6 @@ export declare class MR_CSharp_ExposedLayout extends ffi.CppStruct
      * Calls `MR_C_equal_MR_CSharp_ExposedLayout_float()`.
      */
     opEqual(_1: number): boolean;
-    /**
-     * Generated from method `MR::CSharp::ExposedLayout::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayout_float()`.
-     */
-    opNotEqual(_1: number): boolean;
     /**
      * Generated from method `MR::CSharp::ExposedLayout::operator<`.
      *
@@ -1978,25 +1941,6 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
     opEqual(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
     /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
     /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
-     */
-    opNotEqual(_1: number): boolean;
-    /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
-     */
-    opNotEqual(_1: L.MR_CSharp_ExposedLayout): boolean;
-    /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
-     */
-    opNotEqual(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
-    /** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
-    /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
      *
      * Calls `MR_CSharp_ExposedLayoutSh_foo()`.
@@ -2040,12 +1984,6 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      */
     opEqual_float(_1: number): boolean;
     /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
-     */
-    opNot_equal_float(_1: number): boolean;
-    /**
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
      *
      * Calls `MR_C_less_MR_CSharp_ExposedLayoutSh_char()`.
@@ -2059,24 +1997,12 @@ export declare class MR_CSharp_ExposedLayoutSh extends ffi.CppStruct
      */
     opEqual_MR_CSharp_ExposedLayout(_1: L.MR_CSharp_ExposedLayout): boolean;
     /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
-     */
-    opNot_equal_MR_CSharp_ExposedLayout(_1: L.MR_CSharp_ExposedLayout): boolean;
-    /**
      * And against itself, too.
      * Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
      *
      * Calls `MR_C_equal_MR_CSharp_ExposedLayoutSh()`.
      */
     opEqual_2(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
-    /**
-     * Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
-     */
-    opNot_equal(_1: L.MR_CSharp_ExposedLayoutSh): boolean;
 }
 
 /**
@@ -3661,12 +3587,6 @@ export declare class MR_CSharp_IterableK_Iter extends ffi.CppObject
      * Calls `MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
      */
     opEqual(s: L.MR_CSharp_IterableK_Sentinel): boolean;
-    /**
-     * Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
-     */
-    opNotEqual(s: L.MR_CSharp_IterableK_Sentinel): boolean;
 }
 
 /**
@@ -6216,30 +6136,6 @@ export declare class MR_CSharp_TestOpsA extends ffi.CppObject
      */
     opCompareThreeWay(_1: L.MR_CSharp_TestOpsA): number;
     /**
-     * Generated from method `MR::CSharp::TestOpsA::operator<`.
-     *
-     * Calls `MR_C_less_MR_CSharp_TestOpsA()`.
-     */
-    opLess(_1: L.MR_CSharp_TestOpsA): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsA::operator>`.
-     *
-     * Calls `MR_C_greater_MR_CSharp_TestOpsA()`.
-     */
-    opGreater(_1: L.MR_CSharp_TestOpsA): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsA::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_CSharp_TestOpsA()`.
-     */
-    opLessEqual(_1: L.MR_CSharp_TestOpsA): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsA::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_CSharp_TestOpsA()`.
-     */
-    opGreaterEqual(_1: L.MR_CSharp_TestOpsA): boolean;
-    /**
      * Generated from method `MR::CSharp::TestOpsA::operator&&`.
      *
      * Calls `MR_C_and_MR_CSharp_TestOpsA()`.
@@ -6520,30 +6416,6 @@ export declare class MR_CSharp_TestOpsB extends ffi.CppObject
      * Calls `MR_C_compare_three_way_MR_CSharp_TestOpsB()`.
      */
     opCompareThreeWay(_1: L.MR_CSharp_TestOpsB): number;
-    /**
-     * Generated from method `MR::CSharp::TestOpsB::operator<`.
-     *
-     * Calls `MR_C_less_MR_CSharp_TestOpsB()`.
-     */
-    opLess(_1: L.MR_CSharp_TestOpsB): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsB::operator>`.
-     *
-     * Calls `MR_C_greater_MR_CSharp_TestOpsB()`.
-     */
-    opGreater(_1: L.MR_CSharp_TestOpsB): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsB::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_CSharp_TestOpsB()`.
-     */
-    opLessEqual(_1: L.MR_CSharp_TestOpsB): boolean;
-    /**
-     * Generated from method `MR::CSharp::TestOpsB::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_CSharp_TestOpsB()`.
-     */
-    opGreaterEqual(_1: L.MR_CSharp_TestOpsB): boolean;
     /**
      * Generated from method `MR::CSharp::TestOpsB::operator&&`.
      *
@@ -6981,6 +6853,414 @@ export declare class MR_CSharp_TestStdFunction extends ffi.CppObject
      * Calls `MR_CSharp_TestStdFunction_Call()`.
      */
     Call(): void;
+}
+
+/**
+ * Test implicitly generated operations from three-way comparisons.
+ * Generated from class `MR::CSharp::ThreeWayA`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayA extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayA_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayA_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayA);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayA::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayA_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayA): L.MR_CSharp_ThreeWayA;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayB`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayB extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayB_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayB_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayB);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayB::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayB_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayB): L.MR_CSharp_ThreeWayB;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayC`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayC extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayC_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayC_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayC);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayC::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayC_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayC): L.MR_CSharp_ThreeWayC;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayC::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayC()`.
+     */
+    opCompareThreeWay(_1: L.MR_CSharp_ThreeWayC): number;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayD`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayD extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayD_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayD_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayD);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayD::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayD_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayD): L.MR_CSharp_ThreeWayD;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayE`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayE extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayE_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayE_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayE);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayE::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayE_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayE): L.MR_CSharp_ThreeWayE;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayE::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayE()`.
+     */
+    opCompareThreeWay(_1: L.MR_CSharp_ThreeWayE): number;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayF`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayF extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayF_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayF_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayF);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayF::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayF_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayF): L.MR_CSharp_ThreeWayF;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayG`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayG extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayG_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayG_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayG);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayG::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayG_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayG): L.MR_CSharp_ThreeWayG;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayG::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayG()`.
+     */
+    opCompareThreeWay(_1: L.MR_CSharp_ThreeWayG): number;
+    /**
+     * Some random operators that should not be replaced.
+     * Generated from method `MR::CSharp::ThreeWayG::operator!=`.
+     *
+     * Calls `MR_C_not_equal_MR_CSharp_ThreeWayG()`.
+     */
+    opNotEqual(_1: L.MR_CSharp_ThreeWayG): boolean;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayG::operator>`.
+     *
+     * Calls `MR_C_greater_MR_CSharp_ThreeWayG()`.
+     */
+    opGreater(_1: L.MR_CSharp_ThreeWayG): boolean;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayH`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayH extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayH_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayH_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayH);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayH::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayH_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayH): L.MR_CSharp_ThreeWayH;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayH::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayH_int()`.
+     */
+    opEqual(_1: number): boolean;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayH::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayH()`.
+     */
+    opCompareThreeWay(_1: L.MR_CSharp_ThreeWayH): number;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayI`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayI extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayI_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayI_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayI);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayI::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayI_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayI): L.MR_CSharp_ThreeWayI;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayJ`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayJ extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayJ_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayJ_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayJ);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayJ::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayJ_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayJ): L.MR_CSharp_ThreeWayJ;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayJ::operator==`.
+     *
+     * Calls `MR_C_equal_MR_CSharp_ThreeWayJ_int()`.
+     */
+    opEqual(_1: number): boolean;
+    /**
+     * Generated from method `MR::CSharp::ThreeWayJ::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayJ()`.
+     */
+    opCompareThreeWay(_1: L.MR_CSharp_ThreeWayJ): number;
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayK`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export declare class MR_CSharp_ThreeWayK extends ffi.CppObject
+{
+    /**
+     * Constructs an empty (default-constructed) instance.
+     *
+     * Calls `MR_CSharp_ThreeWayK_DefaultConstruct()`.
+     */
+    constructor();
+    /**
+     * Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+     *
+     * Calls `MR_CSharp_ThreeWayK_ConstructFromAnother()`.
+     */
+    constructor(_other: L.MR_CSharp_ThreeWayK);
+    /** The overloads of `constructor` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+    /** Wraps an existing object: `new X(ffi.RAW, pointer, owned, owner)`. Not for normal use. */
+    constructor(raw: typeof ffi.RAW, pointer: number, owned: boolean, owner: unknown);
+    /**
+     * Generated from method `MR::CSharp::ThreeWayK::operator=`.
+     * The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+     *
+     * Calls `MR_CSharp_ThreeWayK_AssignFromAnother()`.
+     */
+    assignFromAnother(_other: L.MR_CSharp_ThreeWayK): L.MR_CSharp_ThreeWayK;
 }
 
 /**
@@ -8120,13 +8400,6 @@ export declare function MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayou
 export declare function MR_C_equal_MR_CSharp_ExposedLayoutB(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
 
 /**
- * Generated from function `MR::CSharp::operator!=`.
- *
- * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
- */
-export declare function MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
-
-/**
  * Generated from function `MR::CSharp::test_optint`.
  *
  * Calls `MR_CSharp_test_optint()`. `b` defaults to `default_optint`. `c` defaults to `default_optint`.
@@ -9147,6 +9420,99 @@ export declare function MR_CSharp_get_tuple_exposed_lvalue_ref(): L.MR_C_std_tup
  * Calls `MR_CSharp_get_tuple_exposed_rvalue_ref()`.
  */
 export declare function MR_CSharp_get_tuple_exposed_rvalue_ref(): L.MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref;
+
+/**
+ * We only support return usages for now.
+ * Generated from function `MR::CSharp::returns_strong_ordering`.
+ *
+ * Calls `MR_CSharp_returns_strong_ordering()`.
+ */
+export declare function MR_CSharp_returns_strong_ordering(): number;
+
+/**
+ * Generated from function `MR::CSharp::returns_weak_ordering`.
+ *
+ * Calls `MR_CSharp_returns_weak_ordering()`.
+ */
+export declare function MR_CSharp_returns_weak_ordering(): number;
+
+/**
+ * Generated from function `MR::CSharp::returns_partial_ordering`.
+ *
+ * Calls `MR_CSharp_returns_partial_ordering()`.
+ */
+export declare function MR_CSharp_returns_partial_ordering(): L.MR_C_std_partial_ordering;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayA()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayA(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): number;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayB()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayB(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): number;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayD()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayD(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): number;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayF()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayF(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): number;
+
+/**
+ * Some random operators that should not be replaced.
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayF()`.
+ */
+export declare function MR_C_not_equal_MR_CSharp_ThreeWayF(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayF()`.
+ */
+export declare function MR_C_greater_MR_CSharp_ThreeWayF(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayI_int()`.
+ */
+export declare function MR_C_equal_MR_CSharp_ThreeWayI_int(_1: L.MR_CSharp_ThreeWayI, _2: number): boolean;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayI()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayI(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): number;
+
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayK_int()`.
+ */
+export declare function MR_C_equal_MR_CSharp_ThreeWayK_int(_1: L.MR_CSharp_ThreeWayK, _2: number): boolean;
+
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayK()`.
+ */
+export declare function MR_C_compare_three_way_MR_CSharp_ThreeWayK(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): number;
 
 /**
  * Generated from function `MR::CSharp::test_expected_int`.

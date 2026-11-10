@@ -1709,6 +1709,16 @@ public static partial class MR
                 /// </summary>
                 public Const_E(E _other) : this((Const_E)_other) {}
 
+                // Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::E::operator&lt;=&gt;`.
+                /// </summary>
+                public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_E _1)
+                {
+                    return __MR_C_compare_three_way_MR_OverloadedOps_E(_UnderlyingPtr, _1._UnderlyingPtr);
+                }
+
+                // Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::E::operator==`.
                 /// </summary>
@@ -1722,6 +1732,7 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                // Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::E::operator&lt;`.
                 /// </summary>
@@ -1764,6 +1775,9 @@ public static partial class MR
                 }
 
                 // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_E", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_E(_Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_E", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_equal_MR_OverloadedOps_E(MR.CS.OverloadedOps.Const_E._Underlying *_this, MR.CS.OverloadedOps.Const_E._Underlying *_1);
@@ -1973,6 +1987,14 @@ public static partial class MR
                 public Const_F(F _other) : this((Const_F)_other) {}
 
                 /// <summary>
+                /// Generated from method `MR::OverloadedOps::F::operator&lt;=&gt;`.
+                /// </summary>
+                public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_F _1)
+                {
+                    return __MR_C_compare_three_way_MR_OverloadedOps_F(_UnderlyingPtr, _1._UnderlyingPtr);
+                }
+
+                /// <summary>
                 /// Generated from method `MR::OverloadedOps::F::operator==`.
                 /// </summary>
                 public static unsafe bool operator==(MR.CS.OverloadedOps.Const_F _this, MR.CS.OverloadedOps.Const_F _1)
@@ -2028,6 +2050,9 @@ public static partial class MR
                 }
 
                 // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_F", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_F(_Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_OverloadedOps_F", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_equal_MR_OverloadedOps_F(MR.CS.OverloadedOps.Const_F._Underlying *_this, MR.CS.OverloadedOps.Const_F._Underlying *_1);
@@ -2236,6 +2261,16 @@ public static partial class MR
                 /// </summary>
                 public Const_G(G _other) : this((Const_G)_other) {}
 
+                // Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+                /// <summary>
+                /// Generated from method `MR::OverloadedOps::G::operator&lt;=&gt;`.
+                /// </summary>
+                public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_G _1)
+                {
+                    return __MR_C_compare_three_way_MR_OverloadedOps_G(_UnderlyingPtr, _1._UnderlyingPtr);
+                }
+
+                // Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::G::operator&lt;`.
                 /// </summary>
@@ -2260,6 +2295,9 @@ public static partial class MR
                 }
 
                 // DllImport:
+
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_OverloadedOps_G", ExactSpelling = true)]
+                extern static unsafe int __MR_C_compare_three_way_MR_OverloadedOps_G(_Underlying *_this, MR.CS.OverloadedOps.Const_G._Underlying *_1);
 
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_OverloadedOps_G", ExactSpelling = true)]
                 extern static unsafe byte __MR_C_less_MR_OverloadedOps_G(MR.CS.OverloadedOps.Const_G._Underlying *_this, MR.CS.OverloadedOps.Const_G._Underlying *_1);

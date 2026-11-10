@@ -357,10 +357,6 @@ MR_C_API bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_No
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
 
-/// Generated from method `MR::StdContainers::NonAssignable::operator!=`.
-/// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_not_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1);
-
 /// Generated from function `MR::StdContainers::GetVectorNA`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable *MR_StdContainers_GetVectorNA(void);
