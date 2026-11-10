@@ -24,7 +24,6 @@ MRBIND_FLAGS=(
     --ignore MR::SignatureFilters::B --skip-mentions-of MR::SignatureFilters::B
     --ignore MR::SignatureFilters::AA --skip-mentions-of '/MR::SignatureFilters::AA<.*>/'
     --skip-mentions-of UsingDecls_IgnoreMentionsOf
-    --ignore '/MR::OverloadedOps::[EFG]::operator<=>.*/' # Returns `std::strong_ordering`, which isn't bindable.
     --implicit-enum-underlying-type-is-always-int
     --
     -xc++-header
