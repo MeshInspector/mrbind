@@ -4,6 +4,7 @@
 
 #include <cppdecl/declarations/to_string.h>
 
+#include <set>
 #include <tuple>
 
 namespace mrbind
@@ -19,6 +20,9 @@ namespace mrbind
                 // Only storing the canonical types.
                 std::string lhs_type;
                 std::string rhs_type;
+
+                std::string lhs_type_no_const_and_ref;
+                std::string rhs_type_no_const_and_ref;
 
                 bool is_three_way = false;
 
@@ -40,7 +44,7 @@ namespace mrbind
                 {
                     return a.TieForComparison() == b.TieForComparison();
                 }
-                friend auto operator<=>(const OperatorSignature &a, const OperatorSignature &b)
+                [[maybe_unused]] friend auto operator<=>(const OperatorSignature &a, const OperatorSignature &b)
                 {
                     return a.TieForComparison() <=> b.TieForComparison();
                 }
@@ -48,8 +52,11 @@ namespace mrbind
 
             using OriginalEntity = std::variant<FuncEntity, ClassMethod>;
 
-            // Maps operator signatures to their original entities.
-            std::map<OperatorSignature, OriginalEntity> existing_ops;
+            std::set<OperatorSignature> existing_ops;
+
+            // This stores all parameter types of `operator==`s in this scope, ignoring cvref.
+            // `==` has a unique override behavior where defaulted `<=>` never adds `==` if any `==` exists (in a class - any whatsoever, outside of a class - if either parameter matches ignoring cvref, I think).
+            std::set<std::string> existing_equality_op_params_unqual;
 
             // Extracts an operator signature from a function, or null if not an operator that can be rewritten or produced by rewrite.
             // `class_for_method` must be non-null when `func` is a method.
@@ -66,7 +73,7 @@ namespace mrbind
                         return false;
 
                     // Check the return type.
-                    // Instead of returning, we set `is_invalid = false` to prevent other functions from rewriting into this one and causing conflicts.
+                    // Instead of returning, we set `is_invalid = true` to prevent other functions from rewriting into this one and causing conflicts.
                     if (
                         ret.is_three_way
                         // For `<=>` just do a minimal sanity check.
@@ -81,6 +88,18 @@ namespace mrbind
 
                     ret.token = token;
 
+                    static constexpr auto RemoveConstAndRef = [](cppdecl::Type type) -> cppdecl::Type
+                    {
+                        if (!type.modifiers.empty())
+                            type.RemoveModifier();
+                        type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                        return type;
+                    };
+                    static constexpr auto RemoveConstAndRefFromStr = [](std::string_view type) -> std::string
+                    {
+                        return cppdecl::ToCode(RemoveConstAndRef(ParseTypeWithCppdecl(type)), {});
+                    };
+
                     if constexpr (std::is_same_v<T, FuncEntity>)
                     {
                         if (elem->params.size() != 2)
@@ -89,7 +108,9 @@ namespace mrbind
                         }
 
                         ret.lhs_type = elem->params.at(0).type.canonical;
+                        ret.lhs_type_no_const_and_ref = RemoveConstAndRefFromStr(ret.lhs_type);
                         ret.rhs_type = elem->params.at(1).type.canonical;
+                        ret.rhs_type_no_const_and_ref = RemoveConstAndRefFromStr(ret.rhs_type);
                     }
                     else
                     {
@@ -107,8 +128,10 @@ namespace mrbind
                         lhs_cppdecl_type.AddModifier(cppdecl::Reference{.kind = elem->ref_qualifier == RefQualifier::rvalue ? cppdecl::RefQualifier::rvalue : cppdecl::RefQualifier::lvalue});
 
                         ret.lhs_type = cppdecl::ToCode(lhs_cppdecl_type, {}); // Same lack of flags as in `main.cpp` of the parser.
+                        ret.lhs_type_no_const_and_ref = cppdecl::ToCode(RemoveConstAndRef(lhs_cppdecl_type), {});
 
                         ret.rhs_type = elem->params.at(0).type.canonical;
+                        ret.rhs_type_no_const_and_ref = RemoveConstAndRefFromStr(ret.rhs_type);
                     }
 
                     ret.is_defaulted_three_way = ret.is_three_way && elem->is_implicit_or_defaulted;
@@ -124,18 +147,46 @@ namespace mrbind
                 }
             }
 
+            // Add a function signature to the sets. Returns true if added, false if already exists.
+            // Pass `is_generated == false` if this is a parsed signature and `true` if it's generated.
+            // `==` and `!=` have custom behavior. If `is_generated == false`, then we record all parameter types for all `==` (not `!=`) in a set (with constness and reference-ness stripped).
+            // Then for `==` and `!=` if `is_generated == true && is_rewritten_from_defaulted_three_way == true`, we consult that set, and return false if any parameter matches.
+            bool AddSignature(OperatorSignature sig, bool is_generated, bool is_rewritten_from_defaulted_three_way)
+            {
+                bool is_eq = sig.token == "==";
+                bool is_neq = sig.token == "!=";
+
+                if ((is_eq || is_neq) && is_generated && is_rewritten_from_defaulted_three_way)
+                {
+                    if (
+                        existing_equality_op_params_unqual.contains(sig.lhs_type_no_const_and_ref) ||
+                        existing_equality_op_params_unqual.contains(sig.rhs_type_no_const_and_ref)
+                    )
+                    {
+                        return false;
+                    }
+                }
+
+                // Not moving `sig` here since we're using it below. Ugh.
+                bool ok = existing_ops.insert(sig).second;
+
+                if (is_eq && !is_generated)
+                {
+                    existing_equality_op_params_unqual.insert(sig.lhs_type_no_const_and_ref);
+                    existing_equality_op_params_unqual.insert(sig.rhs_type_no_const_and_ref);
+                }
+
+                return ok;
+            }
+
             // Inserts the function into `existing_ops` if it's an operator that can be rewritten or produced by rewrite.
             // `class_for_method` must be non-null when `func` is a method.
             void AddParsedFunc(std::variant<const FuncEntity *, const ClassMethod *> func, const ClassEntity *class_for_method)
             {
                 if (auto sig = FuncToSignature(func, class_for_method))
                 {
-                    auto [iter, is_new] = existing_ops.try_emplace(*sig);
-
-                    if (!is_new)
-                        throw std::runtime_error("While rewriting comparisons, more than one comparison resolved to the same signature: token=`" + iter->first.token + "`, lhs=`" + iter->first.lhs_type + "`, rhs=`" + iter->first.rhs_type + "`.");
-
-                    std::visit([&](const auto *elem){iter->second = *elem;}, func);
+                    if (!AddSignature(*sig, false, false))
+                        throw std::runtime_error("While rewriting comparisons, more than one comparison resolved to the same signature: token=`" + sig->token + "`, lhs=`" + sig->lhs_type + "`, rhs=`" + sig->rhs_type + "`.");
                 }
             }
 
@@ -225,8 +276,8 @@ namespace mrbind
             void GenerateAndAppendFunc(const OperatorSignature &sig, std::variant<const FuncEntity *, const ClassMethod *> func, std::variant<EntityContainer *, ClassEntity *> target, std::string_view new_token)
             {
                 auto new_func = GenerateFunc(sig, func, new_token);
-                if (!existing_ops.insert(new_func).second)
-                    return; // A function already exists with this signature.
+                if (!AddSignature(new_func.first, true, sig.is_defaulted_three_way))
+                    return; // A function already exists with this signature (or a similar enough signature, for `==`).
 
                 std::visit(Overload{
                     [&](FuncEntity &elem)
@@ -342,6 +393,7 @@ namespace mrbind
 
     void RewriteComparisons(ParsedFile &data)
     {
+        RewriteFreeFuncComparisons(data.entities); // Handle the top level.
         VisitEntityContainer(data.entities);
     }
 }

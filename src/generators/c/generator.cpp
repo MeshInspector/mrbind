@@ -2725,7 +2725,7 @@ namespace mrbind::C
             if (op_token == "!=")
                 cpp_called_func = "!(@this@ == @1@)";
             else
-                cpp_called_func = cpp_called_func = "@this@ " + std::string(new_method.GetOverloadedOperatorToken()) + " @1@";
+                cpp_called_func = "@this@ " + std::string(new_method.GetOverloadedOperatorToken()) + " @1@";
         }
         else if (new_method.IsOverloadedOperator())
         {

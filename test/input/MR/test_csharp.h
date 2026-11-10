@@ -1820,6 +1820,30 @@ namespace MR::CSharp
         bool operator!=(const ThreeWayG &) const {return false;}
         bool operator>(const ThreeWayG &) const {return false;}
     };
+
+    struct ThreeWayH
+    {
+        bool operator==(int) {return false;} // This prevents `==`, `!=` from being generated from the default `<=>`.
+        auto operator<=>(const ThreeWayH &) const = default;
+    };
+
+    struct ThreeWayI
+    {
+        friend bool operator==(const ThreeWayI &, int) {return false;} // This prevents `==`, `!=` from being generated from the default `<=>`.
+        friend auto operator<=>(const ThreeWayI &, const ThreeWayI &) = default;
+    };
+
+    struct ThreeWayJ
+    {
+        bool operator==(int) {return false;}
+        auto operator<=>(const ThreeWayJ &) const {return std::strong_ordering::less;}
+    };
+
+    struct ThreeWayK
+    {
+        friend bool operator==(const ThreeWayK &, int) {return false;}
+        friend auto operator<=>(const ThreeWayK &, const ThreeWayK &) {return std::strong_ordering::less;}
+    };
 }
 
 
