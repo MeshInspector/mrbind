@@ -2083,6 +2083,11 @@ namespace detail
     template <typename T>
     requires MRBind::pb11::HasCustomTypeBinding<T>
     class type_caster<T> : public type_caster_base<T> /*MRBind::pb11::RegisterOneTypeWithCustomBinding<T>*/ {};
+
+    // Disable stock enum casters for enums.
+    template <typename T>
+    requires MRBind::pb11::HasCustomTypeBinding<T>
+    struct type_caster_enum_type_enabled<T> : std::false_type {};
 }
 PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 
