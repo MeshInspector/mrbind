@@ -93,6 +93,16 @@ namespace MRBind::pb11
         static constexpr GilHandling gil_handling = GilHandling::prefer_unlock;
     };
 
+    // Without this, pybind11 casts an empty default `std::function` to `None`, which doesn't match our wrapper on the fast path.
+    template <typename T> requires IsStdFunc<std::remove_cvref_t<T>>::value
+    struct DefaultArgTraits<T>
+    {
+        static auto Adjust(auto &&default_arg)
+        {
+            return ParamTraits<T>::ReverseUnadjustParam(std::remove_cvref_t<T>(decltype(default_arg)(default_arg)));
+        }
+    };
+
     // ---
 
     // Bindings for our `FuncWrapper`.
