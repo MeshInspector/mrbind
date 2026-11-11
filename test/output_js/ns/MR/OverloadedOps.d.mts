@@ -40,7 +40,7 @@ export { MR_C_rshift_MR_OverloadedOps_B as opRshift } from "../../lib/_all.mjs";
 export { MR_C_lshift_assign_MR_OverloadedOps_B as opLshiftAssign } from "../../lib/_all.mjs";
 export { MR_C_rshift_assign_MR_OverloadedOps_B as opRshiftAssign } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_OverloadedOps_B as opEqual_MR_OverloadedOps_B } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_OverloadedOps_B as opNot_equal_MR_OverloadedOps_B } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_OverloadedOps_B as opNotEqual } from "../../lib/_all.mjs";
 export { MR_C_less_equal_MR_OverloadedOps_B as opLessEqual } from "../../lib/_all.mjs";
 export { MR_C_greater_equal_MR_OverloadedOps_B as opGreaterEqual } from "../../lib/_all.mjs";
 export { MR_C_compare_three_way_MR_OverloadedOps_B as opCompareThreeWay } from "../../lib/_all.mjs";
@@ -57,7 +57,6 @@ export { MR_C_add_MR_OverloadedOps_C_MR_OverloadedOps_B as opAdd_MR_OverloadedOp
 export { MR_C_pos_MR_OverloadedOps_D_ref as opPos_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
 export { MR_C_pos_const_MR_OverloadedOps_D_ref as opPos_const_MR_OverloadedOps_D_ref } from "../../lib/_all.mjs";
 export { MR_C_equal_MR_OverloadedOps_I as opEqual_MR_OverloadedOps_I } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_OverloadedOps_I as opNot_equal_MR_OverloadedOps_I } from "../../lib/_all.mjs";
 
 /**
  * Unary plus.
@@ -139,17 +138,3 @@ export declare function opEqual(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps
  */
 export declare function opEqual(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
 /** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
-/**
- * Not equal.
- * Generated from function `MR::OverloadedOps::operator!=`.
- *
- * Calls `MR_C_not_equal_MR_OverloadedOps_B()`.
- */
-export declare function opNotEqual(_1: L.MR_OverloadedOps_B, _2: L.MR_OverloadedOps_B): number;
-/**
- * Generated from function `MR::OverloadedOps::operator!=`.
- *
- * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
- */
-export declare function opNotEqual(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
-/** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

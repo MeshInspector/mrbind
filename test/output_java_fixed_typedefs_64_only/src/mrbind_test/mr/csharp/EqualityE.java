@@ -16,7 +16,7 @@ public final class EqualityE extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityE_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityE_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -112,31 +112,7 @@ public final class EqualityE extends mrbind_test.CppObject
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(_1));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
-
-    /**
-     * Generated from method `MR::CSharp::EqualityE::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
-     */
-    public boolean opNotEqual(mrbind_test.mr.csharp.EqualityD _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(_1));
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr.invokeExact(rawPointer(), mrbind_test.Ffi.ptr(_1));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

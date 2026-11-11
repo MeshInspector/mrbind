@@ -1012,6 +1012,94 @@ pub struct MR_CSharp_TestStdFunction
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
+/// Generated from class `MR::CSharp::ThreeWayA`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayA
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayB`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayB
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayC`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayC
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayD`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayD
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayE`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayE
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayF`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayF
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayG`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayG
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayH`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayH
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayI`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayI
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayJ`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayJ
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+/// Generated from class `MR::CSharp::ThreeWayK`. Opaque, only used behind pointers.
+#[repr(C)]
+pub struct MR_CSharp_ThreeWayK
+{
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
 /// Generated from class `MR::CSharp::Trivial`. Opaque, only used behind pointers.
 #[repr(C)]
 pub struct MR_CSharp_Trivial
@@ -1183,7 +1271,6 @@ unsafe extern "C"
     pub fn MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(a: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, b: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, c: *const *mut crate::ffi::MR_CSharp_ExposedLayoutSh) -> *mut crate::ffi::MR_CSharp_ExposedLayoutSh;
     pub fn MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(a: *const crate::ffi::MR_CSharp_ExposedLayoutSh, b: *const crate::ffi::MR_CSharp_ExposedLayoutSh, c: *const *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> *const crate::ffi::MR_CSharp_ExposedLayoutSh;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutB(_1: *const crate::ffi::MR_CSharp_ExposedLayoutB, _2: *const crate::ffi::MR_CSharp_ExposedLayoutB) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1: *const crate::ffi::MR_CSharp_ExposedLayoutB, _2: *const crate::ffi::MR_CSharp_ExposedLayoutB) -> bool;
     pub fn MR_CSharp_test_optint(a: *const core::ffi::c_int, b: *const crate::ffi::MR_C_std_optional_int, c: *const crate::ffi::MR_C_std_optional_int) -> *mut crate::ffi::MR_C_std_optional_int;
     pub fn MR_CSharp_test_optint_ref(a: *mut crate::ffi::MR_C_std_optional_int, b: *mut crate::ffi::MR_C_std_optional_int) -> *mut crate::ffi::MR_C_std_optional_int;
     pub fn MR_CSharp_test_optint_cref(a: *const core::ffi::c_int, b: *const crate::ffi::MR_C_std_optional_int) -> *const crate::ffi::MR_C_std_optional_int;
@@ -1326,6 +1413,19 @@ unsafe extern "C"
     pub fn MR_CSharp_get_tuple_exposed_value() -> *mut crate::ffi::MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout;
     pub fn MR_CSharp_get_tuple_exposed_lvalue_ref() -> *mut crate::ffi::MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref;
     pub fn MR_CSharp_get_tuple_exposed_rvalue_ref() -> *mut crate::ffi::MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref;
+    pub fn MR_CSharp_returns_strong_ordering() -> core::ffi::c_int;
+    pub fn MR_CSharp_returns_weak_ordering() -> core::ffi::c_int;
+    pub fn MR_CSharp_returns_partial_ordering() -> crate::ffi::MR_C_std_partial_ordering;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayA(a: *const crate::ffi::MR_CSharp_ThreeWayA, b: *const crate::ffi::MR_CSharp_ThreeWayA) -> core::ffi::c_int;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayB(_1: *const crate::ffi::MR_CSharp_ThreeWayB, _2: *const crate::ffi::MR_CSharp_ThreeWayB) -> core::ffi::c_int;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayD(_1: *const crate::ffi::MR_CSharp_ThreeWayD, _2: *const crate::ffi::MR_CSharp_ThreeWayD) -> core::ffi::c_int;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayF(_1: *const crate::ffi::MR_CSharp_ThreeWayF, _2: *const crate::ffi::MR_CSharp_ThreeWayF) -> core::ffi::c_int;
+    pub fn MR_C_not_equal_MR_CSharp_ThreeWayF(_1: *const crate::ffi::MR_CSharp_ThreeWayF, _2: *const crate::ffi::MR_CSharp_ThreeWayF) -> bool;
+    pub fn MR_C_greater_MR_CSharp_ThreeWayF(_1: *const crate::ffi::MR_CSharp_ThreeWayF, _2: *const crate::ffi::MR_CSharp_ThreeWayF) -> bool;
+    pub fn MR_C_equal_MR_CSharp_ThreeWayI_int(_1: *const crate::ffi::MR_CSharp_ThreeWayI, _2: core::ffi::c_int) -> bool;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayI(_1: *const crate::ffi::MR_CSharp_ThreeWayI, _2: *const crate::ffi::MR_CSharp_ThreeWayI) -> core::ffi::c_int;
+    pub fn MR_C_equal_MR_CSharp_ThreeWayK_int(_1: *const crate::ffi::MR_CSharp_ThreeWayK, _2: core::ffi::c_int) -> bool;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayK(_1: *const crate::ffi::MR_CSharp_ThreeWayK, _2: *const crate::ffi::MR_CSharp_ThreeWayK) -> core::ffi::c_int;
     pub fn MR_CSharp_test_expected_int(a: *const crate::ffi::MR_C_std_expected_int_float, b: *const crate::ffi::MR_C_std_expected_int_float) -> *mut crate::ffi::MR_C_std_expected_int_float;
     pub fn MR_CSharp_test_expected_int_ref(a: *mut crate::ffi::MR_C_std_expected_int_float, b: *mut crate::ffi::MR_C_std_expected_int_float) -> *mut crate::ffi::MR_C_std_expected_int_float;
     pub fn MR_CSharp_test_expected_int_cref(a: *const crate::ffi::MR_C_std_expected_int_float, b: *const crate::ffi::MR_C_std_expected_int_float) -> *const crate::ffi::MR_C_std_expected_int_float;
@@ -1592,7 +1692,6 @@ unsafe extern "C"
     pub fn MR_C_equal_MR_CSharp_EqualityA_int(_this: *mut crate::ffi::MR_CSharp_EqualityA, _1: core::ffi::c_int) -> bool;
     pub fn MR_C_not_equal_MR_CSharp_EqualityA_int(_this: *mut crate::ffi::MR_CSharp_EqualityA, _1: core::ffi::c_int) -> bool;
     pub fn MR_C_equal_MR_CSharp_EqualityA(_this: *const crate::ffi::MR_CSharp_EqualityA, _1: *const crate::ffi::MR_CSharp_EqualityA) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_EqualityA(_this: *const crate::ffi::MR_CSharp_EqualityA, _1: *const crate::ffi::MR_CSharp_EqualityA) -> bool;
     pub fn MR_CSharp_EqualityA_Destroy(_this: *const MR_CSharp_EqualityA);
     pub fn MR_CSharp_EqualityB_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_EqualityB;
     pub fn MR_CSharp_EqualityB_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityB) -> *mut crate::ffi::MR_CSharp_EqualityB;
@@ -1612,13 +1711,11 @@ unsafe extern "C"
     pub fn MR_CSharp_EqualityD_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityD) -> *mut crate::ffi::MR_CSharp_EqualityD;
     pub fn MR_CSharp_EqualityD_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_EqualityD, _other: *const crate::ffi::MR_CSharp_EqualityD) -> *mut crate::ffi::MR_CSharp_EqualityD;
     pub fn MR_C_equal_MR_CSharp_EqualityD_const_int_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityD, _1: *const core::ffi::c_int) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityD, _1: *const core::ffi::c_int) -> bool;
     pub fn MR_CSharp_EqualityD_Destroy(_this: *const MR_CSharp_EqualityD);
     pub fn MR_CSharp_EqualityE_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_CSharp_EqualityE_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_EqualityE) -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_CSharp_EqualityE_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_EqualityE, _other: *const crate::ffi::MR_CSharp_EqualityE) -> *mut crate::ffi::MR_CSharp_EqualityE;
     pub fn MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityE, _1: *mut crate::ffi::MR_CSharp_EqualityD) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(_this: *mut crate::ffi::MR_CSharp_EqualityE, _1: *mut crate::ffi::MR_CSharp_EqualityD) -> bool;
     pub fn MR_CSharp_EqualityE_Destroy(_this: *const MR_CSharp_EqualityE);
     pub fn MR_CSharp_ExposedLayout_foo(_this: *mut crate::ffi::MR_CSharp_ExposedLayout);
     pub fn MR_CSharp_ExposedLayout_bar(_this: *const crate::ffi::MR_CSharp_ExposedLayout);
@@ -1629,7 +1726,6 @@ unsafe extern "C"
     pub fn MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(_this: *const crate::ffi::MR_CSharp_ExposedLayout, _1: core::ffi::c_int) -> *const crate::ffi::MR_CSharp_ExposedLayout;
     pub fn MR_C_less_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayout, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayout_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: f32) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_ExposedLayout_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: f32) -> bool;
     pub fn MR_C_less_MR_CSharp_ExposedLayout_char(_this: *mut crate::ffi::MR_CSharp_ExposedLayout, _1: core::ffi::c_char) -> bool;
     pub fn MR_CSharp_ExposedLayoutB_Construct_2(_1: core::ffi::c_int, _2: core::ffi::c_int) -> crate::ffi::MR_CSharp_ExposedLayoutB;
     pub fn MR_CSharp_ExposedLayoutB_Construct_1(_1: *const crate::ffi::MR_CSharp_A) -> crate::ffi::MR_CSharp_ExposedLayoutB;
@@ -1641,12 +1737,9 @@ unsafe extern "C"
     pub fn MR_C_mul_MR_CSharp_ExposedLayoutSh_int(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: core::ffi::c_int) -> core::ffi::c_int;
     pub fn MR_C_less_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: f32) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: f32) -> bool;
     pub fn MR_C_less_MR_CSharp_ExposedLayoutSh_char(_this: *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1: core::ffi::c_char) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayout) -> bool;
     pub fn MR_C_equal_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_ExposedLayoutSh(_this: *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1: *const crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool;
     pub fn MR_CSharp_F_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_F;
     pub fn MR_CSharp_F_ConstructFromAnother(_other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_CSharp_F) -> *mut crate::ffi::MR_CSharp_F;
     pub fn MR_CSharp_F_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_F, _other_pass_by: crate::ffi::MR_C_PassBy, _other: *mut crate::ffi::MR_CSharp_F) -> *mut crate::ffi::MR_CSharp_F;
@@ -1869,7 +1962,6 @@ unsafe extern "C"
     pub fn MR_C_deref_MR_CSharp_IterableK_Iter(_this: *const crate::ffi::MR_CSharp_IterableK_Iter) -> core::ffi::c_int;
     pub fn MR_C_incr_MR_CSharp_IterableK_Iter(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter);
     pub fn MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, s: *const crate::ffi::MR_CSharp_IterableK_Sentinel) -> bool;
-    pub fn MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, s: *const crate::ffi::MR_CSharp_IterableK_Sentinel) -> bool;
     pub fn MR_CSharp_IterableK_Iter_Get_ptr(_this: *const crate::ffi::MR_CSharp_IterableK_Iter) -> *const *mut core::ffi::c_int;
     pub fn MR_CSharp_IterableK_Iter_GetMutable_ptr(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter) -> *mut *mut core::ffi::c_int;
     pub fn MR_CSharp_IterableK_Iter_Set_ptr(_this: *mut crate::ffi::MR_CSharp_IterableK_Iter, value: *mut core::ffi::c_int);
@@ -2220,10 +2312,6 @@ unsafe extern "C"
     pub fn MR_CSharp_TestOpsA_lshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
     pub fn MR_CSharp_TestOpsA_rshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
     pub fn MR_C_compare_three_way_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
-    pub fn MR_C_less_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
-    pub fn MR_C_greater_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
-    pub fn MR_C_less_equal_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
-    pub fn MR_C_greater_equal_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> bool;
     pub fn MR_C_and_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
     pub fn MR_C_or_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
     pub fn MR_C_comma_MR_CSharp_TestOpsA(_this: *mut crate::ffi::MR_CSharp_TestOpsA, _1: *const crate::ffi::MR_CSharp_TestOpsA) -> core::ffi::c_int;
@@ -2261,10 +2349,6 @@ unsafe extern "C"
     pub fn MR_CSharp_TestOpsB_lshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
     pub fn MR_CSharp_TestOpsB_rshift_assign(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
     pub fn MR_C_compare_three_way_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
-    pub fn MR_C_less_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
-    pub fn MR_C_greater_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
-    pub fn MR_C_less_equal_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
-    pub fn MR_C_greater_equal_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> bool;
     pub fn MR_C_and_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
     pub fn MR_C_or_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
     pub fn MR_C_comma_MR_CSharp_TestOpsB(_this: *mut crate::ffi::MR_CSharp_TestOpsB, _1_pass_by: crate::ffi::MR_C_PassBy, _1: *mut crate::ffi::MR_CSharp_TestOpsB) -> core::ffi::c_int;
@@ -2338,6 +2422,59 @@ unsafe extern "C"
     pub fn MR_CSharp_TestStdFunction_GetMutable_f7(_this: *mut crate::ffi::MR_CSharp_TestStdFunction) -> *mut crate::ffi::MR_C_std_function_void;
     pub fn MR_CSharp_TestStdFunction_Set_f7(_this: *mut crate::ffi::MR_CSharp_TestStdFunction, value_pass_by: crate::ffi::MR_C_PassBy, value: *mut crate::ffi::MR_C_std_function_void);
     pub fn MR_CSharp_TestStdFunction_Destroy(_this: *const MR_CSharp_TestStdFunction);
+    pub fn MR_CSharp_ThreeWayA_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayA;
+    pub fn MR_CSharp_ThreeWayA_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayA) -> *mut crate::ffi::MR_CSharp_ThreeWayA;
+    pub fn MR_CSharp_ThreeWayA_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayA, _other: *const crate::ffi::MR_CSharp_ThreeWayA) -> *mut crate::ffi::MR_CSharp_ThreeWayA;
+    pub fn MR_CSharp_ThreeWayA_Destroy(_this: *const MR_CSharp_ThreeWayA);
+    pub fn MR_CSharp_ThreeWayB_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayB;
+    pub fn MR_CSharp_ThreeWayB_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayB) -> *mut crate::ffi::MR_CSharp_ThreeWayB;
+    pub fn MR_CSharp_ThreeWayB_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayB, _other: *const crate::ffi::MR_CSharp_ThreeWayB) -> *mut crate::ffi::MR_CSharp_ThreeWayB;
+    pub fn MR_CSharp_ThreeWayB_Destroy(_this: *const MR_CSharp_ThreeWayB);
+    pub fn MR_CSharp_ThreeWayC_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayC;
+    pub fn MR_CSharp_ThreeWayC_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayC) -> *mut crate::ffi::MR_CSharp_ThreeWayC;
+    pub fn MR_CSharp_ThreeWayC_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayC, _other: *const crate::ffi::MR_CSharp_ThreeWayC) -> *mut crate::ffi::MR_CSharp_ThreeWayC;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayC(_this: *const crate::ffi::MR_CSharp_ThreeWayC, _1: *const crate::ffi::MR_CSharp_ThreeWayC) -> core::ffi::c_int;
+    pub fn MR_CSharp_ThreeWayC_Destroy(_this: *const MR_CSharp_ThreeWayC);
+    pub fn MR_CSharp_ThreeWayD_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayD;
+    pub fn MR_CSharp_ThreeWayD_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayD) -> *mut crate::ffi::MR_CSharp_ThreeWayD;
+    pub fn MR_CSharp_ThreeWayD_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayD, _other: *const crate::ffi::MR_CSharp_ThreeWayD) -> *mut crate::ffi::MR_CSharp_ThreeWayD;
+    pub fn MR_CSharp_ThreeWayD_Destroy(_this: *const MR_CSharp_ThreeWayD);
+    pub fn MR_CSharp_ThreeWayE_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayE;
+    pub fn MR_CSharp_ThreeWayE_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayE) -> *mut crate::ffi::MR_CSharp_ThreeWayE;
+    pub fn MR_CSharp_ThreeWayE_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayE, _other: *const crate::ffi::MR_CSharp_ThreeWayE) -> *mut crate::ffi::MR_CSharp_ThreeWayE;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayE(_this: *const crate::ffi::MR_CSharp_ThreeWayE, _1: *const crate::ffi::MR_CSharp_ThreeWayE) -> core::ffi::c_int;
+    pub fn MR_CSharp_ThreeWayE_Destroy(_this: *const MR_CSharp_ThreeWayE);
+    pub fn MR_CSharp_ThreeWayF_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayF;
+    pub fn MR_CSharp_ThreeWayF_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayF) -> *mut crate::ffi::MR_CSharp_ThreeWayF;
+    pub fn MR_CSharp_ThreeWayF_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayF, _other: *const crate::ffi::MR_CSharp_ThreeWayF) -> *mut crate::ffi::MR_CSharp_ThreeWayF;
+    pub fn MR_CSharp_ThreeWayF_Destroy(_this: *const MR_CSharp_ThreeWayF);
+    pub fn MR_CSharp_ThreeWayG_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayG;
+    pub fn MR_CSharp_ThreeWayG_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayG) -> *mut crate::ffi::MR_CSharp_ThreeWayG;
+    pub fn MR_CSharp_ThreeWayG_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayG, _other: *const crate::ffi::MR_CSharp_ThreeWayG) -> *mut crate::ffi::MR_CSharp_ThreeWayG;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayG(_this: *const crate::ffi::MR_CSharp_ThreeWayG, _1: *const crate::ffi::MR_CSharp_ThreeWayG) -> core::ffi::c_int;
+    pub fn MR_C_not_equal_MR_CSharp_ThreeWayG(_this: *const crate::ffi::MR_CSharp_ThreeWayG, _1: *const crate::ffi::MR_CSharp_ThreeWayG) -> bool;
+    pub fn MR_C_greater_MR_CSharp_ThreeWayG(_this: *const crate::ffi::MR_CSharp_ThreeWayG, _1: *const crate::ffi::MR_CSharp_ThreeWayG) -> bool;
+    pub fn MR_CSharp_ThreeWayG_Destroy(_this: *const MR_CSharp_ThreeWayG);
+    pub fn MR_CSharp_ThreeWayH_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayH;
+    pub fn MR_CSharp_ThreeWayH_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayH) -> *mut crate::ffi::MR_CSharp_ThreeWayH;
+    pub fn MR_CSharp_ThreeWayH_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayH, _other: *const crate::ffi::MR_CSharp_ThreeWayH) -> *mut crate::ffi::MR_CSharp_ThreeWayH;
+    pub fn MR_C_equal_MR_CSharp_ThreeWayH_int(_this: *mut crate::ffi::MR_CSharp_ThreeWayH, _1: core::ffi::c_int) -> bool;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayH(_this: *const crate::ffi::MR_CSharp_ThreeWayH, _1: *const crate::ffi::MR_CSharp_ThreeWayH) -> core::ffi::c_int;
+    pub fn MR_CSharp_ThreeWayH_Destroy(_this: *const MR_CSharp_ThreeWayH);
+    pub fn MR_CSharp_ThreeWayI_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayI;
+    pub fn MR_CSharp_ThreeWayI_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayI) -> *mut crate::ffi::MR_CSharp_ThreeWayI;
+    pub fn MR_CSharp_ThreeWayI_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayI, _other: *const crate::ffi::MR_CSharp_ThreeWayI) -> *mut crate::ffi::MR_CSharp_ThreeWayI;
+    pub fn MR_CSharp_ThreeWayI_Destroy(_this: *const MR_CSharp_ThreeWayI);
+    pub fn MR_CSharp_ThreeWayJ_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayJ;
+    pub fn MR_CSharp_ThreeWayJ_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayJ) -> *mut crate::ffi::MR_CSharp_ThreeWayJ;
+    pub fn MR_CSharp_ThreeWayJ_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayJ, _other: *const crate::ffi::MR_CSharp_ThreeWayJ) -> *mut crate::ffi::MR_CSharp_ThreeWayJ;
+    pub fn MR_C_equal_MR_CSharp_ThreeWayJ_int(_this: *mut crate::ffi::MR_CSharp_ThreeWayJ, _1: core::ffi::c_int) -> bool;
+    pub fn MR_C_compare_three_way_MR_CSharp_ThreeWayJ(_this: *const crate::ffi::MR_CSharp_ThreeWayJ, _1: *const crate::ffi::MR_CSharp_ThreeWayJ) -> core::ffi::c_int;
+    pub fn MR_CSharp_ThreeWayJ_Destroy(_this: *const MR_CSharp_ThreeWayJ);
+    pub fn MR_CSharp_ThreeWayK_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_ThreeWayK;
+    pub fn MR_CSharp_ThreeWayK_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_ThreeWayK) -> *mut crate::ffi::MR_CSharp_ThreeWayK;
+    pub fn MR_CSharp_ThreeWayK_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_ThreeWayK, _other: *const crate::ffi::MR_CSharp_ThreeWayK) -> *mut crate::ffi::MR_CSharp_ThreeWayK;
+    pub fn MR_CSharp_ThreeWayK_Destroy(_this: *const MR_CSharp_ThreeWayK);
     pub fn MR_CSharp_Trivial_DefaultConstruct() -> *mut crate::ffi::MR_CSharp_Trivial;
     pub fn MR_CSharp_Trivial_ConstructFromAnother(_other: *const crate::ffi::MR_CSharp_Trivial) -> *mut crate::ffi::MR_CSharp_Trivial;
     pub fn MR_CSharp_Trivial_AssignFromAnother(_this: *mut crate::ffi::MR_CSharp_Trivial, _other: *const crate::ffi::MR_CSharp_Trivial) -> *mut crate::ffi::MR_CSharp_Trivial;

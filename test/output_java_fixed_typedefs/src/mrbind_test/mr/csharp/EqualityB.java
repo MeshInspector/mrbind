@@ -16,7 +16,7 @@ public final class EqualityB extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityB_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityB_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -135,7 +135,7 @@ public final class EqualityB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_EqualityB_int32_t.invokeExact(rawPointer(), _1);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H3.MR_C_not_equal_MR_CSharp_EqualityB_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -158,7 +158,7 @@ public final class EqualityB extends mrbind_test.CppObject
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_EqualityB.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_EqualityB.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }

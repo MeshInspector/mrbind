@@ -18,7 +18,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -182,7 +182,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_static_foo.invokeExact();
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_static_foo.invokeExact();
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -200,7 +200,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_static_bar.invokeExact(_1, _2);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_static_bar.invokeExact(_1, _2);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -218,7 +218,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_virtual_foo.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_virtual_foo.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -240,7 +240,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_virtual_bar.invokeExact(rawPointer(), _1, _2);
+            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_virtual_bar.invokeExact(rawPointer(), _1, _2);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -262,7 +262,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_refs.invokeExact(rawPointer(), mrbind_test.ScalarOutput.ref(x, "x"), mrbind_test.ScalarOutput.ref(_2, "_2"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_refs.invokeExact(rawPointer(), mrbind_test.ScalarOutput.ref(x, "x"), mrbind_test.ScalarOutput.ref(_2, "_2"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -285,7 +285,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_MutableUpcastTo_MR_CSharp_A.invokeExact(rawPointer());
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_MutableUpcastTo_MR_CSharp_A.invokeExact(rawPointer());
             return new mrbind_test.mr.csharp.A(__ret, false, this);
         }
         catch (java.lang.Throwable __e)
@@ -305,7 +305,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_MutableStaticDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_MutableStaticDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
             return new mrbind_test.mr.csharp.B(__ret, false, object);
         }
         catch (java.lang.Throwable __e)
@@ -325,7 +325,7 @@ public final class B extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H1.MR_CSharp_B_MutableDynamicDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_B_MutableDynamicDowncastFrom_MR_CSharp_A.invokeExact(mrbind_test.Ffi.ptrNonNull(object, "object"));
             return __ret.address() == 0 ? null : new mrbind_test.mr.csharp.B(__ret, false, object);
         }
         catch (java.lang.Throwable __e)

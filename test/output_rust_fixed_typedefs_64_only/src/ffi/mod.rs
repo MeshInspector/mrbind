@@ -16,6 +16,8 @@ pub mod B;
 pub use self::B::*;
 pub mod MR;
 pub use self::MR::*;
+pub mod compare;
+pub use self::compare::*;
 pub mod iostream;
 pub use self::iostream::*;
 pub mod phmap_btree_map_int_float;

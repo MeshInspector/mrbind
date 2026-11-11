@@ -18744,6 +18744,1602 @@ export class MR_CSharp_TestStdFunction extends ffi.CppObject
 }
 
 /**
+ * Test implicitly generated operations from three-way comparisons.
+ * Generated from class `MR::CSharp::ThreeWayA`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayA extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayA_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayA_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayA_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayA.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayA))
+            return L.MR_CSharp_ThreeWayA.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayA.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayA.__ctor(args), L.MR_CSharp_ThreeWayA.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayA_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayA(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayB`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayB extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayB_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayB_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayB_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayB.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayB))
+            return L.MR_CSharp_ThreeWayB.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayB.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayB.__ctor(args), L.MR_CSharp_ThreeWayB.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayB_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayB(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayC`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayC extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayC_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayC_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayC_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayC.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayC))
+            return L.MR_CSharp_ThreeWayC.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayC.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayC.__ctor(args), L.MR_CSharp_ThreeWayC.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayC_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayC(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayC(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayD`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayD extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayD_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayD_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayD_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayD.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayD))
+            return L.MR_CSharp_ThreeWayD.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayD.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayD.__ctor(args), L.MR_CSharp_ThreeWayD.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayD_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayD(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayE`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayE extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayE_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayE_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayE_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayE.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayE))
+            return L.MR_CSharp_ThreeWayE.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayE.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayE.__ctor(args), L.MR_CSharp_ThreeWayE.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayE_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayE(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayE(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayE(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayE(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayE(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayE(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayF`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayF extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayF_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayF_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayF_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayF.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayF))
+            return L.MR_CSharp_ThreeWayF.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayF.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayF.__ctor(args), L.MR_CSharp_ThreeWayF.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayF_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayF(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayG`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayG extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayG_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayG_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayG_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayG.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayG))
+            return L.MR_CSharp_ThreeWayG.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayG.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayG.__ctor(args), L.MR_CSharp_ThreeWayG.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayG_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayG(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayG(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayH`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayH extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayH_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayH_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayH_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayH.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayH))
+            return L.MR_CSharp_ThreeWayH.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayH.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayH.__ctor(args), L.MR_CSharp_ThreeWayH.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayH_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayH(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayH_int32_t(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayH_int32_t(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayH(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayH(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayH(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayH(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayH(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayI`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayI extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayI_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayI_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayI_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayI.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayI))
+            return L.MR_CSharp_ThreeWayI.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayI.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayI.__ctor(args), L.MR_CSharp_ThreeWayI.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayI_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayI(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayJ`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayJ extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayJ_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayJ_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayJ_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayJ.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayJ))
+            return L.MR_CSharp_ThreeWayJ.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayJ.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayJ.__ctor(args), L.MR_CSharp_ThreeWayJ.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayJ_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayJ(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayJ_int32_t(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opNotEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayJ_int32_t(this.rawPointer(), _1);
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayJ(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLess(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayJ(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreater(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayJ(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opLessEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayJ(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opGreaterEqual(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayJ(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return (__ret !== 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
+ * Generated from class `MR::CSharp::ThreeWayK`.
+ *
+ * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
+ */
+export class MR_CSharp_ThreeWayK extends ffi.CppObject
+{
+    static __destroy(ptr) {ffi.C.MR_CSharp_ThreeWayK_Destroy(ptr);}
+
+    static __ctor_0()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayK_DefaultConstruct();
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor_1(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayK_ConstructFromAnother(ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    static __ctor(args)
+    {
+        const __n = args.length;
+        if (__n === 0)
+            return L.MR_CSharp_ThreeWayK.__ctor_0();
+        if (__n === 1 && (args[0] instanceof L.MR_CSharp_ThreeWayK))
+            return L.MR_CSharp_ThreeWayK.__ctor_1(args[0]);
+        throw new TypeError("No overload of `constructor` accepts these arguments.");
+    }
+
+    constructor(...args)
+    {
+        if (args[0] === ffi.RAW)
+        {
+            super(args[1], args[2] ? L.MR_CSharp_ThreeWayK.__destroy : null, args[3]);
+            return;
+        }
+        super(L.MR_CSharp_ThreeWayK.__ctor(args), L.MR_CSharp_ThreeWayK.__destroy, null);
+    }
+
+    assignFromAnother(_other)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_CSharp_ThreeWayK_AssignFromAnother(this.rawPointer(), ffi.ptrNonNull(_other, "_other"));
+            ffi.check();
+            const __owner = this;
+            return new L.MR_CSharp_ThreeWayK(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+}
+
+/**
  * Generated from class `MR::CSharp::Trivial`.
  *
  * Instances created here own their C++ objects, see `CppObject`. `new X(ffi.RAW, pointer, owned, owner)` wraps an existing object.
@@ -24687,6 +26283,823 @@ export function MR_CSharp_get_tuple_exposed_rvalue_ref()
         const __ret = ffi.C.MR_CSharp_get_tuple_exposed_rvalue_ref();
         ffi.check();
         return new L.MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref(ffi.RAW, (__ret >>> 0), true, null);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_CSharp_returns_strong_ordering()
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_CSharp_returns_strong_ordering();
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_CSharp_returns_weak_ordering()
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_CSharp_returns_weak_ordering();
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_CSharp_returns_partial_ordering()
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_CSharp_returns_partial_ordering();
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_equal_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayA(a, b)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayA(ffi.ptrNonNull(a, "a"), ffi.ptrNonNull(b, "b"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_equal_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayB(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayB(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayD(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayD(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayD(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayD(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayD(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayD(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayD(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayD(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayD(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayD(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_equal_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayF(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayF(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_equal_MR_CSharp_ThreeWayI_int32_t(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayI_int32_t(ffi.ptrNonNull(_1, "_1"), _2);
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t(ffi.ptrNonNull(_1, "_1"), _2);
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayI(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayI(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayI(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayI(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayI(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayI(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayI(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayI(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayI(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayI(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_equal_MR_CSharp_ThreeWayK_int32_t(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_equal_MR_CSharp_ThreeWayK_int32_t(ffi.ptrNonNull(_1, "_1"), _2);
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t(ffi.ptrNonNull(_1, "_1"), _2);
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_compare_three_way_MR_CSharp_ThreeWayK(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_compare_three_way_MR_CSharp_ThreeWayK(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return __ret;
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_MR_CSharp_ThreeWayK(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_MR_CSharp_ThreeWayK(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_MR_CSharp_ThreeWayK(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_MR_CSharp_ThreeWayK(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_less_equal_MR_CSharp_ThreeWayK(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_less_equal_MR_CSharp_ThreeWayK(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
+    }
+    catch (__e)
+    {
+        throw ffi.cppError(__e);
+    }
+    finally
+    {
+        ffi.stackRestore(__sp);
+    }
+}
+
+export function MR_C_greater_equal_MR_CSharp_ThreeWayK(_1, _2)
+{
+    const __sp = ffi.stackSave();
+    try
+    {
+        const __ret = ffi.C.MR_C_greater_equal_MR_CSharp_ThreeWayK(ffi.ptrNonNull(_1, "_1"), ffi.ptrNonNull(_2, "_2"));
+        ffi.check();
+        return (__ret !== 0);
     }
     catch (__e)
     {

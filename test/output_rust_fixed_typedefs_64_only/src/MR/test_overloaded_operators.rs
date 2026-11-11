@@ -690,57 +690,13 @@ impl E
         unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::E)}
     }
 
-    /// Generated from method `MR::OverloadedOps::E::operator==`.
+    /// Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+    /// Generated from method `MR::OverloadedOps::E::operator<=>`.
     ///
-    /// Calls `MR_C_equal_MR_OverloadedOps_E()`.
-    pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
+    /// Calls `MR_C_compare_three_way_MR_OverloadedOps_E()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::overloaded_ops::E) -> core::ffi::c_int
     {
-        let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::E::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_OverloadedOps_E()`.
-    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::E::operator<`.
-    ///
-    /// Calls `MR_C_less_MR_OverloadedOps_E()`.
-    pub fn op_less(&self, _1: &crate::mr::overloaded_ops::E) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_less_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::E::operator>`.
-    ///
-    /// Calls `MR_C_greater_MR_OverloadedOps_E()`.
-    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::E) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::E::operator<=`.
-    ///
-    /// Calls `MR_C_less_equal_MR_OverloadedOps_E()`.
-    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::E::operator>=`.
-    ///
-    /// Calls `MR_C_greater_equal_MR_OverloadedOps_E()`.
-    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::E) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_OverloadedOps_E(self as *const Self as *const crate::ffi::MR_OverloadedOps_E, _1 as *const crate::mr::overloaded_ops::E as *const crate::ffi::MR_OverloadedOps_E)};
         __ret
     }
 
@@ -831,48 +787,12 @@ impl F
         unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::F)}
     }
 
-    /// Generated from method `MR::OverloadedOps::F::operator==`.
+    /// Generated from method `MR::OverloadedOps::F::operator<=>`.
     ///
-    /// Calls `MR_C_equal_MR_OverloadedOps_F()`.
-    pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
+    /// Calls `MR_C_compare_three_way_MR_OverloadedOps_F()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::overloaded_ops::F) -> core::ffi::c_int
     {
-        let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::F::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_OverloadedOps_F()`.
-    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::F::operator>`.
-    ///
-    /// Calls `MR_C_greater_MR_OverloadedOps_F()`.
-    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::F) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::F::operator<=`.
-    ///
-    /// Calls `MR_C_less_equal_MR_OverloadedOps_F()`.
-    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::F::operator>=`.
-    ///
-    /// Calls `MR_C_greater_equal_MR_OverloadedOps_F()`.
-    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::F) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_OverloadedOps_F(self as *const Self as *const crate::ffi::MR_OverloadedOps_F, _1 as *const crate::mr::overloaded_ops::F as *const crate::ffi::MR_OverloadedOps_F)};
         __ret
     }
 
@@ -973,39 +893,13 @@ impl G
         unsafe {&mut *(__ret as *mut crate::mr::overloaded_ops::G)}
     }
 
-    /// Generated from method `MR::OverloadedOps::G::operator<`.
+    /// Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+    /// Generated from method `MR::OverloadedOps::G::operator<=>`.
     ///
-    /// Calls `MR_C_less_MR_OverloadedOps_G()`.
-    pub fn op_less(&self, _1: &crate::mr::overloaded_ops::G) -> bool
+    /// Calls `MR_C_compare_three_way_MR_OverloadedOps_G()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::overloaded_ops::G) -> core::ffi::c_int
     {
-        let __ret = unsafe {crate::ffi::MR_C_less_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::G::operator>`.
-    ///
-    /// Calls `MR_C_greater_MR_OverloadedOps_G()`.
-    pub fn op_greater(&self, _1: &crate::mr::overloaded_ops::G) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::G::operator<=`.
-    ///
-    /// Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
-    pub fn op_less_equal(&self, _1: &crate::mr::overloaded_ops::G) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::G::operator>=`.
-    ///
-    /// Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
-    pub fn op_greater_equal(&self, _1: &crate::mr::overloaded_ops::G) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_OverloadedOps_G(self as *const Self as *const crate::ffi::MR_OverloadedOps_G, _1 as *const crate::mr::overloaded_ops::G as *const crate::ffi::MR_OverloadedOps_G)};
         __ret
     }
 
@@ -1094,15 +988,6 @@ impl H
     pub fn op_equal(&self, _1: &crate::mr::overloaded_ops::H) -> bool
     {
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_H(self as *const Self as *const crate::ffi::MR_OverloadedOps_H, _1 as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
-        __ret
-    }
-
-    /// Generated from method `MR::OverloadedOps::H::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_OverloadedOps_H()`.
-    pub fn op_not_equal(&self, _1: &crate::mr::overloaded_ops::H) -> bool
-    {
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_H(self as *const Self as *const crate::ffi::MR_OverloadedOps_H, _1 as *const crate::mr::overloaded_ops::H as *const crate::ffi::MR_OverloadedOps_H)};
         __ret
     }
 
@@ -1609,15 +1494,6 @@ pub fn op_pos_const_mr_overloaded_ops_d_ref(_1: &crate::mr::overloaded_ops::D) -
 pub fn op_equal_mr_overloaded_ops_i(_1: &crate::mr::overloaded_ops::I, _2: &crate::mr::overloaded_ops::I) -> bool
 {
     let __ret = unsafe {crate::ffi::MR_C_equal_MR_OverloadedOps_I(_1 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I, _2 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
-    __ret
-}
-
-/// Generated from function `MR::OverloadedOps::operator!=`.
-///
-/// Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
-pub fn op_not_equal_mr_overloaded_ops_i(_1: &crate::mr::overloaded_ops::I, _2: &crate::mr::overloaded_ops::I) -> bool
-{
-    let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_OverloadedOps_I(_1 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I, _2 as *const crate::mr::overloaded_ops::I as *const crate::ffi::MR_OverloadedOps_I)};
     __ret
 }
 

@@ -201,30 +201,6 @@ public final class IterableK_Iter extends mrbind_test.CppObject
     }
 
     /**
-     * Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
-     */
-    public boolean opNotEqual(mrbind_test.mr.csharp.IterableK_Sentinel s)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H4.MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(s, "s"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(s);
-        }
-    }
-
-    /**
      * Returns a pointer to a member variable of class `MR::CSharp::IterableK::Iter` named `ptr`.
      * The reference to this object might be preserved as the return value.
      *

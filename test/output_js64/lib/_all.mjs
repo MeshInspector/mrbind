@@ -50,6 +50,7 @@ export * from "./MR/test_tags.mjs";
 export * from "./MR/test_typedefs_in_templates.mjs";
 export * from "./MR/test_using_decls.mjs";
 export * from "./MR/test_variant.mjs";
+export * from "./compare.mjs";
 export * from "./iostream.mjs";
 export * from "./phmap_btree_map_int_float.mjs";
 export * from "./phmap_btree_multimap_int_float.mjs";

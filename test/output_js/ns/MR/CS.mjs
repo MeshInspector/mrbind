@@ -3,6 +3,7 @@
 import * as ffi from "../../ffi.mjs";
 import * as L from "../../lib/_all.mjs";
 
+export { MR_C_std_partial_ordering as std_partial_ordering } from "../../lib/_all.mjs";
 export { MR_C_std_array_MR_StdContainers_A_42 as std_array_MR_StdContainers_A_42 } from "../../lib/_all.mjs";
 export { MR_C_std_array_MR_StdContainers_NonAssignable_42 as std_array_MR_StdContainers_NonAssignable_42 } from "../../lib/_all.mjs";
 export { MR_C_std_array_int_43 as std_array_int_43 } from "../../lib/_all.mjs";

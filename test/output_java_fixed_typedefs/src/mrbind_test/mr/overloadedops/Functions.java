@@ -1120,6 +1120,7 @@ public final class Functions
     }
 
     /**
+     * Gives a free `!=`.
      * Generated from function `MR::OverloadedOps::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.

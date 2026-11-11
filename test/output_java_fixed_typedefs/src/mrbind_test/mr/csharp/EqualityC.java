@@ -16,7 +16,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityC_Destroy.invokeExact(ptr);
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityC_Destroy.invokeExact(ptr);
         }
         catch (java.lang.Throwable e)
         {
@@ -38,7 +38,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityC_DefaultConstruct.invokeExact();
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityC_DefaultConstruct.invokeExact();
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -63,7 +63,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityC_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityC_ConstructFromAnother.invokeExact(mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -87,7 +87,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_EqualityC_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_EqualityC_AssignFromAnother.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_other, "_other"));
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.EqualityC(__ret, false, __owner);
@@ -112,7 +112,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_EqualityC_int32_t.invokeExact(rawPointer(), _1);
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_EqualityC_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -134,7 +134,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_EqualityC_int32_t.invokeExact(rawPointer(), _1);
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_not_equal_MR_CSharp_EqualityC_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -156,7 +156,7 @@ public final class EqualityC extends mrbind_test.CppObject
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_EqualityC.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_EqualityC.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)

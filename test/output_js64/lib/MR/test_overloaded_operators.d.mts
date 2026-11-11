@@ -531,41 +531,12 @@ export declare class MR_OverloadedOps_E extends ffi.CppObject
      */
     assignFromAnother(_other: L.MR_OverloadedOps_E): L.MR_OverloadedOps_E;
     /**
-     * Generated from method `MR::OverloadedOps::E::operator==`.
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+     * Generated from method `MR::OverloadedOps::E::operator<=>`.
      *
-     * Calls `MR_C_equal_MR_OverloadedOps_E()`.
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_E()`.
      */
-    opEqual(_1: L.MR_OverloadedOps_E): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::E::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_OverloadedOps_E()`.
-     */
-    opNotEqual(_1: L.MR_OverloadedOps_E): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::E::operator<`.
-     *
-     * Calls `MR_C_less_MR_OverloadedOps_E()`.
-     */
-    opLess(_1: L.MR_OverloadedOps_E): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::E::operator>`.
-     *
-     * Calls `MR_C_greater_MR_OverloadedOps_E()`.
-     */
-    opGreater(_1: L.MR_OverloadedOps_E): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::E::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_OverloadedOps_E()`.
-     */
-    opLessEqual(_1: L.MR_OverloadedOps_E): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::E::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_OverloadedOps_E()`.
-     */
-    opGreaterEqual(_1: L.MR_OverloadedOps_E): boolean;
+    opCompareThreeWay(_1: L.MR_OverloadedOps_E): number;
 }
 
 /**
@@ -612,35 +583,11 @@ export declare class MR_OverloadedOps_F extends ffi.CppObject
      */
     assignFromAnother(_other: L.MR_OverloadedOps_F): L.MR_OverloadedOps_F;
     /**
-     * Generated from method `MR::OverloadedOps::F::operator==`.
+     * Generated from method `MR::OverloadedOps::F::operator<=>`.
      *
-     * Calls `MR_C_equal_MR_OverloadedOps_F()`.
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_F()`.
      */
-    opEqual(_1: L.MR_OverloadedOps_F): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::F::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_OverloadedOps_F()`.
-     */
-    opNotEqual(_1: L.MR_OverloadedOps_F): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::F::operator>`.
-     *
-     * Calls `MR_C_greater_MR_OverloadedOps_F()`.
-     */
-    opGreater(_1: L.MR_OverloadedOps_F): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::F::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_OverloadedOps_F()`.
-     */
-    opLessEqual(_1: L.MR_OverloadedOps_F): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::F::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_OverloadedOps_F()`.
-     */
-    opGreaterEqual(_1: L.MR_OverloadedOps_F): boolean;
+    opCompareThreeWay(_1: L.MR_OverloadedOps_F): number;
     /**
      * Declared, so it isn't added once more.
      * Generated from method `MR::OverloadedOps::F::operator<`.
@@ -694,29 +641,12 @@ export declare class MR_OverloadedOps_G extends ffi.CppObject
      */
     assignFromAnother(_other: L.MR_OverloadedOps_G): L.MR_OverloadedOps_G;
     /**
-     * Generated from method `MR::OverloadedOps::G::operator<`.
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+     * Generated from method `MR::OverloadedOps::G::operator<=>`.
      *
-     * Calls `MR_C_less_MR_OverloadedOps_G()`.
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_G()`.
      */
-    opLess(_1: L.MR_OverloadedOps_G): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator>`.
-     *
-     * Calls `MR_C_greater_MR_OverloadedOps_G()`.
-     */
-    opGreater(_1: L.MR_OverloadedOps_G): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator<=`.
-     *
-     * Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
-     */
-    opLessEqual(_1: L.MR_OverloadedOps_G): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::G::operator>=`.
-     *
-     * Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
-     */
-    opGreaterEqual(_1: L.MR_OverloadedOps_G): boolean;
+    opCompareThreeWay(_1: L.MR_OverloadedOps_G): number;
 }
 
 /**
@@ -756,12 +686,6 @@ export declare class MR_OverloadedOps_H extends ffi.CppObject
      * Calls `MR_C_equal_MR_OverloadedOps_H()`.
      */
     opEqual(_1: L.MR_OverloadedOps_H): boolean;
-    /**
-     * Generated from method `MR::OverloadedOps::H::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_OverloadedOps_H()`.
-     */
-    opNotEqual(_1: L.MR_OverloadedOps_H): boolean;
 }
 
 /**
@@ -1155,11 +1079,4 @@ export declare function MR_C_pos_const_MR_OverloadedOps_D_ref(_1: L.MR_Overloade
  * Calls `MR_C_equal_MR_OverloadedOps_I()`.
  */
 export declare function MR_C_equal_MR_OverloadedOps_I(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
-
-/**
- * Generated from function `MR::OverloadedOps::operator!=`.
- *
- * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.
- */
-export declare function MR_C_not_equal_MR_OverloadedOps_I(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
 

@@ -184,6 +184,7 @@ unsafe extern "C"
     pub fn MR_OverloadedOps_E_ConstructFrom(x: i32) -> *mut crate::ffi::MR_OverloadedOps_E;
     pub fn MR_OverloadedOps_E_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_E) -> *mut crate::ffi::MR_OverloadedOps_E;
     pub fn MR_OverloadedOps_E_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_E, _other: *const crate::ffi::MR_OverloadedOps_E) -> *mut crate::ffi::MR_OverloadedOps_E;
+    pub fn MR_C_compare_three_way_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> core::ffi::c_int;
     pub fn MR_C_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
     pub fn MR_C_not_equal_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
     pub fn MR_C_less_MR_OverloadedOps_E(_this: *const crate::ffi::MR_OverloadedOps_E, _1: *const crate::ffi::MR_OverloadedOps_E) -> bool;
@@ -198,6 +199,7 @@ unsafe extern "C"
     pub fn MR_OverloadedOps_F_ConstructFrom(x: i32) -> *mut crate::ffi::MR_OverloadedOps_F;
     pub fn MR_OverloadedOps_F_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_F) -> *mut crate::ffi::MR_OverloadedOps_F;
     pub fn MR_OverloadedOps_F_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_F, _other: *const crate::ffi::MR_OverloadedOps_F) -> *mut crate::ffi::MR_OverloadedOps_F;
+    pub fn MR_C_compare_three_way_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> core::ffi::c_int;
     pub fn MR_C_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
     pub fn MR_C_not_equal_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
     pub fn MR_C_greater_MR_OverloadedOps_F(_this: *const crate::ffi::MR_OverloadedOps_F, _1: *const crate::ffi::MR_OverloadedOps_F) -> bool;
@@ -212,6 +214,7 @@ unsafe extern "C"
     pub fn MR_OverloadedOps_G_ConstructFrom(x: i32) -> *mut crate::ffi::MR_OverloadedOps_G;
     pub fn MR_OverloadedOps_G_ConstructFromAnother(_other: *const crate::ffi::MR_OverloadedOps_G) -> *mut crate::ffi::MR_OverloadedOps_G;
     pub fn MR_OverloadedOps_G_AssignFromAnother(_this: *mut crate::ffi::MR_OverloadedOps_G, _other: *const crate::ffi::MR_OverloadedOps_G) -> *mut crate::ffi::MR_OverloadedOps_G;
+    pub fn MR_C_compare_three_way_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> core::ffi::c_int;
     pub fn MR_C_less_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
     pub fn MR_C_greater_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;
     pub fn MR_C_less_equal_MR_OverloadedOps_G(_this: *const crate::ffi::MR_OverloadedOps_G, _1: *const crate::ffi::MR_OverloadedOps_G) -> bool;

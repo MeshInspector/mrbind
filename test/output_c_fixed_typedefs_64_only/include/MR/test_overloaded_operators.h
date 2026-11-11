@@ -785,35 +785,12 @@ MR_C_API void MR_OverloadedOps_E_DestroyArray(const MR_OverloadedOps_E *_this);
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_OverloadedOps_E *MR_OverloadedOps_E_AssignFromAnother(MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_other);
 
-/// Generated from method `MR::OverloadedOps::E::operator==`.
+// Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+/// Generated from method `MR::OverloadedOps::E::operator<=>`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
-
-/// Generated from method `MR::OverloadedOps::E::operator!=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_not_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
-
-/// Generated from method `MR::OverloadedOps::E::operator<`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_less_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
-
-/// Generated from method `MR::OverloadedOps::E::operator>`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
-
-/// Generated from method `MR::OverloadedOps::E::operator<=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_less_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
-
-/// Generated from method `MR::OverloadedOps::E::operator>=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_equal_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_OverloadedOps_E(const MR_OverloadedOps_E *_this, const MR_OverloadedOps_E *_1);
 
 /// Returns a pointer to a member variable of class `MR::OverloadedOps::F` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -874,30 +851,11 @@ MR_C_API void MR_OverloadedOps_F_DestroyArray(const MR_OverloadedOps_F *_this);
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_OverloadedOps_F *MR_OverloadedOps_F_AssignFromAnother(MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_other);
 
-/// Generated from method `MR::OverloadedOps::F::operator==`.
+/// Generated from method `MR::OverloadedOps::F::operator<=>`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
-
-/// Generated from method `MR::OverloadedOps::F::operator!=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_not_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
-
-/// Generated from method `MR::OverloadedOps::F::operator>`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
-
-/// Generated from method `MR::OverloadedOps::F::operator<=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_less_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
-
-/// Generated from method `MR::OverloadedOps::F::operator>=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_equal_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_OverloadedOps_F(const MR_OverloadedOps_F *_this, const MR_OverloadedOps_F *_1);
 
 // Declared, so it isn't added once more.
 /// Generated from method `MR::OverloadedOps::F::operator<`.
@@ -964,25 +922,12 @@ MR_C_API void MR_OverloadedOps_G_DestroyArray(const MR_OverloadedOps_G *_this);
 /// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_OverloadedOps_G *MR_OverloadedOps_G_AssignFromAnother(MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_other);
 
-/// Generated from method `MR::OverloadedOps::G::operator<`.
+// Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+/// Generated from method `MR::OverloadedOps::G::operator<=>`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_less_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
-
-/// Generated from method `MR::OverloadedOps::G::operator>`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
-
-/// Generated from method `MR::OverloadedOps::G::operator<=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_less_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
-
-/// Generated from method `MR::OverloadedOps::G::operator>=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_greater_equal_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
+/// Returns -1 for `less`, +1 for `greater`, or 0 for `equal`.
+MR_C_API int MR_C_compare_three_way_MR_OverloadedOps_G(const MR_OverloadedOps_G *_this, const MR_OverloadedOps_G *_1);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_H_Destroy()` to free it when you're done using it.
@@ -1027,11 +972,6 @@ MR_C_API MR_OverloadedOps_H *MR_OverloadedOps_H_AssignFromAnother(MR_OverloadedO
 /// Parameter `_1` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1);
 
-/// Generated from method `MR::OverloadedOps::H::operator!=`.
-/// Parameter `_this` can not be null. It is a single object.
-/// Parameter `_1` can not be null. It is a single object.
-MR_C_API bool MR_C_not_equal_MR_OverloadedOps_H(const MR_OverloadedOps_H *_this, const MR_OverloadedOps_H *_1);
-
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_I_Destroy()` to free it when you're done using it.
 MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_DefaultConstruct(void);
@@ -1074,11 +1014,6 @@ MR_C_API MR_OverloadedOps_I *MR_OverloadedOps_I_AssignFromAnother(MR_OverloadedO
 /// Parameter `_1` can not be null. It is a single object.
 /// Parameter `_2` can not be null. It is a single object.
 MR_C_API bool MR_C_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2);
-
-/// Generated from function `MR::OverloadedOps::operator!=`.
-/// Parameter `_1` can not be null. It is a single object.
-/// Parameter `_2` can not be null. It is a single object.
-MR_C_API bool MR_C_not_equal_MR_OverloadedOps_I(const MR_OverloadedOps_I *_1, const MR_OverloadedOps_I *_2);
 
 #ifdef __cplusplus
 } // extern "C"

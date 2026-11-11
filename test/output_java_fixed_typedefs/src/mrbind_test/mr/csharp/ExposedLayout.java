@@ -58,7 +58,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayout_foo.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayout_foo.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -80,7 +80,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayout_bar.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayout_bar.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -102,7 +102,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_CSharp_ExposedLayout_blah.invokeExact();
+            mrbind_test.ffi.MR.test_csharp.H3.MR_CSharp_ExposedLayout_blah.invokeExact();
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -121,7 +121,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            mrbind_test.ffi.MR.test_csharp.H2.MR_C_incr_MR_CSharp_ExposedLayout.invokeExact(rawPointer());
+            mrbind_test.ffi.MR.test_csharp.H3.MR_C_incr_MR_CSharp_ExposedLayout.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
         }
         catch (java.lang.Throwable __e)
@@ -143,7 +143,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H2.MR_C_add_MR_CSharp_ExposedLayout_ref_int32_t.invokeExact(rawPointer(), _1);
+            int __ret = (int)mrbind_test.ffi.MR.test_csharp.H3.MR_C_add_MR_CSharp_ExposedLayout_ref_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -168,7 +168,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_C_mul_MR_CSharp_ExposedLayout_int32_t.invokeExact(rawPointer(), _1);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_C_mul_MR_CSharp_ExposedLayout_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
@@ -192,7 +192,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H2.MR_C_add_const_MR_CSharp_ExposedLayout_ref_int32_t.invokeExact(rawPointer(), _1);
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.MR.test_csharp.H3.MR_C_add_const_MR_CSharp_ExposedLayout_ref_int32_t.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             java.lang.Object __owner = this;
             return new mrbind_test.mr.csharp.ExposedLayout(__ret.reinterpret(mrbind_test.mr.csharp.ExposedLayout.LAYOUT.byteSize()), __owner);
@@ -216,7 +216,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_less_MR_CSharp_ExposedLayout.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_less_MR_CSharp_ExposedLayout.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -240,7 +240,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -263,7 +263,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_not_equal_MR_CSharp_ExposedLayout_float.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }
@@ -286,7 +286,7 @@ public final class ExposedLayout extends mrbind_test.CppStruct
     {
         try
         {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_less_MR_CSharp_ExposedLayout_char.invokeExact(rawPointer(), _1);
+            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H3.MR_C_less_MR_CSharp_ExposedLayout_char.invokeExact(rawPointer(), _1);
             mrbind_test.Ffi.checkException();
             return __ret;
         }

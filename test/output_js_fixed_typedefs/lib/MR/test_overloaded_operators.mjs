@@ -1365,6 +1365,25 @@ export class MR_OverloadedOps_E extends ffi.CppObject
         }
     }
 
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_E(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opEqual(_1)
     {
         const __sp = ffi.stackSave();
@@ -1625,6 +1644,25 @@ export class MR_OverloadedOps_F extends ffi.CppObject
         }
     }
 
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_F(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     opEqual(_1)
     {
         const __sp = ffi.stackSave();
@@ -1874,6 +1912,25 @@ export class MR_OverloadedOps_G extends ffi.CppObject
             ffi.check();
             const __owner = this;
             return new L.MR_OverloadedOps_G(ffi.RAW, (__ret >>> 0), false, __owner);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    opCompareThreeWay(_1)
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_G(this.rawPointer(), ffi.ptrNonNull(_1, "_1"));
+            ffi.check();
+            return __ret;
         }
         catch (__e)
         {

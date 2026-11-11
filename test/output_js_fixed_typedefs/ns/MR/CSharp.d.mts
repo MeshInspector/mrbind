@@ -120,6 +120,17 @@ export { MR_CSharp_TestOpsA as TestOpsA } from "../../lib/_all.mjs";
 export { MR_CSharp_TestOpsB as TestOpsB } from "../../lib/_all.mjs";
 export { MR_CSharp_TestOpsC as TestOpsC } from "../../lib/_all.mjs";
 export { MR_CSharp_TestStdFunction as TestStdFunction } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayA as ThreeWayA } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayB as ThreeWayB } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayC as ThreeWayC } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayD as ThreeWayD } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayE as ThreeWayE } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayF as ThreeWayF } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayG as ThreeWayG } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayH as ThreeWayH } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayI as ThreeWayI } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayJ as ThreeWayJ } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayK as ThreeWayK } from "../../lib/_all.mjs";
 export { MR_CSharp_Trivial as Trivial } from "../../lib/_all.mjs";
 export { MR_CSharp_TrivialDerived as TrivialDerived } from "../../lib/_all.mjs";
 export { MR_CSharp_foo as foo } from "../../lib/_all.mjs";
@@ -272,8 +283,8 @@ export { MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh as test_exposed_re
 export { MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh as test_exposed_cref_MR_CSharp_ExposedLayoutSh } from "../../lib/_all.mjs";
 export { MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
 export { MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_CSharp_ExposedLayoutB as opEqual } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_CSharp_ExposedLayoutB as opNotEqual } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ExposedLayoutB as opEqual_MR_CSharp_ExposedLayoutB } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ExposedLayoutB as opNot_equal_MR_CSharp_ExposedLayoutB } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint as test_optint } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_ref as test_optint_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_cref as test_optint_cref } from "../../lib/_all.mjs";
@@ -416,6 +427,49 @@ export { MR_CSharp_get_tuple_crefs as get_tuple_crefs } from "../../lib/_all.mjs
 export { MR_CSharp_get_tuple_exposed_value as get_tuple_exposed_value } from "../../lib/_all.mjs";
 export { MR_CSharp_get_tuple_exposed_lvalue_ref as get_tuple_exposed_lvalue_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_get_tuple_exposed_rvalue_ref as get_tuple_exposed_rvalue_ref } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_strong_ordering as returns_strong_ordering } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_weak_ordering as returns_weak_ordering } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_partial_ordering as returns_partial_ordering } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayA as opCompare_three_way_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayA as opEqual_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayA as opNot_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayA as opLess_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayA as opGreater_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayA as opLess_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayA as opGreater_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayB as opCompare_three_way_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayB as opEqual_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayB as opNot_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayB as opLess_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayB as opGreater_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayB as opLess_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayB as opGreater_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayD as opCompare_three_way_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayD as opLess_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayD as opGreater_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayD as opLess_equal_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayD as opGreater_equal_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayF as opCompare_three_way_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayF as opEqual_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayF as opLess_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayF as opLess_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayF as opGreater_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayF as opNot_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayF as opGreater_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayI_int32_t as opEqual_MR_CSharp_ThreeWayI_int32_t } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t as opNot_equal_MR_CSharp_ThreeWayI_int32_t } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayI as opCompare_three_way_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayI as opLess_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayI as opGreater_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayI as opLess_equal_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayI as opGreater_equal_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayK_int32_t as opEqual_MR_CSharp_ThreeWayK_int32_t } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t as opNot_equal_MR_CSharp_ThreeWayK_int32_t } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayK as opCompare_three_way_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayK as opLess_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayK as opGreater_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayK as opLess_equal_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayK as opGreater_equal_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int as test_expected_int } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int_ref as test_expected_int_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int_cref as test_expected_int_cref } from "../../lib/_all.mjs";
@@ -774,6 +828,83 @@ export declare function test_exposed_cptr(a: L.MR_CSharp_ExposedLayout | null | 
 export declare function test_exposed_cptr(a: L.MR_CSharp_ExposedLayoutSh | null | undefined, b: L.MR_CSharp_ExposedLayoutSh | null | undefined, c: number): L.MR_CSharp_ExposedLayoutSh | null;
 /** The overloads of `test_exposed_cptr` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
 /**
+ * And try an equality comparison!
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ExposedLayoutB()`.
+ */
+export declare function opEqual(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opEqual(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opEqual(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opEqual(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayI_int32_t()`.
+ */
+export declare function opEqual(_1: L.MR_CSharp_ThreeWayI, _2: number): boolean;
+/**
+ * Generated from function `MR::CSharp::operator==`.
+ *
+ * Calls `MR_C_equal_MR_CSharp_ThreeWayK_int32_t()`.
+ */
+export declare function opEqual(_1: L.MR_CSharp_ThreeWayK, _2: number): boolean;
+/** The overloads of `opEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * And try an equality comparison!
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
+ */
+export declare function opNotEqual(_1: L.MR_CSharp_ExposedLayoutB, _2: L.MR_CSharp_ExposedLayoutB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opNotEqual(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opNotEqual(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Some random operators that should not be replaced.
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opNotEqual(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t()`.
+ */
+export declare function opNotEqual(_1: L.MR_CSharp_ThreeWayI, _2: number): boolean;
+/**
+ * Generated from function `MR::CSharp::operator!=`.
+ *
+ * Calls `MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t()`.
+ */
+export declare function opNotEqual(_1: L.MR_CSharp_ThreeWayK, _2: number): boolean;
+/** The overloads of `opNotEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
  * `--infer-lifetime-iterators` should act on those:
  * Generated from function `MR::CSharp::begin`.
  * The reference to the parameter `b` might be preserved in the return value.
@@ -876,3 +1007,188 @@ export declare function opMul(b: L.MR_CSharp_LifetimesB): L.MR_CSharp_LifetimesA
  */
 export declare function opMul(c: L.MR_CSharp_LifetimesC): L.MR_CSharp_LifetimesA;
 /** The overloads of `opMul` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opCompareThreeWay(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): number;
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opCompareThreeWay(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): number;
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayD()`.
+ */
+export declare function opCompareThreeWay(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): number;
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opCompareThreeWay(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): number;
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayI()`.
+ */
+export declare function opCompareThreeWay(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): number;
+/**
+ * Generated from function `MR::CSharp::operator<=>`.
+ *
+ * Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayK()`.
+ */
+export declare function opCompareThreeWay(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): number;
+/** The overloads of `opCompareThreeWay` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opLess(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opLess(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayD()`.
+ */
+export declare function opLess(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opLess(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayI()`.
+ */
+export declare function opLess(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<`.
+ *
+ * Calls `MR_C_less_MR_CSharp_ThreeWayK()`.
+ */
+export declare function opLess(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): boolean;
+/** The overloads of `opLess` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opGreater(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opGreater(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayD()`.
+ */
+export declare function opGreater(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opGreater(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayI()`.
+ */
+export declare function opGreater(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>`.
+ *
+ * Calls `MR_C_greater_MR_CSharp_ThreeWayK()`.
+ */
+export declare function opGreater(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): boolean;
+/** The overloads of `opGreater` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opLessEqual(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opLessEqual(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayD()`.
+ */
+export declare function opLessEqual(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opLessEqual(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayI()`.
+ */
+export declare function opLessEqual(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): boolean;
+/**
+ * Generated from function `MR::CSharp::operator<=`.
+ *
+ * Calls `MR_C_less_equal_MR_CSharp_ThreeWayK()`.
+ */
+export declare function opLessEqual(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): boolean;
+/** The overloads of `opLessEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayA()`.
+ */
+export declare function opGreaterEqual(a: L.MR_CSharp_ThreeWayA, b: L.MR_CSharp_ThreeWayA): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayB()`.
+ */
+export declare function opGreaterEqual(_1: L.MR_CSharp_ThreeWayB, _2: L.MR_CSharp_ThreeWayB): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayD()`.
+ */
+export declare function opGreaterEqual(_1: L.MR_CSharp_ThreeWayD, _2: L.MR_CSharp_ThreeWayD): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayF()`.
+ */
+export declare function opGreaterEqual(_1: L.MR_CSharp_ThreeWayF, _2: L.MR_CSharp_ThreeWayF): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayI()`.
+ */
+export declare function opGreaterEqual(_1: L.MR_CSharp_ThreeWayI, _2: L.MR_CSharp_ThreeWayI): boolean;
+/**
+ * Generated from function `MR::CSharp::operator>=`.
+ *
+ * Calls `MR_C_greater_equal_MR_CSharp_ThreeWayK()`.
+ */
+export declare function opGreaterEqual(_1: L.MR_CSharp_ThreeWayK, _2: L.MR_CSharp_ThreeWayK): boolean;
+/** The overloads of `opGreaterEqual` are resolved at runtime by the argument types: an exact parameter count wins, then the fewest parameters, then the declaration order. */

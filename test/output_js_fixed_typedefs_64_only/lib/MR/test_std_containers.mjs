@@ -196,25 +196,6 @@ export class MR_StdContainers_NonAssignable extends ffi.CppObject
             ffi.stackRestore(__sp);
         }
     }
-
-    opNotEqual(_1)
-    {
-        const __sp = ffi.stackSave();
-        try
-        {
-            const __ret = ffi.C.MR_C_not_equal_MR_StdContainers_NonAssignable(this.rawPointer(), ffi.PASS_BY_COPY, ffi.ptrNonNull(_1, "_1"));
-            ffi.check();
-            return (__ret !== 0);
-        }
-        catch (__e)
-        {
-            throw ffi.cppError(__e);
-        }
-        finally
-        {
-            ffi.stackRestore(__sp);
-        }
-    }
 }
 
 /**

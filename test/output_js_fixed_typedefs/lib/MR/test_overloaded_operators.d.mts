@@ -536,36 +536,49 @@ export declare class MR_OverloadedOps_E extends ffi.CppObject
      */
     assignFromAnother(_other: L.MR_OverloadedOps_E): L.MR_OverloadedOps_E;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
+     * Generated from method `MR::OverloadedOps::E::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_E()`.
+     */
+    opCompareThreeWay(_1: L.MR_OverloadedOps_E): number;
+    /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator==`.
      *
      * Calls `MR_C_equal_MR_OverloadedOps_E()`.
      */
     opEqual(_1: L.MR_OverloadedOps_E): boolean;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_OverloadedOps_E()`.
      */
     opNotEqual(_1: L.MR_OverloadedOps_E): boolean;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator<`.
      *
      * Calls `MR_C_less_MR_OverloadedOps_E()`.
      */
     opLess(_1: L.MR_OverloadedOps_E): boolean;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator>`.
      *
      * Calls `MR_C_greater_MR_OverloadedOps_E()`.
      */
     opGreater(_1: L.MR_OverloadedOps_E): boolean;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator<=`.
      *
      * Calls `MR_C_less_equal_MR_OverloadedOps_E()`.
      */
     opLessEqual(_1: L.MR_OverloadedOps_E): boolean;
     /**
+     * Implicitly declares a defaulted `operator==` too. That and the `<=>` give `!=`, `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::E::operator>=`.
      *
      * Calls `MR_C_greater_equal_MR_OverloadedOps_E()`.
@@ -617,6 +630,12 @@ export declare class MR_OverloadedOps_F extends ffi.CppObject
      * Calls `MR_OverloadedOps_F_AssignFromAnother()`.
      */
     assignFromAnother(_other: L.MR_OverloadedOps_F): L.MR_OverloadedOps_F;
+    /**
+     * Generated from method `MR::OverloadedOps::F::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_F()`.
+     */
+    opCompareThreeWay(_1: L.MR_OverloadedOps_F): number;
     /**
      * Generated from method `MR::OverloadedOps::F::operator==`.
      *
@@ -701,24 +720,35 @@ export declare class MR_OverloadedOps_G extends ffi.CppObject
      */
     assignFromAnother(_other: L.MR_OverloadedOps_G): L.MR_OverloadedOps_G;
     /**
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
+     * Generated from method `MR::OverloadedOps::G::operator<=>`.
+     *
+     * Calls `MR_C_compare_three_way_MR_OverloadedOps_G()`.
+     */
+    opCompareThreeWay(_1: L.MR_OverloadedOps_G): number;
+    /**
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::G::operator<`.
      *
      * Calls `MR_C_less_MR_OverloadedOps_G()`.
      */
     opLess(_1: L.MR_OverloadedOps_G): boolean;
     /**
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::G::operator>`.
      *
      * Calls `MR_C_greater_MR_OverloadedOps_G()`.
      */
     opGreater(_1: L.MR_OverloadedOps_G): boolean;
     /**
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::G::operator<=`.
      *
      * Calls `MR_C_less_equal_MR_OverloadedOps_G()`.
      */
     opLessEqual(_1: L.MR_OverloadedOps_G): boolean;
     /**
+     * Not defaulted, so there is no `==`: gives only `<`, `>`, `<=` and `>=`.
      * Generated from method `MR::OverloadedOps::G::operator>=`.
      *
      * Calls `MR_C_greater_equal_MR_OverloadedOps_G()`.
@@ -764,6 +794,7 @@ export declare class MR_OverloadedOps_H extends ffi.CppObject
      */
     opEqual(_1: L.MR_OverloadedOps_H): boolean;
     /**
+     * Gives `!=`.
      * Generated from method `MR::OverloadedOps::H::operator!=`.
      *
      * Calls `MR_C_not_equal_MR_OverloadedOps_H()`.
@@ -1165,6 +1196,7 @@ export declare function MR_C_pos_const_MR_OverloadedOps_D_ref(_1: L.MR_Overloade
 export declare function MR_C_equal_MR_OverloadedOps_I(_1: L.MR_OverloadedOps_I, _2: L.MR_OverloadedOps_I): boolean;
 
 /**
+ * Gives a free `!=`.
  * Generated from function `MR::OverloadedOps::operator!=`.
  *
  * Calls `MR_C_not_equal_MR_OverloadedOps_I()`.

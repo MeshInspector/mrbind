@@ -124,28 +124,4 @@ public final class NonAssignable extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
-
-    /**
-     * Generated from method `MR::StdContainers::NonAssignable::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_StdContainers_NonAssignable()`.
-     */
-    public boolean opNotEqual(mrbind_test.mr.stdcontainers.NonAssignable _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_std_containers.H0.MR_C_not_equal_MR_StdContainers_NonAssignable.invokeExact(rawPointer(), mrbind_test.Ffi.PASS_BY_COPY, mrbind_test.Ffi.ptrNonNull(_1, "_1"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
 }

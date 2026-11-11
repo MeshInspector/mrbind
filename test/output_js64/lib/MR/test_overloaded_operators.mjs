@@ -621,46 +621,11 @@ export class MR_OverloadedOps_E extends ffi.CppObject
         return new L.MR_OverloadedOps_E(ffi.RAW, Number(__ret), false, __owner);
     }
 
-    opEqual(_1)
+    opCompareThreeWay(_1)
     {
-        const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
+        const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
         ffi.check();
-        return (__ret !== 0);
-    }
-
-    opNotEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opLess(_1)
-    {
-        const __ret = ffi.C.MR_C_less_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreater(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opLessEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_less_equal_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreaterEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_equal_MR_OverloadedOps_E(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
+        return __ret;
     }
 }
 
@@ -737,39 +702,11 @@ export class MR_OverloadedOps_F extends ffi.CppObject
         return new L.MR_OverloadedOps_F(ffi.RAW, Number(__ret), false, __owner);
     }
 
-    opEqual(_1)
+    opCompareThreeWay(_1)
     {
-        const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
+        const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
         ffi.check();
-        return (__ret !== 0);
-    }
-
-    opNotEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreater(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opLessEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_less_equal_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreaterEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_equal_MR_OverloadedOps_F(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
+        return __ret;
     }
 
     opLess(_1)
@@ -853,32 +790,11 @@ export class MR_OverloadedOps_G extends ffi.CppObject
         return new L.MR_OverloadedOps_G(ffi.RAW, Number(__ret), false, __owner);
     }
 
-    opLess(_1)
+    opCompareThreeWay(_1)
     {
-        const __ret = ffi.C.MR_C_less_MR_OverloadedOps_G(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
+        const __ret = ffi.C.MR_C_compare_three_way_MR_OverloadedOps_G(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
         ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreater(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_MR_OverloadedOps_G(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opLessEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_less_equal_MR_OverloadedOps_G(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opGreaterEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_greater_equal_MR_OverloadedOps_G(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
+        return __ret;
     }
 }
 
@@ -936,13 +852,6 @@ export class MR_OverloadedOps_H extends ffi.CppObject
     opEqual(_1)
     {
         const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_H(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
-        ffi.check();
-        return (__ret !== 0);
-    }
-
-    opNotEqual(_1)
-    {
-        const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_H(BigInt(this.rawPointer()), BigInt(ffi.ptrNonNull(_1, "_1")));
         ffi.check();
         return (__ret !== 0);
     }
@@ -1309,13 +1218,6 @@ export function MR_C_pos_const_MR_OverloadedOps_D_ref(_1)
 export function MR_C_equal_MR_OverloadedOps_I(_1, _2)
 {
     const __ret = ffi.C.MR_C_equal_MR_OverloadedOps_I(BigInt(ffi.ptrNonNull(_1, "_1")), BigInt(ffi.ptrNonNull(_2, "_2")));
-    ffi.check();
-    return (__ret !== 0);
-}
-
-export function MR_C_not_equal_MR_OverloadedOps_I(_1, _2)
-{
-    const __ret = ffi.C.MR_C_not_equal_MR_OverloadedOps_I(BigInt(ffi.ptrNonNull(_1, "_1")), BigInt(ffi.ptrNonNull(_2, "_2")));
     ffi.check();
     return (__ret !== 0);
 }

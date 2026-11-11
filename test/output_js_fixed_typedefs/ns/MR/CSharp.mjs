@@ -120,6 +120,17 @@ export { MR_CSharp_TestOpsA as TestOpsA } from "../../lib/_all.mjs";
 export { MR_CSharp_TestOpsB as TestOpsB } from "../../lib/_all.mjs";
 export { MR_CSharp_TestOpsC as TestOpsC } from "../../lib/_all.mjs";
 export { MR_CSharp_TestStdFunction as TestStdFunction } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayA as ThreeWayA } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayB as ThreeWayB } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayC as ThreeWayC } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayD as ThreeWayD } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayE as ThreeWayE } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayF as ThreeWayF } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayG as ThreeWayG } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayH as ThreeWayH } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayI as ThreeWayI } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayJ as ThreeWayJ } from "../../lib/_all.mjs";
+export { MR_CSharp_ThreeWayK as ThreeWayK } from "../../lib/_all.mjs";
 export { MR_CSharp_Trivial as Trivial } from "../../lib/_all.mjs";
 export { MR_CSharp_TrivialDerived as TrivialDerived } from "../../lib/_all.mjs";
 export { MR_CSharp_foo as foo } from "../../lib/_all.mjs";
@@ -272,8 +283,8 @@ export { MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh as test_exposed_re
 export { MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh as test_exposed_cref_MR_CSharp_ExposedLayoutSh } from "../../lib/_all.mjs";
 export { MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
 export { MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr as test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr } from "../../lib/_all.mjs";
-export { MR_C_equal_MR_CSharp_ExposedLayoutB as opEqual } from "../../lib/_all.mjs";
-export { MR_C_not_equal_MR_CSharp_ExposedLayoutB as opNotEqual } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ExposedLayoutB as opEqual_MR_CSharp_ExposedLayoutB } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ExposedLayoutB as opNot_equal_MR_CSharp_ExposedLayoutB } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint as test_optint } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_ref as test_optint_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_test_optint_cref as test_optint_cref } from "../../lib/_all.mjs";
@@ -416,6 +427,49 @@ export { MR_CSharp_get_tuple_crefs as get_tuple_crefs } from "../../lib/_all.mjs
 export { MR_CSharp_get_tuple_exposed_value as get_tuple_exposed_value } from "../../lib/_all.mjs";
 export { MR_CSharp_get_tuple_exposed_lvalue_ref as get_tuple_exposed_lvalue_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_get_tuple_exposed_rvalue_ref as get_tuple_exposed_rvalue_ref } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_strong_ordering as returns_strong_ordering } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_weak_ordering as returns_weak_ordering } from "../../lib/_all.mjs";
+export { MR_CSharp_returns_partial_ordering as returns_partial_ordering } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayA as opCompare_three_way_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayA as opEqual_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayA as opNot_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayA as opLess_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayA as opGreater_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayA as opLess_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayA as opGreater_equal_MR_CSharp_ThreeWayA } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayB as opCompare_three_way_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayB as opEqual_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayB as opNot_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayB as opLess_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayB as opGreater_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayB as opLess_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayB as opGreater_equal_MR_CSharp_ThreeWayB } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayD as opCompare_three_way_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayD as opLess_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayD as opGreater_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayD as opLess_equal_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayD as opGreater_equal_MR_CSharp_ThreeWayD } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayF as opCompare_three_way_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayF as opEqual_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayF as opLess_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayF as opLess_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayF as opGreater_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayF as opNot_equal_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayF as opGreater_MR_CSharp_ThreeWayF } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayI_int32_t as opEqual_MR_CSharp_ThreeWayI_int32_t } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t as opNot_equal_MR_CSharp_ThreeWayI_int32_t } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayI as opCompare_three_way_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayI as opLess_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayI as opGreater_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayI as opLess_equal_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayI as opGreater_equal_MR_CSharp_ThreeWayI } from "../../lib/_all.mjs";
+export { MR_C_equal_MR_CSharp_ThreeWayK_int32_t as opEqual_MR_CSharp_ThreeWayK_int32_t } from "../../lib/_all.mjs";
+export { MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t as opNot_equal_MR_CSharp_ThreeWayK_int32_t } from "../../lib/_all.mjs";
+export { MR_C_compare_three_way_MR_CSharp_ThreeWayK as opCompare_three_way_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_less_MR_CSharp_ThreeWayK as opLess_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_greater_MR_CSharp_ThreeWayK as opGreater_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_less_equal_MR_CSharp_ThreeWayK as opLess_equal_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
+export { MR_C_greater_equal_MR_CSharp_ThreeWayK as opGreater_equal_MR_CSharp_ThreeWayK } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int as test_expected_int } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int_ref as test_expected_int_ref } from "../../lib/_all.mjs";
 export { MR_CSharp_test_expected_int_cref as test_expected_int_cref } from "../../lib/_all.mjs";
@@ -665,6 +719,42 @@ export function test_exposed_cptr(...args)
     throw new TypeError("No overload of `test_exposed_cptr` accepts these arguments.");
 }
 
+export function opEqual(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ExposedLayoutB) && (args[1] instanceof L.MR_CSharp_ExposedLayoutB))
+        return L.MR_C_equal_MR_CSharp_ExposedLayoutB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_equal_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_equal_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_equal_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && typeof args[1] === "number")
+        return L.MR_C_equal_MR_CSharp_ThreeWayI_int32_t(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && typeof args[1] === "number")
+        return L.MR_C_equal_MR_CSharp_ThreeWayK_int32_t(args[0], args[1]);
+    throw new TypeError("No overload of `opEqual` accepts these arguments.");
+}
+
+export function opNotEqual(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ExposedLayoutB) && (args[1] instanceof L.MR_CSharp_ExposedLayoutB))
+        return L.MR_C_not_equal_MR_CSharp_ExposedLayoutB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_not_equal_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_not_equal_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_not_equal_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && typeof args[1] === "number")
+        return L.MR_C_not_equal_MR_CSharp_ThreeWayI_int32_t(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && typeof args[1] === "number")
+        return L.MR_C_not_equal_MR_CSharp_ThreeWayK_int32_t(args[0], args[1]);
+    throw new TypeError("No overload of `opNotEqual` accepts these arguments.");
+}
+
 export function begin(...args)
 {
     const __n = args.length;
@@ -709,5 +799,95 @@ export function opMul(...args)
     if (__n === 1 && (args[0] instanceof L.MR_CSharp_LifetimesC))
         return L.MR_C_deref_MR_CSharp_LifetimesC(args[0]);
     throw new TypeError("No overload of `opMul` accepts these arguments.");
+}
+
+export function opCompareThreeWay(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayD) && (args[1] instanceof L.MR_CSharp_ThreeWayD))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayD(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && (args[1] instanceof L.MR_CSharp_ThreeWayI))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayI(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && (args[1] instanceof L.MR_CSharp_ThreeWayK))
+        return L.MR_C_compare_three_way_MR_CSharp_ThreeWayK(args[0], args[1]);
+    throw new TypeError("No overload of `opCompareThreeWay` accepts these arguments.");
+}
+
+export function opLess(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_less_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_less_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayD) && (args[1] instanceof L.MR_CSharp_ThreeWayD))
+        return L.MR_C_less_MR_CSharp_ThreeWayD(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_less_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && (args[1] instanceof L.MR_CSharp_ThreeWayI))
+        return L.MR_C_less_MR_CSharp_ThreeWayI(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && (args[1] instanceof L.MR_CSharp_ThreeWayK))
+        return L.MR_C_less_MR_CSharp_ThreeWayK(args[0], args[1]);
+    throw new TypeError("No overload of `opLess` accepts these arguments.");
+}
+
+export function opGreater(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_greater_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_greater_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayD) && (args[1] instanceof L.MR_CSharp_ThreeWayD))
+        return L.MR_C_greater_MR_CSharp_ThreeWayD(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_greater_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && (args[1] instanceof L.MR_CSharp_ThreeWayI))
+        return L.MR_C_greater_MR_CSharp_ThreeWayI(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && (args[1] instanceof L.MR_CSharp_ThreeWayK))
+        return L.MR_C_greater_MR_CSharp_ThreeWayK(args[0], args[1]);
+    throw new TypeError("No overload of `opGreater` accepts these arguments.");
+}
+
+export function opLessEqual(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayD) && (args[1] instanceof L.MR_CSharp_ThreeWayD))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayD(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && (args[1] instanceof L.MR_CSharp_ThreeWayI))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayI(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && (args[1] instanceof L.MR_CSharp_ThreeWayK))
+        return L.MR_C_less_equal_MR_CSharp_ThreeWayK(args[0], args[1]);
+    throw new TypeError("No overload of `opLessEqual` accepts these arguments.");
+}
+
+export function opGreaterEqual(...args)
+{
+    const __n = args.length;
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayA) && (args[1] instanceof L.MR_CSharp_ThreeWayA))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayA(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayB) && (args[1] instanceof L.MR_CSharp_ThreeWayB))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayB(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayD) && (args[1] instanceof L.MR_CSharp_ThreeWayD))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayD(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayF) && (args[1] instanceof L.MR_CSharp_ThreeWayF))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayF(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayI) && (args[1] instanceof L.MR_CSharp_ThreeWayI))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayI(args[0], args[1]);
+    if (__n === 2 && (args[0] instanceof L.MR_CSharp_ThreeWayK) && (args[1] instanceof L.MR_CSharp_ThreeWayK))
+        return L.MR_C_greater_equal_MR_CSharp_ThreeWayK(args[0], args[1]);
+    throw new TypeError("No overload of `opGreaterEqual` accepts these arguments.");
 }
 

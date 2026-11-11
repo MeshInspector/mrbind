@@ -55,6 +55,7 @@ export * from "./MR/test_tags.mjs";
 export * from "./MR/test_typedefs_in_templates.mjs";
 export * from "./MR/test_using_decls.mjs";
 export * from "./MR/test_variant.mjs";
+export * from "./compare.mjs";
 export * from "./expected_MR_CSharp_E1_float.mjs";
 export * from "./expected_MR_CSharp_ExposedLayoutSh_float.mjs";
 export * from "./expected_MR_CSharp_ExposedLayout_float.mjs";

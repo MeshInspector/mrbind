@@ -172,28 +172,4 @@ public final class EqualityA extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(_1);
         }
     }
-
-    /**
-     * Generated from method `MR::CSharp::EqualityA::operator!=`.
-     *
-     * Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
-     */
-    public boolean opNotEqual(mrbind_test.mr.csharp.EqualityA _1)
-    {
-        try
-        {
-            boolean __ret = (boolean)mrbind_test.ffi.MR.test_csharp.H2.MR_C_not_equal_MR_CSharp_EqualityA.invokeExact(rawPointer(), mrbind_test.Ffi.ptrNonNull(_1, "_1"));
-            mrbind_test.Ffi.checkException();
-            return __ret;
-        }
-        catch (java.lang.Throwable __e)
-        {
-            throw mrbind_test.Ffi.rethrow(__e);
-        }
-        finally
-        {
-            java.lang.ref.Reference.reachabilityFence(this);
-            java.lang.ref.Reference.reachabilityFence(_1);
-        }
-    }
 }

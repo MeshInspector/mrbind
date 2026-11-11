@@ -2786,17 +2786,6 @@ impl EqualityA
         __ret
     }
 
-    /// Generated from method `MR::CSharp::EqualityA::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_EqualityA()`.
-    pub fn op_not_equal(&self, _1: &crate::mr::c_sharp::EqualityA) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityA(self as *const Self as *const crate::ffi::MR_CSharp_EqualityA, _1 as *const crate::mr::c_sharp::EqualityA as *const crate::ffi::MR_CSharp_EqualityA)};
-        crate::__check_exception();
-        __ret
-    }
-
 }
 
 unsafe impl crate::CppCopy for EqualityA
@@ -3042,17 +3031,6 @@ impl EqualityD
         __ret
     }
 
-    /// Generated from method `MR::CSharp::EqualityD::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr()`.
-    pub fn op_not_equal_const_int_ptr(&mut self, _1: Option<&core::ffi::c_int>) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityD_const_int_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityD, _1.map_or(core::ptr::null(), |r| r as *const core::ffi::c_int as *const core::ffi::c_int))};
-        crate::__check_exception();
-        __ret
-    }
-
 }
 
 unsafe impl crate::CppCopy for EqualityD
@@ -3116,17 +3094,6 @@ impl EqualityE
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityE, _1.map_or(core::ptr::null_mut(), |r| r as *mut crate::mr::c_sharp::EqualityD as *mut crate::ffi::MR_CSharp_EqualityD))};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::EqualityE::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr()`.
-    pub fn op_not_equal_mr_c_sharp_equality_d_ptr(&mut self, _1: Option<&mut crate::mr::c_sharp::EqualityD>) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(self as *mut Self as *mut crate::ffi::MR_CSharp_EqualityE, _1.map_or(core::ptr::null_mut(), |r| r as *mut crate::mr::c_sharp::EqualityD as *mut crate::ffi::MR_CSharp_EqualityD))};
         crate::__check_exception();
         __ret
     }
@@ -3244,17 +3211,6 @@ impl ExposedLayout
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ExposedLayout_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayout, _1)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::ExposedLayout::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayout_float()`.
-    pub fn op_not_equal_float(&mut self, _1: f32) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayout_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayout, _1)};
         crate::__check_exception();
         __ret
     }
@@ -3409,17 +3365,6 @@ impl ExposedLayoutSh
         __ret
     }
 
-    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float()`.
-    pub fn op_not_equal_float(&mut self, _1: f32) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh_float(self as *mut Self as *mut crate::ffi::MR_CSharp_ExposedLayoutSh, _1)};
-        crate::__check_exception();
-        __ret
-    }
-
     /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
     ///
     /// Calls `MR_C_less_MR_CSharp_ExposedLayoutSh_char()`.
@@ -3443,17 +3388,6 @@ impl ExposedLayoutSh
         __ret
     }
 
-    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout()`.
-    pub fn op_not_equal_mr_c_sharp_exposed_layout(&self, _1: &crate::ffi::MR_CSharp_ExposedLayout) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayout as *const crate::ffi::MR_CSharp_ExposedLayout)};
-        crate::__check_exception();
-        __ret
-    }
-
     /// And against itself, too.
     /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
     ///
@@ -3462,17 +3396,6 @@ impl ExposedLayoutSh
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ExposedLayoutSh(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::ExposedLayoutSh::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutSh()`.
-    pub fn op_not_equal(&self, _1: &crate::ffi::MR_CSharp_ExposedLayoutSh) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutSh(self as *const Self as *const crate::ffi::MR_CSharp_ExposedLayoutSh, _1 as *const crate::ffi::MR_CSharp_ExposedLayoutSh as *const crate::ffi::MR_CSharp_ExposedLayoutSh)};
         crate::__check_exception();
         __ret
     }
@@ -6465,17 +6388,6 @@ impl IterableK_Iter
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(self as *mut Self as *mut crate::ffi::MR_CSharp_IterableK_Iter, s as *const crate::mr::c_sharp::IterableK_Sentinel as *const crate::ffi::MR_CSharp_IterableK_Sentinel)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::IterableK::Iter::operator!=`.
-    ///
-    /// Calls `MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel()`.
-    pub fn op_not_equal_mr_c_sharp_iterable_k_sentinel(&mut self, s: &crate::mr::c_sharp::IterableK_Sentinel) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(self as *mut Self as *mut crate::ffi::MR_CSharp_IterableK_Iter, s as *const crate::mr::c_sharp::IterableK_Sentinel as *const crate::ffi::MR_CSharp_IterableK_Sentinel)};
         crate::__check_exception();
         __ret
     }
@@ -11101,50 +11013,6 @@ impl TestOpsA
         __ret
     }
 
-    /// Generated from method `MR::CSharp::TestOpsA::operator<`.
-    ///
-    /// Calls `MR_C_less_MR_CSharp_TestOpsA()`.
-    pub fn op_less(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_less_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsA::operator>`.
-    ///
-    /// Calls `MR_C_greater_MR_CSharp_TestOpsA()`.
-    pub fn op_greater(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsA::operator<=`.
-    ///
-    /// Calls `MR_C_less_equal_MR_CSharp_TestOpsA()`.
-    pub fn op_less_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsA::operator>=`.
-    ///
-    /// Calls `MR_C_greater_equal_MR_CSharp_TestOpsA()`.
-    pub fn op_greater_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsA) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_CSharp_TestOpsA(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsA, _1 as *const crate::mr::c_sharp::TestOpsA as *const crate::ffi::MR_CSharp_TestOpsA)};
-        crate::__check_exception();
-        __ret
-    }
-
     /// Generated from method `MR::CSharp::TestOpsA::operator&&`.
     ///
     /// Calls `MR_C_and_MR_CSharp_TestOpsA()`.
@@ -11559,50 +11427,6 @@ impl TestOpsB
     {
         crate::__init_exceptions();
         let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsB::operator<`.
-    ///
-    /// Calls `MR_C_less_MR_CSharp_TestOpsB()`.
-    pub fn op_less(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_less_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsB::operator>`.
-    ///
-    /// Calls `MR_C_greater_MR_CSharp_TestOpsB()`.
-    pub fn op_greater(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsB::operator<=`.
-    ///
-    /// Calls `MR_C_less_equal_MR_CSharp_TestOpsB()`.
-    pub fn op_less_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_less_equal_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
-        crate::__check_exception();
-        __ret
-    }
-
-    /// Generated from method `MR::CSharp::TestOpsB::operator>=`.
-    ///
-    /// Calls `MR_C_greater_equal_MR_CSharp_TestOpsB()`.
-    pub fn op_greater_equal(&mut self, _1: &crate::mr::c_sharp::TestOpsB) -> bool
-    {
-        crate::__init_exceptions();
-        let __ret = unsafe {crate::ffi::MR_C_greater_equal_MR_CSharp_TestOpsB(self as *mut Self as *mut crate::ffi::MR_CSharp_TestOpsB, crate::ffi::MR_C_PassBy_Copy, _1 as *const crate::mr::c_sharp::TestOpsB as *mut crate::ffi::MR_CSharp_TestOpsB)};
         crate::__check_exception();
         __ret
     }
@@ -12411,6 +12235,712 @@ impl TestStdFunction
 }
 
 unsafe impl crate::CppCopy for TestStdFunction
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Test implicitly generated operations from three-way comparisons.
+/// Generated from class `MR::CSharp::ThreeWayA`.
+///
+/// Generated from class `MR::CSharp::ThreeWayA`. Heap-allocated instances are held in `Owned<ThreeWayA>`.
+#[repr(transparent)]
+pub struct ThreeWayA(crate::ffi::MR_CSharp_ThreeWayA);
+
+unsafe impl crate::CppClass for ThreeWayA
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayA_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayA)}
+}
+
+impl ThreeWayA
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayA_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayA>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayA_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayA)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayA::ThreeWayA`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayA_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayA) -> crate::Owned<crate::mr::c_sharp::ThreeWayA>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayA_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayA as *const crate::ffi::MR_CSharp_ThreeWayA)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayA)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayA::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayA_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayA) -> &mut crate::mr::c_sharp::ThreeWayA
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayA_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayA, _other as *const crate::mr::c_sharp::ThreeWayA as *const crate::ffi::MR_CSharp_ThreeWayA)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayA)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayA
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayB`.
+///
+/// Generated from class `MR::CSharp::ThreeWayB`. Heap-allocated instances are held in `Owned<ThreeWayB>`.
+#[repr(transparent)]
+pub struct ThreeWayB(crate::ffi::MR_CSharp_ThreeWayB);
+
+unsafe impl crate::CppClass for ThreeWayB
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayB_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayB)}
+}
+
+impl ThreeWayB
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayB_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayB>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayB_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayB)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayB::ThreeWayB`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayB_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayB) -> crate::Owned<crate::mr::c_sharp::ThreeWayB>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayB_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayB as *const crate::ffi::MR_CSharp_ThreeWayB)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayB)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayB::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayB_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayB) -> &mut crate::mr::c_sharp::ThreeWayB
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayB_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayB, _other as *const crate::mr::c_sharp::ThreeWayB as *const crate::ffi::MR_CSharp_ThreeWayB)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayB)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayB
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayC`.
+///
+/// Generated from class `MR::CSharp::ThreeWayC`. Heap-allocated instances are held in `Owned<ThreeWayC>`.
+#[repr(transparent)]
+pub struct ThreeWayC(crate::ffi::MR_CSharp_ThreeWayC);
+
+unsafe impl crate::CppClass for ThreeWayC
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayC_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayC)}
+}
+
+impl ThreeWayC
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayC_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayC>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayC_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayC)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayC::ThreeWayC`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayC_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayC) -> crate::Owned<crate::mr::c_sharp::ThreeWayC>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayC_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayC as *const crate::ffi::MR_CSharp_ThreeWayC)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayC)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayC::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayC_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayC) -> &mut crate::mr::c_sharp::ThreeWayC
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayC_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayC, _other as *const crate::mr::c_sharp::ThreeWayC as *const crate::ffi::MR_CSharp_ThreeWayC)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayC)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayC::operator<=>`.
+    ///
+    /// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayC()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::c_sharp::ThreeWayC) -> core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayC(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayC, _1 as *const crate::mr::c_sharp::ThreeWayC as *const crate::ffi::MR_CSharp_ThreeWayC)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayC
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayD`.
+///
+/// Generated from class `MR::CSharp::ThreeWayD`. Heap-allocated instances are held in `Owned<ThreeWayD>`.
+#[repr(transparent)]
+pub struct ThreeWayD(crate::ffi::MR_CSharp_ThreeWayD);
+
+unsafe impl crate::CppClass for ThreeWayD
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayD_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayD)}
+}
+
+impl ThreeWayD
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayD_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayD>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayD_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayD)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayD::ThreeWayD`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayD_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayD) -> crate::Owned<crate::mr::c_sharp::ThreeWayD>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayD_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayD as *const crate::ffi::MR_CSharp_ThreeWayD)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayD)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayD::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayD_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayD) -> &mut crate::mr::c_sharp::ThreeWayD
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayD_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayD, _other as *const crate::mr::c_sharp::ThreeWayD as *const crate::ffi::MR_CSharp_ThreeWayD)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayD)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayD
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayE`.
+///
+/// Generated from class `MR::CSharp::ThreeWayE`. Heap-allocated instances are held in `Owned<ThreeWayE>`.
+#[repr(transparent)]
+pub struct ThreeWayE(crate::ffi::MR_CSharp_ThreeWayE);
+
+unsafe impl crate::CppClass for ThreeWayE
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayE_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayE)}
+}
+
+impl ThreeWayE
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayE_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayE>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayE_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayE)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayE::ThreeWayE`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayE_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayE) -> crate::Owned<crate::mr::c_sharp::ThreeWayE>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayE_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayE as *const crate::ffi::MR_CSharp_ThreeWayE)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayE)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayE::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayE_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayE) -> &mut crate::mr::c_sharp::ThreeWayE
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayE_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayE, _other as *const crate::mr::c_sharp::ThreeWayE as *const crate::ffi::MR_CSharp_ThreeWayE)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayE)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayE::operator<=>`.
+    ///
+    /// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayE()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::c_sharp::ThreeWayE) -> core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayE(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayE, _1 as *const crate::mr::c_sharp::ThreeWayE as *const crate::ffi::MR_CSharp_ThreeWayE)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayE
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayF`.
+///
+/// Generated from class `MR::CSharp::ThreeWayF`. Heap-allocated instances are held in `Owned<ThreeWayF>`.
+#[repr(transparent)]
+pub struct ThreeWayF(crate::ffi::MR_CSharp_ThreeWayF);
+
+unsafe impl crate::CppClass for ThreeWayF
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayF_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayF)}
+}
+
+impl ThreeWayF
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayF_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayF>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayF_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayF)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayF::ThreeWayF`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayF_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayF) -> crate::Owned<crate::mr::c_sharp::ThreeWayF>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayF_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayF)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayF::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayF_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayF) -> &mut crate::mr::c_sharp::ThreeWayF
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayF_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayF, _other as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayF)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayF
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayG`.
+///
+/// Generated from class `MR::CSharp::ThreeWayG`. Heap-allocated instances are held in `Owned<ThreeWayG>`.
+#[repr(transparent)]
+pub struct ThreeWayG(crate::ffi::MR_CSharp_ThreeWayG);
+
+unsafe impl crate::CppClass for ThreeWayG
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayG_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayG)}
+}
+
+impl ThreeWayG
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayG_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayG>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayG_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayG)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayG::ThreeWayG`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayG_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayG) -> crate::Owned<crate::mr::c_sharp::ThreeWayG>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayG_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayG as *const crate::ffi::MR_CSharp_ThreeWayG)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayG)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayG::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayG_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayG) -> &mut crate::mr::c_sharp::ThreeWayG
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayG_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayG, _other as *const crate::mr::c_sharp::ThreeWayG as *const crate::ffi::MR_CSharp_ThreeWayG)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayG)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayG::operator<=>`.
+    ///
+    /// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayG()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::c_sharp::ThreeWayG) -> core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayG(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayG, _1 as *const crate::mr::c_sharp::ThreeWayG as *const crate::ffi::MR_CSharp_ThreeWayG)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Some random operators that should not be replaced.
+    /// Generated from method `MR::CSharp::ThreeWayG::operator!=`.
+    ///
+    /// Calls `MR_C_not_equal_MR_CSharp_ThreeWayG()`.
+    pub fn op_not_equal(&self, _1: &crate::mr::c_sharp::ThreeWayG) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ThreeWayG(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayG, _1 as *const crate::mr::c_sharp::ThreeWayG as *const crate::ffi::MR_CSharp_ThreeWayG)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayG::operator>`.
+    ///
+    /// Calls `MR_C_greater_MR_CSharp_ThreeWayG()`.
+    pub fn op_greater(&self, _1: &crate::mr::c_sharp::ThreeWayG) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_ThreeWayG(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayG, _1 as *const crate::mr::c_sharp::ThreeWayG as *const crate::ffi::MR_CSharp_ThreeWayG)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayG
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayH`.
+///
+/// Generated from class `MR::CSharp::ThreeWayH`. Heap-allocated instances are held in `Owned<ThreeWayH>`.
+#[repr(transparent)]
+pub struct ThreeWayH(crate::ffi::MR_CSharp_ThreeWayH);
+
+unsafe impl crate::CppClass for ThreeWayH
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayH_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayH)}
+}
+
+impl ThreeWayH
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayH_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayH>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayH_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayH)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayH::ThreeWayH`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayH_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayH) -> crate::Owned<crate::mr::c_sharp::ThreeWayH>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayH_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayH as *const crate::ffi::MR_CSharp_ThreeWayH)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayH)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayH::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayH_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayH) -> &mut crate::mr::c_sharp::ThreeWayH
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayH_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayH, _other as *const crate::mr::c_sharp::ThreeWayH as *const crate::ffi::MR_CSharp_ThreeWayH)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayH)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayH::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_CSharp_ThreeWayH_int()`.
+    pub fn op_equal_int(&mut self, _1: core::ffi::c_int) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ThreeWayH_int(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayH, _1)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayH::operator<=>`.
+    ///
+    /// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayH()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::c_sharp::ThreeWayH) -> core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayH(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayH, _1 as *const crate::mr::c_sharp::ThreeWayH as *const crate::ffi::MR_CSharp_ThreeWayH)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayH
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayI`.
+///
+/// Generated from class `MR::CSharp::ThreeWayI`. Heap-allocated instances are held in `Owned<ThreeWayI>`.
+#[repr(transparent)]
+pub struct ThreeWayI(crate::ffi::MR_CSharp_ThreeWayI);
+
+unsafe impl crate::CppClass for ThreeWayI
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayI_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayI)}
+}
+
+impl ThreeWayI
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayI_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayI>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayI_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayI)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayI::ThreeWayI`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayI_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayI) -> crate::Owned<crate::mr::c_sharp::ThreeWayI>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayI_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayI as *const crate::ffi::MR_CSharp_ThreeWayI)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayI)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayI::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayI_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayI) -> &mut crate::mr::c_sharp::ThreeWayI
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayI_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayI, _other as *const crate::mr::c_sharp::ThreeWayI as *const crate::ffi::MR_CSharp_ThreeWayI)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayI)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayI
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayJ`.
+///
+/// Generated from class `MR::CSharp::ThreeWayJ`. Heap-allocated instances are held in `Owned<ThreeWayJ>`.
+#[repr(transparent)]
+pub struct ThreeWayJ(crate::ffi::MR_CSharp_ThreeWayJ);
+
+unsafe impl crate::CppClass for ThreeWayJ
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayJ_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayJ)}
+}
+
+impl ThreeWayJ
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayJ_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayJ>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayJ_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayJ)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayJ::ThreeWayJ`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayJ_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayJ) -> crate::Owned<crate::mr::c_sharp::ThreeWayJ>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayJ_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayJ as *const crate::ffi::MR_CSharp_ThreeWayJ)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayJ)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayJ::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayJ_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayJ) -> &mut crate::mr::c_sharp::ThreeWayJ
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayJ_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayJ, _other as *const crate::mr::c_sharp::ThreeWayJ as *const crate::ffi::MR_CSharp_ThreeWayJ)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayJ)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayJ::operator==`.
+    ///
+    /// Calls `MR_C_equal_MR_CSharp_ThreeWayJ_int()`.
+    pub fn op_equal_int(&mut self, _1: core::ffi::c_int) -> bool
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ThreeWayJ_int(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayJ, _1)};
+        crate::__check_exception();
+        __ret
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayJ::operator<=>`.
+    ///
+    /// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayJ()`.
+    pub fn op_compare_three_way(&self, _1: &crate::mr::c_sharp::ThreeWayJ) -> core::ffi::c_int
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayJ(self as *const Self as *const crate::ffi::MR_CSharp_ThreeWayJ, _1 as *const crate::mr::c_sharp::ThreeWayJ as *const crate::ffi::MR_CSharp_ThreeWayJ)};
+        crate::__check_exception();
+        __ret
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayJ
+{
+    unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
+}
+
+/// Generated from class `MR::CSharp::ThreeWayK`.
+///
+/// Generated from class `MR::CSharp::ThreeWayK`. Heap-allocated instances are held in `Owned<ThreeWayK>`.
+#[repr(transparent)]
+pub struct ThreeWayK(crate::ffi::MR_CSharp_ThreeWayK);
+
+unsafe impl crate::CppClass for ThreeWayK
+{
+    unsafe fn destroy(ptr: *mut Self) {crate::ffi::MR_CSharp_ThreeWayK_Destroy(ptr as *const crate::ffi::MR_CSharp_ThreeWayK)}
+}
+
+impl ThreeWayK
+{
+    /// Constructs an empty (default-constructed) instance.
+    ///
+    /// Calls `MR_CSharp_ThreeWayK_DefaultConstruct()`.
+    pub fn new() -> crate::Owned<crate::mr::c_sharp::ThreeWayK>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayK_DefaultConstruct()};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayK)}
+    }
+
+    /// Generated from constructor `MR::CSharp::ThreeWayK::ThreeWayK`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayK_ConstructFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+    pub fn construct_from_another(_other: &crate::mr::c_sharp::ThreeWayK) -> crate::Owned<crate::mr::c_sharp::ThreeWayK>
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayK_ConstructFromAnother(_other as *const crate::mr::c_sharp::ThreeWayK as *const crate::ffi::MR_CSharp_ThreeWayK)};
+        crate::__check_exception();
+        unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::c_sharp::ThreeWayK)}
+    }
+
+    /// Generated from method `MR::CSharp::ThreeWayK::operator=`.
+    ///
+    /// Calls `MR_CSharp_ThreeWayK_AssignFromAnother()`.
+    /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+    pub fn assign_from_another(&mut self, _other: &crate::mr::c_sharp::ThreeWayK) -> &mut crate::mr::c_sharp::ThreeWayK
+    {
+        crate::__init_exceptions();
+        let __ret = unsafe {crate::ffi::MR_CSharp_ThreeWayK_AssignFromAnother(self as *mut Self as *mut crate::ffi::MR_CSharp_ThreeWayK, _other as *const crate::mr::c_sharp::ThreeWayK as *const crate::ffi::MR_CSharp_ThreeWayK)};
+        crate::__check_exception();
+        unsafe {&mut *(__ret as *mut crate::mr::c_sharp::ThreeWayK)}
+    }
+
+}
+
+unsafe impl crate::CppCopy for ThreeWayK
 {
     unsafe fn copy(ptr: *const Self) -> *mut Self {Self::construct_from_another(&*ptr).into_raw()}
 }
@@ -14212,17 +14742,6 @@ pub fn op_equal_mr_c_sharp_exposed_layout_b(_1: &crate::ffi::MR_CSharp_ExposedLa
     __ret
 }
 
-/// Generated from function `MR::CSharp::operator!=`.
-///
-/// Calls `MR_C_not_equal_MR_CSharp_ExposedLayoutB()`.
-pub fn op_not_equal_mr_c_sharp_exposed_layout_b(_1: &crate::ffi::MR_CSharp_ExposedLayoutB, _2: &crate::ffi::MR_CSharp_ExposedLayoutB) -> bool
-{
-    crate::__init_exceptions();
-    let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ExposedLayoutB(_1 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB, _2 as *const crate::ffi::MR_CSharp_ExposedLayoutB as *const crate::ffi::MR_CSharp_ExposedLayoutB)};
-    crate::__check_exception();
-    __ret
-}
-
 /// Generated from function `MR::CSharp::test_optint`.
 ///
 /// Calls `MR_CSharp_test_optint()`.
@@ -15821,6 +16340,151 @@ pub fn get_tuple_exposed_rvalue_ref() -> crate::Owned<crate::mr::cs::std_tuple_M
     let __ret = unsafe {crate::ffi::MR_CSharp_get_tuple_exposed_rvalue_ref()};
     crate::__check_exception();
     unsafe {crate::Owned::from_raw(__ret as *mut crate::mr::cs::std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref)}
+}
+
+/// We only support return usages for now.
+/// Generated from function `MR::CSharp::returns_strong_ordering`.
+///
+/// Calls `MR_CSharp_returns_strong_ordering()`.
+pub fn returns_strong_ordering() -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_CSharp_returns_strong_ordering()};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::returns_weak_ordering`.
+///
+/// Calls `MR_CSharp_returns_weak_ordering()`.
+pub fn returns_weak_ordering() -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_CSharp_returns_weak_ordering()};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::returns_partial_ordering`.
+///
+/// Calls `MR_CSharp_returns_partial_ordering()`.
+pub fn returns_partial_ordering() -> crate::ffi::MR_C_std_partial_ordering
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_CSharp_returns_partial_ordering()};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayA()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_a(a: &crate::mr::c_sharp::ThreeWayA, b: &crate::mr::c_sharp::ThreeWayA) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayA(a as *const crate::mr::c_sharp::ThreeWayA as *const crate::ffi::MR_CSharp_ThreeWayA, b as *const crate::mr::c_sharp::ThreeWayA as *const crate::ffi::MR_CSharp_ThreeWayA)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayB()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_b(_1: &crate::mr::c_sharp::ThreeWayB, _2: &crate::mr::c_sharp::ThreeWayB) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayB(_1 as *const crate::mr::c_sharp::ThreeWayB as *const crate::ffi::MR_CSharp_ThreeWayB, _2 as *const crate::mr::c_sharp::ThreeWayB as *const crate::ffi::MR_CSharp_ThreeWayB)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayD()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_d(_1: &crate::mr::c_sharp::ThreeWayD, _2: &crate::mr::c_sharp::ThreeWayD) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayD(_1 as *const crate::mr::c_sharp::ThreeWayD as *const crate::ffi::MR_CSharp_ThreeWayD, _2 as *const crate::mr::c_sharp::ThreeWayD as *const crate::ffi::MR_CSharp_ThreeWayD)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayF()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_f(_1: &crate::mr::c_sharp::ThreeWayF, _2: &crate::mr::c_sharp::ThreeWayF) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayF(_1 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF, _2 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Some random operators that should not be replaced.
+/// Generated from function `MR::CSharp::operator!=`.
+///
+/// Calls `MR_C_not_equal_MR_CSharp_ThreeWayF()`.
+pub fn op_not_equal_mr_c_sharp_three_way_f(_1: &crate::mr::c_sharp::ThreeWayF, _2: &crate::mr::c_sharp::ThreeWayF) -> bool
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_not_equal_MR_CSharp_ThreeWayF(_1 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF, _2 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator>`.
+///
+/// Calls `MR_C_greater_MR_CSharp_ThreeWayF()`.
+pub fn op_greater_mr_c_sharp_three_way_f(_1: &crate::mr::c_sharp::ThreeWayF, _2: &crate::mr::c_sharp::ThreeWayF) -> bool
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_greater_MR_CSharp_ThreeWayF(_1 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF, _2 as *const crate::mr::c_sharp::ThreeWayF as *const crate::ffi::MR_CSharp_ThreeWayF)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator==`.
+///
+/// Calls `MR_C_equal_MR_CSharp_ThreeWayI_int()`.
+pub fn op_equal_mr_c_sharp_three_way_i_int(_1: &crate::mr::c_sharp::ThreeWayI, _2: core::ffi::c_int) -> bool
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ThreeWayI_int(_1 as *const crate::mr::c_sharp::ThreeWayI as *const crate::ffi::MR_CSharp_ThreeWayI, _2)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayI()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_i(_1: &crate::mr::c_sharp::ThreeWayI, _2: &crate::mr::c_sharp::ThreeWayI) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayI(_1 as *const crate::mr::c_sharp::ThreeWayI as *const crate::ffi::MR_CSharp_ThreeWayI, _2 as *const crate::mr::c_sharp::ThreeWayI as *const crate::ffi::MR_CSharp_ThreeWayI)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator==`.
+///
+/// Calls `MR_C_equal_MR_CSharp_ThreeWayK_int()`.
+pub fn op_equal_mr_c_sharp_three_way_k_int(_1: &crate::mr::c_sharp::ThreeWayK, _2: core::ffi::c_int) -> bool
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_equal_MR_CSharp_ThreeWayK_int(_1 as *const crate::mr::c_sharp::ThreeWayK as *const crate::ffi::MR_CSharp_ThreeWayK, _2)};
+    crate::__check_exception();
+    __ret
+}
+
+/// Generated from function `MR::CSharp::operator<=>`.
+///
+/// Calls `MR_C_compare_three_way_MR_CSharp_ThreeWayK()`.
+pub fn op_compare_three_way_mr_c_sharp_three_way_k(_1: &crate::mr::c_sharp::ThreeWayK, _2: &crate::mr::c_sharp::ThreeWayK) -> core::ffi::c_int
+{
+    crate::__init_exceptions();
+    let __ret = unsafe {crate::ffi::MR_C_compare_three_way_MR_CSharp_ThreeWayK(_1 as *const crate::mr::c_sharp::ThreeWayK as *const crate::ffi::MR_CSharp_ThreeWayK, _2 as *const crate::mr::c_sharp::ThreeWayK as *const crate::ffi::MR_CSharp_ThreeWayK)};
+    crate::__check_exception();
+    __ret
 }
 
 /// Generated from function `MR::CSharp::test_expected_int`.
