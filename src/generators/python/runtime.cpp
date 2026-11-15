@@ -25,6 +25,10 @@ namespace mrbind::Python
 #define _DEBUG
 #undef MRBIND_PY_RESTORE_DEBUG
 #endif
+// The Python 3.12 headers make `Py_RETURN_NONE` return `None` without a new reference even for the limited API of the older versions,
+//   where `None` isn't immortal (3.13 fixed that), so every such return would decrement its reference count there until it's deallocated.
+#undef Py_RETURN_NONE
+#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
 
 #include <charconv>
 #include <cstdio>
