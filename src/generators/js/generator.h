@@ -46,6 +46,8 @@ namespace mrbind::Js
 
         // File names longer than this get truncated and suffixed with a hash, since the file names must fit the Windows path length limit. 0 disables this.
         std::size_t max_file_name_length = 100;
+        // `--single-lib-module`: `lib/_all.mjs` holds the wrappers of all C files and imports itself as `L`, instead of re-exporting a module per C file.
+        bool single_lib_module = false;
         // `--no-deref-expected` disables this: a function returning `expected<T, E>` by value returns `T` and throws on an error, like in the C# and Java generators.
         bool deref_expected = true;
         // `--no-string-conversion` disables this: a function returning `std::string` by value returns a JS string.
