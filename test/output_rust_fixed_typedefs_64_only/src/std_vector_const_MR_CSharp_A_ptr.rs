@@ -183,6 +183,26 @@ impl std_vector_const_MR_CSharp_A_ptr
         __ret
     }
 
+    /// The begin iterator, const. Iterators of this container are plain pointers.
+    ///
+    /// Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_begin()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn begin(&self) -> *const *const crate::ffi::MR_CSharp_A
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_vector_const_MR_CSharp_A_ptr_begin(self as *const Self as *const crate::ffi::MR_C_std_vector_const_MR_CSharp_A_ptr)};
+        __ret
+    }
+
+    /// The end iterator, const. Iterators of this container are plain pointers.
+    ///
+    /// Calls `MR_C_std_vector_const_MR_CSharp_A_ptr_end()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn end(&self) -> *const *const crate::ffi::MR_CSharp_A
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_vector_const_MR_CSharp_A_ptr_end(self as *const Self as *const crate::ffi::MR_C_std_vector_const_MR_CSharp_A_ptr)};
+        __ret
+    }
+
 }
 
 unsafe impl crate::CppCopy for std_vector_const_MR_CSharp_A_ptr

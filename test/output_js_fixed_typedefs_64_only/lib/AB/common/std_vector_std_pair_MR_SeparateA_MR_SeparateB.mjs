@@ -352,5 +352,43 @@ export class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends ffi.CppO
             ffi.stackRestore(__sp);
         }
     }
+
+    begin()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_begin(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    end()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_end(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
 }
 

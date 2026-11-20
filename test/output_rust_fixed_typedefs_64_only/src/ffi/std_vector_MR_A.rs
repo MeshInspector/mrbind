@@ -28,5 +28,7 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_A_pop_back(_this: *mut crate::ffi::MR_C_std_vector_MR_A);
     pub fn MR_C_std_vector_MR_A_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: usize, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_A);
     pub fn MR_C_std_vector_MR_A_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_A, position: usize);
+    pub fn MR_C_std_vector_MR_A_begin(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *const crate::ffi::MR_A;
+    pub fn MR_C_std_vector_MR_A_end(_this: *const crate::ffi::MR_C_std_vector_MR_A) -> *const crate::ffi::MR_A;
     pub fn MR_C_std_vector_MR_A_Destroy(_this: *const MR_C_std_vector_MR_A);
 }

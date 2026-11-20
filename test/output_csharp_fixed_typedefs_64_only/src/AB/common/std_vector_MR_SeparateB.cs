@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;MR::SeparateB&gt;`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Vector_MRSeparateB : MR.CS.Misc.Object<Const_Vector_MRSeparateB>, System.IDisposable
+            public class Const_Vector_MRSeparateB : MR.CS.Misc.Object<Const_Vector_MRSeparateB>, System.IDisposable, IEnumerable<MR.CS.Const_SeparateB>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRSeparateB() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.Const_SeparateB>
+                {
+                    Const_Vector_MRSeparateB _container;
+                    MR.CS.ConstPtrSeparateB _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Vector_MRSeparateB container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Const_SeparateB Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Const_SeparateB> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Vector_MRSeparateB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -121,6 +185,28 @@ public static partial class MR
                     __ret = __c_ret is not null ? new MR.CS.Const_SeparateB(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
+                }
+
+                /// <summary>
+                /// The begin iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrSeparateB begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateB_begin", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_SeparateB._Underlying *__MR_C_std_vector_MR_SeparateB_begin(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_SeparateB_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// The end iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrSeparateB end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_MR_SeparateB_end", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_SeparateB._Underlying *__MR_C_std_vector_MR_SeparateB_end(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_SeparateB_end(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 

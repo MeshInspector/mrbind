@@ -30,5 +30,7 @@ unsafe extern "C"
     pub fn MR_C_std_vector_int64_t_pop_back(_this: *mut crate::ffi::MR_C_std_vector_int64_t);
     pub fn MR_C_std_vector_int64_t_insert(_this: *mut crate::ffi::MR_C_std_vector_int64_t, position: usize, new_elem: i64);
     pub fn MR_C_std_vector_int64_t_erase(_this: *mut crate::ffi::MR_C_std_vector_int64_t, position: usize);
+    pub fn MR_C_std_vector_int64_t_begin(_this: *const crate::ffi::MR_C_std_vector_int64_t) -> *const i64;
+    pub fn MR_C_std_vector_int64_t_end(_this: *const crate::ffi::MR_C_std_vector_int64_t) -> *const i64;
     pub fn MR_C_std_vector_int64_t_Destroy(_this: *const MR_C_std_vector_int64_t);
 }

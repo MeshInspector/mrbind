@@ -29,6 +29,8 @@ public final class std_vector_int
         public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_pop_back = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_pop_back", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
         public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_insert = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_insert", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_LONG, java.lang.foreign.ValueLayout.JAVA_INT));
         public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_erase = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_erase", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.JAVA_LONG));
+        public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_begin = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_begin", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
+        public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_end = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_end", java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.ADDRESS, java.lang.foreign.ValueLayout.ADDRESS));
         public static final java.lang.invoke.MethodHandle MR_C_std_vector_int_Destroy = mrbind_test.Ffi.downcall("", "MR_C_std_vector_int_Destroy", java.lang.foreign.FunctionDescriptor.ofVoid(java.lang.foreign.ValueLayout.ADDRESS));
     }
 }

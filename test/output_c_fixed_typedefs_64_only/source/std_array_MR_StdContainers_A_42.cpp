@@ -78,3 +78,13 @@ MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_data_mut(MR_C_std_array
     return (MR_StdContainers_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).data());
 }
 
+const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_begin(const MR_C_std_array_MR_StdContainers_A_42 *_this)
+{
+    return (const MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).cbegin());
+}
+
+const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_end(const MR_C_std_array_MR_StdContainers_A_42 *_this)
+{
+    return (const MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).cend());
+}
+

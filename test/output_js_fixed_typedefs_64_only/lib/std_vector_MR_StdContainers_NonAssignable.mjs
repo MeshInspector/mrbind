@@ -334,5 +334,43 @@ export class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.CppObjec
             ffi.stackRestore(__sp);
         }
     }
+
+    begin()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_begin(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    end()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_MR_StdContainers_NonAssignable_end(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
 }
 
