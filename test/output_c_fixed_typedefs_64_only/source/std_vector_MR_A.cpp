@@ -143,3 +143,13 @@ void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t position)
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::A> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::A> *)(_this)).begin() + ptrdiff_t(position));
 }
 
+const MR_A *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this)
+{
+    return (const MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).data());
+}
+
+const MR_A *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this)
+{
+    return (const MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).size());
+}
+

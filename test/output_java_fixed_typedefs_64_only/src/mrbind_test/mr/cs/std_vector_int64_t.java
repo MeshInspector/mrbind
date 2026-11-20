@@ -493,4 +493,52 @@ public final class std_vector_int64_t extends mrbind_test.CppObject
             java.lang.ref.Reference.reachabilityFence(this);
         }
     }
+
+    /**
+     * The begin iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_int64_t_begin()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment begin()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_begin.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * The end iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_int64_t_end()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment end()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_vector_int64_t.H0.MR_C_std_vector_int64_t_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
 }

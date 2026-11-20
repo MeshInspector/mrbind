@@ -124,5 +124,19 @@ export declare class MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB extends 
      * Calls `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase()`.
      */
     erase(position: number): void;
+    /**
+     * The begin iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_begin()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    begin(): number;
+    /**
+     * The end iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    end(): number;
 }
 

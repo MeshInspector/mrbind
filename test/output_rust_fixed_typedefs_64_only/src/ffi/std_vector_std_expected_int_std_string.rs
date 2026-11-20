@@ -28,5 +28,7 @@ unsafe extern "C"
     pub fn MR_C_std_vector_std_expected_int_std_string_pop_back(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_insert(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: usize, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_C_std_expected_int_std_string);
     pub fn MR_C_std_vector_std_expected_int_std_string_erase(_this: *mut crate::ffi::MR_C_std_vector_std_expected_int_std_string, position: usize);
+    pub fn MR_C_std_vector_std_expected_int_std_string_begin(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *const crate::ffi::MR_C_std_expected_int_std_string;
+    pub fn MR_C_std_vector_std_expected_int_std_string_end(_this: *const crate::ffi::MR_C_std_vector_std_expected_int_std_string) -> *const crate::ffi::MR_C_std_expected_int_std_string;
     pub fn MR_C_std_vector_std_expected_int_std_string_Destroy(_this: *const MR_C_std_vector_std_expected_int_std_string);
 }

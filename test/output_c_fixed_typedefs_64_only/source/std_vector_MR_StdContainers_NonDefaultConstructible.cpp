@@ -134,3 +134,13 @@ void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(MR_C_std_vec
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).begin() + ptrdiff_t(position));
 }
 
+const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
+{
+    return (const MR_StdContainers_NonDefaultConstructible *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).data());
+}
+
+const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this)
+{
+    return (const MR_StdContainers_NonDefaultConstructible *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonDefaultConstructible> *)(_this)).size());
+}
+

@@ -621,7 +621,8 @@ namespace mrbind::C
 
                 // Obtaining begin/end iterators:
                 // For contiguous containers those are pointers. This is needed for C# to implement IEnumerable.
-                if (!minimal || BindIteratorClasses())
+                // `--minimal-containers` keeps the const pointer ones, since they are cheap and C# `foreach` needs them.
+                if (!minimal || BindIteratorClasses() || IteratorsArePointers())
                 {
                     for (bool is_end : {false, true})
                     {

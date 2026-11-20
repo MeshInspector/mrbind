@@ -403,6 +403,44 @@ export class MR_C_std_vector_int extends ffi.CppObject
         }
     }
 
+    begin()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_int_begin(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    end()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_int_end(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     toArray()
     {
         const __n = (ffi.cppCall(() => ffi.C.MR_C_std_vector_int_size(this.rawPointer())) >>> 0);
