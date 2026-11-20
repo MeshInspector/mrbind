@@ -3511,6 +3511,12 @@ export class ScalarOutput<T> extends CppObject
         std::string hub, hub_dts;
         for (const auto &[relative_name, file] : file_modules)
         {
+            if (single_lib_module)
+            {
+                hub += "// The wrappers of the C bindings file `" + relative_name + "`.\n\n" + file.body;
+                hub_dts += "// The wrappers of the C bindings file `" + relative_name + "`.\n\n" + file.dts;
+                continue;
+            }
             std::string imports = "import * as ffi from \"" + file.to_root + "ffi.mjs\";\nimport * as L from \"" + file.to_root + "lib/_all.mjs\";\n\n";
             output_files[file.path + ".mjs"] = "// The wrappers of the C bindings file `" + relative_name + "`.\n" + imports + file.body;
             output_files[file.path + ".d.mts"] = "// The wrappers of the C bindings file `" + relative_name + "`.\n" + imports + file.dts;
@@ -3522,7 +3528,7 @@ export class ScalarOutput<T> extends CppObject
         // The `<type>_output` classes, exported from the root namespace.
         if (!scalar_outputs.empty())
         {
-            std::string js = "// The classes of the mutable scalar parameters, see `ffi.ScalarOutput`.\nimport * as ffi from \"../ffi.mjs\";\n\n";
+            std::string js = "// The classes of the mutable scalar parameters, see `ffi.ScalarOutput`.\n" + std::string(single_lib_module ? "" : "import * as ffi from \"../ffi.mjs\";\n") + "\n";
             std::string dts = js;
             for (const auto &[cls, s] : scalar_outputs)
             {
@@ -3543,14 +3549,31 @@ export class ScalarOutput<T> extends CppObject
                 root.exports_dts += "export { " + cls + " } from \"./lib/_all.mjs\";\n";
                 root.used_names.insert(cls);
             }
-            output_files["lib/_scalar_outputs.mjs"] = js;
-            output_files["lib/_scalar_outputs.d.mts"] = dts;
-            hub += "export * from \"./_scalar_outputs.mjs\";\n";
-            hub_dts += "export * from \"./_scalar_outputs.mjs\";\n";
+            if (single_lib_module)
+            {
+                hub += js;
+                hub_dts += dts;
+            }
+            else
+            {
+                output_files["lib/_scalar_outputs.mjs"] = js;
+                output_files["lib/_scalar_outputs.d.mts"] = dts;
+                hub += "export * from \"./_scalar_outputs.mjs\";\n";
+                hub_dts += "export * from \"./_scalar_outputs.mjs\";\n";
+            }
         }
 
-        output_files["lib/_all.mjs"] = "// Re-exports every `lib` module, so the wrappers can refer to each other without import cycles between the files.\n" + hub;
-        output_files["lib/_all.d.mts"] = output_files["lib/_all.mjs"];
+        if (single_lib_module)
+        {
+            const std::string header = "// The wrappers of all C bindings files. They refer to each other through `L`, the namespace of this module itself.\nimport * as ffi from \"../ffi.mjs\";\nimport * as L from \"./_all.mjs\";\n\n";
+            output_files["lib/_all.mjs"] = header + hub;
+            output_files["lib/_all.d.mts"] = header + hub_dts;
+        }
+        else
+        {
+            output_files["lib/_all.mjs"] = "// Re-exports every `lib` module, so the wrappers can refer to each other without import cycles between the files.\n" + hub;
+            output_files["lib/_all.d.mts"] = output_files["lib/_all.mjs"];
+        }
 
         // The namespace modules.
         auto WriteModule = [&](auto &self, Module &module) -> void
