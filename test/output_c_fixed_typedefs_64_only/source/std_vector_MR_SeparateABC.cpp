@@ -141,3 +141,13 @@ void MR_C_std_vector_MR_SeparateABC_erase(MR_C_std_vector_MR_SeparateABC *_this,
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateABC> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateABC> *)(_this)).begin() + ptrdiff_t(position));
 }
 
+const MR_SeparateABC *MR_C_std_vector_MR_SeparateABC_begin(const MR_C_std_vector_MR_SeparateABC *_this)
+{
+    return (const MR_SeparateABC *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateABC> *)(_this)).data());
+}
+
+const MR_SeparateABC *MR_C_std_vector_MR_SeparateABC_end(const MR_C_std_vector_MR_SeparateABC *_this)
+{
+    return (const MR_SeparateABC *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateABC> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateABC> *)(_this)).size());
+}
+

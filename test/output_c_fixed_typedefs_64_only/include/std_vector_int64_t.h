@@ -134,6 +134,16 @@ MR_C_API void MR_C_std_vector_int64_t_insert(MR_C_std_vector_int64_t *_this, siz
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_int64_t_erase(MR_C_std_vector_int64_t *_this, size_t position);
 
+/// The begin iterator, const. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_begin(const MR_C_std_vector_int64_t *_this);
+
+/// The end iterator, const. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const MR_C_int64_t *MR_C_std_vector_int64_t_end(const MR_C_std_vector_int64_t *_this);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
