@@ -112,6 +112,26 @@ public static partial class MR
                     extern static unsafe void **__MR_C_std_vector_const_MR_CSharp_A_ptr_back(_Underlying *_this);
                     return __MR_C_std_vector_const_MR_CSharp_A_ptr_back(_UnderlyingPtr);
                 }
+
+                /// <summary>
+                /// The begin iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe void **begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_begin", ExactSpelling = true)]
+                    extern static unsafe void **__MR_C_std_vector_const_MR_CSharp_A_ptr_begin(_Underlying *_this);
+                    return __MR_C_std_vector_const_MR_CSharp_A_ptr_begin(_UnderlyingPtr);
+                }
+
+                /// <summary>
+                /// The end iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe void **end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_end", ExactSpelling = true)]
+                    extern static unsafe void **__MR_C_std_vector_const_MR_CSharp_A_ptr_end(_Underlying *_this);
+                    return __MR_C_std_vector_const_MR_CSharp_A_ptr_end(_UnderlyingPtr);
+                }
             }
 
             /// <summary>
