@@ -223,7 +223,7 @@ This is purely a style choice, and doesn't help portability. For portability, se
 
 ### Reduce the output size
 
-You can pass `--minimal-containers` to emit less featureful bindings for the standard containers. This will reduce the output binary size slightly. Contiguous containers (`std::vector`, `std::array`) keep their const `begin`/`end` (as plain pointers), so C# can still iterate over them with `foreach`.
+You can pass `--minimal-containers` to emit less featureful bindings for the standard containers. This will reduce the output binary size slightly.
 
 ## Making the bindings cross-platform
 
