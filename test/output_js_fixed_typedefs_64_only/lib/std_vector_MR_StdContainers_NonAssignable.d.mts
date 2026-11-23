@@ -117,5 +117,19 @@ export declare class MR_C_std_vector_MR_StdContainers_NonAssignable extends ffi.
      * Calls `MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back()`.
      */
     pop_back(): void;
+    /**
+     * The begin iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_MR_StdContainers_NonAssignable_begin()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    begin(): number;
+    /**
+     * The end iterator, const. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_MR_StdContainers_NonAssignable_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    end(): number;
 }
 

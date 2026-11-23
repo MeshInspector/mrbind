@@ -120,6 +120,16 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonAssignable_push_back(MR_C_std_
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back(MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
+/// The begin iterator, const. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_begin(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
+
+/// The end iterator, const. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_end(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

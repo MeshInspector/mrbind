@@ -150,3 +150,13 @@ void MR_C_std_vector_int_erase(MR_C_std_vector_int *_this, size_t position)
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<int> *)(_this)).begin() + ptrdiff_t(position));
 }
 
+const int *MR_C_std_vector_int_begin(const MR_C_std_vector_int *_this)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).data();
+}
+
+const int *MR_C_std_vector_int_end(const MR_C_std_vector_int *_this)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<int> *)(_this)).size();
+}
+

@@ -27,5 +27,7 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_pop_back(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonDefaultConstructible);
     pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonDefaultConstructible, position: usize, new_elem: *const crate::ffi::MR_StdContainers_NonDefaultConstructible);
     pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonDefaultConstructible, position: usize);
+    pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(_this: *const crate::ffi::MR_C_std_vector_MR_StdContainers_NonDefaultConstructible) -> *const crate::ffi::MR_StdContainers_NonDefaultConstructible;
+    pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(_this: *const crate::ffi::MR_C_std_vector_MR_StdContainers_NonDefaultConstructible) -> *const crate::ffi::MR_StdContainers_NonDefaultConstructible;
     pub fn MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Destroy(_this: *const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible);
 }

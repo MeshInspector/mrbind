@@ -138,3 +138,13 @@ void MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(MR_C_std_vector_st
     ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::pair<MR::SeparateA, MR::SeparateB>> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<std::pair<MR::SeparateA, MR::SeparateB>> *)(_this)).begin() + ptrdiff_t(position));
 }
 
+const MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_begin(const MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB *_this)
+{
+    return (const MR_C_std_pair_MR_SeparateA_MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::pair<MR::SeparateA, MR::SeparateB>> *)(_this)).data());
+}
+
+const MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_end(const MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB *_this)
+{
+    return (const MR_C_std_pair_MR_SeparateA_MR_SeparateB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::pair<MR::SeparateA, MR::SeparateB>> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<std::pair<MR::SeparateA, MR::SeparateB>> *)(_this)).size());
+}
+

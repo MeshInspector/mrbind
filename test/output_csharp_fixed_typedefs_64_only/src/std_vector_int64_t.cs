@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;MR_C_int64_t&gt;`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Vector_MRCInt64T : MR.CS.Misc.Object<Const_Vector_MRCInt64T>, System.IDisposable
+            public class Const_Vector_MRCInt64T : MR.CS.Misc.Object<Const_Vector_MRCInt64T>, System.IDisposable, IEnumerable<long>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRCInt64T() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<long>
+                {
+                    Const_Vector_MRCInt64T _container;
+                    MR.CS.ConstPtrMRCInt64T _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Vector_MRCInt64T container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public long Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<long> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Vector_MRCInt64T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -122,6 +186,26 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int64_t_data", ExactSpelling = true)]
                     extern static unsafe long *__MR_C_std_vector_int64_t_data(_Underlying *_this);
                     return new(__MR_C_std_vector_int64_t_data(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// The begin iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrMRCInt64T begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int64_t_begin", ExactSpelling = true)]
+                    extern static unsafe long *__MR_C_std_vector_int64_t_begin(_Underlying *_this);
+                    return new(__MR_C_std_vector_int64_t_begin(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// The end iterator, const. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrMRCInt64T end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int64_t_end", ExactSpelling = true)]
+                    extern static unsafe long *__MR_C_std_vector_int64_t_end(_Underlying *_this);
+                    return new(__MR_C_std_vector_int64_t_end(_UnderlyingPtr));
                 }
             }
 

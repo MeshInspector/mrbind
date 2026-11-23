@@ -820,6 +820,45 @@ public static partial class MR
             }
         }
 
+        public unsafe struct ConstPtrA : IEquatable<ConstPtrA>
+        {
+            public readonly MR.CS.Const_A deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void operator++()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_A._Underlying *__MR_A_OffsetPtr(MR.CS.Const_A._Underlying *ptr, nint i);
+                Ptr = __MR_A_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void operator--()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_A._Underlying *__MR_A_OffsetPtr(MR.CS.Const_A._Underlying *ptr, nint i);
+                Ptr = __MR_A_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.Const_A._Underlying *Ptr;
+
+            internal ConstPtrA(MR.CS.Const_A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.Const_A this[nint i]
+            {
+                get
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_A._Underlying *__MR_A_OffsetPtr(MR.CS.Const_A._Underlying *ptr, nint i);
+                    return new(__MR_A_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(ConstPtrA a, ConstPtrA b) {return a.Equals(b);}
+            public static bool operator!=(ConstPtrA a, ConstPtrA b) {return !a.Equals(b);}
+            public readonly bool Equals(ConstPtrA other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
         public unsafe struct ConstPtrChar : IEquatable<ConstPtrChar>
         {
             public readonly ref readonly byte deref()
@@ -958,6 +997,165 @@ public static partial class MR
             public static bool operator!=(ConstPtrMRCUint64T a, ConstPtrMRCUint64T b) {return !a.Equals(b);}
             public readonly bool Equals(ConstPtrMRCUint64T other) {return base.Equals(other);}
             public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
+        public unsafe struct ConstPtrSeparateA : IEquatable<ConstPtrSeparateA>
+        {
+            public readonly MR.CS.Const_SeparateA deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void operator++()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_SeparateA_OffsetPtr(MR.CS.Const_SeparateA._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateA_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void operator--()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_SeparateA_OffsetPtr(MR.CS.Const_SeparateA._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateA_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.Const_SeparateA._Underlying *Ptr;
+
+            internal ConstPtrSeparateA(MR.CS.Const_SeparateA._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.Const_SeparateA this[nint i]
+            {
+                get
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_SeparateA._Underlying *__MR_SeparateA_OffsetPtr(MR.CS.Const_SeparateA._Underlying *ptr, nint i);
+                    return new(__MR_SeparateA_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(ConstPtrSeparateA a, ConstPtrSeparateA b) {return a.Equals(b);}
+            public static bool operator!=(ConstPtrSeparateA a, ConstPtrSeparateA b) {return !a.Equals(b);}
+            public readonly bool Equals(ConstPtrSeparateA other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
+        public unsafe struct ConstPtrSeparateABC : IEquatable<ConstPtrSeparateABC>
+        {
+            public readonly MR.CS.Const_SeparateABC deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void operator++()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateABC_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateABC._Underlying *__MR_SeparateABC_OffsetPtr(MR.CS.Const_SeparateABC._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void operator--()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateABC_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateABC._Underlying *__MR_SeparateABC_OffsetPtr(MR.CS.Const_SeparateABC._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateABC_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.Const_SeparateABC._Underlying *Ptr;
+
+            internal ConstPtrSeparateABC(MR.CS.Const_SeparateABC._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.Const_SeparateABC this[nint i]
+            {
+                get
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateABC_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_SeparateABC._Underlying *__MR_SeparateABC_OffsetPtr(MR.CS.Const_SeparateABC._Underlying *ptr, nint i);
+                    return new(__MR_SeparateABC_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(ConstPtrSeparateABC a, ConstPtrSeparateABC b) {return a.Equals(b);}
+            public static bool operator!=(ConstPtrSeparateABC a, ConstPtrSeparateABC b) {return !a.Equals(b);}
+            public readonly bool Equals(ConstPtrSeparateABC other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
+        public unsafe struct ConstPtrSeparateB : IEquatable<ConstPtrSeparateB>
+        {
+            public readonly MR.CS.Const_SeparateB deref()
+            {
+                return new(Ptr, is_owning: false);
+            }
+            public unsafe void operator++()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateB._Underlying *__MR_SeparateB_OffsetPtr(MR.CS.Const_SeparateB._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateB_OffsetPtr(Ptr, 1);
+            }
+            public unsafe void operator--()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                extern static unsafe MR.CS.Const_SeparateB._Underlying *__MR_SeparateB_OffsetPtr(MR.CS.Const_SeparateB._Underlying *ptr, nint i);
+                Ptr = __MR_SeparateB_OffsetPtr(Ptr, -1);
+            }
+
+            internal MR.CS.Const_SeparateB._Underlying *Ptr;
+
+            internal ConstPtrSeparateB(MR.CS.Const_SeparateB._Underlying *new_ptr) {Ptr = new_ptr;}
+
+            public MR.CS.Const_SeparateB this[nint i]
+            {
+                get
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Const_SeparateB._Underlying *__MR_SeparateB_OffsetPtr(MR.CS.Const_SeparateB._Underlying *ptr, nint i);
+                    return new(__MR_SeparateB_OffsetPtr(Ptr, i), is_owning: false);
+                }
+            }
+
+            public static unsafe bool operator==(ConstPtrSeparateB a, ConstPtrSeparateB b) {return a.Equals(b);}
+            public static bool operator!=(ConstPtrSeparateB a, ConstPtrSeparateB b) {return !a.Equals(b);}
+            public readonly bool Equals(ConstPtrSeparateB other) {return base.Equals(other);}
+            public override bool Equals(object? other) {return base.Equals(other);}
+        }
+
+        public static partial class InstantiateOnly
+        {
+            public unsafe struct ConstPtrA : IEquatable<ConstPtrA>
+            {
+                public readonly MR.CS.InstantiateOnly.Const_A deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void operator++()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_InstantiateOnly_A_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.InstantiateOnly.Const_A._Underlying *__MR_InstantiateOnly_A_OffsetPtr(MR.CS.InstantiateOnly.Const_A._Underlying *ptr, nint i);
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void operator--()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_InstantiateOnly_A_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.InstantiateOnly.Const_A._Underlying *__MR_InstantiateOnly_A_OffsetPtr(MR.CS.InstantiateOnly.Const_A._Underlying *ptr, nint i);
+                    Ptr = __MR_InstantiateOnly_A_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.InstantiateOnly.Const_A._Underlying *Ptr;
+
+                internal ConstPtrA(MR.CS.InstantiateOnly.Const_A._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.InstantiateOnly.Const_A this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_InstantiateOnly_A_OffsetPtr", ExactSpelling = true)]
+                        extern static unsafe MR.CS.InstantiateOnly.Const_A._Underlying *__MR_InstantiateOnly_A_OffsetPtr(MR.CS.InstantiateOnly.Const_A._Underlying *ptr, nint i);
+                        return new(__MR_InstantiateOnly_A_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(ConstPtrA a, ConstPtrA b) {return a.Equals(b);}
+                public static bool operator!=(ConstPtrA a, ConstPtrA b) {return !a.Equals(b);}
+                public readonly bool Equals(ConstPtrA other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
         }
 
         public unsafe struct PtrChar : IEquatable<PtrChar>
@@ -1156,6 +1354,84 @@ public static partial class MR
                 }
             }
 
+            public unsafe struct ConstPtrExpectedIntStdString : IEquatable<ConstPtrExpectedIntStdString>
+            {
+                public readonly MR.CS.Std.Const_Expected_Int_StdString deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void operator++()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Const_Expected_Int_StdString._Underlying *__MR_C_std_expected_int_std_string_OffsetPtr(MR.CS.Std.Const_Expected_Int_StdString._Underlying *ptr, nint i);
+                    Ptr = __MR_C_std_expected_int_std_string_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void operator--()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Const_Expected_Int_StdString._Underlying *__MR_C_std_expected_int_std_string_OffsetPtr(MR.CS.Std.Const_Expected_Int_StdString._Underlying *ptr, nint i);
+                    Ptr = __MR_C_std_expected_int_std_string_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.Std.Const_Expected_Int_StdString._Underlying *Ptr;
+
+                internal ConstPtrExpectedIntStdString(MR.CS.Std.Const_Expected_Int_StdString._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.Std.Const_Expected_Int_StdString this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_OffsetPtr", ExactSpelling = true)]
+                        extern static unsafe MR.CS.Std.Const_Expected_Int_StdString._Underlying *__MR_C_std_expected_int_std_string_OffsetPtr(MR.CS.Std.Const_Expected_Int_StdString._Underlying *ptr, nint i);
+                        return new(__MR_C_std_expected_int_std_string_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(ConstPtrExpectedIntStdString a, ConstPtrExpectedIntStdString b) {return a.Equals(b);}
+                public static bool operator!=(ConstPtrExpectedIntStdString a, ConstPtrExpectedIntStdString b) {return !a.Equals(b);}
+                public readonly bool Equals(ConstPtrExpectedIntStdString other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
+
+            public unsafe struct ConstPtrPairMRSeparateAMRSeparateB : IEquatable<ConstPtrPairMRSeparateAMRSeparateB>
+            {
+                public readonly MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void operator++()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *ptr, nint i);
+                    Ptr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void operator--()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *ptr, nint i);
+                    Ptr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *Ptr;
+
+                internal ConstPtrPairMRSeparateAMRSeparateB(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr", ExactSpelling = true)]
+                        extern static unsafe MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *ptr, nint i);
+                        return new(__MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(ConstPtrPairMRSeparateAMRSeparateB a, ConstPtrPairMRSeparateAMRSeparateB b) {return a.Equals(b);}
+                public static bool operator!=(ConstPtrPairMRSeparateAMRSeparateB a, ConstPtrPairMRSeparateAMRSeparateB b) {return !a.Equals(b);}
+                public readonly bool Equals(ConstPtrPairMRSeparateAMRSeparateB other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
+
             public unsafe struct ConstPtrString : IEquatable<ConstPtrString>
             {
                 public readonly MR.CS.Std.Const_String deref()
@@ -1312,6 +1588,45 @@ public static partial class MR
                 public static unsafe bool operator==(ConstPtrNonAssignable a, ConstPtrNonAssignable b) {return a.Equals(b);}
                 public static bool operator!=(ConstPtrNonAssignable a, ConstPtrNonAssignable b) {return !a.Equals(b);}
                 public readonly bool Equals(ConstPtrNonAssignable other) {return base.Equals(other);}
+                public override bool Equals(object? other) {return base.Equals(other);}
+            }
+
+            public unsafe struct ConstPtrNonDefaultConstructible : IEquatable<ConstPtrNonDefaultConstructible>
+            {
+                public readonly MR.CS.StdContainers.Const_NonDefaultConstructible deref()
+                {
+                    return new(Ptr, is_owning: false);
+                }
+                public unsafe void operator++()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_OffsetPtr(MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *ptr, nint i);
+                    Ptr = __MR_StdContainers_NonDefaultConstructible_OffsetPtr(Ptr, 1);
+                }
+                public unsafe void operator--()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_OffsetPtr", ExactSpelling = true)]
+                    extern static unsafe MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_OffsetPtr(MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *ptr, nint i);
+                    Ptr = __MR_StdContainers_NonDefaultConstructible_OffsetPtr(Ptr, -1);
+                }
+
+                internal MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *Ptr;
+
+                internal ConstPtrNonDefaultConstructible(MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *new_ptr) {Ptr = new_ptr;}
+
+                public MR.CS.StdContainers.Const_NonDefaultConstructible this[nint i]
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_OffsetPtr", ExactSpelling = true)]
+                        extern static unsafe MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_OffsetPtr(MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *ptr, nint i);
+                        return new(__MR_StdContainers_NonDefaultConstructible_OffsetPtr(Ptr, i), is_owning: false);
+                    }
+                }
+
+                public static unsafe bool operator==(ConstPtrNonDefaultConstructible a, ConstPtrNonDefaultConstructible b) {return a.Equals(b);}
+                public static bool operator!=(ConstPtrNonDefaultConstructible a, ConstPtrNonDefaultConstructible b) {return !a.Equals(b);}
+                public readonly bool Equals(ConstPtrNonDefaultConstructible other) {return base.Equals(other);}
                 public override bool Equals(object? other) {return base.Equals(other);}
             }
 

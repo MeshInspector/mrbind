@@ -80,6 +80,26 @@ impl std_array_MR_StdContainers_A_42
         __ret
     }
 
+    /// The begin iterator, const.
+    ///
+    /// Calls `MR_C_std_array_MR_StdContainers_A_42_begin()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn begin(&self) -> *const crate::ffi::MR_StdContainers_A
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_A_42_begin(self as *const Self as *const crate::ffi::MR_C_std_array_MR_StdContainers_A_42)};
+        __ret
+    }
+
+    /// The end iterator, const.
+    ///
+    /// Calls `MR_C_std_array_MR_StdContainers_A_42_end()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn end(&self) -> *const crate::ffi::MR_StdContainers_A
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_array_MR_StdContainers_A_42_end(self as *const Self as *const crate::ffi::MR_C_std_array_MR_StdContainers_A_42)};
+        __ret
+    }
+
 }
 
 unsafe impl crate::CppCopy for std_array_MR_StdContainers_A_42

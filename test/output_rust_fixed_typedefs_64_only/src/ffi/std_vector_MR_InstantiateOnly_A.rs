@@ -28,5 +28,7 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_InstantiateOnly_A_pop_back(_this: *mut crate::ffi::MR_C_std_vector_MR_InstantiateOnly_A);
     pub fn MR_C_std_vector_MR_InstantiateOnly_A_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_InstantiateOnly_A, position: usize, new_elem: *const crate::ffi::MR_InstantiateOnly_A);
     pub fn MR_C_std_vector_MR_InstantiateOnly_A_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_InstantiateOnly_A, position: usize);
+    pub fn MR_C_std_vector_MR_InstantiateOnly_A_begin(_this: *const crate::ffi::MR_C_std_vector_MR_InstantiateOnly_A) -> *const crate::ffi::MR_InstantiateOnly_A;
+    pub fn MR_C_std_vector_MR_InstantiateOnly_A_end(_this: *const crate::ffi::MR_C_std_vector_MR_InstantiateOnly_A) -> *const crate::ffi::MR_InstantiateOnly_A;
     pub fn MR_C_std_vector_MR_InstantiateOnly_A_Destroy(_this: *const MR_C_std_vector_MR_InstantiateOnly_A);
 }

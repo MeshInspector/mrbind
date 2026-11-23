@@ -45,5 +45,19 @@ export declare class MR_C_std_array_MR_StdContainers_NonAssignable_42 extends ff
      * Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_data_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     data_mut(): number;
+    /**
+     * The begin iterator, const.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_begin()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    begin(): number;
+    /**
+     * The end iterator, const.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_array_MR_StdContainers_NonAssignable_42_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    end(): number;
 }
 
