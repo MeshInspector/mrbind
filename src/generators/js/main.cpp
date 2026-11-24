@@ -136,6 +136,14 @@ int main(int argc, char **argv)
             generator.max_file_name_length = mrbind::CommandLineParser::ParseSizeT(std::string(args.front()));
         },
     });
+    args_parser.AddFlag("--single-lib-module", {
+        .desc = "Put the wrappers of all C files into one module, `lib/_all.mjs` (and `lib/_all.d.mts`), instead of one module per C file.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.single_lib_module = true;
+        },
+    });
     args_parser.AddFlag("--verbose", {
         .desc = "List the functions that got skipped because their C types can't be spelled in JS.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
