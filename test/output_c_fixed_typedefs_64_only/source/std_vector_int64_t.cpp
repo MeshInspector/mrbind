@@ -156,8 +156,18 @@ const MR_C_int64_t *MR_C_std_vector_int64_t_begin(const MR_C_std_vector_int64_t 
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR_C_int64_t> *)(_this)).data();
 }
 
+MR_C_int64_t *MR_C_std_vector_int64_t_begin_mut(MR_C_std_vector_int64_t *_this)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR_C_int64_t> *)(_this)).data();
+}
+
 const MR_C_int64_t *MR_C_std_vector_int64_t_end(const MR_C_std_vector_int64_t *_this)
 {
     return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR_C_int64_t> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR_C_int64_t> *)(_this)).size();
+}
+
+MR_C_int64_t *MR_C_std_vector_int64_t_end_mut(MR_C_std_vector_int64_t *_this)
+{
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR_C_int64_t> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR_C_int64_t> *)(_this)).size();
 }
 

@@ -77,10 +77,10 @@ namespace mrbind::C
         // This is like what we do for `std::array`, and saves two classes per container.
         [[nodiscard]] bool IteratorsArePointers() const {return params.iter_category >= IteratorCategory::contiguous;}
 
-        // `--minimal-containers`: random-access containers lose the iterators, the rest keep only the const ones.
+        // `--minimal-containers`: random-access containers lose the iterator classes (contiguous ones keep the begin/end pointers), the rest keep only the const ones.
         bool minimal = false;
         [[nodiscard]] bool BindIteratorClasses() const {return !IteratorsArePointers() && !(minimal && params.iter_category >= IteratorCategory::random_access);}
-        [[nodiscard]] bool HasMutableIterators() const {return params.has_mutable_iterators && !minimal;}
+        [[nodiscard]] bool HasMutableIterators() const {return params.has_mutable_iterators && (!minimal || IteratorsArePointers());}
 
         HeapAllocatedClassBinder iterator_binder_mutable;
         HeapAllocatedClassBinder iterator_binder_const;

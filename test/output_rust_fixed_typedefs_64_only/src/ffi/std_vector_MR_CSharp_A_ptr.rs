@@ -29,6 +29,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_CSharp_A_ptr_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr, position: usize, new_elem: *mut crate::ffi::MR_CSharp_A);
     pub fn MR_C_std_vector_MR_CSharp_A_ptr_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr, position: usize);
     pub fn MR_C_std_vector_MR_CSharp_A_ptr_begin(_this: *const crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr) -> *const *mut crate::ffi::MR_CSharp_A;
+    pub fn MR_C_std_vector_MR_CSharp_A_ptr_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr) -> *mut *mut crate::ffi::MR_CSharp_A;
     pub fn MR_C_std_vector_MR_CSharp_A_ptr_end(_this: *const crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr) -> *const *mut crate::ffi::MR_CSharp_A;
+    pub fn MR_C_std_vector_MR_CSharp_A_ptr_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_A_ptr) -> *mut *mut crate::ffi::MR_CSharp_A;
     pub fn MR_C_std_vector_MR_CSharp_A_ptr_Destroy(_this: *const MR_C_std_vector_MR_CSharp_A_ptr);
 }

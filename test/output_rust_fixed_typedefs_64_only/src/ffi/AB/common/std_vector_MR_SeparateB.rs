@@ -28,6 +28,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_SeparateB_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateB, position: usize, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_SeparateB);
     pub fn MR_C_std_vector_MR_SeparateB_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateB, position: usize);
     pub fn MR_C_std_vector_MR_SeparateB_begin(_this: *const crate::ffi::MR_C_std_vector_MR_SeparateB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_C_std_vector_MR_SeparateB_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateB) -> *mut crate::ffi::MR_SeparateB;
     pub fn MR_C_std_vector_MR_SeparateB_end(_this: *const crate::ffi::MR_C_std_vector_MR_SeparateB) -> *const crate::ffi::MR_SeparateB;
+    pub fn MR_C_std_vector_MR_SeparateB_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateB) -> *mut crate::ffi::MR_SeparateB;
     pub fn MR_C_std_vector_MR_SeparateB_Destroy(_this: *const MR_C_std_vector_MR_SeparateB);
 }

@@ -141,8 +141,18 @@ const MR_SeparateA *MR_C_std_vector_MR_SeparateA_begin(const MR_C_std_vector_MR_
     return (const MR_SeparateA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateA> *)(_this)).data());
 }
 
+MR_SeparateA *MR_C_std_vector_MR_SeparateA_begin_mut(MR_C_std_vector_MR_SeparateA *_this)
+{
+    return (MR_SeparateA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateA> *)(_this)).data());
+}
+
 const MR_SeparateA *MR_C_std_vector_MR_SeparateA_end(const MR_C_std_vector_MR_SeparateA *_this)
 {
     return (const MR_SeparateA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateA> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::SeparateA> *)(_this)).size());
+}
+
+MR_SeparateA *MR_C_std_vector_MR_SeparateA_end_mut(MR_C_std_vector_MR_SeparateA *_this)
+{
+    return (MR_SeparateA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateA> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::SeparateA> *)(_this)).size());
 }
 

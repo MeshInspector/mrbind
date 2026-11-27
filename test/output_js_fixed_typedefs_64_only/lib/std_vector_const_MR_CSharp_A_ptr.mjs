@@ -384,12 +384,50 @@ export class MR_C_std_vector_const_MR_CSharp_A_ptr extends ffi.CppObject
         }
     }
 
+    begin_mut()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_const_MR_CSharp_A_ptr_begin_mut(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
     end()
     {
         const __sp = ffi.stackSave();
         try
         {
             const __ret = ffi.C.MR_C_std_vector_const_MR_CSharp_A_ptr_end(this.rawPointer());
+            ffi.check();
+            return (__ret >>> 0);
+        }
+        catch (__e)
+        {
+            throw ffi.cppError(__e);
+        }
+        finally
+        {
+            ffi.stackRestore(__sp);
+        }
+    }
+
+    end_mut()
+    {
+        const __sp = ffi.stackSave();
+        try
+        {
+            const __ret = ffi.C.MR_C_std_vector_const_MR_CSharp_A_ptr_end_mut(this.rawPointer());
             ffi.check();
             return (__ret >>> 0);
         }

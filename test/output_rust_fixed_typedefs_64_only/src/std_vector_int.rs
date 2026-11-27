@@ -211,6 +211,16 @@ impl std_vector_int
         __ret
     }
 
+    /// The begin iterator, mutable. Iterators of this container are plain pointers.
+    ///
+    /// Calls `MR_C_std_vector_int_begin_mut()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn begin_mut(&mut self) -> *mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_vector_int_begin_mut(self as *mut Self as *mut crate::ffi::MR_C_std_vector_int)};
+        __ret
+    }
+
     /// The end iterator, const. Iterators of this container are plain pointers.
     ///
     /// Calls `MR_C_std_vector_int_end()`. Some types are raw C types, see the C bindings for the details.
@@ -218,6 +228,16 @@ impl std_vector_int
     pub fn end(&self) -> *const core::ffi::c_int
     {
         let __ret = unsafe {crate::ffi::MR_C_std_vector_int_end(self as *const Self as *const crate::ffi::MR_C_std_vector_int)};
+        __ret
+    }
+
+    /// The end iterator, mutable. Iterators of this container are plain pointers.
+    ///
+    /// Calls `MR_C_std_vector_int_end_mut()`. Some types are raw C types, see the C bindings for the details.
+    /// The reference to this object might be preserved as the return value.
+    pub fn end_mut(&mut self) -> *mut core::ffi::c_int
+    {
+        let __ret = unsafe {crate::ffi::MR_C_std_vector_int_end_mut(self as *mut Self as *mut crate::ffi::MR_C_std_vector_int)};
         __ret
     }
 

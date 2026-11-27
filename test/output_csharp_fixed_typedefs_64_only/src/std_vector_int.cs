@@ -213,8 +213,72 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_Int : Const_Vector_Int
+            public class Vector_Int : Const_Vector_Int, IEnumerable<MR.CS.Misc.Ref<int>>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    Vector_Int _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Vector_Int container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Vector_Int(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -374,6 +438,26 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_erase", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_int_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_int_erase(_UnderlyingPtr, position);
+                }
+
+                /// <summary>
+                /// The begin iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.PtrInt begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_begin_mut", ExactSpelling = true)]
+                    extern static unsafe int *__MR_C_std_vector_int_begin_mut(_Underlying *_this);
+                    return new(__MR_C_std_vector_int_begin_mut(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// The end iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.PtrInt end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_end_mut", ExactSpelling = true)]
+                    extern static unsafe int *__MR_C_std_vector_int_end_mut(_Underlying *_this);
+                    return new(__MR_C_std_vector_int_end_mut(_UnderlyingPtr));
                 }
             }
 

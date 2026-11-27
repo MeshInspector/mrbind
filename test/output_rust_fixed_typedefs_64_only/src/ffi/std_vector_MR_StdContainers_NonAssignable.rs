@@ -27,6 +27,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_push_back(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable, new_elem_pass_by: crate::ffi::MR_C_PassBy, new_elem: *mut crate::ffi::MR_StdContainers_NonAssignable);
     pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable);
     pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_begin(_this: *const crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable) -> *const crate::ffi::MR_StdContainers_NonAssignable;
+    pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_StdContainers_NonAssignable;
     pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_end(_this: *const crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable) -> *const crate::ffi::MR_StdContainers_NonAssignable;
+    pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_StdContainers_NonAssignable) -> *mut crate::ffi::MR_StdContainers_NonAssignable;
     pub fn MR_C_std_vector_MR_StdContainers_NonAssignable_Destroy(_this: *const MR_C_std_vector_MR_StdContainers_NonAssignable);
 }

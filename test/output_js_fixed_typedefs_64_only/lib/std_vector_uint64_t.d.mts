@@ -152,12 +152,26 @@ export declare class MR_C_std_vector_uint64_t extends ffi.CppObject
      */
     begin(): number;
     /**
+     * The begin iterator, mutable. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_uint64_t_begin_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    begin_mut(): number;
+    /**
      * The end iterator, const. Iterators of this container are plain pointers.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_C_std_vector_uint64_t_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     end(): number;
+    /**
+     * The end iterator, mutable. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_uint64_t_end_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    end_mut(): number;
     /** The elements as a new `BigUint64Array`, one scalar per element. */
     toArray(): BigUint64Array;
     /** A `BigUint64Array` over the wasm memory of the elements, one scalar per element, without a copy. It becomes invalid when the wasm memory grows (any allocation can do that) or the container changes, so use it right away. */

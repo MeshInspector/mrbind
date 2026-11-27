@@ -146,8 +146,18 @@ const MR_InstantiateOnly_A *MR_C_std_vector_MR_InstantiateOnly_A_begin(const MR_
     return (const MR_InstantiateOnly_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::InstantiateOnly::A> *)(_this)).data());
 }
 
+MR_InstantiateOnly_A *MR_C_std_vector_MR_InstantiateOnly_A_begin_mut(MR_C_std_vector_MR_InstantiateOnly_A *_this)
+{
+    return (MR_InstantiateOnly_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::InstantiateOnly::A> *)(_this)).data());
+}
+
 const MR_InstantiateOnly_A *MR_C_std_vector_MR_InstantiateOnly_A_end(const MR_C_std_vector_MR_InstantiateOnly_A *_this)
 {
     return (const MR_InstantiateOnly_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::InstantiateOnly::A> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::InstantiateOnly::A> *)(_this)).size());
+}
+
+MR_InstantiateOnly_A *MR_C_std_vector_MR_InstantiateOnly_A_end_mut(MR_C_std_vector_MR_InstantiateOnly_A *_this)
+{
+    return (MR_InstantiateOnly_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::InstantiateOnly::A> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::InstantiateOnly::A> *)(_this)).size());
 }
 
