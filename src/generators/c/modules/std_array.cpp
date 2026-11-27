@@ -113,7 +113,7 @@ namespace mrbind::C::Modules
                             }
 
                             // Obtaining begin/end iterators.
-                            // This is needed for C# to implement IEnumerable for arrays, so `--minimal-containers` keeps the const ones.
+                            // This is needed for C# to implement IEnumerable for arrays, so `--minimal-containers` keeps them.
                             {
                                 for (bool is_end : {false, true})
                                 {
@@ -122,9 +122,6 @@ namespace mrbind::C::Modules
 
                                     for (bool is_const_iter : {true, false})
                                     {
-                                        if (!is_const_iter && generator.minimal_containers)
-                                            continue;
-
                                         const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
                                         const std::string c_or_empty = is_const_iter ? "c" : "";
 

@@ -137,8 +137,18 @@ const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssign
     return (const MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonAssignable> *)(_this)).data());
 }
 
+MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this)
+{
+    return (MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::StdContainers::NonAssignable> *)(_this)).data());
+}
+
 const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_end(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this)
 {
     return (const MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonAssignable> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::StdContainers::NonAssignable> *)(_this)).size());
+}
+
+MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this)
+{
+    return (MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::StdContainers::NonAssignable> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::StdContainers::NonAssignable> *)(_this)).size());
 }
 

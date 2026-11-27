@@ -214,8 +214,72 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;std::expected&lt;int, std::string&gt;&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_StdExpectedIntStdString : Const_Vector_StdExpectedIntStdString
+            public class Vector_StdExpectedIntStdString : Const_Vector_StdExpectedIntStdString, IEnumerable<MR.CS.Std.Expected_Int_StdString>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.Std.Expected_Int_StdString>
+                {
+                    Vector_StdExpectedIntStdString _container;
+                    MR.CS.Std.PtrExpectedIntStdString _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Vector_StdExpectedIntStdString container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Std.Expected_Int_StdString Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Std.Expected_Int_StdString> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Vector_StdExpectedIntStdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -376,6 +440,28 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_std_expected_int_std_string_erase", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_std_expected_int_std_string_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_std_expected_int_std_string_erase(_UnderlyingPtr, position);
+                }
+
+                /// <summary>
+                /// The begin iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.Std.PtrExpectedIntStdString begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_std_expected_int_std_string_begin_mut", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_begin_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_std_expected_int_std_string_begin_mut(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// The end iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.Std.PtrExpectedIntStdString end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_std_expected_int_std_string_end_mut", ExactSpelling = true)]
+                    extern static unsafe MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_end_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_std_expected_int_std_string_end_mut(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 
