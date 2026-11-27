@@ -156,8 +156,18 @@ const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_begin(con
     return (const MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::CSharp::ExposedLayout> *)(_this)).data());
 }
 
+MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(MR_C_std_vector_MR_CSharp_ExposedLayout *_this)
+{
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::CSharp::ExposedLayout> *)(_this)).data());
+}
+
 const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_end(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this)
 {
     return (const MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::CSharp::ExposedLayout> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::CSharp::ExposedLayout> *)(_this)).size());
+}
+
+MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(MR_C_std_vector_MR_CSharp_ExposedLayout *_this)
+{
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::CSharp::ExposedLayout> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::CSharp::ExposedLayout> *)(_this)).size());
 }
 

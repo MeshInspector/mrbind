@@ -140,10 +140,20 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_erase(MR_C_std_vector_MR_C
 /// The reference to this object might be preserved as the return value.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_begin(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
+/// The begin iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
+
 /// The end iterator, const. Iterators of this container are plain pointers.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to this object might be preserved as the return value.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_end(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
+
+/// The end iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 #ifdef __cplusplus
 } // extern "C"

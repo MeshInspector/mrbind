@@ -148,8 +148,18 @@ const MR_A *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this)
     return (const MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).data());
 }
 
+MR_A *MR_C_std_vector_MR_A_begin_mut(MR_C_std_vector_MR_A *_this)
+{
+    return (MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::A> *)(_this)).data());
+}
+
 const MR_A *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this)
 {
     return (const MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<MR::A> *)(_this)).size());
+}
+
+MR_A *MR_C_std_vector_MR_A_end_mut(MR_C_std_vector_MR_A *_this)
+{
+    return (MR_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::A> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<MR::A> *)(_this)).size());
 }
 

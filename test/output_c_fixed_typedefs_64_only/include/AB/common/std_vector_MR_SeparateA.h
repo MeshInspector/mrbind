@@ -130,10 +130,20 @@ MR_AB_API void MR_C_std_vector_MR_SeparateA_erase(MR_C_std_vector_MR_SeparateA *
 /// The reference to this object might be preserved as the return value.
 MR_AB_API const MR_SeparateA *MR_C_std_vector_MR_SeparateA_begin(const MR_C_std_vector_MR_SeparateA *_this);
 
+/// The begin iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_AB_API MR_SeparateA *MR_C_std_vector_MR_SeparateA_begin_mut(MR_C_std_vector_MR_SeparateA *_this);
+
 /// The end iterator, const. Iterators of this container are plain pointers.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to this object might be preserved as the return value.
 MR_AB_API const MR_SeparateA *MR_C_std_vector_MR_SeparateA_end(const MR_C_std_vector_MR_SeparateA *_this);
+
+/// The end iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_AB_API MR_SeparateA *MR_C_std_vector_MR_SeparateA_end_mut(MR_C_std_vector_MR_SeparateA *_this);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -134,10 +134,20 @@ MR_C_API void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t pos
 /// The reference to this object might be preserved as the return value.
 MR_C_API const MR_A *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this);
 
+/// The begin iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API MR_A *MR_C_std_vector_MR_A_begin_mut(MR_C_std_vector_MR_A *_this);
+
 /// The end iterator, const. Iterators of this container are plain pointers.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to this object might be preserved as the return value.
 MR_C_API const MR_A *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this);
+
+/// The end iterator, mutable. Iterators of this container are plain pointers.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
+MR_C_API MR_A *MR_C_std_vector_MR_A_end_mut(MR_C_std_vector_MR_A *_this);
 
 #ifdef __cplusplus
 } // extern "C"
