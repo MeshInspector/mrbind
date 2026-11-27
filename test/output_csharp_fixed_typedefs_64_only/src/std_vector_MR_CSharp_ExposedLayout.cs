@@ -216,8 +216,72 @@ public static partial class MR
             /// Generated from C++ container `std::vector&lt;MR::CSharp::ExposedLayout&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_MRCSharpExposedLayout : Const_Vector_MRCSharpExposedLayout
+            public class Vector_MRCSharpExposedLayout : Const_Vector_MRCSharpExposedLayout, IEnumerable<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>
+                {
+                    Vector_MRCSharpExposedLayout _container;
+                    MR.CS.CSharp.PtrExposedLayout _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Vector_MRCSharpExposedLayout container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Vector_MRCSharpExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -378,6 +442,28 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_erase", ExactSpelling = true)]
                     extern static unsafe void __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_UnderlyingPtr, position);
+                }
+
+                /// <summary>
+                /// The begin iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.CSharp.PtrExposedLayout begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut", ExactSpelling = true)]
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// The end iterator, mutable. Iterators of this container are plain pointers.
+                /// </summary>
+                public unsafe new MR.CS.CSharp.PtrExposedLayout end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut", ExactSpelling = true)]
+                    extern static unsafe MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 

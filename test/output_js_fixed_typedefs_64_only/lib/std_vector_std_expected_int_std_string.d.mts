@@ -138,11 +138,25 @@ export declare class MR_C_std_vector_std_expected_int_std_string extends ffi.Cpp
      */
     begin(): number;
     /**
+     * The begin iterator, mutable. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_std_expected_int_std_string_begin_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    begin_mut(): number;
+    /**
      * The end iterator, const. Iterators of this container are plain pointers.
      * The reference to this object might be preserved as the return value.
      *
      * Calls `MR_C_std_vector_std_expected_int_std_string_end()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
      */
     end(): number;
+    /**
+     * The end iterator, mutable. Iterators of this container are plain pointers.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_vector_std_expected_int_std_string_end_mut()`. Some types are raw C types (pointers as numbers), see the C bindings for the details.
+     */
+    end_mut(): number;
 }
 

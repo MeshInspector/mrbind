@@ -31,6 +31,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout, position: usize, new_elem: crate::ffi::MR_CSharp_ExposedLayout);
     pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout, position: usize);
     pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_begin(_this: *const crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout) -> *const crate::ffi::MR_CSharp_ExposedLayout;
+    pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout) -> *mut crate::ffi::MR_CSharp_ExposedLayout;
     pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_end(_this: *const crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout) -> *const crate::ffi::MR_CSharp_ExposedLayout;
+    pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_CSharp_ExposedLayout) -> *mut crate::ffi::MR_CSharp_ExposedLayout;
     pub fn MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy(_this: *const MR_C_std_vector_MR_CSharp_ExposedLayout);
 }

@@ -31,6 +31,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_int_insert(_this: *mut crate::ffi::MR_C_std_vector_int, position: usize, new_elem: core::ffi::c_int);
     pub fn MR_C_std_vector_int_erase(_this: *mut crate::ffi::MR_C_std_vector_int, position: usize);
     pub fn MR_C_std_vector_int_begin(_this: *const crate::ffi::MR_C_std_vector_int) -> *const core::ffi::c_int;
+    pub fn MR_C_std_vector_int_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_int) -> *mut core::ffi::c_int;
     pub fn MR_C_std_vector_int_end(_this: *const crate::ffi::MR_C_std_vector_int) -> *const core::ffi::c_int;
+    pub fn MR_C_std_vector_int_end_mut(_this: *mut crate::ffi::MR_C_std_vector_int) -> *mut core::ffi::c_int;
     pub fn MR_C_std_vector_int_Destroy(_this: *const MR_C_std_vector_int);
 }

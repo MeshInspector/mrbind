@@ -29,6 +29,8 @@ unsafe extern "C"
     pub fn MR_C_std_vector_MR_SeparateABC_insert(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateABC, position: usize, new_elem: *const crate::ffi::MR_SeparateABC);
     pub fn MR_C_std_vector_MR_SeparateABC_erase(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateABC, position: usize);
     pub fn MR_C_std_vector_MR_SeparateABC_begin(_this: *const crate::ffi::MR_C_std_vector_MR_SeparateABC) -> *const crate::ffi::MR_SeparateABC;
+    pub fn MR_C_std_vector_MR_SeparateABC_begin_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateABC) -> *mut crate::ffi::MR_SeparateABC;
     pub fn MR_C_std_vector_MR_SeparateABC_end(_this: *const crate::ffi::MR_C_std_vector_MR_SeparateABC) -> *const crate::ffi::MR_SeparateABC;
+    pub fn MR_C_std_vector_MR_SeparateABC_end_mut(_this: *mut crate::ffi::MR_C_std_vector_MR_SeparateABC) -> *mut crate::ffi::MR_SeparateABC;
     pub fn MR_C_std_vector_MR_SeparateABC_Destroy(_this: *const MR_C_std_vector_MR_SeparateABC);
 }

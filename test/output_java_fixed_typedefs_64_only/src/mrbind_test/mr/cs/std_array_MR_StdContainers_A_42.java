@@ -223,6 +223,30 @@ public final class std_array_MR_StdContainers_A_42 extends mrbind_test.CppObject
     }
 
     /**
+     * The begin iterator, mutable.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_array_MR_StdContainers_A_42_begin_mut()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment begin_mut()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_array_MR_StdContainers_A_42.H0.MR_C_std_array_MR_StdContainers_A_42_begin_mut.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
      * The end iterator, const.
      * The reference to this object might be preserved as the return value.
      *
@@ -233,6 +257,30 @@ public final class std_array_MR_StdContainers_A_42 extends mrbind_test.CppObject
         try
         {
             java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_array_MR_StdContainers_A_42.H0.MR_C_std_array_MR_StdContainers_A_42_end.invokeExact(rawPointer());
+            mrbind_test.Ffi.checkException();
+            return __ret;
+        }
+        catch (java.lang.Throwable __e)
+        {
+            throw mrbind_test.Ffi.rethrow(__e);
+        }
+        finally
+        {
+            java.lang.ref.Reference.reachabilityFence(this);
+        }
+    }
+
+    /**
+     * The end iterator, mutable.
+     * The reference to this object might be preserved as the return value.
+     *
+     * Calls `MR_C_std_array_MR_StdContainers_A_42_end_mut()`. Some types are raw C types, see the C bindings for the details.
+     */
+    public java.lang.foreign.MemorySegment end_mut()
+    {
+        try
+        {
+            java.lang.foreign.MemorySegment __ret = (java.lang.foreign.MemorySegment)mrbind_test.ffi.std_array_MR_StdContainers_A_42.H0.MR_C_std_array_MR_StdContainers_A_42_end_mut.invokeExact(rawPointer());
             mrbind_test.Ffi.checkException();
             return __ret;
         }
