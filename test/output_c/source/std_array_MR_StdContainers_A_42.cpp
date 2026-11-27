@@ -105,28 +105,28 @@ MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_data_mut(MR_C_std_array
 const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_begin(const MR_C_std_array_MR_StdContainers_A_42 *_this)
 {
     MRBINDC_TRY(
-    return (const MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).cbegin());
+    return (const MR_StdContainers_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).data());
     ) // MRBINDC_TRY
 }
 
 MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_begin_mut(MR_C_std_array_MR_StdContainers_A_42 *_this)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).begin());
+    return (MR_StdContainers_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).data());
     ) // MRBINDC_TRY
 }
 
 const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_end(const MR_C_std_array_MR_StdContainers_A_42 *_this)
 {
     MRBINDC_TRY(
-    return (const MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).cend());
+    return (const MR_StdContainers_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::array<MR::StdContainers::A, 42> *)(_this)).size());
     ) // MRBINDC_TRY
 }
 
 MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_end_mut(MR_C_std_array_MR_StdContainers_A_42 *_this)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_A *)(&*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).end());
+    return (MR_StdContainers_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::array<MR::StdContainers::A, 42> *)(_this)).size());
     ) // MRBINDC_TRY
 }
 
